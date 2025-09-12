@@ -2055,6 +2055,553 @@
 
     </select>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortRslt	        -->
+    <!-- DESC : 선별결과 집계 조회.	                           		                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.08     최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSortRslt" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                  pt0.APC_CD AS APC_CD
+                , pt0.INPT_YMD AS INPT_YMD
+                , pt0.FCLT_CD AS FCLT_CD
+                , pt0.FCLT_NM AS FCLT_NM
+                , pt0.ITEM_CD AS ITEM_CD
+                , pt0.ITEM_NM AS ITEM_NM
+                , pt0.VRTY_CD AS VRTY_CD
+                , pt0.VRTY_NM AS VRTY_NM
+                , pt0.PRDCR_CD AS PRDCR_CD
+                , pt0.PRDCR_NM AS PRDCR_NM
+                , pt0.SE AS SE
+                , pt0.GRD_1 AS GRD_1
+                , pt0.GRD_2 AS GRD_2
+                , pt0.GRD_3 AS GRD_3
+                , pt0.GRD_4 AS GRD_4
+                , pt0.GRD_5 AS GRD_5
+                , pt0.GRD_6 AS GRD_6
+                , pt0.GRD_7 AS GRD_7
+                , pt0.GRD_8 AS GRD_8
+                , pt0.GRD_9 AS GRD_9
+                , pt0.GRD_10 AS GRD_10
+                , pt0.GRD_11 AS GRD_11
+                , pt0.GRD_12 AS GRD_12
+                , pt0.GRD_13 AS GRD_13
+                , pt0.GRD_14 AS GRD_14
+                , pt0.GRD_15 AS GRD_15
+                , pt0.GRD_16 AS GRD_16
+                , pt0.GRD_17 AS GRD_17
+                , pt0.GRD_18 AS GRD_18
+                , pt0.GRD_19 AS GRD_19
+                , pt0.GRD_20 AS GRD_20
+                , pt0.GRD_21 AS GRD_21
+                , pt0.GRD_22 AS GRD_22
+                , pt0.GRD_23 AS GRD_23
+                , pt0.GRD_24 AS GRD_24
+                , pt0.GRD_25 AS GRD_25
+                , pt0.GRD_26 AS GRD_26
+                , pt0.GRD_27 AS GRD_27
+                , pt0.GRD_28 AS GRD_28
+                , pt0.GRD_29 AS GRD_29
+                , pt0.GRD_30 AS GRD_30
+                , pt0.SUM AS SUM
+            FROM (
+                SELECT *
+                FROM (
+                    SELECT
+                          X.APC_CD AS APC_CD
+                        , X.INPT_YMD AS INPT_YMD
+                        , X.FCLT_CD AS FCLT_CD
+                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', X.FCLT_CD, X.APC_CD) FROM DUAL) AS FCLT_NM
+                        , X.ITEM_CD AS ITEM_CD
+                        , (SELECT FN_GET_ITEM_NM(X.ITEM_CD, X.APC_CD) FROM DUAL) AS ITEM_NM
+                        , X.VRTY_CD AS VRTY_CD
+                        , (SELECT FN_GET_VRTY_NM(X.ITEM_CD, X.VRTY_CD, X.APC_CD) FROM DUAL) AS VRTY_NM
+                        , X.RPRS_PRDCR_CD AS PRDCR_CD
+                        , (SELECT FN_GET_PRDCR_NM(X.RPRS_PRDCR_CD, X.APC_CD) FROM DUAL) AS PRDCR_NM
+                        , '수량' AS SE
+                        , SUM(X.GRD_QNTT_1) AS GRD_1
+                        , SUM(X.GRD_QNTT_2) AS GRD_2
+                        , SUM(X.GRD_QNTT_3) AS GRD_3
+                        , SUM(X.GRD_QNTT_4) AS GRD_4
+                        , SUM(X.GRD_QNTT_5) AS GRD_5
+                        , SUM(X.GRD_QNTT_6) AS GRD_6
+                        , SUM(X.GRD_QNTT_7) AS GRD_7
+                        , SUM(X.GRD_QNTT_8) AS GRD_8
+                        , SUM(X.GRD_QNTT_9) AS GRD_9
+                        , SUM(X.GRD_QNTT_10) AS GRD_10
+                        , SUM(X.GRD_QNTT_11) AS GRD_11
+                        , SUM(X.GRD_QNTT_12) AS GRD_12
+                        , SUM(X.GRD_QNTT_13) AS GRD_13
+                        , SUM(X.GRD_QNTT_14) AS GRD_14
+                        , SUM(X.GRD_QNTT_15) AS GRD_15
+                        , SUM(X.GRD_QNTT_16) AS GRD_16
+                        , SUM(X.GRD_QNTT_17) AS GRD_17
+                        , SUM(X.GRD_QNTT_18) AS GRD_18
+                        , SUM(X.GRD_QNTT_19) AS GRD_19
+                        , SUM(X.GRD_QNTT_20) AS GRD_20
+                        , SUM(X.GRD_QNTT_21) AS GRD_21
+                        , SUM(X.GRD_QNTT_22) AS GRD_22
+                        , SUM(X.GRD_QNTT_23) AS GRD_23
+                        , SUM(X.GRD_QNTT_24) AS GRD_24
+                        , SUM(X.GRD_QNTT_25) AS GRD_25
+                        , SUM(X.GRD_QNTT_26) AS GRD_26
+                        , SUM(X.GRD_QNTT_27) AS GRD_27
+                        , SUM(X.GRD_QNTT_28) AS GRD_28
+                        , SUM(X.GRD_QNTT_29) AS GRD_29
+                        , SUM(X.GRD_QNTT_30) AS GRD_30
+                        , SUM(X.SORT_QNTT) AS SUM
+                    FROM (
+                        SELECT
+                              SP.APC_CD AS APC_CD
+                            , SP.SORTNO AS SORTNO
+                            , SP.FCLT_CD AS FCLT_CD
+                            , SI.INPT_YMD AS INPT_YMD
+                            , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+                            , SI.ITEM_CD AS ITEM_CD
+                            , SI.VRTY_CD AS VRTY_CD
+                            , SI.GRD_CD AS GRD_CD
+                            , MAX(SI.SORT_QNTT) AS SORT_QNTT
+                            , MAX(CASE WHEN SG.GRD_RANK = 1 THEN SI.SORT_QNTT END) AS GRD_QNTT_1
+                            , MAX(CASE WHEN SG.GRD_RANK = 2 THEN SI.SORT_QNTT END) AS GRD_QNTT_2
+                            , MAX(CASE WHEN SG.GRD_RANK = 3 THEN SI.SORT_QNTT END) AS GRD_QNTT_3
+                            , MAX(CASE WHEN SG.GRD_RANK = 4 THEN SI.SORT_QNTT END) AS GRD_QNTT_4
+                            , MAX(CASE WHEN SG.GRD_RANK = 5 THEN SI.SORT_QNTT END) AS GRD_QNTT_5
+                            , MAX(CASE WHEN SG.GRD_RANK = 6 THEN SI.SORT_QNTT END) AS GRD_QNTT_6
+                            , MAX(CASE WHEN SG.GRD_RANK = 7 THEN SI.SORT_QNTT END) AS GRD_QNTT_7
+                            , MAX(CASE WHEN SG.GRD_RANK = 8 THEN SI.SORT_QNTT END) AS GRD_QNTT_8
+                            , MAX(CASE WHEN SG.GRD_RANK = 9 THEN SI.SORT_QNTT END) AS GRD_QNTT_9
+                            , MAX(CASE WHEN SG.GRD_RANK = 10 THEN SI.SORT_QNTT END) AS GRD_QNTT_10
+                            , MAX(CASE WHEN SG.GRD_RANK = 11 THEN SI.SORT_QNTT END) AS GRD_QNTT_11
+                            , MAX(CASE WHEN SG.GRD_RANK = 12 THEN SI.SORT_QNTT END) AS GRD_QNTT_12
+                            , MAX(CASE WHEN SG.GRD_RANK = 13 THEN SI.SORT_QNTT END) AS GRD_QNTT_13
+                            , MAX(CASE WHEN SG.GRD_RANK = 14 THEN SI.SORT_QNTT END) AS GRD_QNTT_14
+                            , MAX(CASE WHEN SG.GRD_RANK = 15 THEN SI.SORT_QNTT END) AS GRD_QNTT_15
+                            , MAX(CASE WHEN SG.GRD_RANK = 16 THEN SI.SORT_QNTT END) AS GRD_QNTT_16
+                            , MAX(CASE WHEN SG.GRD_RANK = 17 THEN SI.SORT_QNTT END) AS GRD_QNTT_17
+                            , MAX(CASE WHEN SG.GRD_RANK = 18 THEN SI.SORT_QNTT END) AS GRD_QNTT_18
+                            , MAX(CASE WHEN SG.GRD_RANK = 19 THEN SI.SORT_QNTT END) AS GRD_QNTT_19
+                            , MAX(CASE WHEN SG.GRD_RANK = 20 THEN SI.SORT_QNTT END) AS GRD_QNTT_20
+                            , MAX(CASE WHEN SG.GRD_RANK = 21 THEN SI.SORT_QNTT END) AS GRD_QNTT_21
+                            , MAX(CASE WHEN SG.GRD_RANK = 22 THEN SI.SORT_QNTT END) AS GRD_QNTT_22
+                            , MAX(CASE WHEN SG.GRD_RANK = 23 THEN SI.SORT_QNTT END) AS GRD_QNTT_23
+                            , MAX(CASE WHEN SG.GRD_RANK = 24 THEN SI.SORT_QNTT END) AS GRD_QNTT_24
+                            , MAX(CASE WHEN SG.GRD_RANK = 25 THEN SI.SORT_QNTT END) AS GRD_QNTT_25
+                            , MAX(CASE WHEN SG.GRD_RANK = 26 THEN SI.SORT_QNTT END) AS GRD_QNTT_26
+                            , MAX(CASE WHEN SG.GRD_RANK = 27 THEN SI.SORT_QNTT END) AS GRD_QNTT_27
+                            , MAX(CASE WHEN SG.GRD_RANK = 28 THEN SI.SORT_QNTT END) AS GRD_QNTT_28
+                            , MAX(CASE WHEN SG.GRD_RANK = 29 THEN SI.SORT_QNTT END) AS GRD_QNTT_29
+                            , MAX(CASE WHEN SG.GRD_RANK = 30 THEN SI.SORT_QNTT END) AS GRD_QNTT_30
+                        FROM
+                              TB_SORT_PRFMNC SP
+                            , TB_SORT_INVNTR SI
+                            , TB_SORT_INVNTR_RT SR
+                            , (
+                                SELECT
+                                      APC_CD
+                                    , RANK() OVER (ORDER BY X.SN ASC) AS GRD_RANK
+                                    , X.GRD_CD
+                                    , X.GRD_NM
+                                FROM TB_APC_STD_GRD_DTL X
+                                WHERE 1=1
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                                AND X.APC_CD = #{apcCd}
+        </if>
+        <![CDATA[
+                                AND X.GRD_SE_CD = '02'
+                            ) SG
+                        WHERE SP.APC_CD = SI.APC_CD
+                        AND SP.SORTNO = SI.SORTNO
+                        AND SP.SORT_SN = SI.SORT_SN
+                        AND SP.APC_CD = SR.APC_CD
+                        AND SP.SORTNO = SR.SORTNO
+                        AND SP.SORT_SN = SR.SORT_SN
+                        AND SP.APC_CD = SG.APC_CD
+                        AND SP.GRD_CD = SG.GRD_CD
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                        AND SP.APC_CD = #{apcCd}
+        </if>
+        <if test='brix != null and brix != ""'>
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+        </if>
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+        </if>
+        <if test='prdcrCd != null and prdcrCd != ""'>
+                        AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd != ""'>
+                        AND SI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='fcltCd != null and fcltCd != ""'>
+                        AND SI.FCLT_CD = #{fcltCd}
+        </if>
+        <![CDATA[
+                        GROUP BY
+                              SP.APC_CD
+                            , SP.SORTNO
+                            , SP.SORT_SN
+                            , SP.FCLT_CD
+                            , SI.INPT_YMD
+                            , SI.RPRS_PRDCR_CD
+                            , SI.ITEM_CD
+                            , SI.VRTY_CD
+                            , SI.GRD_CD
+                    ) X
+                    GROUP BY
+                          X.APC_CD
+                        , X.FCLT_CD
+                        , X.INPT_YMD
+                        , X.ITEM_CD
+                        , X.VRTY_CD
+                        , X.RPRS_PRDCR_CD
+                    ORDER BY
+                          X.APC_CD
+                        , X.FCLT_CD
+                        , X.INPT_YMD
+                        , X.ITEM_CD
+                        , X.VRTY_CD
+                        , X.RPRS_PRDCR_CD
+                )
+                UNION ALL
+                SELECT *
+                FROM (
+                    SELECT
+                          Y.APC_CD AS APC_CD
+                        , Y.INPT_YMD AS INPT_YMD
+                        , Y.FCLT_CD AS FCLT_CD
+                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', Y.FCLT_CD, Y.APC_CD) FROM DUAL) AS FCLT_NM
+                        , Y.ITEM_CD AS ITEM_CD
+                        , (SELECT FN_GET_ITEM_NM(Y.ITEM_CD, Y.APC_CD) FROM DUAL) AS ITEM_NM
+                        , Y.VRTY_CD AS VRTY_CD
+                        , (SELECT FN_GET_VRTY_NM(Y.ITEM_CD, Y.VRTY_CD, Y.APC_CD) FROM DUAL) AS VRTY_NM
+                        , Y.RPRS_PRDCR_CD AS PRDCR_CD
+                        , (SELECT FN_GET_PRDCR_NM(Y.RPRS_PRDCR_CD, Y.APC_CD) FROM DUAL) AS PRDCR_NM
+                        , '중량' AS SE
+                        , SUM(Y.GRD_WGHT_1) AS GRD_1
+                        , SUM(Y.GRD_WGHT_2) AS GRD_2
+                        , SUM(Y.GRD_WGHT_3) AS GRD_3
+                        , SUM(Y.GRD_WGHT_4) AS GRD_4
+                        , SUM(Y.GRD_WGHT_5) AS GRD_5
+                        , SUM(Y.GRD_WGHT_6) AS GRD_6
+                        , SUM(Y.GRD_WGHT_7) AS GRD_7
+                        , SUM(Y.GRD_WGHT_8) AS GRD_8
+                        , SUM(Y.GRD_WGHT_9) AS GRD_9
+                        , SUM(Y.GRD_WGHT_10) AS GRD_10
+                        , SUM(Y.GRD_WGHT_11) AS GRD_11
+                        , SUM(Y.GRD_WGHT_12) AS GRD_12
+                        , SUM(Y.GRD_WGHT_13) AS GRD_13
+                        , SUM(Y.GRD_WGHT_14) AS GRD_14
+                        , SUM(Y.GRD_WGHT_15) AS GRD_15
+                        , SUM(Y.GRD_WGHT_16) AS GRD_16
+                        , SUM(Y.GRD_WGHT_17) AS GRD_17
+                        , SUM(Y.GRD_WGHT_18) AS GRD_18
+                        , SUM(Y.GRD_WGHT_19) AS GRD_19
+                        , SUM(Y.GRD_WGHT_20) AS GRD_20
+                        , SUM(Y.GRD_WGHT_21) AS GRD_21
+                        , SUM(Y.GRD_WGHT_22) AS GRD_22
+                        , SUM(Y.GRD_WGHT_23) AS GRD_23
+                        , SUM(Y.GRD_WGHT_24) AS GRD_24
+                        , SUM(Y.GRD_WGHT_25) AS GRD_25
+                        , SUM(Y.GRD_WGHT_26) AS GRD_26
+                        , SUM(Y.GRD_WGHT_27) AS GRD_27
+                        , SUM(Y.GRD_WGHT_28) AS GRD_28
+                        , SUM(Y.GRD_WGHT_29) AS GRD_29
+                        , SUM(Y.GRD_WGHT_30) AS GRD_30
+                        , SUM(Y.SORT_WGHT) AS SUM
+                    FROM (
+                        SELECT
+                              SP.APC_CD AS APC_CD
+                            , SP.SORTNO AS SORTNO
+                            , SP.FCLT_CD AS FCLT_CD
+                            , SI.INPT_YMD AS INPT_YMD
+                            , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+                            , SI.ITEM_CD AS ITEM_CD
+                            , SI.VRTY_CD AS VRTY_CD
+                            , SI.GRD_CD AS GRD_CD
+                            , MAX(SI.SORT_WGHT) AS SORT_WGHT
+                            , MAX(CASE WHEN SG.GRD_RANK = 1 THEN SI.SORT_WGHT END) AS GRD_WGHT_1
+                            , MAX(CASE WHEN SG.GRD_RANK = 2 THEN SI.SORT_WGHT END) AS GRD_WGHT_2
+                            , MAX(CASE WHEN SG.GRD_RANK = 3 THEN SI.SORT_WGHT END) AS GRD_WGHT_3
+                            , MAX(CASE WHEN SG.GRD_RANK = 4 THEN SI.SORT_WGHT END) AS GRD_WGHT_4
+                            , MAX(CASE WHEN SG.GRD_RANK = 5 THEN SI.SORT_WGHT END) AS GRD_WGHT_5
+                            , MAX(CASE WHEN SG.GRD_RANK = 6 THEN SI.SORT_WGHT END) AS GRD_WGHT_6
+                            , MAX(CASE WHEN SG.GRD_RANK = 7 THEN SI.SORT_WGHT END) AS GRD_WGHT_7
+                            , MAX(CASE WHEN SG.GRD_RANK = 8 THEN SI.SORT_WGHT END) AS GRD_WGHT_8
+                            , MAX(CASE WHEN SG.GRD_RANK = 9 THEN SI.SORT_WGHT END) AS GRD_WGHT_9
+                            , MAX(CASE WHEN SG.GRD_RANK = 10 THEN SI.SORT_WGHT END) AS GRD_WGHT_10
+                            , MAX(CASE WHEN SG.GRD_RANK = 11 THEN SI.SORT_WGHT END) AS GRD_WGHT_11
+                            , MAX(CASE WHEN SG.GRD_RANK = 12 THEN SI.SORT_WGHT END) AS GRD_WGHT_12
+                            , MAX(CASE WHEN SG.GRD_RANK = 13 THEN SI.SORT_WGHT END) AS GRD_WGHT_13
+                            , MAX(CASE WHEN SG.GRD_RANK = 14 THEN SI.SORT_WGHT END) AS GRD_WGHT_14
+                            , MAX(CASE WHEN SG.GRD_RANK = 15 THEN SI.SORT_WGHT END) AS GRD_WGHT_15
+                            , MAX(CASE WHEN SG.GRD_RANK = 16 THEN SI.SORT_WGHT END) AS GRD_WGHT_16
+                            , MAX(CASE WHEN SG.GRD_RANK = 17 THEN SI.SORT_WGHT END) AS GRD_WGHT_17
+                            , MAX(CASE WHEN SG.GRD_RANK = 18 THEN SI.SORT_WGHT END) AS GRD_WGHT_18
+                            , MAX(CASE WHEN SG.GRD_RANK = 19 THEN SI.SORT_WGHT END) AS GRD_WGHT_19
+                            , MAX(CASE WHEN SG.GRD_RANK = 20 THEN SI.SORT_WGHT END) AS GRD_WGHT_20
+                            , MAX(CASE WHEN SG.GRD_RANK = 21 THEN SI.SORT_WGHT END) AS GRD_WGHT_21
+                            , MAX(CASE WHEN SG.GRD_RANK = 22 THEN SI.SORT_WGHT END) AS GRD_WGHT_22
+                            , MAX(CASE WHEN SG.GRD_RANK = 23 THEN SI.SORT_WGHT END) AS GRD_WGHT_23
+                            , MAX(CASE WHEN SG.GRD_RANK = 24 THEN SI.SORT_WGHT END) AS GRD_WGHT_24
+                            , MAX(CASE WHEN SG.GRD_RANK = 25 THEN SI.SORT_WGHT END) AS GRD_WGHT_25
+                            , MAX(CASE WHEN SG.GRD_RANK = 26 THEN SI.SORT_WGHT END) AS GRD_WGHT_26
+                            , MAX(CASE WHEN SG.GRD_RANK = 27 THEN SI.SORT_WGHT END) AS GRD_WGHT_27
+                            , MAX(CASE WHEN SG.GRD_RANK = 28 THEN SI.SORT_WGHT END) AS GRD_WGHT_28
+                            , MAX(CASE WHEN SG.GRD_RANK = 29 THEN SI.SORT_WGHT END) AS GRD_WGHT_29
+                            , MAX(CASE WHEN SG.GRD_RANK = 30 THEN SI.SORT_WGHT END) AS GRD_WGHT_30
+                        FROM
+                              TB_SORT_PRFMNC SP
+                            , TB_SORT_INVNTR SI
+                            , TB_SORT_INVNTR_RT SR
+                            , (
+                                SELECT
+                                      APC_CD
+                                    , RANK() OVER (ORDER BY Y.SN ASC) AS GRD_RANK
+                                    , Y.GRD_CD
+                                    , Y.GRD_NM
+                                FROM TB_APC_STD_GRD_DTL Y
+                                WHERE 1=1
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                                AND Y.APC_CD = #{apcCd}
+        </if>
+        <![CDATA[
+                                AND Y.GRD_SE_CD = '02'
+                            ) SG
+                        WHERE SP.APC_CD = SI.APC_CD
+                        AND SP.SORTNO = SI.SORTNO
+                        AND SP.SORT_SN = SI.SORT_SN
+                        AND SP.APC_CD = SR.APC_CD
+                        AND SP.SORTNO = SR.SORTNO
+                        AND SP.SORT_SN = SR.SORT_SN
+                        AND SP.APC_CD = SG.APC_CD
+                        AND SP.GRD_CD = SG.GRD_CD
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                        AND SP.APC_CD = #{apcCd}
+        </if>
+        <if test='brix != null and brix != ""'>
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+        </if>
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+        </if>
+        <if test='prdcrCd != null and prdcrCd != ""'>
+                        AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd != ""'>
+                        AND SI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='fcltCd != null and fcltCd != ""'>
+                        AND SI.FCLT_CD = #{fcltCd}
+        </if>
+        <![CDATA[
+                        GROUP BY
+                              SP.APC_CD
+                            , SP.SORTNO
+                            , SP.SORT_SN
+                            , SP.FCLT_CD
+                            , SI.INPT_YMD
+                            , SI.RPRS_PRDCR_CD
+                            , SI.ITEM_CD
+                            , SI.VRTY_CD
+                            , SI.GRD_CD
+                    ) Y
+                    GROUP BY
+                          Y.APC_CD
+                        , Y.FCLT_CD
+                        , Y.INPT_YMD
+                        , Y.ITEM_CD
+                        , Y.VRTY_CD
+                        , Y.RPRS_PRDCR_CD
+                    ORDER BY
+                          Y.APC_CD
+                        , Y.FCLT_CD
+                        , Y.INPT_YMD
+                        , Y.ITEM_CD
+                        , Y.VRTY_CD
+                        , Y.RPRS_PRDCR_CD
+                )
+                UNION ALL
+                SELECT *
+                FROM (
+                    SELECT
+                          Z.APC_CD AS APC_CD
+                        , Z.INPT_YMD AS INPT_YMD
+                        , Z.FCLT_CD AS FCLT_CD
+                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', Z.FCLT_CD, Z.APC_CD) FROM DUAL) AS FCLT_NM
+                        , Z.ITEM_CD AS ITEM_CD
+                        , (SELECT FN_GET_ITEM_NM(Z.ITEM_CD, Z.APC_CD) FROM DUAL) AS ITEM_NM
+                        , Z.VRTY_CD AS VRTY_CD
+                        , (SELECT FN_GET_VRTY_NM(Z.ITEM_CD, Z.VRTY_CD, Z.APC_CD) FROM DUAL) AS VRTY_NM
+                        , Z.RPRS_PRDCR_CD AS PRDCR_CD
+                        , (SELECT FN_GET_PRDCR_NM(Z.RPRS_PRDCR_CD, Z.APC_CD) FROM DUAL) AS PRDCR_NM
+                        , TO_CHAR(Z.SORT_RT_NV) AS SE
+                        , SUM(Z.GRD_BRIX_1) AS GRD_1
+                        , SUM(Z.GRD_BRIX_2) AS GRD_2
+                        , SUM(Z.GRD_BRIX_3) AS GRD_3
+                        , SUM(Z.GRD_BRIX_4) AS GRD_4
+                        , SUM(Z.GRD_BRIX_5) AS GRD_5
+                        , SUM(Z.GRD_BRIX_6) AS GRD_6
+                        , SUM(Z.GRD_BRIX_7) AS GRD_7
+                        , SUM(Z.GRD_BRIX_8) AS GRD_8
+                        , SUM(Z.GRD_BRIX_9) AS GRD_9
+                        , SUM(Z.GRD_BRIX_10) AS GRD_10
+                        , SUM(Z.GRD_BRIX_11) AS GRD_11
+                        , SUM(Z.GRD_BRIX_12) AS GRD_12
+                        , SUM(Z.GRD_BRIX_13) AS GRD_13
+                        , SUM(Z.GRD_BRIX_14) AS GRD_14
+                        , SUM(Z.GRD_BRIX_15) AS GRD_15
+                        , SUM(Z.GRD_BRIX_16) AS GRD_16
+                        , SUM(Z.GRD_BRIX_17) AS GRD_17
+                        , SUM(Z.GRD_BRIX_18) AS GRD_18
+                        , SUM(Z.GRD_BRIX_19) AS GRD_19
+                        , SUM(Z.GRD_BRIX_20) AS GRD_20
+                        , SUM(Z.GRD_BRIX_21) AS GRD_21
+                        , SUM(Z.GRD_BRIX_22) AS GRD_22
+                        , SUM(Z.GRD_BRIX_23) AS GRD_23
+                        , SUM(Z.GRD_BRIX_24) AS GRD_24
+                        , SUM(Z.GRD_BRIX_25) AS GRD_25
+                        , SUM(Z.GRD_BRIX_26) AS GRD_26
+                        , SUM(Z.GRD_BRIX_27) AS GRD_27
+                        , SUM(Z.GRD_BRIX_28) AS GRD_28
+                        , SUM(Z.GRD_BRIX_29) AS GRD_29
+                        , SUM(Z.GRD_BRIX_30) AS GRD_30
+                        , SUM(Z.SORT_BRIX) AS SUM
+                    FROM (
+                        SELECT
+                              SP.APC_CD AS APC_CD
+                            , SP.SORTNO AS SORTNO
+                            , SP.FCLT_CD AS FCLT_CD
+                            , SI.INPT_YMD AS INPT_YMD
+                            , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+                            , SI.ITEM_CD AS ITEM_CD
+                            , SI.VRTY_CD AS VRTY_CD
+                            , SI.GRD_CD AS GRD_CD
+                            , SR.SORT_RT_NV AS SORT_RT_NV
+                            , SR.SORT_RT_QNTT AS SORT_BRIX
+                            , CASE WHEN SG.GRD_RANK = 1 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_1
+                            , CASE WHEN SG.GRD_RANK = 2 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_2
+                            , CASE WHEN SG.GRD_RANK = 3 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_3
+                            , CASE WHEN SG.GRD_RANK = 4 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_4
+                            , CASE WHEN SG.GRD_RANK = 5 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_5
+                            , CASE WHEN SG.GRD_RANK = 6 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_6
+                            , CASE WHEN SG.GRD_RANK = 7 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_7
+                            , CASE WHEN SG.GRD_RANK = 8 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_8
+                            , CASE WHEN SG.GRD_RANK = 9 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_9
+                            , CASE WHEN SG.GRD_RANK = 10 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_10
+                            , CASE WHEN SG.GRD_RANK = 11 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_11
+                            , CASE WHEN SG.GRD_RANK = 12 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_12
+                            , CASE WHEN SG.GRD_RANK = 13 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_13
+                            , CASE WHEN SG.GRD_RANK = 14 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_14
+                            , CASE WHEN SG.GRD_RANK = 15 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_15
+                            , CASE WHEN SG.GRD_RANK = 16 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_16
+                            , CASE WHEN SG.GRD_RANK = 17 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_17
+                            , CASE WHEN SG.GRD_RANK = 18 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_18
+                            , CASE WHEN SG.GRD_RANK = 19 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_19
+                            , CASE WHEN SG.GRD_RANK = 20 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_20
+                            , CASE WHEN SG.GRD_RANK = 21 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_21
+                            , CASE WHEN SG.GRD_RANK = 22 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_22
+                            , CASE WHEN SG.GRD_RANK = 23 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_23
+                            , CASE WHEN SG.GRD_RANK = 24 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_24
+                            , CASE WHEN SG.GRD_RANK = 25 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_25
+                            , CASE WHEN SG.GRD_RANK = 26 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_26
+                            , CASE WHEN SG.GRD_RANK = 27 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_27
+                            , CASE WHEN SG.GRD_RANK = 28 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_28
+                            , CASE WHEN SG.GRD_RANK = 29 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_29
+                            , CASE WHEN SG.GRD_RANK = 30 THEN SR.SORT_RT_QNTT END AS GRD_BRIX_30
+                        FROM
+                              TB_SORT_PRFMNC SP
+                            , TB_SORT_INVNTR SI
+                            , TB_SORT_INVNTR_RT SR
+                            , (
+                                SELECT
+                                      APC_CD
+                                    , RANK() OVER (ORDER BY Z.SN ASC) AS GRD_RANK
+                                    , Z.GRD_CD
+                                    , Z.GRD_NM
+                                FROM TB_APC_STD_GRD_DTL Z
+                                WHERE 1=1
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                                AND Z.APC_CD = #{apcCd}
+        </if>
+        <![CDATA[
+                                AND Z.GRD_SE_CD = '02'
+                            ) SG
+                        WHERE SP.APC_CD = SI.APC_CD
+                        AND SP.SORTNO = SI.SORTNO
+                        AND SP.SORT_SN = SI.SORT_SN
+                        AND SP.APC_CD = SR.APC_CD
+                        AND SP.SORTNO = SR.SORTNO
+                        AND SP.SORT_SN = SR.SORT_SN
+                        AND SP.APC_CD = SG.APC_CD
+                        AND SP.GRD_CD = SG.GRD_CD
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+                        AND SP.APC_CD = #{apcCd}
+        </if>
+        <if test='brix != null and brix != ""'>
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+        </if>
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+        </if>
+        <if test='prdcrCd != null and prdcrCd != ""'>
+                        AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd != ""'>
+                        AND SI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='fcltCd != null and fcltCd != ""'>
+                        AND SI.FCLT_CD = #{fcltCd}
+        </if>
+        <![CDATA[
+                    ) Z
+                    GROUP BY
+                          Z.APC_CD
+                        , Z.FCLT_CD
+                        , Z.INPT_YMD
+                        , Z.ITEM_CD
+                        , Z.VRTY_CD
+                        , Z.RPRS_PRDCR_CD
+                        , Z.SORT_RT_NV
+                    ORDER BY
+                          Z.APC_CD
+                        , Z.FCLT_CD
+                        , Z.INPT_YMD
+                        , Z.ITEM_CD
+                        , Z.VRTY_CD
+                        , Z.RPRS_PRDCR_CD
+                        , Z.SORT_RT_NV
+                )
+                ORDER BY
+                      APC_CD
+                    , FCLT_CD
+                    , INPT_YMD
+                    , ITEM_CD
+                    , VRTY_CD
+                    , PRDCR_CD
+                    , CASE WHEN SE = '수량' THEN 1 WHEN SE = '중량' THEN 2 ELSE TO_NUMBER(SE) END
+            ) pt0;
+        ]]>
+    </select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortDsctnList  	-->
 	<!-- DESC : 육안선별 목록 조회                   .                                 -->
