@@ -54,6 +54,19 @@
     		 , CT.PIC_TELNO  		AS PIC_TELNO
     		 , CT.SN				AS SN
     		 , CT.USE_YN			AS USE_YN
+    		 , (
+    		 		SELECT LISTAGG(FN_GET_SPMT_PCKG_UNIT_NM(CSPU.SPMT_PCKG_UNIT_CD, CSPU.APC_CD), ',') WITHIN GROUP (ORDER BY SPU.ITEM_CD, CSPU.SPMT_PCKG_UNIT_CD)
+                 	  FROM TB_CNPT_SPMT_PCKG_UNIT CSPU
+                 	  LEFT JOIN TB_SPMT_PCKG_UNIT SPU
+                   		ON CSPU.APC_CD = SPU.APC_CD
+                  	   AND CSPU.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+                  	   AND SPU.DEL_YN = 'N'
+                 	 WHERE CSPU.DEL_YN = 'N'
+                       AND CSPU.USE_YN = 'Y'
+                   	   AND CSPU.APC_CD = CT.APC_CD
+                   	   AND CSPU.CNPT_CD = CT.CNPT_CD
+                   	   AND SPU.VRTY_CD IS NOT NULL
+               ) AS SPMT_PCKG_UNIT_NM
 		  FROM TB_CNPT_INFO CT
 		 WHERE CT.DEL_YN 	= 'N'
 		   AND CT.APC_CD 		= #{apcCd}
