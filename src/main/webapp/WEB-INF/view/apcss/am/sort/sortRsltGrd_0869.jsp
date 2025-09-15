@@ -317,8 +317,7 @@
                 style: 'text-align: right; padding-right: 5px;',
                 format: {
                     type: 'number',
-                    rule: '#,###',
-                    emptyvalue: '0'
+                    rule: '#,###'
                 },
                 merge: false
             });
