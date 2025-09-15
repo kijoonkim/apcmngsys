@@ -2448,7 +2448,7 @@
                         , (SELECT FN_GET_VRTY_NM(Z.ITEM_CD, Z.VRTY_CD, Z.APC_CD) FROM DUAL) AS VRTY_NM
                         , Z.RPRS_PRDCR_CD AS PRDCR_CD
                         , (SELECT FN_GET_PRDCR_NM(Z.RPRS_PRDCR_CD, Z.APC_CD) FROM DUAL) AS PRDCR_NM
-                        , TO_CHAR(Z.SORT_RT_NV) AS SE
+                        , 'BX' || TO_CHAR(Z.SORT_RT_NV) AS SE
                         , SUM(Z.GRD_BRIX_1) AS GRD_1
                         , SUM(Z.GRD_BRIX_2) AS GRD_2
                         , SUM(Z.GRD_BRIX_3) AS GRD_3
@@ -2597,7 +2597,7 @@
                     , ITEM_CD
                     , VRTY_CD
                     , PRDCR_CD
-                    , CASE WHEN SE = '수량' THEN 1 WHEN SE = '중량' THEN 2 ELSE TO_NUMBER(SE) END
+                    , CASE WHEN SE LIKE 'BX%' THEN 1 WHEN SE = '수량' THEN 2 WHEN SE = '중량' THEN 3 END
             ) pt0;
         ]]>
     </select>

@@ -35,7 +35,7 @@
     </style>
 </head>
 <body oncontextmenu="return false">
-    <section class="content container-fluid">
+    <section>
         <div class="box box-solid">
             <div class="box-header" style="display:flex; justify-content: flex-start;">
                 <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
