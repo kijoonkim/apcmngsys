@@ -2598,6 +2598,7 @@
                     , VRTY_CD
                     , PRDCR_CD
                     , CASE WHEN SE LIKE 'BX%' THEN 1 WHEN SE = '수량' THEN 2 WHEN SE = '중량' THEN 3 END
+    	            , TO_NUMBER(SUBSTR(SE, 3))
             ) pt0;
         ]]>
     </select>
