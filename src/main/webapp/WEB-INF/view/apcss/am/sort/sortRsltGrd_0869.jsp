@@ -292,7 +292,7 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.mergecells = 'bycolrec';
+        SBGridProperties.mergecells = 'byrestriccol';
         SBGridProperties.allowcopy = true;
         SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
         SBGridProperties.contextmenulist = objMenuList;    // 우클릭 메뉴 리스트
