@@ -124,15 +124,21 @@
                                         <col style="width: 5%">
                                         <col style="width: 10%">
                                         <col style="width: 15%">
-                                        <col style="width: 35%">
-                                        <col style="width: 35%">
+                                        <col style="width: 10%">
+                                        <col style="width: 10%">
+                                        <col style="width: 20%">
+                                        <col style="width: 20%">
+                                        <col style="width: 10%">
                                     </colgroup>
                                     <tr>
                                         <th scope="col" class="th_bg text-center">No.</th>
                                         <th scope="col" class="th_bg text-center">주요항목</th>
                                         <th scope="col" class="th_bg text-center">세부항목</th>
+                                        <th scope="col" class="th_bg text-center">내용</th>
+                                        <th scope="col" class="th_bg text-center">정산요청액(천원)</th>
                                         <th scope="col" class="th_bg text-center">공통증빙</th>
                                         <th scope="col" class="th_bg text-center">세부증빙</th>
+                                        <th scope="col" class="th_bg text-center">비고</th>
                                     </tr>
                                     <tbody id="pruf-tbody"></tbody>
                                 </table>
@@ -213,6 +219,7 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
+
                     const prufObj = {
                         sprtBizYr: data.resultList[0].sprtBizYr,
                         sprtBizCd: data.resultList[0].sprtBizCd,
@@ -295,6 +302,7 @@
             if (!Array.isArray(rows) || rows.length === 0) return;
             
             rows.forEach(row => {
+
                 objPrufDoc.maxSeq++;
                 const seq = objPrufDoc.maxSeq;
 
@@ -308,6 +316,11 @@
                 objPrufDoc.initList.forEach(item => {
                     const td = document.createElement('td');
                     td.style.verticalAlign = 'top';
+
+                    // 순서
+                    if (_.isEqual(item.elementKey,'dmndSeq')) {
+                        td.style.textAlign = 'center';
+                    }
 
                     const id = objPrufDoc.prefix + item.id + seq;
                     const el = document.createElement(item.type); // sbux-input / sbux-textarea / div / label
@@ -335,12 +348,20 @@
                 // sbux render
                 sbuxList.forEach(id => SBUxMethod.render("#" + id));
 
-                const idDmndSeq = objPrufDoc.prefix + 'inp-dmndSeq' + seq;
-                const idMajorNm   = objPrufDoc.prefix + 'inp-majorArticleNm' + seq;
-                const idArticleNm = objPrufDoc.prefix + 'inp-articleNm' + seq;
-                document.getElementById(idDmndSeq).innerText = row.dmndSeq;
+                // 값 set (prefix : tbl-doc-)
+                const idDmndSeq = objPrufDoc.prefix + 'inp-dmndSeq' + seq; // 요청순서
+                const idMajorNm   = objPrufDoc.prefix + 'inp-majorArticleNm' + seq; // 주요항목
+                const idArticleNm = objPrufDoc.prefix + 'inp-articleNm' + seq; // 세부항목
+                const idDmndCn = objPrufDoc.prefix + 'inp-dmndCn' + seq; // 내용
+                const idDmndAmt = objPrufDoc.prefix + 'inp-dmndAmt' + seq; // 정산요청액
+                const idRmrk = objPrufDoc.prefix + 'txa-dmndRmrk' + seq; // 비고
+
+                document.getElementById(idDmndSeq).innerText = seq + 1;
                 SBUxMethod.set(idMajorNm,row.dmndArtclKndNm);
                 SBUxMethod.set(idArticleNm,row.dmndArtclCdNm);
+                SBUxMethod.set(idDmndCn,row.dmndCn);
+                SBUxMethod.set(idDmndAmt,row.dmndAmt);
+                SBUxMethod.set(idRmrk,row.dmndRmrk);
 
                 // 공통/세부 컨테이너
                 const idBscDiv = objPrufDoc.prefix + 'div-prufDocBsc' + seq;
@@ -510,8 +531,19 @@
             });
             $fileArea.append($img);
 
-        } // pdf,이미지 이외
-
+        } else { // pdf,이미지 이외
+            const $msg = $('<div>', {
+                text: '미리보기를 지원하지 않는 파일 형식입니다. 다운로드 후 확인해 주세요.',
+                css: {
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    textAlign: 'left',
+                    marginLeft: '10px',
+                    padding: '20px 0'
+                }
+            });
+            $fileArea.append($msg);
+        }
         },
     }
 
@@ -530,11 +562,20 @@
                 case "ARTICLE":			// 세부항목
                     col = 2;
                     break;
-                case "PRUF_DOC_BSC":	// 공통증빙
+                case "DMND_CN":			// 요청내용
                     col = 3;
                     break;
-                case "PRUF_DOC":		// 증빙서류
+                case "DMND_AMT":		// 요청금액
                     col = 4;
+                    break;
+                case "PRUF_DOC_BSC":	// 공통증빙
+                    col = 5;
+                    break;
+                case "PRUF_DOC":		// 증빙서류
+                    col = 6;
+                    break;
+                case "DMND_RMRK":		// 비고
+                    col = 7;
                     break;
             }
             return col;
@@ -583,10 +624,43 @@
                 },
                 exEvents: [],
             },
+            // 내용
+            {
+                isSBUx: true,
+                elementKey: "dmndCn",
+                type: "sbux-input",
+                id: "inp-dmndCn",
+                attributes: {
+                    "uitype": "text",
+                    "class": "form-control input-sm input-sm-ast",
+                    "readonly" : "true"
+                },
+                exAttributes: {
+                },
+                exEvents: [],
+            },
+            // 정산요청액
+            {
+                isSBUx: true,
+                elementKey: "dmndAmt",
+                type: "sbux-input",
+                id: "inp-dmndAmt",
+                attributes: {
+                    "uitype": "text",
+                    "class": "form-control input-sm input-sm-ast",
+                    "maxlength": "15",
+                    "autocomplete": "off",
+                    "readonly" : "true",
+                    "mask": "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}",
+                },
+                exAttributes: {
+                },
+                exEvents: [],
+            },
             // 5 행 : 공통증빙
             {
                 isSBUx: false,
-                elementKey: "pfudDocBsc",
+                elementKey: "prufDocBsc",
                 type: "div",
                 id: 'div-prufDocBsc',
                 attributes: {
@@ -595,10 +669,10 @@
                     "classList": ["evGroup"]
                 }
             },
-            // 6행 : 증빙서류
+            // 6행 : 세부증빙
             {
                 isSBUx: false,
-                elementKey: "pfudDoc",
+                elementKey: "prufDoc",
                 type: "div",
                 id: 'div-prufDoc',
                 attributes: {
@@ -606,6 +680,23 @@
                 contents: {
                     "classList": ["evGroup"]
                 }
+            },
+            // 비고
+            {
+                isSBUx: true,
+                elementKey: "dmndRmrk",
+                type: "sbux-textarea",
+                id: "txa-dmndRmrk",
+                attributes: {
+                    "uitype": "normal",
+                    "class": "form-control input-sm input-sm-ast txa-resize",
+                    "resize": "true",
+                    "detect-attack": "true",
+                    "readonly" : "true"
+                },
+                exAttributes: {
+                },
+                exEvents: [],
             },
         ],
     }
