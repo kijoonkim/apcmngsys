@@ -858,6 +858,9 @@
    * @description 조회
    */
   const fn_search = async function () {
+    fn_clear();
+    fn_clearPruf(); // 증빙서류 신규 초기화
+    fn_clearExsPruf(); // 기제출 증빙서류 초기화
     await fn_searchDtbnMng(); // 교부관리
     await fn_searchClclnAply(); // 정산신청
     await fn_searchClclnRslt(); // 정산결과
@@ -3662,7 +3665,7 @@
 
     const url = "/pd/sprt/clclnPurfPrvwPopup.do";
     const title = "증빙서류 미리보기";
-    window.open(url, title, "width=1000px,height=900px");
+    window.open(url, title, "width=1200px,height=900px");
   }
 
   // 증빙서류 팝업에서 사용
