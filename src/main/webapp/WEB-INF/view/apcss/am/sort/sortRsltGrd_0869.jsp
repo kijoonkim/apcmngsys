@@ -190,7 +190,7 @@
                 </table>
 
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-gridSortRsltList" style="padding-top: 20px; height: 700px;"></div>
+                    <div id="sb-area-gridSortRsltList" style="padding-top: 20px; height: 470px;"></div>
                 </div>
             </div>
         </div>
@@ -299,7 +299,6 @@
         SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.backcoloralternate = '#E0FFFF';
         SBGridProperties.columns = [
-            { caption: ["선별기"], ref: 'sortFclt', type: 'output', width: '100px', style: 'text-align: center; padding-right: 5px;' },
             { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '100px', style: 'text-align: center; padding-right: 5px;' },
             { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '100px', style: 'text-align: center; padding-right: 5px;' },
             { caption: ["등급"], ref: 'grd', type: 'output', width: '50px', style: 'text-align: center;', merge: false },
@@ -324,7 +323,7 @@
         });
 
         let originColumns = SBGridProperties.columns;
-        originColumns.splice(4, 0, ...addSortRsltGrdCol);
+        originColumns.splice(3, 0, ...addSortRsltGrdCol);
         SBGridProperties.columns = originColumns;
 
         gridSortRsltList = _SBGrid.create(SBGridProperties);
@@ -364,7 +363,6 @@
 
             data.resultList.forEach((item, index) => {
                 const sortList = {
-                    sortFclt: item.FCLT_NM,
                     vrtyNm: item.VRTY_NM,
                     mbrInfo: item.PRDCR_NM,
                     grd: item.SE,
