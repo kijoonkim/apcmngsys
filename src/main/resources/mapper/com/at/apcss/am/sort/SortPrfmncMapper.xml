@@ -2075,37 +2075,37 @@
                 , pt0.PRDCR_CD AS PRDCR_CD
                 , pt0.PRDCR_NM AS PRDCR_NM
                 , pt0.SE AS SE
-                , pt0.GRD_1 AS GRD_1
-                , pt0.GRD_2 AS GRD_2
-                , pt0.GRD_3 AS GRD_3
-                , pt0.GRD_4 AS GRD_4
-                , pt0.GRD_5 AS GRD_5
-                , pt0.GRD_6 AS GRD_6
-                , pt0.GRD_7 AS GRD_7
-                , pt0.GRD_8 AS GRD_8
-                , pt0.GRD_9 AS GRD_9
-                , pt0.GRD_10 AS GRD_10
-                , pt0.GRD_11 AS GRD_11
-                , pt0.GRD_12 AS GRD_12
-                , pt0.GRD_13 AS GRD_13
-                , pt0.GRD_14 AS GRD_14
-                , pt0.GRD_15 AS GRD_15
-                , pt0.GRD_16 AS GRD_16
-                , pt0.GRD_17 AS GRD_17
-                , pt0.GRD_18 AS GRD_18
-                , pt0.GRD_19 AS GRD_19
-                , pt0.GRD_20 AS GRD_20
-                , pt0.GRD_21 AS GRD_21
-                , pt0.GRD_22 AS GRD_22
-                , pt0.GRD_23 AS GRD_23
-                , pt0.GRD_24 AS GRD_24
-                , pt0.GRD_25 AS GRD_25
-                , pt0.GRD_26 AS GRD_26
-                , pt0.GRD_27 AS GRD_27
-                , pt0.GRD_28 AS GRD_28
-                , pt0.GRD_29 AS GRD_29
-                , pt0.GRD_30 AS GRD_30
-                , pt0.SUM AS SUM
+                , CEIL(pt0.GRD_1) AS GRD_1
+                , CEIL(pt0.GRD_2) AS GRD_2
+                , CEIL(pt0.GRD_3) AS GRD_3
+                , CEIL(pt0.GRD_4) AS GRD_4
+                , CEIL(pt0.GRD_5) AS GRD_5
+                , CEIL(pt0.GRD_6) AS GRD_6
+                , CEIL(pt0.GRD_7) AS GRD_7
+                , CEIL(pt0.GRD_8) AS GRD_8
+                , CEIL(pt0.GRD_9) AS GRD_9
+                , CEIL(pt0.GRD_10) AS GRD_10
+                , CEIL(pt0.GRD_11) AS GRD_11
+                , CEIL(pt0.GRD_12) AS GRD_12
+                , CEIL(pt0.GRD_13) AS GRD_13
+                , CEIL(pt0.GRD_14) AS GRD_14
+                , CEIL(pt0.GRD_15) AS GRD_15
+                , CEIL(pt0.GRD_16) AS GRD_16
+                , CEIL(pt0.GRD_17) AS GRD_17
+                , CEIL(pt0.GRD_18) AS GRD_18
+                , CEIL(pt0.GRD_19) AS GRD_19
+                , CEIL(pt0.GRD_20) AS GRD_20
+                , CEIL(pt0.GRD_21) AS GRD_21
+                , CEIL(pt0.GRD_22) AS GRD_22
+                , CEIL(pt0.GRD_23) AS GRD_23
+                , CEIL(pt0.GRD_24) AS GRD_24
+                , CEIL(pt0.GRD_25) AS GRD_25
+                , CEIL(pt0.GRD_26) AS GRD_26
+                , CEIL(pt0.GRD_27) AS GRD_27
+                , CEIL(pt0.GRD_28) AS GRD_28
+                , CEIL(pt0.GRD_29) AS GRD_29
+                , CEIL(pt0.GRD_30) AS GRD_30
+                , CEIL(pt0.SUM) AS SUM
             FROM (
                 SELECT *
                 FROM (
