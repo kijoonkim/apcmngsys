@@ -156,6 +156,11 @@
             background-color: #B5A98D;
             border-color: #B5A98D;
         }
+        #addSoloSaleButton.btn_on{
+            background-color: #B5A98D;
+            border-color: #B5A98D;
+            color: white;
+        }
         .sbux-btn:hover{
             color: white!important;
             background-color: #4A5672;
@@ -851,7 +856,8 @@
         /** nRow idx **/
         let rowIndex = $(_el).closest("tr").index();
         /** nCol idx **/
-        let colIndex = $(_el).closest("td").index();
+        // let colIndex = $(_el).closest("td").index();
+        let colIndex = fn_getLogicalIndex($(_el).closest("td")[0]);
         /** 생산자 미선택시 **/
         if (!sortSaveList[rowIndex]) {
             Swal.fire({
@@ -1086,9 +1092,11 @@
             $("#warehouse").val(warehouseSeCd);
         }
 
-        await fn_searchSortPrfmnc();
-        await fn_searchGdsInvntr();
-        await fn_searchSpmtPrfmncList();
+        await fn_reset();
+
+        // await fn_searchSortPrfmnc();
+        // await fn_searchGdsInvntr();
+        // await fn_searchSpmtPrfmncList();
     }
 
     /** 전체 초기화 **/
@@ -1105,7 +1113,7 @@
                 fn_setJsonSortPrfmnc($(this));
             });
             $(item).find("input").val("").prop({ disabled: false, readonly: false });
-            $(item).find("td").removeClass("first end mid selected").css("pointer-events", "");
+            $(item).find("td").removeClass("first end mid selected").css("pointer-events", "").css("border-color", "");
 
             /** 재고분리된 로우 처리 어케했지? **/
             let tds = Array.from($(item).find("input.left"));
@@ -1129,6 +1137,12 @@
         $("#sortTable tbody td").off('pointerdown');
         /** 출하등록 버튼 초기화 **/
         SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+        /** 재고분리 버튼 초기화 **/
+        SBUxMethod.set("decompositionMode", "재고분리 OFF");
+        $("#decompositionMode").removeClass("btn_on");
+        /** 시판추가 버튼 초기화 **/
+        SBUxMethod.set("addSoloSaleButton", "시판추가");
+        $("#addSoloSaleButton").removeClass("btn_on");
         /** 작업중 colIdx 초기화 **/
         nowColIdx = 0;
         /** 출하 저장대상 리스트 초기화 **/
@@ -1188,6 +1202,12 @@
             /** 출하등록 disabled **/
             SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
             SBUxMethod.attr('spmtMode', 'disabled', 'false');
+
+            /** 출하실적이 있는 재고는 disabled true 유지 **/
+            // document.querySelectorAll('#sortTable tbody input').forEach(input => {
+            //     input.disabled = false;
+            // });
+
             return;
         }else{
             /** 출하등록 disabled **/
@@ -1465,6 +1485,38 @@
         event.preventDefault();
         const $target = $(event.target);
 
+        /** 2025.09.15 출하등록된 셀 재고분리 막기*/
+        const colIdx = fn_getLogicalIndex($target);
+        const prevColIdx = fn_getLogicalIndex($target.prev());
+        const nextColIdx = fn_getLogicalIndex($target.next());
+
+        const spmtFlag = $target.find('input').data('spmt');
+        const prevSpmtFlag = $target.prev().find('input').data('spmt');
+        const nextSpmtFlag = $target.next().find('input').data('spmt');
+
+        /** colIdx를 기준으로 prevColIdx와 nextColIdx 중 같은 값을 찾고 spmtFlag 체크 **/
+        const hasSpmtInSameCol = () => {
+            let matchedSpmtFlag = false;
+
+            if (colIdx === prevColIdx) {
+                matchedSpmtFlag = spmtFlag || prevSpmtFlag;
+            } else if (colIdx === nextColIdx) {
+                matchedSpmtFlag = spmtFlag || nextSpmtFlag;
+            }
+            return matchedSpmtFlag;
+        };
+
+        const chkSpmtFlag = hasSpmtInSameCol();
+
+        if (chkSpmtFlag) {
+            Swal.fire({
+                title: '출하실적이 있는 재고는 분리할 수 없습니다.',
+                icon: 'error',
+                width:"500px"
+            });
+            return;
+        }
+
         if ($target.attr('colspan') === '2') {
             /**재고가 없거나 1인데 분리시킬떄 **/
             let invntrCnt = parseInt($target.find('input').val()) || 0;
@@ -1512,7 +1564,7 @@
                 if (!$(event.target).val()) {
                     $(event.target).focus();
                 } else {
-                    let inputCnt = $(event.target).val();
+                    let inputCnt = parseInt($(event.target).val());
                     let invntrCnt = parseInt($($invntrToolTip).text());
                     if (invntrCnt - inputCnt <= 0) {
                         Swal.fire({
@@ -1536,7 +1588,7 @@
                 }
             });
             $inputRight.on('focusout', function (event) {
-                let inputCnt = $(event.target).val();
+                let inputCnt = parseInt($(event.target).val());
                 let currentTd = $(event.target).closest('td');
                 let leftTd = currentTd.prev();
                 let leftInput = parseInt(leftTd.find('input').val()) || 0;
@@ -1567,6 +1619,9 @@
                         $(event.target).val(invntrCnt - leftInput);
                         $(event.target).focus();
                     } else {
+                        // 재고수량 맞추기
+                        $(event.target).val(invntrCnt - leftInput);
+
                         //정상입력
                         leftTd.find('span').css('display', 'none');
                         $(leftTd).find('input').attr('disabled', true);
@@ -1589,19 +1644,22 @@
                     /** target의 left right 판단 **/
                     var $input = $target.find("input");
                     var classList = $input.prop("classList");
-                    let total = $input.val();
                     let $td = $input.closest('td');
 
                     if ([...classList].includes("left")) {
-                        let cnt = parseInt($input.val());
-                        cnt += parseInt($td.next().find('input').val());
+                        let cnt = parseInt($td.find('span').text());
+
+                        // DOM 조작
+                        $td.find('span').css('display', 'none');
                         $td.attr("colspan", "2");
-                        $td.find('input').val(cnt);
+                        $td.find('input').val(cnt).removeClass('left');
                         $td.next().remove();
                     } else if ([...classList].includes("right")) {
-                        let cnt = parseInt($input.val());
-                        cnt += parseInt($td.prev().find('input').val());
-                        $td.prev().find('input').val(cnt);
+                        let cnt = parseInt($td.prev().find('span').text());
+
+                        // DOM 조작
+                        $td.prev().find('span').css('display', 'none');
+                        $td.prev().find('input').val(cnt).removeClass('left');
                         $td.prev().attr("colspan", "2");
                         $td.remove();
                     }
@@ -1940,7 +1998,15 @@
         }
 
         let sipan = data.resultList.filter(i => i.cnptNm === '시판');
-        console.log(sipan,"시판");
+        const sumSipan = sipan.reduce((acc, item) => {
+            const gdsGrd = item.gdsGrd;
+            const spmtQntt = parseInt(item.spmtQntt) || 0;
+            acc[gdsGrd] = (acc[gdsGrd] || 0) + spmtQntt;
+            return acc;
+        }, {});
+        console.log(sipan, sumSipan,"시판");
+        /** 시판 합계 출력을 위한 row index **/
+        let rowIndexForSipan = {};
 
         const groupedData = data.resultList.reduce((acc, item) => {
             let key = item.spmtno;
@@ -2007,10 +2073,22 @@
                         if(splitResult){
                             /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
                             let spmtFlag = splitResult.rightInput.data('spmt') === true;
+                            let prevCnptCd = splitResult.leftInput.closest('td').data('cnptCd');
                             /** 출하실적 자리엔 셋팅 **/
-                            splitResult.leftInput.val(parseInt(item.spmtQntt));
+                            if (item.cnptNm === '시판' && prevCnptCd === item.cnptCd) {
+                                // 시판 데이터인 경우 기존 값에 더하기
+                                let currentVal = parseInt(splitResult.leftInput.val()) || 0;
+                                splitResult.leftInput.val(currentVal + parseInt(item.spmtQntt) || '');
+                                // 추가된 시판데이터 반대편 재고 수량 차감
+                                let rightVal = parseInt(splitResult.rightInput.val()) || 0;
+                                splitResult.rightInput.val(rightVal - parseInt(item.spmtQntt) || '');
+                                // 시판 데이터 추가 후 재고 수량 중복 차감 방지
+                                splitResult.rightInput.data('spmt', true);
+                            } else {
+                                splitResult.leftInput.val(parseInt(item.spmtQntt));
+                            }
                             /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
-                            if(!spmtFlag){
+                            if(!spmtFlag && !(item.cnptNm === '시판' && prevCnptCd === item.cnptCd)){
                                 splitResult.rightInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
                             }
 
@@ -2023,10 +2101,22 @@
                         if(splitResult){
                             /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
                             let spmtFlag = splitResult.leftInput.data('spmt') === true;
+                            let prevCnptCd = splitResult.rightInput.closest('td').data('cnptCd');
                             /** 출하실적 자리엔 셋팅 **/
-                            splitResult.rightInput.val(parseInt(item.spmtQntt));
+                            if (item.cnptNm === '시판' && prevCnptCd === item.cnptCd) {
+                                // 시판 데이터인 경우 기존 값에 더하기
+                                let currentVal = parseInt(splitResult.rightInput.val()) || 0;
+                                splitResult.rightInput.val(currentVal + parseInt(item.spmtQntt) || '');
+                                // 추가된 시판데이터 반대편 재고 수량 차감
+                                let leftVal = parseInt(splitResult.leftInput.val()) || 0;
+                                splitResult.leftInput.val(leftVal - parseInt(item.spmtQntt) || '');
+                                // 시판 데이터 추가 후 재고 수량 중복 차감 방지
+                                splitResult.leftInput.data('spmt', true);
+                            } else {
+                                splitResult.rightInput.val(parseInt(item.spmtQntt));
+                            }
                             /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
-                            if(!spmtFlag){
+                            if(!spmtFlag && !(item.cnptNm === '시판' && prevCnptCd === item.cnptCd)){
                                 splitResult.leftInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
                             }
 
@@ -2039,6 +2129,22 @@
                 const $cell = $(cell);
                 $cell.data('cnptCd',item.cnptCd);
                 nArr.push({cell : $(cell), rowIndex : row[0], colIndex : col});
+
+                /** 시판 합계값 출력을 위해 마지막 row 저장*/
+                if (item.cnptNm === '시판') {
+                    const gdsGrd = item.gdsGrd;
+                    const rowIndex = row[0];
+                    const spmtQntt = sumSipan[gdsGrd];
+
+                    if (!rowIndexForSipan[gdsGrd] || rowIndex > rowIndexForSipan[gdsGrd].rowIndex) {
+                            rowIndexForSipan[gdsGrd] = {
+                                $cell: $cell,
+                                rowIndex: rowIndex,
+                                spmtQntt: spmtQntt
+                            };
+                    }
+                }
+
             });
             /** UI 정리 **/
             let sum = 0;
@@ -2085,6 +2191,10 @@
                 /** 2025.05.12 $data로 대체 **/
                 // $(item).css("pointer-events","none");
                 $(item).find("input").data('spmt',true);
+                if (!gfn_isEmpty($(item).data('cnptCd'))) {
+                    $(item).data('cnptCd', cnptCd);
+                    console.log("cellArray", cnptCd, $(item).data('cnptCd'));
+                }
 
                 /** 초기화 **/
                 $(item).removeClass("first end mid");
@@ -2105,23 +2215,29 @@
 
                 if($(item).hasClass('end') || arr.length === 1){
                     /** 마지막 혹은 혼자인 cell **/
-                    const span = document.createElement("span");
-                    span.innerText = sum + "";
-                    Object.assign(span.style, {
-                        position: "absolute",
-                        right: 0,
-                        top: 0,
-                        zIndex: "1000",
-                        border: "1px solid black",
-                        borderRadius: "50%",
-                        width: "20px",
-                        height: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textAlign: "center"
-                    });
-                    $(item).append(span);
+
+                    // 시판 데이터인 경우 기존 span이 있으면 값을 업데이트
+                    const prevSpan = $(item).find('span').last();
+                    if (match.cnptNm !== '시판') {
+                        // 시판이 아니거나 기존 span이 없는 경우 새로 생성
+                        const span = document.createElement("span");
+                        span.innerText = sum + "";
+                        Object.assign(span.style, {
+                            position: "absolute",
+                            right: 0,
+                            top: 0,
+                            zIndex: "1000",
+                            border: "1px solid black",
+                            borderRadius: "50%",
+                            width: "20px",
+                            height: "20px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            textAlign: "center"
+                        });
+                        $(item).append(span);
+                    }
                 }
             });
 
@@ -2135,6 +2251,14 @@
                 $(spmtTotalEl).val(spmtTotal);
             }
         });
+
+        /** 시판 합계 출력 **/
+        Object.keys(rowIndexForSipan).forEach(gdsGrd => {
+            const $cell = rowIndexForSipan[gdsGrd].$cell;
+            const spmtQntt = rowIndexForSipan[gdsGrd].spmtQntt;
+            fn_createTotal($cell, spmtQntt);
+        });
+
         /** 작업 col 초기화 **/
         nowColIdx = 0;
     }
@@ -2421,6 +2545,19 @@
         return $td;
     }
     const fn_addSoloSale = async function () {
+        let flag = SBUxMethod.get("addSoloSaleButton");
+        if(flag == '시판추가 OFF'){
+            /** 시판추가 모드 OFF로 전환 **/
+            $("#sortTable tbody td").off('click.soloSale');
+            SBUxMethod.set("addSoloSaleButton","시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
+            return;
+        }else{
+            /** 시판추가 모드 ON으로 전환 **/
+            SBUxMethod.set("addSoloSaleButton","시판추가 OFF");
+            $("#addSoloSaleButton").addClass("btn_on");
+        }
+
         return new Promise((resolve) => {
             // hover는 마우스를 올리기만 해도 여러 번 발생하니 one() 사용
             $("#sortTable tbody td").one("click.soloSale", function () {
@@ -2471,6 +2608,11 @@
                         $input.focus();
                     }
                 }else{
+
+                    /** 시판추가 버튼 상태 초기화 **/
+                    SBUxMethod.set("addSoloSaleButton","시판추가");
+                    $("#addSoloSaleButton").removeClass("btn_on");
+
                     Swal.fire({
                         title: '시판 거래처가 아닙니다.',
                         icon: 'warning',
@@ -2532,6 +2674,9 @@
                     );
                     /** 등록 이후 원복처리 **/
                     await fn_reset();
+                    /** 시판추가 버튼 상태 초기화 */
+                    SBUxMethod.set("addSoloSaleButton","시판추가");
+                    $("#addSoloSaleButton").removeClass("btn_on");
                 }
             });
         }
