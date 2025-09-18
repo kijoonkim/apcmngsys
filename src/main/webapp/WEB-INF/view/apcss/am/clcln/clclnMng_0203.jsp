@@ -142,6 +142,7 @@
     </div>
   </div>
 </section>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
 <script src="${pageContext.request.contextPath}/js/out/view.bundle.js"></script>
 </body>
 <script type="text/javascript">

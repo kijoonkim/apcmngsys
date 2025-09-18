@@ -24,6 +24,7 @@
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
     <script src="/js/out/view.bundle.js"></script>
 
     <style>

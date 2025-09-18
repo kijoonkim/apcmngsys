@@ -389,6 +389,9 @@
 					<include>**/*.xml</include>
 				</includes>
 			</resource>
+			<resource>
+				<directory>${project.basedir}/dist</directory>
+			</resource>
 		</resources>
 	</build>
 	<profiles>

@@ -23,8 +23,9 @@
     <title>title : 포장 간편등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
-    <script src="/js/out/view.bundle.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
+    <script src="${pageContext.request.contextPath}/js/out/view.bundle.js" type="module"></script>
+<%--    <script src="https://cdn.tailwindcss.com"></script>--%>
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
             border: 0;
@@ -124,6 +125,31 @@
         }
         .tab-content{
             padding: 0!important;
+        }
+        /* 네 로컬 CSS (예: style.css, 혹은 <style> 태그) */
+        .chosung-button {
+            background-color: #ffffff;       /* bg-white */
+            border-width: 2px;               /* border-2 */
+            border-color: #d1d5db;           /* border-gray-300 */
+            border-radius: 0.5rem;           /* rounded-lg = 8px */
+            padding: 1.5rem;                 /* p-6 = 24px */
+            font-size: 3rem;                 /* text-5xl = 48px */
+            line-height: 1;                  /* 5xl 기본 line-height = 1 */
+            font-weight: 700;                /* font-bold */
+            transition-property: all;        /* transition-all */
+            transition-duration: 150ms;      /* 기본 Tailwind duration-150 */
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .chosung-button:hover {
+            background-color: #dbeafe;       /* hover:bg-blue-100 */
+        }
+
+        .grid-wrap {
+            display: grid;                    /* grid */
+            grid-template-columns: repeat(7, minmax(0, 1fr)); /* grid-cols-7 */
+            gap: 1rem;                        /* gap-4 = 16px */
+            padding: 1rem;                    /* p-4 = 16px */
         }
     </style>
 </head>
@@ -287,7 +313,7 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <div class="grid grid-cols-7 gap-4 p-4">
+                                        <div class="grid-wrap">
                                             <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
                                                 ㄱ
                                             </button>
@@ -521,35 +547,7 @@
                inputField.value = currentValue - 1;
            }
        });*/
-        $('#smartwizard').smartWizard({
-            theme: 'arrows', // 'default', 'arrows', 'dots', 'circles'
-            toolbar: {
-                showNextButton: false,  // "Next" 버튼 숨기기
-                showPreviousButton: false,  // "Previous" 버튼 숨기기
-                position: 'none' // 툴바 자체 숨기기
-            },
-            autoAdjustHeight: false,
-            transition: {
-                animation: 'slideHorizontal',
-                speed: '400',
-            },
-            enableAnchorOnDoneStep: true // 완료된 단계는 클릭 가능하게
-        });
 
-        $('#smartwizard').on('showStep', function(e, anchorObject, stepIndex, stepDirection) {
-            if (stepIndex === 5) {
-                fn_search();
-            }
-        });
-
-        $("#vrtyInfoWrap div.grid button").on("click",function(event){
-            let target = event.target.innerText;
-            // let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
-            // let result = prev + target;
-            let result = target;
-            SBUxMethod.set("srch-inp-vrtyInfo",result);
-            fn_onInputVrty(result);
-        });
 
     });
     let carouselObj = {
@@ -594,6 +592,24 @@
     const fn_init = async function(){
         SBUxMethod.set('srch-dtp-pckgYmdFrom',gfn_dateToYmd(new Date()));
         SBUxMethod.set('srch-dtp-pckgYmdTo',gfn_dateToYmd(new Date()));
+        /** smartWizard **/
+        const $wiz = await window.initSmartWizard('#smartwizard', {
+            theme: 'arrows',
+            toolbar: { showNextButton: false, showPreviousButton: false, position: 'none' },
+            autoAdjustHeight: false,
+            transition: { animation: 'slideHorizontal', speed: 400 },
+            anchor: { enableDoneState: true }
+        });
+        await window.onSmartWizard($wiz, 'showStep', (_e,_a,idx) => { if (idx===5) window.fn_search?.(); });
+
+        $("#vrtyInfoWrap div.grid button").on("click",function(event){
+            let target = event.target.innerText;
+            // let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
+            // let result = prev + target;
+            let result = target;
+            SBUxMethod.set("srch-inp-vrtyInfo",result);
+            fn_onInputVrty(result);
+        });
         /** 거래처 **/
         await fn_search_cnpt();
         /** 생산자 **/

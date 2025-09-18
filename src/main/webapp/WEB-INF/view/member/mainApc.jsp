@@ -1040,8 +1040,6 @@
                 SBUxMethod.closeSideMenu('side_menu');
             }
         }
-
-
     });
 
     const fn_modalPopup = async function() {
@@ -1692,6 +1690,8 @@
             $("#pop_wrap").css("display","none");
         }
     }
+
+
 </script>
 
 </html>
