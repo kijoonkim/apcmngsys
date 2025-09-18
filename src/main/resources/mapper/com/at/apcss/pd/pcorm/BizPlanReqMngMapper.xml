@@ -29,7 +29,7 @@
 					EAM.APO_CD,
 					EAM.APO_SE,
 					EAM.BRNO,
-					DECODE(TEA.APRV, '1', '승인형', '2', '육성형', '') AS APRV,
+					DECODE(EAH.APRV, '1', '승인형', '2', '육성형', '') AS APRV,
 					TEA.CRNO,
 					TEA.CORP_NM,
 
@@ -95,8 +95,13 @@
 			  AND RR.APO_SE = EAM.APO_SE
 			  AND RR.DEL_YN = 'N'
 
+			LEFT JOIN TB_EV_APO_HSTRY EAH
+				ON EAH.YR = EAM.YR
+				AND EAH.BRNO = EAM.BRNO
+				AND EAH.DEL_YN = 'N'
+
 			WHERE EAM.APO_SE = '1'
-			  AND TEA.APRV IS NOT NULL
+			  AND EAH.APRV IS NOT NULL
 			  AND NOT EXISTS (
 					SELECT 1
 					FROM TB_COM_USER CU

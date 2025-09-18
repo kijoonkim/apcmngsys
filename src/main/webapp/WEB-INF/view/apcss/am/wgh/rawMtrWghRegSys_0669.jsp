@@ -1427,13 +1427,30 @@
 			  , wrhsSpmtType 	: wrhsSpmtType
   		});
 
+		/** 2025.09.12 출고 팔레트/박스 수량 추가 */
+		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
+				apcCd			: gv_selectedApcCd
+				, jobYmd		: wghYmd
+				, wrhsSpmtSeCd 	: '2'	// 출고
+		});
+
+
   		try {
 
   			const data = await postJsonPromise;
+			const dataForPlt = await postJsonPromiseForPlt;
+
 	        if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
 	        }
+
+			if (!_.isEqual("S", dataForPlt.resultStatus)) {
+				gfn_comAlert(dataForPlt.resultCode, dataForPlt.resultMessage);
+				return;
+			}
+
+			const pltSpmtPrfmnc = dataForPlt.resultList;
 
           	/** @type {number} **/
       		let totalRecordCount = 0;
@@ -1445,6 +1462,14 @@
   				const uniqueArr = [...set];
   				const vrtyNm = uniqueArr.join(", ");
   				wghPrfmnc.vrtyNm = vrtyNm;
+
+				const pltSpmtFilter = pltSpmtPrfmnc.filter(i => i.prcsNo === wghPrfmnc.wghno);
+				const bxQntt = pltSpmtFilter.filter(e => e.pltBxSeCd === "B").reduce((sum, b) => sum + b.qntt, 0);
+				const pltQntt = pltSpmtFilter.filter(e => e.pltBxSeCd === "P").reduce((sum, p) => sum + p.qntt, 0);
+
+				wghPrfmnc.shpgotQntt = bxQntt;
+				wghPrfmnc.shpgotPltQntt = pltQntt;
+
   				jsonWghPrfmnc.push(wghPrfmnc);
   			});
 

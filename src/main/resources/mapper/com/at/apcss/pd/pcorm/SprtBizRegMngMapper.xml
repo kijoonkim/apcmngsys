@@ -653,6 +653,7 @@
             LEFT JOIN VW_EV_UO_APRV EUA
                 ON EUA.BRNO = SBO.BRNO
                 AND EUA.CRNO = SBO.CRNO
+                AND EUA.YR = SBO.SPRT_BIZ_YR
 
             WHERE SBA.DEL_YN = 'N'
               AND SBA.ATCH_FILE_SN = #{atchFileSn}

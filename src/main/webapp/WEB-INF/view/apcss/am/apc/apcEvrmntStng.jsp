@@ -737,6 +737,23 @@
     <div id="body-modal-spmtSlsUntprcReg">
     	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
+
+	<!-- 상품별 거래처 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-spmtPckgUnitCnpt" name="modal-spmtPckgUnitCnpt" uitype="middle" header-title="상품별 거래처 등록" body-html-id="body-modal-spmtPckgUnitCnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-spmtPckgUnitCnpt">
+		<jsp:include page="../apc/spmtPckgUnitCnptMngPopup.jsp"></jsp:include>
+	</div>
+
+	<!-- 거래처별 상품 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-cnptSpmtPckgUnit" name="modal-cnptSpmtPckgUnit" uitype="middle" header-title="거래처별 상품 등록" body-html-id="body-modal-cnptSpmtPckgUnit" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-cnptSpmtPckgUnit">
+		<jsp:include page="../apc/cnptSpmtPckgUnitMngPopup.jsp"></jsp:include>
+	</div>
+
     <!-- 원산지 등록 Modal -->
     <div>
         <sbux-modal id="modal-plor" name="modal-plor" uitype="middle" header-title="원산지 등록" body-html-id="body-modal-plor" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
@@ -1246,15 +1263,39 @@
            		grdSpmtPckgUnit.setCellDisabled(grdSpmtPckgUnit.getRows() -1, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, true);
             }else if(grid === "grdSpmtSlsUntprcReg"){
 
-            	let apcCdCol = grdSpmtSlsUntprcReg.getColRef("apcCd");
-            	let spmtPckgUnitCdCol = grdSpmtSlsUntprcReg.getColRef("spmtPckgUnitCd");
-            	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
-            	grdSpmtSlsUntprcReg.setCellData(nRow, spmtPckgUnitCdCol, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
-            	grdSpmtSlsUntprcReg.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
-            	grdSpmtSlsUntprcReg.addRow(true);
-            	grdSpmtSlsUntprcReg.setCellDisabled(0, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, false);
-            	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
-            }
+				let apcCdCol = grdSpmtSlsUntprcReg.getColRef("apcCd");
+				let spmtPckgUnitCdCol = grdSpmtSlsUntprcReg.getColRef("spmtPckgUnitCd");
+				grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
+				grdSpmtSlsUntprcReg.setCellData(nRow, spmtPckgUnitCdCol, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
+				grdSpmtSlsUntprcReg.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
+				grdSpmtSlsUntprcReg.addRow(true);
+				grdSpmtSlsUntprcReg.setCellDisabled(0, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, false);
+				grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
+			}else if(grid === "grdSpmtPckgUnitCnpt"){
+
+				let apcCdCol = grdSpmtPckgUnitCnpt.getColRef("apcCd");
+				let spmtPckgUnitCdCol = grdSpmtPckgUnitCnpt.getColRef("spmtPckgUnitCd");
+				let useYnCol = grdSpmtPckgUnitCnpt.getColRef("useYn");
+
+				grdSpmtPckgUnitCnpt.setCellData(nRow, nCol, "N", true);
+				grdSpmtPckgUnitCnpt.setCellData(nRow, spmtPckgUnitCdCol, SBUxMethod.get("spmtPckgUnitCnpt-inp-spmtPckgUnitCd"), true);
+				grdSpmtPckgUnitCnpt.setCellData(nRow, useYnCol, "Y", true);
+				grdSpmtPckgUnitCnpt.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
+				grdSpmtPckgUnitCnpt.addRow(true);
+				grdSpmtPckgUnitCnpt.setCellDisabled(0, 0, grdSpmtPckgUnitCnpt.getRows() -1, grdSpmtPckgUnitCnpt.getCols() -1, false);
+				grdSpmtPckgUnitCnpt.setCellDisabled(grdSpmtPckgUnitCnpt.getRows() -1, 0, grdSpmtPckgUnitCnpt.getRows() -1, grdSpmtPckgUnitCnpt.getCols() -1, true);
+			}else if(grid === "grdCnptSpmtPckgUnit"){
+
+				let apcCdCol = grdCnptSpmtPckgUnit.getColRef("apcCd");
+				let useYnCol = grdCnptSpmtPckgUnit.getColRef("useYn");
+
+				grdCnptSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
+				grdCnptSpmtPckgUnit.setCellData(nRow, useYnCol, "Y", true);
+				grdCnptSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
+				grdCnptSpmtPckgUnit.addRow(true);
+				grdCnptSpmtPckgUnit.setCellDisabled(0, 0, grdCnptSpmtPckgUnit.getRows() -1, grdCnptSpmtPckgUnit.getCols() -1, false);
+				grdCnptSpmtPckgUnit.setCellDisabled(grdCnptSpmtPckgUnit.getRows() -1, 0, grdCnptSpmtPckgUnit.getRows() -1, grdCnptSpmtPckgUnit.getCols() -1, true);
+			}
         }
         else if (gubun === "DEL") {
             if (grid === "grdCnpt") {
@@ -1386,16 +1427,46 @@
             		grdSpmtPckgUnit.deleteRow(nRow);
             	}
             }else if (grid === "grdSpmtSlsUntprcReg") {
-            	if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
-            		if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
-            			var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
-            			fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
-            			grdSpmtSlsUntprcReg.deleteRow(nRow);
-            		}
-            	}else{
-            		grdSpmtSlsUntprcReg.deleteRow(nRow);
-            	}
-            }
+				if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
+					if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+						var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
+						fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+						grdSpmtSlsUntprcReg.deleteRow(nRow);
+					}
+				}else{
+					grdSpmtSlsUntprcReg.deleteRow(nRow);
+				}
+			}else if (grid === "grdSpmtSlsUntprcReg") {
+				if(grdSpmtSlsUntprcReg.getRowStatus(nRow) == 0 || grdSpmtSlsUntprcReg.getRowStatus(nRow) == 2){
+					if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+						var spmtSlsUntprcRegVO = grdSpmtSlsUntprcReg.getRowData(nRow);
+						fn_deleteSpmtSlsUntprcReg(spmtSlsUntprcRegVO);
+						grdSpmtSlsUntprcReg.deleteRow(nRow);
+					}
+				}else{
+					grdSpmtSlsUntprcReg.deleteRow(nRow);
+				}
+			}else if (grid === "grdSpmtPckgUnitCnpt") {
+				if(grdSpmtPckgUnitCnpt.getRowStatus(nRow) == 0 || grdSpmtPckgUnitCnpt.getRowStatus(nRow) == 2){
+					if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+						var spmtPckgUnitCnptVO = grdSpmtPckgUnitCnpt.getRowData(nRow);
+						fn_deleteSpmtPckgUnitCnpt(spmtPckgUnitCnptVO);
+						grdSpmtPckgUnitCnpt.deleteRow(nRow);
+					}
+				}else{
+					grdSpmtPckgUnitCnpt.deleteRow(nRow);
+				}
+			}else if (grid === "grdCnptSpmtPckgUnit") {
+				if(grdCnptSpmtPckgUnit.getRowStatus(nRow) == 0 || grdCnptSpmtPckgUnit.getRowStatus(nRow) == 2){
+					if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+						var cnptSpmtPckgUnitVO = grdCnptSpmtPckgUnit.getRowData(nRow);
+						fn_deleteCnptSpmtPckgUnit(cnptSpmtPckgUnitVO);
+						grdCnptSpmtPckgUnit.deleteRow(nRow);
+					}
+				}else{
+					grdCnptSpmtPckgUnit.deleteRow(nRow);
+				}
+			}
         }
     }
 

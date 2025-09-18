@@ -118,6 +118,9 @@
                   <span style="font-size:12px">(조회건수 <span id="dtbnMngList">0</span>건 )</span>
                 </li>
               </ul>
+              <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+                  <div><sbux-button id="btnSaveDtbn" name="btnSaveDtbn" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_saveDtbnRmrk()"></sbux-button></div>
+              </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-dtbnMng" style="height: 300px"></div>
@@ -295,9 +298,13 @@
                   <span style="font-size:12px">(조회건수 <span id="clclnAplyList">0</span>건 )</span>
                 </li>
               </ul>
-       <%--       <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
-                <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
-              </c:if>--%>
+              <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+                <div style="display:flex; gap:10px; align-items:center; justify-content: end">
+                  <div><sbux-select id="dtl-slt-clclnDownSeq" name="dtl-slt-clclnDownSeq" class="form-control input-sm" uitype="single" jsondata-ref="jsonClclnSeq"></sbux-select></div>
+                  <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
+                  <div><sbux-button id="btnSaveClclnRmrk" name="btnSaveClclnRmrk" uitype="normal" text="비고 저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRmrk()"></sbux-button></div>
+                </div>
+              </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnAply" style="height: 300px"></div>
@@ -431,6 +438,7 @@
                 </ul>
                 <div>
                   <sbux-button id="btnExsSbmsnPrufDoc" name="btnExsSbmsnPrufDoc" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_addPrufSbmsn"></sbux-button>
+                  <sbux-button id="btnDelExsPrufDoc" name="btnDelExsPrufDoc" uitype="normal" text="삭제" class="btn btn-sm btn-primary" onclick="fn_delExsPrufRow"></sbux-button>
                 </div>
               </div>
 
@@ -441,16 +449,16 @@
                     <table class="table table-bordered tbl_fixed">
                       <colgroup>
                         <col style="width: 3%">
-                        <col style="width: 10%">
-                        <col style="width: 15%">
-                        <col style="width: 14%">
+                        <col style="width: 13%">
+                        <col style="width: 13%">
+                        <col style="width: 13%">
                         <col style="width: 10%">
                         <col style="width: 18%">
                         <col style="width: 18%">
                         <col style="width: 12%">
                       </colgroup>
                       <tr>
-                        <th scope="col" class="th_bg text-center">No.</th>
+                        <th scope="col" class="th_bg text-center">선택</th>
                         <th scope="col" class="th_bg text-center">주요항목</th>
                         <th scope="col" class="th_bg text-center">세부항목</th>
                         <th scope="col" class="th_bg text-center">내용</th>
@@ -534,7 +542,7 @@
 </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
-            <div id="sb-area-clclnRslt" style="height: 300px"></div>
+            <div id="sb-area-clclnRslt" style="height: 530px"></div>
           </div>
         </div>
       </div>
@@ -686,6 +694,7 @@
     SBGridProperties.selectmode = 'free';
     SBGridProperties.allowcopy = true;
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.oneclickedit = true;
 
     SBGridProperties.columns = [
       {caption: ['연도','연도'],			ref: 'sprtBizYr', 	    width: '5%', type: 'output',style: 'text-align:center'},
@@ -698,8 +707,8 @@
       {caption: ['정산요청서','정산요청액(천원)'], 			ref: 'dmndAmtTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       /*{caption: ['증빙서류','제출여부'], 			ref: 'prufSbmsnYn', 	width: '7%', type: 'output', style: 'text-align:right'},
       {caption: ['증빙서류','확인여부'], 			ref: 'prufAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},*/
-      {caption: ['증빙서류','미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
-      {caption: ['증빙서류','비고'], 			ref: 'prufRmrk', 		width: '34%', type: 'output', style: 'text-align:left'},
+      {caption: ['증빙서류\n미리보기','증빙서류\n미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
+      {caption: ['비고','비고'], 			ref: 'clclnRmrk', 		width: '34%', type: 'input', style: 'text-align:left'},
     ];
     gridClclnAply = _SBGrid.create(SBGridProperties);
     gridClclnAply.bind('click','fn_clickGridClclnAply');
@@ -738,7 +747,7 @@
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','합계'], 			ref: 'blncTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '19%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule: '0.0 %'}},
+      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '9%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule: '0.0 %'}},
     ];
     gridClclnRslt = _SBGrid.create(SBGridProperties);
     gridClclnRslt.bind('valuechanged','fn_clclnRsltValueChange');
@@ -780,7 +789,7 @@
       {caption: ['2차 교부결정액','금액'], 			ref: 'dtbnDcsnAmt2', 		width: '6%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['2차 교부결정액','교부결정서'], 			ref: 'dtbnDcsnDoc2', 		width: '6%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '다운로드', callback: function(){fn_dwnldDtbnDcsnDoc(2)}}},
       {caption: ['잔액','잔액'], 			ref: 'blnc', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['비고','비고'], 			ref: 'rmrk', 		width: '20%', type: 'input', style: 'text-align:center'},
+      {caption: ['비고','비고'], 			ref: 'rmrk', 		width: '20%', type: 'input', style: 'text-align:left',userattr: {colNm: "dtbnRmrk"}},
     ];
     gridDtbnMng = _SBGrid.create(SBGridProperties);
     gridDtbnMng.bind('valuechanged','fn_gridDtbnMngValueChange');
@@ -849,8 +858,11 @@
    * @description 조회
    */
   const fn_search = async function () {
-    await fn_searchClclnAply(); // 정산신청
+    fn_clear();
+    fn_clearPruf(); // 증빙서류 신규 초기화
+    fn_clearExsPruf(); // 기제출 증빙서류 초기화
     await fn_searchDtbnMng(); // 교부관리
+    await fn_searchClclnAply(); // 정산신청
     await fn_searchClclnRslt(); // 정산결과
   }
 
@@ -1075,6 +1087,7 @@
             regDt : item.regDt,
             idfr : item.idfr,
             idfrDt : item.idfrDt,
+            rmrk : item.idfrRmrk,
 
             // 교부결정
             clclnSeqFirst : item.clclnSeqFirst,
@@ -1140,6 +1153,9 @@
       } else {
         fn_calcDtbnSum(checkedData); // 선택
       }
+      gridDtbnMng.refresh();
+    } else if (colNm, "dtbnRmrk") {
+      rowData.checkedYn = "Y";
       gridDtbnMng.refresh();
     }
   }
@@ -1586,6 +1602,7 @@
             chkChgYn : item.chkChgYn,
 
             dmndAmtTot : item.dmndAmtTot,
+            clclnRmrk : item.rsnRmrk
           };
 
          /* const vo1 = { ...vo, clclnSeq: item.clclnSeq};
@@ -2310,6 +2327,10 @@
       objDoc.initList.forEach(item => {
         const td = document.createElement("td");
 
+        if (_.isEqual(item.elementKey,'dmndCheck')) {
+          td.style.textAlign = 'center';
+        }
+
         const id = objDoc.prefix + item.id + String(seq);
         const element = document.createElement(item.type); // sbux-input, subx-select, div
         element.setAttribute("id", id);
@@ -2369,6 +2390,10 @@
       // 삭제때문 변경
 
       objRows[seq] = row;
+
+      // 항목추가할때 체크 Y로 설정
+      const idCheck = objDoc.prefix + 'chk-dmndCheck' + seq; // prefix : tbl-doc-
+      SBUxMethod.set(idCheck,"Y");
 
     } catch (e) {
       if (!(e instanceof Error)) {
@@ -2768,37 +2793,55 @@
     getInitCol: function(_knd) {
       let col = -1;
       switch (_knd) {
-        case "DMND_SEQ":	// 요청순서
+        case "PRUF_CHECK":	// 선택
           col = 0;
           break;
-        case "MAJOR_ARTICLE":	// 주요항목
+        case "DMND_SEQ":	// 요청순서
           col = 1;
           break;
-        case "ARTICLE":			// 세부항목
+        case "MAJOR_ARTICLE":	// 주요항목
           col = 2;
           break;
-        case "DMND_CN":			// 요청내용
+        case "ARTICLE":			// 세부항목
           col = 3;
           break;
-        case "DMND_AMT":		// 요청금액
+        case "DMND_CN":			// 요청내용
           col = 4;
           break;
-        case "PRUF_DOC_BSC":	// 공통증빙
+        case "DMND_AMT":		// 요청금액
           col = 5;
           break;
-        case "PRUF_DOC":		// 증빙서류
+        case "PRUF_DOC_BSC":	// 공통증빙
           col = 6;
           break;
-        case "DMND_RMRK":		// 비고
+        case "PRUF_DOC":		// 증빙서류
           col = 7;
+          break;
+        case "DMND_RMRK":		// 비고
+          col = 8;
           break;
       }
       return col;
     },
     initList : [
       // attribute default (id, name)
-      // 요청순서
       {
+        isSBUx: true,
+        elementKey: "dmndCheck",
+        type: "sbux-checkbox",
+        id: "chk",
+        attributes: {
+          "uitype": "normal",
+          "class": "form-control input-sm input-sm-ast",
+          "true-value": "Y",
+          "false-value": "N",
+        },
+        exAttributes: {
+        },
+        exEvents: [],
+      },
+      // 요청순서
+     /* {
         isSBUx: true,
         elementKey: "dmndSeq",
         type: "sbux-label",
@@ -2808,7 +2851,7 @@
         },
         contents: {
         }
-      },
+      },*/
       // 1 행 : 주요항목
       {
         isSBUx: true,
@@ -2944,6 +2987,20 @@
         },
         exEvents: [],
       },
+      {
+        isSBUx: true,
+        elementKey: "dmndSeq",
+        type: "sbux-input",
+        id: "inp-dmndSeq",
+        attributes: {
+          "uitype": "hidden",
+          "class": "form-control input-sm input-sm-ast",
+          "readonly" : "true"
+        },
+        exAttributes: {
+        },
+        exEvents: [],
+      },
     ],
   }
 
@@ -2951,6 +3008,7 @@
   function ExsDmndRow(_nRow) {
     this.row = _nRow;
     this.elementsId = {
+      dmndCheck : {id:""},
       dmndSeq : {id:""},
       dmndArtclKndNm: {id: ""},
       dmndArtclKnd: {id: ""},
@@ -2968,6 +3026,10 @@
   // 추가제출용
   const exsRows = Object.create(null);
 
+  /**
+   * @name fn_createExsDocRow
+   * @description 기제출 증빙서류 행 만들기
+   */
   const fn_createExsDocRow = function(_prufObj) {
     const div = document.getElementById('exsPrufDoc');
     div.style.display = "block";
@@ -3002,6 +3064,10 @@
           const td = document.createElement('td');
           td.style.verticalAlign = 'top';
 
+          if (_.isEqual(item.elementKey,'dmndCheck')) {
+            td.style.textAlign = 'center';
+          }
+
           const id = exsObjPrufDoc.prefix + item.id + seq;
           const el = document.createElement(item.type); // sbux-input / sbux-textarea / div / label
           el.setAttribute('id', id);
@@ -3034,6 +3100,7 @@
         sbuxList.forEach(id => SBUxMethod.render("#" + id));
 
         // 값 set
+        // prefix : tbl-exs-doc-
         const idDmndSeq = exsObjPrufDoc.prefix + 'inp-dmndSeq' + seq;
         const idMajorNm   = exsObjPrufDoc.prefix + 'inp-majorArticleNm' + seq;
         const idArticleNm = exsObjPrufDoc.prefix + 'inp-articleNm' + seq;
@@ -3043,7 +3110,8 @@
         const idMajor   = exsObjPrufDoc.prefix + 'inp-majorArticle' + seq;
         const idArticle = exsObjPrufDoc.prefix + 'inp-article' + seq;
 
-        document.getElementById(idDmndSeq).innerText = row.dmndSeq;
+        // document.getElementById(idDmndSeq).innerText = row.dmndSeq;
+        SBUxMethod.set(idDmndSeq,row.dmndSeq);
         SBUxMethod.set(idMajorNm,row.dmndArtclKndNm);
         SBUxMethod.set(idMajor,row.dmndArtclKnd);
         SBUxMethod.set(idArticleNm,row.dmndArtclCdNm);
@@ -3383,6 +3451,31 @@
       return;
     }
 
+    const trPrefix = exsObjPrufDoc.prefix + 'tr';             // "tbl-exs-doc-"
+    const chkPrefix = exsObjPrufDoc.prefix + 'chk';  // "tbl-exs-doc-chk"
+
+    // 저장(업데이트)목록
+    const updateSeqList = [];
+
+    // 선택된 tr만
+    trs.forEach(tr => {
+      const trId = tr.id || '';
+      if (!trId.startsWith(trPrefix)) return;
+
+      const seq = Number(trId.slice(trPrefix.length));
+      const chkId = chkPrefix + String(seq);
+
+      let checked = false;
+      checked = (SBUxMethod.get(chkId)[chkId] === 'Y');
+      if (checked) updateSeqList.push({tr, seq});
+    });
+
+
+    if (gfn_isEmpty(updateSeqList)) {
+      gfn_comAlert("W0003","증빙서류 제출"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
     var formData = new FormData();
 
     // 저장 obj
@@ -3395,9 +3488,13 @@
       clclnFileInfoList: [] // 파일정보리스트
     }
 
-    Object.keys(exsRows).forEach(function(seq){
-      const row = exsRows[seq];
-      const elementsId = row.elementsId;
+    // Object.keys(exsRows).forEach(function(seq){
+    for (let i =0; i < updateSeqList.length; i++) {
+      // const row = exsRows[seq];
+      // const elementsId = row.elementsId;
+      const seq = updateSeqList[i].seq;
+      const exsRow = exsRows[seq];
+      const elementsId = exsRow.elementsId;
 
       // elementId
       const majorId = elementsId.dmndArtclKnd.id;  // 주요항목
@@ -3415,7 +3512,8 @@
       const artclVl = SBUxMethod.get(artclId); // 세부항목
       const amtVl = SBUxMethod.get(amtId); // 금액
       const rmrkVl = SBUxMethod.get(rmrkId); // 비고
-      const dmndSeq = document.getElementById(dmndSeqId).textContent; // 정산요청순번
+      // const dmndSeq = document.getElementById(dmndSeqId).textContent; // 정산요청순번
+      const dmndSeq = SBUxMethod.get(dmndSeqId);
 
       let titleVl = SBUxMethod.get(cnId); // 내용
       if (titleVl === null || titleVl === undefined || titleVl === "null") {
@@ -3486,8 +3584,10 @@
         }
       });
 
-    });
+    }
     formData.append('updateObj',JSON.stringify(updateObj));
+
+
 
     if (!gfn_comConfirm("Q0001", "증빙서류 변경 저장")) {	//	Q0001	{0} 하시겠습니까?
       return;
@@ -3565,7 +3665,7 @@
 
     const url = "/pd/sprt/clclnPurfPrvwPopup.do";
     const title = "증빙서류 미리보기";
-    window.open(url, title, "width=1000px,height=900px");
+    window.open(url, title, "width=1200px,height=900px");
   }
 
   // 증빙서류 팝업에서 사용
@@ -3582,14 +3682,11 @@
    * @name fn_downAllPrufDoc
    * @description 증빙서류 일괄 다운로드
    */
-/*  const fn_downAllPrufDoc = function () {
+  const fn_downAllPrufDoc = function () {
     const sprtBizYr = SBUxMethod.get('dtl-spi-yr'); // 지업사업연도
-    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnAplySeq')); // 회차
+    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnDownSeq')); // 회차
     const brno   = SBUxMethod.get('dtl-inp-brno')   || ""; // 사업자번호
     const corpNm = SBUxMethod.get('dtl-inp-corpNm') || ""; // 법인명
-    console.log("일괄다운",clclnSeq, typeof clclnSeq, typeof Number(clclnSeq));
-    console.log("brno",brno,"corpNm",corpNm);
-    console.log(gfn_isEmpty(brno));
 
     if (gfn_isEmpty(sprtBizYr)) {
       gfn_comAlert("W0005", "연도"); // W0005  {0}이/가 없습니다.
@@ -3609,7 +3706,194 @@
             + "&clclnSeq=" + clclnSeq + "&brno=" + brno + "&corpNm=" + corpNm;
 
     window.open(url);
-  }*/
+  }
+
+  /**
+   * @name fn_delExsPrufRow
+   * @description 제출된 증빙 행삭제
+   */
+  async function fn_delExsPrufRow() {
+    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnAplySeq')); // 회차
+    const sprtBizYr = SBUxMethod.get('dtl-inp-clclnAplySprtBizYr'); // 지업사업연도
+    const sprtBizCd = SBUxMethod.get('dtl-inp-clclnAplySprtBizCd'); // 지업사업코드
+    const sprtOgnzId = SBUxMethod.get('dtl-inp-clclnAplySprtOgnzId'); // 지업조직아이디
+
+    const tbody = document.getElementById('pruf-tbody');
+    // 직계 tr만
+    const trs = Array.from(tbody.querySelectorAll(':scope > tr'));
+
+    const trPrefix = exsObjPrufDoc.prefix + 'tr';             // "tbl-exs-doc-"
+    const chkPrefix = exsObjPrufDoc.prefix + 'chk';  // "tbl-exs-doc-chk"
+    const dmndSeqPrefix = exsObjPrufDoc.prefix + 'inp-dmndSeq'; // "tbl-exs-doc-inp-dmndSeq"
+
+    // 삭제리스트
+    const deleteList = [];
+
+    trs.forEach(tr => {
+
+      const trId = tr.id || '';
+      if (!trId.startsWith(trPrefix)) return;
+
+      const seq = Number(trId.slice(trPrefix.length));
+      const chkId = chkPrefix + String(seq);
+      const dmndSeqId = dmndSeqPrefix + String(seq);
+      // const dmndSeq = Number(document.getElementById(dmndSeqId).textContent);
+      const dmndSeq = SBUxMethod.get(dmndSeqPrefix + seq);
+
+      let checked = false;
+      checked = (SBUxMethod.get(chkId)[chkId] === 'Y');
+      if (checked) {
+        deleteList.push({
+          sprtBizYr: sprtBizYr,
+          sprtBizCd: sprtBizCd,
+          sprtOgnzId: sprtOgnzId,
+          clclnSeq: clclnSeq,
+          dmndSeq: dmndSeq
+        });
+      }
+    });
+
+
+    if (deleteList.length === 0) {
+      gfn_comAlert("W0003", "삭제"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")) { //	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/deleteClclnDmndList.do", deleteList);
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        fn_clearPruf(); // 증빙서류 제출 폼 초기화
+        fn_clearExsPruf(); // 기제출 초기화
+        await fn_search(); // 조회
+        gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+      } else {
+        console.log(data.resultCode, data.resultMessage);
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+    }  catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.log(data.resultMessage);
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  /**
+   * @name fn_saveClclnRmrk
+   * @description 정산신청 비고 저장
+   */
+  const fn_saveClclnRmrk = async function () {
+    const allData = gridClclnAply.getGridDataAll();
+
+    const saveList = [];
+
+    for (let i = 0; i < allData.length; i++) {
+      if (_.isEqual(gridClclnAply.getRowStatus(i + 2), 2)) { // 상태가 수정인 경우
+        saveList.push({
+          sprtBizYr: allData[i].sprtBizYr,
+          sprtBizCd: allData[i].sprtBizCd,
+          sprtOgnzId: allData[i].sprtOgnzId,
+          clclnSeq: allData[i].clclnSeq,
+          rsnRmrk: allData[i].clclnRmrk,
+        });
+      }
+    }
+
+    if (gfn_isEmpty(saveList)) {
+      gfn_comAlert("W0003", "정산신청 비고 저장"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "정산신청 비고저장")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/updateClclnAplyRmrk.do", saveList);
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        fn_clear();
+        fn_clearExsPruf();
+        fn_clearPruf();
+        await fn_search();
+      } else {
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  /**
+   * @name fn_saveDtbnRmrk
+   * @description 교부관리 비고 저장
+   */
+  const fn_saveDtbnRmrk = async function () {
+    const allData = gridDtbnMng.getGridDataAll();
+
+    const saveList = [];
+
+    for (let i = 0; i < allData.length; i++) {
+      if (_.isEqual(allData[i].checkedYn, "Y")) { // 상태가 수정이면서 체크된 상태
+        const aplyDocCd = allData[i].aplyDocCd != null ? allData[i].aplyDocCd : "DTBN_APLY";
+
+        saveList.push({
+          sprtBizYr: allData[i].yr,
+          sprtBizCd: allData[i].sprtBizCd,
+          sprtOgnzId: allData[i].sprtOgnzId,
+          aplyDocCd: aplyDocCd,
+          idfrRmrk: allData[i].rmrk
+        });
+      }
+    }
+
+    if (gfn_isEmpty(saveList)) {
+      gfn_comAlert("W0003", "교부관리 저장"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "교부관리 저장")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/updateDtbnRmrk.do", saveList);
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        fn_clear();
+        fn_clearExsPruf();
+        fn_clearPruf();
+        await fn_search();
+      } else {
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+
+  }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

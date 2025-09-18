@@ -24,7 +24,7 @@
 			SELECT /* com.at.apcss.pd.pcorm.mapper.SrvyMapper.selectSrvyList */
 				TES.YR
 				, TES.USER_ID
-				, (SELECT DECODE(APRV , '1' , '승인형' , '2' , '육성형' , '')
+				/*, (SELECT DECODE(APRV , '1' , '승인형' , '2' , '육성형' , '')
 					FROM TB_EV_APO
 					WHERE 1=1
 					  AND BRNO = (SELECT BRNO
@@ -40,20 +40,34 @@
 					  				FROM TB_COM_USER
 					  				WHERE 1=1
 					  				  AND USER_ID = TES.USER_ID)
-				) AS CORP_NM
+				) AS CORP_NM*/
 				, TES.SRVY_KND
 				, TES.SRVY_SN
 				, TES.SRVY_CN
 				, TES.RSPNS_CN
+
+				, DECODE(EAH.APRV, '1','승인형', '2','육성형', '') AS APRV
+				, EAH.CORP_NM AS CORP_NM
 			FROM TB_EV_SRVY TES
-			WHERE 1=1
+
+			LEFT JOIN TB_COM_USER CU
+				ON CU.USER_ID = TES.USER_ID
+				AND CU.DEL_YN = 'N'
+
+			LEFT JOIN TB_EV_APO_HSTRY EAH
+				ON EAH.BRNO = CU.BRNO
+				AND EAH.YR = TES.YR
+				AND EAH.APO_SE = 1
+				AND EAH.DEL_YN = 'N'
+
+		WHERE 1=1
 			  AND TES.USER_ID NOT IN ('at11','at12','at13','at14','at15','at16','at17','at51'
 										, 'at21','at22','at23','at24','at25','at26','at27','at61')
 			<if test='yr != null and yr != ""'>
 			  AND TES.YR = #{yr}
 			</if>
 			<if test='aprv != null and aprv != ""'>
-			  AND #{aprv} = (SELECT APRV FROM TB_EV_APO WHERE BRNO = (SELECT BRNO FROM TB_COM_USER WHERE USER_ID = TES.USER_ID) AND APO_SE = '1')
+			  AND EAH.APRV = #{aprv}
 			</if>
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>

@@ -1,27 +1,25 @@
 package com.at.apcss.am.sort.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import com.at.apcss.am.sort.vo.*;
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.*;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Class Name : SortPrfmncServiceImpl.java
@@ -274,6 +272,13 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
         List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);
 
         return resultList;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception {
+        List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectSortRslt(sortRslt);
+
+        return resultVO;
     }
 
     @Override
