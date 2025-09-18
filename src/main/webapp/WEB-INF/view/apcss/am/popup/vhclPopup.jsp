@@ -186,7 +186,7 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
+		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'output', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
