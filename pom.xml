@@ -29,6 +29,16 @@
 		<java.version>11</java.version>
 		<org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<thirdparty.dir>${project.basedir}/src/main/webapp/WEB-INF/lib</thirdparty.dir>
+		<jeus.excludes>
+			WEB-INF/lib/project/tibero6/6.0.0/tibero6-6.0.0.jar,
+			WEB-INF/lib/com/softbowl/poi/sbexcel/1.1/sbexcel-1.1.jar,
+			WEB-INF/lib/com/softbowl/poi/sbloadexcel/1.23/sbloadexcel-1.23.jar,
+			WEB-INF/lib/com/ubintis/passni-sso-agent/4.0.007/passni-sso-agent-4.0.007.jar,
+			WEB-INF/lib/com/ubintis/passni-sso-agent-external-lib/1.0/passni-sso-agent-external-lib-1.0.jar,
+			WEB-INF/lib/com/ubintis/PniccJNI/1.1/PniccJNI-1.1.jar,
+			WEB-INF/lib/com/easycerti/EzFilter/1.0/EzFilter-1.0.jar
+		 </jeus.excludes>
 	</properties>
 
 	<repositories>
@@ -200,12 +210,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>project</groupId>
-			<artifactId>tibero6</artifactId>
-			<version>6.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
@@ -255,16 +259,6 @@
 			<version>1.1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.softbowl.poi</groupId>
-			<artifactId>sbexcel</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.softbowl.poi</groupId>
-			<artifactId>sbloadexcel</artifactId>
-			<version>1.23</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.11</version>
@@ -278,26 +272,6 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ubintis</groupId>
-			<artifactId>passni-sso-agent</artifactId>
-			<version>4.0.007</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ubintis</groupId>
-			<artifactId>passni-sso-agent-external-lib</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ubintis</groupId>
-			<artifactId>PniccJNI</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.easycerti</groupId>
-			<artifactId>EzFilter</artifactId>
-			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -323,6 +297,68 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+
+<!--		외부 jar		-->
+		<!-- Tibero -->
+		<dependency>
+			<groupId>com.tmax.tibero</groupId>
+			<artifactId>tibero6</artifactId>
+			<version>6.0.0</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/project/tibero6/6.0.0/tibero6-6.0.0.jar</systemPath>
+		</dependency>
+
+		<!-- Softbowl: sbexcel 1.1 -->
+		<dependency>
+			<groupId>com.softbowl.poi</groupId>
+			<artifactId>sbexcel</artifactId>
+			<version>1.1</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/softbowl/poi/sbexcel/1.1/sbexcel-1.1.jar</systemPath>
+		</dependency>
+
+		<!-- Softbowl: sbloadexcel 1.23 -->
+		<dependency>
+			<groupId>com.softbowl.poi</groupId>
+			<artifactId>sbloadexcel</artifactId>
+			<version>1.23</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/softbowl/poi/sbloadexcel/1.23/sbloadexcel-1.23.jar</systemPath>
+		</dependency>
+
+		<!-- Ubintis PASSNI SSO -->
+		<dependency>
+			<groupId>com.ubintis.passni-sso-agent</groupId>
+			<artifactId>passni-sso-agent</artifactId>
+			<version>4.0.007</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/ubintis/passni-sso-agent/4.0.007/passni-sso-agent-4.0.007.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.ubintis.passni-sso-agent</groupId>
+			<artifactId>passni-sso-agent-external-lib</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/ubintis/passni-sso-agent-external-lib/1.0/passni-sso-agent-external-lib-1.0.jar</systemPath>
+		</dependency>
+
+		<!-- PniciJNI 1.1 -->
+		<dependency>
+			<groupId>com.ubintis</groupId>
+			<artifactId>PniccJNI</artifactId>
+			<version>1.1</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/ubintis/PniccJNI/1.1/PniccJNI-1.1.jar</systemPath>
+		</dependency>
+
+		<!-- easycerti EzFilter 1.0 -->
+		<dependency>
+			<groupId>com.easycerti</groupId>
+			<artifactId>EzFilter</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${thirdparty.dir}/com/easycerti/EzFilter/1.0/EzFilter-1.0.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -332,13 +368,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.10.0.2594</version>
-				<!--<version>3.7.0.1746</version>-->
 			</plugin>
 		</plugins>
 		<resources>
@@ -353,4 +391,40 @@
 			</resource>
 		</resources>
 	</build>
+	<profiles>
+		<!-- ===== 1) tomcat: 외부 JAR 포함 (기본 활성) ===== -->
+		<profile>
+			<id>tomcat</id>
+			<activation><activeByDefault>true</activeByDefault></activation>
+			<!-- 별도 설정 없어도 됨: 위 system 의존성 그대로 포함 -->
+		</profile>
+
+		<!-- ===== 2) jeus: 외부 JAR을 WAR에서 제외 ===== -->
+		<profile>
+		    <id>jeus</id>
+		    <build>
+		        <plugins>
+		            <!-- Exclude external/provider jars from JEUS-targeted WARs -->
+		            <plugin>
+		                <groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-war-plugin</artifactId>
+		                <version>3.4.0</version>
+		                <configuration>
+		                    <packagingExcludes>${jeus.excludes}</packagingExcludes>
+		                </configuration>
+		            </plugin>
+
+		            <!-- Safety: don't include system-scoped deps when repackage under JEUS profile -->
+		            <plugin>
+		                <groupId>org.springframework.boot</groupId>
+		                <artifactId>spring-boot-maven-plugin</artifactId>
+		                <version>2.7.0</version>
+		                <configuration>
+		                    <includeSystemScope>false</includeSystemScope>
+		                </configuration>
+		            </plugin>
+		        </plugins>
+		    </build>
+		</profile>
+	</profiles>
 </project>
