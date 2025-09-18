@@ -52,7 +52,7 @@
 								<sbux-input
 									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno"
 									class="form-control input-sm" maxlength="8"
-    								onkeyenter="popVhcl.search">
+									onkeyenter="enterKeySearch">
     							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
@@ -88,6 +88,15 @@
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
 	var editMode = false;
+
+	/** 편집모드 상태에서 enter키 입력 */
+	const enterKeySearch = function () {
+		if (editMode) {
+			popVhcl.searchInEdit();
+		} else {
+			popVhcl.search();
+		}
+	}
 
 	const excelDwnldVhclPop = function () {
 		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -399,6 +408,7 @@
     		this.createGrid(true);
 			grdVhclPop.rebuild();
     		grdVhclPop.addRow();
+			grdVhclPop.unbind('dblclick');
 	    }
 	}
 
