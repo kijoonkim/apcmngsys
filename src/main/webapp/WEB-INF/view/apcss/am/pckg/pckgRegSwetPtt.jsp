@@ -293,7 +293,7 @@
     /** 규격 **/
     var jsonSpcfctCd = [];
     /** web sokect **/
-    let ws;
+    let PckgRegWs;
     /** ws msg obj **/
     let patch = {
         type : '',
@@ -699,7 +699,7 @@
         $selected[0]?.click();
 
         /** 현황판에 거래처 전달 **/
-        ws.send(JSON.stringify({
+        PckgRegWs.send(JSON.stringify({
             type: 'cell.patch_cnpt',
             roomId: gv_selectedApcCd,
             userId: gv_userId,
@@ -852,10 +852,10 @@
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
             + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
-        ws = new WebSocket(url);
-        ws.onopen = () => {};
+        PckgRegWs = new WebSocket(url);
+        PckgRegWs.onopen = () => {};
 
-        ws.onmessage = (e) => {
+        PckgRegWs.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
             if (msg.tableId !== 'sumInfoTable' || msg.roomId !== gv_selectedApcCd) return;
@@ -872,7 +872,7 @@
                 if(selectedCnpt){
                     cnptNm = jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm;
                 }
-                ws.send(JSON.stringify({
+                PckgRegWs.send(JSON.stringify({
                     type:'cell.snapshot', roomId: gv_selectedApcCd, from:'client',
                     data:snap, at: Date.now(), userId: gv_userId || '', cnptNm: cnptNm
                 }));
@@ -887,15 +887,15 @@
             <%--}--%>
         };
 
-        ws.onclose = (e) => {
+        PckgRegWs.onclose = (e) => {
         };
 
-        ws.onerror = (err) => {
+        PckgRegWs.onerror = (err) => {
             console.error('WS ERROR', err);
         };
     }
     const fn_patchQntt = function(_qntt){
-        ws.send(JSON.stringify({
+        PckgRegWs.send(JSON.stringify({
             type: 'cell.patch',
             roomId: gv_selectedApcCd,
             userId: gv_userId,

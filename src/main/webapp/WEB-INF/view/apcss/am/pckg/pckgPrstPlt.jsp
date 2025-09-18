@@ -150,7 +150,7 @@
 </body>
 <script type="text/javascript">
     /** websoket 객체 **/
-    let ws;
+    let PckgPrstWs;
 
     window.addEventListener("DOMContentLoaded", function() {
       fn_init();
@@ -263,9 +263,9 @@
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
             + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
-        ws = new WebSocket(url);
-        ws.onopen = () => {
-            ws.send(JSON.stringify({
+        PckgPrstWs = new WebSocket(url);
+        PckgPrstWs.onopen = () => {
+            PckgPrstWs.send(JSON.stringify({
                 type:'init',
                 roomId: gv_selectedApcCd,
                 from:'dashboard',
@@ -275,7 +275,7 @@
             [1,2,3,4].forEach(n => setWorkerConnected(n, false));
         };
 
-        ws.onmessage = (e) => {
+        PckgPrstWs.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
             console.log(e.data,"@@@@@");
@@ -331,10 +331,10 @@
             }
         };
 
-        ws.onclose = (e) => {
+        PckgPrstWs.onclose = (e) => {
         };
 
-        ws.onerror = (err) => {
+        PckgPrstWs.onerror = (err) => {
             console.error('WS ERROR', err);
         };
     }
