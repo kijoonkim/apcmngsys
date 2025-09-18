@@ -133,5 +133,13 @@ public class SpmtPckgUnitVO extends ComVO{
 	private String sortGrdCd;
 
 	private String pckgGrdCd;
+	/**
+	* 거래처 코드
+	* */
+	private String cnptCd;
+	/**
+	 * 거래처 명
+	 * */
+	private String cnptNm;
 
 }

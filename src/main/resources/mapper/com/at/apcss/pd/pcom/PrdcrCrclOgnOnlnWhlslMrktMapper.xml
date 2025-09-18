@@ -96,11 +96,15 @@
 							)
 			)AS ITEM_NM_LIST
 			,(SELECT 'Y' FROM TB_EV_ONLN_WHLSL_MRKT WHERE YR = EAM.YR AND BRNO = EAM.BRNO)AS CHK
-			, EA.APRV AS APRV
+-- 			, EA.APRV AS APRV
+			, EAH.APRV AS APRV
 		FROM TB_EV_APLY_MNG EAM
 			,TB_EV_APO EA
+			, TB_EV_APO_HSTRY EAH
 		WHERE 1=1
 		  AND EAM.BRNO = EA.BRNO(+)
+		  AND EAM.BRNO = EAH.BRNO(+)
+		  AND EAM.YR = EAH.YR(+)
 		  AND EAM.APO_SE = '1'
 		  AND EAM.YR = #{yr}
 		<if test='brno != null and brno != ""'>

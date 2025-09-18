@@ -160,9 +160,11 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		prdcrVO.setTrsprtSeCd(rawMtrWrhsVO.getTrsprtSeCd());
 		prdcrVO.setVhclno(rawMtrWrhsVO.getVhclno());
 
-		rtnObj = prdcrService.updatePrdcrRprs(prdcrVO);
-		if (rtnObj != null) {
-			throw new EgovBizException(getMessageForMap(rtnObj));
+		if (StringUtils.hasText(prdcrVO.getPrdcrCd())) {
+			rtnObj = prdcrService.updatePrdcrRprs(prdcrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
 
 		return null;
