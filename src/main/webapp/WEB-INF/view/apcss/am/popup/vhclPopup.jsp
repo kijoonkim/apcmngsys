@@ -52,7 +52,7 @@
 								<sbux-input
 									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno"
 									class="form-control input-sm" maxlength="8"
-    								onkeyenter="popVhcl.search">
+									onkeyenter="enterKeySearch">
     							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
@@ -88,6 +88,15 @@
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
 	var editMode = false;
+
+	/** 편집모드 상태에서 enter키 입력 */
+	const enterKeySearch = function () {
+		if (editMode) {
+			popVhcl.searchInEdit();
+		} else {
+			popVhcl.search();
+		}
+	}
 
 	const excelDwnldVhclPop = function () {
 		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -177,7 +186,7 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
+		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'output', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
@@ -399,6 +408,7 @@
     		this.createGrid(true);
 			grdVhclPop.rebuild();
     		grdVhclPop.addRow();
+			grdVhclPop.unbind('dblclick');
 	    }
 	}
 

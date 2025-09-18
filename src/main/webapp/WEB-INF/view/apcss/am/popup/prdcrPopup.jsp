@@ -217,7 +217,7 @@
 		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
 		        	validate : gfn_chkByte.bind({byteLimit: 100})},
 				{caption: ['약어명'], 		ref: 'abbrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false},
-	        	{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'input', 	width: '70px', style: 'text-align:center', sortable: false},
+	        	{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
 		        {caption: ['대표품목'], 		ref: 'rprsItemCd', 		type: 'combo', 	width: '70px', style: 'text-align:center', sortable: false,
 					typeinfo: {ref:'jsonApcItemPrdcrPop', 		label:'label', value:'value', itemcount: 10}},
 		        {
@@ -250,7 +250,7 @@
 		        {caption: ['차량번호'], 		ref: 'vhclno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
-					validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
+					validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 11}},
 		        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '90px', style: 'text-align:center', sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
  		        {caption: ['외부연결코드'], 	ref: 'extrnlLnkgCd', 	type: 'input', 	width: '100px', style: 'text-align:center', sortable: false},
@@ -377,10 +377,10 @@
 		            return;
 				}
 				if(!gfn_isEmpty(rowData.vhclno)){
-		    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
-			    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
-		    			return;
-		    		}
+		    		// if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
+			    	// 	gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+		    		// 	return;
+		    		// }
 		    	}
 
 				if (!gfn_isEmpty(rowData.itemVrtyCd)) {
