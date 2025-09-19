@@ -299,20 +299,22 @@
         SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.backcoloralternate = '#E0FFFF';
         SBGridProperties.columns = [
-            { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '100px', style: 'text-align: center; padding-right: 5px;' },
-            { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '100px', style: 'text-align: center; padding-right: 5px;' },
-            { caption: ["등급"], ref: 'grd', type: 'output', width: '50px', style: 'text-align: center;', merge: false },
-            { caption: ["합계"], ref: 'sum', type: 'output', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #D9D9D9;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
+            { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '10%', style: 'text-align: center; padding-right: 5px;' },
+            { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '10%', style: 'text-align: center; padding-right: 5px;' },
+            { caption: ["등급"], ref: 'grd', type: 'output', width: '10%', style: 'text-align: center;', merge: false },
+            { caption: ["합계"], ref: 'sum', type: 'output', width: '20%', style: 'text-align: right; padding-right: 5px; background-color: #D9D9D9;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
         ];
 
         let addSortRsltGrdCol = [];
 
         jsonSortGrdColumnData.forEach(function(item) {
+            let width = (Math.floor(52 / (jsonSortGrdColumnData.length) * 10) / 10) + '%';
+
             addSortRsltGrdCol.push({
                 caption: [item.GRD_NM],
                 ref: 'grd' + item.GRD_SN,
                 type: 'output',
-                width: '50px',
+                width: width,
                 style: 'text-align: right; padding-right: 5px;',
                 format: {
                     type: 'number',
@@ -327,6 +329,7 @@
         SBGridProperties.columns = originColumns;
 
         gridSortRsltList = _SBGrid.create(SBGridProperties);
+        gridSortRsltList.rebuild();
     }
 
     /**
