@@ -365,7 +365,9 @@
 	<build>
 		<directory>${basedir}/target</directory>
 		<finalName>${artifactId}</finalName>
+
 		<plugins>
+			<!-- 기존 그대로 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -379,7 +381,56 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.10.0.2594</version>
 			</plugin>
+
+			<!-- [추가 1] 외부 JAR 평탄화: thirdparty.dir 전체를 target/flat-lib 로 복사(파일명만) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>flatten-thirdparty-jars</id>
+						<phase>prepare-package</phase>
+						<goals><goal>run</goal></goals>
+						<configuration>
+							<target>
+								<delete dir="${project.build.directory}/flat-lib"/>
+								<mkdir  dir="${project.build.directory}/flat-lib"/>
+								<copy todir="${project.build.directory}/flat-lib">
+									<fileset dir="${thirdparty.dir}">
+										<include name="**/*.jar"/>
+									</fileset>
+									<!-- 경로 제거하고 파일명만 남김 -->
+									<mapper type="flatten"/>
+								</copy>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- [추가 2] WAR 만들 때: 원래 WEB-INF/lib/** 제외 + 평탄화된 JAR만 넣기 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<!-- 소스 트리의 중첩 경로는 WAR에서 제외 -->
+					<warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
+					<webResources>
+						<resource>
+							<directory>${project.build.directory}/flat-lib</directory>
+							<targetPath>WEB-INF/lib</targetPath>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
+
+		<!-- 기존 그대로 -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -400,19 +451,6 @@
 		<profile>
 			<id>tomcat</id>
 			<activation><activeByDefault>true</activeByDefault></activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>3.4.0</version>
-						<configuration>
-							<warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-			<!-- 별도 설정 없어도 됨: 위 system 의존성 그대로 포함 -->
 		</profile>
 
 		<!-- ===== 2) jeus: 외부 JAR을 WAR에서 제외 ===== -->
