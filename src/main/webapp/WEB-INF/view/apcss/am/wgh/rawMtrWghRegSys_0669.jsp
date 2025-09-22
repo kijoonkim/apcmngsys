@@ -2505,15 +2505,22 @@
 		let defaultWrhs = '거산APC';
 		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
 
-		if (_.isEqual(getRowData.type, '입고')) {
-			grdPltBox.setCellData(nRow, rmrkCol, defaultWrhs);
-		} else if (_.isEqual(getRowData.type, '출고')) {
-			grdPltBox.setCellData(nRow, rmrkCol, defaultSpmt);
+		let setRmrk = '';
+
+		if (!gfn_isEmpty(getCellData)) {
+			switch (getRowData.type) {
+				case '입고':
+					setRmrk = defaultWrhs;
+					break;
+				case '출고':
+					setRmrk = defaultSpmt;
+					break;
+				default:
+					return;
+			}
 		}
 
-		if (gfn_isEmpty(getCellData)) {
-			grdPltBox.setCellData(nRow, rmrkCol, '');
-		}
+		grdPltBox.setCellData(nRow, rmrkCol, setRmrk);
 	}
 
 	const fn_modalDrag = async function(){
