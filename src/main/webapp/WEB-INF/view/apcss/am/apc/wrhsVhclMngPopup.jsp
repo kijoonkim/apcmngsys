@@ -48,7 +48,7 @@
 								<sbux-input
 										uitype="text" id="wrhsVhcl-inp-vhclno" name="wrhsVhcl-inp-vhclno"
 										class="form-control input-sm" maxlength="8"
-										onkeyenter="fn_callSelectWrhsVhclList">
+										onkeyenter="fn_searchWrhsVhcl">
 								</sbux-input>
 							</th>
 							<th>&nbsp;</th>
