@@ -76,4 +76,118 @@ public class ApcConstants {
      * */
     public final static String GRD_CD_BASIC = "01";
 
+    /**
+     * 생산자 기본 코드
+     * */
+    public final static String PRDCR_CD_BASIC = "0001";
+
+    /**
+     * 규격 기본 코드
+     * */
+    public final static String SPCFCT_CD_BASIC = "0001";
+
+    /**
+     * 상품 기본 코드
+     * */
+    public final static String PCKG_SPMT_UNIT_CD_BASIC = "0001";
+
+
+    /**
+     * 입고실적 생성없음
+     */
+    public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R0 = "R0";
+    /**
+     * 입고실적 다중 생성
+     */
+    public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R1 = "R1";
+
+    /**
+     * 입고실적 단일 생성
+     */
+    public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R2 = "R2";
+
+    /**
+     * 입고실적 강제 생성
+     */
+    public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R3 = "R3";
+
+    /**
+     * 계량실적 상세 다중 생성
+     */
+    public final static String RAW_MTR_WGH_PRFMNC_TYPE_W1 = "W1";
+
+    /**
+     * 계량실적 상세 단일 생성
+     */
+    public final static String RAW_MTR_WGH_PRFMNC_TYPE_W2 = "W2";
+
+    /**
+     * 선별실적 생성 없음
+     */
+    public final static String SORT_PRFMNC_TYPE_S0 = "S0";
+
+    /**
+     * 선별실적 단일
+     */
+    public final static String SORT_PRFMNC_TYPE_S1 = "S1";
+
+    /**
+     * 선별실적 다중
+     */
+    public final static String SORT_PRFMNC_TYPE_S2 = "S2";
+
+    /**
+     * 선별실적 강제 생성
+     */
+    public final static String SORT_PRFMNC_TYPE_S3 = "S3";
+
+    /**
+     * 포장실적 생성 없음
+     */
+    public final static String PCKG_PRFMNC_TYPE_P0 = "P0";
+
+    /**
+     * 포장실적 단일 실적
+     */
+    public final static String PCKG_PRFMNC_TYPE_P1 = "P1";
+
+    /**
+     * 포장실적 다중 실적
+     */
+    public final static String PCKG_PRFMNC_TYPE_P2 = "P2";
+
+    /**
+     * 포장실적 강제 생성
+     */
+    public final static String PCKG_PRFMNC_TYPE_P3 = "P3";
+
+    /**
+     * 투입실적 생성 없음
+     */
+    public final static String INPT_PRFMNC_TYPE_I0 = "I0";
+
+    /**
+     * 투입실적 단일 실적
+     */
+    public final static String INPT_PRFMNC_TYPE_I1 = "I1";
+
+    /**
+     * 투입실적 다중 실적
+     */
+    public final static String INPT_PRFMNC_TYPE_I2 = "I2";
+
+    /**
+     * 투입실적 강제 생성
+     */
+    public final static String INPT_PRFMNC_TYPE_I3 = "I3";
+
+    /**
+     * 출하실적 생성 없음
+     */
+    public final static String SPMT_PRFMNC_TYPE_D0 = "D0";
+
+    /**
+     * 출하실적 생성
+     */
+    public final static String SPMT_PRFMNC_TYPE_D1 = "D1";
 }

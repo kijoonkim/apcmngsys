@@ -113,5 +113,13 @@ public interface SortInptPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateSortInptSortno(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+
+	/**
+	 * 선별투입실적 전체 삭제
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortInptPrfmncAll(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 	
 }

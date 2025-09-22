@@ -241,6 +241,11 @@ public class PckgPrfmncVO extends ComVO {
 	private String bxGdsQntt;
 
 	/**
+	 * 출하실적여부
+	 * */
+	private String spmtPrfmncYn;
+
+	/**
 	 * 표준등급
 	 */
 	private List<GdsStdGrdVO> stdGrdList;

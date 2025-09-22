@@ -79,4 +79,12 @@ public interface PckgInptMapper {
 	 */
 	public int updatePckgInptForDelY(PckgInptVO pckgInptVO) throws Exception;
 
+	/**
+	 * 포장투입실적 전체 삭제
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgInptPrfmncAll(PckgInptVO pckgInptVO) throws Exception;
+
 }

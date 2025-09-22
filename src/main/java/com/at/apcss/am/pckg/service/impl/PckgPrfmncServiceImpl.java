@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -282,5 +283,54 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 		}
 
 		return result;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUntyPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<GdsInvntrVO> gdsInvntrList = new ArrayList<>();
+		String pckgno = cmnsTaskNoService.selectPckgno(pckgPrfmncList.get(0).getApcCd(), pckgPrfmncList.get(0).getPckgYmd());
+
+		int pckgSn = 1;
+		int insertedCnt = 0;
+		for ( PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList ) {
+
+			pckgPrfmncVO.setPckgno(pckgno);
+			pckgPrfmncVO.setPckgSn(pckgSn);
+			insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+
+			if (insertedCnt != 0) {
+
+			}
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			BeanUtils.copyProperties(pckgPrfmncVO, gdsInvntrVO);
+			gdsInvntrVO.setInvntrQntt(pckgPrfmncVO.getInvntrQntt());
+			gdsInvntrVO.setInvntrWght(pckgPrfmncVO.getInvntrWght());
+			gdsInvntrList.add(gdsInvntrVO);
+
+			pckgSn++;
+		}
+
+		// 상품재고 생성
+		rtnObj = gdsInvntrService.insertGdsInvntrList(gdsInvntrList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 입고구분에 따라 재고 변경 추가
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePckgPrfmncAll(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		if (0 == pckgPrfmncMapper.deletePckgPrfmncAll(pckgPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
 	}
 }
