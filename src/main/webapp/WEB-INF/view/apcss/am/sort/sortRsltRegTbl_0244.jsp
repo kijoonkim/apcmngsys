@@ -319,6 +319,7 @@
                     uitype="normal"
                     text="시판추가"
                     class="no-print"
+                    is-change-text="true"
                     onclick="fn_addSoloSale()"
             >
             </sbux-button>
@@ -1135,6 +1136,7 @@
         $("#cnpt").css("display", "none");
         /** td eventListner 초기화 **/
         $("#sortTable tbody td").off('pointerdown');
+        $("#sortTable tbody td").off('click.soloSale');
         /** 출하등록 버튼 초기화 **/
         SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
         /** 재고분리 버튼 초기화 **/
@@ -1202,11 +1204,15 @@
             /** 출하등록 disabled **/
             SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
             SBUxMethod.attr('spmtMode', 'disabled', 'false');
+            /** 시판추가 모드 OFF **/
+            $("#sortTable tbody td").off('click.soloSale');
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
 
             /** 출하실적이 있는 재고는 disabled true 유지 **/
-            // document.querySelectorAll('#sortTable tbody input').forEach(input => {
-            //     input.disabled = false;
-            // });
+            document.querySelectorAll('#sortTable tbody input').forEach(input => {
+                input.disabled = false;
+            });
 
             return;
         }else{
@@ -1215,6 +1221,10 @@
             SBUxMethod.attr('spmtMode', 'disabled', 'true');
             SBUxMethod.set("decompositionMode","재고분리 ON");
             $("#decompositionMode").addClass("btn_on");
+            /** 시판추가 모드 OFF **/
+            $("#sortTable tbody td").off('click.soloSale');
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
         }
 
         $("#sortTable tbody td").off('pointerdown').on('pointerdown', function (event) {
@@ -1673,6 +1683,7 @@
         $("#decompositionMode").removeClass("btn_on");
 
         SBUxMethod.attr('spmtMode', 'disabled', 'false');
+        /** 출하실적이 있는 재고는 disabled true 유지 **/
         document.querySelectorAll('#sortTable tbody input').forEach(input => {
             input.disabled = false;
         });
@@ -1998,15 +2009,7 @@
         }
 
         let sipan = data.resultList.filter(i => i.cnptNm === '시판');
-        const sumSipan = sipan.reduce((acc, item) => {
-            const gdsGrd = item.gdsGrd;
-            const spmtQntt = parseInt(item.spmtQntt) || 0;
-            acc[gdsGrd] = (acc[gdsGrd] || 0) + spmtQntt;
-            return acc;
-        }, {});
-        console.log(sipan, sumSipan,"시판");
-        /** 시판 합계 출력을 위한 row index **/
-        let rowIndexForSipan = {};
+        console.log(sipan,"시판");
 
         const groupedData = data.resultList.reduce((acc, item) => {
             let key = item.spmtno;
@@ -2082,8 +2085,6 @@
                                 // 추가된 시판데이터 반대편 재고 수량 차감
                                 let rightVal = parseInt(splitResult.rightInput.val()) || 0;
                                 splitResult.rightInput.val(rightVal - parseInt(item.spmtQntt) || '');
-                                // 시판 데이터 추가 후 재고 수량 중복 차감 방지
-                                splitResult.rightInput.data('spmt', true);
                             } else {
                                 splitResult.leftInput.val(parseInt(item.spmtQntt));
                             }
@@ -2110,8 +2111,6 @@
                                 // 추가된 시판데이터 반대편 재고 수량 차감
                                 let leftVal = parseInt(splitResult.leftInput.val()) || 0;
                                 splitResult.leftInput.val(leftVal - parseInt(item.spmtQntt) || '');
-                                // 시판 데이터 추가 후 재고 수량 중복 차감 방지
-                                splitResult.leftInput.data('spmt', true);
                             } else {
                                 splitResult.rightInput.val(parseInt(item.spmtQntt));
                             }
@@ -2129,22 +2128,6 @@
                 const $cell = $(cell);
                 $cell.data('cnptCd',item.cnptCd);
                 nArr.push({cell : $(cell), rowIndex : row[0], colIndex : col});
-
-                /** 시판 합계값 출력을 위해 마지막 row 저장*/
-                if (item.cnptNm === '시판') {
-                    const gdsGrd = item.gdsGrd;
-                    const rowIndex = row[0];
-                    const spmtQntt = sumSipan[gdsGrd];
-
-                    if (!rowIndexForSipan[gdsGrd] || rowIndex > rowIndexForSipan[gdsGrd].rowIndex) {
-                            rowIndexForSipan[gdsGrd] = {
-                                $cell: $cell,
-                                rowIndex: rowIndex,
-                                spmtQntt: spmtQntt
-                            };
-                    }
-                }
-
             });
             /** UI 정리 **/
             let sum = 0;
@@ -2191,34 +2174,41 @@
                 /** 2025.05.12 $data로 대체 **/
                 // $(item).css("pointer-events","none");
                 $(item).find("input").data('spmt',true);
-                if (!gfn_isEmpty($(item).data('cnptCd'))) {
-                    $(item).data('cnptCd', cnptCd);
-                    console.log("cellArray", cnptCd, $(item).data('cnptCd'));
-                }
 
                 /** 초기화 **/
                 $(item).removeClass("first end mid");
 
-                if (idx == 0) {
+                /** 시판은 출하실적에 상관없이 단건처럼 보이게 **/
+                if (match.cnptNm === '시판') {
                     $(item).addClass("first");
-                    $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
-                } else if (idx != arr.length - 1) {
-                    $(item).addClass("mid");
-                    $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
-                } else {
                     $(item).addClass("end");
                     $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
+                    sum = parseInt($(item).find('input').val()) || 0;
+                } else {
+                    if (idx == 0) {
+                        $(item).addClass("first");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    } else if (idx != arr.length - 1) {
+                        $(item).addClass("mid");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    } else {
+                        $(item).addClass("end");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    }
                 }
 
-                if($(item).hasClass('end') || arr.length === 1){
-                    /** 마지막 혹은 혼자인 cell **/
 
+
+                if($(item).hasClass('end') || arr.length === 1){
+                    /** 마지막 혹은 혼자인 cell*/
                     // 시판 데이터인 경우 기존 span이 있으면 값을 업데이트
                     const prevSpan = $(item).find('span').last();
-                    if (match.cnptNm !== '시판') {
+                    if (match.cnptNm === '시판' && prevSpan.length > 0) {
+                        prevSpan.text(parseInt($(item).find('input').val()) + "");
+                    } else {
                         // 시판이 아니거나 기존 span이 없는 경우 새로 생성
                         const span = document.createElement("span");
                         span.innerText = sum + "";
@@ -2251,14 +2241,6 @@
                 $(spmtTotalEl).val(spmtTotal);
             }
         });
-
-        /** 시판 합계 출력 **/
-        Object.keys(rowIndexForSipan).forEach(gdsGrd => {
-            const $cell = rowIndexForSipan[gdsGrd].$cell;
-            const spmtQntt = rowIndexForSipan[gdsGrd].spmtQntt;
-            fn_createTotal($cell, spmtQntt);
-        });
-
         /** 작업 col 초기화 **/
         nowColIdx = 0;
     }
@@ -2309,11 +2291,13 @@
                 .attr('type', 'number')
                 .css("width", "100%")
                 .prop('disabled', true)
+                .attr('readonly', true)
                 .addClass('left');
             const $inputRight = $('<input>')
                 .attr('type', 'number')
                 .css("width", "100%")
                 .prop('disabled', true)
+                .attr('readonly', true)
                 .addClass('right');
             $firstTd.append($inputLeft)
             $secondTd.append($inputRight);
@@ -2546,16 +2530,26 @@
     }
     const fn_addSoloSale = async function () {
         let flag = SBUxMethod.get("addSoloSaleButton");
-        if(flag == '시판추가 OFF'){
+        if(flag == '시판추가 ON'){
             /** 시판추가 모드 OFF로 전환 **/
-            $("#sortTable tbody td").off('click.soloSale');
-            SBUxMethod.set("addSoloSaleButton","시판추가");
+            $("#sortTable tbody td").off('click.soloSale'); // 이벤트 해제
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
             $("#addSoloSaleButton").removeClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'false');
             return;
         }else{
             /** 시판추가 모드 ON으로 전환 **/
-            SBUxMethod.set("addSoloSaleButton","시판추가 OFF");
+            SBUxMethod.set("addSoloSaleButton", "시판추가 ON");
             $("#addSoloSaleButton").addClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'true');
+            /** 재고분리 모드 OFF **/
+            $("#sortTable tbody td").off('pointerdown');
+            SBUxMethod.set("decompositionMode","재고분리 OFF");
+            $("#decompositionMode").removeClass("btn_on");
         }
 
         return new Promise((resolve) => {
@@ -2579,6 +2573,26 @@
                     /** 페어 자리에 재고가있을것 **/
                     let pareTd = lR === 'left' ? $target.next() : $target.prev();
                     let pareQntt = pareTd.find('input').val();
+
+                    let pareSpmt = pareTd.find('input').data('spmt');
+
+                    /** 반대편 출하실적 확인 **/
+                    if(pareSpmt) {
+                        /** 시판추가 버튼 상태 초기화 **/
+                        SBUxMethod.set("addSoloSaleButton","시판추가");
+                        $("#addSoloSaleButton").removeClass("btn_on");
+                        /** 출하등록 disabled **/
+                        SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+                        SBUxMethod.attr('spmtMode', 'disabled', 'false');
+
+                        Swal.fire({
+                            title: '출하실적이 있는 재고는 추가할 수 없습니다.',
+                            icon: 'error',
+                            width:"500px"
+                        });
+                        return;
+                    }
+
                     if(pareQntt > 0){
                         const $wrap = $('<div id="soloAddWrap"></div>')
                             .css({
@@ -2612,6 +2626,9 @@
                     /** 시판추가 버튼 상태 초기화 **/
                     SBUxMethod.set("addSoloSaleButton","시판추가");
                     $("#addSoloSaleButton").removeClass("btn_on");
+                    /** 출하등록 disabled **/
+                    SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+                    SBUxMethod.attr('spmtMode', 'disabled', 'false');
 
                     Swal.fire({
                         title: '시판 거래처가 아닙니다.',
@@ -2629,6 +2646,12 @@
         $("#soloAddWrap").remove();
         /** 재고에서 사용할수있는 수**/
         if(_pareQntt - qntt < 0){
+            /** 시판추가 버튼 상태 초기화 **/
+            SBUxMethod.set("addSoloSaleButton","시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'false');
             Swal.fire({
                 title: '재고가 부족합니다.',
                 icon: 'warning',
@@ -2674,12 +2697,16 @@
                     );
                     /** 등록 이후 원복처리 **/
                     await fn_reset();
-                    /** 시판추가 버튼 상태 초기화 */
-                    SBUxMethod.set("addSoloSaleButton","시판추가");
-                    $("#addSoloSaleButton").removeClass("btn_on");
                 }
             });
         }
+
+        /** 시판추가 버튼 상태 초기화 */
+        SBUxMethod.set("addSoloSaleButton","시판추가");
+        $("#addSoloSaleButton").removeClass("btn_on");
+        /** 출하등록 disabled **/
+        SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+        SBUxMethod.attr('spmtMode', 'disabled', 'false');
 
     };
     const fn_setSheet = async function(){
