@@ -43,8 +43,14 @@
 							<th>
 								<sbux-input id=wrhsVhcl-inp-apcNm name="wrhsVhcl-inp-apcNm" uitype="text" class="form-control pull-right input-sm" disabled></sbux-input>
 							</th>
-							<th>&nbsp;</th>
-							<th>&nbsp;</th>
+							<th scope="row">차량번호</th>
+							<th class="td_input">
+								<sbux-input
+										uitype="text" id="wrhsVhcl-inp-vhclno" name="wrhsVhcl-inp-vhclno"
+										class="form-control input-sm" maxlength="8"
+										onkeyenter="fn_callSelectWrhsVhclList">
+								</sbux-input>
+							</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -56,7 +62,10 @@
 				<div class="table-responsive tbl_scroll_sm">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
-							<li><span>차량정보</span></li>
+							<li>
+								<span>차량정보</span>
+								<span style="font-size:12px">(조회건수 <span id="vhcl-pop-cnt">0</span>건)</span>
+							</li>
 						</ul>
 					</div>
 					<div id="sb-area-wrhsVhcl" style="height:157px; width: 100%;"></div>
@@ -138,7 +147,12 @@
 
 	async function fn_callSelectWrhsVhclList(){
 		let apcCd = SBUxMethod.get("inp-apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {apcCd : apcCd});
+		let vhclno = SBUxMethod.get("wrhsVhcl-inp-vhclno");
+
+		const postJsonPromise = gfn_postJSON("/am/cmns/selectWrhsVhclList.do", {
+			apcCd: apcCd,
+			vhclno: vhclno
+		});
         let data = await postJsonPromise;
         jsonWrhsVhcl.length = 0;
         try{
@@ -158,6 +172,9 @@
   				});
   	        	grdWrhsVhcl.rebuild();
   	        	grdWrhsVhcl.setCellDisabled(0, 1, grdWrhsVhcl.getRows() -1, 1, true);
+
+				document.querySelector('#vhcl-pop-cnt').innerText = jsonWrhsVhcl.length;
+
   	        	grdWrhsVhcl.addRow(true);
   	        	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -1, 0, grdWrhsVhcl.getRows() -1, grdWrhsVhcl.getCols() -1, true);
 
