@@ -103,8 +103,8 @@
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
-			<scope>compile</scope>
-<!--			<scope>provided</scope>-->
+<!--			<scope>compile</scope>-->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -400,6 +400,18 @@
 		<profile>
 			<id>tomcat</id>
 			<activation><activeByDefault>true</activeByDefault></activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.4.0</version>
+						<configuration>
+							<warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 			<!-- 별도 설정 없어도 됨: 위 system 의존성 그대로 포함 -->
 		</profile>
 
