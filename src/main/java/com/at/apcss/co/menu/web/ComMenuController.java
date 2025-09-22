@@ -47,7 +47,9 @@ public class ComMenuController extends BaseController {
 
 
 	@RequestMapping(value = "/co/menu/openPage.do/{menuId}", method = RequestMethod.GET)
-	public String doOpenPage(Model model, @PathVariable String menuId, HttpServletRequest request) throws Exception {
+	public String doOpenPage(Model model, @PathVariable String menuId,
+							 @RequestParam(required = false) String idntfNo,
+							 HttpServletRequest request) throws Exception {
 
 		String pageUrl = ComConstants.CON_BLANK;
 
@@ -58,7 +60,20 @@ public class ComMenuController extends BaseController {
 			ComMenuVO pageVO = comMenuService.selectComMenu(menuId);
 
 			if (pageVO != null) {
-				pageUrl = pageVO.getPageUrl();
+
+				String newUrl = ComConstants.CON_BLANK;
+				if (StringUtils.hasText(idntfNo)) {
+					ComMenuVO dtlPageVO = comMenuService.selectComMenuDtlPage(menuId, idntfNo);
+					if (dtlPageVO != null && ComConstants.CON_NONE.equals(dtlPageVO.getDelYn()) && ComConstants.CON_YES.equals(dtlPageVO.getUseYn())) {
+						newUrl = dtlPageVO.getPageUrl();
+					}
+				}
+
+				if (StringUtils.hasText(newUrl)) {
+					pageUrl = newUrl;
+				} else {
+					pageUrl = pageVO.getPageUrl();
+				}
 			}
 			
 			if (ComConstants.CON_SYS_ID_MA.equals(pageVO.getSysId())) {
@@ -115,7 +130,6 @@ public class ComMenuController extends BaseController {
 
 			comLogService.insertMenuHstry(comLogVO);
 
-			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 
 		} catch( Exception e) {
 			getErrorResponseEntity(e);

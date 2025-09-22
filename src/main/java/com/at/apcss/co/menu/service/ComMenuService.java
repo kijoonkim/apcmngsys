@@ -17,6 +17,10 @@ public interface ComMenuService {
 
 	public ComMenuVO selectComMenu(String menuId) throws Exception;
 
+	public ComMenuVO selectComMenuDtlPage(String menuId, String idntfNo) throws Exception;
+
+	public ComMenuVO selectComMenuDtlPage(ComMenuVO comMenuVO) throws Exception;
+
 	/**
 	 * 메뉴목록 조회
 	 * @param comMenuVO

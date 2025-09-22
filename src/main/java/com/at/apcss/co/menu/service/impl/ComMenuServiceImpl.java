@@ -23,22 +23,29 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 
 	@Override
 	public ComMenuVO selectComMenu(ComMenuVO comMenuVO) throws Exception {
-
-		ComMenuVO comMenuResultVO = comMenuMapper.selectComMenu(comMenuVO);
-
-		return comMenuResultVO;
+		return comMenuMapper.selectComMenu(comMenuVO);
 	}
 
 	@Override
 	public ComMenuVO selectComMenu(String menuId) throws Exception {
-
 		ComMenuVO comMenuVO = new ComMenuVO();
 		comMenuVO.setMenuId(menuId);
-
-		ComMenuVO comMenuResultVO = comMenuMapper.selectComMenu(comMenuVO);
-
-		return comMenuResultVO;
+		return comMenuMapper.selectComMenu(comMenuVO);
 	}
+
+	@Override
+	public ComMenuVO selectComMenuDtlPage(String menuId, String idntfNo) throws Exception {
+		ComMenuVO comMenuVO = new ComMenuVO();
+		comMenuVO.setMenuId(menuId);
+		comMenuVO.setIdntfNo(idntfNo);
+		return comMenuMapper.selectComMenuDtlPage(comMenuVO);
+	}
+
+	@Override
+	public ComMenuVO selectComMenuDtlPage(ComMenuVO comMenuVO) throws Exception {
+		return comMenuMapper.selectComMenuDtlPage(comMenuVO);
+	}
+
 
 	@Override
 	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO) throws Exception {

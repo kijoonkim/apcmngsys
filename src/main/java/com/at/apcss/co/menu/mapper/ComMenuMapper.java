@@ -17,6 +17,8 @@ public interface ComMenuMapper {
 	 */
 	public ComMenuVO selectComMenu(ComMenuVO comMenuVO);
 
+	public ComMenuVO selectComMenuDtlPage(ComMenuVO comMenuVO);
+
 	/**
 	 * 메뉴정보 목록 조회
 	 * @param comMenuVO

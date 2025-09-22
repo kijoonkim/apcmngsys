@@ -40,6 +40,20 @@
     	]]>
     </select>
 
+	<select id="selectComMenuDtlPage" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuDtlPage */
+				  DP.MENU_ID	AS MENU_ID
+				, DP.IDNTF_NO   AS IDNTF_NO
+				, DP.PAGE_URL 	AS PAGE_URL
+				, DP.USE_YN  	AS USE_YN
+				, DP.DEL_YN  	AS DEL_YN
+			FROM TB_COM_MENU_DTL_PAGE DP
+			WHERE DP.MENU_ID = #{menuId}
+			AND DP.IDNTF_NO = #{idntfNo}
+		]]>
+    </select>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList			-->
