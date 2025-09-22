@@ -299,4 +299,28 @@ public interface SortPrfmncService {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception;
+
+	/**
+	 * 통합선별실적 다중 등록
+	 * @param sortPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception;
+
+	/**
+	 * 통합선별실적 단일 등록
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 선별실적 전체 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception;
+
 }

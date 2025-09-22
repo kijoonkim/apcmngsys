@@ -4606,4 +4606,23 @@
                 , SI.GRD_CD
 	    ]]>
     </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortPrfmncAll  	-->
+	<!-- DESC : 선별내역 조회	                                            			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.09.18  	김호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="deleteSortPrfmncAll" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO">
+		UPDATE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortPrfmncAll */
+			TB_SORT_PRFMNC
+		SET DEL_YN 					= 'Y'
+		  , SYS_LAST_CHG_DT  		= SYSDATE
+		  , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE APC_CD					= #{apcCd}
+		  AND SORTNO					= #{sortno}
+	</update>
 </mapper>

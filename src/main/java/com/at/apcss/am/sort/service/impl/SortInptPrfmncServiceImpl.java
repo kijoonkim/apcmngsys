@@ -114,5 +114,12 @@ public class SortInptPrfmncServiceImpl extends BaseServiceImpl implements SortIn
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> deleteSortInptPrfmncAll(SortInptPrfmncVO sortInptPrfmncVO) throws Exception {
+
+		sortInptPrfmncMapper.deleteSortInptPrfmncAll(sortInptPrfmncVO);
+
+		return null;
+	}
 
 }

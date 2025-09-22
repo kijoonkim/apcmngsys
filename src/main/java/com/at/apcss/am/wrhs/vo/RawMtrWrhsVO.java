@@ -334,6 +334,21 @@ public class RawMtrWrhsVO extends ComVO {
 	private String fcltNm;
 
 	/**
+	 * 통합실적에서 선별실적생성타입
+	 * */
+	private String sortPrfmncType;
+
+	/**
+	 * 통합실적에서 투입실적생성타입
+	 * */
+	private String inptPrfmncType;
+
+	/**
+	 * 투입여부
+	 * */
+	private String inptPrfmncYn;
+
+	/**
 	 * 표준등급 목록
 	 */
 	private List<RawMtrStdGrdVO> stdGrdList;

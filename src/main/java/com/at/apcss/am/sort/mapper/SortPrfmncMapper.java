@@ -350,4 +350,12 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception;
+
+	/**
+	 * 선별실적 전체 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortPrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception;
 }

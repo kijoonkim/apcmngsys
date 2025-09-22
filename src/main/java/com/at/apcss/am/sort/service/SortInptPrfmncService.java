@@ -93,5 +93,12 @@ public interface SortInptPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateSortInptSortno(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	/**
+	 * 선별투입실적 전체 삭제
+	 * @param sortInptPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteSortInptPrfmncAll(SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
 	
 }
