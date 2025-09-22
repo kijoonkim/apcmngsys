@@ -186,7 +186,7 @@
 					        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='popVhcl.del(" + nRow + ")'>삭제</button>";
 		            	}
 			    }},
-		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'output', 		style:'text-align:center', 	sortable: false,
+		    	{caption: ['차량번호'], 	ref: 'vhclno', 			width: '100px',	type: 'input', 		style:'text-align:center', 	sortable: false,
 		    		validate : gfn_chkByte.bind({byteLimit: 40})},
 		        {caption: ['기사명'], 	ref: 'drvrNm', 			width: '100px', type: 'input', 		style:'text-align:center', 	sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 20})},
@@ -225,7 +225,8 @@
 
 			this.createGrid(true);
 			grdVhclPop.rebuild();
-			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
+			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
+			grdVhclPop.setCellDisabled(0, 2, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
 
 			let nRow = grdVhclPop.getRows();
 			grdVhclPop.addRow(true);
@@ -407,7 +408,11 @@
     		await this.search();
     		this.createGrid(true);
 			grdVhclPop.rebuild();
-    		grdVhclPop.addRow();
+			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
+
+			let nRow = grdVhclPop.getRows();
+			grdVhclPop.addRow(true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
 			grdVhclPop.unbind('dblclick');
 	    }
 	}
