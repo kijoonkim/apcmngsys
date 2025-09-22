@@ -2480,6 +2480,7 @@
 		]
 		grdPltBox = _SBGrid.create(SBGridProperties);
 		grdPltBox.bind("beforeedit",'fn_qnttDisable');
+		grdPltBox.bind('valuechanged', 'fn_grdPltBoxChanged');
 	}
 
 	const fn_qnttDisable = function(){
@@ -2491,6 +2492,27 @@
 			if(!name){
 				grdPltBox.stopEditing();
 			}
+		}
+	}
+
+	const fn_grdPltBoxChanged = function () {
+		const nRow = grdPltBox.getRow();
+		const nCol = grdPltBox.getCol();
+		const rmrkCol = grdPltBox.getColRef('rmrk');
+		const getRowData = grdPltBox.getRowData(nRow);
+		const getCellData = grdPltBox.getCellData(nRow, nCol);
+
+		let defaultWrhs = '거산APC';
+		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
+
+		if (_.isEqual(getRowData.type, '입고')) {
+			grdPltBox.setCellData(nRow, rmrkCol, defaultWrhs);
+		} else if (_.isEqual(getRowData.type, '출고')) {
+			grdPltBox.setCellData(nRow, rmrkCol, defaultSpmt);
+		}
+
+		if (gfn_isEmpty(getCellData)) {
+			grdPltBox.setCellData(nRow, rmrkCol, '');
 		}
 	}
 
