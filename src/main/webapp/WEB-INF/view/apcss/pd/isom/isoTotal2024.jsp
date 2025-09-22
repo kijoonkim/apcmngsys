@@ -17,7 +17,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start; align-items: center;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
+					<h3 class="box-title" style="margin-top: 6px;"> ▶ <c:out value='${menuNm}'></c:out></h3>
 					<!-- 출자출하조직 관리 총 매입·매출 2024 -->
 				</div>
 				<div style="margin-right: auto; align-items: center;">
