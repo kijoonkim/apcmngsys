@@ -17,7 +17,6 @@
 		</license>
 	</licenses>
 
-	<!-- Spring Boot parent (2.7.x, Java 11) -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -29,7 +28,11 @@
 		<java.version>11</java.version>
 		<org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- 평탄화 소스 폴더(그대로 유지) -->
 		<thirdparty.dir>${project.basedir}/src/main/webapp/WEB-INF/lib</thirdparty.dir>
+
+		<!-- JEUS 타겟 WAR에서 꼭 제외할 파일들 -->
 		<jeus.excludes>
 			WEB-INF/lib/project/tibero6/6.0.0/tibero6-6.0.0.jar,
 			WEB-INF/lib/com/softbowl/poi/sbexcel/1.1/sbexcel-1.1.jar,
@@ -39,7 +42,7 @@
 			WEB-INF/lib/com/ubintis/PniccJNI/1.1/PniccJNI-1.1.jar,
 			WEB-INF/lib/com/easycerti/EzFilter/1.0/EzFilter-1.0.jar,
 			WEB-INF/lib/tomcat-embed-*.jar
-		 </jeus.excludes>
+		</jeus.excludes>
 	</properties>
 
 	<repositories>
@@ -68,56 +71,82 @@
 	</repositories>
 
 	<dependencies>
+		<!-- web: tomcat/el/jasper는 제외 (컨테이너 제공 또는 별도 provided) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-el</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-jasper</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- 컨테이너 구동: provided -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- JSP 컴파일러 (컨테이너 제공 가정): provided -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
-<!--			<scope>compile</scope>-->
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>2.3.3</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
@@ -128,11 +157,13 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.egovframe.rte</groupId>
 			<artifactId>org.egovframe.rte.ptl.mvc</artifactId>
@@ -163,6 +194,7 @@
 			<artifactId>org.egovframe.rte.fdl.crypto</artifactId>
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
@@ -275,10 +307,13 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.11</version>
 		</dependency>
+
+		<!-- 필요해서 남겨둠 (WebClient 등) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
@@ -300,8 +335,7 @@
 			<version>2.6</version>
 		</dependency>
 
-<!--		외부 jar		-->
-		<!-- Tibero -->
+		<!-- ===== 외부 JAR (system scope) ===== -->
 		<dependency>
 			<groupId>com.tmax.tibero</groupId>
 			<artifactId>tibero6</artifactId>
@@ -310,7 +344,6 @@
 			<systemPath>${thirdparty.dir}/project/tibero6/6.0.0/tibero6-6.0.0.jar</systemPath>
 		</dependency>
 
-		<!-- Softbowl: sbexcel 1.1 -->
 		<dependency>
 			<groupId>com.softbowl.poi</groupId>
 			<artifactId>sbexcel</artifactId>
@@ -319,7 +352,6 @@
 			<systemPath>${thirdparty.dir}/com/softbowl/poi/sbexcel/1.1/sbexcel-1.1.jar</systemPath>
 		</dependency>
 
-		<!-- Softbowl: sbloadexcel 1.23 -->
 		<dependency>
 			<groupId>com.softbowl.poi</groupId>
 			<artifactId>sbloadexcel</artifactId>
@@ -328,7 +360,6 @@
 			<systemPath>${thirdparty.dir}/com/softbowl/poi/sbloadexcel/1.23/sbloadexcel-1.23.jar</systemPath>
 		</dependency>
 
-		<!-- Ubintis PASSNI SSO -->
 		<dependency>
 			<groupId>com.ubintis.passni-sso-agent</groupId>
 			<artifactId>passni-sso-agent</artifactId>
@@ -344,7 +375,6 @@
 			<systemPath>${thirdparty.dir}/com/ubintis/passni-sso-agent-external-lib/1.0/passni-sso-agent-external-lib-1.0.jar</systemPath>
 		</dependency>
 
-		<!-- PniciJNI 1.1 -->
 		<dependency>
 			<groupId>com.ubintis</groupId>
 			<artifactId>PniccJNI</artifactId>
@@ -353,7 +383,6 @@
 			<systemPath>${thirdparty.dir}/com/ubintis/PniccJNI/1.1/PniccJNI-1.1.jar</systemPath>
 		</dependency>
 
-		<!-- easycerti EzFilter 1.0 -->
 		<dependency>
 			<groupId>com.easycerti</groupId>
 			<artifactId>EzFilter</artifactId>
@@ -368,11 +397,11 @@
 		<finalName>${artifactId}</finalName>
 
 		<plugins>
-			<!-- 기존 그대로 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<!-- 기본(톰캣 프로파일): system scope 포함 -->
 					<includeSystemScope>true</includeSystemScope>
 				</configuration>
 			</plugin>
@@ -383,7 +412,7 @@
 				<version>3.10.0.2594</version>
 			</plugin>
 
-			<!-- [추가 1] 외부 JAR 평탄화: thirdparty.dir 전체를 target/flat-lib 로 복사(파일명만) -->
+			<!-- 평탄화: 화이트리스트 + 안전망 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -397,11 +426,29 @@
 							<target>
 								<delete dir="${project.build.directory}/flat-lib"/>
 								<mkdir  dir="${project.build.directory}/flat-lib"/>
+
 								<copy todir="${project.build.directory}/flat-lib">
 									<fileset dir="${thirdparty.dir}">
-										<include name="**/*.jar"/>
+										<!-- 화이트리스트(벤더 폴더만) -->
+										<include name="project/tibero6/**"/>
+										<include name="com/ubintis/**"/>
+										<include name="com/easycerti/**"/>
+										<include name="com/softbowl/**"/>
+
+										<!-- 안전망: 들어오면 안 되는 것들 전부 차단 -->
+										<exclude name="**/tomcat-embed-*.jar"/>
+										<exclude name="**/tomcat-*.jar"/>
+										<exclude name="**/*el*.jar"/>
+										<exclude name="**/servlet-api*.jar"/>
+										<exclude name="**/jsp-api*.jar"/>
+										<exclude name="**/*validation*.jar"/>
+										<exclude name="**/hibernate-validator-*.jar"/>
+										<exclude name="**/jakarta.validation*.jar"/>
+										<exclude name="**/spring-*.jar"/>
+										<exclude name="**/slf4j-*.jar"/>
+										<exclude name="**/log4j-*.jar"/>
+										<exclude name="**/jboss-logging-*.jar"/>
 									</fileset>
-									<!-- 경로 제거하고 파일명만 남김 -->
 									<mapper type="flatten"/>
 								</copy>
 							</target>
@@ -410,13 +457,12 @@
 				</executions>
 			</plugin>
 
-			<!-- [추가 2] WAR 만들 때: 원래 WEB-INF/lib/** 제외 + 평탄화된 JAR만 넣기 -->
+			<!-- WAR 구성: 소스의 WEB-INF/lib/**는 제외하고 평탄화 산출물만 탑재 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.4.0</version>
 				<configuration>
-					<!-- 소스 트리의 중첩 경로는 WAR에서 제외 -->
 					<warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
 					<webResources>
 						<resource>
@@ -431,7 +477,6 @@
 			</plugin>
 		</plugins>
 
-		<!-- 기존 그대로 -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -447,39 +492,38 @@
 			</resource>
 		</resources>
 	</build>
+
 	<profiles>
-		<!-- ===== 1) tomcat: 외부 JAR 포함 (기본 활성) ===== -->
+		<!-- 기본: tomcat -->
 		<profile>
 			<id>tomcat</id>
 			<activation><activeByDefault>true</activeByDefault></activation>
 		</profile>
 
-		<!-- ===== 2) jeus: 외부 JAR을 WAR에서 제외 ===== -->
+		<!-- JEUS: 시스템 스코프 제외 + JEUS excludes 적용 -->
 		<profile>
-		    <id>jeus</id>
-		    <build>
-		        <plugins>
-		            <!-- Exclude external/provider jars from JEUS-targeted WARs -->
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-war-plugin</artifactId>
-		                <version>3.4.0</version>
-		                <configuration>
-		                    <packagingExcludes>${jeus.excludes}</packagingExcludes>
-		                </configuration>
-		            </plugin>
+			<id>jeus</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.4.0</version>
+						<configuration>
+							<packagingExcludes>${jeus.excludes}</packagingExcludes>
+						</configuration>
+					</plugin>
 
-		            <!-- Safety: don't include system-scoped deps when repackage under JEUS profile -->
-		            <plugin>
-		                <groupId>org.springframework.boot</groupId>
-		                <artifactId>spring-boot-maven-plugin</artifactId>
-		                <version>2.7.0</version>
-		                <configuration>
-		                    <includeSystemScope>false</includeSystemScope>
-		                </configuration>
-		            </plugin>
-		        </plugins>
-		    </build>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<version>2.7.0</version>
+						<configuration>
+							<includeSystemScope>false</includeSystemScope>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>
