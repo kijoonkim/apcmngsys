@@ -513,21 +513,6 @@
             return;
         }
 
-        if(gfn_isEmpty(brix)) {
-            gfn_comAlert("W0001", "당도");    // W0001    {0}을/를 선택하세요.
-            return;
-        }
-
-        if(gfn_isEmpty(itemCd)) {
-            gfn_comAlert("W0001", "품목");    // W0001    {0}을/를 선택하세요.
-            return;
-        }
-
-        if(gfn_isEmpty(fcltCd)) {
-            gfn_comAlert("W0001", "선별기");    // W0001    {0}을/를 선택하세요.
-            return;
-        }
-
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'SR_DOC');
         gfn_popClipReport("선별결과표", rptUrl, {
             apcCd: gv_selectedApcCd,
