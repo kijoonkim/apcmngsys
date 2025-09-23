@@ -37,7 +37,8 @@
 			WEB-INF/lib/com/ubintis/passni-sso-agent/4.0.007/passni-sso-agent-4.0.007.jar,
 			WEB-INF/lib/com/ubintis/passni-sso-agent-external-lib/1.0/passni-sso-agent-external-lib-1.0.jar,
 			WEB-INF/lib/com/ubintis/PniccJNI/1.1/PniccJNI-1.1.jar,
-			WEB-INF/lib/com/easycerti/EzFilter/1.0/EzFilter-1.0.jar
+			WEB-INF/lib/com/easycerti/EzFilter/1.0/EzFilter-1.0.jar,
+			WEB-INF/lib/tomcat-embed-*.jar
 		 </jeus.excludes>
 	</properties>
 
