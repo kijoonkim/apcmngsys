@@ -1,6 +1,8 @@
 package com.at.apcss.am.unty.service.impl;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.pckg.service.PckgInptService;
 import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
@@ -108,6 +110,12 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 	@Resource(name="sortPrfmncAtrbService")
 	private SortPrfmncAtrbService sortPrfmncAtrbService;
 
+	/**
+	 * 팔레트박스분출 서비스
+	 * */
+	@Resource(name="pltWrhsSpmtService")
+	private PltWrhsSpmtService pltWrhsSpmtService;
+
 
 	@Override
 	public List<UntyPrfmncVO> selectRawDlngPrfmncList(UntyPrfmncVO untyPrfmncVO) throws Exception {
@@ -168,6 +176,7 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		SpmtPrfmncVO spmtPrfmncVO = new SpmtPrfmncVO();
 
 		String sortPrfmncAtrbYn = untyPrfmncVO.getSortPrfmncAtrbYn();
+		String pltWrhsSpmtYn = untyPrfmncVO.getPltWrhsSpmtYn();
 
 
 		List<RawMtrWrhsVO> rawMtrWrhsList = new ArrayList<>();
@@ -245,7 +254,35 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 					}
 				}
 
+				/**
+				 * 팔레트박스입출 생성
+				 * */
+				if (ComConstants.CON_YES.equals(pltWrhsSpmtYn)) {
 
+					List<PltWrhsSpmtVO> pltWrhsSpmtList = untyPrfmncVO.getPltWrhsSpmtList();
+					String wrhsno = rawMtrWrhsVO.getWrhsno();
+					if (!StringUtils.hasText(wrhsno)) {
+						wrhsno = rawMtrWrhsList.get(0).getWrhsno();
+					}
+					int pltBxSn = 1;
+					for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+
+						pltWrhsSpmtVO.setSysFrstInptUserId(sysFrstInptUserId);
+						pltWrhsSpmtVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+						pltWrhsSpmtVO.setSysLastChgUserId(sysFrstInptUserId);
+						pltWrhsSpmtVO.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
+						pltWrhsSpmtVO.setSn(pltBxSn);
+						pltWrhsSpmtVO.setPrcsNo(wrhsno);
+
+						if (ComConstants.ROW_STS_INSERT.equals(rowSts)) {
+							pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO);
+						}
+						if (ComConstants.ROW_STS_UPDATE.equals(rowSts)) {
+							pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO, false);
+						}
+						pltBxSn++;
+					}
+				}
 			}
 
 			/**
@@ -394,7 +431,13 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 
 			List<SortPrfmncAtrbVO> sortPrfmncAtrbList = untyPrfmncVO.getSortPrfmncAtrbList();
 
+			/**
+			 * 선별실적참조
+			 * */
 			String sortno = sortPrfmncList.get(0).getSortno();
+			if (!StringUtils.hasText(sortno)) {
+				sortno = sortPrfmncVO.getSortno();
+			}
 
 			for (SortPrfmncAtrbVO sortPrfmncAtrbVO : sortPrfmncAtrbList) {
 

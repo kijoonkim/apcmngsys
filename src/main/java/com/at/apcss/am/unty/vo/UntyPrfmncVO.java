@@ -1,5 +1,6 @@
 package com.at.apcss.am.unty.vo;
 
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
@@ -70,10 +71,11 @@ public class UntyPrfmncVO extends ComVO {
 	private String pckgno;
 	private String pltno;
 	private String spmtno;
-
+	private int pltBxQntt;
 
 	private String untyPrfmncType;
 	private String sortPrfmncAtrbYn;
+	private String pltWrhsSpmtYn;
 
 	private RawMtrWrhsVO rawMtrWrhsVO;
 	private WghPrfmncVO wghPrfmncVO;
@@ -107,6 +109,19 @@ public class UntyPrfmncVO extends ComVO {
 
 	public void setRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) {
 		this.rawMtrWrhsList = rawMtrWrhsList == null ? null : rawMtrWrhsList.stream().collect(Collectors.toList());
+	}
+
+	/**
+	 * 팔레트박스입출정보
+	 * */
+	private List<PltWrhsSpmtVO> pltWrhsSpmtList;
+
+	public List<PltWrhsSpmtVO> getPltWrhsSpmtList() {
+		return this.pltWrhsSpmtList == null ? null : pltWrhsSpmtList.stream().collect(Collectors.toList());
+	}
+
+	public void setPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) {
+		this.pltWrhsSpmtList = pltWrhsSpmtList == null ? null : pltWrhsSpmtList.stream().collect(Collectors.toList());
 	}
 
 
