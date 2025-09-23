@@ -47,6 +47,14 @@
 
                 <div style="margin-left: auto;">
                     <sbux-button
+                        id="btnDocSortRslt"
+                        name="btnDocSortRslt"
+                        uitype="normal"
+                        class="btn btn-sm btn-primary"
+                        onclick="fn_docSortRslt"
+                        text="선별결과표"
+                    ></sbux-button>
+                    <sbux-button
                         id="btn-srch-apcLinkPop"
                         name="btn-srch-apcLinkPop"
                         class="btn-sm btn-outline-danger"
@@ -482,6 +490,54 @@
         fn_createSortRsltList();
         fn_setSortRsltTot();
         // fnCloseProgress();
+    }
+
+    /**
+     * @name fn_docSortRslt
+     * @description 선별결과표 발행 버튼
+     */
+    const fn_docSortRslt = async function() {
+        let brix = SBUxMethod.get("srch-slt-brix");
+        let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
+        let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+
+        if(gfn_isEmpty(inptYmdFrom)) {
+            gfn_comAlert("W0001", "선별시작일자");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        if(gfn_isEmpty(inptYmdTo)) {
+            gfn_comAlert("W0001", "선별종료일자");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        if(gfn_isEmpty(brix)) {
+            gfn_comAlert("W0001", "당도");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        if(gfn_isEmpty(itemCd)) {
+            gfn_comAlert("W0001", "품목");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        if(gfn_isEmpty(fcltCd)) {
+            gfn_comAlert("W0001", "선별기");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'SR_DOC');
+        gfn_popClipReport("선별결과표", rptUrl, {
+            apcCd: gv_selectedApcCd,
+            brix: brix,
+            inptYmdFrom: inptYmdFrom,
+            inptYmdTo: inptYmdTo,
+            itemCd: itemCd,
+            fcltCd: fcltCd,
+            grdSeCd: '02'
+        });
     }
 
     /**
