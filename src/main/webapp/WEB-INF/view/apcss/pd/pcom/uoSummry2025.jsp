@@ -1776,7 +1776,7 @@
 			{caption: ["분류코드"],			ref:'ctgryCd',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["분류명"],			ref:'ctgryNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["전문/육성 구분"],		ref:'sttgUpbrItemSeNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문/육성 구분"],		ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
 
 			{caption: ["통합조직 총 취급물량(톤)"],	ref:'slsCnsgnSlsVlmTot',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(A)통합조직 총 취급액(천원)"],	ref:'slsCnsgnSlsAmtTot',	type:'output',width:'70px',style:'text-align:center'},
