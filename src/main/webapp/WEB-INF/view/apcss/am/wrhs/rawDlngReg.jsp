@@ -227,9 +227,10 @@
 	var jsonSortGrds = [];
 	var jsonApcItem = [];
 	var jsonApcVrty = [];
+	var jsonPltBx = [];
 
 	var jsonSortAtrbCd 				= []; // 선별속성코드 (개별APC)
-	const sums = _.range(3, 5).concat(_.range(6, 21))
+	const sums = _.range(3, 5).concat(_.range(6, 22))
 
 	var jsonGrdPrdcr = [];
 	const year = gfn_dateToYear(new Date());
@@ -298,7 +299,7 @@
 				typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }}},
 			{caption: ['생산자', '생산자'], 						ref: 'prdcrCd', 	type:'inputcombo',  width: '10%', filtering: {uitype : 'checklist^', listsearch: true, sort:'asc'},	style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption : ['일자', '일자'], 						ref: 'wrhsYmd', 	type : 'datepicker', 	width: '7%', filtering: { usemode: false }, style:'text-align:center; background:#FFF8DC;',
+			{caption : ['일자', '일자'], 						ref: 'wrhsYmd', 	type : 'datepicker', 	width: '6%', filtering: { usemode: false }, style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
 			{caption : ['원물<br>C/T수량', '원물<br>C/T수량'], 	ref: 'bxQntt', 		type: 'input',  	width: '6%', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 		];
@@ -306,11 +307,12 @@
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('grdRawDlng', 		jsonSortAtrbCd,  	'SORT_ATRB_CD', 	gv_selectedApcCd),  // 검수등급
 			gfn_getStdGrdDtls(gv_selectedApcCd, 	_GRD_SE_CD_SORT, 	'0602'),
+			gfn_setPltBxSBSelect('grdRawDlng', 		jsonPltBx, 			gv_selectedApcCd, 	"B"),
 		]);
 
 		jsonSortGrds = rst[1];
 
-		for (var i=1; i<=jsonSortAtrbCd.length; i++) {
+		for (let i=1; i<=jsonSortAtrbCd.length; i++) {
 
 			let sortAtrbCdCaption = jsonSortAtrbCd[i-1].text;
 			let sortAtrbQnttRef = 'sortAtrbQntt' + i;
@@ -320,7 +322,7 @@
 						caption : [sortAtrbCdCaption, '수량'],
 						ref: sortAtrbQnttRef,
 						type: 'input',
-						width: '6%',
+						width: '5%',
 						filtering: { usemode: false },
 						style:'text-align:right;',
 						format : {type:'number', rule:'#,###'}
@@ -329,7 +331,7 @@
 						caption : [sortAtrbCdCaption, '단가'],
 						ref: sortAtrbUntprcRef,
 						type: 'input',
-						width: '6%',
+						width: '5%',
 						filtering: { usemode: false },
 						style:'text-align:right;',
 						format : {type:'number', rule:'#,###'}
@@ -337,9 +339,27 @@
 			)
 		}
 
-		for (let j=1; j<=jsonSortGrds.length; j++) {
-			let grdCdCaption = jsonSortGrds[j-1].grdNm;
-			let grdCdRef = 'grdCd' + jsonSortGrds[j-1].grdCd;
+		for (let j=1; j<=jsonPltBx.length; j++) {
+
+			let pltBxCaption = jsonPltBx[j-1].text;
+			let pltBxQnttRef = 'pltBxQntt' + j;
+
+			columns.push(
+					{
+						caption : [pltBxCaption, pltBxCaption],
+						ref: pltBxQnttRef,
+						type: 'input',
+						width: '5%',
+						filtering: { usemode: false },
+						style:'text-align:right;',
+						format : {type:'number', rule:'#,###'}
+					},
+			)
+		}
+
+		for (let k=1; k<=jsonSortGrds.length; k++) {
+			let grdCdCaption = jsonSortGrds[k-1].grdNm;
+			let grdCdRef = 'grdCd' + jsonSortGrds[k-1].grdCd;
 
 			let width = (Math.floor(52/(jsonSortGrds.length) * 10) / 10 ) + '%';
 
@@ -357,7 +377,7 @@
 
 
 		columns.push(
-				{caption : ['합계', '합계'], 			ref: 'tot', 		type: 'output',  	width: '10%', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
+				{caption : ['합계', '합계'], 			ref: 'tot', 		type: 'output',  	width: '8%', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 				{caption : ['입고번호', '입고번호'], 		ref: 'wrhsno', 		type: 'output',  	hidden : true},
 				{caption : ['팔레트번호', '팔레트번호'], 	ref: 'pltno', 		type: 'output',  	hidden : true},
 				{caption : ['선별번호', '선별번호'], 		ref: 'sortno', 		type: 'output',  	hidden : true},
@@ -464,9 +484,7 @@
 				let grdQntt = rowData[grdCdKey] || 0;
 				tot += parseInt(grdQntt);
 			}
-
 			grdRawDlng.setCellData(nRow, totCol, tot, true);
-
 			if (tot > 0 ) {
 				grdRawDlng.setCellData(nRow, checkBoxCol, true, true);
 			} else {
@@ -512,11 +530,9 @@
 					false
 			);
 			const data = await postJsonPromise;
-
 			data.resultList.forEach((item, index) => {
 
 				const untyPrfmncVO = {
-
 					  apcCd				: item.apcCd
 					, wrhsno			: item.wrhsno
 					, wrhsYmd 			: item.wrhsYmd
@@ -524,6 +540,7 @@
 					, prdcrCd			: item.prdcrCd
 					, sortAtrbQntt1		: fn_zero(item.sortAtrbQntt1)
 					, sortAtrbUntprc1   : fn_zero(item.sortAtrbUntprc1)
+					, pltBxQntt1		: fn_zero(item.pltBxQntt)
 					, grdCd01       	: fn_zero(item.grdCd01)
 					, grdCd02       	: fn_zero(item.grdCd02)
 					, grdCd03       	: fn_zero(item.grdCd03)
@@ -548,22 +565,16 @@
 					, sortno			: item.sortno
 					, pckgno			: item.pckgno
 					, pltno				: item.pltno
-
-
-
 				}
 				jsonRawDlng.push(untyPrfmncVO);
 			});
-
 			grdRawDlng.rebuild();
-
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 		}
-
 	}
 
 
@@ -689,6 +700,34 @@
 
 				untyPrfmncVO.sortPrfmncAtrbList = sortPrfmncAtrbList;
 				untyPrfmncVO.sortPrfmncAtrbYn = 'Y';
+			}
+
+			let pltWrhsSpmtList = [];
+
+			/**
+			 * 팔레트/박스 실적에 대해 추가 사항
+			 * */
+			for (let h=1; h<=jsonPltBx.length; h++) {
+
+				let pltBxQnttKey = 'pltBxQntt' + h;
+				let pltBxQntt = rowData[pltBxQnttKey];
+
+				if (!gfn_isEmpty(pltBxQntt))  {
+
+					let pltWrhsSpmtVO = JSON.parse(JSON.stringify(rowData));
+					pltWrhsSpmtVO.qntt = pltBxQntt;
+					pltWrhsSpmtVO.jobYmd = pltWrhsSpmtVO.wrhsYmd;
+					pltWrhsSpmtVO.wrhsSpmtSeCd = '1'
+					pltWrhsSpmtVO.pltBxSeCd	= 'B'
+					pltWrhsSpmtVO.pltBxCd = jsonPltBx[h-1].value;
+					pltWrhsSpmtList.push(pltWrhsSpmtVO);
+				}
+			}
+
+			if (pltWrhsSpmtList.length > 0) {
+
+				untyPrfmncVO.pltWrhsSpmtList = pltWrhsSpmtList;
+				untyPrfmncVO.pltWrhsSpmtYn = 'Y';
 			}
 
 			let sortPrfmncList = [];

@@ -26,7 +26,7 @@
 	    	SELECT /* com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList */
 	    	       Y.APC_CD
 				 , Y.WRHSNO                 AS WRHSNO
-				 , MAX(Y.WRHS_YMD)          AS WRHS_YMD
+				 , Y.WRHS_YMD          		AS WRHS_YMD
 	    	     , MAX(Y.PLTNO)             AS PLTNO
 				 , MAX(Y.BX_QNTT)           AS BX_QNTT
 	    	     , MAX(Y.PRDCR_CD)          AS PRDCR_CD
@@ -34,6 +34,13 @@
 	    	     , MAX(Y.PCKGNO)           	AS PCKGNO
 				 , MAX(SORT_ATRB_QNTT)      AS SORT_ATRB_QNTT_1
 				 , MAX(SORT_ATRB_UNTPRC)    AS SORT_ATRB_UNTPRC_1
+	    	     , (SELECT QNTT
+                      FROM TB_PLT_WRHS_SPMT PW
+                     WHERE PW.APC_CD(+) = Y.APC_CD
+                       AND PW.PRCS_NO(+) = Y.WRHSNO
+                       AND PW.JOB_YMD(+) = Y.WRHS_YMD
+                       AND PW.DEL_YN(+) = 'N'
+                   ) AS PLT_BX_QNTT
 				 , SUM(SORT_QNTT)           AS TOT
 				 , SUM(QNTT_1)              AS GRD_CD_01
 				 , SUM(QNTT_2)              AS GRD_CD_02
@@ -123,7 +130,7 @@
 									   AND PIP.DEL_YN = 'N'
 									   AND PP.DEL_YN = 'N'
 									   AND GI.DEL_YN = 'N'
-									   AND PP.APC_CD = '0382'
+									   AND PP.APC_CD = #{apcCd}
 									 GROUP BY PIP.APC_CD, PIP.SORTNO, PP.PCKGNO, GI.GDS_GRD
 								   ) PP
 								 , (SELECT X.APC_CD
@@ -168,7 +175,7 @@
 							 GROUP BY WP.APC_CD, WP.WRHSNO, SP.SORTNO, SI.GRD_CD, PP.PCKGNO
 							) X
 					) Y
-			 GROUP BY Y.APC_CD, Y.WRHSNO, Y.SORTNO
+			 GROUP BY Y.APC_CD, Y.WRHSNO, Y.SORTNO, Y.WRHS_YMD
 
 		]]>
     </select>
