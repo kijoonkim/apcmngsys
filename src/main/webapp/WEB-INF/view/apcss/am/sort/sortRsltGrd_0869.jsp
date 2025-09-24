@@ -516,11 +516,11 @@
         const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'SR_DOC');
         gfn_popClipReport("선별결과표", rptUrl, {
             apcCd: gv_selectedApcCd,
-            brix: brix,
+            brix: brix == null ? '' : brix,
             inptYmdFrom: inptYmdFrom,
             inptYmdTo: inptYmdTo,
-            itemCd: itemCd,
-            fcltCd: fcltCd,
+            itemCd: itemCd == null ? '' : itemCd,
+            fcltCd: fcltCd == null ? '' : fcltCd,
             grdSeCd: '02'
         });
     }
