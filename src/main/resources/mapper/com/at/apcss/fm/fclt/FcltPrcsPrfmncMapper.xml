@@ -291,37 +291,68 @@
 
 	<select id="selectFcltPrcsPrfmncRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrcsPrfmncVO">
 			<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.selectFcltPrcsPrfmncRawDataList */
-				OTI.CRTR_YR
-				, OTI.APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.selectFcltPrcsPrfmncRawDataList */
+					  OP.CRTR_YR	AS CRTR_YR
+					, OP.APC_CD		AS APC_CD
+					, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = OP.APC_CD) AS APC_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', OP.CTPV_CD) FROM DUAL) AS CTPV_NM
+				    , (SELECT USRAM.FN_GET_COM_CD_VL_EXPLN('UNTY_SGG', OP.SIGUN_CD) FROM DUAL) AS SIGUN_NM
+					, OTI.SN
+					, OTI.ITEM_CD
+					, OTI.ITEM_NM
+					, AOPD.APC_TRMT_AMT
+					, AOPD.APC_TRMT_VLM
+					, AOPD.TM_SPMT_AMT
+					, AOPD.TM_SPMT_RT
+					, AOPD.APC_GNRL_TRMT_AMT
+					, AOPD.APC_OGNZ_CPRTN_SORT_TRST
+					, AOPD.APC_CTRT_EMSPAP
+				FROM TB_TE_APC_OPER_PRSN_OTLN OP
 
-				, (SELECT
-						FN_GET_COM_CD_VL_NM('UNTY_CTPV',CTPV_CD)
-					FROM TB_TE_APC_OPER_PRSN_OTLN
-					WHERE 1=1
-					  AND APC_CD = OTI.APC_CD
-					  AND CRTR_YR = OTI.CRTR_YR
-				) AS CTPV_NM
+				JOIN TB_TE_APC_OPER_TRMT_ITEM OTI
+				  ON OTI.CRTR_YR = OP.CRTR_YR
+				 AND OTI.APC_CD = OP.APC_CD
+				 AND OTI.OGNZ_SE_CD = '2'
+				 AND OTI.APC_CD IS NOT NULL
+				 AND OTI.DEL_YN = 'N'
 
-				, (SELECT
-							X.CD_VL_EXPLN
-					FROM TB_COM_CD_DTL X
-					WHERE 1=1
-					  AND X.CD_ID = 'UNTY_SGG'
-					  AND X.APC_CD = '0000'
-					  AND X.CD_VL = (SELECT
-					  						SIGUN_CD
-					  					FROM TB_TE_APC_OPER_PRSN_OTLN
-					  					WHERE 1=1
-					  					  AND APC_CD = OTI.APC_CD
-					  					  AND CRTR_YR = OTI.CRTR_YR)
-				) AS SIGUN_NM
+				LEFT JOIN TB_TE_APC_OPER_PRFMNC_DTL AOPD
+				  ON AOPD.CRTR_YR = OTI.CRTR_YR
+				 AND AOPD.APC_CD = OTI.APC_CD
+				 AND AOPD.SN = OTI.SN
+				 AND AOPD.DEL_YN = 'N'
 
-				, OTI.SN
-				, OTI.ITEM_CD
-				, OTI.ITEM_NM
-
+				WHERE OP.DEL_YN = 'N'
+		]]>
+			<if test='crtrYr != null and !crtrYr.equals("")'>
+			  	AND OP.CRTR_YR = #{crtrYr}
+			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+				AND EXISTS (
+				    	SELECT 1
+				    	  FROM TB_APC_INFO X
+				    	 WHERE X.APC_CD = OP.APC_CD
+						<if test='userType == "27"'>
+				    	   AND X.CTPV = (SELECT CU.CTPV FROM TB_COM_USER CU WHERE CU.USER_ID = #{userId})
+						</if>
+						<if test='userType == "28"'>
+							AND X.SGG = (SELECT CU.SGG FROM TB_COM_USER CU WHERE CU.USER_ID = #{userId})
+						</if>
+					)
+				</if>
+			</if>
+		<![CDATA[
+			UNION ALL
+			SELECT
+				  OP.CRTR_YR	AS CRTR_YR
+				, OP.APC_CD		AS APC_CD
+				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = OP.APC_CD) AS APC_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', OP.CTPV_CD) FROM DUAL) AS CTPV_NM
+				, (SELECT USRAM.FN_GET_COM_CD_VL_EXPLN('UNTY_SGG', OP.SIGUN_CD) FROM DUAL) AS SIGUN_NM
+				, AOPD.SN
+				, AOPD.ITEM_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CMSU_ADM_ITEM_CD', AOPD.ITEM_CD) FROM DUAL) AS ITEM_NM
 				, AOPD.APC_TRMT_AMT
 				, AOPD.APC_TRMT_VLM
 				, AOPD.TM_SPMT_AMT
@@ -329,32 +360,36 @@
 				, AOPD.APC_GNRL_TRMT_AMT
 				, AOPD.APC_OGNZ_CPRTN_SORT_TRST
 				, AOPD.APC_CTRT_EMSPAP
-			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
-				, TB_TE_APC_OPER_PRFMNC_DTL AOPD
-			WHERE 1=1
-			  AND OTI.APC_CD = AOPD.APC_CD(+)
-			  AND OTI.CRTR_YR = AOPD.CRTR_YR(+)
-			  AND OTI.SN = AOPD.SN(+)
-			  AND OTI.OGNZ_SE_CD = '2'
-			  AND OTI.APC_CD IS NOT NULL
+			FROM TB_TE_APC_OPER_PRSN_OTLN OP
+
+			JOIN TB_TE_APC_OPER_PRFMNC_DTL AOPD
+			  ON AOPD.CRTR_YR = OP.CRTR_YR
+			 AND AOPD.APC_CD = OP.APC_CD
+			 AND AOPD.ITEM_CD = 'XC01'
+			 AND AOPD.DEL_YN = 'N'
+
+			WHERE OP.DEL_YN = 'N'
 		]]>
 			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND OTI.CRTR_YR = #{crtrYr}
+				AND OP.CRTR_YR = #{crtrYr}
 			</if>
 			<if test='userId != null and userId != ""'>
 				<if test='userType == "27" or userType == "28"'>
-				AND OTI.APC_CD IN (SELECT APC_CD
-								FROM TB_APC_INFO
-								WHERE 1=1
-								<if test='userType == "27"'>
-								  AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
-								</if>
-								<if test='userType == "28"'>
-								  AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
-								</if>
-								)
+				AND EXISTS (
+				    	SELECT 1
+				    	  FROM TB_APC_INFO X
+				    	 WHERE X.APC_CD = OP.APC_CD
+						<if test='userType == "27"'>
+				    	   AND X.CTPV = (SELECT CU.CTPV FROM TB_COM_USER CU WHERE CU.USER_ID = #{userId})
+						</if>
+						<if test='userType == "28"'>
+							AND X.SGG = (SELECT CU.SGG FROM TB_COM_USER CU WHERE CU.USER_ID = #{userId})
+						</if>
+					)
 				</if>
 			</if>
-			ORDER BY OTI.CRTR_YR , APC_NM , OTI.SN
+		<![CDATA[
+			ORDER BY CRTR_YR, APC_NM, OTI.SN
+		]]>
 	</select>
 </mapper>

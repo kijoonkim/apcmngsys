@@ -246,6 +246,7 @@ public class ComUserApiController extends BaseController {
 
 		String enpassword = EgovFileScrty.encryptPassword(comUserVO.getUserId(), comUserVO.getUserId());
 		comUserVO.setPswd(enpassword);
+		comUserVO.setUserIp(getUserIp(request));
 
 		int updatedCnt = 0;
 

@@ -1389,21 +1389,30 @@
 
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
+		let brno;
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.userType ne '22'}">
-		let brno = SBUxMethod.get('dtl-input-brno');
+		brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
 		<c:if test="${loginVO.userType eq '22'}">
-		let brno = '${loginVO.brno}';
+		brno = '${loginVO.brno}';
 		</c:if>
+		const yr = SBUxMethod.get('dtl-input-yr');
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			brno : brno
-		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
+    	// let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+		// 	brno : brno
+		// });
+
+        try {
+			const url = "/pd/bsm/selectUoHstryList.do";
+			const postJsonPromise = gfn_postJSON(url, {
+				brno: brno,
+				yr: yr
+			});
+			const data = await postJsonPromise;
+			comUoBrno.length = 0;
+        	//comUoBrno = [];
         	data.resultList.forEach((item, index) => {
         		let uoListVO = {
 						'text'		: item.uoCorpNm
@@ -1414,9 +1423,10 @@
 				}
         		comUoBrno.push(uoListVO);
 			});
+
         	SBUxMethod.refresh('dtl-input-selUoBrno');
         	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
+        	if (comUoBrno.length === 1) {
 
         	}
         }catch (e) {

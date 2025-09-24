@@ -1084,7 +1084,6 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1112,11 +1111,10 @@
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
-		fn_searchUoList();
+		await fn_searchUoList();
 		</c:if>
 		<c:if test="${loginVO.userType eq '21'}">
 		let brno = '${loginVO.brno}';
-		console.log(brno);
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
@@ -1418,21 +1416,31 @@
 
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
+
+		let brno;
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.userType ne '22'}">
-		let brno = SBUxMethod.get('dtl-input-brno');
+		brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
 		<c:if test="${loginVO.userType eq '22'}">
-		let brno = '${loginVO.brno}';
+		brno = '${loginVO.brno}';
 		</c:if>
 
-    	let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			brno : brno
-		});
-        let data = await postJsonPromise;
-        try{
-        	comUoBrno = [];
+    	// let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+		// 	brno : brno
+		// });
+        // let data = await postJsonPromise;
+        try {
+			const yr = SBUxMethod.get('dtl-input-yr');
+			const url = "/pd/bsm/selectUoHstryList.do";
+			const postJsonPromise = gfn_postJSON(url, {
+				brno: brno,
+			 	yr: yr
+			});
+			const data = await postJsonPromise;
+			comUoBrno.length = 0;
+			//comUoBrno = [];
         	data.resultList.forEach((item, index) => {
         		let uoListVO = {
 						'text'		: item.uoCorpNm
@@ -1443,12 +1451,13 @@
 				}
         		comUoBrno.push(uoListVO);
 			});
+
         	SBUxMethod.refresh('dtl-input-selUoBrno');
         	//console.log(comUoBrno);
-        	if(comUoBrno.length == 1){
+        	if (comUoBrno.length === 1) {
 
         	}
-        }catch (e) {
+        } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
