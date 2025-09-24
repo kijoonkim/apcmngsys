@@ -856,7 +856,27 @@
 	 * @description 다중 리포트 출력
 	 */
 	const fn_report = async function () {
-		// 은총 씨 할 일 !! 흐흐
+
+		const wrhsnoList = [];
+
+		const allData = grdRawDlng.getGridDataAll();
+		allData.forEach((item, index) => {
+			if (item.checkBox === "true") {
+				wrhsnoList.push(
+						item.wrhsno
+				);
+			}
+
+		});
+		if (wrhsnoList.length === 0) {
+			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		const wrhsno = wrhsnoList.join("','");
+
+		gfn_popClipReport("거래명세표", "am/dlngDoc_0382.crf", {apcCd: gv_selectedApcCd, wrhsno: wrhsno});
+
 	}
 
 
