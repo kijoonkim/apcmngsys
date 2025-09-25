@@ -87,12 +87,15 @@
 						<tr>
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-spinner
-									id="srch-input-yr"
-									name="srch-input-yr"
-									uitype="normal"
-									step-value="1"
-								></sbux-spinner>
+								<sbux-select
+										id="slt-dtlPage"
+										name="slt-dtlPage"
+										uitype="single"
+										jsondata-ref="jsonDtlPage"
+										class="form-control input-sm"
+										onchange="fn_onChangePage(this)"
+								></sbux-select>
+								<sbux-input id="srch-input-yr" name="srch-input-yr" uitype="hidden"></sbux-input>
 								<sbux-checkbox
 									id="srch-input-yrChk"
 									name="srch-input-yrChk"
@@ -1079,8 +1082,38 @@
 </body>
 <script type="text/javascript">
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_init();
+	const initIndtfNo = "2025";
+
+	var jsonDtlPage = [];
+
+	const fn_setInitPage = async function(_targetId, _initIndtfNo) {
+
+		jsonDtlPage.length = 0;
+		const pruoMst = await gfn_getPruoRegMst();
+		if (Array.isArray(pruoMst)) {
+			pruoMst.forEach((item) => {
+				jsonDtlPage.push({
+					'text': item.indctNm,
+					'label': item.indctNm,
+					'value': item.crtrYr
+				});
+			});
+			SBUxMethod.refresh(_targetId);
+		}
+		SBUxMethod.set(_targetId, _initIndtfNo);
+	}
+
+	const fn_onChangePage = function(page) {
+		//window.location.reload();
+		const baseUrl = window.location.pathname.split('?')[0];
+		window.location.href = baseUrl + '?idntfNo=' + page.value;
+	}
+
+	window.addEventListener('DOMContentLoaded', async function(e) {
+
+		await fn_setInitPage("slt-dtlPage", initIndtfNo);
+
+		await fn_init();
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -1187,29 +1220,31 @@
 
 	/* 기본 년도값 세팅 */
 	const fn_setYear = async function() {
-		//console.log('fn_selectSetYear');
-		let cdId = "SET_YEAR";
-		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
-			cdId : cdId
-		});
-		let data = await postJsonPromise;
-		//현재 년도(세팅값이 없는경우 현재년도로)
-		let now = new Date();
-		let year = now.getFullYear();
-		try{
-			if(!gfn_isEmpty(data.setYear)){
-				year = data.setYear;
-			}
-		}catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
+
+		const year = initIndtfNo;
+		// //console.log('fn_selectSetYear');
+		// let cdId = "SET_YEAR";
+		// //SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		// let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+		// 	cdId : cdId
+		// });
+		// let data = await postJsonPromise;
+		// //현재 년도(세팅값이 없는경우 현재년도로)
+		// let now = new Date();
+		// let year = now.getFullYear();
+		// try{
+		// 	if(!gfn_isEmpty(data.setYear)){
+		// 		year = data.setYear;
+		// 	}
+		// }catch (e) {
+		// 	if (!(e instanceof Error)) {
+		// 		e = new Error(e);
+		// 	}
+		// 	console.error("failed", e.message);
+		// }
 		//기본년도 세팅
-		SBUxMethod.set("srch-input-yr",year);
-		SBUxMethod.set("dtl-input-yr",year);
+		SBUxMethod.set("srch-input-yr", year);
+		SBUxMethod.set("dtl-input-yr", year);
 		$(".setYr").text(year);
 	}
 
