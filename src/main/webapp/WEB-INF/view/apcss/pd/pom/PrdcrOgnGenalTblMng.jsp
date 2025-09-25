@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>title : SBUx2.6</title>
+	<title>title : 생산자조직관리 - 총괄표</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -17,8 +17,6 @@
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set><h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
 					<!-- 생산자조직 총괄표 -->
-					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '91'}">
@@ -77,12 +75,15 @@
 						<tr>
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-spinner
-									id="srch-input-yr"
-									name="srch-input-yr"
-									uitype="normal"
-									step-value="1"
-								></sbux-spinner>
+								<sbux-select
+										id="slt-dtlPage"
+										name="slt-dtlPage"
+										uitype="single"
+										jsondata-ref="jsonDtlPage"
+										class="form-control input-sm"
+										onchange="fn_onChangePage(this)"
+								></sbux-select>
+								<sbux-input id="srch-input-yr" name="srch-input-yr" uitype="hidden"></sbux-input>
 								<sbux-checkbox
 									id="srch-input-yrChk"
 									name="srch-input-yrChk"
@@ -398,8 +399,53 @@
 	</section>
 </body>
 <script type="text/javascript">
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_init();
+
+	const initIndtfNo = "2025";
+
+	var jsonDtlPage = [];
+
+	const fn_setInitPage = async function(_targetId, _initIndtfNo) {
+
+		jsonDtlPage.length = 0;
+		const pruoMst = await gfn_getPruoRegMst();
+		if (Array.isArray(pruoMst)) {
+			pruoMst.forEach((item) => {
+				jsonDtlPage.push({
+					'text': item.indctNm,
+					'label': item.indctNm,
+					'value': item.crtrYr
+				});
+			});
+			SBUxMethod.refresh(_targetId);
+		}
+		SBUxMethod.set(_targetId, _initIndtfNo);
+	}
+
+	const fn_onChangePage = async function(page) {
+
+		// 연도 변경 후 조회
+		//window.location.reload();
+		// const baseUrl = window.location.pathname.split('?')[0];
+		// window.location.href = baseUrl + '?idntfNo=' + page.value;
+		const year = page.value;
+		SBUxMethod.set("srch-input-yr", year);
+		SBUxMethod.set("dtl-input-yr", year);
+
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91' || loginVO.apoSe eq '1'}">
+		await fn_search();
+		</c:if>
+		<c:if test="${loginVO.apoSe eq '2'}">
+		await fn_dtlSearch();
+		</c:if>
+
+	}
+
+
+	window.addEventListener('DOMContentLoaded', async function(e) {
+
+		await fn_setInitPage("slt-dtlPage", initIndtfNo);
+
+		await fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -433,28 +479,32 @@
 
 	/* 기본 년도값 세팅 */
 	const fn_setYear = async function() {
-		let cdId = "SET_YEAR";
-		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
-			cdId : cdId
-		});
-		let data = await postJsonPromise;
-		//현재 년도(세팅값이 없는경우 현재년도로)
-		let now = new Date();
-		let year = now.getFullYear();
-		try{
-			if(!gfn_isEmpty(data.setYear)){
-				year = data.setYear;
-			}
-		}catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
+
+		const year = initIndtfNo;
+
+		// let cdId = "SET_YEAR";
+		// //SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
+		// let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
+		// 	cdId : cdId
+		// });
+		// let data = await postJsonPromise;
+		// //현재 년도(세팅값이 없는경우 현재년도로)
+		// let now = new Date();
+		// let year = now.getFullYear();
+		// try{
+		// 	if(!gfn_isEmpty(data.setYear)){
+		// 		year = data.setYear;
+		// 	}
+		// }catch (e) {
+		// 	if (!(e instanceof Error)) {
+		// 		e = new Error(e);
+		// 	}
+		// 	console.error("failed", e.message);
+		// }
+
 		//기본년도 세팅
-		SBUxMethod.set("srch-input-yr",year);
-		SBUxMethod.set("dtl-input-yr",year);
+		SBUxMethod.set("srch-input-yr", year);
+		SBUxMethod.set("dtl-input-yr", year);
 	}
 
 	var jsonComCmptnInst = [];//관할기관
