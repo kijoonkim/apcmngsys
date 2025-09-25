@@ -418,7 +418,7 @@
 						<artifactId>spring-boot-maven-plugin</artifactId>
 						<version>2.7.0</version>
 						<configuration>
-							<includeSystemScope>true</includeSystemScope>
+							<includeSystemScope>false</includeSystemScope>
 						</configuration>
 					</plugin>
 				</plugins>
