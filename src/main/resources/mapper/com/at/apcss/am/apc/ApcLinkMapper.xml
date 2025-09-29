@@ -320,68 +320,65 @@
 		]]>
     </select>
     
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList	-->
+	<!-- ============================================================================== -->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList   -->
 	<!-- DESC : APC 연계 기기 상태 목록 조회.	                                            -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+	<!-- ============================================================================== -->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			    -->
+	<!-- ===========  	============  	=============================================== -->
+	<!-- 2024.04.29  	신정철        	Initial Creation                                -->
+	<!-- ============================================================================== -->
     <select id="selectApcLinkTrsmMatSttsList" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
-    	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList */
-    			  pt0.*
-    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_KND', pt0.LINK_KND) FROM DUAL) AS LINK_KND_NM
-    			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_NM
-    			, (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_COLOR
-    			
-    			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
-    			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
-
-    		  FROM (
-		    	SELECT
-		    		  AL.APC_CD        		AS APC_CD
-					, AL.GROUP_ID			AS GROUP_ID
-					, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
-					, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
-					, TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
-					, TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
-					, TS.LINK_KND			AS LINK_KND
-					, TS.LINK_USE_YN		AS LINK_USE_YN
-					, TS.REQ_YN   			AS REQ_YN
-					, TO_CHAR(TS.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS REQ_DT
-					, TO_CHAR(TS.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS REQ_CNCLTN_DT
-					, TO_CHAR(TS.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SND_DT
-					, TO_CHAR(TS.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS SND_CMPTN_DT
-					, TO_CHAR(TS.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS PRCS_DT
-					, TO_CHAR(TS.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PRCS_CMPTN_DT
-					, NVL(TS.LINK_STTS, 'P0')								AS LINK_STTS
-
-				  FROM TB_APC_LINK AL
-				  
-				  JOIN TB_APC_LINK_TRSM_MAT TM
-				    ON TM.APC_CD = AL.APC_CD		  
-				  AND TM.DEL_YN = 'N'
-				  
-				 JOIN TB_APC_LINK_TRSM_MAT_STTS TS
-				   ON TS.APC_CD = TM.APC_CD
-				  AND TS.TRSM_MAT_ID = TM.TRSM_MAT_ID
-				  AND TS.DEL_YN = 'N'
-
-				 WHERE AL.APC_CD = #{apcCd}
-				   AND AL.DEL_YN = 'N'
-		]]>
-				<if test='trsmMatId != null and trsmMatId != ""'>
-				   AND TM.TRSM_MAT_ID = #{trsmMatId}
-				</if>
-				<if test='linkKnd != null and linkKnd != ""'>
-				   AND TS.LINK_KND = #{linkKnd}
-				</if>
-    	<![CDATA[
-    		  ) pt0
-			 ORDER BY TRSM_MAT_ID, LINK_KND
-		]]>
+        <![CDATA[
+            SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList */
+                  pt0.*
+                , (SELECT FN_GET_COM_CD_VL_NM('LINK_KND', pt0.LINK_KND) FROM DUAL) AS LINK_KND_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_NM
+                , (SELECT FN_GET_COM_CD_CHR_VL('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_COLOR
+                , (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
+                , (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
+                , (SELECT X.APC_NM FROM USRAM.TB_APC_INFO X WHERE X.APC_CD = pt0.APC_CD) AS APC_NM
+            FROM (
+                SELECT
+                      AL.APC_CD        		AS APC_CD
+                    , AL.GROUP_ID			AS GROUP_ID
+                    , TM.TRSM_MAT_ID		AS TRSM_MAT_ID
+                    , TM.TRSM_MAT_NM		AS TRSM_MAT_NM
+                    , TM.TRSM_MAT_STTS_CD   AS TRSM_MAT_STTS_CD
+                    , TM.STTS_IDNTY_DT		AS STTS_IDNTY_DT
+                    , TS.LINK_KND			AS LINK_KND
+                    , TS.LINK_USE_YN		AS LINK_USE_YN
+                    , TS.REQ_YN   			AS REQ_YN
+                    , TO_CHAR(TS.REQ_DT, 'YYYY-MM-DD HH24:MI:SS')			AS REQ_DT
+                    , TO_CHAR(TS.REQ_CNCLTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS REQ_CNCLTN_DT
+                    , TO_CHAR(TS.SND_DT, 'YYYY-MM-DD HH24:MI:SS')			AS SND_DT
+                    , TO_CHAR(TS.SND_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')		AS SND_CMPTN_DT
+                    , TO_CHAR(TS.PRCS_DT, 'YYYY-MM-DD HH24:MI:SS')   		AS PRCS_DT
+                    , TO_CHAR(TS.PRCS_CMPTN_DT, 'YYYY-MM-DD HH24:MI:SS')	AS PRCS_CMPTN_DT
+                    , NVL(TS.LINK_STTS, 'P0')								AS LINK_STTS
+                FROM TB_APC_LINK AL
+                JOIN TB_APC_LINK_TRSM_MAT TM
+                ON TM.APC_CD = AL.APC_CD
+                AND TM.DEL_YN = 'N'
+                JOIN TB_APC_LINK_TRSM_MAT_STTS TS
+                ON TS.APC_CD = TM.APC_CD
+                AND TS.TRSM_MAT_ID = TM.TRSM_MAT_ID
+                AND TS.DEL_YN = 'N'
+                WHERE AL.DEL_YN = 'N'
+        ]]>
+            <if test='apcCd != null and apcCd != ""'>
+                AND AL.APC_CD = #{apcCd}
+            </if>
+            <if test='trsmMatId != null and trsmMatId != ""'>
+                AND TM.TRSM_MAT_ID = #{trsmMatId}
+            </if>
+            <if test='linkKnd != null and linkKnd != ""'>
+                AND TS.LINK_KND = #{linkKnd}
+            </if>
+        <![CDATA[
+            ) pt0
+            ORDER BY TRSM_MAT_ID, LINK_KND
+        ]]>
     </select>
 
     <!-- ==========================================================================	-->

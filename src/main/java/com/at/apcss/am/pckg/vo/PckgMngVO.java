@@ -34,6 +34,11 @@ public class PckgMngVO extends ComVO {
 	private String needsInptRegYn;
 
 	/**
+	 * 가상재고 등록 필요 여부
+	 */
+	private String needsVrInvntrRegYn;
+
+	/**
 	 * APC코드
 	 */
 	private String apcCd;

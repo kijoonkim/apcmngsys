@@ -82,6 +82,13 @@ public interface PrdcrCrclOgnMngMapper {
 	public List<UoListVO> selectUoList(UoListVO uoListVO);
 
 	/**
+	 * 조직관계정보 리스트를 조회 한다
+	 * @param UoListVO
+	 * @return List<UoListVO>
+	 */
+	public List<UoListVO> selectUoHstryList(UoListVO uoListVO);
+
+	/**
 	 * 조직관계정보를 등록 한다
 	 * @param UoListVO
 	 * @return int

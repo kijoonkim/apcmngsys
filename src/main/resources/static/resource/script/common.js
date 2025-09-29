@@ -1186,6 +1186,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				prdcrCd: item.prdcrCd,
 				prdcrNm: item.prdcrNm,
 				prdcrFrstNm: item.prdcrFrstNm,
+				abbrNm: item.abbrNm,
 				rprsItemCd: item.rprsItemCd,
 				rprsVrtyCd: item.rprsVrtyCd,
 				rprsItemNm: item.rprsItemNm,
@@ -1200,6 +1201,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				value:item.prdcrCd,
 				frmhsTelno:item.frmhsTelno,
 				frmhsCtpv:item.frmhsCtpv,
+				frmhsNm: item.frmhsNm,
 				frmhsAddr:item.frmhsAddr,
 				crtrPrcl:item.crtrPrcl,
 				plntngPrcl:item.plntngPrcl,
@@ -1837,6 +1839,23 @@ const gfn_gridRowPlusMinus = function(_event, _gubun, _nRow){
 			grdObj.deleteRow(_nRow);
 		}
 	}
+}
+
+/**
+ * @name gfn_objectToArray
+ * @description Object 타입 순환가능 형태로 반환함수
+ * @function
+ * @param {Object} _event
+ * @returns Array
+ */
+const gfn_objectToArray = function(_obj) {
+	const result = [];
+	for (let key in _obj) {
+		if (_obj.hasOwnProperty(key)) {
+			result.push({ [key]: _obj[key] });
+		}
+	}
+	return result;
 }
 
 

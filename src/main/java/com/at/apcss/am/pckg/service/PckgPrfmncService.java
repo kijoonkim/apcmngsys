@@ -86,4 +86,28 @@ public interface PckgPrfmncService {
 	 * @throws Exception
 	 */
 	int insertPckgPrfmncSc(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 포장실적 목록 다중 등록
+	 * @param param
+	 * @return int
+	 * @throws Exception
+	 */
+	int insertPckgPrfmncWithSpmt(HashMap<String, Object> param) throws Exception;
+
+	/**
+	 * 통합 포장 실적 목록 등록
+	 * @param pckgPrfmncList
+	 * @return int
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntyPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception;
+
+	/**
+	 * 포장실적 삭제 전체
+	 * @param pckgPrfmncVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePckgPrfmncAll(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 }

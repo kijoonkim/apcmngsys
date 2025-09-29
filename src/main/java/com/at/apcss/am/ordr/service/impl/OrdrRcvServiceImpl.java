@@ -2890,7 +2890,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			dtl.put("OUTORDR_AMT", dtlVO.getOutordrAmt());
 			dtl.put("OUTORDR_UNTPR", dtlVO.getOutordrUntprc());
 			dtl.put("WRHS_QNTT", dtlVO.getWrhsQntt());
-
+			dtl.put("TXAMT", dtlVO.getTxamt());
+			
 			dtlList.add(dtl);
 
 			outordrno = dtlVO.getOutordrno();

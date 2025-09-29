@@ -258,7 +258,7 @@ console.log("this.param", this.param);
             },
             {
             	caption: ['완료일시'],
-            	ref: 'prcsCmptnDt', 			
+            	ref: 'prcsCmptnDt',
             	width: '130px', 	
             	type: 'output', 	
             	style: 'text-align:center;'
@@ -390,6 +390,8 @@ console.log("this.param", this.param);
 	        
 	        jsonApcLinkPop.length = 0;
         	data.resultList.forEach((item, index) => {
+				let isBNewer = item.reqDt < item.prcsCmptnDt;
+				item.prcsCmptnDt = isBNewer ? item.prcsCmptnDt : '';
         		jsonApcLinkPop.push(item);
 			});
         	

@@ -186,4 +186,20 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	public List<CmnsItemVO> selectVrtyByItemCd(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * 종자정보 등록
+	 * @param apcSeedCrtrVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int insertApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
+
+	/**
+	 * 종자정보 업데이트
+	 * @param apcSeedCrtrVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
 }

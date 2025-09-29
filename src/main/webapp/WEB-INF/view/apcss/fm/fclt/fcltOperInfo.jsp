@@ -72,12 +72,19 @@
 						<tr>
 							<th scope="row" class="th_bg">조사연도</th>
 							<td colspan="2" class="td_input" style="border-right:hidden;">
-								<sbux-spinner
+								<%--<sbux-spinner
 										id="srch-inp-crtrYr"
 										name="srch-inp-crtrYr"
 										uitype="normal"
 										step-value="1"
-									></sbux-spinner>
+									></sbux-spinner>--%>
+								<sbux-select
+										id="srch-slt-crtrYr"
+										name= "srch-slt-crtrYr"
+										uitype="single"
+										jsondata-ref="jsonCrtrYr"
+										class="form-control input-sm"
+								></sbux-select>
 							</td>
 							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 							<th scope="row" class="th_bg">시도</th>
@@ -525,7 +532,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -546,6 +553,9 @@
 	var jsonComEtcCtgryCd = [];//기타부류
 	var jsonComApcEtcCtgryCd = [];//APC기타부류
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
 	/**
 	 * combo 설정
 	 */
@@ -560,15 +570,16 @@
 			//gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
 			gfn_setComCdSBSelect('dtl-inp-apcEtcCtgryCd', 	jsonComApcEtcCtgryCd, 	'ETC_CLS'), 	//APC 기타 부류
-		]);
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
+	]);
 	}
 
 	const fn_init = async function() {
-		fn_initSBSelect();
+		await fn_initSBSelect();
 
-		fn_fcltOperInfoCreateGrid();
+		await fn_fcltOperInfoCreateGrid();
 
-		fn_search();
+		await fn_search();
 	}
 
 
@@ -663,7 +674,7 @@
 
 		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
 		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
@@ -1055,6 +1066,9 @@
 
 	//입력폼 초기화
 	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-apcCd",null);  // hidden apcCd
+		SBUxMethod.set("dtl-inp-crtrYr",null);  // hidden crtrYr
+
 		SBUxMethod.set("dtl-inp-operOgnzNm",null);  // 운영조직 명
 		SBUxMethod.set("dtl-inp-operOgnzBrno",null);  //운영조직 사업자등록번호
 		SBUxMethod.set("dtl-inp-operOgnzCrno",null);  //운영조직 법인등록번호
@@ -1359,7 +1373,7 @@
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();//그리드 생성
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(crtrYr)) {
 			let now = new Date();
 			let year = now.getFullYear();

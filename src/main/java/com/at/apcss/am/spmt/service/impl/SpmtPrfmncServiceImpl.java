@@ -505,7 +505,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			String vrtyCd = ComUtil.nullToEmpty(spmt.getVrtyCd());
 			String spcfctCd = ComUtil.nullToEmpty(spmt.getSpcfctCd());
 
-			String gdsGrd = ComUtil.nullToEmpty(spmt.getSortGrdCd());
+			String gdsGrd = ComUtil.nullToEmpty(spmt.getGdsGrd());
 			String gdsCd = ComUtil.nullToEmpty(spmt.getGdsCd());
 			String sortGrdCd = ComUtil.nullToEmpty(spmt.getSortGrdCd());
 			String prdcrIdentno = ComUtil.nullToEmpty(spmt.getPrdcrIdentno());

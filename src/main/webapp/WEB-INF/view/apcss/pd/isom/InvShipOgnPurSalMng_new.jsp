@@ -737,7 +737,7 @@
 			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			/*= 수탁 =*/
@@ -1104,7 +1104,7 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 			/*총취급실적*/
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
@@ -1211,29 +1211,42 @@
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
-			sumVal = Number(gfn_nvl(rowData.ddcExprtVlm))
-				+ Number(gfn_nvl(rowData.ddcVlm))
-				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
-				+ Number(gfn_nvl(rowData.ddcMlsrVlm))
-				+ Number(gfn_nvl(rowData.ajmtVlm));
-		}else{
+
+		if (objGrid.getRowStatus(Number(nRow)) < 2) {
 			sumVal = rowData.totTrmtPrfmncVlm;
+		} else {
+			if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+				sumVal = Number(gfn_nvl(rowData.ddcExprtVlm))
+						+ Number(gfn_nvl(rowData.ddcVlm))
+						+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
+						+ Number(gfn_nvl(rowData.ddcMlsrVlm))
+						+ Number(gfn_nvl(rowData.ajmtVlm));
+			} else {
+				sumVal = rowData.totTrmtPrfmncVlm;
+			}
 		}
+
 		return sumVal;
 	}
+
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
-			sumVal = Number(gfn_nvl(rowData.ddcExprtAmt))
-				+ Number(gfn_nvl(rowData.ddcAmt))
-				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
-				+ Number(gfn_nvl(rowData.ddcMlsrAmt))
-				+ Number(gfn_nvl(rowData.ajmtAmt));
-		}else{
+
+		if (objGrid.getRowStatus(Number(nRow)) < 2) {
 			sumVal = rowData.totTrmtPrfmncAmt;
+		} else {
+			if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+				sumVal = Number(gfn_nvl(rowData.ddcExprtAmt))
+						+ Number(gfn_nvl(rowData.ddcAmt))
+						+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
+						+ Number(gfn_nvl(rowData.ddcMlsrAmt))
+						+ Number(gfn_nvl(rowData.ajmtAmt));
+			} else {
+				sumVal = rowData.totTrmtPrfmncAmt;
+			}
 		}
+
 		return sumVal;
 	}
 
@@ -1260,9 +1273,9 @@
 	function fn_ajmtVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '3'){
+		if (rowData.sttgUpbrItemSe == '3'){
 			sumVal = rowData.totTrmtPrfmncVlm;
-		}else{
+		} else{
 			sumVal = rowData.ajmtVlm;
 		}
 		return sumVal;
@@ -1272,11 +1285,12 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		//기타인 경우 총 취급실적 가져오기
-		if(rowData.sttgUpbrItemSe == '3'){
+		if (rowData.sttgUpbrItemSe == '3'){
 			sumVal = rowData.totTrmtPrfmncAmt;
-		}else{
+		} else{
 			sumVal = rowData.ajmtAmt;
 		}
+
 		return sumVal;
 	}
 
@@ -1364,7 +1378,7 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","물량(톤)"]
@@ -2280,8 +2294,8 @@
 
 		try {
 
-			//const postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do", param);
-			const postJsonPromise01 = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleList.do", param);
+			const postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do", param);
+			//const postJsonPromise01 = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleList.do", param);
 			const data = await postJsonPromise01;
 
 			//console.log("data==="+data);
@@ -2305,6 +2319,7 @@
 					,delYn: item.delYn
 					,yr: item.yr
 					,uoBrno: item.uoBrno
+					,uoCorpNm: item.uoCorpNm
 					,corpNm: item.corpNm
 
 					,sttgUpbrItemSe: item.sttgUpbrItemSe
@@ -2352,6 +2367,7 @@
 						,delYn: item.delYn
 						,yr: item.yr
 						,uoBrno: item.uoBrno
+						,uoCorpNm: item.uoCorpNm
 						,corpNm: item.corpNm
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
@@ -2399,6 +2415,7 @@
 						delYn: 	item.delYn,
 						yr: 	item.yr,
 						uoBrno: item.uoBrno,
+						uoCorpNm: item.uoCorpNm,
 						corpNm: item.corpNm,
 						sttgUpbrItemSe: item.sttgUpbrItemSe,
 						sttgUpbrItemNm: item.sttgUpbrItemNm,
@@ -2719,8 +2736,8 @@
 			{caption: ["통합조직 구분"],		ref: 'aprv',                  type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["매입/매출 구분"],		ref: 'prchsSlsSe',            type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["매입/매출 구분"],		ref: 'prchsSlsSeNm',          type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["전문/육선/기타 구분"],		ref: 'sttgUpbrItemSe',        type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["전문/육선/기타 구분"],		ref: 'sttgUpbrItemNm',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["전문/육성/기타 구분"],		ref: 'sttgUpbrItemSe',        type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["전문/육성/기타 구분"],		ref: 'sttgUpbrItemNm',        type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["품목코드"],		ref: 'itemCd',                type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["품목명"],		ref: 'itemNm',                type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["분류코드"],		ref: 'ctgryCd',               type:'output',  width:'70px',	style:'text-align:center'},
@@ -2819,8 +2836,8 @@
 		try {
 			const param = {yr: yr};
 
-			// const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngRawDataList2025.do", param);
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleRawDataList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngRawDataList2025.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleRawDataList.do", param);
 			const data = await postJsonPromise;
 
 			data.resultList.forEach((item, index) => {
@@ -2896,7 +2913,7 @@
 
 			await hiddenGrd.rebuild();
 
-			await fn_excelDown();
+			await fn_excelDown(yr);
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -2905,16 +2922,18 @@
 			console.error("failed", e.message);
 		}
 	}
+
 	//로우 데이터 엑셀 다운로드
-	function fn_excelDown(){
+	function fn_excelDown(yr){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear().toString().padStart(4, '0');
-		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate().toString().padStart(2, '0');
-		let formattedDate = year + month + day;
+		// const year = currentDate.getFullYear().toString().padStart(4, '0');
+		// const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		// const day = currentDate.getDate().toString().padStart(2, '0');
+		// let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_총매입매출_출자출하조직_로우데이터";
+		// let fileName = formattedDate + "_총매입매출_출자출하조직_로우데이터" + yr + "년";
+		let fileName = gfn_dateToYmd(currentDate) + "_총매입매출_출자출하조직_로우데이터" + yr + "년";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

@@ -50,4 +50,54 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 	private String rcgnYn;
 	private String rcgnTrmtAmtTot;
 	private String rmrk;
+
+	/**
+	 * 선정년도
+	 */
+	private String slctnYr;
+
+	/**
+	 * 총 취급실적 대비 온라인 도매시장 금액 취급률
+	 */
+	private double trmtAmtRt;
+
+	/**
+	 * 총 취급실적 대비 온라인 도매시장 물량 취급률
+	 */
+	private double trmtVlmRt;
+
+	/**
+	 * 취급물량
+	 */
+	private int trmtVlm;
+
+	/**
+	 * 위탁판매취급물량
+	 */
+	private int cnsgnNtslTrmtVlm;
+
+	/**
+	 * 통합조직 총 매출현황 물량 합계
+	 */
+	private int slsTotVlm;
+
+	/**
+	 * 통합조직 총 매출현황 금액 합계
+	 */
+	private int slsTotAmt;
+
+	/**
+	 * 품목구분(전문품목,육성품목)
+	 */
+	private String sttgUpbrItemSe;
+
+	/**
+	 * 품목구분명
+	 */
+	private String sttgUpbrItemSeNm;
+
+	/**
+	 * 물량 소계
+	 */
+	private String trmtVlmTot;
 }

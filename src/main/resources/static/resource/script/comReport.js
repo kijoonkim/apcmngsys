@@ -406,6 +406,9 @@ console.log("report", report);
 			report.exeDirectPrint(false, "", "", 1, -1, 1, "");
 		}else{
 			report.view();
+			report.setDefaultSaveHWPOption(true, true, true, false, 2, 0, 100, true, true, true, 100, 1, 1, true, 100,false, false, false);
+			report.setDefaultSavePPTOption(true, true, false);
+			report.setDefaultSavePPTXOption(true, false, false, 0, 0, false,"");
 		}
 	}
 

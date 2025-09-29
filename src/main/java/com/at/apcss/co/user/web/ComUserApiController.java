@@ -246,6 +246,7 @@ public class ComUserApiController extends BaseController {
 
 		String enpassword = EgovFileScrty.encryptPassword(comUserVO.getUserId(), comUserVO.getUserId());
 		comUserVO.setPswd(enpassword);
+		comUserVO.setUserIp(getUserIp(request));
 
 		int updatedCnt = 0;
 
@@ -273,7 +274,7 @@ public class ComUserApiController extends BaseController {
 
 		 try {
 			  //APC에이전트상태 업데이트 SP호출
-			  mobileApiService.callSpApcAgtStatsUpdate();
+//			  mobileApiService.callSpApcAgtStatsUpdate();
 
 			  Map<String, Object> result = mobileApiService.getApcAgtStats();
 			  resultJson.put("result", result);

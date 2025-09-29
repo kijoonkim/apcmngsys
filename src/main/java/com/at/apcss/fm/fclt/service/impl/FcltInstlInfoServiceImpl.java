@@ -1,7 +1,15 @@
 package com.at.apcss.fm.fclt.service.impl;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+
+import com.at.apcss.co.apc.service.ApcInfoService;
+import com.at.apcss.co.apc.vo.ApcInfoVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.util.ComUtil;
+import com.at.apcss.fm.fclt.service.ApcSurveyMngService;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +21,9 @@ import com.at.apcss.fm.fclt.vo.FcltInstlInfoVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 import egovframework.let.utl.fcc.service.EgovDateUtil;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -38,6 +49,12 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 
 	@Autowired
 	private FcltPrgrsMapper fcltPrgrsMapper;
+
+	@Resource(name="apcInfoService")
+	private ApcInfoService apcInfoService;
+
+	@Resource(name="apcSurveyMngService")
+	private ApcSurveyMngService apcSurveyMngService;
 
 	@Override
 	public FcltInstlInfoVO selectFcltInstlInfo(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
@@ -70,6 +87,7 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 	@Override
 	public int insertFcltInstlInfo(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
 
+
 		int insertedCnt = fcltInstlInfoMapper.insertFcltInstlInfo(fcltInstlInfoVO);
 
 		String prgrsYn = fcltInstlInfoVO.getPrgrsYn() == null ? "N" : fcltInstlInfoVO.getPrgrsYn();
@@ -78,9 +96,11 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
 			fcltPrgrsVO.setApcCd(fcltInstlInfoVO.getApcCd());
 			//현재년도 구하기 진척도 조회를 위해 추가
-			Calendar aCalendar = Calendar.getInstance();
+			/*Calendar aCalendar = Calendar.getInstance();
 			int year = aCalendar.get(Calendar.YEAR);
-			fcltPrgrsVO.setCrtrYr(Integer.toString(year));
+			fcltPrgrsVO.setCrtrYr(Integer.toString(year));*/
+
+			fcltPrgrsVO.setCrtrYr(fcltInstlInfoVO.getCrtrYr());
 			fcltPrgrsVO.setSysFrstInptUserId(fcltInstlInfoVO.getSysFrstInptUserId());
 			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltInstlInfoVO.getSysFrstInptPrgrmId());
 			fcltPrgrsVO.setSysLastChgUserId(fcltInstlInfoVO.getSysLastChgUserId());
@@ -142,5 +162,40 @@ public class FcltInstlInfoServiceImpl extends BaseServiceImpl implements FcltIns
 		int updatedCnt = fcltInstlInfoMapper.updateFcltInstlInfoPrgrs(fcltInstlInfoVO);
 
 		return updatedCnt;
+	}
+
+	@Override
+	public HashMap<String, Object> insertFcltInstlSplmnt(FcltInstlInfoVO fcltInstlInfoVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = null;
+
+		String crtrYr = fcltInstlInfoVO.getCrtrYr();
+		if (!StringUtils.hasText(crtrYr)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준연도");
+		}
+
+		String apcCd = fcltInstlInfoVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		ApcInfoVO apcParamVO = new ApcInfoVO();
+		apcParamVO.setApcCd(apcCd);
+		ApcInfoVO apcInfoVO = apcInfoService.selectApcInfo(apcParamVO);
+		if (apcInfoVO == null
+				|| !StringUtils.hasText(apcInfoVO.getApcCd())
+				|| !ComConstants.CON_NONE.equals(apcInfoVO.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC등록정보");
+		}
+
+		rtnObj = apcSurveyMngService.insertCheckApcSurvey(fcltInstlInfoVO.getCrtrYr());
+		if (rtnObj != null) {
+			return rtnObj;
+		}
+
+		if ( 0 == insertFcltInstlInfo(fcltInstlInfoVO)){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "시설설치보완 등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+		}
+
+		return null;
 	}
 }

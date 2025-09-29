@@ -32,6 +32,7 @@
 			    , PB.UNIT_WGHT          AS UNIT_WGHT
 			    , PB.UNIT_CD			AS UNIT_CD
 	    	    , PB.EXTRNL_LNKG_CD		AS EXTRNL_LNKG_CD
+			    , PB.INDCT_SEQ			AS INDCT_SEQ
 			    , CASE PB.UNIT_CD
 			    	WHEN '1' THEN	-- g
 			    		PB.UNIT_WGHT / 1000
@@ -70,7 +71,7 @@
 		  	   AND PB.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
     	<![CDATA[
-			 ORDER BY PB.PLT_BX_SE_CD, PB.PLT_BX_CD
+			 ORDER BY PB.PLT_BX_SE_CD, PB.INDCT_SEQ, PB.PLT_BX_CD
 		]]>
     </select>
 
@@ -97,6 +98,7 @@
 	    		  , RMRK
 	    		  , USE_YN
 	    		  , EXTRNL_LNKG_CD
+	    		  , INDCT_SEQ
 	    		  , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -117,6 +119,7 @@
 	    		  , #{rmrk}
 	    		  , #{useYn}
 	    		  , #{extrnlLnkgCd}
+	    		  , #{indctSeq}
 	    		  , #{delYn}
 	    		  , SYSDATE
 	    		  , #{sysFrstInptUserId}
@@ -150,6 +153,7 @@
 	    		 , BSS_INVNTR_QNTT			= #{bssInvntrQntt}
 	    		 , USE_YN					= #{useYn}
 	    		 , EXTRNL_LNKG_CD			= #{extrnlLnkgCd}
+			     , INDCT_SEQ				= #{indctSeq}
 			 WHERE APC_CD 		= #{apcCd}
 			   AND PLT_BX_SE_CD = #{pltBxSeCd}
 			   AND PLT_BX_CD  	= #{pltBxCd}

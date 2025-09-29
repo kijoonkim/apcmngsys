@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>title : SBUx2.6</title>
+	<title>title : 생산유통통합조직 등록 2025</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -17,9 +17,7 @@
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set><h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3>
-					<!-- 생산유통통합조직 등록 -->
-					<sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-					</sbux-label>
+					<!-- 생산유통통합조직 등록 2025 -->
 				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '91'}">

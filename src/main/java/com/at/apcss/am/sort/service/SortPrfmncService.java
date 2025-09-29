@@ -1,14 +1,9 @@
 package com.at.apcss.am.sort.service;
 
+import com.at.apcss.am.sort.vo.*;
+
 import java.util.HashMap;
 import java.util.List;
-
-import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortBffaList;
-import com.at.apcss.am.sort.vo.SortBffaVO;
-import com.at.apcss.am.sort.vo.SortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
 
 /**
  * 선별실적 Service 인터페이스
@@ -122,6 +117,9 @@ public interface SortPrfmncService {
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	public HashMap<String, Object> insertSortPrfmncForCredit(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+
 	/**
 	 * 선별실적 목록 등록
 	 * @param List<SortPrfmncVO> sortPrfmncList
@@ -161,6 +159,15 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception;
+
+    /**
+     * 선별결과 집계
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception;
+
 	/**
 	 * 배출구별 집계
 	 * @param HashMap
@@ -284,4 +291,36 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception;
+
+    /**
+     * 선별내역 조회
+     * @param sortInvntr
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception;
+
+	/**
+	 * 통합선별실적 다중 등록
+	 * @param sortPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception;
+
+	/**
+	 * 통합선별실적 단일 등록
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 선별실적 전체 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception;
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.spmt.service.SpmtMngService;
@@ -636,6 +637,40 @@ public class SpmtPrfmncController extends BaseController {
 			}
 		}
 //		resultMap.put(ComConstants.PROP_RESULT_MAP,spmtPrfmncComList.get(0));
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 출하실적 등록
+	@PostMapping(value = "/am/spmt/insertSpmtRsltMonthly.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtRsltMonthly(@RequestBody List<SpmtPrfmncComVO> spmtPrfmncComList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncComList) {
+				spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+				spmtPrfmncComVO.setSpmtFrcdPrcsYn(ComConstants.CON_YES);
+//				spmtPrfmncComVO.setNeedsPckgYn(ComConstants.CON_YES);
+//				spmtPrfmncComVO.setInvntrSttsCd(AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO);
+
+				HashMap<String, Object> rtnObj = spmtMngService.insertSpmtRsltMonthly(spmtPrfmncComVO);
+				if(rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+
+		}catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
 		return getSuccessResponseEntity(resultMap);
 	}
 }

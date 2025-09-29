@@ -42,6 +42,11 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	 * 대표품종코드
 	 * */
 	private String rprsVrtyCd;
+    /*
+     * 품목코드
+     * */
+    private String itemCd;
+    private String itemNm;
 	/*
 	 * 농가주소
 	 * */
@@ -86,7 +91,8 @@ public class FrmhsExpctWrhsVO extends ComVO {
     /*
      * 최종저장구분
      * */
-    private String qltEvl;
+    private String qltEvlCd;
+    private String qltEvlNm;
     /*
      * 담당자
      * */
@@ -140,6 +146,11 @@ public class FrmhsExpctWrhsVO extends ComVO {
     private int ymd31Qntt;
     private int tot;
 
+    private int wrhsWght;
+    private int rmnd;
+    private int minusRmnd;
+    private double wrhsRt;
+
     /*
      * 입고마감사용여부
      * */
@@ -162,5 +173,4 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	public void setFrmhsExpctWrhsDtlList(List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList) {
 		this.frmhsExpctWrhsDtlList = frmhsExpctWrhsDtlList == null ? null : frmhsExpctWrhsDtlList.stream().collect(Collectors.toList());
 	}
-
 }

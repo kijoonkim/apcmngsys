@@ -138,7 +138,7 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 		if(deletedCnt > 0) {
 			if("1".equals(pltWrhsSpmtVO.getWrhsSpmtSeCd())) {
 				int deleteQntt = resultVO.getBssInvntrQntt() - pltWrhsSpmtVO.getQntt();
-				if(deleteQntt > 0) {
+				if(deleteQntt >= 0) {
 					pltWrhsSpmtVO.setBssInvntrQntt(deleteQntt);
 				}else {
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("W0008", "입력팔레트수량||현팔레트수량")));

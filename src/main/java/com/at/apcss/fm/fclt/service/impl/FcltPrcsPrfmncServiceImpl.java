@@ -40,9 +40,7 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 	@Override
 	public FcltPrcsPrfmncVO selectFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		FcltPrcsPrfmncVO resultVO = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
-
-		return resultVO;
+		return fcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 	}
 
 	@Override
@@ -50,16 +48,13 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 
 		FcltPrcsPrfmncVO fcltPrcsPrfmncVO = new FcltPrcsPrfmncVO();
 
-		FcltPrcsPrfmncVO resultVO = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
-
-		return resultVO;
+		return fcltPrcsPrfmncMapper.selectFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 	}
 
 	@Override
 	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		List<FcltPrcsPrfmncVO> resultList = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
-		return resultList;
+		return fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList(fcltPrcsPrfmncVO);
 	}
 
 	@Override
@@ -88,7 +83,7 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 			}
 		}
 
-		if(saveCnt == fcltPrcsPrfmncVOList.size() && prgrsYn.equals("Y")) {
+		if (saveCnt == fcltPrcsPrfmncVOList.size() && prgrsYn.equals("Y")) {
 			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
 		}
 
@@ -98,25 +93,19 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 	@Override
 	public int insertFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		int insertedCnt = fcltPrcsPrfmncMapper.insertFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
-
-		return insertedCnt;
+		return fcltPrcsPrfmncMapper.insertFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 	}
 
 	@Override
 	public int updateFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		int updatedCnt = fcltPrcsPrfmncMapper.updateFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
-
-		return updatedCnt;
+		return fcltPrcsPrfmncMapper.updateFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 	}
 
 	@Override
 	public int deleteFcltPrcsPrfmnc(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		int deletedCnt = fcltPrcsPrfmncMapper.deleteFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
-
-		return deletedCnt;
+		return fcltPrcsPrfmncMapper.deleteFcltPrcsPrfmnc(fcltPrcsPrfmncVO);
 	}
 
 	@Override
@@ -134,8 +123,7 @@ public class FcltPrcsPrfmncServiceImpl extends BaseServiceImpl implements FcltPr
 	@Override
 	public List<FcltPrcsPrfmncVO> selectFcltPrcsPrfmncRawDataList(FcltPrcsPrfmncVO fcltPrcsPrfmncVO) throws Exception {
 
-		List<FcltPrcsPrfmncVO> resultList = fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncRawDataList(fcltPrcsPrfmncVO);
-		return resultList;
+		return fcltPrcsPrfmncMapper.selectFcltPrcsPrfmncRawDataList(fcltPrcsPrfmncVO);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.fm.fclt.service.ApcSurveyMngService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,9 @@ public class FcltInstlInfoController extends BaseController {
 	// 시설설치보완
 	@Resource(name= "fcltInstlInfoService")
 	private FcltInstlInfoService fcltInstlInfoService;
+
+	@Resource(name= "apcSurveyMngService")
+	private ApcSurveyMngService apcSurveyMngService;
 
 	// 시설설치보완 화면이동
 	@GetMapping("/fm/fclt/fcltInstlInfo.do")
@@ -92,7 +96,7 @@ public class FcltInstlInfoController extends BaseController {
 	}
 
 	@PostMapping(value = "/fm/fclt/insertFcltInstlInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertFcltInstlInfoList(@RequestBody List<FcltInstlInfoVO> fcltInstlInfoList, HttpServletRequest requset) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertFcltInstlInfoList(@RequestBody List<FcltInstlInfoVO> fcltInstlInfoList, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		int totalInsertedCnt = 0;
@@ -103,11 +107,17 @@ public class FcltInstlInfoController extends BaseController {
 				fcltInstlInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
 				fcltInstlInfoVO.setSysLastChgUserId(getUserId());
 				fcltInstlInfoVO.setSysLastChgPrgrmId(getPrgrmId());
-				totalInsertedCnt += fcltInstlInfoService.insertFcltInstlInfo(fcltInstlInfoVO);
+				//totalInsertedCnt += fcltInstlInfoService.insertFcltInstlInfo(fcltInstlInfoVO);
+				HashMap<String, Object> rtnObj = fcltInstlInfoService.insertFcltInstlSplmnt(fcltInstlInfoVO);
+				if(rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
+		} finally {
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, totalInsertedCnt);

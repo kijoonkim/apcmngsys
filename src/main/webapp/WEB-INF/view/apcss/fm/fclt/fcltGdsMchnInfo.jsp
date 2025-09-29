@@ -69,12 +69,19 @@
 					<tr>
 						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">시도</th>
@@ -481,7 +488,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -508,6 +515,10 @@
 	var jsonComSgg = [];//시군구
 	var jsonComSrchLclsfCd = [];//조회용 부류
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
+
 	/**
 	 * combo 설정
 	 */
@@ -518,12 +529,16 @@
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
 			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
 		]);
 	}
 
 
 	//전체 데이터 초기화 및 비활성화
 	const fn_clearForm = async function() {
+		SBUxMethod.set("dtl-inp-apcCd",null);  // hidden apcCd
+		SBUxMethod.set("dtl-inp-crtrYr",null);  // hidden crtrYr
+
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
@@ -808,7 +823,7 @@
 
 		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
 		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
@@ -881,7 +896,7 @@
 				grdFcltApcInfo.setPageTotalCount(totalRecordCount);
 				grdFcltApcInfo.rebuild();
 			}
-			document.querySelector('#listApcCount').innerText = totalRecordCount;
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -893,7 +908,6 @@
 
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
-		console.log("******************fn_view**********************************");
 		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
@@ -914,8 +928,6 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		console.log(SBUxMethod.get('dtl-inp-crtrYr'));
 
 		fn_setGrdGdsMcList();
 	}
@@ -970,7 +982,7 @@
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();//그리드 생성
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(crtrYr)) {
 			let now = new Date();
 			let year = now.getFullYear();
@@ -985,7 +997,6 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					apcCd				:item.apcCd

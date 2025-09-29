@@ -1,10 +1,10 @@
 package com.at.apcss.am.sort.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.at.apcss.am.sort.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 선별실적 Mapper 인터페이스
@@ -153,6 +153,14 @@ public interface SortPrfmncMapper {
      * @throws Exception
      */
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+    /**
+     * 선별결과집계조회
+     * @param sortPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception;
 
     /**
      * 배출구별집계조회
@@ -334,4 +342,20 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
 	List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception;
+
+    /**
+     * 선별내역 조회
+     * @param sortInvntr
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception;
+
+	/**
+	 * 선별실적 전체 삭제
+	 * @param sortPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSortPrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception;
 }

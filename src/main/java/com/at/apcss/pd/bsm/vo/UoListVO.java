@@ -24,6 +24,8 @@ public class UoListVO extends ComVO{
 
 	private String brno;			//사업자번호
 
+	private String yr;				// 연도
+
 
 	private String sysFrstInptUserNm;		//시스템최초입력사용자이름
 	private String sysFrstInptDtYmd;		//시스템최초입력일시ymd

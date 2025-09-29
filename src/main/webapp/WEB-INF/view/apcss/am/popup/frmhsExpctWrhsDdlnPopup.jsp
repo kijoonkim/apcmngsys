@@ -92,15 +92,24 @@
 	const popDdln = {
 		modalId: 'modal-ddln',
 		prvApcCd : "",
-		init: async function(_apcCd, _yr) {
+		prvItemCd : "",
+		callbackFnc: function() {},
+		init: async function(_apcCd, _itemCd, _yr, _callbackFnc) {
 			prvApcCd = _apcCd;
+			prvItemCd = _itemCd;
 			SBUxMethod.set("ddln-dtp-yr", _yr);
+
+			if (typeof _callbackFnc === 'function') {
+				this.callbackFnc = _callbackFnc;
+			}
+
 			this.search();
 
 		},
 		search : async function () {
 			let postJsonPromise = gfn_postJSON("/am/wrhs/selectFrmhsExpctWrhsDdln.do", {
 				apcCd 	: prvApcCd,
+				itemCd	: prvItemCd,
 				yr 		: SBUxMethod.get("ddln-dtp-yr")
 	 		});
 		    let data = await postJsonPromise;
@@ -129,11 +138,12 @@
 		    }
 		},
 		close: function () {
-			gfn_closeModal(this.modalId);
+			gfn_closeModal(this.modalId, this.callbackFnc());
 		},
 		save : async function () {
 			let postJsonPromise = gfn_postJSON("/am/wrhs/updateFrmhsExpctWrhsDdln.do", {
 				apcCd 		: prvApcCd,
+				itemCd		: prvItemCd,
 				yr 			: SBUxMethod.get("ddln-dtp-yr"),
 				ymd 		: SBUxMethod.get("ddln-inp-ymd"),
 				useYn	 	: SBUxMethod.get("ddln-slt-useYn")
@@ -143,6 +153,7 @@
 		    try{
 		    	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+					this.callbackFnc();
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}

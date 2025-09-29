@@ -22,6 +22,7 @@
     <script src="/resource/script/comApcUtil.js"></script>
     <script src="/resource/script/comApcGrd.js"></script>
 	<script src="/resource/script/comApcSurvey.js"></script>
+	<script src="/resource/script/comPruo.js?ver=1.0"></script>
     <script src="/resource/script/comMa.js?ver=1.0"></script>
 
     <script src="/resource/script/hangul.min.js"></script>
@@ -84,6 +85,36 @@
 	
 <%--	<script src="../../../js/exceljs/exceljs.min.js"></script>--%>
 	 <!-- //js -->
+<!-- custom style -->
+
+
+<style>
+	.page-select {
+		padding: 6px 14px;
+		font-size: 16px;
+		font-weight: bold;
+		border: 1px solid #ccc;
+		border-radius: 6px;
+		background-color: #e6f0ff;
+		color: #0056b3;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.page-select:hover {
+		border-color: #1a8cff;
+		background-color: #dceeff;
+	}
+
+	.page-select:focus {
+		border-color: #007bff;
+		background-color: #d0e9ff;
+		outline: none;
+		box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+	}
+
+</style>
+
 
 	<!-- APC지원시스템, 생산관리시스템, 산지유통평가등록, 서비스 포털 스타일 가이드 CSS 영역 완료-->
 
@@ -112,6 +143,7 @@
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
 		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
 		<c:set scope="request" var="untyAuthrtType" value="${loginVO.untyAuthrtType}"></c:set>
+		<c:set scope="request" var="userId" value="${loginVO.userId}"></c:set>
 
 		let gv_apcCd = '${apcCd}';
 		let gv_apcNm = '${apcNm}';
@@ -119,6 +151,7 @@
 		const gv_userType = '${userType}';
 		const gv_userNm = '${userNm}';
 		const gv_untyAuthrtType = '${untyAuthrtType}';
+		const gv_userId = '${userId}';
 
 		</c:when>
 		<c:otherwise>
@@ -135,7 +168,6 @@
 		gv_selectedApcNm = gv_apcNm;
 		gv_selectedApcSeCd = gv_apcSeCd;
 		gv_selectedUserType = gv_userType;
-
 	</script>
 
 <sbux-progress name="main-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>

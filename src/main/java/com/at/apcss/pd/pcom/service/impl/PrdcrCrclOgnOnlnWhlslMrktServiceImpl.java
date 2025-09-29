@@ -1,6 +1,8 @@
 package com.at.apcss.pd.pcom.service.impl;
 
 import java.util.List;
+
+import com.at.apcss.pd.pcom.vo.PruoRegVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,5 +111,15 @@ public class PrdcrCrclOgnOnlnWhlslMrktServiceImpl extends BaseServiceImpl implem
 			PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
 		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
 		return resultList;
+	}
+
+	@Override
+	public List<PruoRegVO> selectPruoRegMst(PruoRegVO pruoRegVO) throws Exception {
+		return PrdcrCrclOgnOnlnWhlslMrktMapper.selectPruoRegMst(pruoRegVO);
+	}
+
+	@Override
+	public PruoRegVO selectPruoRegDtl(PruoRegVO pruoRegVO) throws Exception {
+		return PrdcrCrclOgnOnlnWhlslMrktMapper.selectPruoRegDtl(pruoRegVO);
 	}
 }

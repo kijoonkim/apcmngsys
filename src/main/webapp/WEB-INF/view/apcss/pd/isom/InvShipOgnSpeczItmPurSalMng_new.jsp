@@ -1143,7 +1143,8 @@
 				}
 			});
 
-			fn_searchUoList();
+			await fn_searchUoList(yr);
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1184,7 +1185,9 @@
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
-		fn_searchUoList();
+
+		await fn_searchUoList(rowData.yr);
+
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
@@ -1192,6 +1195,7 @@
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
 	}
+
 	//그리드 초기화
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
@@ -1254,8 +1258,8 @@
 
 		try {
 
-			// const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
 			const data = await postJsonPromise;
 
 			let totalRecordCount = 0;
@@ -1533,22 +1537,34 @@
 
 	var comUoBrno = [];//통합조직 선택
 
-	/* 출자출하조직이 속한 통합조직 리스트 조회 */
-	const fn_searchUoList = async function(){
+	/**
+	 * 출자출하조직이 속한 통합조직 리스트 조회
+	 * @param yr
+	 * @returns {Promise<void>}
+	 */
+	const fn_searchUoList = async function(yr){
+
+		let brno;
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.apoSe ne '2'}">
-		let brno = SBUxMethod.get('dtl-input-brno');
+		brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
 		<c:if test="${loginVO.apoSe eq '2'}">
-		let brno = '${loginVO.brno}';
+		brno = '${loginVO.brno}';
 		</c:if>
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			brno : brno
-		});
-		let data = await postJsonPromise;
-		try{
+
+		try {
+
+			//let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			const postJsonPromise = gfn_postJSON("/pd/bsm/selectUoHstryList.do", {
+				brno: brno,
+				yr: yr
+			});
+
+			const data = await postJsonPromise;
+
 			comUoBrno = [];
 			let uoBrno;
 			data.resultList.forEach((item, index) => {
@@ -1564,11 +1580,11 @@
 			});
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
-			if(comUoBrno.length == 1){
+			if (comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
 				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1621,7 +1637,8 @@
 
 			{caption: ["통합조직 구분"],				ref:'aprv',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["구분"],						ref:'typeSeNo',			type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["구분명"],					ref:'typeSeNoNm',				type:'output',width:'70px',	style:'text-align:center'},
+			//{caption: ["구분명"],					ref:'typeSeNoNm',				type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["구분명"],					ref:'seNm',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["취급유형"],					ref:'trmtTypeNm',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["매입처"],					ref:'prchsNm',			type:'output',width:'70px',	style:'text-align:center'},
 
@@ -1676,8 +1693,8 @@
 
 		try {
 			const param = {yr : yr};
-			//const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", param);
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", param);
 
 			const data = await postJsonPromise;
 			//console.log("data==="+data);
@@ -1714,6 +1731,7 @@
 
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
+					, stbltYnNm			: item.stbltYnNm
 					,lastStbltYn		: item.lastStbltYn
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
@@ -1721,7 +1739,7 @@
 
 			await hiddenGrd.rebuild();
 
-			await fn_excelDown();
+			await fn_excelDown(yr);
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1731,15 +1749,16 @@
 	    }
 	}
 	//로우 데이터 엑셀 다운로드
-	function fn_excelDown(){
+	function fn_excelDown(yr){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear().toString().padStart(4, '0');
-		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate().toString().padStart(2, '0');
-		let formattedDate = year + month + day;
+		// const year = currentDate.getFullYear().toString().padStart(4, '0');
+		// const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		// const day = currentDate.getDate().toString().padStart(2, '0');
+		// let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_전문품목매입매출_출자출하조직_로우데이터";
+		//let fileName = formattedDate + "_전문품목매입매출_출자출하조직_로우데이터" + yr + "년";
+		let fileName = gfn_dateToYmd(currentDate) + "_전문품목매입매출_출자출하조직_로우데이터" + yr + "년";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

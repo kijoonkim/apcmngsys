@@ -52,7 +52,7 @@
 								<sbux-input
 									uitype="text" id="vhcl-inp-vhclno" name="vhcl-inp-vhclno"
 									class="form-control input-sm" maxlength="8"
-    								onkeyenter="popVhcl.search">
+									onkeyenter="enterKeySearch">
     							</sbux-input>
 							</th>
 							<th>&nbsp;</th>
@@ -88,6 +88,15 @@
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
 	var editMode = false;
+
+	/** 편집모드 상태에서 enter키 입력 */
+	const enterKeySearch = function () {
+		if (editMode) {
+			popVhcl.searchInEdit();
+		} else {
+			popVhcl.search();
+		}
+	}
 
 	const excelDwnldVhclPop = function () {
 		grdVhclPop.exportLocalExcel("차량 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
@@ -216,7 +225,8 @@
 
 			this.createGrid(true);
 			grdVhclPop.rebuild();
-			grdVhclPop.setCellDisabled(0, 0, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
+			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
+			grdVhclPop.setCellDisabled(0, 2, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
 
 			let nRow = grdVhclPop.getRows();
 			grdVhclPop.addRow(true);
@@ -398,7 +408,12 @@
     		await this.search();
     		this.createGrid(true);
 			grdVhclPop.rebuild();
-    		grdVhclPop.addRow();
+			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
+
+			let nRow = grdVhclPop.getRows();
+			grdVhclPop.addRow(true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			grdVhclPop.unbind('dblclick');
 	    }
 	}
 

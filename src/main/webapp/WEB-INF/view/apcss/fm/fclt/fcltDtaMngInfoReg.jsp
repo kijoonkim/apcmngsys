@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 스마트데이터화 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -66,13 +67,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -259,6 +267,10 @@
 	</div>
 </body>
 <script type="text/javascript">
+	// 기준연도
+	var jsonCrtrYr = [];
+	// 전년도
+	var jsonPrevData = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -283,7 +295,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -292,6 +304,8 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
+
 		await fn_setChkList();//체크박스 세팅
 
 		await fn_clearForm();
@@ -308,6 +322,10 @@
 
 	}
 
+	const fn_initSBSelect = async function() {
+		await gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+	}
+
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
 
@@ -317,9 +335,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -354,18 +370,21 @@
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
 		await fn_selectDtMnIfList();
 	}
 
-	const fn_selectDtMnIfList = async function(copy_chk) {
-		 console.log("******************fn_pagingAtMcIfList**********************************");
+	const fn_selectDtMnIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if (isPrev === true) {
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltDtaMngInfoList.do", {
@@ -374,11 +393,15 @@
 		});
 
 		const data = await postJsonPromise;
-		//await 오류시 확인
 
 		//예외처리
 		try {
+			if (isPrev === true && gfn_isEmpty(data.resultDtlList) && gfn_isEmpty(data.resultList)) {
+				gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+				return;
+			}
 
+			// 데이터 관리방법 체크박스
 			await data.resultDtlList.forEach((item, index) => {
 				SBUxMethod.set('dtl-chk-'+item.dataMngTypeDtl,item.dataMngYn);
 				if(!gfn_isEmpty(item.dataMngEtc)){
@@ -419,7 +442,7 @@
 	const fn_save = async function() {
 
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
@@ -482,7 +505,7 @@
 			return;
 		}
 
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		if (gfn_isEmpty(crtrYr)) {
 			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
@@ -499,13 +522,11 @@
 
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
-		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
 
 		let fcltDataMngVOList = [];
 
-		let crtrYr = SBUxMethod.get('srch-inp-crtrYr');
+		let crtrYr = SBUxMethod.get('srch-slt-crtrYr');
 		let apcCd = SBUxMethod.get('srch-inp-apcCd');
 
 		await jsonComDataMngTypeDtl.forEach((item) => {
@@ -547,13 +568,10 @@
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				cfn_allTabPrgrsRefrash();
 			} else {
-				console.log(data);
 				alert(data.resultMessage);
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 	// apc 선택 팝업 호출
@@ -606,11 +624,9 @@
 				jsonComDataMngType.push(cdVl);
 			})
 		})
-		//console.log(jsonComDataMngTypeDtl);
 
 		await jsonComDataMngType.forEach((item) => {
 			if(!gfn_isEmpty(item.value)){
-				//console.log(item);
 				let $targetTd = $('#'+item.value);
 				let $newP = $('<p>').addClass('ad_input_row');
 				$targetTd.append($newP);
@@ -631,7 +647,6 @@
 
 		await jsonComDataMngTypeDtl.forEach((item) => {
 			if(!gfn_isEmpty(item.mastervalue)){
-				//console.log(item);
 				let $targetTd = $('#'+item.mastervalue);
 				//기타인경우 줄바꿈
 				if(item.text == "기타"){
@@ -671,7 +686,6 @@
 	const fn_allDataMngChk = function(groupId) {
 		//let selVal = SBUxMethod.get("dtl-chk-all"+groupId);
 		let selVal = $("#dtl-chk-all"+groupId).val();
-		//console.log(groupId,selVal);
 		if (!gfn_isEmpty(groupId)) {
 			let targetGroup = jsonComDataMngTypeDtl.filter((item) => item.mastervalue == groupId);
 			targetGroup.forEach((item) => {
@@ -725,7 +739,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -738,6 +751,16 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	/** 전년도 데이터 **/
+	async function fn_pySearch() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))) {
+			alert('APC를 선택해주세요');
+			return;
+		}
+		await fn_clearForm();
+		await fn_selectDtMnIfList(true);
 	}
 </script>
 </html>

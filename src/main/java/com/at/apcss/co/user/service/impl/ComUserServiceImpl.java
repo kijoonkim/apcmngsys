@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.spi.Bean;
 
+import com.at.apcss.co.log.service.ComLogService;
+import com.at.apcss.co.log.vo.ComLogVO;
 import com.at.apcss.co.sys.service.LoginService;
+import com.at.apcss.co.sys.vo.ComSysVO;
 import com.at.apcss.co.sys.vo.LoginVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
@@ -56,6 +60,9 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	@Resource(name = "apcEvrmntStngService")
 	private ApcEvrmntStngService apcEvrmntStngService;
+
+	@Autowired
+	ComLogService comLogService;
 
 
 	@Override
@@ -285,7 +292,18 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		LoginVO loginVo = new LoginVO();
 		loginVo.setId(comUserVO.getUserId());
 		loginService.updateResetFailCount(loginVo);
-		return comUserMapper.updComUserPwd(comUserVO);
+		int updateCnt = comUserMapper.updComUserPwd(comUserVO);
+		if(updateCnt > 0){
+			ComLogVO comLogVO = new ComLogVO();
+			BeanUtils.copyProperties(comUserVO, comLogVO,"sysFrstInptDt","sysLastChgDt");
+			/** 로그 타입 **/
+			comLogVO.setFlfmtTaskSeCd(ComConstants.CON_FLFMT_TASK_SE_CD_UPDATE);
+			comLogVO.setPrslType(ComConstants.CON_PRSL_TYPE_UPDATE_MEMBER_INFO_ADMIN);
+			comLogVO.setMenuId("CO_004");
+			comLogVO.setMenuNm("사용자정보변경");
+			comLogService.insertMenuHstry(comLogVO);
+		}
+		return updateCnt;
 	}
 
 	/**
@@ -320,7 +338,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
 	/**
      * 생산농가 계정관리 요청목록 조회
-     * @param hashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -331,7 +349,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
     }
     /**
      * 생산농가 계정관리 생산농가목록 조회
-     * @param hashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -342,7 +360,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
     }
     /**
      *  생산농가 계정등록 승인목록 조회
-     * @param HashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -354,7 +372,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
 	/**
 	 * 생산농가가 속한 생산자 정보 및 APC목록 조회
-	 * @param HashMap
+	 * @param comUserVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -366,7 +384,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
     /**
      * 생산농가 계정관리 승인요청 수정
-     * @param HashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -376,7 +394,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 	}
     /**
      * 생산농가 계정관리 승인요청 신규등록, 수정
-     * @param HashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -394,7 +412,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
     /**
      * 생산농가 계정등록 요청목록 조회
-     * @param HashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -406,7 +424,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 
     /**
      * 생산농가 계정관리 승인요청 삭제
-     * @param HashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */
@@ -420,7 +438,7 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
     }
     /**
      * 생산농가 계정관리 요청목록 조회
-     * @param hashMap
+     * @param comUserVO
      * @return
      * @throws Exception
      */

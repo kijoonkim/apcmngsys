@@ -310,4 +310,12 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	List<String> selectVrtyHistoryByPrdcr(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * 통합 입고 실적 등록
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

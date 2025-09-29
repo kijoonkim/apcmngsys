@@ -1,27 +1,25 @@
 package com.at.apcss.am.sort.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import com.at.apcss.am.sort.vo.*;
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.am.sort.service.SortInptPrfmncService;
 import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.*;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Class Name : SortPrfmncServiceImpl.java
@@ -138,6 +136,35 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public HashMap<String, Object> insertSortPrfmncForCredit(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		String sortno = sortPrfmncVO.getSortno();
+		if (!StringUtils.hasText(sortno)) {
+			sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
+			sortPrfmncVO.setSortno(sortno);
+		}
+
+		if (!StringUtils.hasText(sortPrfmncVO.getRprsPrdcrCd())) {
+			sortPrfmncVO.setRprsPrdcrCd(sortPrfmncVO.getPrdcrCd());
+		}
+
+		SortInvntrVO sortInvntrVO = new SortInvntrVO();
+		BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
+		sortInvntrVO.setSortQntt(sortPrfmncVO.getSortQntt());
+		sortInvntrVO.setSortWght(sortPrfmncVO.getSortWght());
+		sortInvntrVO.setInvntrQntt(sortPrfmncVO.getSortQntt());
+		sortInvntrVO.setInvntrWght(sortPrfmncVO.getSortWght());
+
+		// 선별재고 생성
+		HashMap<String, Object> rtnObj = sortInvntrService.insertSortInvntr(sortInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
 	public HashMap<String, Object> insertSortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
@@ -245,6 +272,13 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
         List<SortPrfmncVO> resultList = sortPrfmncMapper.selectSortListBySortno(sortPrfmncVO);
 
         return resultList;
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception {
+        List<HashMap<String, Object>> resultVO = sortPrfmncMapper.selectSortRslt(sortRslt);
+
+        return resultVO;
     }
 
     @Override
@@ -474,4 +508,62 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception {
 		return sortPrfmncMapper.selectGrdDsctnColList(paramMap);
 	}
+
+    @Override
+    public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception {
+        return sortPrfmncMapper.selectSortInvntrList(sortInvntr);
+    }
+
+	@Override
+	public HashMap<String, Object> insertUntySortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<String, Object>();
+
+		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
+
+		String sortno = cmnsTaskNoService.selectSortno(sortPrfmncList.get(0).getApcCd(), sortPrfmncList.get(0).getInptYmd());
+		int sn = 1;
+		for (SortPrfmncVO sortPrfmncVO : sortPrfmncList) {
+			sortPrfmncVO.setSortno(sortno);
+			sortPrfmncVO.setSortSn(sn);
+
+			rtnObj =  insertSortPrfmnc(sortPrfmncVO);
+			if (rtnObj != null ) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+			SortInvntrVO sortInvntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
+
+			sortInvntrList.add(sortInvntrVO);
+
+			sn++;
+		}
+
+		rtnObj = sortInvntrService.insertSortInvntrList(sortInvntrList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUntySortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+
+
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		if (0 == sortPrfmncMapper.deleteSortPrfmncAll(sortPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
+	}
+
 }

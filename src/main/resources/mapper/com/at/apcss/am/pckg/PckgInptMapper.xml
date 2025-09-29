@@ -302,4 +302,27 @@
 		]]>
 	</update>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgInptMapper.deletePckgInptPrfmncAll		-->
+	<!-- DESC : 포장투입실적 전체 삭제.		                                			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.09.19  	김호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="deletePckgInptPrfmncAll" parameterType="com.at.apcss.am.pckg.vo.PckgInptVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgInptMapper.deletePckgInptPrfmncAll */
+				   TB_PCKG_INPT_PRFMNC
+			   SET
+			   	   SYS_LAST_CHG_DT 			= SYSDATE
+	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				 , DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{sortno}
+	    	   AND PCKGNO = #{pckgno}
+		]]>
+	</update>
+
 </mapper>

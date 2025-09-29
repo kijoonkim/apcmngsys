@@ -26,6 +26,7 @@ import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.springframework.util.StringUtils;
 
 /**
  * @Class Name : CmnsItemServiceImpl.java
@@ -271,6 +272,40 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 	@Override
 	public int mergeApcItemCrtrDtlList(List<ApcItemCrtrDtlVO> apcItemCrtrDtlList) throws Exception {
 		return cmnsItemMapper.mergeApcItemCrtrDtlList(apcItemCrtrDtlList);
+	}
+
+	@Override
+	public int insertApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception {
+		return cmnsItemMapper.insertApcSeedCrtr(apcSeedCrtrVO);
+	}
+
+	@Override
+	public int updateApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception {
+		return cmnsItemMapper.updateApcSeedCrtr(apcSeedCrtrVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertSeedCrtrList(List<ApcSeedCrtrVO> apcSeedCrtrVOList) throws Exception {
+
+		/**
+		 * 1. 종자코드 유무 확인 (insert / update)
+		 * 2. rowSts - update 유무 확인
+		 * */
+
+		for (ApcSeedCrtrVO apcSeedCrtrVO : apcSeedCrtrVOList) {
+			if (!StringUtils.hasText(apcSeedCrtrVO.getSeedCd())) {
+				if(0 == insertApcSeedCrtr(apcSeedCrtrVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				}
+			} else {
+				if(ComConstants.ROW_STS_UPDATE.equals(apcSeedCrtrVO.getRowSts())) {
+					if(0 == updateApcSeedCrtr(apcSeedCrtrVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override

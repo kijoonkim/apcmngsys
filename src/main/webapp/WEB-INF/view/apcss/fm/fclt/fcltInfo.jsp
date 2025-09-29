@@ -77,12 +77,19 @@
 					<tr>
 						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">시도</th>
@@ -565,7 +572,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -592,6 +599,9 @@
 	var jsonComSgg = [];//시군구
 	var jsonComSrchLclsfCd = [];//조회용 부류
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
 	/**
 	 * combo 설정
 	 */
@@ -602,7 +612,8 @@
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
 			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
-		]);
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
+	]);
 	}
 
 
@@ -669,6 +680,9 @@
 
 	//입력폼 초기화
 	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-apcCd",null);  // hidden apcCd
+		SBUxMethod.set("dtl-inp-crtrYr","");  // hidden crtrYr
+
 		SBUxMethod.set('dtl-inp-cspTotArea',null);
 		SBUxMethod.set('dtl-inp-cspTotRmrk',null);
 		SBUxMethod.set('dtl-inp-cspCfppArea',null);
@@ -968,7 +982,7 @@
 
 		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
 		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
@@ -1038,7 +1052,7 @@
 				grdFcltApcInfo.setPageTotalCount(totalRecordCount);
 				grdFcltApcInfo.rebuild();
 			}
-			document.querySelector('#listApcCount').innerText = totalRecordCount;
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -1137,7 +1151,7 @@
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();//그리드 생성
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(crtrYr)) {
 			let now = new Date();
 			let year = now.getFullYear();

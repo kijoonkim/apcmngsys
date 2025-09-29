@@ -3,6 +3,7 @@ package com.at.apcss.co.sys.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -460,10 +461,21 @@ public abstract class BaseController {
 		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 
-	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(Exception e) {
+	protected ResponseEntity<HashMap<String, Object>> getSqlErrorResponseEntity(SQLException e) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 
+		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
+		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
+		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
+
+		insertSysErrorLog(e.getMessage());
+
+		return new ResponseEntity<>(resultMap, HttpStatus.BAD_REQUEST);
+	}
+	protected ResponseEntity<HashMap<String, Object>> getErrorResponseEntity(Exception e) {
+
+		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put(ComConstants.PROP_RESULT_STATUS, ComConstants.RESULT_STATUS_ERROR);
 		resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.RESULT_CODE_DEFAULT);
 		resultMap.put(ComConstants.PROP_RESULT_MESSAGE, e.getMessage());
@@ -478,7 +490,7 @@ public abstract class BaseController {
 
 		//resultMap.put(ComConstants.PROP_RESULT_MESSAGE, ComConstants.RESULT_MESSAGE_DEFAULT);
 
-		return new ResponseEntity<HashMap<String, Object>>(resultMap, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(resultMap, HttpStatus.BAD_REQUEST);
 	}
 
 	protected String getMessage(String code) {
@@ -611,7 +623,10 @@ public abstract class BaseController {
 		comSysVO.setUserIp(getUserIp(request));
 		comSysVO.setApcCd(getApcCd());
 
+		HashMap<String, Object> rtnObj = null;
+
 		String uri = request.getRequestURI();
+
 		if (StringUtils.hasText(uri)) {
 
 			comSysVO.setPrslType(ComConstants.CON_PRSL_TYPE_UI_ACTION);
@@ -636,13 +651,14 @@ public abstract class BaseController {
 
 			comSysVO.setFlfmtTaskSeCd(flfmtTaskSeCd);
 
-			HashMap<String, Object> rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
-			if (rtnObj != null) {
-				return rtnObj;
+			try {
+				rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
+			} catch (SQLException e) {
+				rtnObj = ComUtil.getResultMap(ComConstants.RESULT_CODE_DEFAULT, ComConstants.RESULT_MESSAGE_DEFAULT);
 			}
 		}
 
-		return null;
+		return rtnObj;
 	}
 
 	/**

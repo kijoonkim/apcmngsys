@@ -40,4 +40,15 @@ public class PrfmncChckMngVO extends ComVO{
 
 	//20241127 전문 육성 구분 추가
 	private String sttgUpbrItemNm;	//전문/육성 구분
+
+	/**
+	 * 품목구분 (전문품목,육성품목, 기타품목)
+	 */
+	private String sttgUpbrItemSe;
+
+	/**
+	 * 실적 합계
+	 */
+	private int prfmncAmtTot;
+
 }

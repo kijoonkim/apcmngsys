@@ -102,4 +102,12 @@ public interface PckgMngService {
 	 */
 	public HashMap<String, Object> deletePckgPrfmncList(PckgMngVO pckgMngVO) throws Exception;
 
+	/**
+	 * 월별 포장실적 처리
+	 * @param pckgMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertPckgRsltMonthly(PckgMngVO pckgMngVO) throws Exception;
+
 }

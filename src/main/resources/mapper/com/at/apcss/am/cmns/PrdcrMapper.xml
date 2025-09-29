@@ -146,6 +146,7 @@
 				   PR.APC_CD        	AS APC_CD
 			     , PR.PRDCR_CD      	AS PRDCR_CD
 			     , PR.PRDCR_NM      	AS PRDCR_NM
+	    	     , PR.ABBR_NM			AS ABBR_NM
 			     , PR.PRDCR_FRST_NM 	AS PRDCR_FRST_NM
 			     , PR.RPRS_ITEM_CD  	AS RPRS_ITEM_CD
 			     , PR.RPRS_VRTY_CD  	AS RPRS_VRTY_CD
@@ -200,6 +201,13 @@
                    ) AS PRCHS_QNTT
                  , (SELECT PRCHS_AMT
                       FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS PRCHS_AMT
+	    	     , (SELECT (SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', X.QLT_EVL_CD, X.APC_CD) FROM DUAL) AS QLT_EVL_NM
+					  FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
                        AND X.DEL_YN = 'N'
@@ -514,6 +522,7 @@
 					  APC_CD
 					, PRDCR_CD
 					, PRDCR_NM
+					, ABBR_NM
 					, PRDCR_FRST_NM
 					, RPRS_ITEM_CD
 					, RPRS_VRTY_CD
@@ -525,6 +534,8 @@
 			     	, TELNO
 			     	, PRDCR_LINK_CD
 			     	, PRDCR_IDENTNO
+					, FRMHS_NM
+					, FRMHS_ADDR
 			     	, PLOR_CD
 					, RMRK
 					, EXTRNL_LNKG_CD
@@ -542,6 +553,7 @@
 					  #{apcCd}
 					, #{prdcrCd}
 					, #{prdcrNm}
+					, #{abbrNm}
 					, #{prdcrFrstNm}
 					, #{rprsItemCd}
 					, #{rprsVrtyCd}
@@ -553,6 +565,8 @@
 					, #{telno}
 					, #{prdcrLinkCd}
 					, #{prdcrIdentno}
+					, #{frmhsNm}
+					, #{frmhsAddr}
 					, #{plorCd}
 					, #{rmrk}
 					, #{extrnlLnkgCd}
@@ -585,6 +599,7 @@
 			   SET
 				  PRDCR_CD = #{prdcrCd}
 				, PRDCR_NM = #{prdcrNm}
+			    , ABBR_NM = #{abbrNm}
 				, PRDCR_FRST_NM = #{prdcrFrstNm}
 				, RPRS_ITEM_CD = #{rprsItemCd}
 				, RPRS_VRTY_CD = #{rprsVrtyCd}
@@ -596,6 +611,8 @@
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}
 				, PRDCR_IDENTNO = #{prdcrIdentno}
+			    , FRMHS_NM = #{frmhsNm}
+			    , FRMHS_ADDR = #{frmhsAddr}
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
@@ -630,6 +647,7 @@
 	    		TB_PRDCR_INFO
 			   SET
 				PRDCR_CD = #{prdcrCd}
+			    , ABBR_NM = #{abbrNm}
 				, RPRS_ITEM_CD = #{rprsItemCd}
 				, RPRS_VRTY_CD = #{rprsVrtyCd}
 				, GDS_SE_CD = #{gdsSeCd}
@@ -640,6 +658,8 @@
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}
 				, PRDCR_IDENTNO = #{prdcrIdentno}
+			    , FRMHS_NM = #{frmhsNm}
+			    , FRMHS_ADDR = #{frmhsAddr}
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}

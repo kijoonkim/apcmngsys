@@ -99,4 +99,29 @@
         WHERE CRTR_YR = #{crtrYr}
     ]]>
     </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr-->
+    <!-- DESC : APC전수조사 마스터 기준연도 조회                                                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.07.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectApcCmsuCrtrYr" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr */
+                CRTR_YR
+                 , INDCT_NM
+                 , CMPTN_YN
+                 , DDLN_STTS_CD
+                 , BGNG_YMD
+                 , END_YMD
+                 , DEL_YN
+            FROM TB_TE_APC_CMSU_MST
+            WHERE DDLN_STTS_CD IN ('E0','S0')
+                AND DEL_YN = 'N'
+            ORDER BY CRTR_YR DESC
+        ]]>
+    </select>
 </mapper>

@@ -76,4 +76,9 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String tmprStrgYn;
 	private String tmprStrgRsn;
 	private String tmprStrgDt;
+
+	/**
+	 * 과거연도 여부
+	 */
+	private String oldDataYn;
 }

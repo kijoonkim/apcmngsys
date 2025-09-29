@@ -162,12 +162,13 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' data-id='grdSeed' data-del-fn='fn_deleteSeed' onClick=\"gfn_gridRowPlusMinus(event, 'DEL', " + nRow + ")\">삭제</button>";
                     }
                 }},
-            {caption: ["종자코드"], ref: 'seedCd', type:'input',width:'22.5%',style:'text-align:center'},
+            {caption: ["종자코드"], ref: 'seedCd', type:'output',width:'22.5%',style:'text-align:center'},
             {caption: ["종자명"], ref: 'seedNm', type:'input',width:'22.5%',style:'text-align:center'},
             {caption: ["표시순서"], ref: 'indctSeq', type:'input',width:'22.5%',style:'text-align:center'},
             {caption: ["품종코드"], ref: 'vrtyCd', type:'input',width:'22.5%',style:'text-align:center'},
         ]
         grdSeed = _SBGrid.create(SBGridProperties);
+        grdSeed.bind('valuechanged','fn_updateRowStatus');
     }
 
     const fn_selectComCdDtl = async function(){
@@ -236,10 +237,13 @@
         }
 
         const seedList = fn_getChangedList(grdSeed, itemCd);
-        if (hasDuplicateByKey(seedList, 'seedCd')) {
+        /**
+         * 종자코드 자동발행으로 해당 조건 미사용 처리
+         * */
+        /*if (hasDuplicateByKey(seedList, 'seedCd')) {
             gfn_comAlert("W0026", "중복", "종자코드");    // W0026    {0}된 {1}이/가 있습니다.
             return;
-        }
+        }*/
 
         if (itemDtlList.length === 0 && seedList === 0) {
             gfn_comAlert("W0003", "저장");    //  W0003	{0}할 대상이 없습니다.
@@ -317,6 +321,14 @@
             item.apcCd = gv_selectedApcCd;
             item.itemCd = _itemCd;
             let status = _gridObj.getRowStatus(idx + 1);
+            /**
+             * 추가 버튼 클릭시 grd rebuild
+             * bind를 통해 상태값 저장 후 불러오기
+             * ( insert 상태값이 저장전에 update 상태로 변경돼도 종자코드가 없으므로 뒤에서 insert )
+             * */
+            if(!gfn_isEmpty(jsonSeed[idx].rowSts)) {
+                item.rowSts = jsonSeed[idx].rowSts;
+            }
             return !gfn_isEmpty(status);
         });
     }
@@ -349,7 +361,7 @@
 
         let isSuccess = false;
         try {
-            const postJsonPromise = gfn_postJSON("/am/cmns/mergeSeedCrtrList.do", _changedList);
+            const postJsonPromise = gfn_postJSON("/am/cmns/insertSeedCrtrList.do", _changedList);
             const data = await postJsonPromise;
 
             if (!_.isEqual("S", data.resultStatus)) {
@@ -376,6 +388,19 @@
             seen.add(value);
         }
         return false;
+    }
+
+    /**
+     * @name fn_updateRowStatus
+     * @description grdSeed 상태값 업데이트
+     * */
+    const fn_updateRowStatus = function () {
+        let row = grdSeed.getRow() - 1;
+
+        let status = grdSeed.getRowStatus(row + 1);
+        if (status == 2) {
+            jsonSeed[row].rowSts = "U";
+        }
     }
 </script>
 </html>

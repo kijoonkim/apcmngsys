@@ -2,11 +2,13 @@ package com.at.apcss.co.sys.util;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
+import org.springframework.http.MediaType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -141,5 +143,14 @@ public class ComUtil {
 		return obj;
 	}
 
+	public static MediaType getMediaType(String filename) {
+		String mimeType = URLConnection.guessContentTypeFromName(filename);
+
+		if (mimeType != null) {
+			return MediaType.parseMediaType(mimeType);
+		} else {
+			return MediaType.APPLICATION_OCTET_STREAM;
+		}
+	}
 
 }

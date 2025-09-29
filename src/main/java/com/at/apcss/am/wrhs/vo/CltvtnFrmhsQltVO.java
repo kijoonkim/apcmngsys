@@ -114,7 +114,8 @@ public class CltvtnFrmhsQltVO extends ComVO {
 	/*
 	 * 품질평가
 	 * */
-	private String qltEvl;
+	private String qltEvlCd;
+	private String qltEvlNm;
 	/*
 	 * 작년평균망
 	 * */

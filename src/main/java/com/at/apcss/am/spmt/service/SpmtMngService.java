@@ -47,5 +47,11 @@ public interface SpmtMngService {
      */
     public List<SpmtPrfmncVO> selectForcedShipmentListForCompare(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
-
+    /**
+     * 통합 출하 목록 등록
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertSpmtRsltMonthly(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
 }

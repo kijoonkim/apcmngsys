@@ -29,12 +29,12 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 
 	/**
 	 * 메시지정보를 조회한다.
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return PrdcrCrclOgnGenalTblMngVO
 	 */
-	public PrdcrCrclOgnGenalTblMngVO selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public PrdcrCrclOgnGenalTblMngVO selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
-	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVO itemUoStbltYnVo);
 
 	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 
@@ -45,79 +45,87 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 
 	/**
 	 * 총괄표 로우데이터 2024
-	 * @param ItemUoStbltYnVO
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO itemUoStbltYnVo);
 
 	/**
 	 * 총괄표 로우데이터 2025
-	 * @param ItemUoStbltYnVO
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO itemUoStbltYnVo);
 
-	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 생산자조직 세부정보 업데이트
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return int
 	 */
-	public int updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public int updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 	/**
 	 * 전문품목 매입매출 세부정보 업데이트
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return int
 	 */
-	public int updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public int updateUoIsoItem(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 생산자조직 리스트 조회.
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<TbEvFrmhsApoVO> selectFrmhsStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<TbEvFrmhsApoVO> selectFrmhsStbltYnList(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 출자출하조직 리스트 조회.
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<ItemStbltYnVO> selectIsoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<ItemStbltYnVO> selectIsoStbltYnList(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 통합조직 리스트 조회.
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<ItemUoStbltYnVO> selectUoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<ItemUoStbltYnVO> selectUoStbltYnList(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 부류별 합계
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 */
-	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 통합조직 총괄표 조회
+	 * @param itemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 */
+	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryList(ItemUoStbltYnVO itemUoStbltYnVo);
 
 	/**
 	 * 신규 총괄표 조회
-	 * @param ItemUoStbltYnVO
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
-	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO itemUoStbltYnVo);
+
 
 	/**
 	 * 전문품목 매입매출 임시저장 여부를 조회 한다
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 */
-	public List<PrdcrCrclOgnGenalTblMngVO> selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<PrdcrCrclOgnGenalTblMngVO> selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 총 매입매출 임시저장 여부를 조회 한다
-	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @param prdcrCrclOgnGenalTblMngVO
 	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 */
-	public List<PrdcrCrclOgnGenalTblMngVO> selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<PrdcrCrclOgnGenalTblMngVO> selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO);
 }

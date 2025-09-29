@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.co.constants.ComConstants;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -26,6 +27,7 @@ import com.at.apcss.am.pckg.service.PckgPrfmncService;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * @Class Name : PckgPrfmncServiceImpl.java
@@ -226,5 +228,109 @@ public class PckgPrfmncServiceImpl extends BaseServiceImpl implements PckgPrfmnc
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 		return insertCnt;
+	}
+
+	@Override
+	public int insertPckgPrfmncWithSpmt(HashMap<String, Object> param) throws Exception {
+		int result = 0;
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<GdsInvntrVO> gdsInvntrList = objectMapper.convertValue(
+				param.get("gdsInvntrVO"),
+				new TypeReference<List<GdsInvntrVO>>() {}
+		);
+
+		List<PckgPrfmncVO> pckgPrfmncList = objectMapper.convertValue(
+				param.get("pckgPrfmncVO"),
+				new TypeReference<List<PckgPrfmncVO>>() {}
+		);
+		/** 포장실적 번호 발번 **/
+		String apcCd = pckgPrfmncList.get(0).getApcCd();
+		String pckgYmd = pckgPrfmncList.get(0).getPckgYmd();
+		String pckgNo = cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
+
+		/** 공통 정보 **/
+		String userId = (String)param.get("userId");
+		String prgrmId = (String)param.get("prgrmId");
+
+		for(int i = 0; i < gdsInvntrList.size(); i++) {
+			GdsInvntrVO gdsInvntrVO = gdsInvntrList.get(i);
+			PckgPrfmncVO pckgPrfmncVO = pckgPrfmncList.get(i);
+
+			gdsInvntrVO.setSysFrstInptUserId(userId);
+			gdsInvntrVO.setSysLastChgUserId(userId);
+			gdsInvntrVO.setSysFrstInptPrgrmId(prgrmId);
+			gdsInvntrVO.setSysLastChgPrgrmId(prgrmId);
+			pckgPrfmncVO.setSysFrstInptUserId(userId);
+			pckgPrfmncVO.setSysLastChgUserId(userId);
+			pckgPrfmncVO.setSysFrstInptPrgrmId(prgrmId);
+			pckgPrfmncVO.setSysLastChgPrgrmId(prgrmId);
+
+			/** 포장실적 번호 set **/
+			pckgPrfmncVO.setPckgno(pckgNo);
+			gdsInvntrVO.setPckgno(pckgNo);
+
+			int insertCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+			if (insertCnt < 1) {
+				throw new EgovBizException();
+			}
+			HashMap<String, Object> rtnObj = gdsInvntrService.insertGdsInvntr(gdsInvntrVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			result++;
+		}
+
+		return result;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUntyPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<GdsInvntrVO> gdsInvntrList = new ArrayList<>();
+		String pckgno = cmnsTaskNoService.selectPckgno(pckgPrfmncList.get(0).getApcCd(), pckgPrfmncList.get(0).getPckgYmd());
+
+		int pckgSn = 1;
+		int insertedCnt = 0;
+		for ( PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList ) {
+
+			pckgPrfmncVO.setPckgno(pckgno);
+			pckgPrfmncVO.setPckgSn(pckgSn);
+			insertedCnt = pckgPrfmncMapper.insertPckgPrfmnc(pckgPrfmncVO);
+
+			if (insertedCnt != 0) {
+
+			}
+
+			GdsInvntrVO gdsInvntrVO = new GdsInvntrVO();
+			BeanUtils.copyProperties(pckgPrfmncVO, gdsInvntrVO);
+			gdsInvntrVO.setInvntrQntt(pckgPrfmncVO.getInvntrQntt());
+			gdsInvntrVO.setInvntrWght(pckgPrfmncVO.getInvntrWght());
+			gdsInvntrList.add(gdsInvntrVO);
+
+			pckgSn++;
+		}
+
+		// 상품재고 생성
+		rtnObj = gdsInvntrService.insertGdsInvntrList(gdsInvntrList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 입고구분에 따라 재고 변경 추가
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePckgPrfmncAll(PckgPrfmncVO pckgPrfmncVO) throws Exception {
+
+		if (0 == pckgPrfmncMapper.deletePckgPrfmncAll(pckgPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
 	}
 }

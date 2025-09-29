@@ -96,6 +96,14 @@ public interface PrdcrCrclOgnMngService {
 	public List<UoListVO> selectUoList(UoListVO uoListVO) throws Exception;
 
 	/**
+	 * 조직관계이력정보를 조회한다.
+	 * @param UoListVO
+	 * @return List<UoListVO>
+	 * @throws Exception
+	 */
+	public List<UoListVO> selectUoHstryList(UoListVO uoListVO) throws Exception;
+
+	/**
 	 * 조직관계정보를 등록한다.
 	 * @param UoListVO
 	 * @return int

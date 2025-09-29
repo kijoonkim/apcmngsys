@@ -1388,13 +1388,19 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 			WHERE PST.ITEM_CD IS NOT NULL
 			AND PST.TYPE_SE_NO IN ('5', '6', '7', '8')
 
+			AND (
+			    (PST.TYPE_SE_NO = 5 AND FA.PRDCR_OGNZ_SN IS NOT NULL)
+			    OR
+			    (PST.TYPE_SE_NO <> 5 AND PST.PRDCR_OGNZ_SN = 0)
+			)
+
 			ORDER BY
-			UO_BRNO
-			, BRNO
-			, ITEM_CD
-			, OGNZ_STBLT_YN DESC
-			, SEQ
-			, TYPE_SE_NO
+				  UO_BRNO
+				, BRNO
+				, ITEM_CD
+				, OGNZ_STBLT_YN DESC
+				, SEQ
+				, TYPE_SE_NO
 		]]>
 	</select>
 	<!-- ==========================================================================	-->

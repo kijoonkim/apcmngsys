@@ -813,6 +813,24 @@ public class LoginController extends BaseController {
 
 		LoginVO resultVO = loginService.actionSSOLogin(loginVO);
 
+
+		String userId = loginVO.getId();
+		String prgrmId = "loginSSO";
+		String userIp = getUserIp(request);
+		ComLogVO comLogVo = new ComLogVO();
+		comLogVo.setSysFrstInptUserId(userId);
+		comLogVo.setSysFrstInptPrgrmId(prgrmId);
+		comLogVo.setSysLastChgUserId(userId);
+		comLogVo.setSysLastChgPrgrmId(prgrmId);
+		comLogVo.setUserIp(userIp);
+
+		comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN_FAIL);
+		comLogVo.setMenuId(prgrmId);
+		comLogVo.setUserId(userId);
+		if (getUserId() != null) {
+			comLogVo.setLgnScsYn(ComConstants.CON_YES);
+		}
+
 		if (resultVO != null && resultVO.getId() != null && StringUtils.hasText(resultVO.getId())) {
 
 			// 경영관리 설정
@@ -904,10 +922,11 @@ public class LoginController extends BaseController {
 				request.getSession().setAttribute("comApcList", null);
 			}
 
-
-
+			comLogVo.setPrslType(ComConstants.CON_PRSL_TYPE_LOGIN);
+			comLogService.insertMenuHstry(comLogVo);
 			return "redirect:/actionMain.do";
 		} else {
+			comLogService.insertMenuHstry(comLogVo);
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login", request.getLocale()));
 			return "redirect:/login.do";
 		}

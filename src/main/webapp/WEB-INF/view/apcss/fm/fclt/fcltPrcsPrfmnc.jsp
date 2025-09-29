@@ -72,12 +72,19 @@
 					<tr>
 						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">시도</th>
@@ -603,6 +610,118 @@
 								</td>
 								<td>%</td>
 							</tr>
+							<!-- 조정품목 -->
+							<tr class="extra-row">
+								<th class="text-center">
+									<span id="itemNmExtra">조정품목</span>
+									<sbux-input id="dtl-inp-itemCdExtra" name="dtl-inp-extraItemCd" uitype="hidden"></sbux-input>
+								</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcGnrlTrmtAmtExtra"
+											name="dtl-inp-apcGnrlTrmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcGnrlTrmtAmtExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcOgnzCprtnSortTrstExtra"
+											name="dtl-inp-apcOgnzCprtnSortTrstExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcOgnzCprtnSortTrstExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcCtrtEmspapExtra"
+											name="dtl-inp-apcCtrtEmspapExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcCtrtEmspapExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTrmtAmtExtra"
+											name="dtl-inp-apcTrmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder="자동계산"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTrmtVlmExtra"
+											name="dtl-inp-apcTrmtVlmExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcTrmtVlmExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTmSpmtAmtExtra"
+											name="dtl-inp-apcTmSpmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcTmSpmtAmtExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTmSpmtRtExtra"
+											name="dtl-inp-apcTmSpmtRtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder="자동계산"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
+							</tr>
+
 							<tr>
 								<th class="text-center">계</th>
 
@@ -799,7 +918,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -825,6 +944,9 @@
 	var jsonComSgg = [];//시군구
 	var jsonComSrchLclsfCd = [];//조회용 부류
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
 	/**
 	 * combo 설정
 	 */
@@ -835,10 +957,19 @@
 			gfn_setComCdSBSelect('srch-inp-ctpv', 	jsonComCtpv, 	'UNTY_CTPV'), 	//시도
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
 			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
 		]);
 	}
 
 	const fn_clearForm = async function() {
+
+		const extraRow = document.querySelector('.extra-row');
+		extraRow.style.display = 'none';
+		SBUxMethod.clearGroupData('groupExtra');
+
+		SBUxMethod.set("dtl-inp-apcCd",null);  // hidden apcCd
+		SBUxMethod.set("dtl-inp-crtrYr",null);  // hidden crtrYr
+
 		for (var sn = 1; sn < 5; sn++) {
 			//SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
 			//SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
@@ -863,7 +994,6 @@
      * @param {number} pageNo
      */
 	const fn_selectAtMcIfList = async function(pageSize, pageNo) {
-		 console.log("******************fn_pagingAtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
@@ -883,23 +1013,40 @@
 
 		//예외처리
 		try {
-			data.resultList.forEach((item, index) => {
-				let sn = item.sn;
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
-				if(sn == '4'){
-					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
-				}else{
-					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
-				}
-				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
-				SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,item.apcTrmtVlm);
-				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,item.apcGnrlTrmtAmt);
-				SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst'+sn,item.apcOgnzCprtnSortTrst);
-				SBUxMethod.set('dtl-inp-apcCtrtEmspap'+sn,item.apcCtrtEmspap);
-				SBUxMethod.set('dtl-inp-apcTmSpmtAmt'+sn,item.tmSpmtAmt);
+			const extraRow = document.querySelector('.extra-row');
+			extraRow.style.display = 'none';
+
+			data.resultList.forEach((item, index) => {
+				if (_.isEqual("XC01", item.itemCd)) {
+
+					extraRow.style.display = '';
+
+					SBUxMethod.set('dtl-inp-apcTrmtVlmExtra', item.apcTrmtVlm);
+					SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtExtra', item.apcGnrlTrmtAmt);
+					SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstExtra', item.apcOgnzCprtnSortTrst);
+					SBUxMethod.set('dtl-inp-apcCtrtEmspapExtra', item.apcCtrtEmspap);
+					SBUxMethod.set('dtl-inp-apcTmSpmtAmtExtra', item.tmSpmtAmt);
+				} else {
+					let sn = item.sn;
+					SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
+					if (sn == '4') {
+						$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
+					} else {
+						$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
+					}
+					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
+
+					SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
+					SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
+					SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
+					SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
+					SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+				}
 			});
+
 			fn_cal();
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -910,7 +1057,6 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
 
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		let crtrYr = SBUxMethod.get("dtl-inp-crtrYr");
@@ -929,7 +1075,6 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed){
-		 console.log("******************fn_subInsert**********************************");
 		 if (!isConfirmed) return;
 		 let crtrYr = SBUxMethod.get('dtl-inp-crtrYr');
 		 let apcCd = SBUxMethod.get('dtl-inp-apcCd');
@@ -966,8 +1111,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 
@@ -991,6 +1134,18 @@
 			apcTmSpmtAmtArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+(i+1)));
 		}
 
+		// 조정값
+		const apcGnrlTrmtAmtExtra = parseInt(SBUxMethod.get('dtl-inp-apcGnrlTrmtAmtExtra')) || 0;
+		const apcOgnzCprtnSortTrstExtra = parseInt(SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrstExtra')) || 0;
+		const apcCtrtEmspapExtra = parseInt(SBUxMethod.get('dtl-inp-apcCtrtEmspapExtra')) || 0;
+		const apcTrmtVlmExtra = parseInt(SBUxMethod.get('dtl-inp-apcTrmtVlmExtra')) || 0;
+		const apcTmSpmtAmtExtra = parseInt(SBUxMethod.get('dtl-inp-apcTmSpmtAmtExtra')) || 0;
+
+		apcGnrlTrmtAmtArr.push(apcGnrlTrmtAmtExtra);
+		apcOgnzCprtnSortTrstArr.push(apcOgnzCprtnSortTrstExtra);
+		apcCtrtEmspapArr.push(apcCtrtEmspapExtra);
+		apcTrmtVlmArr.push(apcTrmtVlmExtra);
+		apcTmSpmtAmtArr.push(apcTmSpmtAmtExtra);
 
 		SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtTot',apcGnrlTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstTot',apcOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0));
@@ -1017,6 +1172,11 @@
 			SBUxMethod.set('dtl-inp-apcTrmtAmt'+(i+1),sum1);
 			SBUxMethod.set('dtl-inp-apcTmSpmtRt'+(i+1),rt1.toFixed(0));
 		}
+
+		const sumExtra = apcGnrlTrmtAmtExtra + apcOgnzCprtnSortTrstExtra + apcCtrtEmspapExtra;
+		const rtExtra = sumExtra === 0 ? 0 : rtExtra / sumExtra * 100;
+		SBUxMethod.set('dtl-inp-apcTrmtAmtExtra', sumExtra);
+		SBUxMethod.set('dtl-inp-apcTmSpmtRtExtra', rtExtra.toFixed(0));
 
 		let apcTrmtAmtTot = apcTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',apcTrmtAmtTot );
@@ -1201,7 +1361,6 @@
      * 목록 조회
      */
 	const fn_search = async function() {
-		//console.log("fn_search");
 		// set pagination
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
@@ -1212,11 +1371,10 @@
 	}
 
 	const fn_searchApcList = async function(pageSize, pageNo) {
-		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
 		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
@@ -1244,7 +1402,6 @@
 			jsonFcltApcInfo.length = 0;
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
-				//console.log(item);
 				let itemVO = {
 						apcCd			:item.apcCd
 						,apcNm			:item.apcNm
@@ -1288,7 +1445,7 @@
 				grdFcltApcInfo.setPageTotalCount(totalRecordCount);
 				grdFcltApcInfo.rebuild();
 			}
-			document.querySelector('#listApcCount').innerText = totalRecordCount;
+			document.querySelector('#listCount').innerText = totalRecordCount;
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -1300,7 +1457,6 @@
 
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
-		console.log("******************fn_view**********************************");
 		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
@@ -1321,8 +1477,6 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		//console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		//console.log(SBUxMethod.get('dtl-inp-crtrYr'));
 
 		fn_selectAtMcIfList();
 	}
@@ -1375,7 +1529,7 @@
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();//그리드 생성
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(crtrYr)) {
 			let now = new Date();
 			let year = now.getFullYear();
@@ -1390,7 +1544,6 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					apcCd				:item.apcCd
@@ -1450,7 +1603,6 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 

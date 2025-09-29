@@ -81,6 +81,24 @@
 	var jsonDlngShapCd	= [];
 	var jsonDlngMthdCd	= [];
 
+	/**
+	 * 출하상품거래처 modal
+	 * */
+	const fn_modalSpmtClick = async function (nRow){
+		SBUxMethod.openModal('modal-cnptSpmtPckgUnit');
+
+		let rowData = grdCnpt.getRowData(nRow);
+		SBUxMethod.set("cnptSpmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		SBUxMethod.set("cnptSpmtPckgUnit-inp-cnptNm", rowData.cnptNm);
+		SBUxMethod.set("cnptSpmtPckgUnit-inp-cnptCd", rowData.cnptCd);
+
+		await fn_initSBSelectCnptSpmtPckgUnit();
+		await fn_createCnptSpmtPckgUnitGrid();
+		await fn_createTotalCnptSpmtPckgUnitGrid();
+		await fn_selectCnptSpmtPckgUnitList(rowData);
+		await fn_selectTotalCnptSpmtPckgUnitList(rowData);
+	}
+
     const fn_cnptMngCreateGrid = async function() {
     	SBUxMethod.set("cnpt-inp-apcNm", SBUxMethod.get("inp-apcNm"));
     	cnptMngGridData = [];
@@ -130,7 +148,15 @@
 				}
             },
 			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
-            {caption: ["사업자번호"], 		ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
+			{caption: ["거래상품"],     	ref: 'spmtPckgUnitNm',  type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["변경"], 			ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+					if((grdCnpt.getRowStatus(nRow) == 0 || grdCnpt.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalSpmtClick(" + nRow + ")'>변경</button>";
+					}else{
+						return ;
+					}
+			}},
+			{caption: ["사업자번호"], 		ref: 'brno',  		type:'input',  width:'135px',    style:'text-align:center', typeinfo : {mask : {alias : '#-', repeat: '*'}, maxlength : 20}, validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption: ["외부연계코드"], 	ref: 'extrnlLnkgCd',type:'input',  width:'135px',    style:'text-align:center'},
             {caption: ["담당자"], 			ref: 'picNm',  		type:'input',  width:'90px',     style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {mask : {alias : 'k'}, maxlength : 20}},
             {caption: ["담당자전화번호"], 	ref: 'picTelno',  	type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 20}), typeinfo : {maxlength : 11}, format : {type:'custom', callback : fn_newCnptMngTelno}},
@@ -228,6 +254,7 @@
   					  , picNm			: item.picNm
   					  , telno			: item.telno
   					  , rmrk			: item.rmrk
+					  , spmtPckgUnitNm	: item.spmtPckgUnitNm
   					  , delYn			: item.delYn
   					  , apcCd			: item.apcCd
   					  , eml				: item.eml

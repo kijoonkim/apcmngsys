@@ -154,6 +154,9 @@
 		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
 			   AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+			AND GI.CNPT_CD = #{cnptCd}
+		</if>
     	<![CDATA[
 			 ORDER BY PCKG_YMD, PCKGNO, PCKG_SN
     		  ) pt0
@@ -315,4 +318,25 @@
 			   AND PCKGNO IS NULL
 		]]>
 	</update>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll	-->
+	<!-- DESC : 포장투입실적 전체 삭제													-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.09.19  	김호        		Initial Creation                        	-->
+	<!-- ==========================================================================	-->
+	<update id="deletePckgPrfmncAll" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll */
+			       TB_PCKG_PRFMNC
+			   SET DEL_YN 					= 'Y'
+			     , SYS_LAST_CHG_DT 			= SYSDATE
+				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD					= #{apcCd}
+			   AND PCKGNO					= #{pckgno}
+		]]>
+	</update>
+
 </mapper>

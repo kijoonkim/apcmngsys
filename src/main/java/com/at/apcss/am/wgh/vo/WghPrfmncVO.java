@@ -295,6 +295,7 @@ public class WghPrfmncVO extends ComVO {
 	private String grdCd2;
 	private String grdCd3;
 	private String grdCd4;
+	private String grdCd5;
 
 	/*
 	 * 등급별수량
@@ -303,6 +304,7 @@ public class WghPrfmncVO extends ComVO {
 	private int grdQntt2;
 	private int grdQntt3;
 	private int grdQntt4;
+	private int grdQntt5;
 
 	/*
 	 * 등급별입고번호
@@ -311,6 +313,7 @@ public class WghPrfmncVO extends ComVO {
 	private String grdWrhsno2;
 	private String grdWrhsno3;
 	private String grdWrhsno4;
+	private String grdWrhsno5;
 	/*
 	 * 등급별입고순번
 	 * */
@@ -318,6 +321,16 @@ public class WghPrfmncVO extends ComVO {
 	private String grdWghSn2;
 	private String grdWghSn3;
 	private String grdWghSn4;
+	private String grdWghSn5;
+
+	/*
+	 * 등급별저장창고
+	 * */
+	private String warehouseSeCd1;
+	private String warehouseSeCd2;
+	private String warehouseSeCd3;
+	private String warehouseSeCd4;
+	private String warehouseSeCd5;
 
 	/*
 	 * 팔레트수량

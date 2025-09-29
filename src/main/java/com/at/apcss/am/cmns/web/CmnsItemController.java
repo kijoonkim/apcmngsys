@@ -247,6 +247,38 @@ public class CmnsItemController extends BaseController {
 	        return getSuccessResponseEntity(resultMap);
 	    }
 
+	@PostMapping(value = "/am/cmns/insertSeedCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertSeedCrtrList(@RequestBody List<ApcSeedCrtrVO> apcSeedCrtrVOList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int insertedCnt = 0;
+		try{
+			setComVOFields(apcSeedCrtrVOList);
+
+			for (ApcSeedCrtrVO apcSeedCrtrVO : apcSeedCrtrVOList) {
+				apcSeedCrtrVO.setSysFrstInptPrgrmId(getPrgrmId());
+				apcSeedCrtrVO.setSysFrstInptUserId(getUserId());
+				apcSeedCrtrVO.setSysLastChgPrgrmId(getPrgrmId());
+				apcSeedCrtrVO.setSysLastChgUserId(getUserId());
+			}
+
+			HashMap<String, Object> rtnObj = cmnsItemService.insertSeedCrtrList(apcSeedCrtrVOList);
+
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_INSERTED_CNT,insertedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/cmns/mergeSeedCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> mergeSeedCrtrList(@RequestBody List<ApcSeedCrtrVO> apcSeedCrtrVOList, HttpServletRequest request) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

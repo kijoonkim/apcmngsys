@@ -80,4 +80,11 @@ public interface PckgPrfmncMapper {
 	 */
 	public int updateInptPckgno(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 
+	/**
+	 * 포장투입실적 전체 삭제
+	 * @param pckgPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePckgPrfmncAll(PckgPrfmncVO pckgPrfmncVO) throws Exception;
 }

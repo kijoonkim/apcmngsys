@@ -866,6 +866,81 @@
 		ORDER BY APC_CD, ITEM_CD, INDCT_SEQ, ITEM_DTL_CD, SN, VRTY_CD
 	</select>
 	<select id="selectCmnsItem" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO"></select>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr		-->
+	<!-- DESC : APC기준 종자 정보 등록  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.09  	김은총        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertApcSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+		<![CDATA[
+		INSERT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr */
+		INTO TB_APC_SEED_CRTR
+		(
+			  APC_CD
+			, SEED_CD
+			, SEED_NM
+			, INDCT_NM
+			, ITEM_CD
+			, VRTY_CD
+			, INDCT_SEQ
+			, DEL_YN
+			, SYS_FRST_INPT_DT
+			, SYS_FRST_INPT_USER_ID
+			, SYS_FRST_INPT_PRGRM_ID
+			, SYS_LAST_CHG_DT
+			, SYS_LAST_CHG_USER_ID
+			, SYS_LAST_CHG_PRGRM_ID
+		)
+		VALUES
+		(
+			  #{apcCd}
+			, (SELECT FN_GET_ID_SEED(#{apcCd}) FROM DUAL)
+			, #{seedNm}
+			, #{indctNm}
+			, #{itemCd}
+			, #{vrtyCd}
+			, #{indctSeq}
+			, #{delYn}
+			, SYSDATE
+			, #{sysFrstInptUserId}
+			, #{sysFrstInptPrgrmId}
+			, SYSDATE
+			, #{sysLastChgUserId}
+			, #{sysLastChgPrgrmId}
+		);
+		]]>
+	</insert>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr		-->
+	<!-- DESC : APC기준 종자 정보 등록  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.09  	김은총        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr */
+				TB_APC_SEED_CRTR
+			SET
+				  SEED_NM					= #{seedNm}
+				, INDCT_NM					= #{indctNm}
+				, VRTY_CD					= #{vrtyCd}
+				, INDCT_SEQ					= #{indctSeq}
+				, DEL_YN					= #{delYn}
+				, SYS_LAST_CHG_DT			= SYSDATE
+				, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
+			WHERE APC_CD					= #{apcCd}
+			  AND ITEM_CD					= #{itemCd}
+			  AND SEED_CD					= #{seedCd}
+		]]>
+	</update>
 </mapper>
 
 

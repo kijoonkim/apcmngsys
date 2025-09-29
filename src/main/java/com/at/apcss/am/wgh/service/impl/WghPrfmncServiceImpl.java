@@ -593,12 +593,33 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList) throws Exception {
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltDelList) throws Exception {
 		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
 		if(rtnObj != null){
 			throw new EgovBizException();
 		}
+
+		/** 검품등급 삭제 **/
+		if(wghInspPrfmncVOList.size() > 0){
+			int delCnt = wghPrfmncMapper.deleteWghInspPrfmncList(wghInspPrfmncVOList);
+			if(delCnt != wghInspPrfmncVOList.size()){
+				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
+			}
+		}
 		String prcsNo = wghPrfmncList.get(0).getWghno();
+
+		/** plt/box 삭제 **/
+		if(pltDelList.size() > 0){
+			for(PltWrhsSpmtVO vo : pltDelList){
+				if (prcsNo.equals(vo.getPrcsNo())) {
+					rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
+				}
+				if(rtnObj != null){
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+
 		if(pltWrhsSpmtList.size() > 0){
 			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
 				if(pltWrhsSpmtVO.getSn() == 0){
@@ -696,7 +717,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 insert **/
 					/** 검품등급 wghno set **/
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList.size() > 0){
+					if(inspList != null && inspList.size() > 0){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -726,7 +747,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 insert **/
 						/** 검품등급 wghno set **/
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList.size() > 0){
+						if(inspList != null && inspList.size() > 0){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}
@@ -830,7 +851,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 insert **/
 					/** 검품등급 wghno set **/
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList.size() > 0){
+					if(inspList != null && inspList.size() > 0){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -861,7 +882,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 insert **/
 						/** 검품등급 wghno set **/
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList.size() > 0){
+						if(inspList != null && inspList.size() > 0){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}
@@ -1148,7 +1169,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 wghno set **/
 					String wghno = wghPrfmncVO.getWghno();
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList.size() > 0){
+					if(inspList != null && inspList.size() > 0){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -1175,7 +1196,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 wghno set **/
 						String wghno = wghPrfmncVO.getWghno();
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList.size() > 0){
+						if(inspList != null && inspList.size() > 0){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}
@@ -1353,7 +1374,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 wghno set **/
 					String wghno = wghPrfmncVO.getWghno();
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList.size() > 0){
+					if(inspList != null && inspList.size() > 0){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -1389,7 +1410,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 wghno set **/
 						String wghno = wghPrfmncVO.getWghno();
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList.size() > 0){
+						if(inspList != null && inspList.size() > 0){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}

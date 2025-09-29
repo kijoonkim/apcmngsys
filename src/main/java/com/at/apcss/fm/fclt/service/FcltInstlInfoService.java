@@ -1,5 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.fm.fclt.vo.FcltInstlInfoVO;
@@ -94,4 +95,5 @@ public interface FcltInstlInfoService {
 	 */
 	public int updateFcltInstlInfoPrgrs(FcltInstlInfoVO fcltInstlInfoVO) throws Exception;
 
+	public HashMap<String, Object> insertFcltInstlSplmnt(FcltInstlInfoVO fcltInstlInfoVO) throws Exception;
 }

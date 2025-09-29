@@ -67,4 +67,12 @@ public class PrfmncChckMngServiceImpl extends BaseServiceImpl implements PrfmncC
 		return savedCnt;
 	}
 
+	@Override
+	public List<PrfmncChckMngVO> selectPrfmncChckRawData(PrfmncChckMngVO prfmncChckMngVO) {
+
+		List<PrfmncChckMngVO> resultList = PrfmncChckMngMapper.selectPrfmncChckRawData(prfmncChckMngVO);
+
+		return resultList;
+	}
+
 }

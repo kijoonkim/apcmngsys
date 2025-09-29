@@ -156,6 +156,30 @@ public interface CmnsItemService {
 	 * @throws Exception
 	 */
     int mergeApcItemCrtrDtlList(List<ApcItemCrtrDtlVO> apcItemCrtrDtlList) throws Exception;
+
+	/**
+	 * 종자정보 등록
+	 * @param apcSeedCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
+
+	/**
+	 * 종자정보 변경
+	 * @param apcSeedCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateApcSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
+
+	/**
+	 * APC기준 품목 종자 insert
+	 * @param apcSeedCrtrVOList
+	 * @return int
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSeedCrtrList(List<ApcSeedCrtrVO> apcSeedCrtrVOList) throws Exception;
 	/**
 	 * APC기준 품목 종자 merge
 	 * @param apcSeedCrtrVOList

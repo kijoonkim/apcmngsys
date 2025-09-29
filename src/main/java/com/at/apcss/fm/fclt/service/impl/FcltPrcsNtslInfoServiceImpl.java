@@ -39,9 +39,7 @@ public class FcltPrcsNtslInfoServiceImpl extends BaseServiceImpl implements Fclt
 	@Override
 	public FcltPrcsNtslInfoVO selectFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception {
 
-		FcltPrcsNtslInfoVO resultVO = fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
-
-		return resultVO;
+		return fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
 	}
 
 	@Override
@@ -50,16 +48,13 @@ public class FcltPrcsNtslInfoServiceImpl extends BaseServiceImpl implements Fclt
 		FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO = new FcltPrcsNtslInfoVO();
 		fcltPrcsNtslInfoVO.setMsgKey(msgKey);
 
-		FcltPrcsNtslInfoVO resultVO = fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
-
-		return resultVO;
+		return fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
 	}
 
 	@Override
 	public List<FcltPrcsNtslInfoVO> selectFcltPrcsNtslInfoList(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception {
 
-		List<FcltPrcsNtslInfoVO> resultList = fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoList(fcltPrcsNtslInfoVO);
-		return resultList;
+		return fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoList(fcltPrcsNtslInfoVO);
 	}
 
 
@@ -96,17 +91,13 @@ public class FcltPrcsNtslInfoServiceImpl extends BaseServiceImpl implements Fclt
 	@Override
 	public int updateFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception {
 
-		int updatedCnt = fcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
-
-		return updatedCnt;
+		return fcltPrcsNtslInfoMapper.updateFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
 	}
 
 	@Override
 	public int deleteFcltPrcsNtslInfo(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception {
 
-		int deletedCnt = fcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
-
-		return deletedCnt;
+		return fcltPrcsNtslInfoMapper.deleteFcltPrcsNtslInfo(fcltPrcsNtslInfoVO);
 	}
 
 	@Override
@@ -124,8 +115,7 @@ public class FcltPrcsNtslInfoServiceImpl extends BaseServiceImpl implements Fclt
 	@Override
 	public List<FcltPrcsNtslInfoVO> selectFcltPrcsNtslInfoRawDataList(FcltPrcsNtslInfoVO fcltPrcsNtslInfoVO) throws Exception {
 
-		List<FcltPrcsNtslInfoVO> resultList = fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoRawDataList(fcltPrcsNtslInfoVO);
-		return resultList;
+		return fcltPrcsNtslInfoMapper.selectFcltPrcsNtslInfoRawDataList(fcltPrcsNtslInfoVO);
 	}
 
 }

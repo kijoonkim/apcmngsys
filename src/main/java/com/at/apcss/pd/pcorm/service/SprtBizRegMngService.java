@@ -71,4 +71,12 @@ public interface SprtBizRegMngService {
      * @throws Exception
      */
     public List<SprtBizRegFileVO> selectSprtFileInfoList(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
+
+    /**
+     * 지원사업신청 - 로우데이터조회
+     * @param sprtBizRegMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizRegMngVO> selectSprtBizRawData(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
 }
