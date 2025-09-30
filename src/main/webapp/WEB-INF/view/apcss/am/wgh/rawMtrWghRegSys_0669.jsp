@@ -744,6 +744,14 @@
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
 			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		jsonComWarehouse.unshift({
+			label: "",
+			mastervalue: "",
+			text: "",
+			useYn: "",
+			value: "",
+		});
+
 		/** sn 순서보장 **/
 		jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
 		SBUxMethod.refresh('dtl-slt-vrtyCd');
