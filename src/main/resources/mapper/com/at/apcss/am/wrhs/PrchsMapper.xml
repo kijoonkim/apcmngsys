@@ -60,6 +60,8 @@
 				 , ROUND(SUM(YMD_29) * 21 / 1000) AS YMD_29_QNTT
 				 , ROUND(SUM(YMD_30) * 21 / 1000) AS YMD_30_QNTT
 				 , ROUND(SUM(YMD_31) * 21 / 1000) AS YMD_31_QNTT
+				 , MAX(X.DDLN_YMD) AS DDLN_YMD
+				 , MAX(X.USE_YN) AS USE_YN
 			 FROM  (SELECT
 						 PI.APC_CD                    AS APC_CD
 					   , PI.PRDCR_CD                  AS PRDCR_CD
@@ -69,6 +71,7 @@
 					   , PI.FRMHS_ADDR                AS FRMHS_ADDR
 					   , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
 					   , PI.FRMHS_CTPV                AS FRMHS_CTPV
+					   , FW.ITEM_CD					  AS ITEM_CD
 					   , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
 					   , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
 					   , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
@@ -113,10 +116,13 @@
 					   , FWD.CRTR_YR || FWD.CRTR_MM   AS CRTR_YM
 					   , FWD.QNTT                     AS QNTT
 					   , CFQ.PIC                      AS PIC
+			           , FD.YMD				  		  AS DDLN_YMD
+			           , FD.USE_YN					  AS USE_YN
 				  FROM TB_PRDCR_INFO PI
 					 , TB_FRMHS_EXPCT_WRHS FW
 					 , TB_FRMHS_EXPCT_WRHS_DTL FWD
 					 , TB_CLTVTN_FRMHS_QLT CFQ
+					 , TB_FRMHS_EXPCT_WRHS_DDLN FD
 				  WHERE PI.APC_CD = FW.APC_CD
 					AND PI.PRDCR_CD = FW.PRDCR_CD
 					AND FW.APC_CD = FWD.APC_CD
@@ -124,9 +130,12 @@
 					AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
 					AND CFQ.APC_CD = FW.APC_CD
 					AND CFQ.PRDCR_CD = FW.PRDCR_CD
+				    AND FD.APC_CD = CFQ.APC_CD
+				    AND FD.YR = CFQ.YR
 					AND PI.DEL_YN = 'N'
 					AND FW.DEL_YN = 'N'
 					AND FWD.DEL_YN = 'N'
+				    AND FD.DEL_YN = 'N'
 					AND PI.AGRC_YN = 'Y'
 					AND FWD.QNTT != 0
 				    AND PI.APC_CD = #{apcCd}
@@ -147,7 +156,7 @@
                    GROUP BY CQ.APC_CD, CQ.PIC
             ) CQ
 		  , (SELECT PI.APC_CD
-				  , ROUND(SUM(WP.WRHS_WGHT) / 1000) AS WRHS_WGHT
+		          , ROUND(SUM(CASE WHEN TO_NUMBER(SUBSTR(WP.WRHS_YMD, 7, 2)) <= TO_NUMBER(FD.YMD) THEN WP.WRHS_WGHT ELSE NULL END) / 1000) AS WRHS_WGHT
 				  , PIC
 			   FROM TB_PRDCR_INFO PI
 				  , TB_RAW_MTR_WRHS_PRFMNC WP
