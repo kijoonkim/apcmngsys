@@ -22,6 +22,7 @@
     <script src="/resource/script/comApcUtil.js"></script>
     <script src="/resource/script/comApcGrd.js"></script>
 	<script src="/resource/script/comApcSurvey.js"></script>
+	<script src="/resource/script/comPruo.js?ver=1.0"></script>
     <script src="/resource/script/comMa.js?ver=1.0"></script>
 
     <script src="/resource/script/hangul.min.js"></script>

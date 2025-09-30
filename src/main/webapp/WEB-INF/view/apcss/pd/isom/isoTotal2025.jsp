@@ -20,16 +20,6 @@
 					<h3 class="box-title" style="margin-top: 6px;"> ▶ <c:out value='${menuNm}'></c:out></h3>
 					<!-- 출자출하조직 관리 총 매입·매출 2025 -->
 				</div>
-				<div style="margin-right: auto; align-items: center;">
-					<sbux-select
-							id="slt-dtlPage"
-							name="slt-dtlPage"
-							uitype="single"
-							jsondata-ref="jsonDtlPage"
-							class="form-control input-sm page-select"
-							onchange="fn_onChangePage(this)"
-					></sbux-select>
-				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '91'}">
 					<!-- userType 91 농협관계자 조회 -->
@@ -83,13 +73,15 @@
 						<tr>
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-spinner
-									id="srch-input-yr"
-									name="srch-input-yr"
-									uitype="normal"
-									step-value="1"
-									disabled="true"
-								></sbux-spinner>
+								<sbux-select
+										id="slt-dtlPage"
+										name="slt-dtlPage"
+										uitype="single"
+										jsondata-ref="jsonDtlPage"
+										class="form-control input-sm"
+										onchange="fn_onChangePage(this)"
+								></sbux-select>
+								<sbux-input id="srch-input-yr" name="srch-input-yr" uitype="hidden"></sbux-input>
 								<sbux-checkbox
 									id="srch-input-yrChk"
 									name="srch-input-yrChk"
@@ -507,28 +499,40 @@
 <script type="text/javascript">
 
 	const initIndtfNo = "2025";
-	const fn_setInitPage = function() {
-		SBUxMethod.set("slt-dtlPage", initIndtfNo);
+
+	var jsonDtlPage = [];
+
+	const fn_setInitPage = async function(_targetId, _initIndtfNo) {
+
+		jsonDtlPage.length = 0;
+		const pruoMst = await gfn_getPruoRegMst();
+		if (Array.isArray(pruoMst)) {
+			pruoMst.forEach((item) => {
+				jsonDtlPage.push({
+					'text': item.indctNm,
+					'label': item.indctNm,
+					'value': item.crtrYr
+				});
+			});
+			SBUxMethod.refresh(_targetId);
+		}
+		SBUxMethod.set(_targetId, _initIndtfNo);
 	}
+
 	const fn_onChangePage = function(page) {
 		//window.location.reload();
 		const baseUrl = window.location.pathname.split('?')[0];
 		window.location.href = baseUrl + '?idntfNo=' + page.value;
 	}
 
-	var jsonDtlPage = [
-		{'text': '2025년', 'label': '2025', 'value': '2025'},
-		{'text': '2024년', 'label': '2024', 'value': '2024'}
-	]
-
 // 생산자조직 등록의 경우
 // 통합조직 직속 농가 출자출하조직 농가 두가지 경우가 있음
 // 첫리스트는 통합조직,출자출하조직 둘다 보여야함
 // 조직 선택후 품목 취급유형 선택후 다시 조회
 
-	window.addEventListener('DOMContentLoaded', function(e) {
+	window.addEventListener('DOMContentLoaded', async function(e) {
 
-		fn_setInitPage();
+		await fn_setInitPage("slt-dtlPage", initIndtfNo);
 
 		// 법인계정인데 조직구분이 없는 경우
 		<c:if test="${loginVO.mbrTypeCd eq '1' && empty loginVO.apoSe}">
@@ -548,7 +552,7 @@
 			parent.gfn_tabClose(tabInfo);
 		</c:if>
 
-		fn_init();
+		await fn_init();
 
 		/**
 		 * 엔터시 검색 이벤트

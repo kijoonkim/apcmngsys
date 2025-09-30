@@ -20,16 +20,6 @@
 					<h3 class="box-title" style="margin-top: 6px;"> ▶ <c:out value='${menuNm}'></c:out></h3>
 					<!-- 전문품목 매입·매출 (출자출하조직 보유) 2024 -->
 				</div>
-				<div style="margin-right: auto; align-items: center;">
-					<sbux-select
-							id="slt-dtlPage"
-							name="slt-dtlPage"
-							uitype="single"
-							jsondata-ref="jsonDtlPage"
-							class="form-control input-sm page-select"
-							onchange="fn_onChangePage(this)"
-					></sbux-select>
-				</div>
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
@@ -78,13 +68,15 @@
 						<tr>
 							<th scope="row" class="th_bg" >신청년도</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;" >
-								<sbux-spinner
-									id="srch-input-yr"
-									name="srch-input-yr"
-									uitype="normal"
-                					step-value="1"
-									disabled="true"
-                				></sbux-spinner>
+								<sbux-select
+										id="slt-dtlPage"
+										name="slt-dtlPage"
+										uitype="single"
+										jsondata-ref="jsonDtlPage"
+										class="form-control input-sm"
+										onchange="fn_onChangePage(this)"
+								></sbux-select>
+								<sbux-input id="srch-input-yr" name="srch-input-yr" uitype="hidden"></sbux-input>
                 				<sbux-checkbox
                 					id="srch-input-yrChk"
                 					name="srch-input-yrChk"
@@ -345,28 +337,42 @@
 <script type="text/javascript">
 
 	const initIndtfNo = "2024";
-	const fn_setInitPage = function() {
-		SBUxMethod.set("slt-dtlPage", initIndtfNo);
+
+	var jsonDtlPage = [];
+
+	const fn_setInitPage = async function(_targetId, _initIndtfNo) {
+
+		jsonDtlPage.length = 0;
+		const pruoMst = await gfn_getPruoRegMst();
+		if (Array.isArray(pruoMst)) {
+			pruoMst.forEach((item) => {
+				jsonDtlPage.push({
+					'text': item.indctNm,
+					'label': item.indctNm,
+					'value': item.crtrYr
+				});
+			});
+			SBUxMethod.refresh(_targetId);
+		}
+		SBUxMethod.set(_targetId, _initIndtfNo);
 	}
+
 	const fn_onChangePage = function(page) {
 		//window.location.reload();
 		const baseUrl = window.location.pathname.split('?')[0];
 		window.location.href = baseUrl + '?idntfNo=' + page.value;
 	}
 
-	var jsonDtlPage = [
-		{'text': '2025년', 'label': '2025', 'value': '2025'},
-		{'text': '2024년', 'label': '2024', 'value': '2024'}
-	]
-	window.addEventListener('DOMContentLoaded', function(e) {
+	window.addEventListener('DOMContentLoaded', async function(e) {
 
-		fn_setInitPage();
+		await fn_setInitPage("slt-dtlPage", initIndtfNo);
+
 		// var now = new Date();
 		// var year = now.getFullYear();
 		const year = initIndtfNo;
-		SBUxMethod.set("srch-input-yr",year);//
+		SBUxMethod.set("srch-input-yr", year);//
 
-		fn_init();
+		await fn_init();
 
 		/**
 		 * 엔터시 검색 이벤트
