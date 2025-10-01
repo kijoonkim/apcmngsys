@@ -569,7 +569,8 @@
 					, ymd30Qntt           : fn_zero(item.ymd30Qntt)
 					, ymd31Qntt           : fn_zero(item.ymd31Qntt)
 					, tot                 : fn_zero(item.tot)
-
+					, ddlnYmd			  : item.ddlnYmd
+					, useYn				  : item.useYn
 				}
 				jsonPrchsPicCtpvTot.push(prchsPicCtpvTotVO);
 			});
@@ -589,6 +590,13 @@
 		let wrhsRtCol = grdPrchsPicCtpvTot.getColRef("wrhsRt");
 
 		grdPrchsPicCtpvTot.setCellData(grdPrchsPicCtpvTot.getRows() - 1 , wrhsRtCol, wrhsRt);
+
+		let girdData = grdPrchsPicCtpvTot.getGridDataAllExceptTotal();
+
+		// 합계 row 제외
+		girdData.forEach((item, index) => {
+			grdPrchsPicCtpvTot.setCellStyle('background-color', index + grdPrchsPicCtpvTot.getFixedRows(), grdPrchsPicCtpvTot.getColRef('ymd1Qntt'), index + grdPrchsPicCtpvTot.getFixedRows(), grdPrchsPicCtpvTot.getColRef('ymd' + item.ddlnYmd + 'Qntt'), '#FFF8DC');
+		});
 
 	}
 
@@ -663,6 +671,8 @@
 					, ymd30Qntt           : fn_zero(item.ymd30Qntt)
 					, ymd31Qntt           : fn_zero(item.ymd31Qntt)
 					, tot                 : fn_zero(item.tot)
+					, ddlnYmd			  : item.ddlnYmd
+					, useYn				  : item.useYn
 
 				}
 				jsonPrchsCtpvTot.push(prchsCtpvTotVO);
@@ -684,6 +694,13 @@
 		let wrhsRtCol = grdPrchsCtpvTot.getColRef("wrhsRt");
 
 		grdPrchsCtpvTot.setCellData(grdPrchsCtpvTot.getRows() - 1 , wrhsRtCol, wrhsRt);
+
+		let girdData = grdPrchsCtpvTot.getGridDataAllExceptTotal();
+
+		// 합계 row 제외
+		girdData.forEach((item, index) => {
+			grdPrchsCtpvTot.setCellStyle('background-color', index + grdPrchsCtpvTot.getFixedRows(), grdPrchsCtpvTot.getColRef('ymd1Qntt'), index + grdPrchsCtpvTot.getFixedRows(), grdPrchsCtpvTot.getColRef('ymd' + item.ddlnYmd + 'Qntt'), '#FFF8DC');
+		});
 	}
 
 	/**
