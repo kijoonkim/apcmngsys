@@ -2515,6 +2515,11 @@
 
 		let setRmrk = '';
 
+		// 입/출고집 변경 X
+		if (nCol === rmrkCol) {
+			return;
+		}
+
 		if (!gfn_isEmpty(getCellData)) {
 			switch (getRowData.type) {
 				case '입고':
