@@ -39,7 +39,7 @@
 		<!-- JEUS에서 WAR 포장 시 제외할 위험 JAR 목록 -->
 		<jeus.excludes>
 			<!-- 컨테이너/서블릿 스펙 중복 방지 -->
-			WEB-INF/lib/tomcat-embed-*.jar,
+			WEB-INF/lib/*tomcat*.jar,
 			WEB-INF/lib/javax.servlet-api-*.jar,
 			WEB-INF/lib/servlet-api-*.jar,
 			WEB-INF/lib/javax.servlet.jsp-api-*.jar,
@@ -419,6 +419,7 @@
 						<version>2.7.0</version>
 						<configuration>
 							<includeSystemScope>false</includeSystemScope>
+							<skip>true</skip>
 						</configuration>
 					</plugin>
 				</plugins>
