@@ -1,17 +1,4 @@
-<!-- WEB-INF/jeus-web-dd.xml -->
 <jeus-web-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus" version="8.5">
-	<!-- 1) WEB-INF 먼저 보게 하기 (child-first 계열) -->
-	<webinf-first>
-		<enabled>true</enabled>
-	</webinf-first>
-
-	<!-- 2) (선택) 명시적으로 parent-first 끄기 -->
+	<webinf-first><enabled>true</enabled></webinf-first>
 	<classloader-use-parent-first>false</classloader-use-parent-first>
-
-	<!-- 3) 부모(서버) 클래스로더에서 이 패키지들은 안 보이게 숨김
-           => 앱(WEB-INF/lib)의 jar가 반드시 쓰이도록 강제 -->
-	<excluded-package>javax.validation</excluded-package>
-	<excluded-package>jakarta.validation</excluded-package>
-	<!-- 필요시 -->
-	<excluded-package>org.hibernate.validator</excluded-package>
 </jeus-web-dd>
