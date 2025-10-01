@@ -57,7 +57,7 @@
 									name="ddln-inp-ymd"
 									uitype="normal"
 									class="form-control input-sm"
-									number-min-value="0"
+									number-min-value="1"
 									number-max-value="31"
 								></sbux-spinner>
 							</th>
