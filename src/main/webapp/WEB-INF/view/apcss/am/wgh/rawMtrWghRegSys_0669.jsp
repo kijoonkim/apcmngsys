@@ -2515,7 +2515,7 @@
 
 		let setRmrk = '';
 
-		// 입/출고집 변경 X
+		// 입/출고 입력 변경 X
 		if (nCol === rmrkCol) {
 			return;
 		}
