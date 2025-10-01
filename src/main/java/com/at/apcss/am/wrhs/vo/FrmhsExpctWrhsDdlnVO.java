@@ -43,5 +43,9 @@ public class FrmhsExpctWrhsDdlnVO extends ComVO {
 	 * 사용유무
 	 * */
 	private String useYn;
+	/*
+	 * 마감구분코드
+	 * */
+	private String ddlnKndCd;
 
 }

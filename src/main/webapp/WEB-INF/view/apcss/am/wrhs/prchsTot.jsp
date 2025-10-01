@@ -20,6 +20,14 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 수매집계 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+							id="btnDdln"
+							name="btnDdln"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							onclick="fn_ddln"
+							text="마감설정"
+					></sbux-button>
                     <sbux-button
 						id="btnSearch"
 						name="btnSearch"
@@ -57,12 +65,12 @@
 					<tbody>
 						<tr>
 							<th class="ta_r th_bg">APC명</th>
-							<td colspan="2"  class="td_input">
+							<td colspan="2"  class="td_input" style="border-right: hidden;">
 								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
 							</td>
 							<td></td>
 							<th class="ta_r th_bg">연도</th>
-							<td colspan="3"  class="td_input">
+							<td colspan="3"  class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-yr"
 									name="srch-dtp-yr"
@@ -126,6 +134,23 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- 마감 설정 Modal -->
+	<div>
+		<sbux-modal
+				id="modal-ddln"
+				name="modal-ddln"
+				uitype="middle"
+				header-title="마감 설정"
+				body-html-id="body-modal-ddln"
+				footer-is-close-button="false"
+				header-is-close-button="false"
+				style="width:640px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-ddln">
+		<jsp:include page="../../am/popup/frmhsExpctWrhsDdlnPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -341,6 +366,24 @@
 		SBGridProperties.columns = columns;
 		grdPrchsCtpvTot = _SBGrid.create(SBGridProperties);
 	}
+	/**
+	 * @name fn_ddln
+	 * @description 수매집계 - 마감설정
+	 */
+	const fn_ddln = async function () {
+
+		let yr = SBUxMethod.get("srch-dtp-yr");
+		let itemCd = '1201';
+		let ddlnKndCd = '0001'	// 수매마감 코드
+
+		SBUxMethod.openModal('modal-ddln');
+
+		popDdln.init(gv_selectedApcCd, yr, ddlnKndCd, fn_search, itemCd);
+	}
+
+	const fn_setPrchsPicTot = async function () {
+
+	}
 
 	const fn_search = async function () {
 
@@ -424,7 +467,8 @@
 					, ymd30Qntt           : fn_zero(item.ymd30Qntt)
 					, ymd31Qntt           : fn_zero(item.ymd31Qntt)
 					, tot                 : fn_zero(item.tot)
-
+					, ddlnYmd			  : item.ddlnYmd
+					, useYn				  : item.useYn
 				}
 				jsonPrchsPicTot.push(prchsPicTotVO);
 			});
@@ -445,6 +489,12 @@
 
 		grdPrchsPicTot.setCellData(grdPrchsPicTot.getRows() - 1 , wrhsRtCol, wrhsRt);
 
+		let girdData = grdPrchsPicTot.getGridDataAllExceptTotal();
+
+		// 합계 row 제외
+		girdData.forEach((item, index) => {
+			grdPrchsPicTot.setCellStyle('background-color', index + grdPrchsPicTot.getFixedRows(), grdPrchsPicTot.getColRef('ymd1Qntt'), index + grdPrchsPicTot.getFixedRows(), grdPrchsPicTot.getColRef('ymd' + item.ddlnYmd + 'Qntt'), '#FFF8DC');
+		});
 	}
 
 	/**
@@ -519,7 +569,8 @@
 					, ymd30Qntt           : fn_zero(item.ymd30Qntt)
 					, ymd31Qntt           : fn_zero(item.ymd31Qntt)
 					, tot                 : fn_zero(item.tot)
-
+					, ddlnYmd			  : item.ddlnYmd
+					, useYn				  : item.useYn
 				}
 				jsonPrchsPicCtpvTot.push(prchsPicCtpvTotVO);
 			});
@@ -539,6 +590,13 @@
 		let wrhsRtCol = grdPrchsPicCtpvTot.getColRef("wrhsRt");
 
 		grdPrchsPicCtpvTot.setCellData(grdPrchsPicCtpvTot.getRows() - 1 , wrhsRtCol, wrhsRt);
+
+		let girdData = grdPrchsPicCtpvTot.getGridDataAllExceptTotal();
+
+		// 합계 row 제외
+		girdData.forEach((item, index) => {
+			grdPrchsPicCtpvTot.setCellStyle('background-color', index + grdPrchsPicCtpvTot.getFixedRows(), grdPrchsPicCtpvTot.getColRef('ymd1Qntt'), index + grdPrchsPicCtpvTot.getFixedRows(), grdPrchsPicCtpvTot.getColRef('ymd' + item.ddlnYmd + 'Qntt'), '#FFF8DC');
+		});
 
 	}
 
@@ -613,6 +671,8 @@
 					, ymd30Qntt           : fn_zero(item.ymd30Qntt)
 					, ymd31Qntt           : fn_zero(item.ymd31Qntt)
 					, tot                 : fn_zero(item.tot)
+					, ddlnYmd			  : item.ddlnYmd
+					, useYn				  : item.useYn
 
 				}
 				jsonPrchsCtpvTot.push(prchsCtpvTotVO);
@@ -634,6 +694,13 @@
 		let wrhsRtCol = grdPrchsCtpvTot.getColRef("wrhsRt");
 
 		grdPrchsCtpvTot.setCellData(grdPrchsCtpvTot.getRows() - 1 , wrhsRtCol, wrhsRt);
+
+		let girdData = grdPrchsCtpvTot.getGridDataAllExceptTotal();
+
+		// 합계 row 제외
+		girdData.forEach((item, index) => {
+			grdPrchsCtpvTot.setCellStyle('background-color', index + grdPrchsCtpvTot.getFixedRows(), grdPrchsCtpvTot.getColRef('ymd1Qntt'), index + grdPrchsCtpvTot.getFixedRows(), grdPrchsCtpvTot.getColRef('ymd' + item.ddlnYmd + 'Qntt'), '#FFF8DC');
+		});
 	}
 
 	/**
