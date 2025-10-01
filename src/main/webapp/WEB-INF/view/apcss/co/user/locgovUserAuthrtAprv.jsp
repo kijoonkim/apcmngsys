@@ -539,6 +539,20 @@
         		width:'80px', 
         		style:'text-align:center'
         	},
+			{
+				caption: ["요청일시"],
+				ref: 'aplyDt',
+				type:'output',
+				width:'150px',
+				style:'text-align:left'
+			},
+			{
+				caption: ["승인완료일시"],
+				ref: 'aprvDt',
+				type:'output',
+				width:'150px',
+				style:'text-align:left'
+			},
 		];
 		
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
@@ -645,6 +659,8 @@
 					sggExpln:		item.sggExpln,
 					mngrAplyYn:		item.mngrAplyYn,
 					authrtAplyYn:	item.authrtAplyYn,
+					aplyDt : item.aplyDt,
+					aprvDt : item.aprvDt
   				}
           		
           		jsonUserAprv.push(user);
