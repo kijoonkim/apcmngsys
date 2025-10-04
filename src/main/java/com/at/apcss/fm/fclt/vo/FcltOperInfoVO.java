@@ -258,7 +258,25 @@ public class FcltOperInfoVO extends ComVO{
 	 */
 	private String uoFailInclYn;
 
+	/**
+	 * 담당자명
+	 */
+	private String picNm;
 
+	/**
+	 * 담당자 연락처
+	 */
+	private String mblTelno;
+
+	/**
+	 * 개인정보수집동의여부
+	 */
+	private String prvcClctAgreYn;
+
+	/**
+	 * 개인정보수집동의일자
+	 */
+	private String prvcClctAgreYmd;
 
 
 	/**

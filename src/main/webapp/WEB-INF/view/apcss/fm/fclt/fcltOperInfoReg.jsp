@@ -327,6 +327,36 @@
 							</td>
 						</tr>
 						<tr>
+							<th>담당자명</th>
+							<td>
+								<sbux-input id="dtl-inp-picNm" name="dtl-inp-picNm" uitype="text" class="form-control input-sm" autocomplete="off"></sbux-input>
+							</td>
+							<th>담당자 연락처</th>
+							<td>
+								<sbux-input id="dtl-inp-picTelno" name="dtl-inp-picTelno" uitype="text" class="form-control input-sm" permit-keycodes-set="num" autocomplete="off" maxlength="11"></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th>개인정보 이용동의</th>
+							<td colspan="3">
+								<div>
+									<h5> 개인정보 수집 및 이용에 동의해 주세요.</h5>
+									<ul>
+										<li><strong>수집하는 개인정보 : </strong> 성명, 핸드폰</li>
+										<li><strong>이용목적 : </strong> 2025년 APC 전수조사 확인 및 관리, APC 건립지원사업 등 관련 정책지원사업 안내를 위함</li>
+										<li><strong>보유기간 : </strong> ~26.12.31.</li>
+									</ul>
+									<p class="ad_input_row">
+										<sbux-radio id="rdo-agre" name="rdo-prvc" uitype="normal" value="Y"  class="radio_label" text="동의"></sbux-radio>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="rdo-dsag" name="rdo-prvc" uitype="normal" value="N" class="radio_label" text="미동의"></sbux-radio>
+									</p>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<th>운영조직 취급 대표품목1</th>
 							<td class="td_input" style="border-right:hidden;">
 								<div class="col-md-5">
@@ -640,6 +670,10 @@
 							// , operOgnzBrno : userInfoVO.operOgnzBrno
 							// , operOgnzCrno : userInfoVO.operOgnzCrno
 							// , rprsv : userInfoVO.rprsv
+
+							, picNm : resultVO.pic
+							, picTelno : resultVO.cttpc
+							, prvcClctAgreYn : resultVO.prvcClctAgreYn
 						};
 						/*for (let i = 0; i < resultVO.itemList.length; i++) {
 							const itemData = resultVO.itemList[i];
@@ -711,7 +745,12 @@
 					SBUxMethod.set("dtl-inp-apcBmno", resultVO.apcBmno);//apc 건물 본번
 					SBUxMethod.set("dtl-inp-apcSlno", resultVO.apcSlno);//apc 건물 부번
 
+					// 2025.10.04 담당자명,연락처, 개인정보이용동의 추가요청
+					SBUxMethod.set('dtl-inp-picNm',resultVO.pic); // 담당자 명
+					SBUxMethod.set('dtl-inp-picTelno',resultVO.cttpc); // 담당자 연락처
+					SBUxMethod.set('rdo-prvc',resultVO.prvcClctAgreYn); // 담당자 연락처
 
+					/** 품목 리스트 **/
 					for (var i = 0; i < resultVO.itemList.length; i++) {
 						let itemData = resultVO.itemList[i];
 						let sn = itemData.sn;
@@ -741,6 +780,10 @@
 				SBUxMethod.set("dtl-inp-rprsv", resultVO.rprsv);//대표자
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
+
+				// 2025.10.04 담당자명,연락처 추가 요청
+				SBUxMethod.set('dtl-inp-picNm',resultVO.picNm); // 담당자 명
+				SBUxMethod.set('dtl-inp-picTelno',resultVO.mblTelno); // 담당자 연락처
 			}
 
 		}catch (e) {
@@ -791,6 +834,10 @@
 
 		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrFull", null);//운영조직 주소
 		SBUxMethod.set("dtl-inp-apcRoadNmAddrFull", null);//apc 주소
+
+		SBUxMethod.set('dtl-inp-picNm',null); // 담당자명
+		SBUxMethod.set('dtl-inp-picTelno',null); // 담당자연락처
+		SBUxMethod.set('rdo-prvc',null); // 담당자개인정보 이용동의
 
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
@@ -950,6 +997,26 @@
 		let apcAddr = SBUxMethod.get("dtl-inp-apcRoadNmAddrFull");
 		if (gfn_isEmpty(apcAddr)) {
 			gfn_comAlert("W0002", "APC주소");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		// 담당자명, 연락처, 개인정보 이용동의
+		const picNm = SBUxMethod.get('dtl-inp-picNm');
+		const picTelno = SBUxMethod.get('dtl-inp-picTelno');
+		const prvcAgre = SBUxMethod.get('rdo-prvc');
+
+		if (gfn_isEmpty(picNm)) {
+			gfn_comAlert("W0002", "담당자명");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		if (gfn_isEmpty(picTelno)) {
+			gfn_comAlert("W0002", "담당자 연락처");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		if (gfn_isEmpty(prvcAgre)) {
+			gfn_comAlert("W0001", "개인정보 이용동의");	//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
@@ -1113,6 +1180,11 @@
 			}
 		}
 
+		// 담당자명, 연락처, 개인정보 이용동의
+		const picNm = SBUxMethod.get('dtl-inp-picNm');
+		const picTelno = SBUxMethod.get('dtl-inp-picTelno');
+		const prvcAgre = SBUxMethod.get('rdo-prvc');
+
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertOperOgnz.do", {
 			crtrYr: crtrYr  // 등록년도
 			, prgrsYn : 'Y' //진척도 갱신 여부
@@ -1152,6 +1224,10 @@
 			, apcSlno : gfn_nvl(SBUxMethod.get("dtl-inp-apcSlno")) //apc 건물 부번
 
 			, itemList : itemArr //품목 리스트
+
+			, pic : picNm
+			, cttpc : picTelno
+			, prvcClctAgreYn : prvcAgre
 		});
 
 		const data = await postJsonPromise;
@@ -1518,6 +1594,11 @@
 		SBUxMethod.set("dtl-inp-apcZip", data.apcZip);//apc 우편번호
 		SBUxMethod.set("dtl-inp-apcBmno", data.apcBmno);//apc 건물 본번
 		SBUxMethod.set("dtl-inp-apcSlno", data.apcSlno);//apc 건물 부번
+
+		// 2025.10.04 담당자명,연락처, 개인정보이용동의 추가요청
+		SBUxMethod.set('dtl-inp-picNm',data.picNm); // 담당자 명
+		SBUxMethod.set('dtl-inp-picTelno',data.picTelno); // 담당자 연락처
+		SBUxMethod.set('rdo-prvc',data.prvcClctAgreYn); // 담당자 연락처
 
 
 		/*const itemList = data.itemList;
