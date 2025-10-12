@@ -744,7 +744,6 @@
      * 등급 수량 증가 버튼 클릭 시
      */
     const fn_countUp = async function(_el = null) {
-        console.log(this);
         let val = parseInt(grdQntt.value) || 0;
         val++;
         grdQntt.value = val;
@@ -848,10 +847,10 @@
      */
     const fn_socket = function(){
         // const code = gv_selectedApcCd; // 4자리 코드
-        const code = encodeURIComponent(gv_selectedApcCd);
+        const roomId = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
+            + location.host + `/ws/chat/${'${roomId}'}/${'${userId}'}`;
         PckgRegWs = new WebSocket(url);
         PckgRegWs.onopen = () => {};
 

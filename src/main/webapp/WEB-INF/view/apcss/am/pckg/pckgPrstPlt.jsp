@@ -259,10 +259,10 @@
      */
     const fn_socket = function(){
         // const code = gv_selectedApcCd; // 4자리 코드
-        const code = encodeURIComponent(gv_selectedApcCd);
+        const roomId = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
+            + location.host + `/ws/chat/${'${roomId}'}/${'${userId}'}`;
         PckgPrstWs = new WebSocket(url);
         PckgPrstWs.onopen = () => {
             PckgPrstWs.send(JSON.stringify({
@@ -278,7 +278,6 @@
         PckgPrstWs.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
-            console.log(e.data,"@@@@@");
             if (msg.roomId !== gv_selectedApcCd) return;
 
             /** 현황판 최초 진입 **/
@@ -328,6 +327,9 @@
                 $(`${'#${userId}'} td[class^="pckg_grd_"]`).each(function () {
                     this.innerText = '0';
                 });
+                let cnptTarget = '#' + getWorkerIdFromTableId(userId) + "_cnpt";
+                let $target = $(cnptTarget);
+                $target.text("");
             }
         };
 
