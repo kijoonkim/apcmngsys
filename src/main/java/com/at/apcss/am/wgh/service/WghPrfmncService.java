@@ -334,4 +334,12 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
     public HashMap<String, Object> updateWghInfoDtlList(List<WghPrfmncVO> wghPrfmncList) throws Exception;
+
+	/**
+	 * API 계량실적 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception;
 }

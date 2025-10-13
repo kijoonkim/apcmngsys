@@ -345,4 +345,12 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int updateSpmtWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
+
+	/**
+	 * API 계량실적정보 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception;
 }
