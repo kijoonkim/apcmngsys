@@ -341,5 +341,5 @@ public interface WghPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<WghPrfmncVO> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception;
+	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception;
 }

@@ -2213,9 +2213,9 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public List<WghPrfmncVO> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception {
+	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception {
 
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
+		List<HashMap<String, Object>> resultList = wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
 
 		return resultList;
 	}

@@ -43,7 +43,7 @@ public class WghPrfmncApiController extends BaseController {
 	public ResponseEntity<HashMap<String, Object>> selectWghPrfmncListForApi(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<WghPrfmncVO> resultList;
+		List<HashMap<String, Object>> resultList;
 
 		try {
 			resultList = wghPrfmncService.selectWghPrfmncListForApi(wghPrfmncVO);

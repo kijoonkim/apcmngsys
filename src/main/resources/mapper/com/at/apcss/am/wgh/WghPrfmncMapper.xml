@@ -2696,7 +2696,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.10.13  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghPrfmncListForApi" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghPrfmncListForApi" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="java.util.HashMap">
 		<![CDATA[
     		SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi */
 		]]>
