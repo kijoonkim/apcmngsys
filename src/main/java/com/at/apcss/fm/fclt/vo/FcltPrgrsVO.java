@@ -89,6 +89,7 @@ public class FcltPrgrsVO extends ComVO{
 	private String lastUserId;		//최종제출 아이디
 	private String lastDt;			//최종제출 일자
 
+	private String prgrs15;
 }
 
 
