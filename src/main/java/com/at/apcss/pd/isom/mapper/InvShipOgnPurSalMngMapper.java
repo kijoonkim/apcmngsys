@@ -125,6 +125,8 @@ public interface InvShipOgnPurSalMngMapper {
 	 */
 	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleListForUpbrToAprv(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
+
 	/**
 	 *
 	 * @param invShipOgnPurSalMngVO

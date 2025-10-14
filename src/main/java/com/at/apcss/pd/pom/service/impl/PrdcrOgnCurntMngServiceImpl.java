@@ -26,48 +26,36 @@ import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
  * 2023.06.21          최초 생성
  * </pre>
  */
-@Service("PrdcrOgnCurntMngService")
+@Service("prdcrOgnCurntMngService")
 public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements PrdcrOgnCurntMngService{
 
 	@Autowired
-	private PrdcrOgnCurntMngMapper PrdcrOgnCurntMngMapper;
+	private PrdcrOgnCurntMngMapper prdcrOgnCurntMngMapper;
 
 	@Override
-	public PrdcrOgnCurntMngVO selectPrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-
-		PrdcrOgnCurntMngVO resultVO = PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
-
-		return resultVO;
+	public PrdcrOgnCurntMngVO selectPrdcrOgnCurntMng(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-
-		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO);
-		return resultList;
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngList(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-
-		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO);
-		return resultList;
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-
-		int insertedCnt = PrdcrOgnCurntMngMapper.insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
-
-		return insertedCnt;
+	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.insertPrdcrOgnCurntMngDtl(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-
-		//int updatedCnt = PrdcrOgnCurntMngMapper.updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
-		int updatedCnt = 0;
-		return updatedCnt;
+	public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		//int updatedCnt = prdcrOgnCurntMngMapper.updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO);
+		return 0;
 	}
 
 	//농가리스트 저장 및 해당 조직의 적합여부 체크
@@ -79,16 +67,16 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		String yrVal = null;
 		String brnoVal = "";
 		String uoBrnoVal = "";
-		for (PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO : PrdcrOgnCurntMngVOList) {
-			prdcrOgnzSnVal = PrdcrOgnCurntMngVO.getPrdcrOgnzSn();//생산자조직seq
-			yrVal = PrdcrOgnCurntMngVO.getYr();//등록년도
-			brnoVal = PrdcrOgnCurntMngVO.getBrno();//사업자번호
-			uoBrnoVal = PrdcrOgnCurntMngVO.getUoBrno();//통합조직 사업자번호
-			savedCnt += insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
+		for (PrdcrOgnCurntMngVO prdcrOgnCurntMngVO : PrdcrOgnCurntMngVOList) {
+			prdcrOgnzSnVal = prdcrOgnCurntMngVO.getPrdcrOgnzSn();//생산자조직seq
+			yrVal = prdcrOgnCurntMngVO.getYr();//등록년도
+			brnoVal = prdcrOgnCurntMngVO.getBrno();//사업자번호
+			uoBrnoVal = prdcrOgnCurntMngVO.getUoBrno();//통합조직 사업자번호
+			savedCnt += insertPrdcrOgnCurntMngDtl(prdcrOgnCurntMngVO);
 		}
 		//생사자조직seq,등록년도가 비어 있지 않을떄
 		//생사자조직seq,등록년도 동시에 있을경우 PK 라서 1건만 조회 될것
-		if(prdcrOgnzSnVal != null && !prdcrOgnzSnVal.equals("") && yrVal != null && !yrVal.equals("")) {
+		if (prdcrOgnzSnVal != null && !prdcrOgnzSnVal.equals("") && yrVal != null && !yrVal.equals("")) {
 			//농가리스트 저장 완료 후 해당 생산자조직 적합여부 업데이트
 			TbEvFrmhsApoVO TbEvFrmhsApoVo = new TbEvFrmhsApoVO();
 			TbEvFrmhsApoVo.setPrdcrOgnzSn(prdcrOgnzSnVal);
@@ -109,29 +97,27 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		updateTempSavePst(tempSaveVo);
 		return savedCnt;
 	}
+
 	//생산자조직 적합여부 업데이트
 	@Override
 	public int updateTbEvFrmhsApoStbltYn(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int updatedCnt = PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
-		return updatedCnt;
+		return prdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
 	}
 	//생산조직 적합여부 조회
 	@Override
 	public TbEvFrmhsApoVO selectTbEvFrmhsApoStbltYn(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		TbEvFrmhsApoVO resultVO = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
-		return resultVO;
+		return prdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn(tbEvFrmhsApoVO);
 	}
 
 	//생산조직 적합여부 조회 리스트
 	@Override
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoStbltYnList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		List<TbEvFrmhsApoVO> resultVoList = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList(tbEvFrmhsApoVO);
-		return resultVoList;
+		return prdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList(tbEvFrmhsApoVO);
 	}
 
 	@Override
-	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-		return PrdcrOgnCurntMngMapper.deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
+	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.deletePrdcrOgnCurntMngDtl(prdcrOgnCurntMngVO);
 	}
 
 
@@ -139,15 +125,17 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	//생산자 조직
 	@Override
 	public TbEvFrmhsApoVO selectTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		TbEvFrmhsApoVO resultVO = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo(tbEvFrmhsApoVO);
-
-		return resultVO;
+		return prdcrOgnCurntMngMapper.selectTbEvFrmhsApo(tbEvFrmhsApoVO);
 	}
 
 	@Override
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		List<TbEvFrmhsApoVO> resultList = PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoList(tbEvFrmhsApoVO);
-		return resultList;
+		return prdcrOgnCurntMngMapper.selectTbEvFrmhsApoList(tbEvFrmhsApoVO);
+	}
+
+	@Override
+	public List<TbEvFrmhsApoVO> selectPrdcrOgnzPrfmncList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
+		return prdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList(tbEvFrmhsApoVO);
 	}
 
 	@Override
@@ -177,53 +165,44 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 
 	@Override
 	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int insertedCnt = PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo(tbEvFrmhsApoVO);
-		return insertedCnt;
+		return prdcrOgnCurntMngMapper.insertTbEvFrmhsApo(tbEvFrmhsApoVO);
 	}
 
 	@Override
 	public int deleteTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int deletedCnt =PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
-		PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+		int deletedCnt = prdcrOgnCurntMngMapper.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
+		prdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		return deletedCnt;
 	}
 
 	@Override
 	public int deleteTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int deletedCnt = PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
-		return deletedCnt;
+		return prdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 	}
 
 	@Override
 	public int updateTbEvFrmhsPrdctnEcSpmtSttnApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-		int updatedCnt = PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
-		return updatedCnt;
+		return prdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 	}
 
 	@Override
 	public List<TbEvFrmhsApoVO> selectRawData01(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception {
-
-		List<TbEvFrmhsApoVO> resultList = PrdcrOgnCurntMngMapper.selectRawData01(tbEvFrmhsApoVO);
-		return resultList;
+		return prdcrOgnCurntMngMapper.selectRawData01(tbEvFrmhsApoVO);
 	}
 
 	@Override
 	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
-
-		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectRawData02(prdcrOgnCurntMngVO);
-		return resultList;
+		return prdcrOgnCurntMngMapper.selectRawData02(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public int updateTempSaveAps(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-		int updatedCnt = PrdcrOgnCurntMngMapper.updateTempSaveAps(PrdcrOgnCurntMngVO);
-		return updatedCnt;
+	public int updateTempSaveAps(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.updateTempSaveAps(prdcrOgnCurntMngVO);
 	}
 
 	@Override
-	public int updateTempSavePst(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
-		int updatedCnt = PrdcrOgnCurntMngMapper.updateTempSavePst(PrdcrOgnCurntMngVO);
-		return updatedCnt;
+	public int updateTempSavePst(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception {
+		return prdcrOgnCurntMngMapper.updateTempSavePst(prdcrOgnCurntMngVO);
 	}
 
 }

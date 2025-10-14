@@ -23,38 +23,47 @@ public interface PrdcrOgnGenalTblMngService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param PrdcrOgnGenalTblMngVO
+	 * @param prdcrOgnGenalTblMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public PrdcrOgnGenalTblMngVO selectPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public PrdcrOgnGenalTblMngVO selectPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
-	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
-	public int insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	/**
+	 * 생산자조직 - 총괄표 조회
+	 * @param prdcrOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnzSummaryList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
-	public int updatePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+
+	public int insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
+
+	public int updatePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
 	public int multiSavePrdcrOgnGenalTblMngList(List<PrdcrOgnGenalTblMngVO> PrdcrOgnGenalTblMngVOList) throws Exception;
 
-	public int deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public int deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
-	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public int updateStbltYn(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
 	/**
 	 * 생산자조직 총괄표 로우데이터를 조회 한다 2024년
-	 * @param PrdcrOgnGenalTblMngVO
+	 * @param prdcrOgnGenalTblMngVO
 	 * @return List<PrdcrOgnGenalTblMngVO>
 	 * @throws Exception
 	 */
-	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
 	/**
 	 * 생산자조직 총괄표 로우데이터를 조회 한다 2025년
-	 * @param PrdcrOgnGenalTblMngVO
+	 * @param prdcrOgnGenalTblMngVO
 	 * @return List<PrdcrOgnGenalTblMngVO>
 	 * @throws Exception
 	 */
-	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO) throws Exception;
 
 }

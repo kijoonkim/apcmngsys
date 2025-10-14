@@ -23,7 +23,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
 @Controller
 public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
-	@Resource(name= "InvShipOgnSpeczItmPurSalMngService")
+	@Resource(name= "invShipOgnSpeczItmPurSalMngService")
 	private InvShipOgnSpeczItmPurSalMngService invShipOgnSpeczItmPurSalMngService;
 
 	//화면이동
@@ -147,7 +147,7 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 	/**
 	 * 출자출하조직 전문품목 매입매출 rawdata 목록조회
 	 * @param model
-	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @param invShipOgnSpeczItmPurSalMngVO
 	 * @param request
 	 * @return
 	 * @throws Exception
@@ -201,6 +201,35 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 조회 2025년 : 육성 -> 승인 추가
+	 * @param model
+	 * @param invShipOgnSpeczItmPurSalMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/isom/selectIsoMajorItemPrchsSlsListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoMajorItemPrchsSlsListForUpbrToAprv(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+
+		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
+		InvShipOgnSpeczItmPurSalMngVO result = new InvShipOgnSpeczItmPurSalMngVO();
+
+		try {
+			resultList = invShipOgnSpeczItmPurSalMngService.selectIsoMajorItemPrchsSlsListForUpbrToAprv(invShipOgnSpeczItmPurSalMngVO);
+			result = invShipOgnSpeczItmPurSalMngService.selectTempSaveIsoPst(invShipOgnSpeczItmPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	// 출자출하조직 전문품목 매입매출 리스트 저장 2025년
 	@PostMapping(value = "/pd/isom/multiSaveInvShipOgnSpeczItmPurSalMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})

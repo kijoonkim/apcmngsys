@@ -28,7 +28,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
  * 2023.06.21          최초 생성
  * </pre>
  */
-@Service("InvShipOgnPurSalMngService")
+@Service("invShipOgnPurSalMngService")
 public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements InvShipOgnPurSalMngService{
 
 	@Autowired
@@ -36,55 +36,46 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 
 	@Override
 	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMng(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsListNew(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsListNew(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng01(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng02(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng03(invShipOgnPurSalMngVO);
 	}
 
@@ -158,25 +149,21 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectRawDataList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectRawDataList2025(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		return invShipOgnPurSalMngMapper.selectTempSaveIsoAps(invShipOgnPurSalMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
-
 		int yr = Integer.parseInt(invShipOgnPurSalMngVO.getYr());
 		if (yr < 2025) {
 			invShipOgnPurSalMngVO.setOldDataYn(ComConstants.CON_YES);
@@ -195,6 +182,12 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	}
 
 	@Override
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseListForUpbrToAprv(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+		invShipOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_PRCHS);
+		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleListForUpbrToAprv(invShipOgnPurSalMngVO);
+	}
+
+	@Override
 	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 		int yr = Integer.parseInt(invShipOgnPurSalMngVO.getYr());
 		if (yr < 2025) {
@@ -203,5 +196,11 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 		invShipOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_SLS);
 		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList(invShipOgnPurSalMngVO);
 		//return invShipOgnPurSalMngMapper.selectIsoTotalSaleList(invShipOgnPurSalMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleListForUpbrToAprv(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+		invShipOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_SLS);
+		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleListForUpbrToAprv(invShipOgnPurSalMngVO);
 	}
 }

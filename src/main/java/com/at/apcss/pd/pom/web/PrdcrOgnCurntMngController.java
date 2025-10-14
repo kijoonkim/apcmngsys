@@ -21,10 +21,27 @@ import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
+
+/**
+ * 생산자조직 현황 조회 컨트롤러
+ * @author 신정철
+ * @since 2025.10.12
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ *  수정일      	수정자      	수정내용
+ *  ----------	----------	---------------------------
+ *  2025.10.12  신정철     	최초 생성
+ *
+ *  </pre>
+ */
 @Controller
 public class PrdcrOgnCurntMngController extends BaseController{
 
-	@Resource(name= "PrdcrOgnCurntMngService")
+	@Resource(name= "prdcrOgnCurntMngService")
 	private PrdcrOgnCurntMngService PrdcrOgnCurntMngService;
 
 	//화면이동
@@ -158,11 +175,18 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 생산자조직 리스트 조회
-	@PostMapping(value = "/pd/pom/selectTbEvFrmhsApoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectTbEvFrmhsApoList(Model model, @RequestBody TbEvFrmhsApoVO tbEvFrmhsApoVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<TbEvFrmhsApoVO> resultList = new ArrayList<>();
+	/**
+	 * 생산자조직 리스트 조회
+	 * @param model
+	 * @param tbEvFrmhsApoVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pom/selectPrdcrOgnzPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnzPrfmncList(Model model, @RequestBody TbEvFrmhsApoVO tbEvFrmhsApoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<TbEvFrmhsApoVO> resultList;
 		try {
 			 resultList = PrdcrOgnCurntMngService.selectTbEvFrmhsApoList(tbEvFrmhsApoVO);
 		} catch (Exception e) {
@@ -172,6 +196,22 @@ public class PrdcrOgnCurntMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 생산자조직 리스트 조회
+	@PostMapping(value = "/pd/pom/selectTbEvFrmhsApoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectTbEvFrmhsApoList(Model model, @RequestBody TbEvFrmhsApoVO tbEvFrmhsApoVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<TbEvFrmhsApoVO> resultList = new ArrayList<>();
+		try {
+			resultList = PrdcrOgnCurntMngService.selectTbEvFrmhsApoList(tbEvFrmhsApoVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 	//생산자조직 삭제
 	@PostMapping(value = "/pd/pom/deleteTbEvFrmhsApo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
