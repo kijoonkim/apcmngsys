@@ -2283,7 +2283,7 @@
 		//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
 		//fn_searchUoList();
 		SBUxMethod.refresh('dtl-chk-upbrToAprv');
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'">
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 		if (_.isEqual(rowData.aprv, "1")) {
 			SBUxMethod.hide('dtl-chk-upbrToAprv');
 		} else {
