@@ -1071,11 +1071,14 @@
 		SBUxMethod.set('dtl-input-uoCd' , null);
 
 		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'">
 		if (_.isEqual(rowData.aprv, "1")) {
 			SBUxMethod.hide('dtl-chk-upbrToAprv');
 		} else {
 			SBUxMethod.show('dtl-chk-upbrToAprv');
 		}
+		</c:if>
 
 		if (rowData.apoSe == '1'){
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
@@ -1223,7 +1226,7 @@
 		// 출자출하조직의 경우
 		if (!_.isEqual(apoSe, '1')) {
 			uoBrno = SBUxMethod.get('dtl-input-uoBrno');
-			if (gfn_isEmpty(uoBrnoVal)) {
+			if (gfn_isEmpty(uoBrno)) {
 				gfn_comConfirm("W0001", "통합조직");		// W0001	{0}을/를 선택하세요.
 				return;
 			}
