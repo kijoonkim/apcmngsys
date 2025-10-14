@@ -283,17 +283,12 @@
                     const name = "srvy-qItem" + qItemNo;
 
                     if (String(qItemNo) === "1") {
-                        const input = document.createElement("sbux-input");
-
+                        const input = document.createElement("sbux-datepicker");
                         input.setAttribute("id", "srvy-qItemNo" + qItemNo);
                         input.setAttribute("name", name);
-
-                        input.setAttribute("uitype", "text");
-                        input.setAttribute("class", "form-control input-sm");
-                        input.setAttribute("autocomplete", "off");
-                        input.setAttribute("permit-keycodes-set", "num");
-                        input.setAttribute("minlength", "4");
-                        input.setAttribute("maxlength", "4");
+                        input.setAttribute("uitype", "popup");
+                        input.setAttribute("datepicker-mode", "year");
+                        input.setAttribute("class", "form-control input-sm sbux-pik-group-apc input-sm-ast");
 
                         tdAns.appendChild(input);
                     } else {
@@ -478,16 +473,19 @@
 
             const qitemNo = i + 1;
             const ansCn = SBUxMethod.get('srvy-qItem' + String(qitemNo));
+            const tr = tbody.rows[i];
+            const th = tr.querySelector('th');
+            const thText = th.innerText;
 
             if (gfn_isEmpty(ansCn)) {
-                const tr = tbody.rows[i];
-                const th = tr.querySelector('th');
-                const thText = th.innerText;
-
                 gfn_comAlert('W0002', `${'${thText}'}의 답변`); // W0002 {0}을/를 입력하세요.
                 return;
             };
 
+            if (qitemNo === 1 && ansCn.length < 4) {
+                gfn_comAlert('W0002', `${'${thText}'}의 답변 4자리`); // W0002 {0}을/를 입력하세요.
+                return;
+            }
         }
 
         if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?

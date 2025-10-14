@@ -347,7 +347,7 @@
 										<li><strong>보유기간 : </strong> ~26.12.31.</li>
 									</ul>
 									<p class="ad_input_row">
-										<sbux-radio id="rdo-agre" name="rdo-prvc" uitype="normal" value="Y"  class="radio_label" text="동의"></sbux-radio>
+										<sbux-radio id="rdo-agre" name="rdo-prvc" uitype="normal" value="Y"  class="radio_label" text="동의" checked style="font-size: medium"></sbux-radio>
 									</p>
 									<p class="ad_input_row">
 										<sbux-radio id="rdo-dsag" name="rdo-prvc" uitype="normal" value="N" class="radio_label" text="미동의"></sbux-radio>
@@ -748,7 +748,12 @@
 					// 2025.10.04 담당자명,연락처, 개인정보이용동의 추가요청
 					SBUxMethod.set('dtl-inp-picNm',resultVO.pic); // 담당자 명
 					SBUxMethod.set('dtl-inp-picTelno',resultVO.cttpc); // 담당자 연락처
-					SBUxMethod.set('rdo-prvc',resultVO.prvcClctAgreYn); // 담당자 연락처
+					if (resultVO.prvcClctAgreYn == null || resultVO.prvcClctAgreYn === undefined) {
+						// 초기화
+						SBUxMethod.clear('rdo-prvc');
+					} else {
+						SBUxMethod.set('rdo-prvc', resultVO.prvcClctAgreYn);
+					}
 
 					/** 품목 리스트 **/
 					for (var i = 0; i < resultVO.itemList.length; i++) {
@@ -837,7 +842,7 @@
 
 		SBUxMethod.set('dtl-inp-picNm',null); // 담당자명
 		SBUxMethod.set('dtl-inp-picTelno',null); // 담당자연락처
-		SBUxMethod.set('rdo-prvc',null); // 담당자개인정보 이용동의
+		SBUxMethod.clear('rdo-prvc'); // 담당자 개인정보 이용동의
 
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
@@ -1598,7 +1603,12 @@
 		// 2025.10.04 담당자명,연락처, 개인정보이용동의 추가요청
 		SBUxMethod.set('dtl-inp-picNm',data.picNm); // 담당자 명
 		SBUxMethod.set('dtl-inp-picTelno',data.picTelno); // 담당자 연락처
-		SBUxMethod.set('rdo-prvc',data.prvcClctAgreYn); // 담당자 연락처
+		if (resultVO.prvcClctAgreYn == null || resultVO.prvcClctAgreYn === undefined) {
+			// 초기화
+			SBUxMethod.clear('rdo-prvc');
+		} else {
+			SBUxMethod.set('rdo-prvc', resultVO.prvcClctAgreYn);
+		}
 
 
 		/*const itemList = data.itemList;
