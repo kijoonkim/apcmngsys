@@ -1,5 +1,6 @@
 package com.at.apcss.pd.pom.web;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +24,8 @@ import com.at.apcss.pd.pom.vo.PrdcrOgnGenalTblMngVO;
 @Controller
 public class PrdcrOgnGenalTblMngController extends BaseController{
 
-	@Resource(name= "PrdcrOgnGenalTblMngService")
-	private PrdcrOgnGenalTblMngService PrdcrOgnGenalTblMngService;
+	@Resource(name= "prdcrOgnGenalTblMngService")
+	private PrdcrOgnGenalTblMngService prdcrOgnGenalTblMngService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/pom/PrdcrOgnGenalTblMng.do")
@@ -38,7 +39,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrOgnGenalTblMngService.selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO);
+			 resultList = prdcrOgnGenalTblMngService.selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -47,7 +48,22 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/pd/pom/selectPrdcrOgnzSummaryList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrOgnzSummaryList(Model model, @RequestBody PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 
+		List<PrdcrOgnGenalTblMngVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = prdcrOgnGenalTblMngService.selectPrdcrOgnzSummaryList(prdcrOgnGenalTblMngVO);
+		} catch (SQLException e) {
+			return getSqlErrorResponseEntity(e);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	//등록
 	@PostMapping(value = "/pd/pom/insertPrdcrOgnGenalTblMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
@@ -65,7 +81,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = PrdcrOgnGenalTblMngService.insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
+			insertedCnt = prdcrOgnGenalTblMngService.insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -91,7 +107,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 				PrdcrOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = PrdcrOgnGenalTblMngService.multiSavePrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVOList);
+			savedCnt = prdcrOgnGenalTblMngService.multiSavePrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -106,7 +122,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result = PrdcrOgnGenalTblMngService.deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
+			result = prdcrOgnGenalTblMngService.deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -133,7 +149,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = PrdcrOgnGenalTblMngService.updateStbltYn(PrdcrOgnGenalTblMngVO);
+			insertedCnt = prdcrOgnGenalTblMngService.updateStbltYn(PrdcrOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -150,7 +166,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrOgnGenalTblMngService.selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO);
+			 resultList = prdcrOgnGenalTblMngService.selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -165,7 +181,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrOgnGenalTblMngService.selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO);
+			 resultList = prdcrOgnGenalTblMngService.selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

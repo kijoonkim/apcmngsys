@@ -23,8 +23,8 @@ import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 @Controller
 public class InvShipOgnGenalTblMngController extends BaseController{
 
-	@Resource(name= "InvShipOgnGenalTblMngService")
-	private InvShipOgnGenalTblMngService InvShipOgnGenalTblMngService;
+	@Resource(name= "invShipOgnGenalTblMngService")
+	private InvShipOgnGenalTblMngService invShipOgnGenalTblMngService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/isom/InvShipOgnGenalTblMng.do")
@@ -35,10 +35,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngList(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -50,10 +50,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngIsoList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngIsoList(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngIsoList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -66,7 +66,7 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	//예외적인 상황에 관리자가 임의로 적합여부 변경
 	@PostMapping(value = "/pd/isom/updateStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateStbltYn(@RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
@@ -79,7 +79,7 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = InvShipOgnGenalTblMngService.updateStbltYn(invShipOgnGenalTblMngVO);
+			insertedCnt = invShipOgnGenalTblMngService.updateStbltYn(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -93,10 +93,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 출자출하조직 총괄표 로우데이터 리스트 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectRawDataList(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectRawDataList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -108,10 +108,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngListNew(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -120,12 +120,36 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/pd/isom/selectIsoPrchsSlsSummaryList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectIsoPrchsSlsSummaryList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	/**
+	 * 출자출하조직 총괄표 조회 (육성 -> 승인)
+	 * @param model
+	 * @param invShipOgnGenalTblMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/isom/selectIsoPrchsSlsSummaryListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoPrchsSlsSummaryListForUpbrToAprv(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			resultList = InvShipOgnGenalTblMngService.selectIsoPrchsSlsSummaryList(invShipOgnGenalTblMngVO);
+			resultList = invShipOgnGenalTblMngService.selectIsoPrchsSlsSummaryListForUpbrToAprv(invShipOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	@PostMapping(value = "/pd/isom/selectIsoPrchsSlsSummaryList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoPrchsSlsSummaryList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = invShipOgnGenalTblMngService.selectIsoPrchsSlsSummaryList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -138,10 +162,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 출자출하조직 총괄표 로우데이터 리스트 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectRawDataList2025(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectRawDataList2025(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -153,10 +177,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 출자출하조직 총괄표 rawdata 리스트 조회
 	@PostMapping(value = "/pd/isom/selectIsoPrchsSlsRawdataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectIsoPrchsSlsRawdataList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			resultList = InvShipOgnGenalTblMngService.selectIsoPrchsSlsRawdataList(invShipOgnGenalTblMngVO);
+			resultList = invShipOgnGenalTblMngService.selectIsoPrchsSlsRawdataList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -170,10 +194,10 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	// 출자출하조직 총괄표 로우데이터 리스트 조회
 	@PostMapping(value = "/pd/isom/selectIsoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectIsoClsfTot(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectIsoClsfTot(invShipOgnGenalTblMngVO);
+			 resultList = invShipOgnGenalTblMngService.selectIsoClsfTot(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -187,7 +211,7 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/isom/multiSaveItemIsoActnMttr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<InvShipOgnGenalTblMngVO> invShipOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
@@ -198,7 +222,7 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 				invShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = InvShipOgnGenalTblMngService.multiSaveItemIsoActnMttr(invShipOgnGenalTblMngVOList);
+			savedCnt = invShipOgnGenalTblMngService.multiSaveItemIsoActnMttr(invShipOgnGenalTblMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

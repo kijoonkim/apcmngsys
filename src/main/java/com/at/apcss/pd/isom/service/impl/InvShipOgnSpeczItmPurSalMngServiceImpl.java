@@ -28,7 +28,7 @@ import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
  * 2023.06.21          최초 생성
  * </pre>
  */
-@Service("InvShipOgnSpeczItmPurSalMngService")
+@Service("invShipOgnSpeczItmPurSalMngService")
 public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl implements InvShipOgnSpeczItmPurSalMngService{
 
 	@Autowired
@@ -154,6 +154,11 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 	@Override
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO) throws Exception {
 		return invShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew(invShipOgnSpeczItmPurSalMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectIsoMajorItemPrchsSlsListForUpbrToAprv(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO) throws Exception {
+		return invShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPrchsSlsListForUpbrToAprv(invShipOgnSpeczItmPurSalMngVO);
 	}
 
 	@Override

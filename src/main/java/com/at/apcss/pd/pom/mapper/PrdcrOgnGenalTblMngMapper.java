@@ -29,29 +29,30 @@ public interface PrdcrOgnGenalTblMngMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public PrdcrOgnGenalTblMngVO selectPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public PrdcrOgnGenalTblMngVO selectPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
-	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnGenalTblMngList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
+	public List<PrdcrOgnGenalTblMngVO> selectPrdcrOgnzSummaryList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
-	public int insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public int insertPrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
-	public int updatePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public int updatePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
-	public int deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+	public int deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
-	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public int updateStbltYn(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
 	/**
 	 * 생산자조직 총괄표 로우데이터 조회 2024년
-	 * @param PrdcrOgnGenalTblMngVO
+	 * @param prdcrOgnGenalTblMngVO
 	 * @return List<PrdcrOgnGenalTblMngVO>
 	 */
-	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 
 	/**
 	 * 생산자조직 총괄표 로우데이터 조회 2025년
-	 * @param PrdcrOgnGenalTblMngVO
+	 * @param prdcrOgnGenalTblMngVO
 	 * @return List<PrdcrOgnGenalTblMngVO>
 	 */
-	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO prdcrOgnGenalTblMngVO);
 }

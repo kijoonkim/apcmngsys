@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : isoMajorItem2025.jsp
+	 * @Description : 출자출하조직 관리 전문품목 매입·매출 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -271,6 +287,16 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<!--
@@ -465,6 +491,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		fn_fcltMngCreateGrid01();
@@ -1028,6 +1057,10 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		let yr = SBUxMethod.get("srch-input-yr");//
 
 		//통합조직인 경우
@@ -1195,17 +1228,18 @@
 		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		const nCol = grdPrdcrOgnCurntMng.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = grdPrdcrOgnCurntMng.getRow();
+		let nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
 			return;
 		}
-		if(nRow == null){
+		if (nRow == null){
 			nRow = 1;
 		}
+
 		fn_clearForm();
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
@@ -1230,6 +1264,14 @@
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+
 	}
 
 	//그리드 초기화
@@ -1278,28 +1320,47 @@
 
 		const brno = SBUxMethod.get("dtl-input-brno");//
 		if (gfn_isEmpty(brno)) return;
-		const uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
-		if (gfn_isEmpty(uoBrnoVal)){
-			alert("통합조직을 선택해 주세요");
+
+		const uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		if (gfn_isEmpty(uoBrno)){
+			gfn_comConfirm("W0001", "통합조직");		// W0001	{0}을/를 선택하세요.
 			return;
 		}
-		const yr = SBUxMethod.get("dtl-input-yr");//
-		const param = {
-			brno : brno,
-			uoBrno : uoBrnoVal,
-			yr : yr
+
+		const yr = SBUxMethod.get("dtl-input-yr");
+		if (gfn_isEmpty(yr)){
+			gfn_comConfirm("W0001", "신청연도");		// W0001	{0}을/를 선택하세요.
+			return;
 		}
 
-		jsonPrdcrOgnCurntMng01.length = 0;
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
 
 		try {
 
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
+			jsonPrdcrOgnCurntMng01.length = 0;
+
+			const param = {
+				brno : brno,
+				uoBrno : uoBrno,
+				yr : yr
+			}
+			const defaultUrl = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do";
+			const upbrToAprvUrl = "/pd/isom/selectIsoMajorItemPrchsSlsListForUpbrToAprv.do";
+
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
+
+			const postJsonPromise = gfn_postJSON(postUrl, param);
+			// /pd/isom/selectIsoMajorItemPrchsSlsListForUpbrToAprv.do
 			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
 			const data = await postJsonPromise;
 
-			let totalRecordCount = 0;
-			//console.log("data==="+data);
 			let tmprVo = data.resultMap;
 			if (tmprVo != null){
 				if (tmprVo.tmprStrgYn == 'Y'){
@@ -1311,66 +1372,64 @@
 				}
 			}
 
-			data.resultList.forEach((item, index) => {
-				/*
-				let itemNm;
-				if(item.sttgUpbrItemSe == '1'){
-					itemNm = item.itemNm + '(전문)';
-				}else if(item.sttgUpbrItemSe == '2'){
-					itemNm = item.itemNm + '(육성)';
-				}
-				*/
-				let PrdcrOgnCurntMngVO = {
-						yr:				item.yr
-						,brno:			item.brno
-						,uoBrno:		item.uoBrno
-						,isoBrno:		item.isoBrno
+			if (_.isEqual("S", data['resultStatus'])) {
+				data.resultList.forEach((item, index) => {
+					/*
+                    let itemNm;
+                    if(item.sttgUpbrItemSe == '1'){
+                        itemNm = item.itemNm + '(전문)';
+                    }else if(item.sttgUpbrItemSe == '2'){
+                        itemNm = item.itemNm + '(육성)';
+                    }
+                    */
+					let vo = {
+						yr:				item.yr,
+						brno:			item.brno,
+						uoBrno:			item.uoBrno,
+						isoBrno:		item.isoBrno,
+						typeSeNo:		item.typeSeNo,
+						itemCd:			item.itemCd,
+						itemNm:			item.itemNm,
+						prdcrOgnzSn:	item.prdcrOgnzSn,
+						trmtType:		item.trmtType,
+						trmtTypeNm:		item.trmtTypeNm,
+						ognzStbltYn:	item.ognzStbltYn,	//조직 적합여부 (요건미달 조직 값을 위해 추가)
+						typeSeNoNm:		item.typeSeNoNm,
+						seNm:			item.seNm,
+						seDtlNm:		item.seDtlNm,
+						prchsNm:		item.prchsNm,
+						trmtTypeNm:		item.trmtTypeNm,
+						prdcrOgnzNm:	item.prdcrOgnzNm,
+						sttgUpbrItemSe: item.sttgUpbrItemSe,
+						slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt,
+						slsCnsgnPrchsVlm: item.slsCnsgnPrchsVlm,
+						uoSpmtAmt: 		item.uoSpmtAmt,
+						uoSpmtVlm: 		item.uoSpmtVlm,
+						uoOtherSpmtAmt: item.uoOtherSpmtAmt,
+						uoOtherSpmtVlm: item.uoOtherSpmtVlm,
+						SpmtAmtTot: 	item.SpmtAmtTot,
+						SpmtVlmTot: 	item.SpmtVlmTot,
+						rmrk: 			item.rmrk
+					}
 
-						,typeSeNo:		item.typeSeNo
-						,itemCd:		item.itemCd
-						,itemNm:		item.itemNm
+					jsonPrdcrOgnCurntMng01.push(vo);
 
-						,prdcrOgnzSn:	item.prdcrOgnzSn
-						,trmtType:		item.trmtType
-						,trmtTypeNm:		item.trmtTypeNm
-						,ognzStbltYn :	item.ognzStbltYn//조직 적합여부 (요건미달 조직 값을 위해 추가)
-						,typeSeNoNm:	item.typeSeNoNm
-						,seNm:			item.seNm
-						,seDtlNm:		item.seDtlNm
-						,prchsNm:		item.prchsNm
-						,trmtTypeNm:	item.trmtTypeNm
-						,prdcrOgnzNm:	item.prdcrOgnzNm
-
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-
-						,slsCnsgnPrchsAmt: item.slsCnsgnPrchsAmt
-						,slsCnsgnPrchsVlm: item.slsCnsgnPrchsVlm
-
-						,uoSpmtAmt: item.uoSpmtAmt
-						,uoSpmtVlm: item.uoSpmtVlm
-						,uoOtherSpmtAmt: item.uoOtherSpmtAmt
-						,uoOtherSpmtVlm: item.uoOtherSpmtVlm
-						,SpmtAmtTot: item.SpmtAmtTot
-						,SpmtVlmTot: item.SpmtVlmTot
-
-						,rmrk: item.rmrk
-				}
-
-				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO);
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+				});
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
 
 			//생산자조직 외 인경우 disabled 해제
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 		}
+
 		grdPrdcrOgnCurntMng01.rebuild();
-			fn_gridCustom();
+		fn_gridCustom();
 	}
 
 	//그리드 커스텀 배경 및 disabled 처리
