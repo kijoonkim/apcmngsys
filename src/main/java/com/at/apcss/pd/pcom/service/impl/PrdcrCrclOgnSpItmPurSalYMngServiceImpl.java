@@ -28,7 +28,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
  * 2023.06.21          최초 생성
  * </pre>
  */
-@Service("PrdcrCrclOgnSpItmPurSalYMngService")
+@Service("prdcrCrclOgnSpItmPurSalYMngService")
 public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnSpItmPurSalYMngService{
 
 	@Autowired
@@ -147,6 +147,12 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
 		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
+
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemListForUpbrToAprv(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemListForUpbrToAprv(prdcrCrclOgnSpItmPurSalYMngVO);
+	}
+
 	/* 개발서버 신규화면 등록 */
 	@Override
 	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
