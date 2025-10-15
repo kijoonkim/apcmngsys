@@ -898,7 +898,7 @@
       		  position	: 'bottom',
       		  columns		: {
       		      standard : [1,2],
-      		      sum : [7, 8, 9, 11, 12],
+				  sum : [8, 9, 10, 12, 13],
       		  },
       		  grandtotalrow : {
       		      titlecol 	: 1,
@@ -1637,6 +1637,11 @@
     		gfn_comAlert("W0001", "계량일자");					//	W0001	{0}을/를 선택하세요.
             return;
     	}
+
+		if (gfn_isEmpty(prdcrCd)) {
+			gfn_comAlert("W0002", "생산자");						//	W0002	{0}을/를 입력하세요.
+			return;
+		}
 
  		if (gfn_isEmpty(vhclno)) {
     		gfn_comAlert("W0002", "차량번호");					//	W0002	{0}을/를 입력하세요.
