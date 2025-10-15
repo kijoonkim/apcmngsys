@@ -108,4 +108,15 @@ public class PrdcrOgnGenalTblMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+	/**
+	 * 육성형->승인형 여부
+	 */
+	private String upbrToAprvYn;
+	/**
+	 * 강제된 승인/육성구분코드
+	 */
+	private String frcdAprvUpbrSeCd;
+
+	private String extStbltYn;
+
 }

@@ -3397,8 +3397,10 @@
 
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let yr = SBUxMethod.get("srch-dtp-yr");
+		let ddlnKndCd = '0002'	// 예상마감 코드
+
 		SBUxMethod.openModal('modal-ddln');
-		popDdln.init(gv_selectedApcCd, itemCd, yr, fn_setFrmhsExpctWrhs);
+		popDdln.init(gv_selectedApcCd, yr,ddlnKndCd, fn_setFrmhsExpctWrhs, itemCd);
 	}
 
 

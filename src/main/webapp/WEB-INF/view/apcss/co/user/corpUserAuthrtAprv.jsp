@@ -688,6 +688,20 @@
         		width:'150px', 
         		style:'text-align:left'
         	},
+			{
+				caption: ["요청일시"],
+				ref: 'aplyDt',
+				type:'output',
+				width:'150px',
+				style:'text-align:left'
+			},
+			{
+				caption: ["승인완료일시"],
+				ref: 'aprvDt',
+				type:'output',
+				width:'150px',
+				style:'text-align:left'
+			},
 		];
 		
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
@@ -747,7 +761,7 @@
   	      		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
   	      		return;
 	      	}
-  			
+
           	/** @type {number} **/
       		let totalRecordCount = 0;
 
@@ -796,6 +810,10 @@
 					hrmEvlRole: 	item.hrmEvlRole,
 					hrmPayMngrYn: 	item.hrmPayMngrYn,
 					acntgMngrYn: 	item.acntgMngrYn
+
+					/* 요청일시, 요청완료 시간 표시요청*/
+					, aplyDt : item.aplyDt
+					, aprvDt : item.aprvDt
   				}
           		
           		jsonUserAprv.push(user);

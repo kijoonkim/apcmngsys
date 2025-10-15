@@ -2212,4 +2212,11 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		return null;
 	}
 
+	@Override
+	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception {
+
+		List<HashMap<String, Object>> resultList = wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
+
+		return resultList;
+	}
 }

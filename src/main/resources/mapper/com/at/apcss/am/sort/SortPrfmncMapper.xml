@@ -2112,8 +2112,6 @@
                     SELECT
                           X.APC_CD AS APC_CD
                         , X.INPT_YMD AS INPT_YMD
-                        , X.FCLT_CD AS FCLT_CD
-                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', X.FCLT_CD, X.APC_CD) FROM DUAL) AS FCLT_NM
                         , X.ITEM_CD AS ITEM_CD
                         , (SELECT FN_GET_ITEM_NM(X.ITEM_CD, X.APC_CD) FROM DUAL) AS ITEM_NM
                         , X.VRTY_CD AS VRTY_CD
@@ -2156,7 +2154,6 @@
                         SELECT
                               SP.APC_CD AS APC_CD
                             , SP.SORTNO AS SORTNO
-                            , SP.FCLT_CD AS FCLT_CD
                             , SI.INPT_YMD AS INPT_YMD
                             , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
                             , SI.ITEM_CD AS ITEM_CD
@@ -2247,7 +2244,6 @@
                               SP.APC_CD
                             , SP.SORTNO
                             , SP.SORT_SN
-                            , SP.FCLT_CD
                             , SI.INPT_YMD
                             , SI.RPRS_PRDCR_CD
                             , SI.ITEM_CD
@@ -2256,14 +2252,12 @@
                     ) X
                     GROUP BY
                           X.APC_CD
-                        , X.FCLT_CD
                         , X.INPT_YMD
                         , X.ITEM_CD
                         , X.VRTY_CD
                         , X.RPRS_PRDCR_CD
                     ORDER BY
                           X.APC_CD
-                        , X.FCLT_CD
                         , X.INPT_YMD
                         , X.ITEM_CD
                         , X.VRTY_CD
@@ -2275,8 +2269,6 @@
                     SELECT
                           Y.APC_CD AS APC_CD
                         , Y.INPT_YMD AS INPT_YMD
-                        , Y.FCLT_CD AS FCLT_CD
-                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', Y.FCLT_CD, Y.APC_CD) FROM DUAL) AS FCLT_NM
                         , Y.ITEM_CD AS ITEM_CD
                         , (SELECT FN_GET_ITEM_NM(Y.ITEM_CD, Y.APC_CD) FROM DUAL) AS ITEM_NM
                         , Y.VRTY_CD AS VRTY_CD
@@ -2319,7 +2311,6 @@
                         SELECT
                               SP.APC_CD AS APC_CD
                             , SP.SORTNO AS SORTNO
-                            , SP.FCLT_CD AS FCLT_CD
                             , SI.INPT_YMD AS INPT_YMD
                             , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
                             , SI.ITEM_CD AS ITEM_CD
@@ -2410,7 +2401,6 @@
                               SP.APC_CD
                             , SP.SORTNO
                             , SP.SORT_SN
-                            , SP.FCLT_CD
                             , SI.INPT_YMD
                             , SI.RPRS_PRDCR_CD
                             , SI.ITEM_CD
@@ -2419,14 +2409,12 @@
                     ) Y
                     GROUP BY
                           Y.APC_CD
-                        , Y.FCLT_CD
                         , Y.INPT_YMD
                         , Y.ITEM_CD
                         , Y.VRTY_CD
                         , Y.RPRS_PRDCR_CD
                     ORDER BY
                           Y.APC_CD
-                        , Y.FCLT_CD
                         , Y.INPT_YMD
                         , Y.ITEM_CD
                         , Y.VRTY_CD
@@ -2438,8 +2426,6 @@
                     SELECT
                           Z.APC_CD AS APC_CD
                         , Z.INPT_YMD AS INPT_YMD
-                        , Z.FCLT_CD AS FCLT_CD
-                        , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', Z.FCLT_CD, Z.APC_CD) FROM DUAL) AS FCLT_NM
                         , Z.ITEM_CD AS ITEM_CD
                         , (SELECT FN_GET_ITEM_NM(Z.ITEM_CD, Z.APC_CD) FROM DUAL) AS ITEM_NM
                         , Z.VRTY_CD AS VRTY_CD
@@ -2482,7 +2468,6 @@
                         SELECT
                               SP.APC_CD AS APC_CD
                             , SP.SORTNO AS SORTNO
-                            , SP.FCLT_CD AS FCLT_CD
                             , SI.INPT_YMD AS INPT_YMD
                             , SI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
                             , SI.ITEM_CD AS ITEM_CD
@@ -2573,7 +2558,6 @@
                     ) Z
                     GROUP BY
                           Z.APC_CD
-                        , Z.FCLT_CD
                         , Z.INPT_YMD
                         , Z.ITEM_CD
                         , Z.VRTY_CD
@@ -2581,7 +2565,6 @@
                         , Z.SORT_RT_NV
                     ORDER BY
                           Z.APC_CD
-                        , Z.FCLT_CD
                         , Z.INPT_YMD
                         , Z.ITEM_CD
                         , Z.VRTY_CD
@@ -2590,14 +2573,13 @@
                 )
                 ORDER BY
                       APC_CD
-                    , FCLT_CD
+                    , PRDCR_CD
                     , INPT_YMD
                     , ITEM_CD
                     , VRTY_CD
-                    , PRDCR_CD
                     , CASE WHEN SE LIKE 'BX%' THEN 1 WHEN SE = '수량' THEN 2 WHEN SE = '중량' THEN 3 END
                     , TO_NUMBER(SUBSTR(SE, 3))
-            ) pt0;
+            ) pt0
         ]]>
     </select>
 
@@ -4624,4 +4606,23 @@
                 , SI.GRD_CD
 	    ]]>
     </select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortPrfmncAll  	-->
+	<!-- DESC : 선별내역 조회	                                            			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.09.18  	김호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="deleteSortPrfmncAll" parameterType="com.at.apcss.am.sort.vo.SortPrfmncVO">
+		UPDATE /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.deleteSortPrfmncAll */
+			TB_SORT_PRFMNC
+		SET DEL_YN 					= 'Y'
+		  , SYS_LAST_CHG_DT  		= SYSDATE
+		  , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		  , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE APC_CD					= #{apcCd}
+		  AND SORTNO					= #{sortno}
+	</update>
 </mapper>

@@ -1210,11 +1210,15 @@ public class SprtBizClclnMngController extends BaseController {
                 String docNm = prufDocInfo.getDocNm();
                 // 원본 파일명
                 String lgcFileNm = prufDocInfo.getLgcFileNm();
-
+                // 증빙서류 내용
+                String dmndCn = prufDocInfo.getDmndCn();
+                if (dmndCn == null ) {
+                    dmndCn = "";
+                }
 
                 // 예시: 법인명_1차_조직화_1.농가교육비_영수증_파일명
                 String fileNm = coprNm + "_" + seq + "차_" + dmndArtclKndNm + "_"
-                        + dmndArtclNm + "_" + docNm + "_" +lgcFileNm;
+                        + dmndArtclNm + "_" + dmndCn + "_" + docNm + "_" +lgcFileNm;
 
                 String namePart = fileNm.substring(0,fileNm.lastIndexOf('.'));
                 String extensionPart = fileNm.substring(fileNm.lastIndexOf('.'));

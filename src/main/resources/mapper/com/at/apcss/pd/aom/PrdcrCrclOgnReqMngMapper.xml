@@ -475,7 +475,7 @@
 
 			<if test='brno != null and brno != ""'>
 				<if test='userType != "21"'>
-					AND CM.AND BRNO = #{brno}
+					AND CM.BRNO = #{brno}
 				</if>
 				<if test='userType == "21"'>
 					AND (

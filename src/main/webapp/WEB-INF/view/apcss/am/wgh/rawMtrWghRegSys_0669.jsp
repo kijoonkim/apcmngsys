@@ -744,6 +744,14 @@
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
 			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		jsonComWarehouse.unshift({
+			label: "",
+			mastervalue: "",
+			text: "",
+			useYn: "",
+			value: "",
+		});
+
 		/** sn 순서보장 **/
 		jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
 		SBUxMethod.refresh('dtl-slt-vrtyCd');
@@ -902,7 +910,8 @@
       		  usedecimal : false,
       		};
         SBGridProperties.columns = [
-            {caption: ['계량대'], 		ref: 'fcltNm', 		width: '80px', type:'output',  	style:'text-align:center;'},
+			{caption: ['순번'], 		ref: 'wghnoSn', 		width: '40px', type:'output',  	style:'text-align:center;'},
+			{caption: ['계량대'], 		ref: 'fcltNm', 		width: '80px', type:'output',  	style:'text-align:center;'},
             {caption: ['구분'], 		ref: 'wrhsSpmtTypeNm', width: '60px', type:'output',  	style:'text-align:center'},
             {caption: ['입고일자'], 	ref: 'wghYmd', 		width: '80px', type : 'output', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '80px', type: 'output', style:'text-align:center;', typeinfo : {max : 9}},
@@ -1462,6 +1471,8 @@
   				const uniqueArr = [...set];
   				const vrtyNm = uniqueArr.join(", ");
   				wghPrfmnc.vrtyNm = vrtyNm;
+				/** 25.10.02 순번 추가(계량번호 끝 4자리) */
+				wghPrfmnc.wghnoSn = parseInt(item.wghno.slice(-4));
 
 				const pltSpmtFilter = pltSpmtPrfmnc.filter(i => i.prcsNo === wghPrfmnc.wghno);
 				const bxQntt = pltSpmtFilter.filter(e => e.pltBxSeCd === "B").reduce((sum, b) => sum + b.qntt, 0);
@@ -2480,6 +2491,7 @@
 		]
 		grdPltBox = _SBGrid.create(SBGridProperties);
 		grdPltBox.bind("beforeedit",'fn_qnttDisable');
+		grdPltBox.bind('valuechanged', 'fn_grdPltBoxChanged');
 	}
 
 	const fn_qnttDisable = function(){
@@ -2492,6 +2504,39 @@
 				grdPltBox.stopEditing();
 			}
 		}
+	}
+
+	const fn_grdPltBoxChanged = function () {
+		const nRow = grdPltBox.getRow();
+		const nCol = grdPltBox.getCol();
+		const rmrkCol = grdPltBox.getColRef('rmrk');
+		const getRowData = grdPltBox.getRowData(nRow);
+		const getCellData = grdPltBox.getCellData(nRow, nCol);
+
+		let defaultWrhs = '거산APC';
+		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
+
+		let setRmrk = '';
+
+		// 입/출고 입력 변경 X
+		if (nCol === rmrkCol) {
+			return;
+		}
+
+		if (!gfn_isEmpty(getCellData)) {
+			switch (getRowData.type) {
+				case '입고':
+					setRmrk = defaultWrhs;
+					break;
+				case '출고':
+					setRmrk = defaultSpmt;
+					break;
+				default:
+					return;
+			}
+		}
+
+		grdPltBox.setCellData(nRow, rmrkCol, setRmrk);
 	}
 
 	const fn_modalDrag = async function(){

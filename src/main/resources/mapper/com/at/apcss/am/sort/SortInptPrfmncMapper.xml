@@ -342,5 +342,27 @@
 		]]>
     </update>
 
+	<!-- =================================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.deleteSortInptPrfmncAll	-->
+	<!-- DESC : 선별투입 전체 삭제                          									-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2025.09.19  	신정철        		Initial Creation                            	-->
+	<!-- =================================================================================	-->
+    <update id="deleteSortInptPrfmncAll" parameterType="com.at.apcss.am.sort.vo.SortInptPrfmncVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.sort.mapper.SortInptPrfmncMapper.deleteSortInptPrfmncAll */
+				TB_SORT_INPT_PRFMNC
+			   SET
+			   	  SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, DEL_YN = 'Y'
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{wrhsno}
+		]]>
+    </update>
+
 
 </mapper>

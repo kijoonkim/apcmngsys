@@ -310,7 +310,14 @@ public class ComConstants {
 	 * 열람유형: U0 화면처리
 	 */
 	public final static String CON_PRSL_TYPE_UI_ACTION = "U0";
-
+	/**
+	 * 열람유형: I0 계정정보 관리자 수정
+	 */
+	public final static String CON_PRSL_TYPE_UPDATE_MEMBER_INFO_ADMIN = "I0";
+	/**
+	 * 열람유형: I1 계정정보 수정
+	 */
+	public final static String CON_PRSL_TYPE_UPDATE_MEMBER_INFO = "I1";
 	/* 수행업무구분코드 */
 	/**
 	 * 수행업무구분코드: 01 조회

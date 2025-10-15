@@ -42,18 +42,22 @@ public class TbEvFrmhsApoVO extends ComVO{
 	private String spmtEndDt;
 	private String rmrk;
 
-	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
-	private String ecSpmtVlmTot;//전속(약정)출하량
-	private String ecSpmtRate;//출하비율
-	private String ecSpmtRateA;//출하비율A
-	private String ecSpmtRateB;//출하비율B
-	private String spmtPrcTot;//출하대금지급액
-	private String prdctnVlmTot;//생산량(결과)
-	private String cnt;//조직원수
-	private String stbltYn;//적합여부
-	private String orgStbltYn;//적합여부
-	private String exclYn;//제외 여부
+	private String ecSpmtPlanVlmTot;	//전속(약정)출하계획량
+	private String ecSpmtVlmTot;		//전속(약정)출하량
+	private String ecSpmtRate;			//출하비율
+	private String ecSpmtRateA;			//출하비율A
+	private String ecSpmtRateB;			//출하비율B
+	private String spmtPrcTot;			//출하대금지급액
+	private String prdctnVlmTot;		//생산량(결과)
+	private String cnt;					//조직원수
+	private String stbltYn;				//적합여부
+	private String orgStbltYn;			//적합여부
+	private String exclYn;				//제외 여부
 
+	/**
+	 * 육성 -> 승인 변경 시 적합여부
+	 */
+	private String extStbltYn;
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

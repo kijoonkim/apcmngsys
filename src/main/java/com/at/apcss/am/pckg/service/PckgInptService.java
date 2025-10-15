@@ -68,4 +68,12 @@ public interface PckgInptService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deletePckgInpt(PckgInptVO pckgInptVO) throws Exception;
+
+	/**
+	 * 포장투입실적 삭제
+	 * @param pckgInptVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deletePckgInptPrfmncAll(PckgInptVO pckgInptVO) throws Exception;
 }

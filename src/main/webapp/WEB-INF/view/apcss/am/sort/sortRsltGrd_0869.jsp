@@ -47,6 +47,14 @@
 
                 <div style="margin-left: auto;">
                     <sbux-button
+                        id="btnDocSortRslt"
+                        name="btnDocSortRslt"
+                        uitype="normal"
+                        class="btn btn-sm btn-primary"
+                        onclick="fn_docSortRslt"
+                        text="선별결과표"
+                    ></sbux-button>
+                    <sbux-button
                         id="btn-srch-apcLinkPop"
                         name="btn-srch-apcLinkPop"
                         class="btn-sm btn-outline-danger"
@@ -299,20 +307,27 @@
         SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.backcoloralternate = '#E0FFFF';
         SBGridProperties.columns = [
-            { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '100px', style: 'text-align: center; padding-right: 5px;' },
-            { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '100px', style: 'text-align: center; padding-right: 5px;' },
-            { caption: ["등급"], ref: 'grd', type: 'output', width: '50px', style: 'text-align: center;', merge: false },
-            { caption: ["합계"], ref: 'sum', type: 'output', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #D9D9D9;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
+            { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '5%', style: 'text-align: center; padding-right: 5px;' },
+            { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '5%', style: 'text-align: center; padding-right: 5px;' },
+            { caption: ["등급"], ref: 'grd', type: 'output', width: '5%', style: 'text-align: center;', merge: false },
+            { caption: ["합계"], ref: 'sum', type: 'output', width: '15%', style: 'text-align: right; padding-right: 5px; background-color: #D9D9D9;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
         ];
 
         let addSortRsltGrdCol = [];
 
+        let widthSum = SBGridProperties.columns.reduce((total, column) => {
+            const width = parseFloat(column.width);
+            return total + width;
+        }, 0);
+
         jsonSortGrdColumnData.forEach(function(item) {
+            let width = (Math.floor((100 - widthSum) / (jsonSortGrdColumnData.length) * 10) / 10) + '%';
+
             addSortRsltGrdCol.push({
                 caption: [item.GRD_NM],
                 ref: 'grd' + item.GRD_SN,
                 type: 'output',
-                width: '50px',
+                width: width,
                 style: 'text-align: right; padding-right: 5px;',
                 format: {
                     type: 'number',
@@ -327,6 +342,7 @@
         SBGridProperties.columns = originColumns;
 
         gridSortRsltList = _SBGrid.create(SBGridProperties);
+        gridSortRsltList.rebuild();
     }
 
     /**
@@ -474,6 +490,39 @@
         fn_createSortRsltList();
         fn_setSortRsltTot();
         // fnCloseProgress();
+    }
+
+    /**
+     * @name fn_docSortRslt
+     * @description 선별결과표 발행 버튼
+     */
+    const fn_docSortRslt = async function() {
+        let brix = SBUxMethod.get("srch-slt-brix");
+        let inptYmdFrom = SBUxMethod.get("srch-dtp-inptYmdFrom");
+        let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
+
+        if(gfn_isEmpty(inptYmdFrom)) {
+            gfn_comAlert("W0001", "선별시작일자");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        if(gfn_isEmpty(inptYmdTo)) {
+            gfn_comAlert("W0001", "선별종료일자");    // W0001    {0}을/를 선택하세요.
+            return;
+        }
+
+        const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'SR_DOC');
+        gfn_popClipReport("선별결과표", rptUrl, {
+            apcCd: gv_selectedApcCd,
+            brix: brix == null ? '' : brix,
+            inptYmdFrom: inptYmdFrom,
+            inptYmdTo: inptYmdTo,
+            itemCd: itemCd == null ? '' : itemCd,
+            fcltCd: fcltCd == null ? '' : fcltCd,
+            grdSeCd: '02'
+        });
     }
 
     /**

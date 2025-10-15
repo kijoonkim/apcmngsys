@@ -513,4 +513,57 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
     public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception {
         return sortPrfmncMapper.selectSortInvntrList(sortInvntr);
     }
+
+	@Override
+	public HashMap<String, Object> insertUntySortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<String, Object>();
+
+		List<SortInvntrVO> sortInvntrList = new ArrayList<>();
+
+		String sortno = cmnsTaskNoService.selectSortno(sortPrfmncList.get(0).getApcCd(), sortPrfmncList.get(0).getInptYmd());
+		int sn = 1;
+		for (SortPrfmncVO sortPrfmncVO : sortPrfmncList) {
+			sortPrfmncVO.setSortno(sortno);
+			sortPrfmncVO.setSortSn(sn);
+
+			rtnObj =  insertSortPrfmnc(sortPrfmncVO);
+			if (rtnObj != null ) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+			SortInvntrVO sortInvntrVO = new SortInvntrVO();
+			BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
+
+			sortInvntrList.add(sortInvntrVO);
+
+			sn++;
+		}
+
+		rtnObj = sortInvntrService.insertSortInvntrList(sortInvntrList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUntySortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+
+
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePrfmncAll(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		if (0 == sortPrfmncMapper.deleteSortPrfmncAll(sortPrfmncVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		return null;
+	}
+
 }

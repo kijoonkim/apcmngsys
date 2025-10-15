@@ -85,6 +85,16 @@ public interface InvShipOgnSpeczItmPurSalMngService {
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO) throws Exception;
 
 	/**
+	 * 출자출하조직 전문품목 매입매출 조회 한다. 2025년 : 육성 -> 승인 추가
+	 * @param invShipOgnSpeczItmPurSalMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectIsoMajorItemPrchsSlsListForUpbrToAprv(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO) throws Exception;
+
+
+
+	/**
 	 * 출자출하조직 전문품목 매입매출 저장 한다. 2025년
 	 * @param invShipOgnSpeczItmPurSalMngVO
 	 * @return List<InvShipOgnSpeczItmPurSalMngVO>

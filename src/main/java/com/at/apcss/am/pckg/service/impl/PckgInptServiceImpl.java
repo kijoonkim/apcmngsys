@@ -3,6 +3,8 @@ package com.at.apcss.am.pckg.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +72,16 @@ public class PckgInptServiceImpl extends BaseServiceImpl implements PckgInptServ
 
 		//pckgInptMapper.deletePckgInpt(pckgInptVO);
 		pckgInptMapper.updatePckgInptForDelY(pckgInptVO);
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deletePckgInptPrfmncAll(PckgInptVO pckgInptVO) throws Exception {
+
+		if (0 == pckgInptMapper.deletePckgInptPrfmncAll(pckgInptVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
 		return null;
 	}
 

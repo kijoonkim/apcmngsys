@@ -27,6 +27,9 @@ public class ComMenuVO extends ComVO {
 	private int menuLvl;
 	private String prsnaInfoYn;
 	private String authrtType;
+
+	private String useYn;
+	private String idntfNo;
 	
 	private List<String> authrtTypeList;
 	public List<String> getAuthrtTypeList() {

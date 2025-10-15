@@ -393,9 +393,28 @@ public class SortPrfmncVO extends ComVO {
 	private String stdGrdCd;
 
 	/**
+	 * 포장투입팅;ㅂ
+	 * */
+	private String inptPrfmncType;
+
+	/**
+	 * 포장투입여부
+	 * */
+	private String inptPrfmncYn;
+
+	/**
 	 * 표준등급
 	 */
 	private List<SortStdGrdVO> stdGrdList;
+
+	/**
+	 * 포장수량
+	 */
+	private int pckgQntt;
+	/**
+	 * 포장중량
+	 */
+	private double pckgWght;
 
 	/*
 	 * 생산자그룹여부

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : UntyPrfmncMapper.xml                                   				-->
+<!-- DESC : 통합실적 mapper                                            			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.08.18  	김  호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.unty.mapper.UntyPrfmncMapper">
+
+
+	<!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList	-->
+	<!-- DESC : 통합실적 목록 조회.	                                       				-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2025.08.18  	김  호        		Initial Creation                        	-->
+	<!-- =============================================================================	-->
+    <select id="selectRawDlngPrfmncList" parameterType="com.at.apcss.am.unty.vo.UntyPrfmncVO" resultType="com.at.apcss.am.unty.vo.UntyPrfmncVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList */
+	    	       Y.APC_CD
+				 , Y.WRHSNO                 AS WRHSNO
+				 , Y.WRHS_YMD          		AS WRHS_YMD
+	    	     , MAX(Y.PLTNO)             AS PLTNO
+				 , MAX(Y.BX_QNTT)           AS BX_QNTT
+	    	     , MAX(Y.PRDCR_CD)          AS PRDCR_CD
+				 , SORTNO                   AS SORTNO
+	    	     , MAX(Y.PCKGNO)           	AS PCKGNO
+				 , MAX(SORT_ATRB_QNTT)      AS SORT_ATRB_QNTT_1
+				 , MAX(SORT_ATRB_UNTPRC)    AS SORT_ATRB_UNTPRC_1
+	    	     , (SELECT QNTT
+                      FROM TB_PLT_WRHS_SPMT PW
+                     WHERE PW.APC_CD(+) = Y.APC_CD
+                       AND PW.PRCS_NO(+) = Y.WRHSNO
+                       AND PW.JOB_YMD(+) = Y.WRHS_YMD
+                       AND PW.DEL_YN(+) = 'N'
+                   ) AS PLT_BX_QNTT
+				 , SUM(SORT_QNTT)           AS TOT
+				 , SUM(QNTT_1)              AS GRD_CD_01
+				 , SUM(QNTT_2)              AS GRD_CD_02
+				 , SUM(QNTT_3)              AS GRD_CD_03
+				 , SUM(QNTT_4)              AS GRD_CD_04
+				 , SUM(QNTT_5)              AS GRD_CD_05
+				 , SUM(QNTT_6)              AS GRD_CD_06
+				 , SUM(QNTT_7)              AS GRD_CD_07
+				 , SUM(QNTT_8)              AS GRD_CD_08
+				 , SUM(QNTT_9)              AS GRD_CD_09
+				 , SUM(QNTT_10)             AS GRD_CD_10
+				 , SUM(QNTT_11)             AS GRD_CD_11
+				 , SUM(QNTT_12)             AS GRD_CD_12
+				 , SUM(QNTT_13)             AS GRD_CD_13
+				 , SUM(QNTT_14)             AS GRD_CD_14
+				 , SUM(QNTT_15)             AS GRD_CD_15
+				 , SUM(QNTT_16)             AS GRD_CD_16
+				 , SUM(QNTT_17)             AS GRD_CD_17
+				 , SUM(QNTT_18)             AS GRD_CD_18
+				 , SUM(QNTT_19)             AS GRD_CD_19
+				 , SUM(QNTT_20)             AS GRD_CD_20
+			 FROM (
+					SELECT X.APC_CD
+						 , X.WRHSNO
+						 , X.WRHS_YMD
+					     , X.PLTNO
+						 , X.BX_QNTT
+					     , X.PRDCR_CD
+						 , X.SORTNO
+					     , X.PCKGNO
+						 , X.SORT_ATRB_QNTT
+						 , X.SORT_ATRB_UNTPRC
+						 , X.SORT_QNTT
+						 , CASE WHEN X.GRD_RANK = 1 THEN X.SORT_QNTT END QNTT_1
+						 , CASE WHEN X.GRD_RANK = 2 THEN X.SORT_QNTT END QNTT_2
+						 , CASE WHEN X.GRD_RANK = 3 THEN X.SORT_QNTT END QNTT_3
+						 , CASE WHEN X.GRD_RANK = 4 THEN X.SORT_QNTT END QNTT_4
+						 , CASE WHEN X.GRD_RANK = 5 THEN X.SORT_QNTT END QNTT_5
+						 , CASE WHEN X.GRD_RANK = 6 THEN X.SORT_QNTT END QNTT_6
+						 , CASE WHEN X.GRD_RANK = 7 THEN X.SORT_QNTT END QNTT_7
+						 , CASE WHEN X.GRD_RANK = 8 THEN X.SORT_QNTT END QNTT_8
+						 , CASE WHEN X.GRD_RANK = 9 THEN X.SORT_QNTT END QNTT_9
+						 , CASE WHEN X.GRD_RANK = 10 THEN X.SORT_QNTT END QNTT_10
+						 , CASE WHEN X.GRD_RANK = 11 THEN X.SORT_QNTT END QNTT_11
+						 , CASE WHEN X.GRD_RANK = 12 THEN X.SORT_QNTT END QNTT_12
+						 , CASE WHEN X.GRD_RANK = 13 THEN X.SORT_QNTT END QNTT_13
+						 , CASE WHEN X.GRD_RANK = 14 THEN X.SORT_QNTT END QNTT_14
+						 , CASE WHEN X.GRD_RANK = 15 THEN X.SORT_QNTT END QNTT_15
+						 , CASE WHEN X.GRD_RANK = 16 THEN X.SORT_QNTT END QNTT_16
+						 , CASE WHEN X.GRD_RANK = 17 THEN X.SORT_QNTT END QNTT_17
+						 , CASE WHEN X.GRD_RANK = 18 THEN X.SORT_QNTT END QNTT_18
+						 , CASE WHEN X.GRD_RANK = 19 THEN X.SORT_QNTT END QNTT_19
+						 , CASE WHEN X.GRD_RANK = 20 THEN X.SORT_QNTT END QNTT_20
+					  FROM (
+							SELECT WP.APC_CD
+								 , WP.WRHSNO
+								 , MAX(WP.WRHS_YMD)     AS WRHS_YMD
+							     , MAX(WP.PLTNO)		AS PLTNO
+								 , MAX(WP.BX_QNTT)      AS BX_QNTT
+							     , MAX(RI.PRDCR_CD)     AS PRDCR_CD
+								 , SP.SORTNO            AS SORTNO
+								 , SI.GRD_CD
+								 , CASE WHEN NVL(MAX(SI.INVNTR_QNTT), 0) = 0 THEN MAX(PP.PCKG_QNTT) ELSE MAX(SI.INVNTR_QNTT) END SORT_QNTT
+								 , PP.PCKGNO
+								 , MAX(GRD_RANK) GRD_RANK
+								 , MAX(SA.QNTT)     AS SORT_ATRB_QNTT
+								 , MAX(SA.UNTPRC)   AS SORT_ATRB_UNTPRC
+							  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+								 , TB_RAW_MTR_INVNTR RI
+								 , TB_SORT_INPT_PRFMNC SIP
+								 , TB_SORT_PRFMNC SP
+								 , TB_SORT_INVNTR SI
+								 , TB_SORT_PRFMNC_ATRB SA
+								 , (SELECT PIP.APC_CD
+										 , PIP.SORTNO
+										 , PP.PCKGNO
+										 , GI.GDS_GRD
+										 , MAX(PP.PCKG_QNTT) AS PCKG_QNTT
+									  FROM TB_PCKG_INPT_PRFMNC PIP
+										 , TB_PCKG_PRFMNC PP
+										 , TB_GDS_INVNTR GI
+									 WHERE PIP.APC_CD = PP.APC_CD
+									   AND PIP.PCKGNO = PP.PCKGNO
+									   AND PP.APC_CD = GI.APC_CD
+									   AND PP.PCKGNO = GI.PCKGNO
+									   AND PP.PCKG_SN = GI.PCKG_SN
+									   AND PIP.DEL_YN = 'N'
+									   AND PP.DEL_YN = 'N'
+									   AND GI.DEL_YN = 'N'
+									   AND PP.APC_CD = #{apcCd}
+									 GROUP BY PIP.APC_CD, PIP.SORTNO, PP.PCKGNO, GI.GDS_GRD
+								   ) PP
+								 , (SELECT X.APC_CD
+										 , NVL(X.AFTR_GRD_CD, X.GRD_CD) GRD_CD
+										 , RANK() OVER (ORDER BY GRD_CD) AS GRD_RANK
+									  FROM TB_APC_STD_GRD_DTL X
+									 WHERE X.APC_CD = #{apcCd}
+									   AND X.GRD_SE_CD = '02'
+									   AND X.ITEM_CD = '0602'
+									   AND X.DEL_YN = 'N'
+								   ) GRD
+							 WHERE WP.APC_CD = RI.APC_CD
+							   AND WP.WRHSNO = RI.WRHSNO
+							   AND WP.APC_CD = SIP.APC_CD
+							   AND WP.WRHSNO = SIP.WRHSNO(+)
+							   AND SIP.APC_CD = SP.APC_CD(+)
+							   AND SIP.SORTNO = SP.SORTNO(+)
+							   AND SP.SORTNO = SI.SORTNO(+)
+							   AND SP.SORT_SN = SI.SORT_SN(+)
+							   AND SP.APC_CD = SA.APC_CD(+)
+							   AND SP.SORTNO = SA.SORTNO(+)
+							   AND SI.APC_CD = PP.APC_CD(+)
+							   AND SI.SORTNO = PP.SORTNO(+)
+							   AND SI.GRD_CD = PP.GDS_GRD(+)
+							   AND SI.APC_CD = GRD.APC_CD
+							   AND SI.GRD_CD = GRD.GRD_CD
+							   AND WP.DEL_YN = 'N'
+							   AND RI.DEL_YN = 'N'
+							   AND SA.DEL_YN(+) = 'N'
+							   AND SIP.DEL_YN(+) = 'N'
+							   AND SP.DEL_YN(+) = 'N'
+							   AND SI.DEL_YN(+) = 'N'
+							   AND WP.APC_CD = #{apcCd}
+		]]>
+			<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+							   AND WP.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+			</if>
+			<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+							   AND WP.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+			</if>
+		<![CDATA[
+							 GROUP BY WP.APC_CD, WP.WRHSNO, SP.SORTNO, SI.GRD_CD, PP.PCKGNO
+							) X
+					) Y
+			 GROUP BY Y.APC_CD, Y.WRHSNO, Y.SORTNO, Y.WRHS_YMD
+
+		]]>
+    </select>
+
+</mapper>
