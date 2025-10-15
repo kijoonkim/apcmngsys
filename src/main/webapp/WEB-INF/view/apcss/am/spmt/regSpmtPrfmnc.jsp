@@ -1454,11 +1454,6 @@
   	  			});
   	          	grdSpmtPrfmnc.rebuild();
   	          	SBUxMethod.set("crtr-ymd", spmtYmd);
-				grdSpmtPrfmnc.addRow();
-				grdSpmtPrfmnc.addRow();
-				grdSpmtPrfmnc.addRow();
-				grdSpmtPrfmnc.addRow();
-				grdSpmtPrfmnc.addRow();
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
