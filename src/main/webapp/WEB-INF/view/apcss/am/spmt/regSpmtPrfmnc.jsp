@@ -149,7 +149,7 @@
 					<div class="ad_tbl_toplist">
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdGdsInvntr" style="height:280px;"></div>
+					<div id="sb-area-grdGdsInvntr" style="height:182px;"></div>
 				</div>
 
 				<br>
@@ -258,7 +258,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg">운임비용</th>
+							<th scope="row" class="th_bg">운임비용/출하자신고번호</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="dtl-inp-trsprtCst" name="dtl-inp-trsprtCst" uitype="text" class="form-control input-sm"
 								autocomplete="off"
@@ -266,7 +266,16 @@
 								maxlength="10"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"></td>
+							<td class="td_input">
+								<sbux-input
+										id="dtl-inp-spmtPrsnDclrno"
+										name="dtl-inp-spmtPrsnDclrno"
+										uitype="text"
+										class="form-control input-sm"
+										mask = "999999-999999"
+								></sbux-input>
+							</td>
+							<td class="td_input"></td>
 							<th scope="row" class="th_bg">비고</th>
 							<td colspan="3" class="td_input">
 								<sbux-input id="dtl-inp-rmrk" name="dtl-inp-rmrk" uitype="text" class="form-control input-sm"></sbux-input>
@@ -294,19 +303,6 @@
 								></sbux-input>
 							</td>
 						</tr>
-						<tr>
-							<th scope="row" class="th_bg">출하자신고번호</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
-								<sbux-input
-									id="dtl-inp-spmtPrsnDclrno"
-									name="dtl-inp-spmtPrsnDclrno"
-									uitype="text"
-									class="form-control input-sm"
-									mask = "999999-999999"
-								></sbux-input>
-							</td>
-							<td colspan="9"></td>
-						</tr>
 					</tbody>
 				</table>
 				<div class="ad_tbl_top2">
@@ -333,7 +329,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-spmtPrfmnc" style="height:280px;"></div>
+					<div id="sb-area-spmtPrfmnc" style="height:156px;"></div>
 				</div>
 			</div>
 		</div>
@@ -459,7 +455,6 @@
 
 		SBUxMethod.refresh("excel-slt-prdcr");
 		SBUxMethod.refresh("excel-slt-cnpt");
-
 		SBUxMethod.set('srch-rdo-gdsSeCd', '1');
 
 	}
@@ -498,7 +493,7 @@
 	const fn_onChangeSrchVrtyCd = async function(obj) {
 		let vrtyCd = obj.value;
 
-		if(gfn_isEmpty(vrtyCd)){
+		if (gfn_isEmpty(vrtyCd)){
 			return;
 		}
 		const itemCd = vrtyCd.substring(0,4);
@@ -727,7 +722,7 @@
 	const fn_search = async function(){
 		let flag = true;
 		flag = await fn_setGrdGdsInvntr();
-		if(flag){
+		if (flag) {
 			var getColRef = grdSpmtPrfmnc.getColRef("checkedYn");
 			grdSpmtPrfmnc.setFixedcellcheckboxChecked(0, getColRef, false);
 			await fn_setGrdSmptPrfmnc();
@@ -771,7 +766,7 @@
   		if (gfn_isEmpty(vrtyCd)) {
   			gfn_comAlert("W0001", "품종");				//	W0002	{0}을/를 선택하세요.
             return false;
-  		}else{
+  		 } else {
   			vrtyCd = vrtyCd.substring(4,8);
   		}
   		if (gfn_isEmpty(gdsSeCd)) {
@@ -1459,6 +1454,11 @@
   	  			});
   	          	grdSpmtPrfmnc.rebuild();
   	          	SBUxMethod.set("crtr-ymd", spmtYmd);
+				grdSpmtPrfmnc.addRow();
+				grdSpmtPrfmnc.addRow();
+				grdSpmtPrfmnc.addRow();
+				grdSpmtPrfmnc.addRow();
+				grdSpmtPrfmnc.addRow();
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -1563,16 +1563,17 @@
 			SBUxMethod.set("dtl-inp-cnptCd", cmnd.cnptCd);
 			SBUxMethod.set("dtl-inp-cnptNm", cmnd.cnptNm);
 			SBUxMethod.set("dtl-inp-dldtn", cmnd.dldtn);
-			if(gfn_isEmpty(cmnd.rmrk)){
+			if (gfn_isEmpty(cmnd.rmrk)){
 				SBUxMethod.set("dtl-inp-rmrk", "");
-			}else{
+			} else {
 				SBUxMethod.set("dtl-inp-rmrk", cmnd.rmrk);
 			}
 			SBUxMethod.set("dtl-inp-outordrno", cmnd.outordrno);
 			await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd)		// 품종
 			SBUxMethod.set("srch-slt-itemCd", cmnd.itemCd);
 			SBUxMethod.set("srch-slt-vrtyCd", cmnd.vrtyCd);
-			await fn_onChangeSrchVrtyCd({value: cmnd.vrtyCd});
+
+			await fn_onChangeSrchVrtyCd({value: cmnd.itemCd + cmnd.vrtyCd});
 
 			let rst = await Promise.all([
 				gfn_setSpmtPckgUnitSBSelect('dtl-slt-spmtPckgUnit', 	jsonDtlSpmtPckgUnit, 	gv_apcCd, cmnd.itemCd, cmnd.vrtyCd)	// 포장구분
