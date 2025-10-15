@@ -225,7 +225,7 @@
         const srvyNo = SBUxMethod.get('srch-inp-srvyNo');
 
         const postJsonPromise = gfn_postJSON("/fm/fclt/selectSrvyMst.do", {
-            srvyNo : srvyNo
+            srvyNo : '2025000001'
         });
 
         const data = await postJsonPromise;
@@ -250,7 +250,7 @@
         const srvyNo = SBUxMethod.get('srch-inp-srvyNo');
 
         const postJsonPromise = gfn_postJSON("/fm/fclt/selectSrvyDtl.do", {
-            srvyNo : srvyNo
+            srvyNo : '2025000001'
         });
 
         const data = await postJsonPromise;
