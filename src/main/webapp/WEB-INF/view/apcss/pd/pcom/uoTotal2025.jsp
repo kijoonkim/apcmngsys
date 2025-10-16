@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : uoTotal2025.jsp
+	 * @Description : 통합조직관리 총 매입 매출 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -256,6 +272,16 @@
 				<br>
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<!--
@@ -627,6 +653,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		fn_fcltMngCreateGrid01();
@@ -1844,6 +1873,9 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		let yr = SBUxMethod.get("srch-input-yr");//
 
 		//통합조직인 경우
@@ -2447,20 +2479,21 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		const nCol = grdPrdcrOgnCurntMng.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = grdPrdcrOgnCurntMng.getRow();
+
+		let nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
 			return;
 		}
-		if(nRow == null){
+		if (nRow == null){
 			nRow = 1;
 		}
+
 		//초기화
 		fn_clearGrid();
 		fn_clearForm();
@@ -2468,12 +2501,21 @@
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
 		//console.log(rowData);
 
-		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
-		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
-		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
-		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
-		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
-		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
+		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd));	//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe));	//통합조직 구분
+		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm));	//법인명
+		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno));		//법인등록번호
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno));		//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr));			//등록년도
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+		</c:if>
 	}
 
 	//매입 매출 그리드 초기화
@@ -2547,7 +2589,7 @@
 	//통합조직 매입 매출 리스트 조회
 	async function fn_dtlGridSearch() {
 
-		let brno = SBUxMethod.get('dtl-input-brno');
+		const brno = SBUxMethod.get('dtl-input-brno');
 		if (gfn_isEmpty(brno)) {
 			return;
 		}
@@ -2566,193 +2608,194 @@
 			yr : yr
 		}
 
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
+
 		jsonPrdcrOgnCurntMng01.length = 0;
 		jsonPrdcrOgnCurntMng02.length = 0;
 		jsonPrdcrOgnCurntMng03.length = 0;
 
 		try {
-			const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", param);
+
+			const defaultUrl = "/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do";
+			const upbrToAprvUrl = "/pd/pcom/selectUoTotalListForUpbrToAprv.do";
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
+
+			const postJsonPromise = gfn_postJSON(postUrl, param);
+			const data = await postJsonPromise;
+
+			// const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", param);
 			//const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectUoTotalPurchaseSaleList.do", param);
-			const data = await postJsonPromise01;
+			// const data = await postJsonPromise01;
 
-			//console.log("data==="+data);
+			if (_.isEqual("S", data['resultStatus'])) {
 
-			let tmprVo = data.resultMap;
-			if(tmprVo != null){
-				if(tmprVo.tmprStrgYn == 'Y'){
-					$("#tmprArea").show();
-					$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
-				}else{
-					$("#tmprArea").hide();
-					$("#tmprStrgRsn").text("");
+				let tmprVo = data.resultMap;
+				if (tmprVo != null){
+					if(tmprVo.tmprStrgYn == 'Y'){
+						$("#tmprArea").show();
+						$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
+					}else{
+						$("#tmprArea").hide();
+						$("#tmprStrgRsn").text("");
+					}
 				}
-			}
 
-			data.resultPrchsList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO01 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
-						,yr: item.yr
-
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
-
-						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
-						,clsfCd: 		item.clsfCd
-						,clsfNm: 		item.clsfNm
-						,itemCd: 		item.itemCd
-						,itemNm: 		item.itemNm
-
-						,prchsSlsSe: 	item.prchsSlsSe
+				data.resultPrchsList.forEach((item, index) => {
+					jsonPrdcrOgnCurntMng01.push({
+						apoCd: 					item.apoCd,
+						apoSe: 					item.apoSe,
+						brno: 					item.brno,
+						crno: 					item.crno,
+						delYn: 					item.delYn,
+						yr: 					item.yr,
+						sttgUpbrItemSe: 		item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 		item.sttgUpbrItemNm,
+						ctgryCd: 				item.ctgryCd,
+						ctgryNm: 				item.ctgryNm,
+						clsfCd: 				item.clsfCd,
+						clsfNm: 				item.clsfNm,
+						itemCd: 				item.itemCd,
+						itemNm: 				item.itemNm,
+						prchsSlsSe: 			item.prchsSlsSe,
 
 						/* 매입 수탁 */
-						,prchsSortTrstVlm: 		item.prchsSortTrstVlm
-						,prchsSortTrstAmt: 		item.prchsSortTrstAmt
-						,prchsSpmtTrstVlm: 		item.prchsSpmtTrstVlm
-						,prchsSpmtTrstAmt: 		item.prchsSpmtTrstAmt
-						,prchsSmplTrstVlm: 		item.prchsSmplTrstVlm
-						,prchsSmplTrstAmt: 		item.prchsSmplTrstAmt
+						prchsSortTrstVlm: 		item.prchsSortTrstVlm,
+						prchsSortTrstAmt: 		item.prchsSortTrstAmt,
+						prchsSpmtTrstVlm: 		item.prchsSpmtTrstVlm,
+						prchsSpmtTrstAmt: 		item.prchsSpmtTrstAmt,
+						prchsSmplTrstVlm: 		item.prchsSmplTrstVlm,
+						prchsSmplTrstAmt: 		item.prchsSmplTrstAmt,
 						/* 매입 수탁 소계 */
-						,prchsTrstVlm: 			item.prchsTrstVlm
-						,prchsTrstAmt: 			item.prchsTrstAmt
+						prchsTrstVlm: 			item.prchsTrstVlm,
+						prchsTrstAmt: 			item.prchsTrstAmt,
 						/* 매입 매취 */
-						,prchsSortEmspapVlm: 	item.prchsSortEmspapVlm
-						,prchsSortEmspapAmt: 	item.prchsSortEmspapAmt
-						,prchsSmplEmspapVlm: 	item.prchsSmplEmspapVlm
-						,prchsSmplEmspapAmt: 	item.prchsSmplEmspapAmt
+						prchsSortEmspapVlm: 	item.prchsSortEmspapVlm,
+						prchsSortEmspapAmt: 	item.prchsSortEmspapAmt,
+						prchsSmplEmspapVlm: 	item.prchsSmplEmspapVlm,
+						prchsSmplEmspapAmt: 	item.prchsSmplEmspapAmt,
 						/* 매입 매취 소계 */
-						,prchsEmspapVlm: 		item.prchsEmspapVlm
-						,prchsEmspapAmt: 		item.prchsEmspapAmt
+						prchsEmspapVlm: 		item.prchsEmspapVlm,
+						prchsEmspapAmt: 		item.prchsEmspapAmt,
 
 						/* 매입 합계 */
-						,prchsTotVlm: 	item.prchsTotVlm
-						,prchsTotAmt: 	item.prchsTotAmt
+						prchsTotVlm: 			item.prchsTotVlm,
+						prchsTotAmt: 			item.prchsTotAmt,
+					});
+				});
 
-					};
-				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
-			});
-
-			data.resultSlsList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO02 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
-						,yr: item.yr
-
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
-
-						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
-						,clsfCd: 		item.clsfCd
-						,clsfNm: 		item.clsfNm
-						,itemCd: 		item.itemCd
-						,itemNm: 		item.itemNm
-
-						,prchsSlsSe: 		item.prchsSlsSe
-
+				data.resultSlsList.forEach((item, index) => {
+					jsonPrdcrOgnCurntMng02.push({
+						apoCd: 				item.apoCd,
+						apoSe: 				item.apoSe,
+						brno: 				item.brno,
+						crno: 				item.crno,
+						delYn: 				item.delYn,
+						yr: 				item.yr,
+						sttgUpbrItemSe: 	item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 	item.sttgUpbrItemNm,
+						ctgryCd: 			item.ctgryCd,
+						ctgryNm: 			item.ctgryNm,
+						clsfCd: 			item.clsfCd,
+						clsfNm: 			item.clsfNm,
+						itemCd: 			item.itemCd,
+						itemNm: 			item.itemNm,
+						prchsSlsSe: 		item.prchsSlsSe,
 						/* 매출 수탁 */
-						,slsCprtnTrstVlm: 			item.slsCprtnTrstVlm
-						,slsCprtnTrstAmt: 			item.slsCprtnTrstAmt
-						,slsCprtnSortTrstVlm: 		item.slsCprtnSortTrstVlm
-						,slsCprtnSortTrstAmt: 		item.slsCprtnSortTrstAmt
-						,slsSmplTrstVlm: 			item.slsSmplTrstVlm
-						,slsSmplTrstAmt: 			item.slsSmplTrstAmt
+						slsCprtnTrstVlm: 		item.slsCprtnTrstVlm,
+						slsCprtnTrstAmt: 		item.slsCprtnTrstAmt,
+						slsCprtnSortTrstVlm: 	item.slsCprtnSortTrstVlm,
+						slsCprtnSortTrstAmt: 	item.slsCprtnSortTrstAmt,
+						slsSmplTrstVlm: 		item.slsSmplTrstVlm,
+						slsSmplTrstAmt: 		item.slsSmplTrstAmt,
 						/* 매출 수탁 합계 */
-						,slsTrstVlm: 				item.slsTrstVlm
-						,slsTrstAmt: 				item.slsTrstAmt
+						slsTrstVlm: 			item.slsTrstVlm,
+						slsTrstAmt: 			item.slsTrstAmt,
 						/* 매출 매취 */
-						,slsCprtnSortEmspapVlm: 	item.slsCprtnSortEmspapVlm
-						,slsCprtnSortEmspapAmt: 	item.slsCprtnSortEmspapAmt
-						,slsSmplEmspapVlm: 			item.slsSmplEmspapVlm
-						,slsSmplEmspapAmt: 			item.slsSmplEmspapAmt
+						slsCprtnSortEmspapVlm: 	item.slsCprtnSortEmspapVlm,
+						slsCprtnSortEmspapAmt: 	item.slsCprtnSortEmspapAmt,
+						slsSmplEmspapVlm: 		item.slsSmplEmspapVlm,
+						slsSmplEmspapAmt: 		item.slsSmplEmspapAmt,
 						/* 매출 매취 소계 */
-						,slsEmspapVlm: 				item.slsEmspapVlm
-						,slsEmspapAmt: 				item.slsEmspapAmt
+						slsEmspapVlm: 			item.slsEmspapVlm,
+						slsEmspapAmt: 			item.slsEmspapAmt,
 						/* 매출 합계 */
-						,slsTotVlm: 	item.slsTotVlm
-						,slsTotAmt: 	item.slsTotAmt
+						slsTotVlm: 			item.slsTotVlm,
+						slsTotAmt: 			item.slsTotAmt,
 						/* 20241215 기타 제외 요청 */
-						,ddcVlm: 		item.ddcVlm
-						,ddcAmt: 		item.ddcAmt
-					};
+						ddcVlm: 			item.ddcVlm,
+						ddcAmt: 			item.ddcAmt
+					});
 
-				let PrdcrOgnCurntMngVO03 = {
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
-						,yr: item.yr
-
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
-
-						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
-						,clsfCd: 		item.clsfCd
-						,clsfNm: 		item.clsfNm
-						,itemCd: 		item.itemCd
-						,itemNm: 		item.itemNm
-
-						,prchsSlsSe: 		item.prchsSlsSe
-
-						,slsTotVlm: 	item.slsTotVlm
-						,slsTotAmt: 	item.slsTotAmt
-
-						,pblcWhlslMrktVlm: 	item.pblcWhlslMrktVlm
-						,pblcWhlslMrktAmt: 	item.pblcWhlslMrktAmt
+					jsonPrdcrOgnCurntMng03.push({
+						apoCd: 			item.apoCd,
+						apoSe: 			item.apoSe,
+						brno: 			item.brno,
+						crno: 			item.crno,
+						delYn: 			item.delYn,
+						yr: 			item.yr,
+						sttgUpbrItemSe: item.sttgUpbrItemSe,
+						sttgUpbrItemNm: item.sttgUpbrItemNm,
+						ctgryCd: 		item.ctgryCd,
+						ctgryNm: 		item.ctgryNm,
+						clsfCd: 		item.clsfCd,
+						clsfNm: 		item.clsfNm,
+						itemCd: 		item.itemCd,
+						itemNm: 		item.itemNm,
+						prchsSlsSe: 	item.prchsSlsSe,
+						slsTotVlm: 		item.slsTotVlm,
+						slsTotAmt: 		item.slsTotAmt,
+						pblcWhlslMrktVlm: 	item.pblcWhlslMrktVlm,
+						pblcWhlslMrktAmt: 	item.pblcWhlslMrktAmt,
 						/* 20241217 온라인도매시장 제외 요청 */
 						/* 별도의 화면에서 받고 해당값은 기타에 들어가도 된다함 */
 						//,onlnWhlslMrktVlm: 	item.onlnWhlslMrktVlm
 						//,onlnWhlslMrktAmt: 	item.onlnWhlslMrktAmt
+						lgszRtlVlm: 		item.lgszRtlVlm,
+						lgszRtlAmt: 		item.lgszRtlAmt,
+						armyDlvgdsVlm: 		item.armyDlvgdsVlm,
+						armyDlvgdsAmt: 		item.armyDlvgdsAmt,
+						eatoutMtrlMlsrVlm:	item.eatoutMtrlMlsrVlm,
+						eatoutMtrlMlsrAmt:	item.eatoutMtrlMlsrAmt,
+						mnfcRtlVlm: 		item.mnfcRtlVlm,
+						mnfcRtlAmt: 		item.mnfcRtlAmt,
+						exprtVlm: 			item.exprtVlm,
+						exprtAmt: 			item.exprtAmt,
+						onlnDlngPrfmncVlm:	item.onlnDlngPrfmncVlm,
+						onlnDlngPrfmncAmt:	item.onlnDlngPrfmncAmt,
+						etcVlm: 			item.etcVlm,
+						etcAmt: 			item.etcAmt
+					});
+				});
 
-						,lgszRtlVlm: 		item.lgszRtlVlm
-						,lgszRtlAmt: 		item.lgszRtlAmt
-						,armyDlvgdsVlm: 	item.armyDlvgdsVlm
-						,armyDlvgdsAmt: 	item.armyDlvgdsAmt
+				grdPrdcrOgnCurntMng03.rebuild();
+				grdPrdcrOgnCurntMng02.rebuild();
+				grdPrdcrOgnCurntMng01.rebuild();
+				/* 하단 소계 추가 */
+				grdPrdcrOgnCurntMng03.addRow();
+				grdPrdcrOgnCurntMng02.addRow();
+				grdPrdcrOgnCurntMng01.addRow();
 
-						,eatoutMtrlMlsrVlm:	item.eatoutMtrlMlsrVlm
-						,eatoutMtrlMlsrAmt:	item.eatoutMtrlMlsrAmt
-						,mnfcRtlVlm: 		item.mnfcRtlVlm
-						,mnfcRtlAmt: 		item.mnfcRtlAmt
+				//그리드 커스텀 disabled 처리
+				fn_gridCustom();
 
-						,exprtVlm: 			item.exprtVlm
-						,exprtAmt: 			item.exprtAmt
-						,onlnDlngPrfmncVlm:	item.onlnDlngPrfmncVlm
-						,onlnDlngPrfmncAmt:	item.onlnDlngPrfmncAmt
+				fn_grdTot03();
+				fn_grdTot02();
+				fn_grdTot01();
 
-						,etcVlm: 			item.etcVlm
-						,etcAmt: 			item.etcAmt
-					};
-				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
-				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
-			});
+				//포커스 이동
+				SBUxMethod.focus('dtl-input-brno');
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
 
-			grdPrdcrOgnCurntMng03.rebuild();
-			grdPrdcrOgnCurntMng02.rebuild();
-			grdPrdcrOgnCurntMng01.rebuild();
-			/* 하단 소계 추가 */
-			grdPrdcrOgnCurntMng03.addRow();
-			grdPrdcrOgnCurntMng02.addRow();
-			grdPrdcrOgnCurntMng01.addRow();
-
-			//그리드 커스텀 disabled 처리
-			fn_gridCustom();
-
-			fn_grdTot03();
-			fn_grdTot02();
-			fn_grdTot01();
-
-			//포커스 이동
-			SBUxMethod.focus('dtl-input-brno');
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}

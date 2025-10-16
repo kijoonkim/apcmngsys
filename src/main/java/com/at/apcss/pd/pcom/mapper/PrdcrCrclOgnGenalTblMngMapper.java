@@ -108,6 +108,13 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryList(ItemUoStbltYnVO itemUoStbltYnVo);
 
 	/**
+	 * 통합조직 총괄표 조회 (육성->승인)
+	 * @param itemUoStbltYnVo
+	 * @return
+	 */
+	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryListForUpbrToAprv(ItemUoStbltYnVO itemUoStbltYnVo);
+
+	/**
 	 * 신규 총괄표 조회
 	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>

@@ -1811,6 +1811,919 @@
 	</select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv	-->
+	<!-- DESC : 통합조직 총괄표 조회 (육성->승인)                                            		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUoPrchsSlsSummaryListForUpbrToAprv" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		<![CDATA[
+			WITH /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
+			  FRMHS_APO AS (
+				SELECT
+					  FA.APO_CD     AS APO_CD
+					, FA.APO_SE     AS APO_SE
+					, FA.BRNO       AS BRNO
+					, FA.CRNO       AS CRNO
+					, FA.YR         AS YR
+					, FA.UO_BRNO    AS UO_BRNO
+					, FA.UO_CD      AS UO_CD
+					, ITM.STTG_UPBR_ITEM_SE AS STTG_UPBR_ITEM_SE
+					, ITM.CTGRY_CD  AS CTGRY_CD
+					, ITM.CLSF_CD   AS CLSF_CD
+					, FA.ITEM_CD    AS ITEM_CD
+					, FA.TRMT_TYPE  AS TRMT_TYPE
+					, (SELECT FN_GET_ITEM_NM(FA.ITEM_CD) FROM DUAL) AS ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', ITM.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('TRMT_TYPE', FA.TRMT_TYPE) FROM DUAL) AS TRMT_TYPE_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', ITM.CLSF_CD) FROM DUAL) AS CLSF_NM
+					, FA.PRDCR_OGNZ_SN  AS PRDCR_OGNZ_SN
+					, FA.PRDCR_OGNZ_CD  AS PRDCR_OGNZ_CD
+					, FA.PRDCR_OGNZ_NM  AS PRDCR_OGNZ_NM
+					, FA.CTRT_DT        AS CTRT_DT
+					, FA.SPMT_BGNG_DT   AS SPMT_BGNG_DT
+					, FA.SPMT_END_DT    AS SPMT_END_DT
+					, FA.RMRK           AS RMRK
+					, FA.STBLT_YN       AS STBLT_YN
+
+					, ESS.CNT
+					, ESS.PRDCTN_VLM_TOT        AS PRDCTN_VLM_TOT
+					, ESS.EC_SPMT_VLM_TOT       AS EC_SPMT_VLM_TOT
+					, ESS.EC_SPMT_PLAN_VLM_TOT  AS EC_SPMT_PLAN_VLM_TOT
+					, ESS.SPMT_PRC_TOT          AS SPMT_PRC_TOT
+					, ESS.EC_SPMT_RATE_A        AS EC_SPMT_RATE_A
+					, ESS.EC_SPMT_RATE_B        AS EC_SPMT_RATE_B
+					, CASE FA.TRMT_TYPE
+						WHEN 1 THEN 3
+						WHEN 2 THEN 1
+						WHEN 3 THEN 2
+						ELSE 4
+					  END       AS TRMT_TYPE_SEQ
+
+					, (
+						SELECT FN_GET_PRUO_PRDCR_STBLT_YN (
+								  FA.YR
+								, '1'
+								, ITM.STTG_UPBR_ITEM_SE
+								, FA.TRMT_TYPE
+								, ESS.CNT
+								, ESS.SPMT_PRC_TOT
+								, ESS.EC_SPMT_RATE_B
+							) FROM DUAL
+					)	AS PO_STBLT_YN
+
+				  FROM TB_EV_FRMHS_APO FA
+
+				  JOIN TB_EV_APO_YR_GPC_CD ITM
+					ON ITM.YR = FA.YR
+				   AND ITM.UO_BRNO = FA.UO_BRNO
+				   AND ITM.BRNO = FA.BRNO
+				   AND ITM.ITEM_CD = FA.ITEM_CD
+				   AND ITM.APO_SE = '2'
+				   AND ITM.STTG_UPBR_ITEM_SE IN ('1', '2')
+				   AND ITM.DEL_YN = 'N'
+
+				  JOIN (
+						SELECT
+							  SS.YR                     AS YR
+							, SS.BRNO                   AS BRNO
+							, SS.PRDCR_OGNZ_SN          AS PRDCR_OGNZ_SN
+							, COUNT(SS.CLTVTN_LAND_SN)  AS CNT
+							, SUM(SS.PRDCTN_VLM)        AS PRDCTN_VLM_TOT
+							, SUM(SS.EC_SPMT_PLAN_VLM)  AS EC_SPMT_PLAN_VLM_TOT
+							, SUM(SS.EC_SPMT_VLM)       AS EC_SPMT_VLM_TOT
+							, SUM(SS.SPMT_PRC)          AS SPMT_PRC_TOT
+							, ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(SS.PRDCTN_VLM), 0) * 100, 2) AS EC_SPMT_RATE_A
+							, ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(SS.EC_SPMT_PLAN_VLM), 0) * 100, 2) AS EC_SPMT_RATE_B
+						  FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN SS
+						 WHERE SS.YR = #{yr}
+						   AND SS.DEL_YN = 'N'
+						 GROUP BY SS.YR, SS.BRNO, SS.PRDCR_OGNZ_SN
+					) ESS
+					ON ESS.YR = FA.YR
+				   AND ESS.BRNO = FA.BRNO
+				   AND ESS.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+
+				 WHERE FA.DEL_YN = 'N'
+				   AND FA.YR = #{yr}
+				   AND NVL(FA.EXCL_YN, 'N') = 'N'
+				   AND FA.UO_BRNO = #{brno}
+				)
+            , FRMHS_SPMT AS (
+				SELECT /* 생산자조직 전속출하 */
+					  '5'                   AS TYPE_SE_NO
+					, FA.ITEM_NM            AS ITEM_NM
+                    , FA.STTG_UPBR_ITEM_NM  AS STTG_UPBR_ITEM_NM
+					, FA.PRDCR_OGNZ_NM      AS PRCHS_NM
+					, FA.TRMT_TYPE_NM       AS TRMT_TYPE_NM
+					, FA.YR                 AS YR
+					, FA.BRNO               AS BRNO
+					, FA.UO_BRNO            AS UO_BRNO
+                    , APO.CORP_NM           AS CORP_NM
+					, FA.ITEM_CD            AS ITEM_CD
+					, NVL(FA.PRDCR_OGNZ_SN, 0)  AS PRDCR_OGNZ_SN
+					, FA.TRMT_TYPE          AS TRMT_TYPE
+					, FA.STTG_UPBR_ITEM_SE  AS STTG_UPBR_ITEM_SE
+					, ROUND(FA.SPMT_PRC_TOT, 0)     AS SLS_CNSGN_PRCHS_AMT
+					, ROUND(FA.EC_SPMT_VLM_TOT, 0)  AS SLS_CNSGN_PRCHS_VLM
+					, PST.SLS_CNSGN_SLS_AMT         AS SLS_CNSGN_SLS_AMT
+					, PST.SLS_CNSGN_SLS_VLM         AS SLS_CNSGN_SLS_VLM
+					, PST.UO_SPMT_AMT               AS UO_SPMT_AMT
+					, PST.UO_SPMT_VLM               AS UO_SPMT_VLM
+					, PST.UO_OTHER_SPMT_AMT         AS UO_OTHER_SPMT_AMT
+					, PST.UO_OTHER_SPMT_VLM         AS UO_OTHER_SPMT_VLM
+					, PST.RMRK                      AS RMRK
+					, NULL                          AS STBLT_YN
+					, FA.PO_STBLT_YN                AS PO_STBLT_YN
+					, FA.TRMT_TYPE_SEQ              AS TRMT_TYPE_SEQ
+					, CASE FA.PO_STBLT_YN
+						WHEN 'Y' THEN 'Y'
+						ELSE 'N'
+					  END                           AS OGNZ_STBLT_YN
+				  FROM FRMHS_APO FA
+
+                  LEFT JOIN TB_EV_APO_HSTRY APO
+                    ON APO.YR = FA.YR
+                   AND APO.BRNO = FA.BRNO
+                   AND APO.DEL_YN = 'N'
+
+				  LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+					ON PST.YR = FA.YR
+				   AND PST.BRNO = FA.BRNO
+				   AND PST.UO_BRNO = FA.UO_BRNO
+				   AND PST.ITEM_CD = FA.ITEM_CD
+				   AND PST.APO_SE = '2'
+				   AND PST.TYPE_SE_NO = 5
+				   AND PST.DEL_YN = 'N'
+				   AND PST.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+				   AND PST.TRMT_TYPE = FA.TRMT_TYPE
+				)
+			, ISO_ETC AS (
+				SELECT /* 출자출하조직 생산자조직 외 */
+					  '7'                   AS TYPE_SE_NO
+					, ITM.YR                AS YR
+                    , ITM.UO_BRNO           AS BRNO
+					, ITM.BRNO              AS ISO_BRNO
+					, ITM.UO_BRNO           AS UO_BRNO
+                    , APO.CORP_NM           AS CORP_NM
+					, ITM.ITEM_CD           AS ITEM_CD
+					, ITM.STTG_UPBR_ITEM_SE AS STTG_UPBR_ITEM_SE
+					, (SELECT FN_GET_ITEM_NM(ITM.ITEM_CD) FROM DUAL) AS ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', ITM.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', ITM.CLSF_CD) FROM DUAL) AS CLSF_NM
+					, PST.SLS_CNSGN_PRCHS_AMT       AS SLS_CNSGN_PRCHS_AMT
+					, PST.SLS_CNSGN_PRCHS_VLM       AS SLS_CNSGN_PRCHS_VLM
+					, PST.SLS_CNSGN_SLS_AMT         AS SLS_CNSGN_SLS_AMT
+					, PST.SLS_CNSGN_SLS_VLM         AS SLS_CNSGN_SLS_VLM
+					, PST.UO_SPMT_AMT               AS UO_SPMT_AMT
+					, PST.UO_SPMT_VLM               AS UO_SPMT_VLM
+					, PST.UO_OTHER_SPMT_AMT         AS UO_OTHER_SPMT_AMT
+					, PST.UO_OTHER_SPMT_VLM         AS UO_OTHER_SPMT_VLM
+                    , NVL(PST.UO_SPMT_AMT, 0) + NVL(PST.UO_OTHER_SPMT_AMT, 0)  AS UO_SPMT_AMT_TOT
+				    , PST.OGNZ_STBLT_YN				AS OGNZ_STBLT_YN
+					, PST.RMRK                      AS RMRK
+					, NULL                          AS STBLT_YN
+
+				  FROM TB_EV_APO_YR_GPC_CD ITM
+
+                  LEFT JOIN TB_EV_APO_HSTRY APO
+                    ON APO.YR = ITM.YR
+                   AND APO.BRNO = ITM.BRNO
+                   AND APO.DEL_YN = 'N'
+
+				  JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+					ON PST.YR = ITM.YR
+				   AND PST.BRNO = ITM.BRNO
+				   AND PST.UO_BRNO = ITM.UO_BRNO
+				   AND PST.ITEM_CD = ITM.ITEM_CD
+				   AND PST.APO_SE = '2'
+				   AND PST.TYPE_SE_NO = 7
+				   AND PST.DEL_YN = 'N'
+
+				 WHERE ITM.YR = #{yr}
+				   AND ITM.UO_BRNO = #{brno}
+				   AND ITM.APO_SE = '2'
+				   AND ITM.STTG_UPBR_ITEM_SE IN ('1', '2')
+				   AND ITM.DEL_YN = 'N'
+			)
+            , ISO_PST AS (
+                SELECT /* 1 생산자조직 전속출하 */
+                      MAX(A.ITEM_NM)            AS ITEM_NM
+                    , MAX(A.STTG_UPBR_ITEM_NM)  AS STTG_UPBR_ITEM_NM
+                    , MAX(A.CORP_NM)        AS CORP_NM
+                    , A.YR                  AS YR
+                    , A.BRNO                AS BRNO
+                    , A.APO_SE              AS APO_SE
+                    , A.UO_BRNO             AS UO_BRNO
+                    , A.ISO_BRNO            AS ISO_BRNO
+                    , A.ITEM_CD             AS ITEM_CD
+                    , A.STTG_UPBR_ITEM_SE   AS STTG_UPBR_ITEM_SE
+                    , A.OGNZ_STBLT_YN       AS OGNZ_STBLT_YN
+                    , A.STBLT_YN            AS STBLT_YN
+                    , SUM(A.UO_SPMT_AMT)        AS UO_SPMT_AMT
+                    , SUM(A.UO_SPMT_VLM)        AS UO_SPMT_VLM
+                    , SUM(A.UO_SPMT_AMT_ETC)    AS UO_SPMT_AMT_ETC
+                  FROM (
+                    SELECT
+                          A.ITEM_NM             AS ITEM_NM
+                        , A.STTG_UPBR_ITEM_NM   AS STTG_UPBR_ITEM_NM
+                        , A.CORP_NM             AS CORP_NM
+                        , A.YR                  AS YR
+                        , A.BRNO                AS BRNO
+                        , A.APO_SE              AS APO_SE
+                        , A.UO_BRNO             AS UO_BRNO
+                        , A.ISO_BRNO            AS ISO_BRNO
+                        , A.ITEM_CD             AS ITEM_CD
+                        , A.STTG_UPBR_ITEM_SE   AS STTG_UPBR_ITEM_SE
+                        , A.UO_SPMT_AMT         AS UO_SPMT_AMT
+                        , A.UO_SPMT_VLM         AS UO_SPMT_VLM
+                        , A.UO_SPMT_AMT_ETC     AS UO_SPMT_AMT_ETC
+                        , A.OGNZ_STBLT_YN       AS OGNZ_STBLT_YN
+                        , ROUND(
+                            NVL(A.UO_SPMT_AMT, 0)
+                            / NULLIF(NVL(A.UO_SPMT_AMT, 0) + NVL(A.UO_SPMT_AMT_ETC, 0), 0)
+                            , 2
+                          )                     AS UO_SPMT_AMT_RT
+                        , CASE A.OGNZ_STBLT_YN
+                            WHEN 'Y' THEN
+                                (
+                                    SELECT
+                                        FN_GET_ISO_SPMT_STBLT_YN (
+                                              A.YR
+                                            , '1'	-- TOT.APRV
+                                            , A.STTG_UPBR_ITEM_SE
+                                            , NVL(A.UO_SPMT_AMT, 0)
+                                            , ROUND(
+                                                NVL(A.UO_SPMT_AMT, 0)
+                                                / NULLIF(NVL(A.UO_SPMT_AMT, 0) + NVL(A.UO_SPMT_AMT_ETC, 0), 0)
+                                                , 2
+                                              )
+                                            , NVL(A.UO_SPMT_AMT, 0) + NVL(A.UO_SPMT_AMT_ETC, 0)
+                                        )
+                                      FROM DUAL
+                                )
+                            ELSE 'N'
+                          END                   AS STBLT_YN
+                      FROM (
+                            SELECT
+                                  MAX(FS.ITEM_NM)       AS ITEM_NM
+                                , MAX(FS.STTG_UPBR_ITEM_NM) AS STTG_UPBR_ITEM_NM
+                                , MAX(FS.CORP_NM)       AS CORP_NM
+                                , FS.YR                 AS YR
+                                , FS.UO_BRNO            AS BRNO
+                                , '1'                   AS APO_SE
+                                , FS.UO_BRNO            AS UO_BRNO
+                                , FS.BRNO               AS ISO_BRNO
+                                , FS.ITEM_CD            AS ITEM_CD
+                                , FS.STTG_UPBR_ITEM_SE  AS STTG_UPBR_ITEM_SE
+								, FS.OGNZ_STBLT_YN      AS OGNZ_STBLT_YN
+                                , SUM(FS.UO_SPMT_AMT)   AS UO_SPMT_AMT
+                                , SUM(FS.UO_SPMT_VLM)	AS UO_SPMT_VLM
+                                , (
+                                    SELECT X.UO_SPMT_AMT_TOT
+                                      FROM ISO_ETC X
+                                     WHERE X.ISO_BRNO = FS.BRNO
+                                       AND X.ITEM_CD = FS.ITEM_CD
+                                       AND X.OGNZ_STBLT_YN = FS.OGNZ_STBLT_YN
+                                )       AS UO_SPMT_AMT_ETC
+
+                              FROM FRMHS_SPMT FS
+                             GROUP BY FS.YR, FS.BRNO, FS.UO_BRNO, FS.ITEM_CD, FS.STTG_UPBR_ITEM_SE, FS.OGNZ_STBLT_YN
+                        ) A
+                  ) A
+                 GROUP BY
+                      A.YR
+                    , A.BRNO
+                    , A.APO_SE
+                    , A.UO_BRNO
+                    , A.ISO_BRNO
+                    , A.ITEM_CD
+                    , A.STTG_UPBR_ITEM_SE
+                    , A.OGNZ_STBLT_YN
+                    , A.STBLT_YN
+            )
+                , UO_FRMHS_APO AS (
+				    SELECT
+					  FA.APO_CD     AS APO_CD
+					, FA.APO_SE     AS APO_SE
+					, FA.BRNO       AS BRNO
+					, FA.CRNO       AS CRNO
+					, FA.YR         AS YR
+					, FA.UO_BRNO    AS UO_BRNO
+					, FA.UO_CD      AS UO_CD
+					, ITM.STTG_UPBR_ITEM_SE AS STTG_UPBR_ITEM_SE
+					, ITM.CTGRY_CD  AS CTGRY_CD
+					, ITM.CLSF_CD   AS CLSF_CD
+					, FA.ITEM_CD    AS ITEM_CD
+					, FA.TRMT_TYPE  AS TRMT_TYPE
+					, (SELECT FN_GET_ITEM_NM(FA.ITEM_CD) FROM DUAL) AS ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', ITM.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('TRMT_TYPE', FA.TRMT_TYPE) FROM DUAL) AS TRMT_TYPE_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', ITM.CLSF_CD) FROM DUAL) AS CLSF_NM
+					, FA.PRDCR_OGNZ_SN  AS PRDCR_OGNZ_SN
+					, FA.PRDCR_OGNZ_CD  AS PRDCR_OGNZ_CD
+					, FA.PRDCR_OGNZ_NM  AS PRDCR_OGNZ_NM
+					, FA.CTRT_DT        AS CTRT_DT
+					, FA.SPMT_BGNG_DT   AS SPMT_BGNG_DT
+					, FA.SPMT_END_DT    AS SPMT_END_DT
+					, FA.RMRK           AS RMRK
+					, FA.STBLT_YN       AS STBLT_YN
+
+					, ESS.CNT
+					, ESS.PRDCTN_VLM_TOT        AS PRDCTN_VLM_TOT
+					, ESS.EC_SPMT_VLM_TOT       AS EC_SPMT_VLM_TOT
+					, ESS.EC_SPMT_PLAN_VLM_TOT  AS EC_SPMT_PLAN_VLM_TOT
+					, ESS.SPMT_PRC_TOT          AS SPMT_PRC_TOT
+					, ESS.EC_SPMT_RATE_A        AS EC_SPMT_RATE_A
+					, ESS.EC_SPMT_RATE_B        AS EC_SPMT_RATE_B
+					, CASE FA.TRMT_TYPE
+						WHEN 1 THEN 3
+						WHEN 2 THEN 1
+						WHEN 3 THEN 2
+						ELSE 4
+					  END       AS TRMT_TYPE_SEQ
+
+					, (
+						SELECT FN_GET_PRUO_PRDCR_STBLT_YN (
+								  FA.YR
+								, '1'
+								, ITM.STTG_UPBR_ITEM_SE
+								, FA.TRMT_TYPE
+								, ESS.CNT
+								, ESS.SPMT_PRC_TOT
+								, ESS.EC_SPMT_RATE_B
+							) FROM DUAL
+					)	AS PO_STBLT_YN
+
+				  FROM TB_EV_FRMHS_APO FA
+
+				  JOIN TB_EV_APO_YR_GPC_CD ITM
+					ON ITM.YR = FA.YR
+				   AND ITM.BRNO = FA.BRNO
+				   AND ITM.ITEM_CD = FA.ITEM_CD
+				   AND ITM.APO_SE = '1'
+				   AND ITM.STTG_UPBR_ITEM_SE IN ('1', '2')
+				   AND ITM.DEL_YN = 'N'
+
+				  JOIN (
+						SELECT
+							  SS.YR                     AS YR
+							, SS.BRNO                   AS BRNO
+							, SS.PRDCR_OGNZ_SN          AS PRDCR_OGNZ_SN
+							, COUNT(SS.CLTVTN_LAND_SN)  AS CNT
+							, SUM(SS.PRDCTN_VLM)        AS PRDCTN_VLM_TOT
+							, SUM(SS.EC_SPMT_PLAN_VLM)  AS EC_SPMT_PLAN_VLM_TOT
+							, SUM(SS.EC_SPMT_VLM)       AS EC_SPMT_VLM_TOT
+							, SUM(SS.SPMT_PRC)          AS SPMT_PRC_TOT
+							, ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(SS.PRDCTN_VLM), 0) * 100, 2) AS EC_SPMT_RATE_A
+							, ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(SS.EC_SPMT_PLAN_VLM), 0) * 100, 2) AS EC_SPMT_RATE_B
+						  FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN SS
+						 WHERE SS.YR = #{yr}
+						   AND SS.BRNO = #{brno}
+						   AND SS.DEL_YN = 'N'
+						 GROUP BY SS.YR, SS.BRNO, SS.PRDCR_OGNZ_SN
+					) ESS
+					ON ESS.YR = FA.YR
+				   AND ESS.BRNO = FA.BRNO
+				   AND ESS.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+
+				 WHERE FA.DEL_YN = 'N'
+				   AND FA.YR = #{yr}
+				   AND NVL(FA.EXCL_YN, 'N') = 'N'
+				   AND FA.BRNO = #{brno}
+				)
+			, UO_FRMHS_SPMT AS (
+				SELECT /* 생산자조직 전속출하 */
+					  '5'                   AS TYPE_SE_NO
+					, FA.ITEM_NM || '(' || FA.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
+					, FA.PRDCR_OGNZ_NM      AS PRCHS_NM
+					, FA.TRMT_TYPE_NM       AS TRMT_TYPE_NM
+					, FA.YR                 AS YR
+					, FA.BRNO               AS BRNO
+					, FA.UO_BRNO            AS UO_BRNO
+					, FA.ITEM_CD            AS ITEM_CD
+					, NVL(FA.PRDCR_OGNZ_SN, 0)  AS PRDCR_OGNZ_SN
+					, FA.TRMT_TYPE          AS TRMT_TYPE
+					, FA.STTG_UPBR_ITEM_SE  AS STTG_UPBR_ITEM_SE
+					, ROUND(FA.SPMT_PRC_TOT, 0)     AS SLS_CNSGN_PRCHS_AMT
+					, ROUND(FA.EC_SPMT_VLM_TOT, 0)  AS SLS_CNSGN_PRCHS_VLM
+					, PST.SLS_CNSGN_SLS_AMT         AS SLS_CNSGN_SLS_AMT
+					, PST.SLS_CNSGN_SLS_VLM         AS SLS_CNSGN_SLS_VLM
+					, PST.UO_SPMT_AMT               AS UO_SPMT_AMT
+					, PST.UO_SPMT_VLM               AS UO_SPMT_VLM
+					, PST.UO_OTHER_SPMT_AMT         AS UO_OTHER_SPMT_AMT
+					, PST.UO_OTHER_SPMT_VLM         AS UO_OTHER_SPMT_VLM
+					, PST.RMRK                      AS RMRK
+					, NULL                          AS STBLT_YN
+					, FA.PO_STBLT_YN                AS PO_STBLT_YN
+					, FA.TRMT_TYPE_SEQ              AS TRMT_TYPE_SEQ
+					, CASE FA.PO_STBLT_YN
+						WHEN 'Y' THEN 'Y'
+						ELSE 'N'
+					  END                           AS OGNZ_STBLT_YN
+				  FROM UO_FRMHS_APO FA
+
+				  LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+					ON PST.YR = FA.YR
+				   AND PST.BRNO = FA.BRNO
+				   AND PST.ITEM_CD = FA.ITEM_CD
+				   AND PST.APO_SE = '1'
+				   AND PST.TYPE_SE_NO = 5
+				   AND PST.DEL_YN = 'N'
+				   AND PST.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+				   AND PST.TRMT_TYPE = FA.TRMT_TYPE
+			)
+			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
+				  TOT.YR				AS YR
+				, (SELECT X.SLCTN_YR FROM TB_EV_APO_HSTRY X WHERE X.BRNO = TOT.BRNO AND X.YR = TOT.YR) 	AS SLCTN_YR
+
+				, TOT.ITEM_CD			AS ITEM_CD
+				, TOT.ITEM_NM			AS ITEM_NM
+				, TOT.BRNO				AS BRNO
+				, TOT.CRNO			    AS CRNO
+				, TOT.CORP_NM		    AS CORP_NM
+				, TOT.APRV				AS APRV
+				, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', TOT.APRV) FROM DUAL) AS APRV_NM
+				, TOT.APO_CD			AS APO_CD
+				, TOT.APO_SE			AS APO_SE
+				, TOT.CTGRY_CD		AS CTGRY_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', TOT.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				, TOT.STTG_UPBR_ITEM_SE			AS STTG_UPBR_ITEM_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', TOT.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_SE_NM
+				, TOT.SLS_CNSGN_SLS_AMT			AS SLS_CNSGN_SLS_AMT
+				, TOT.SLS_CNSGN_SLS_AMT_TOT		AS SLS_CNSGN_SLS_AMT_TOT
+				, TOT.SLS_CNSGN_SLS_AMT_RT		AS SLS_CNSGN_SLS_AMT_RT
+				, TOT.SLS_CNSGN_SLS_VLM			AS SLS_CNSGN_SLS_VLM
+				, TOT.SLS_CNSGN_SLS_VLM_TOT		AS SLS_CNSGN_SLS_VLM_TOT
+
+				, TOT.TRGT_TRMT_AMT				AS TRGT_TRMT_AMT
+				, TOT.TRGT_TRMT_RT				AS TRGT_TRMT_RT
+
+				-- , TOT.CLSF_CD		AS CLSF_CD
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_STBLT_YN (
+								TOT.YR
+								, '1'   -- TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.CTGRY_CD
+								, TOT.ITEM_CD
+								, TOT.SLS_CNSGN_SLS_AMT
+								, TOT.SLS_CNSGN_SLS_AMT_TOT
+								, TOT.SLS_CNSGN_SLS_AMT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN
+
+				, (
+							SELECT
+								FN_GET_UO_CNSGN_STBLT_YN_NM (
+										TOT.YR
+										, '1'   -- TOT.APRV
+										, TOT.STTG_UPBR_ITEM_SE
+										, TOT.CTGRY_CD
+										, TOT.ITEM_CD
+										, TOT.SLS_CNSGN_SLS_AMT
+										, TOT.SLS_CNSGN_SLS_AMT_TOT
+										, TOT.SLS_CNSGN_SLS_AMT_RT
+									)
+							FROM DUAL
+				)	AS STBLT_YN_NM
+
+				, (
+					SELECT X.ACTN_MTTR
+					  FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+					 WHERE X.BRNO = TOT.BRNO
+					   AND X.YR = TOT.YR
+					   AND X.APO_SE = '1'
+					   AND X.TYPE_SE_NO = 8
+					   AND X.ITEM_CD = TOT.ITEM_CD
+					   AND X.DEL_YN = 'N'
+				) AS ACTN_MTTR
+
+				, TOT.ORG_STBLT_YN		AS ORG_STBLT_YN
+
+			  FROM (
+				 SELECT
+					  ITEM.YR				AS YR
+					, ITEM.ITEM_CD		AS ITEM_CD
+					, IC.ITEM_NM			AS ITEM_NM
+					, ITEM.BRNO			AS BRNO
+					, ITEM.CRNO			AS CRNO
+					, ITEM.CORP_NM		AS CORP_NM
+					, ITEM.APRV			AS APRV
+					, ITEM.APO_CD			AS APO_CD
+					, ITEM.APO_SE			AS APO_SE
+					, ITEM.CTGRY_CD		AS CTGRY_CD
+					  --, ITEM.CLSF_CD		AS CLSF_CD
+					, ITEM.STTG_UPBR_ITEM_SE		AS STTG_UPBR_ITEM_SE
+
+					, TOTA.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT
+					, TOTB.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT_TOT
+					, TOTA.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM
+					, TOTB.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM_TOT
+
+					, ROUND(
+							 NVL(TOTA.SLS_CNSGN_SLS_AMT, 0)
+							 /
+							 NULLIF(NVL(TOTB.SLS_CNSGN_SLS_AMT, 0), 0)
+						 * 100
+					, 2)	AS SLS_CNSGN_SLS_AMT_RT
+					, ROUND(
+							 NVL(TOTA.SLS_CNSGN_SLS_VLM, 0)
+							 /
+							 NULLIF(NVL(TOTB.SLS_CNSGN_SLS_VLM, 0), 0)
+						 * 100
+					, 2)	AS SLS_CNSGN_SLS_VLM_RT
+					, (
+						 SELECT X.STBLT_YN
+						   FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+						  WHERE X.BRNO = ITEM.BRNO
+							AND X.YR = ITEM.YR
+							AND X.ITEM_CD = ITEM.ITEM_CD
+							AND X.APO_SE = '1'
+							AND X.TYPE_SE_NO = 8
+							AND NVL(X.TMPR_STRG_YN, 'N') = 'N'
+							AND X.DEL_YN = 'N'
+					)		AS ORG_STBLT_YN
+					, ITEM.TRGT_TRMT_AMT		AS TRGT_TRMT_AMT
+					, ITEM.TRGT_TRMT_RT		AS TRGT_TRMT_RT
+
+				 FROM (
+					  SELECT
+						  EAM.APO_SE			AS APO_SE
+						, APO.APO_CD			AS APO_CD
+						, APO.CORP_NM		AS CORP_NM
+						, APO.CRNO			AS CRNO
+						, APO.APRV				AS APRV
+						, EAM.BRNO				AS BRNO
+						, EAM.YR				AS YR
+						, GC.ITEM_CD			AS ITEM_CD
+						, GC.STTG_UPBR_ITEM_SE			AS STTG_UPBR_ITEM_SE
+						, GC.CTGRY_CD						AS CTGRY_CD
+						, GC.TRGT_TRMT_AMT				AS TRGT_TRMT_AMT
+						, GC.TRGT_TRMT_RT					AS TRGT_TRMT_RT
+
+					  FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+						ON APO.BRNO = EAM.BRNO
+					   AND APO.DEL_YN = 'N'
+
+					  JOIN TB_EV_APO_YR_GPC_CD GC
+						ON GC.YR = EAM.YR
+					   AND GC.BRNO = EAM.BRNO
+					   AND GC.DEL_YN = 'N'
+
+					  WHERE EAM.APO_SE = '1'
+						AND EAM.YR = #{yr}
+					    AND EAM.BRNO = #{brno}
+						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+						AND NOT EXISTS (
+						  SELECT 1
+						  FROM TB_COM_USER X
+						  WHERE X.USER_ID IN (
+								  SELECT CD.CD_VL
+								  FROM TB_COM_CD_DTL CD
+								  WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+									AND CD.USE_YN = 'Y'
+									AND CD.DEL_YN = 'N'
+								)
+							AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+						)
+				  ) ITEM
+				  LEFT JOIN (
+                    SELECT
+                          A.BRNO                        AS BRNO
+                        , A.YR                          AS YR
+                        , A.ITEM_CD                     AS ITEM_CD
+                        , NVL(SUM(A.SLS_CNSGN_SLS_AMT), 0)    AS SLS_CNSGN_SLS_AMT
+                        , NVL(SUM(A.SLS_CNSGN_SLS_VLM), 0)    AS SLS_CNSGN_SLS_VLM
+                      FROM (
+                            SELECT
+                                  X.UO_BRNO         AS BRNO
+                                , X.YR              AS YR
+                                , X.ITEM_CD         AS ITEM_CD
+                                , X.UO_SPMT_AMT     AS SLS_CNSGN_SLS_AMT
+                                , X.UO_SPMT_VLM     AS SLS_CNSGN_SLS_VLM
+                              FROM ISO_PST X
+                             WHERE X.STBLT_YN = 'Y'
+                            UNION ALL
+                            SELECT
+                                  X.UO_BRNO         AS BRNO
+                                , X.YR              AS YR
+                                , X.ITEM_CD         AS ITEM_CD
+                                , X.SLS_CNSGN_SLS_AMT     AS SLS_CNSGN_SLS_AMT
+                                , X.SLS_CNSGN_SLS_VLM     AS SLS_CNSGN_SLS_VLM
+                              FROM UO_FRMHS_SPMT X
+                             WHERE X.PO_STBLT_YN = 'Y'
+                      ) A
+					 GROUP BY A.BRNO, A.YR, A.ITEM_CD
+				 ) TOTA
+					ON TOTA.YR = ITEM.YR
+					AND TOTA.BRNO = ITEM.BRNO
+					AND TOTA.ITEM_CD = ITEM.ITEM_CD
+
+			  	LEFT JOIN (
+					 SELECT
+						  SLS.BRNO			AS BRNO
+						, SLS.YR				AS YR
+						, SLS.ITEM_CD		AS ITEM_CD
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_VLM), 0)	AS SLS_CNSGN_SLS_VLM
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_AMT), 0) 	AS SLS_CNSGN_SLS_AMT
+
+					 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+					 JOIN TB_EV_APO_YR_GPC_CD GC
+					   ON GC.YR = SLS.YR
+					  AND GC.BRNO = SLS.BRNO
+					  AND GC.APO_SE = SLS.APO_SE
+					  AND GC.ITEM_CD = SLS.ITEM_CD
+					  AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+					  AND GC.DEL_YN = 'N'
+					 WHERE SLS.APO_SE = '1'
+					   AND SLS.YR = #{yr}
+                       AND SLS.BRNO = #{brno}
+				       AND SLS.TYPE_SE_NO = 8
+					   AND NVL(SLS.TMPR_STRG_YN, 'N') = 'N'
+					   AND SLS.DEL_YN = 'N'
+
+					 GROUP BY  SLS.BRNO, SLS.YR, SLS.ITEM_CD
+				 ) TOTB
+					ON TOTB.YR = ITEM.YR
+					AND TOTB.BRNO = ITEM.BRNO
+					AND TOTB.ITEM_CD = ITEM.ITEM_CD
+
+				  LEFT JOIN TB_ITEM_CRTR IC
+					ON IC.ITEM_CD = ITEM.ITEM_CD
+					AND IC.DEL_YN = 'N'
+
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			 ) TOT
+			WHERE TOT.BRNO IS NOT NULL
+			ORDER BY BRNO, ITEM_CD, STBLT_YN
+		]]>
+	</select>
+
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNe	-->
 	<!-- DESC : 총괄표 조회 2025년 기준                                             		-->
 	<!-- ==========================================================================	-->

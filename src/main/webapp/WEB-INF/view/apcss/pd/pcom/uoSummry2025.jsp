@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : uoSummry2025.jsp
+	 * @Description : 통합조직관리 총괄표 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -273,6 +289,16 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<!--
 						<sbux-button id="btnReport5" name="btnReport5" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -439,6 +465,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
@@ -834,6 +863,10 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		fn_clearForm();//초기화
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
@@ -989,16 +1022,15 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		const nCol = grdPrdcrOgnCurntMng.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = grdPrdcrOgnCurntMng.getRow();
+		let nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
 			return;
 		}
@@ -1007,13 +1039,22 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		//console.log(rowData);
-		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
-		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
-		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
-		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
-		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
-		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
+
+		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd));	//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe));	//통합조직 구분
+		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm));	//법인명
+		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno));		//법인등록번호
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno));		//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr));			//등록년도
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+		</c:if>
 
 	}
 
@@ -1098,55 +1139,81 @@
 		const brno = SBUxMethod.get("dtl-input-brno");//
 		const yr = SBUxMethod.get("dtl-input-yr");//
 
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
+
 		try {
-			//const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
-			const url = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do";
-			//let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", {
-			const postJsonPromise = gfn_postJSON(url, {
-				brno : brno,
-				yr : yr
-			});
-
-			const data = await postJsonPromise ;
 			jsonPrdcrOgnCurntMng01.length = 0;
+			// let totalRecordCount = 0;
 
-			let totalRecordCount = 0;
-			data.resultList.forEach((item, index) => {
+			const defaultUrl = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do";
+			const upbrToAprvUrl = "/pd/pcom/selectUoPrchsSlsSummaryListForUpbrToAprv.do";
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
 
-				jsonPrdcrOgnCurntMng01.push({
-						sttgUpbrItemSe: item.sttgUpbrItemSe,
-						sttgUpbrItemSeNm: item.sttgUpbrItemSeNm,
-						sttgUpbrItemNm: item.sttgUpbrItemNm,
-						itemCd: item.itemCd,
-						itemNm: item.itemNm,
-						ctgryCd: item.ctgryCd,
-						ctgryNm: item.ctgryNm,
-						aprv: item.aprv,
+			const param = {
+				brno: brno,
+				yr: yr
+			}
 
-						slsCnsgnSlsAmt: item.slsCnsgnSlsAmt,
-						slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot,
-						slsCnsgnSlsAmtRt: item.slsCnsgnSlsAmtRt,
 
-						slsCnsgnSlsVlm: item.slsCnsgnSlsVlm,
-						slsCnsgnSlsVlmTot: item.slsCnsgnSlsVlmTot,
+			const postJsonPromise = gfn_postJSON(postUrl, param);
+			const data = await postJsonPromise;
 
-						stbltYn: 		item.stbltYn, 		//적합여부 기준 적용 결과
-						orgStbltYn: 	item.orgStbltYn, 	//적합여부 현재 적용 값
-						//stbltYnNm: 		item.stbltYnNm,		//fn_calStbltYn(item)
-						stbltYnNm: 		fn_calStbltYn(item),		//fn_calStbltYn(item)
-						brno: 			item.brno,
-						yr: 			item.yr,
-						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-						actnMttr: 		item.actnMttr,
-						</c:if>
-					});
+			// //const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
+			// const url = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do";
+			// //let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", {
+			// const postJsonPromise = gfn_postJSON(url, {
+			// 	brno : brno,
+			// 	yr : yr
+			// });
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+			if (_.isEqual("S", data['resultStatus'])) {
+				data.resultList.forEach((item, index) => {
+					console.log(item);
+					jsonPrdcrOgnCurntMng01.push({
+							sttgUpbrItemSe: item.sttgUpbrItemSe,
+							sttgUpbrItemSeNm: item.sttgUpbrItemSeNm,
+							sttgUpbrItemNm: item.sttgUpbrItemNm,
+							itemCd: item.itemCd,
+							itemNm: item.itemNm,
+							ctgryCd: item.ctgryCd,
+							ctgryNm: item.ctgryNm,
+							aprv: item.aprv,
 
-			console.log("jsonPrdcrOgnCurntMng01", jsonPrdcrOgnCurntMng01);
+							slsCnsgnSlsAmt: item.slsCnsgnSlsAmt,
+							slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot,
+							slsCnsgnSlsAmtRt: item.slsCnsgnSlsAmtRt,
+
+							slsCnsgnSlsVlm: item.slsCnsgnSlsVlm,
+							slsCnsgnSlsVlmTot: item.slsCnsgnSlsVlmTot,
+
+							stbltYn: 		item.stbltYn, 		//적합여부 기준 적용 결과
+							// orgStbltYn: 	item.orgStbltYn, 	//적합여부 현재 적용 값
+							orgStbltYn:		_.isEqual("Y", upbrToAprvYn) ? item.stbltYn : item.orgStbltYn,
+
+							//stbltYnNm: 		item.stbltYnNm,		//fn_calStbltYn(item)
+							stbltYnNm: 				_.isEqual("Y", upbrToAprvYn) ? item.stbltYnNm : fn_calStbltYn(item),
+							// stbltYnNm: 		fn_calStbltYn(item),		//fn_calStbltYn(item)
+							brno: 			item.brno,
+							yr: 			item.yr,
+							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+							actnMttr: 		item.actnMttr,
+							</c:if>
+						});
+					//
+					// if (index === 0) {
+					// 	totalRecordCount = item.totalRecordCount;
+					// }
+				});
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
 
 			grdPrdcrOgnCurntMng01.rebuild();
 			//fn_gridCustom();
