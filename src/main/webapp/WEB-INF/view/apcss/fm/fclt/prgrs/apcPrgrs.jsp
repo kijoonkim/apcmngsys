@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 	<div class="scrnsWrap">
 		<div style="text-align: right;">
-			<span style="margin-right: 5px">저장 완료 : <span id="prgrsCnt">0</span>/<span id="prgrsTotCnt">14</span></span>
+			<span style="margin-right: 5px">저장 완료 : <span id="prgrsCnt">0</span>/14</span>
 			<sbux-input uitype="hidden" id="dtl-inp-prgrsCnt" name="dtl-inp-prgrsCnt"></sbux-input>
 			<sbux-input uitype="hidden" id="dtl-inp-prgrsLast" name="dtl-inp-prgrsLast"></sbux-input>
 			<sbux-button
@@ -138,15 +138,6 @@
 					<span class="chk draft" aria-label="임시 저장">임시</span>
 				</span>
 				<label for="scrn14"><p>5.3&nbsp;APC 처리상품 주요판매처</p></label>
-			</div>
-
-			<div class ="scrnWrap" id="scrnWrap15" style="display: none">
-				<span class="scrn" id="scrn15" data-saved="false" data-draft="false">
-					<span class="prgrs"></span>
-					<span class="chk saved" aria-label="저장"></span>
-					<span class="chk draft" aria-label="임시 저장">임시</span>
-				</span>
-				<label for="scrn15"><p>6. APC안전관리 자가진단 체크리스트</p></label>
 			</div>
 		</div>
 	</div>
@@ -296,31 +287,6 @@
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
 
-			if (gfn_isEmpty(apcCd)) return;
-
-			/** 6. 자가진단 체크리스트 추가 **/
-			const scrnWrap15 = document.getElementById('scrnWrap15');
-			const scrnWraps = document.querySelectorAll('.scrnWrap');
-			if (!scrnWrap15) return;
-
-			if (_.isEqual(crtrYr,'2025')) {
-				scrnWrap15.style.display = '';
-
-				scrnWraps.forEach(scrnWrap => {
-					scrnWrap.style.width = '6.14%';
-				});
-
-				document.querySelector('#prgrsTotCnt').innerText = 15;
-			} else {
-				scrnWrap15.style.display = 'none';
-
-				scrnWraps.forEach(scrnWrap => {
-					scrnWrap.style.width = '7.14%';
-				});
-
-				document.querySelector('#prgrsTotCnt').innerText = 14;
-			}
-
 			let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrs.do", {
 				apcCd : apcCd
 				,crtrYr : crtrYr
@@ -345,10 +311,6 @@
 					cfn_setPrgrs(resultVo.prgrs13,'13');
 					cfn_setPrgrs(resultVo.prgrs14,'14');
 
-					if (_.isEqual(crtrYr,'2025')) {
-						cfn_setPrgrs(resultVo.prgrs15,'15');
-					}
-
 					SBUxMethod.set("dtl-inp-prgrsCnt", resultVo.cnt);
 					SBUxMethod.set("dtl-inp-prgrsLast", resultVo.prgrsLast);
 
@@ -356,17 +318,11 @@
 						$('#prgrsCnt').text(resultVo.cnt);
 
 						let prgrsLast = gfn_nvl(resultVo.prgrsLast);
-
-						let completeCnt = 14;
-						if (_.isEqual(crtrYr,'2025')) {
-							completeCnt = 15;
-						}
-
 						//테스트
 						//prgrsLast = 'Y';
 						//SBUxMethod.set("dtl-inp-prgrsLast", prgrsLast);
 
-						if(resultVo.cnt == completeCnt && prgrsLast != 'Y'){
+						if(resultVo.cnt == '14' && prgrsLast != 'Y'){
 							//최종 제출 활성화
 							SBUxMethod.attr('prgrs-btnLastSave','disabled','false');
 						}else{
@@ -378,7 +334,7 @@
 						}
 					}
 				}else{
-					for (var i = 1; i <= 15; i++) {
+					for (var i = 1; i <= 14; i++) {
 						cfn_setPrgrs(null,i);
 					}
 					SBUxMethod.set("dtl-inp-prgrsLast", null);
@@ -418,12 +374,7 @@
 			//저장 확인
 			let saveCnt = SBUxMethod.get("dtl-inp-prgrsCnt");
 
-			let completeCnt = 14;
-			if (_.isEqual(crtrYr,'2025')) {
-				completeCnt = 15;
-			}
-
-			if (saveCnt != completeCnt) return;
+			if(saveCnt != '14') return;
 
 			let mngStr = "최종 제출 하시겠습니까?";
 			if (!confirm(mngStr)) return;
