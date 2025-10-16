@@ -1,7 +1,6 @@
 package com.at.apcss.am.wrhs.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 /**
@@ -31,6 +30,7 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * APC코드
 	 * */
 	private String apcCd;
+    private String apcNm;
 	/*
 	 * 품목코드
 	 * */
@@ -79,5 +79,15 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * */
 	private String yr;
 
+    private String coords;
 
+    /**
+     * x좌표
+     */
+    private double xcrd;
+
+    /**
+     * y좌표
+     */
+    private double ycrd;
 }
