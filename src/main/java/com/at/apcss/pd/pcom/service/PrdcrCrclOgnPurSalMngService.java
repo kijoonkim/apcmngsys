@@ -78,12 +78,29 @@ public interface PrdcrCrclOgnPurSalMngService {
 	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalPurchaseList(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception;
 
 	/**
+	 * 통합조직 매입 목록 조회 (육성->승인)
+	 * @param prdcrCrclOgnPurSalMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalPurchaseListForUpbrToAprv(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception;
+
+	/**
 	 * 통합조직 매출 목록 조회
 	 * @param prdcrCrclOgnPurSalMngVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalSaleList(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 통합조직 매출 목록 조회 (육성->승인)
+	 * @param prdcrCrclOgnPurSalMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalSaleListForUpbrToAprv(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception;
+
 
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 

@@ -1483,7 +1483,7 @@
 			}
 
 			const postJsonPromise = gfn_postJSON(postUrl, param);
-			const data = await postJsonPromise ;
+			const data = await postJsonPromise;
 
 			if (_.isEqual("S", data['resultStatus'])) {
 				const tmprVo = data.resultMap;

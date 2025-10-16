@@ -116,6 +116,14 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 */
 	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryList(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
 
+	/**
+	 * 통합조직 총괄 목록 조회 (육성->승인)
+	 * @param itemUoStbltYnVo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryListForUpbrToAprv(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
+
 
 	/**
 	 * 통합조직 신규 총괄표 조회

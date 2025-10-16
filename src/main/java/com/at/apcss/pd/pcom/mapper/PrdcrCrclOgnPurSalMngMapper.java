@@ -70,6 +70,13 @@ public interface PrdcrCrclOgnPurSalMngMapper {
 	 */
 	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalPurchaseSaleList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 
+	/**
+	 * 통합조직 총 매입매출 목록 조회 (육성->승인)
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return
+	 */
+	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalPurchaseSaleListForUpbrToAprv(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+
 	//매입 리스트
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 	//매출 리스트
