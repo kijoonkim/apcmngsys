@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Component
-@Profile("embedded")
+@Profile({"local","dev"})
 public class WebSocketEndpointConfig {
 
     @Bean

@@ -85,6 +85,16 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-el</artifactId>
+				</exclusion>
+                <exclusion>
+                  <groupId>org.springframework.boot</groupId>
+                  <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 내장 톰캣: JEUS에선 provided -->
@@ -120,6 +130,7 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- EL: 컨테이너 제공 사용(제우스), 필요 시 버전만 표기 + provided -->
@@ -231,6 +242,39 @@
 		<dependency><groupId>org.apache.poi</groupId><artifactId>poi</artifactId><version>3.11</version></dependency>
 		<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml-schemas</artifactId><version>3.11</version></dependency>
 		<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml</artifactId><version>3.11</version></dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+		<groupId>com.fasterxml.woodstox</groupId>
+		<artifactId>woodstox-core</artifactId>
+		<version>6.5.1</version>
+		</dependency>
+
+		<!-- 성능 좋은 StAX 구현체(선택이지만 권장). 대부분 transitive로 끌려오지만 명시해두면 안전 -->
+		<dependency>
+			<groupId>com.fasterxml.woodstox</groupId>
+			<artifactId>woodstox-core</artifactId>
+			<version>6.5.1</version>
+		</dependency>
 
 		<!-- (선택) WebFlux 사용 시 유지, 필요 없으면 제거 -->
 		<dependency>
