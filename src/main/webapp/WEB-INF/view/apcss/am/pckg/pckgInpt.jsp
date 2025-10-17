@@ -34,6 +34,15 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+							id="btn-srch-apcLinkPop"
+							name="btn-srch-apcLinkPop"
+							class="btn btn-sm btn-outline-danger"
+							text="연계요청"
+							uitype="modal"
+							target-id="modal-apcLinkPop"
+							onclick="fn_popApcLink"
+					></sbux-button>
+					<sbux-button
 						id="btnDocPckg"
 						name="btnDocPckg"
 						uitype="normal"
@@ -272,6 +281,21 @@
     <div id="body-modal-vrtyCrtr">
     	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
     </div>
+	<div>
+		<sbux-modal
+				id="modal-apcLinkPop"
+				name="modal-apcLinkPop"
+				uitype="middle"
+				header-title="포장연계수신"
+				body-html-id="body-modal-apcLinkPop"
+				header-is-close-button="false"
+				footer-is-close-button="false"
+				style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-apcLinkPop">
+		<jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -279,6 +303,7 @@
 	var jsonComSpcfct		= [];	// 규격 	spcfctCd		검색
 	var jsonComWarehouse	= [];	// 창고 	warehouseSeCd	검색
 	var jsonComFcltCd		= [];	// 선별기 	fcltCd			검색
+	var jsonApcAtrb 		= []; 	// 연계사용
 
 	/* 생산자 자동완성 */
     var jsonPrdcr			= [];
@@ -292,8 +317,15 @@
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-fcltCd', 		jsonComFcltCd, 		'PCKG_FCLT_CD', 	gv_selectedApcCd),	// 선별기
 		 	gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 선별기
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd)						// 품목
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, 		gv_selectedApcCd),						// 품목
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonApcAtrb, 		'APC_ATRB', 	gv_selectedApcCd),		// 연계사용
 		]);
+
+		if (jsonApcAtrb.find(item => item.value === "SPMT_LINK")) {
+			SBUxMethod.show('btn-srch-apcLinkPop');
+		} else {
+			SBUxMethod.hide('btn-srch-apcLinkPop');
+		}
 
 	}
 
@@ -897,7 +929,25 @@
  		gfn_popClipReport("상품라벨", "am/gdsLabel.crf", {apcCd: gv_selectedApcCd, pckgno: pckgno});
  	}
 
+	/**
+	 * @name fn_popApcLink
+	 * @description 연계버튼팝업
+	 */
+	const fn_popApcLink = function() {
+		popApcLink.init(
+				{
+					apcCd: gv_selectedApcCd,
+					apcNm: gv_selectedApcNm,
+					linkKnd: "P",
+					kndList: ["P"]
+				},
+				fn_popApcLinkCallBack
+		);
+	}
 
+	const fn_popApcLinkCallBack = function() {
+
+	}
 
 
  	$(function(){
