@@ -980,4 +980,30 @@ public class WghPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	/**
+	 * 계량실적 출고 박스/팔레트 목록 조회
+	 * @param WghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectWghPrfmncPltBxSpmtList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghPrfmncPltBxSpmtList(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectWghPrfmncPltBxSpmtList(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			setMenuComLog(request);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
