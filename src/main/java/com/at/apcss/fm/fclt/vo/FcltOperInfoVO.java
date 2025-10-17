@@ -278,6 +278,10 @@ public class FcltOperInfoVO extends ComVO{
 	 */
 	private String prvcClctAgreYmd;
 
+	/**
+	 * 시설설립연도
+	 */
+	private String fndnYr;
 
 	/**
 	 * 품목리스트
