@@ -946,6 +946,11 @@
 			return;
 		}
 
+		if (!gfn_isEmpty(prvcAgre) && _.isEqual(prvcAgre,'N')) {
+			gfn_comAlert("W0021", "저장","개인정보 수집 및 이용에 동의하신 분");	//	W0021	{0}은/는 {1}만 가능합니다.
+			return;
+		}
+
 		if (gfn_isEmpty(fndnYr)) {
 			gfn_comAlert("W0001", "시설설립연도"); // W0001 {0}을/를 선택하세요.
 			return;
