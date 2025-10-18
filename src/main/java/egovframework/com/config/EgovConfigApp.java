@@ -20,7 +20,6 @@ import org.springframework.context.annotation.PropertySources;
 	SSOServletConfig.class,
 	EgovConfigScheduler.class,
 	ProxyRestTemplateConfig.class,
-	ValidatorConfig.class
 })
 @PropertySources({
 	@PropertySource("classpath:/application.properties")
