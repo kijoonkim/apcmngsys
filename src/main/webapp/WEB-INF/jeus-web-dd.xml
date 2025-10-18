@@ -1,3 +1,3 @@
 <jeus-web-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus" version="8.5">
-	<webinf-first><enabled>false</enabled></webinf-first>
+	<webinf-first><enabled>true</enabled></webinf-first>
 </jeus-web-dd>
