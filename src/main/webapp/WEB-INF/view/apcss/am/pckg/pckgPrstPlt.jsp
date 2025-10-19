@@ -150,7 +150,7 @@
 </body>
 <script type="text/javascript">
     /** websoket 객체 **/
-    let ws;
+    let PckgPrstWs;
 
     window.addEventListener("DOMContentLoaded", function() {
       fn_init();
@@ -259,15 +259,15 @@
      */
     const fn_socket = function(){
         // const code = gv_selectedApcCd; // 4자리 코드
-        const code = encodeURIComponent(gv_selectedApcCd);
+        const roomId = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?code=${'${code}'}&userId=${'${userId}'}`
-        ws = new WebSocket(url);
-        ws.onopen = () => {
-            ws.send(JSON.stringify({
+            + location.host + `/ws/chat/${'${roomId}'}/${'${userId}'}`;
+        PckgPrstWs = new WebSocket(url);
+        PckgPrstWs.onopen = () => {
+            PckgPrstWs.send(JSON.stringify({
                 type:'init',
-                code: gv_selectedApcCd,
+                roomId: gv_selectedApcCd,
                 from:'dashboard',
                 tableId: 'sumInfoTable',
                 at: Date.now()
@@ -275,10 +275,10 @@
             [1,2,3,4].forEach(n => setWorkerConnected(n, false));
         };
 
-        ws.onmessage = (e) => {
+        PckgPrstWs.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
-            if (msg.code !== gv_selectedApcCd) return;
+            if (msg.roomId !== gv_selectedApcCd) return;
 
             /** 현황판 최초 진입 **/
             if (msg.type === 'cell.snapshot') {
@@ -327,13 +327,16 @@
                 $(`${'#${userId}'} td[class^="pckg_grd_"]`).each(function () {
                     this.innerText = '0';
                 });
+                let cnptTarget = '#' + getWorkerIdFromTableId(userId) + "_cnpt";
+                let $target = $(cnptTarget);
+                $target.text("");
             }
         };
 
-        ws.onclose = (e) => {
+        PckgPrstWs.onclose = (e) => {
         };
 
-        ws.onerror = (err) => {
+        PckgPrstWs.onerror = (err) => {
             console.error('WS ERROR', err);
         };
     }
