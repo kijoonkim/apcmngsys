@@ -136,6 +136,12 @@
 
 					, AOPO.OGNZ_TYPE_CD
 
+					, AOPO.PIC
+					, AOPO.CTTPC
+					, AOPO.PRVC_CLCT_AGRE_YN
+					, AOPO.PRVC_CLCT_AGRE_YMD
+					, AOPO.FNDN_YR
+
 			FROM TB_TE_APC_OPER_PRSN_OTLN AOPO
 			WHERE 1=1
 			  AND AOPO.DEL_YN = 'N'
@@ -202,6 +208,12 @@
 				, SYS_LAST_CHG_USER_ID	=  #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	=  #{sysLastChgPrgrmId}
 
+			    , PIC 					= #{pic}
+			    , CTTPC					= #{cttpc}
+			    , PRVC_CLCT_AGRE_YN		= #{prvcClctAgreYn}
+			    , PRVC_CLCT_AGRE_YMD	= TO_CHAR(SYSDATE, 'YYYYMMDD')
+		    	, FNDN_YR 				= #{fndnYr}
+
 				WHERE 1=1
 				  AND AOPO.CRTR_YR = #{crtrYr}
 				  AND AOPO.APC_CD = #{apcCd}
@@ -233,6 +245,12 @@
 				  , CTPV_CD
 				  , SIGUN_CD
 				  , OGNZ_TYPE_CD
+
+				  , PIC
+				  , CTTPC
+				  , PRVC_CLCT_AGRE_YN
+				  , PRVC_CLCT_AGRE_YMD
+		    	  , FNDN_YR
 
 				  , SYS_FRST_INPT_DT
 				  , SYS_FRST_INPT_USER_ID
@@ -273,6 +291,12 @@
 				  , #{ctpvCd}
 				  , #{sigunCd}
 				  , #{ognzTypeCd}
+
+				  , #{pic}
+			      , #{cttpc}
+			      , #{prvcClctAgreYn}
+			      , TO_CHAR(SYSDATE, 'YYYYMMDD')
+		    	  , #{fndnYr}
 
 				  , SYSDATE
 				  , #{sysFrstInptUserId}
@@ -322,6 +346,11 @@
 				, OP.SIGUN_CD		AS SIGUN_CD
 				, OP.OGNZ_TYPE_CD	AS OGNZ_TYPE_CD
 				, OP.DEL_YN			AS DEL_YN
+				, OP.PIC 			AS PIC
+				, OP.CTTPC			AS CTTPC
+				, OP.PRVC_CLCT_AGRE_YN AS PRVC_CLCT_AGRE_YN
+				, OP.PRVC_CLCT_AGRE_YMD AS PRVC_CLCT_AGRE_YMD
+				, OP.FNDN_YR		AS FNDN_YR
 			FROM TB_TE_APC_OPER_PRSN_OTLN OP
 			WHERE OP.CRTR_YR =#{crtrYr}
 			  AND OP.APC_CD = #{apcCd}
@@ -397,6 +426,12 @@
 				, SIGUN_CD
 				, OGNZ_TYPE_CD
 
+				, PIC
+				, CTTPC
+				, PRVC_CLCT_AGRE_YN
+				, PRVC_CLCT_AGRE_YMD
+				, FNDN_YR
+
 				, SYS_FRST_INPT_DT
 				, SYS_FRST_INPT_USER_ID
 				, SYS_FRST_INPT_PRGRM_ID
@@ -434,6 +469,12 @@
 				, #{ctpvCd}
 				, #{sigunCd}
 				, #{ognzTypeCd}
+
+				, #{pic}
+				, #{cttpc}
+				, #{prvcClctAgreYn}
+				, TO_CHAR(SYSDATE, 'YYYYMMDD')
+				, #{fndnYr}
 
 				, SYSDATE
 				, #{sysFrstInptUserId}
@@ -493,6 +534,12 @@
 				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 
+
+			  	, PIC 					= #{pic}
+			  	, CTTPC					= #{cttpc}
+			  	, PRVC_CLCT_AGRE_YN		= #{prvcClctAgreYn}
+			  	, PRVC_CLCT_AGRE_YMD	= TO_CHAR(SYSDATE, 'YYYYMMDD')
+			  	, FNDN_YR				= #{fndnYr}
 			WHERE CRTR_YR = #{crtrYr}
 			  AND APC_CD  = #{apcCd}
 		]]>
@@ -1066,6 +1113,8 @@
 			,RPRSV_KORN_NM	 AS RPRSV
 			,BRNO			 AS OPER_OGNZ_BRNO
 			,CRNO			 AS OPER_OGNZ_CRNO
+			, PIC_NM 		 AS PIC_NM
+			, MBL_TELNO		 AS MBL_TELNO
 		FROM TB_COM_USER
 		WHERE 1=1
 		  AND USER_ID = #{userId}

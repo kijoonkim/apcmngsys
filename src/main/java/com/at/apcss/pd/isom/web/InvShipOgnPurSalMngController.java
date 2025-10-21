@@ -23,7 +23,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 @Controller
 public class InvShipOgnPurSalMngController extends BaseController{
 
-	@Resource(name= "InvShipOgnPurSalMngService")
+	@Resource(name= "invShipOgnPurSalMngService")
 	private InvShipOgnPurSalMngService invShipOgnPurSalMngService;
 
 	//화면이동
@@ -76,6 +76,34 @@ public class InvShipOgnPurSalMngController extends BaseController{
 			 resultPrchsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngPrchsListNew(invShipOgnPurSalMngVO);
 			 resultSlsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngSlsListNew(invShipOgnPurSalMngVO);
 			 result = invShipOgnPurSalMngService.selectTempSaveIsoAps(invShipOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put("resultPrchsList", resultPrchsList);
+		resultMap.put("resultSlsList", resultSlsList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출자출하조직 총괄표 육성 -> 승인
+	 * @param model
+	 * @param invShipOgnPurSalMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/isom/selectIsoTotalPurchaseSaleListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoTotalPurchaseSaleListForUpbrToAprv(Model model, @RequestBody InvShipOgnPurSalMngVO invShipOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<InvShipOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
+		List<InvShipOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		InvShipOgnPurSalMngVO result = new InvShipOgnPurSalMngVO();
+		try {
+			resultPrchsList = invShipOgnPurSalMngService.selectIsoTotalPurchaseListForUpbrToAprv(invShipOgnPurSalMngVO);
+			resultSlsList = invShipOgnPurSalMngService.selectIsoTotalSaleListForUpbrToAprv(invShipOgnPurSalMngVO);
+			result = invShipOgnPurSalMngService.selectTempSaveIsoAps(invShipOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : isoTotal2025.jsp
+	 * @Description : 출자출하조직 관리 총 매입·매출 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -266,6 +282,16 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<!--
@@ -571,6 +597,9 @@
 
 	/* 초기화면 로딩 기능 */
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		fn_fcltMngCreateGrid01();
@@ -1745,6 +1774,10 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//통합조직인 경우
 		if (gfn_isEmpty(yr)) {
@@ -2224,15 +2257,15 @@
 	const fn_view = async function(){
 		let objGrid = grdPrdcrOgnCurntMng;
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = objGrid.getCol();
+		const nCol = objGrid.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = objGrid.getRow();
+		let nRow = objGrid.getRow();
 		if (nRow < 1) {
 			return;
 		}
-		if(nRow == null){
+		if (nRow == null){
 			nRow = 1;
 		}
 
@@ -2249,6 +2282,14 @@
 
 		//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
 		//fn_searchUoList();
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+		</c:if>
 	}
 
 	//매입 매출 그리드 초기화
@@ -2326,17 +2367,29 @@
 			yr: yr
 		}
 
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
+
 		jsonPrdcrOgnCurntMng01.length = 0;
 		jsonPrdcrOgnCurntMng02.length = 0;
 		jsonPrdcrOgnCurntMng03.length = 0;
 
 		try {
 
-			const postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do", param);
-			//const postJsonPromise01 = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleList.do", param);
-			const data = await postJsonPromise01;
+			const defaultUrl = "/pd/isom/selectInvShipOgnPurSalMngPrchsSlsListNew.do";
+			const upbrToAprvUrl = "/pd/isom/selectIsoTotalPurchaseSaleListForUpbrToAprv.do";
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
 
-			//console.log("data==="+data);
+			const postJsonPromise = gfn_postJSON(upbrToAprvUrl, param);
+			//const postJsonPromise01 = gfn_postJSON("/pd/isom/selectIsoTotalPurchaseSaleList.do", param);
+			const data = await postJsonPromise;
+
 			let tmprVo = data.resultMap;
 			if (tmprVo != null){
 				if (tmprVo.tmprStrgYn == 'Y'){
@@ -2348,157 +2401,157 @@
 				}
 			}
 
-			data.resultPrchsList.forEach((item, index) => {
-				jsonPrdcrOgnCurntMng01.push({
-					apoCd: 	item.apoCd
-					,apoSe: item.apoSe
-					,brno: 	item.brno
-					,crno: 	item.crno
-					,delYn: item.delYn
-					,yr: item.yr
-					,uoBrno: item.uoBrno
-					,uoCorpNm: item.uoCorpNm
-					,corpNm: item.corpNm
+			if (_.isEqual("S", data['resultStatus'])) {
+				data.resultPrchsList.forEach((item, index) => {
+					jsonPrdcrOgnCurntMng01.push({
+						apoCd: 				item.apoCd,
+						apoSe: 				item.apoSe,
+						brno: 				item.brno,
+						crno: 				item.crno,
+						delYn: 				item.delYn,
+						yr: 				item.yr,
+						uoBrno: 			item.uoBrno,
+						uoCorpNm: 			item.uoCorpNm,
+						corpNm: 			item.corpNm,
 
-					,sttgUpbrItemSe: item.sttgUpbrItemSe
-					,sttgUpbrItemNm: item.sttgUpbrItemNm
+						sttgUpbrItemSe: 	item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 	item.sttgUpbrItemNm,
 
-					,itemCd: 		item.itemCd
-					,itemNm: 		item.itemNm
-					,ctgryCd: 		item.ctgryCd
-					,ctgryNm: 		item.ctgryNm
-					,clsfCd: 		item.clsfCd
-					,clsfNm: 		item.clsfNm
-					,prchsSlsSe: 	item.prchsSlsSe
+						itemCd: 			item.itemCd,
+						itemNm: 			item.itemNm,
+						ctgryCd: 			item.ctgryCd,
+						ctgryNm: 			item.ctgryNm,
+						clsfCd: 			item.clsfCd,
+						clsfNm: 			item.clsfNm,
+						prchsSlsSe: 		item.prchsSlsSe,
 
-					,prchsSortTrstVlm: 		item.prchsSortTrstVlm
-					,prchsSortTrstAmt: 		item.prchsSortTrstAmt
-					,prchsSpmtTrstVlm: 		item.prchsSpmtTrstVlm
-					,prchsSpmtTrstAmt: 		item.prchsSpmtTrstAmt
-					,prchsSmplTrstVlm: 		item.prchsSmplTrstVlm
-					,prchsSmplTrstAmt: 		item.prchsSmplTrstAmt
+						prchsSortTrstVlm:	item.prchsSortTrstVlm,
+						prchsSortTrstAmt:	item.prchsSortTrstAmt,
+						prchsSpmtTrstVlm:	item.prchsSpmtTrstVlm,
+						prchsSpmtTrstAmt:	item.prchsSpmtTrstAmt,
+						prchsSmplTrstVlm:	item.prchsSmplTrstVlm,
+						prchsSmplTrstAmt:	item.prchsSmplTrstAmt,
 
-					,prchsTrstVlm: 			item.prchsTrstVlm
-					,prchsTrstAmt: 			item.prchsTrstAmt
+						prchsTrstVlm:		item.prchsTrstVlm,
+						prchsTrstAmt:		item.prchsTrstAmt,
 
-					,prchsSortEmspapVlm: 	item.prchsSortEmspapVlm
-					,prchsSortEmspapAmt: 	item.prchsSortEmspapAmt
-					,prchsSmplEmspapVlm: 	item.prchsSmplEmspapVlm
-					,prchsSmplEmspapAmt: 	item.prchsSmplEmspapAmt
+						prchsSortEmspapVlm: item.prchsSortEmspapVlm,
+						prchsSortEmspapAmt: item.prchsSortEmspapAmt,
+						prchsSmplEmspapVlm: item.prchsSmplEmspapVlm,
+						prchsSmplEmspapAmt: item.prchsSmplEmspapAmt,
 
-					,prchsEmspapVlm: 		item.prchsEmspapVlm
-					,prchsEmspapAmt: 		item.prchsEmspapAmt
+						prchsEmspapVlm: 	item.prchsEmspapVlm,
+						prchsEmspapAmt: 	item.prchsEmspapAmt,
 
-					,prchsTotVlm: 			item.prchsTotVlm
-					,prchsTotAmt: 			item.prchsTotAmt
-					,etcVlm: 				item.etcVlm
-					,etcAmt: 				item.etcAmt
-				});
-			});
-
-			data.resultSlsList.forEach((item, index) => {
-				jsonPrdcrOgnCurntMng02.push({
-						apoCd: 	item.apoCd
-						,apoSe: item.apoSe
-						,brno: 	item.brno
-						,crno: 	item.crno
-						,delYn: item.delYn
-						,yr: item.yr
-						,uoBrno: item.uoBrno
-						,uoCorpNm: item.uoCorpNm
-						,corpNm: item.corpNm
-						,sttgUpbrItemSe: item.sttgUpbrItemSe
-						,sttgUpbrItemNm: item.sttgUpbrItemNm
-						,itemCd: 		item.itemCd
-						,itemNm: 		item.itemNm
-						,ctgryCd: 		item.ctgryCd
-						,ctgryNm: 		item.ctgryNm
-						,clsfCd: 		item.clsfCd
-						,clsfNm: 		item.clsfNm
-						,prchsSlsSe: 	item.prchsSlsSe
-						,slsSmplTrstVlm: 	item.slsSmplTrstVlm
-						,slsSmplTrstAmt: 	item.slsSmplTrstAmt
-						,slsSmplEmspapVlm: 	item.slsSmplEmspapVlm
-						,slsSmplEmspapAmt: 	item.slsSmplEmspapAmt
-
-						,slsEmspapVlm: 		item.slsEmspapVlm
-						,slsEmspapAmt: 		item.slsEmspapAmt
-						,slsTrstVlm: 		item.slsTrstVlm
-						,slsTrstAmt: 		item.slsTrstAmt
-
-						,totTrmtPrfmncVlm: 		item.totTrmtPrfmncVlm
-						,totTrmtPrfmncAmt: 		item.totTrmtPrfmncAmt
-
-						,ddcExprtVlm: 		item.ddcExprtVlm
-						,ddcExprtAmt: 		item.ddcExprtAmt
-						,ddcVlm: 			item.ddcVlm
-						,ddcAmt: 			item.ddcAmt
-						,ddcArmyDlvgdsVlm: 	item.ddcArmyDlvgdsVlm
-						,ddcArmyDlvgdsAmt: 	item.ddcArmyDlvgdsAmt
-						,ddcMlsrVlm: 		item.ddcMlsrVlm
-						,ddcMlsrAmt: 		item.ddcMlsrAmt
-
-						,ajmtVlm: 		item.ajmtVlm
-						,ajmtAmt: 		item.ajmtAmt
-
-						,slsTotVlm: 		item.slsTotVlm
-						,slsTotAmt: 		item.slsTotAmt
+						prchsTotVlm: 		item.prchsTotVlm,
+						prchsTotAmt: 		item.prchsTotAmt,
+						etcVlm: 			item.etcVlm,
+						etcAmt: 			item.etcAmt
+					});
 				});
 
-				jsonPrdcrOgnCurntMng03.push({
-						apoCd: 	item.apoCd,
-						apoSe: 	item.apoSe,
-						brno: 	item.brno,
-						crno: 	item.crno,
-						delYn: 	item.delYn,
-						yr: 	item.yr,
-						uoBrno: item.uoBrno,
-						uoCorpNm: item.uoCorpNm,
-						corpNm: item.corpNm,
-						sttgUpbrItemSe: item.sttgUpbrItemSe,
-						sttgUpbrItemNm: item.sttgUpbrItemNm,
-						itemCd: 		item.itemCd,
-						itemNm: 		item.itemNm,
-						ctgryCd: 		item.ctgryCd,
-						ctgryNm: 		item.ctgryNm,
-						clsfCd: 		item.clsfCd,
-						clsfNm: 		item.clsfNm,
-						prchsSlsSe: 	item.prchsSlsSe,
-						totSpmtPrfmncVlm: 	item.totSpmtPrfmncVlm,
-						totSpmtPrfmncAmt: 	item.totSpmtPrfmncAmt,
-						smplInptVlm: 		item.smplInptVlm,
-						smplInptAmt: 		item.smplInptAmt,
-						spmtPrfmncVlm: 		item.spmtPrfmncVlm,
-						spmtPrfmncAmt: 		item.spmtPrfmncAmt,
+				data.resultSlsList.forEach((item, index) => {
+					jsonPrdcrOgnCurntMng02.push({
+						apoCd: 				item.apoCd,
+						apoSe: 				item.apoSe,
+						brno: 				item.brno,
+						crno: 				item.crno,
+						delYn: 				item.delYn,
+						yr: 				item.yr,
+						uoBrno: 			item.uoBrno,
+						uoCorpNm: 			item.uoCorpNm,
+						corpNm: 			item.corpNm,
+						sttgUpbrItemSe: 	item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 	item.sttgUpbrItemNm,
+						itemCd: 			item.itemCd,
+						itemNm: 			item.itemNm,
+						ctgryCd: 			item.ctgryCd,
+						ctgryNm: 			item.ctgryNm,
+						clsfCd: 			item.clsfCd,
+						clsfNm: 			item.clsfNm,
+						prchsSlsSe: 		item.prchsSlsSe,
+						slsSmplTrstVlm: 	item.slsSmplTrstVlm,
+						slsSmplTrstAmt: 	item.slsSmplTrstAmt,
+						slsSmplEmspapVlm: 	item.slsSmplEmspapVlm,
+						slsSmplEmspapAmt: 	item.slsSmplEmspapAmt,
+						slsEmspapVlm: 		item.slsEmspapVlm,
+						slsEmspapAmt: 		item.slsEmspapAmt,
+						slsTrstVlm: 		item.slsTrstVlm,
+						slsTrstAmt: 		item.slsTrstAmt,
+						totTrmtPrfmncVlm: 	item.totTrmtPrfmncVlm,
+						totTrmtPrfmncAmt: 	item.totTrmtPrfmncAmt,
+						ddcExprtVlm: 		item.ddcExprtVlm,
+						ddcExprtAmt: 		item.ddcExprtAmt,
+						ddcVlm: 			item.ddcVlm,
+						ddcAmt: 			item.ddcAmt,
+						ddcArmyDlvgdsVlm: 	item.ddcArmyDlvgdsVlm,
+						ddcArmyDlvgdsAmt: 	item.ddcArmyDlvgdsAmt,
+						ddcMlsrVlm: 		item.ddcMlsrVlm,
+						ddcMlsrAmt: 		item.ddcMlsrAmt,
+						ajmtVlm: 			item.ajmtVlm,
+						ajmtAmt: 			item.ajmtAmt,
+						slsTotVlm: 			item.slsTotVlm,
+						slsTotAmt: 			item.slsTotAmt,
+					});
+
+					jsonPrdcrOgnCurntMng03.push({
+						apoCd: 					item.apoCd,
+						apoSe: 					item.apoSe,
+						brno: 					item.brno,
+						crno: 					item.crno,
+						delYn: 					item.delYn,
+						yr: 					item.yr,
+						uoBrno: 				item.uoBrno,
+						uoCorpNm: 				item.uoCorpNm,
+						corpNm: 				item.corpNm,
+						sttgUpbrItemSe: 		item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 		item.sttgUpbrItemNm,
+						itemCd: 				item.itemCd,
+						itemNm: 				item.itemNm,
+						ctgryCd: 				item.ctgryCd,
+						ctgryNm: 				item.ctgryNm,
+						clsfCd: 				item.clsfCd,
+						clsfNm: 				item.clsfNm,
+						prchsSlsSe: 			item.prchsSlsSe,
+						totSpmtPrfmncVlm: 		item.totSpmtPrfmncVlm,
+						totSpmtPrfmncAmt: 		item.totSpmtPrfmncAmt,
+						smplInptVlm: 			item.smplInptVlm,
+						smplInptAmt: 			item.smplInptAmt,
+						spmtPrfmncVlm: 			item.spmtPrfmncVlm,
+						spmtPrfmncAmt: 			item.spmtPrfmncAmt,
 						slsCprtnSortTrstVlm: 	item.slsCprtnSortTrstVlm,
 						slsCprtnSortTrstAmt: 	item.slsCprtnSortTrstAmt,
 						slsCprtnSortEmspapVlm: 	item.slsCprtnSortEmspapVlm,
 						slsCprtnSortEmspapAmt: 	item.slsCprtnSortEmspapAmt,
-						slsCprtnTrstVlm:	item.slsCprtnTrstVlm,
-						slsCprtnTrstAmt:	item.slsCprtnTrstAmt,
-						slsCprtnTotVlm:		item.slsCprtnTotVlm,
-						slsCprtnTotAmt:		item.slsCprtnTotAmt,
-						ajmtAmt: 			item.ajmtAmt,
-						ajmtVlm: 			item.ajmtVlm,
+						slsCprtnTrstVlm:		item.slsCprtnTrstVlm,
+						slsCprtnTrstAmt:		item.slsCprtnTrstAmt,
+						slsCprtnTotVlm:			item.slsCprtnTotVlm,
+						slsCprtnTotAmt:			item.slsCprtnTotAmt,
+						ajmtAmt: 				item.ajmtAmt,
+						ajmtVlm: 				item.ajmtVlm,
+					});
 				});
-			});
 
-			grdPrdcrOgnCurntMng03.rebuild();
-			grdPrdcrOgnCurntMng02.rebuild();
-			grdPrdcrOgnCurntMng01.rebuild();
-			//grdPrdcrOgnCurntMng04.rebuild(); 매출현황 요약
+				grdPrdcrOgnCurntMng03.rebuild();
+				grdPrdcrOgnCurntMng02.rebuild();
+				grdPrdcrOgnCurntMng01.rebuild();
+				//grdPrdcrOgnCurntMng04.rebuild(); 매출현황 요약
 
-			//소계 줄 추가
-			grdPrdcrOgnCurntMng03.addRow();
-			grdPrdcrOgnCurntMng02.addRow();
-			grdPrdcrOgnCurntMng01.addRow();
+				//소계 줄 추가
+				grdPrdcrOgnCurntMng03.addRow();
+				grdPrdcrOgnCurntMng02.addRow();
+				grdPrdcrOgnCurntMng01.addRow();
 
-			fn_grdTot03();
-			fn_grdTot02();
-			fn_grdTot01();
+				fn_grdTot03();
+				fn_grdTot02();
+				fn_grdTot01();
 
-			//포커스 이동
-			SBUxMethod.focus('dtl-input-brno');
+				//포커스 이동
+				SBUxMethod.focus('dtl-input-brno');
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

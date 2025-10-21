@@ -1189,9 +1189,9 @@
 			const vrtyCd = rowData.vrtyCd;
 			const spcfctCd = rowData.spcfctCd;
 			const warehouseSeCd = rowData.warehouseSeCd;
-			const spcfctWght = parseInt(rowData.spcfctWght) || 0;
+			const spcfctWght = parseFloat(rowData.spcfctWght) || 0;
 			const sortQntt = parseInt(rowData.sortQntt) || 0;
-			const sortWght = parseInt(rowData.sortWght) || 0;
+			const sortWght = parseFloat(rowData.sortWght) || 0;
 
 			const autoPckgInptYn = rowData.checkedYn;	// 포장등록 유무
 			const spmtPckgUnitCd = rowData.spmtPckgUnitCd;
@@ -1374,8 +1374,6 @@
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
-		console.log(sortMng,"저장전");
-		return;
 
         try {
     		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);

@@ -732,6 +732,8 @@
                 typeinfo : {callback: fn_modalStdgCd}},
 	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+            {caption : ['X좌표'], 		ref: 'xcrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
+            {caption : ['Y좌표'], 		ref: 'ycrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
         	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '55px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
 	    ];
@@ -1031,6 +1033,8 @@
                 typeinfo : {callback: fn_modalStdgCd}},
 	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+            {caption : ['X좌표'], 		ref: 'xcrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
+            {caption : ['Y좌표'], 		ref: 'ycrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
 	    	{caption : [''], 			ref: 'rmrk', 		type: 'output', width: '200px', },
 	    ];
 	    grdLandInfo = _SBGrid.create(SBGridProperties);
@@ -1972,7 +1976,9 @@
                     totalPageCount: item.totalPageCount,
                     totalRecordCount: item.totalRecordCount,
                     userIp: item.userIp,
-                    yr: item.yr
+                    yr: item.yr,
+                    xcrd: parseFloat(item.xcrd),
+                    ycrd: parseFloat(item.ycrd)
                 }
 
 	        	jsonPrdcrLandInfo.push(prdcrLandInfoVO);
@@ -2240,7 +2246,9 @@
                     prdcrLandInfoNo: item.prdcrLandInfoNo,
                     rowSts: item.rowSts,
                     stdgCd: item.stdgCd,
-                    yr: item.yr
+                    yr: item.yr,
+                    xcrd: parseFloat(item.xcrd),
+                    ycrd: parseFloat(item.ycrd)
                 }
 
 	        	jsonLandInfo.push(landInfoVO);
@@ -2482,8 +2490,10 @@
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let yr = SBUxMethod.get("srch-dtp-yr");
 		let landInfoList = [];
+        const geocodingPromises = [];
+        const geocodeLists = [];
 
-		if (gfn_isEmpty(yr)) {
+        if (gfn_isEmpty(yr)) {
 			gfn_comAlert("W0001", "연도");		//	W0001	{0}을/를 선택하세요.
             return;
 		}
@@ -2502,8 +2512,16 @@
 	            return;
 			}
 
+            const address = rowData.frlnAddr;
+
+            rowData.xcrd = null;
+            rowData.ycrd = null;
+
+            let needsGeocoding = false;
+
 			if (excelYn == "Y") {
 				if (rowSts === 0 || rowSts === 2){
+                    needsGeocoding = true;
 					rowData.apcCd = gv_selectedApcCd;
 					rowData.itemCd = itemCd;
 					rowData.yr = yr;
@@ -2514,12 +2532,14 @@
 				}
 			} else {
 				if (rowSts === 3){
+                    needsGeocoding = true;
 					rowData.apcCd = gv_selectedApcCd;
 					rowData.itemCd = itemCd;
 					rowData.yr = yr;
 					rowData.rowSts = "I";
 					landInfoList.push(rowData);
 				} else if (rowSts === 2) {
+                    needsGeocoding = true;
 					rowData.rowSts = "U";
 					rowData.yr = yr;
 					landInfoList.push(rowData);
@@ -2527,7 +2547,39 @@
 					continue;
 				}
 			}
+
+            if(needsGeocoding) {
+                landInfoList.push(rowData);
+                if(!gfn_isEmpty(address)) {
+                    geocodingPromises.push(fn_getCoords(address));
+                    geocodeLists.push(rowData);
+                }
+            }
 		}
+
+        if(geocodingPromises.length > 0) {
+            if(typeof SBUxMethod === 'function') {
+                SBUxMethod.openProgress(gv_loadingOptions);
+            }
+
+            try {
+                const allCoords = await Promise.all(geocodingPromises);
+
+                allCoords.forEach((coords, index) => {
+                    const targetRow = geocodeLists[index];
+                    if(coords) {
+                        targetRow.xcrd = coords.xcrd;
+                        targetRow.ycrd = coords.ycrd;
+                    }
+                });
+            } catch(e) {
+                console.error("오류 발생:", e);
+            } finally {
+                if(typeof SBUxMethod === 'function') {
+                    SBUxMethod.closeProgress(gv_loadingOptions);
+                }
+            }
+        }
 
 		if (landInfoList.length == 0) {
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
@@ -2559,6 +2611,59 @@
 
 
 	}
+
+    // 주소를 좌표로 변환
+    const fn_getCoords = async function(address) {
+        if(gfn_isEmpty(address)) {
+            return null;
+        }
+
+        const callGeocoder = function(address, type) {
+            return new Promise((resolve) => {
+                $.ajax({
+                    url: "https://api.vworld.kr/req/address?",
+                    type: "GET",
+                    dataType: "jsonp",
+                    data: {
+                        service: "address",
+                        request: "GetCoord",
+                        version: "2.0",
+                        crs: "EPSG:4326",
+                        type: type,
+                        address: address,
+                        format: "json",
+                        errorformat: "json",
+                        key: "FC4EDA75-1904-32F7-950C-B0E45DFBEFDD"
+                    },
+                    success: function(data) {
+                        if(data.response.status === "OK" && data.response.result.point) {
+                            const point = data.response.result.point;
+
+                            resolve({
+                                xcrd: point.x,
+                                ycrd: point.y
+                            });
+                        } else {
+                            console.warn(data.response.errorMessage);
+                            resolve(null);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(`API 호출 오류:`, status, error);
+                        resolve(null);
+                    }
+                });
+            });
+        };
+
+        let coords = await callGeocoder(address, "ROAD");
+
+        if(!coords) {
+            coords = await callGeocoder(address, "PARCEL");
+        }
+
+        return coords;
+    }
 
 	/**
 	 * @name fn_saveFrmerInfo
@@ -2633,6 +2738,8 @@
 		let grdLandData = grdPrdcrLandInfo.getGridDataAll();
 
 		let prdcrLandInfoList = [];
+        const geocodingPromises = [];
+        const geocodeLists = [];
 
 		for (var k=1; k<=grdLandData.length; k++) {
 			let rowData = grdPrdcrLandInfo.getRowData(k);
@@ -2640,7 +2747,25 @@
 			let prdcrLandInfoNo = rowData.prdcrLandInfoNo;
 			let delYn = rowData.delYn;
 
+            let needsGeocoding = false;
+
 			if (!gfn_isEmpty(delYn)) {
+                if(rowSts === 3 || rowSts === 2) {
+                    const address = rowData.frlnAddr;
+
+                    if(!gfn_isEmpty(address)) {
+                        needsGeocoding = true;
+                        geocodingPromises.push(fn_getCoords(address));
+                        geocodeLists.push(rowData);
+                    } else {
+                        rowData.xcrd = null;
+                        rowData.ycrd = null;
+                    }
+                } else {
+                    rowData.xcrd = null;
+                    rowData.ycrd = null;
+                }
+
 				if (rowSts === 3) {
 					rowData.rowSts 		= "I";
 					rowData.apcCd 		= gv_selectedApcCd;
@@ -2662,6 +2787,33 @@
 				}
 			}
 		}
+
+        if(geocodingPromises.length > 0) {
+            if(typeof SBUxMethod === 'function') {
+                SBUxMethod.openProgress(gv_loadingOptions);
+            }
+
+            try {
+                const allCoords = await Promise.all(geocodingPromises);
+
+                allCoords.forEach((coords, index) => {
+                    const targetRow = geocodeLists[index];
+                    if(coords) {
+                        targetRow.xcrd = coords.xcrd;
+                        targetRow.ycrd = coords.ycrd;
+                    } else {
+                        targetRow.xcrd = null;
+                        targetRow.ycrd = null;
+                    }
+                });
+            } catch(e) {
+                console.error("오류 발생:", e);
+            } finally {
+                if(typeof SBUxMethod === 'function') {
+                    SBUxMethod.closeProgress(gv_loadingOptions);
+                }
+            }
+        }
 
 		if (prdcrLandInfoList.length != 0) {
 			if (cltvtnListVO == null) {
@@ -3397,8 +3549,10 @@
 
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
 		let yr = SBUxMethod.get("srch-dtp-yr");
+		let ddlnKndCd = '0002'	// 예상마감 코드
+
 		SBUxMethod.openModal('modal-ddln');
-		popDdln.init(gv_selectedApcCd, itemCd, yr, fn_setFrmhsExpctWrhs);
+		popDdln.init(gv_selectedApcCd, yr,ddlnKndCd, fn_setFrmhsExpctWrhs, itemCd);
 	}
 
 

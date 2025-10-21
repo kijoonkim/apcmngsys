@@ -697,6 +697,143 @@
 		</if>
 	</select>
 
+	<!-- ==============================================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList				-->
+	<!-- DESC : 생산자조직 목록 조회.                                             							-->
+	<!-- ==============================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      								-->
+	<!-- ===========  	============  	===============================================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            					-->
+	<!-- ==============================================================================================	-->
+	<select id="selectPrdcrOgnzPrfmncList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+
+		<![CDATA[
+			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList */
+		]]>
+		<!-- Start 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+				  ROWNUM AS ROW_SEQ
+				, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+				,
+		</if>
+		<![CDATA[
+                  pt0.*
+			  FROM (
+			SELECT
+				  FA.APO_CD     AS APO_CD
+				, FA.APO_SE     AS APO_SE
+				, FA.BRNO       AS BRNO
+				, FA.CRNO       AS CRNO
+				, FA.YR         AS YR
+				, FA.UO_BRNO    AS UO_BRNO
+				, FA.UO_CD      AS UO_CD
+
+				, ITM.STTG_UPBR_ITEM_SE AS STTG_UPBR_ITEM_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', ITM.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+				, ITM.CTGRY_CD  AS CTGRY_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				, ITM.CLSF_CD   AS CLSF_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', ITM.CLSF_CD) FROM DUAL) AS CLSF_NM
+				, FA.ITEM_CD    AS ITEM_CD
+				, (SELECT FN_GET_ITEM_NM(FA.ITEM_CD) FROM DUAL) AS ITEM_NM
+				, FA.TRMT_TYPE  AS TRMT_TYPE
+                , (SELECT FN_GET_COM_CD_VL_NM('TRMT_TYPE', FA.TRMT_TYPE) FROM DUAL) AS TRMT_TYPE_NM
+				, FA.PRDCR_OGNZ_SN  AS PRDCR_OGNZ_SN
+				, FA.PRDCR_OGNZ_CD  AS PRDCR_OGNZ_CD
+				, FA.PRDCR_OGNZ_NM  AS PRDCR_OGNZ_NM
+				, FA.CTRT_DT        AS CTRT_DT
+				, FA.SPMT_BGNG_DT   AS SPMT_BGNG_DT
+				, FA.SPMT_END_DT    AS SPMT_END_DT
+				, FA.RMRK           AS RMRK
+				, FA.DEL_YN         AS DEL_YN
+				, FA.STBLT_YN       AS STBLT_YN
+				, FA.EXCL_YN        AS EXCL_YN
+
+				, ESS.CNT
+				, ESS.PRDCTN_VLM_TOT        AS PRDCTN_VLM_TOT
+				, ESS.EC_SPMT_VLM_TOT       AS EC_SPMT_VLM_TOT
+				, ESS.EC_SPMT_PLAN_VLM_TOT  AS EC_SPMT_PLAN_VLM_TOT
+				, ESS.SPMT_PRC_TOT          AS SPMT_PRC_TOT
+                , ESS.EC_SPMT_RATE_A        AS EC_SPMT_RATE_A
+                , ESS.EC_SPMT_RATE_B        AS EC_SPMT_RATE_B
+
+				, FA.SYS_LAST_CHG_DT                            AS SYS_LAST_CHG_DT
+				, TO_CHAR(FA.SYS_LAST_CHG_DT, 'YYYY-MM-DD')		AS SYS_LAST_CHG_DT_YMD
+				, FA.SYS_LAST_CHG_USER_ID	                    AS SYS_LAST_CHG_USER_ID
+				, (SELECT FN_GET_COM_USER_NM(FA.SYS_LAST_CHG_USER_ID) FROM DUAL) AS SYS_LAST_CHG_USER_NM
+				, FA.SYS_LAST_CHG_PRGRM_ID	                    AS SYS_LAST_CHG_PRGRM_ID
+
+                , CASE FA.TRMT_TYPE
+                    WHEN 1 THEN 3
+				    WHEN 2 THEN 1
+				    WHEN 3 THEN 2
+				    ELSE 4
+                  END       AS TRMT_TYPE_SEQ
+
+                , (
+                    SELECT FN_GET_PRUO_PRDCR_STBLT_YN (
+                              FA.YR
+                            , '1'
+                            , ITM.STTG_UPBR_ITEM_SE
+                            , FA.TRMT_TYPE
+                            , ESS.CNT
+                            , ESS.SPMT_PRC_TOT
+                            , ESS.EC_SPMT_RATE_B
+                        ) FROM DUAL
+                )	AS EXT_STBLT_YN
+
+			FROM TB_EV_FRMHS_APO FA
+
+            LEFT JOIN TB_EV_APO_YR_GPC_CD ITM
+              ON ITM.YR = FA.YR
+             AND ITM.BRNO = FA.BRNO
+             AND ITM.ITEM_CD = FA.ITEM_CD
+             AND ITM.DEL_YN = 'N'
+
+            LEFT JOIN (
+                    SELECT
+                          SS.YR                     AS YR
+                        , SS.BRNO                   AS BRNO
+                        , SS.PRDCR_OGNZ_SN          AS PRDCR_OGNZ_SN
+                        , COUNT(SS.CLTVTN_LAND_SN)  AS CNT
+                        , SUM(SS.PRDCTN_VLM)        AS PRDCTN_VLM_TOT
+                        , SUM(SS.EC_SPMT_PLAN_VLM)  AS EC_SPMT_PLAN_VLM_TOT
+                        , SUM(SS.EC_SPMT_VLM)       AS EC_SPMT_VLM_TOT
+                        , SUM(SS.SPMT_PRC)          AS SPMT_PRC_TOT
+                        , ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(PRDCTN_VLM_TOT), 0) * 100, 2) AS EC_SPMT_RATE_A
+                        , ROUND(SUM(SS.EC_SPMT_VLM) / NULLIF(SUM(EC_SPMT_PLAN_VLM), 0) * 100, 2) AS EC_SPMT_RATE_B
+                      FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN SS
+                     WHERE SS.YR = #{yr}
+                       AND SS.DEL_YN = 'N'
+                     GROUP BY SS.YR, SS.BRNO, SS.PRDCR_OGNZ_SN
+                ) ESS
+              ON ESS.YR = FA.YR
+             AND ESS.BRNO = FA.BRNO
+             AND ESS.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
+
+			WHERE FA.DEL_YN = 'N'
+			  AND FA.YR = #{yr}
+		]]>
+		<if test='apoCd != null and apoCd != ""'>
+			AND FA.APO_CD = #{apoCd}
+		</if>
+		<if test='brno != null and brno != ""'>
+			AND FA.BRNO = #{brno}
+		</if>
+		<if test='uoBrno != null and uoBrno != ""'>
+			AND FA.UO_BRNO = #{uoBrno}
+		</if>
+		<![CDATA[
+			ORDER BY PRDCR_OGNZ_SN, TRMT_TYPE_SEQ
+		]]>
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
+
 	<insert id="insertTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL

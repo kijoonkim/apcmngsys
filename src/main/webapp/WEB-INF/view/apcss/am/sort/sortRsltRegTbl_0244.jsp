@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sonminseong
-  Date: 2/17/25
-  Time: 10:03 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -15,7 +8,10 @@
     boolean isMobile = userAgent.matches(".*(Mobile|Android|iPhone|iPad).*");
 %>
 <c:set var="isMobile" value="<%= isMobile %>"/>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -160,6 +156,11 @@
             background-color: #B5A98D;
             border-color: #B5A98D;
         }
+        #addSoloSaleButton.btn_on{
+            background-color: #B5A98D;
+            border-color: #B5A98D;
+            color: white;
+        }
         .sbux-btn:hover{
             color: white!important;
             background-color: #4A5672;
@@ -246,6 +247,11 @@
                 border: 1px solid black !important;
             }
         }
+        div.swal2-icon.swal2-icon-show{
+            /* 원하는 스타일 */
+            place-self: center center;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body style="overflow: hidden">
@@ -305,6 +311,16 @@
                     text="품종선택"
                     class="no-print"
                     onclick="fn_changeVrty()"
+            >
+            </sbux-button>
+            <sbux-button
+                    id="addSoloSaleButton"
+                    name="addSoloSaleButton"
+                    uitype="normal"
+                    text="시판추가"
+                    class="no-print"
+                    is-change-text="true"
+                    onclick="fn_addSoloSale()"
             >
             </sbux-button>
         </div>
@@ -841,7 +857,8 @@
         /** nRow idx **/
         let rowIndex = $(_el).closest("tr").index();
         /** nCol idx **/
-        let colIndex = $(_el).closest("td").index();
+        // let colIndex = $(_el).closest("td").index();
+        let colIndex = fn_getLogicalIndex($(_el).closest("td")[0]);
         /** 생산자 미선택시 **/
         if (!sortSaveList[rowIndex]) {
             Swal.fire({
@@ -1068,12 +1085,19 @@
         itemCd = itemVrty.itemCd;
         vrtyCd = itemVrty.vrtyCd;
 
-
         await SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
         await fn_init();
-        await fn_searchSortPrfmnc();
-        await fn_searchGdsInvntr();
-        await fn_searchSpmtPrfmncList();
+
+        let warehouseSeCd = gfn_getCookie("warehouseSeCd");
+        if(warehouseSeCd) {
+            $("#warehouse").val(warehouseSeCd);
+        }
+
+        await fn_reset();
+
+        // await fn_searchSortPrfmnc();
+        // await fn_searchGdsInvntr();
+        // await fn_searchSpmtPrfmncList();
     }
 
     /** 전체 초기화 **/
@@ -1090,7 +1114,7 @@
                 fn_setJsonSortPrfmnc($(this));
             });
             $(item).find("input").val("").prop({ disabled: false, readonly: false });
-            $(item).find("td").removeClass("first end mid selected").css("pointer-events", "");
+            $(item).find("td").removeClass("first end mid selected").css("pointer-events", "").css("border-color", "");
 
             /** 재고분리된 로우 처리 어케했지? **/
             let tds = Array.from($(item).find("input.left"));
@@ -1112,8 +1136,15 @@
         $("#cnpt").css("display", "none");
         /** td eventListner 초기화 **/
         $("#sortTable tbody td").off('pointerdown');
+        $("#sortTable tbody td").off('click.soloSale');
         /** 출하등록 버튼 초기화 **/
         SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+        /** 재고분리 버튼 초기화 **/
+        SBUxMethod.set("decompositionMode", "재고분리 OFF");
+        $("#decompositionMode").removeClass("btn_on");
+        /** 시판추가 버튼 초기화 **/
+        SBUxMethod.set("addSoloSaleButton", "시판추가");
+        $("#addSoloSaleButton").removeClass("btn_on");
         /** 작업중 colIdx 초기화 **/
         nowColIdx = 0;
         /** 출하 저장대상 리스트 초기화 **/
@@ -1173,6 +1204,16 @@
             /** 출하등록 disabled **/
             SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
             SBUxMethod.attr('spmtMode', 'disabled', 'false');
+            /** 시판추가 모드 OFF **/
+            $("#sortTable tbody td").off('click.soloSale');
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
+
+            /** 출하실적이 있는 재고는 disabled true 유지 **/
+            document.querySelectorAll('#sortTable tbody input').forEach(input => {
+                input.disabled = false;
+            });
+
             return;
         }else{
             /** 출하등록 disabled **/
@@ -1180,6 +1221,10 @@
             SBUxMethod.attr('spmtMode', 'disabled', 'true');
             SBUxMethod.set("decompositionMode","재고분리 ON");
             $("#decompositionMode").addClass("btn_on");
+            /** 시판추가 모드 OFF **/
+            $("#sortTable tbody td").off('click.soloSale');
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
         }
 
         $("#sortTable tbody td").off('pointerdown').on('pointerdown', function (event) {
@@ -1450,6 +1495,38 @@
         event.preventDefault();
         const $target = $(event.target);
 
+        /** 2025.09.15 출하등록된 셀 재고분리 막기*/
+        const colIdx = fn_getLogicalIndex($target);
+        const prevColIdx = fn_getLogicalIndex($target.prev());
+        const nextColIdx = fn_getLogicalIndex($target.next());
+
+        const spmtFlag = $target.find('input').data('spmt');
+        const prevSpmtFlag = $target.prev().find('input').data('spmt');
+        const nextSpmtFlag = $target.next().find('input').data('spmt');
+
+        /** colIdx를 기준으로 prevColIdx와 nextColIdx 중 같은 값을 찾고 spmtFlag 체크 **/
+        const hasSpmtInSameCol = () => {
+            let matchedSpmtFlag = false;
+
+            if (colIdx === prevColIdx) {
+                matchedSpmtFlag = spmtFlag || prevSpmtFlag;
+            } else if (colIdx === nextColIdx) {
+                matchedSpmtFlag = spmtFlag || nextSpmtFlag;
+            }
+            return matchedSpmtFlag;
+        };
+
+        const chkSpmtFlag = hasSpmtInSameCol();
+
+        if (chkSpmtFlag) {
+            Swal.fire({
+                title: '출하실적이 있는 재고는 분리할 수 없습니다.',
+                icon: 'error',
+                width:"500px"
+            });
+            return;
+        }
+
         if ($target.attr('colspan') === '2') {
             /**재고가 없거나 1인데 분리시킬떄 **/
             let invntrCnt = parseInt($target.find('input').val()) || 0;
@@ -1497,7 +1574,7 @@
                 if (!$(event.target).val()) {
                     $(event.target).focus();
                 } else {
-                    let inputCnt = $(event.target).val();
+                    let inputCnt = parseInt($(event.target).val());
                     let invntrCnt = parseInt($($invntrToolTip).text());
                     if (invntrCnt - inputCnt <= 0) {
                         Swal.fire({
@@ -1521,7 +1598,7 @@
                 }
             });
             $inputRight.on('focusout', function (event) {
-                let inputCnt = $(event.target).val();
+                let inputCnt = parseInt($(event.target).val());
                 let currentTd = $(event.target).closest('td');
                 let leftTd = currentTd.prev();
                 let leftInput = parseInt(leftTd.find('input').val()) || 0;
@@ -1552,6 +1629,9 @@
                         $(event.target).val(invntrCnt - leftInput);
                         $(event.target).focus();
                     } else {
+                        // 재고수량 맞추기
+                        $(event.target).val(invntrCnt - leftInput);
+
                         //정상입력
                         leftTd.find('span').css('display', 'none');
                         $(leftTd).find('input').attr('disabled', true);
@@ -1574,19 +1654,22 @@
                     /** target의 left right 판단 **/
                     var $input = $target.find("input");
                     var classList = $input.prop("classList");
-                    let total = $input.val();
                     let $td = $input.closest('td');
 
                     if ([...classList].includes("left")) {
-                        let cnt = parseInt($input.val());
-                        cnt += parseInt($td.next().find('input').val());
+                        let cnt = parseInt($td.find('span').text());
+
+                        // DOM 조작
+                        $td.find('span').css('display', 'none');
                         $td.attr("colspan", "2");
-                        $td.find('input').val(cnt);
+                        $td.find('input').val(cnt).removeClass('left');
                         $td.next().remove();
                     } else if ([...classList].includes("right")) {
-                        let cnt = parseInt($input.val());
-                        cnt += parseInt($td.prev().find('input').val());
-                        $td.prev().find('input').val(cnt);
+                        let cnt = parseInt($td.prev().find('span').text());
+
+                        // DOM 조작
+                        $td.prev().find('span').css('display', 'none');
+                        $td.prev().find('input').val(cnt).removeClass('left');
                         $td.prev().attr("colspan", "2");
                         $td.remove();
                     }
@@ -1600,6 +1683,7 @@
         $("#decompositionMode").removeClass("btn_on");
 
         SBUxMethod.attr('spmtMode', 'disabled', 'false');
+        /** 출하실적이 있는 재고는 disabled true 유지 **/
         document.querySelectorAll('#sortTable tbody input').forEach(input => {
             input.disabled = false;
         });
@@ -1616,7 +1700,7 @@
         }, 0);
 
         if(saveList.length < 1){
-            Swal.fire({
+            await Swal.fire({
                 title: "출하실적 대상이 없습니다.",
                 text: "입고실적을 확인해주세요.",
                 icon: "error"
@@ -1653,18 +1737,21 @@
         let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
 
         /** split check **/
-        const splitRmrk = saveList.find(item => {
+        let matchedIndex = -1;
+        const splitRmrk = saveList.some((item,idx) => {
             const $input = $(item).find('input');
             const isEmpty = !$input.val() || $input.val().trim() === '';
             const isSplit = $input.hasClass('left') || $input.hasClass('right');
             if(saveList.length === 1){
+                matchedIndex = idx;
                 return true;
             }else{
-                return isEmpty && isSplit;
+                matchedIndex = idx;
+                return !isEmpty && isSplit;
             }
         });
         const defaultRmrk = splitRmrk
-            ? ($(splitRmrk).find('input').hasClass('left') ? 'left' : 'right')
+            ? ($(saveList[matchedIndex]).find('input').hasClass('left') ? 'left' : 'right')
             : 'merge';
 
         /** 출하실적 saveObj 포맷팅 **/
@@ -1821,6 +1908,7 @@
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
         }
+        console.log(data.resultList,"선별");
         if (data.resultList.length > 0) {
             let itemCd = data.resultList[0].ITEM_CD;
             let vrtyCd = data.resultList[0].VRTY_CD;
@@ -1884,7 +1972,7 @@
             gdsSeCd 		: gdsSeCd,
         });
         const data = await postJsonPromise;
-
+        console.log(data.resultList,"상품재고");
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
@@ -1897,6 +1985,7 @@
         gdsInvntrList = groupedData;
     }
     /** 출하실적 조회 **/
+    //TODO: 시판은 단건으로 추가될수있는데 출하실적을 보여줄떈 취합을 해야함.
     async function fn_searchSpmtPrfmncList(){
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
         let warehouseSeCd = $("#warehouse").val();
@@ -1912,16 +2001,22 @@
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
 
+        console.log(data.resultList,"출하");
+
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
         }
+
+        let sipan = data.resultList.filter(i => i.cnptNm === '시판');
+        console.log(sipan,"시판");
 
         const groupedData = data.resultList.reduce((acc, item) => {
             let key = item.spmtno;
             (acc[key] = acc[key] || []).push(item);
             return acc;
         }, {});
+
 
         /** 하단 거래처별 출하수량 입력 **/
         const cnptData = data.resultList.reduce((acc, item) => {
@@ -1981,10 +2076,20 @@
                         if(splitResult){
                             /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
                             let spmtFlag = splitResult.rightInput.data('spmt') === true;
+                            let prevCnptCd = splitResult.leftInput.closest('td').data('cnptCd');
                             /** 출하실적 자리엔 셋팅 **/
-                            splitResult.leftInput.val(parseInt(item.spmtQntt));
+                            if (item.cnptNm === '시판' && prevCnptCd === item.cnptCd) {
+                                // 시판 데이터인 경우 기존 값에 더하기
+                                let currentVal = parseInt(splitResult.leftInput.val()) || 0;
+                                splitResult.leftInput.val(currentVal + parseInt(item.spmtQntt) || '');
+                                // 추가된 시판데이터 반대편 재고 수량 차감
+                                let rightVal = parseInt(splitResult.rightInput.val()) || 0;
+                                splitResult.rightInput.val(rightVal - parseInt(item.spmtQntt) || '');
+                            } else {
+                                splitResult.leftInput.val(parseInt(item.spmtQntt));
+                            }
                             /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
-                            if(!spmtFlag){
+                            if(!spmtFlag && !(item.cnptNm === '시판' && prevCnptCd === item.cnptCd)){
                                 splitResult.rightInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
                             }
 
@@ -1997,10 +2102,20 @@
                         if(splitResult){
                             /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
                             let spmtFlag = splitResult.leftInput.data('spmt') === true;
+                            let prevCnptCd = splitResult.rightInput.closest('td').data('cnptCd');
                             /** 출하실적 자리엔 셋팅 **/
-                            splitResult.rightInput.val(parseInt(item.spmtQntt));
+                            if (item.cnptNm === '시판' && prevCnptCd === item.cnptCd) {
+                                // 시판 데이터인 경우 기존 값에 더하기
+                                let currentVal = parseInt(splitResult.rightInput.val()) || 0;
+                                splitResult.rightInput.val(currentVal + parseInt(item.spmtQntt) || '');
+                                // 추가된 시판데이터 반대편 재고 수량 차감
+                                let leftVal = parseInt(splitResult.leftInput.val()) || 0;
+                                splitResult.leftInput.val(leftVal - parseInt(item.spmtQntt) || '');
+                            } else {
+                                splitResult.rightInput.val(parseInt(item.spmtQntt));
+                            }
                             /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
-                            if(!spmtFlag){
+                            if(!spmtFlag && !(item.cnptNm === '시판' && prevCnptCd === item.cnptCd)){
                                 splitResult.leftInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
                             }
 
@@ -2063,39 +2178,56 @@
                 /** 초기화 **/
                 $(item).removeClass("first end mid");
 
-                if (idx == 0) {
+                /** 시판은 출하실적에 상관없이 단건처럼 보이게 **/
+                if (match.cnptNm === '시판') {
                     $(item).addClass("first");
-                    $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
-                } else if (idx != arr.length - 1) {
-                    $(item).addClass("mid");
-                    $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
-                } else {
                     $(item).addClass("end");
                     $(item).get(0).style.setProperty('border-color', color, 'important');
-                    sum += parseInt($(item).find('input').val()) || 0;
+                    sum = parseInt($(item).find('input').val()) || 0;
+                } else {
+                    if (idx == 0) {
+                        $(item).addClass("first");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    } else if (idx != arr.length - 1) {
+                        $(item).addClass("mid");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    } else {
+                        $(item).addClass("end");
+                        $(item).get(0).style.setProperty('border-color', color, 'important');
+                        sum += parseInt($(item).find('input').val()) || 0;
+                    }
                 }
 
+
+
                 if($(item).hasClass('end') || arr.length === 1){
-                    /** 마지막 혹은 혼자인 cell **/
-                    const span = document.createElement("span");
-                    span.innerText = sum + "";
-                    Object.assign(span.style, {
-                        position: "absolute",
-                        right: 0,
-                        top: 0,
-                        zIndex: "1000",
-                        border: "1px solid black",
-                        borderRadius: "50%",
-                        width: "20px",
-                        height: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        textAlign: "center"
-                    });
-                    $(item).append(span);
+                    /** 마지막 혹은 혼자인 cell*/
+                    // 시판 데이터인 경우 기존 span이 있으면 값을 업데이트
+                    const prevSpan = $(item).find('span').last();
+                    if (match.cnptNm === '시판' && prevSpan.length > 0) {
+                        prevSpan.text(parseInt($(item).find('input').val()) + "");
+                    } else {
+                        // 시판이 아니거나 기존 span이 없는 경우 새로 생성
+                        const span = document.createElement("span");
+                        span.innerText = sum + "";
+                        Object.assign(span.style, {
+                            position: "absolute",
+                            right: 0,
+                            top: 0,
+                            zIndex: "1000",
+                            border: "1px solid black",
+                            borderRadius: "50%",
+                            width: "20px",
+                            height: "20px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            textAlign: "center"
+                        });
+                        $(item).append(span);
+                    }
                 }
             });
 
@@ -2159,11 +2291,13 @@
                 .attr('type', 'number')
                 .css("width", "100%")
                 .prop('disabled', true)
+                .attr('readonly', true)
                 .addClass('left');
             const $inputRight = $('<input>')
                 .attr('type', 'number')
                 .css("width", "100%")
                 .prop('disabled', true)
+                .attr('readonly', true)
                 .addClass('right');
             $firstTd.append($inputLeft)
             $secondTd.append($inputRight);
@@ -2394,6 +2528,205 @@
         }
         return $td;
     }
+    const fn_addSoloSale = async function () {
+        let flag = SBUxMethod.get("addSoloSaleButton");
+        if(flag == '시판추가 ON'){
+            /** 시판추가 모드 OFF로 전환 **/
+            $("#sortTable tbody td").off('click.soloSale'); // 이벤트 해제
+            SBUxMethod.set("addSoloSaleButton", "시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'false');
+            return;
+        }else{
+            /** 시판추가 모드 ON으로 전환 **/
+            SBUxMethod.set("addSoloSaleButton", "시판추가 ON");
+            $("#addSoloSaleButton").addClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'true');
+            /** 재고분리 모드 OFF **/
+            $("#sortTable tbody td").off('pointerdown');
+            SBUxMethod.set("decompositionMode","재고분리 OFF");
+            $("#decompositionMode").removeClass("btn_on");
+        }
+
+        return new Promise((resolve) => {
+            // hover는 마우스를 올리기만 해도 여러 번 발생하니 one() 사용
+            $("#sortTable tbody td").one("click.soloSale", function () {
+                $("#sortTable tbody td").off("click.soloSale");
+
+                let $target = $(this);
+                let $input = $target.find('input');
+                let lR = $input.attr('class');
+                let cnptCd = $target.data('cnptCd');
+
+                /**
+                 * 시판추가 가능 조건
+                 * 1.출하가된 자리일것.
+                 * 2.페어에 재고가있을것.
+                 **/
+                let prmCnptCd = jsonCnptList.filter(i => i.cnptNm === '시판')[0];
+                if(cnptCd === prmCnptCd.cnptCd){
+                    /** 거래처 정보가 있으며 시판인경우 true **/
+                    /** 페어 자리에 재고가있을것 **/
+                    let pareTd = lR === 'left' ? $target.next() : $target.prev();
+                    let pareQntt = pareTd.find('input').val();
+
+                    let pareSpmt = pareTd.find('input').data('spmt');
+
+                    /** 반대편 출하실적 확인 **/
+                    if(pareSpmt) {
+                        /** 시판추가 버튼 상태 초기화 **/
+                        SBUxMethod.set("addSoloSaleButton","시판추가");
+                        $("#addSoloSaleButton").removeClass("btn_on");
+                        /** 출하등록 disabled **/
+                        SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+                        SBUxMethod.attr('spmtMode', 'disabled', 'false');
+
+                        Swal.fire({
+                            title: '출하실적이 있는 재고는 추가할 수 없습니다.',
+                            icon: 'error',
+                            width:"500px"
+                        });
+                        return;
+                    }
+
+                    if(pareQntt > 0){
+                        const $wrap = $('<div id="soloAddWrap"></div>')
+                            .css({
+                                position:'absolute',
+                                top:0,
+                                left:0,
+                                display:'flex',
+                                zIndex:9999,
+                            });
+
+                        const $input = $('<input id="soloAddQntt" type="number" step="1" min="0">')
+                            .attr('style', 'border: 1px solid black !important;')
+                            .appendTo($wrap)
+                            .on('blur', function(){
+                               $btn.trigger('click');
+                            });
+                        const $btn = $('<button class="sbux-btn">확인</button>')
+                            .css({flex:'1 0 auto'})
+                            .on('click',function(){
+                                let pareQntt = pareTd.find('input').val() || 0;
+                                let grdCd = fn_getLogicalIndex($target);
+                                let prdcrIdentno = $target.closest('tr').find('td:first input').val();
+                                fn_addSoloSaleSpmt(pareQntt,grdCd,prdcrIdentno,lR,prmCnptCd.cnptCd);
+                            })
+                            .appendTo($wrap);
+                        $(this).append($wrap);
+                        $input.focus();
+                    }
+                }else{
+
+                    /** 시판추가 버튼 상태 초기화 **/
+                    SBUxMethod.set("addSoloSaleButton","시판추가");
+                    $("#addSoloSaleButton").removeClass("btn_on");
+                    /** 출하등록 disabled **/
+                    SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+                    SBUxMethod.attr('spmtMode', 'disabled', 'false');
+
+                    Swal.fire({
+                        title: '시판 거래처가 아닙니다.',
+                        icon: 'warning',
+                    });
+                }
+            });
+        });
+    };
+
+    const fn_addSoloSaleSpmt = async function(_pareQntt, _grdCd, _prdcrIdentno, _lR, _cnptCd){
+        let qntt = $("#soloAddQntt").val();
+        let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
+        /** 시판 갯수 삭제 **/
+        $("#soloAddWrap").remove();
+        /** 재고에서 사용할수있는 수**/
+        if(_pareQntt - qntt < 0){
+            /** 시판추가 버튼 상태 초기화 **/
+            SBUxMethod.set("addSoloSaleButton","시판추가");
+            $("#addSoloSaleButton").removeClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'false');
+            Swal.fire({
+                title: '재고가 부족합니다.',
+                icon: 'warning',
+            });
+            return;
+        }else{
+            const gdsList = gdsInvntrList[String(_grdCd)];
+            const nGdsInfo = gdsList.filter(i => i.prdcrIdentno == _prdcrIdentno);
+            const unitWght = nGdsInfo[0].invntrWght / nGdsInfo[0].invntrQntt;
+            const vo = JSON.parse(JSON.stringify(nGdsInfo[0]));
+            vo.spmtQntt = qntt;
+            vo.spmtWght = qntt * unitWght;
+            vo.spmtYmd = spmtYmd;
+            vo.prdcrCd = vo.rprsPrdcrCd;
+            vo.cnptCd = '';
+            vo.rmrk = _lR;
+            vo.cnptCd = _cnptCd;
+            console.log(vo);
+            console.log(typeof vo.spmtWght);
+            console.log(qntt);
+            console.log("출하실적저장 펑션");
+            await Swal.fire({
+                title: `시판추가 등록하시겠습니까?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '저장',
+                cancelButtonText: '취소',
+            }).then(async result => {
+                if (result.isConfirmed) {
+                    const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do",[vo]);
+                    const data = await postJsonPromise;
+
+                    if (!_.isEqual("S", data.resultStatus)) {
+                        gfn_comAlert(data.resultCode, data.resultMessage);
+                        return;
+                    }
+                    Swal.fire(
+                        '처리되었습니다.',
+                        '',
+                        'success'
+                    );
+                    /** 등록 이후 원복처리 **/
+                    await fn_reset();
+                }
+            });
+        }
+
+        /** 시판추가 버튼 상태 초기화 */
+        SBUxMethod.set("addSoloSaleButton","시판추가");
+        $("#addSoloSaleButton").removeClass("btn_on");
+        /** 출하등록 disabled **/
+        SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+        SBUxMethod.attr('spmtMode', 'disabled', 'false');
+
+    };
+    const fn_setSheet = async function(){
+        const ROWS = 26;  // 0~25
+        const COLS = 18;  // 0~17
+
+// 빈 2차원 배열 생성 (모두 빈 문자열)
+        const emptyGrid = Array.from({ length: ROWS }, () =>
+            Array.from({ length: COLS }, () => "")
+        );
+
+        luckysheet.create({
+            container: "luckysheet",
+            lang: "en",
+            showinfobar: false,
+            showtoolbar: false,
+            showsheetbar: false,
+            showstatisticBar: false,
+        });
+    }
 
     window.addEventListener("DOMContentLoaded", async function () {
         /** 품목 품종 선택 **/
@@ -2415,6 +2748,8 @@
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();
         await fn_searchSpmtPrfmncList();
+        /** luckysheet.js test **/
+        // await fn_setSheet();
     });
 
 </script>

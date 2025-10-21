@@ -52,6 +52,14 @@ public interface PrdcrOgnCurntMngService {
 
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
 
+	/**
+	 * 생산자조직 목록 조회
+	 * @param tbEvFrmhsApoVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TbEvFrmhsApoVO> selectPrdcrOgnzPrfmncList(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;
+
 	public int multiSaveTbEvFrmhsApoList(List<TbEvFrmhsApoVO> tbEvFrmhsApoVOList) throws Exception;
 
 	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO) throws Exception;

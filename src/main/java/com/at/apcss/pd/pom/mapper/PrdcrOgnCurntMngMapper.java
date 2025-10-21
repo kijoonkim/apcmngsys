@@ -30,25 +30,34 @@ public interface PrdcrOgnCurntMngMapper {
 	 * @param bbsVO
 	 * @return
 	 */
-	public PrdcrOgnCurntMngVO selectPrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public PrdcrOgnCurntMngVO selectPrdcrOgnCurntMng(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 
-	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngList(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 
 
 	//public int updatePrdcrOgnCurntMng(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
 
 
 	//농가리스트 조회
-	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public List<PrdcrOgnCurntMngVO> selectPrdcrOgnCurntMngDtlList(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 	//농가 저장
-	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public int insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 	//농가 삭제
-	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+	public int deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO) throws Exception;
 
 	//생산자 조직
 	public TbEvFrmhsApoVO selectTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO);
 
 	public List<TbEvFrmhsApoVO> selectTbEvFrmhsApoList(TbEvFrmhsApoVO tbEvFrmhsApoVO);
+
+	/**
+	 * 생산자조직 목록 조회
+	 * @param tbEvFrmhsApoVO
+	 * @return
+	 */
+	public List<TbEvFrmhsApoVO> selectPrdcrOgnzPrfmncList(TbEvFrmhsApoVO tbEvFrmhsApoVO);
+
+
 
 	public int insertTbEvFrmhsApo(TbEvFrmhsApoVO tbEvFrmhsApoVO);
 
@@ -73,11 +82,11 @@ public interface PrdcrOgnCurntMngMapper {
 	 * @param PrdcrOgnCurntMngVO
 	 * @return int
 	 */
-	public int updateTempSaveAps(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public int updateTempSaveAps(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 	/**
 	 * 전문품목 매입매출 임시저장 처리.
 	 * @param PrdcrOgnCurntMngVO
 	 * @return int
 	 */
-	public int updateTempSavePst(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	public int updateTempSavePst(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
 }

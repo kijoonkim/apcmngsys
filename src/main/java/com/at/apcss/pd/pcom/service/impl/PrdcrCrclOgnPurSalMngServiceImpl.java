@@ -28,7 +28,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
  * 2023.06.21  정연두        최초 생성
  * </pre>
  */
-@Service("PrdcrCrclOgnPurSalMngService")
+@Service("prdcrCrclOgnPurSalMngService")
 public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnPurSalMngService{
 
 	@Autowired
@@ -163,6 +163,12 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalPurchaseListForUpbrToAprv(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception {
+		prdcrCrclOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_PRCHS);
+		return prdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv(prdcrCrclOgnPurSalMngVO);
+	}
+
+	@Override
 	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalSaleList(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception {
 		int yr = Integer.parseInt(prdcrCrclOgnPurSalMngVO.getYr());
 		if (yr < 2025) {
@@ -170,6 +176,12 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 		}
 		prdcrCrclOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_SLS);
 		return prdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleList(prdcrCrclOgnPurSalMngVO);
+	}
+
+	@Override
+	public List<PrdcrCrclOgnPurSalMngVO> selectUoTotalSaleListForUpbrToAprv(PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO) throws Exception {
+		prdcrCrclOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_SLS);
+		return prdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv(prdcrCrclOgnPurSalMngVO);
 	}
 
 	@Override

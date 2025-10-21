@@ -28,7 +28,7 @@ import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
  * 2023.06.21  정연두        최초 생성
  * </pre>
  */
-@Service("InvShipOgnGenalTblMngService")
+@Service("invShipOgnGenalTblMngService")
 public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements InvShipOgnGenalTblMngService{
 
 	@Autowired
@@ -88,6 +88,11 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 			invShipOgnGenalTblMngVO.setOldDataYn(ComConstants.CON_YES);
 		}
 		return invShipOgnGenalTblMngMapper.selectIsoPrchsSlsSummaryList(invShipOgnGenalTblMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsSummaryListForUpbrToAprv(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+		return invShipOgnGenalTblMngMapper.selectIsoPrchsSlsSummaryListForUpbrToAprv(invShipOgnGenalTblMngVO);
 	}
 
 	@Override

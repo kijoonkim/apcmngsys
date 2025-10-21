@@ -90,6 +90,7 @@
 </head>
 <body>
 <div class="page" style="max-height: 100%">
+    <div id="react-dashboard-root"></div>
     <div class="container-xl">
         <div class="page-header">
             <div class="row align-items-center justify-content-between" style="height: auto;">
@@ -216,6 +217,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -376,8 +378,21 @@
         </div>
     </div>
 </div>
-<script src="/js/out/dashboard.bundle.js"></script>
-<script src="/api/mobile/js/pages/dashboard.js"></script>
+<script type="text/javascript">
+    window.addEventListener("DOMContentLoaded",function(){
+        console.log("죽고싶어?");
+        console.log(window.parent,"너 고아야?");
+       window.parent.cfn_initDashboard();
+    });
+</script>
+
+<!-- 기존 웹팩 js -->
+<script src="${pageCOntext.request.contextPath}/src/jquery/js/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+<script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
+<script src="${pageContext.request.contextPath}/api/mobile/js/pages/dashboard.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/agentDashboard.css">
+<script src="${pageContext.request.contextPath}/js/out/agentDashboard.bundle.js?v={{$timestamp}}" type="module"></script>
 </body>
 </html>
 

@@ -24,6 +24,7 @@
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
     <script src="/js/out/view.bundle.js"></script>
 
     <style>
@@ -55,11 +56,19 @@
         .carousel.pckgGrd{
             display: grid;
             width: 100%;
-            transition: all 0.5s;
-            grid-template-columns: repeat(10,1fr);
-            grid-template-rows: repeat(3,1fr);
-            row-gap: 1vh;
+            height: 35vh;
+            grid-template-columns: repeat(10, minmax(0, 1fr));
+            grid-template-rows: repeat(3, 1fr);
             column-gap: 0.5vw;
+            row-gap: 1vh;
+            /* 안전 장치 */
+            align-content: stretch;
+            justify-content: stretch;
+        }
+        .carousel.pckgGrd > *{
+            min-width: 0;  /* 내부 스크롤/줄바꿈 허용 */
+            min-height: 0;
+            box-sizing: border-box;
         }
 
         .control_panel {
@@ -107,6 +116,9 @@
         #sumInfoTbody > tr > th,
         #sumInfoTbody > tr > td {
             border: 1px solid #000 !important;
+        }
+        .my-toast-title{
+            font-size: x-large !important;
         }
 
     </style>
@@ -281,18 +293,33 @@
     /** 규격 **/
     var jsonSpcfctCd = [];
     /** web sokect **/
-    let ws;
+    let PckgRegWs;
     /** ws msg obj **/
     let patch = {
         type : '',
-        code : gv_selectedApcCd,
+        roomId : gv_selectedApcCd,
         tableId : 'sumInfoTable',
         from : '',
         data : {},
         at : '',
         by : ''
     };
-
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center',
+        showConfirmButton: false,
+        timer: 4000,
+        width: 480,
+        padding: '1rem',
+        timerProgressBar: true,
+        customClass: {
+            title: 'my-toast-title',
+        },
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
 
     window.addEventListener("DOMContentLoaded", function() {
@@ -501,7 +528,7 @@
                 btn.style.borderRadius = "4px";
                 // btn.style.width = "19vw";
                 btn.style.fontSize = "3rem";
-                btn.style.height = "8vh";
+                btn.style.height = "10vh";
                 btn.style.padding = "10px";
                 btn.style.backgroundColor = "#FFF";
                 btn.style.color = "#000";
@@ -524,8 +551,8 @@
                 btn.style.border = "1px solid #1A4B80";
                 btn.style.borderRadius = "4px";
                 // btn.style.width = "14vw";
-                btn.style.fontSize = "3rem";
-                btn.style.height = "8vh";
+                btn.style.fontSize = "2.5rem";
+                btn.style.height = "10vh";
                 btn.style.backgroundColor = "#FFF";
                 btn.style.color = "#000";
                 btn.style.cursor = "pointer";
@@ -534,6 +561,7 @@
                 carouselEl.appendChild(btn);
 
                 btn.addEventListener("click", fn_selectButtonPckgGrd);
+                // btn.addEventListener("")
             });
         }
     }
@@ -560,12 +588,14 @@
             }
 
             const th = document.createElement("th");
+            const fontSize = String(item.grdNm ?? '').length > 3 ? "2.5rem" : "3rem";
             th.innerText = item.grdNm;
             th.style.textAlign = "center";
             th.style.backgroundColor = "#3c84b7";
             th.style.color = '#FFF';
             th.style.padding = "6px";
             th.style.width = "10%";
+            th.style.fontSize = fontSize;
             headerRow.appendChild(th);
 
             const td = document.createElement("td");
@@ -669,9 +699,9 @@
         $selected[0]?.click();
 
         /** 현황판에 거래처 전달 **/
-        ws.send(JSON.stringify({
+        PckgRegWs.send(JSON.stringify({
             type: 'cell.patch_cnpt',
-            code: gv_selectedApcCd,
+            roomId: gv_selectedApcCd,
             userId: gv_userId,
             value: cnptNm
         }));
@@ -689,6 +719,7 @@
             );
             return;
         }
+
         const clickedBtn = _el.currentTarget;
         const carouselEl = clickedBtn.parentElement;
 
@@ -705,12 +736,14 @@
         const td = document.querySelector("td." + selectedPckgGrd);
         // const td = $("#sumInfoTbody > td." + selectedPckgGrd);
         if(td) grdQntt.value = parseInt(td.innerText) || 0;
+        /** 클릭시 ++ **/
+        await fn_countUp(clickedBtn);
     }
 
     /**
      * 등급 수량 증가 버튼 클릭 시
      */
-    const fn_countUp = async function() {
+    const fn_countUp = async function(_el = null) {
         let val = parseInt(grdQntt.value) || 0;
         val++;
         grdQntt.value = val;
@@ -718,6 +751,13 @@
         fn_updateGrdSum();
         fn_patchQntt(val);
 
+        if(_el != null){
+            let grdText = _el.innerText;
+            await Toast.fire({
+                icon: 'success',
+                title: grdText + ' 등급 1개 추가되었습니다.',
+            })
+        }
     }
     /**
      * 전체 화면 모드
@@ -792,7 +832,12 @@
                 $("#sumInfoTbody").find("th, td").css('font-size', '2rem');
             } else {
                 // 크게
-                $("#sumInfoTbody").find("th, td").css('font-size', '3rem');
+                const $tb = $("#sumInfoTbody");
+                $tb.find("td").css("font-size", "3rem");
+                $tb.find("th").each(function () {
+                    const len = $(this).text().trim().length;
+                    $(this).css("font-size", len > 3 ? "2rem" : "3rem");
+                });
             }
         });
     };
@@ -802,17 +847,17 @@
      */
     const fn_socket = function(){
         // const code = gv_selectedApcCd; // 4자리 코드
-        const code = encodeURIComponent(gv_selectedApcCd);
+        const roomId = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?code=${'${code}'}&userId=${'${userId}'}`
-        ws = new WebSocket(url);
-        ws.onopen = () => {};
+            + location.host + `/ws/chat/${'${roomId}'}/${'${userId}'}`;
+        PckgRegWs = new WebSocket(url);
+        PckgRegWs.onopen = () => {};
 
-        ws.onmessage = (e) => {
+        PckgRegWs.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
-            if (msg.tableId !== 'sumInfoTable' || msg.code !== gv_selectedApcCd) return;
+            if (msg.tableId !== 'sumInfoTable' || msg.roomId !== gv_selectedApcCd) return;
 
             if (msg.type === 'init') {
                 /** 현재 상태를 전달함 **/
@@ -826,8 +871,8 @@
                 if(selectedCnpt){
                     cnptNm = jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm;
                 }
-                ws.send(JSON.stringify({
-                    type:'cell.snapshot', code: gv_selectedApcCd, from:'client',
+                PckgRegWs.send(JSON.stringify({
+                    type:'cell.snapshot', roomId: gv_selectedApcCd, from:'client',
                     data:snap, at: Date.now(), userId: gv_userId || '', cnptNm: cnptNm
                 }));
             }
@@ -841,17 +886,17 @@
             <%--}--%>
         };
 
-        ws.onclose = (e) => {
+        PckgRegWs.onclose = (e) => {
         };
 
-        ws.onerror = (err) => {
+        PckgRegWs.onerror = (err) => {
             console.error('WS ERROR', err);
         };
     }
     const fn_patchQntt = function(_qntt){
-        ws.send(JSON.stringify({
+        PckgRegWs.send(JSON.stringify({
             type: 'cell.patch',
-            code: gv_selectedApcCd,
+            roomId: gv_selectedApcCd,
             userId: gv_userId,
             patchTarget: selectedPckgGrd,
             value: _qntt

@@ -149,11 +149,29 @@ public interface InvShipOgnPurSalMngService {
 	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
+	 * 출자출하조직 총 매입 매출 목록 조회 한다. (육성 -> 승인)
+	 * @param invShipOgnPurSalMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseListForUpbrToAprv(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
+
+	/**
 	 * 출자출하조직 총 매출 목록 조회 한다.
 	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
 	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매출 목록 조회 한다. (육성 -> 승인)
+	 * @param invShipOgnPurSalMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleListForUpbrToAprv(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
 
 
 }

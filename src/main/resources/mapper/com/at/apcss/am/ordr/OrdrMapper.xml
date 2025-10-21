@@ -122,13 +122,13 @@
 	             , (SELECT SUM(INVNTR_QNTT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
-	                   AND X.GDS_CD = OI.GDS_CD
+	                   AND X.SPMT_PCKG_UNIT_CD = OI.SPMT_PCKG_UNIT_CD
 	                   AND X.DEL_YN = 'N'
 	               ) 						AS INVNTR_QNTT
 	             , (SELECT SUM(INVNTR_WGHT)
 	                  FROM TB_GDS_INVNTR X
 	                 WHERE X.APC_CD = OI.APC_CD
-	                   AND X.GDS_CD = OI.GDS_CD
+	                   AND X.SPMT_PCKG_UNIT_CD = OI.SPMT_PCKG_UNIT_CD
 	                   AND X.DEL_YN = 'N'
 	               ) 						AS INVNTR_WGHT
 	             , (SELECT SUM(SPMT_QNTT)

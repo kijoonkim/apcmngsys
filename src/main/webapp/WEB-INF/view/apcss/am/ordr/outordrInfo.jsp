@@ -1318,6 +1318,7 @@
 		// 지시가능한수량 > 입력한지시수량
 		if (inptCmndQntt > psbltyCmndQntt){
 			gfn_comAlert("W0008", "지시가능수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+
 			grdOutordr.setCellData(nRow, inptCmndQnttCol , "");
 			grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
 			grdOutordr.setCellData(nRow, checkedCol, "false");
@@ -1328,11 +1329,14 @@
 			grdOutordr.setCellData(nRow, inptCmndWghtCol, inptCmndQntt*wght);
 			grdOutordr.setCellData(nRow, checkedCol, "true");
 		} else {
-			gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-			grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
-			grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
-			grdOutordr.setCellData(nRow, checkedCol, "false");
-			return;
+			//gfn_comAlert("W0008", "재고수량", "지시수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+			if (!gfn_comConfirm("Q0003", "재고수량", "계속")) {		//	Q0003	{0}이/가 없습니다. {1} 하시겠습니까?
+				grdOutordr.setCellData(nRow, inptCmndQnttCol, "");
+				grdOutordr.setCellData(nRow, inptCmndWghtCol, "");
+				grdOutordr.setCellData(nRow, checkedCol, "false");
+				return;
+			}
+			grdOutordr.setCellData(nRow, checkedCol, "true");
 		}
 
 		if (inptCmndQntt == 0){

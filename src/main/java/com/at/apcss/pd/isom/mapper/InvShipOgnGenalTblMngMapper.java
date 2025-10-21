@@ -82,6 +82,13 @@ public interface InvShipOgnGenalTblMngMapper {
 	 */
 	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsSummaryList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO);
 
+	/**
+	 * 출자출하조직 총괄표 조회 (육성 -> 승인)
+	 * @param invShipOgnGenalTblMngVO
+	 * @return
+	 */
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsSummaryListForUpbrToAprv(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO);
+
 
 	/**
 	 * 총괄표 리스트를 조회 한다

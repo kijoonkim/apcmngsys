@@ -744,6 +744,14 @@
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
 			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		jsonComWarehouse.unshift({
+			label: "",
+			mastervalue: "",
+			text: "",
+			useYn: "",
+			value: "",
+		});
+
 		/** sn 순서보장 **/
 		jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
 		SBUxMethod.refresh('dtl-slt-vrtyCd');
@@ -890,7 +898,7 @@
       		  position	: 'bottom',
       		  columns		: {
       		      standard : [1,2],
-      		      sum : [7, 8, 9, 11, 12],
+				  sum : [8, 9, 10, 12, 13],
       		  },
       		  grandtotalrow : {
       		      titlecol 	: 1,
@@ -902,7 +910,8 @@
       		  usedecimal : false,
       		};
         SBGridProperties.columns = [
-            {caption: ['계량대'], 		ref: 'fcltNm', 		width: '80px', type:'output',  	style:'text-align:center;'},
+			{caption: ['순번'], 		ref: 'wghnoSn', 		width: '40px', type:'output',  	style:'text-align:center;'},
+			{caption: ['계량대'], 		ref: 'fcltNm', 		width: '80px', type:'output',  	style:'text-align:center;'},
             {caption: ['구분'], 		ref: 'wrhsSpmtTypeNm', width: '60px', type:'output',  	style:'text-align:center'},
             {caption: ['입고일자'], 	ref: 'wghYmd', 		width: '80px', type : 'output', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '80px', type: 'output', style:'text-align:center;', typeinfo : {max : 9}},
@@ -1462,6 +1471,8 @@
   				const uniqueArr = [...set];
   				const vrtyNm = uniqueArr.join(", ");
   				wghPrfmnc.vrtyNm = vrtyNm;
+				/** 25.10.02 순번 추가(계량번호 끝 4자리) */
+				wghPrfmnc.wghnoSn = parseInt(item.wghno.slice(-4));
 
 				const pltSpmtFilter = pltSpmtPrfmnc.filter(i => i.prcsNo === wghPrfmnc.wghno);
 				const bxQntt = pltSpmtFilter.filter(e => e.pltBxSeCd === "B").reduce((sum, b) => sum + b.qntt, 0);
@@ -1626,6 +1637,11 @@
     		gfn_comAlert("W0001", "계량일자");					//	W0001	{0}을/를 선택하세요.
             return;
     	}
+
+		if (gfn_isEmpty(prdcrCd)) {
+			gfn_comAlert("W0002", "생산자");						//	W0002	{0}을/를 입력하세요.
+			return;
+		}
 
  		if (gfn_isEmpty(vhclno)) {
     		gfn_comAlert("W0002", "차량번호");					//	W0002	{0}을/를 입력하세요.
@@ -2506,6 +2522,11 @@
 		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
 
 		let setRmrk = '';
+
+		// 입/출고 입력 변경 X
+		if (nCol === rmrkCol) {
+			return;
+		}
 
 		if (!gfn_isEmpty(getCellData)) {
 			switch (getRowData.type) {

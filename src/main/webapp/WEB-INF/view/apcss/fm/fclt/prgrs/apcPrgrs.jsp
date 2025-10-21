@@ -278,17 +278,14 @@
 				target : menuId
 			};
 			/** 전달하고자하는 TAB의 아이디를 객체 필드에 담아서 전달 **/
-			//console.log(data);
 			let json = JSON.stringify(data);
 			/** main에 선언되어있는 fn **/
 			window.parent.cfn_openTabSearch(json);
 		}
 		//진척도 조회
 		const cfn_selectPrgrs = async function(){
-			console.log("*******cfn_selectPrgrs******");
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
-			console.log("진척도 조회",crtrYr);
 
 			let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrs.do", {
 				apcCd : apcCd
@@ -347,7 +344,6 @@
 
 					//최종체출시 버튼 비활성화 처리
 					if(typeof fn_prgrsLastChk === 'function'){
-						console.log('fn_prgrsLastChk');
 						fn_prgrsLastChk();
 					}
 				}
@@ -358,6 +354,7 @@
 				console.error("failed", e.message);
 			}
 		}
+
 		//진척도 변경
 		const cfn_setPrgrs = async function(prgrsVal,num){
 			if (prgrsVal == 'Y') {
@@ -371,11 +368,12 @@
 				$("#scrn"+num).attr("data-draft","false");
 			}
 		}
+
 		//최종제출
 		const cfn_lastSave = async function(prgrsVal,num){
 			//저장 확인
 			let saveCnt = SBUxMethod.get("dtl-inp-prgrsCnt");
-			console.log(saveCnt);
+
 			if(saveCnt != '14') return;
 
 			let mngStr = "최종 제출 하시겠습니까?";
@@ -383,7 +381,6 @@
 
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
-			console.log(apcCd,crtrYr);
 
 			let postJsonPromise = gfn_postJSON("/fm/fclt/updatePrgrsLast.do", {
 				apcCd : apcCd
@@ -406,7 +403,6 @@
 		}
 		//열려있는 탭 중 apc전수조사인 경우 진척도 갱신
 		const cfn_allTabPrgrsRefrash = async function(){
-			console.log('cfn_allTabPrgrsRefrash');
 			let targetTab = 'TAB_CS_005';
 			for (var i = 0; i < parent.length; i++) {
 				let tabNm = parent[i].window.name.substring(8,18);
@@ -417,17 +413,17 @@
 				}
 			}
 		}
+
 		//진척도 갱신
 		function cfn_prgrsRefrash() {
-			console.log("cfn_prgrsRefrash");
 			//진척도 조회
 			cfn_selectPrgrs();
 		}
+
 		//출력
 		const cfn_report = async function() {
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
 			let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
-			console.log(apcCd,crtrYr);
 			if(apcCd == null || apcCd == "" || apcCd === undefined){
 				return;
 			}

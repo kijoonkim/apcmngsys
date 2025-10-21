@@ -39,9 +39,12 @@
 		<![CDATA[
 			SELECT /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.selectPrdcrLandInfoList */
 			       PLI.APC_CD               AS APC_CD
+	    		 , (SELECT FN_GET_APC_NM(PLI.APC_CD) FROM DUAL) AS APC_NM
 			     , PLI.PRDCR_CD             AS PRDCR_CD
+    			 , (SELECT FN_GET_PRDCR_NM(PLI.PRDCR_CD, PLI.APC_CD) FROM DUAL) AS PRDCR_NM
 			     , PLI.PRDCR_LAND_INFO_NO   AS PRDCR_LAND_INFO_NO
 			     , PLI.ITEM_CD				AS ITEM_CD
+	             , (SELECT FN_GET_ITEM_NM(PLI.ITEM_CD, PLI.APC_CD) FROM DUAL) AS ITEM_NM
 			     , PLI.FRLN_ADDR            AS FRLN_ADDR
 			     , PLI.STDG_CD              AS STDG_CD
 			     , PLI.FRLN_MNO             AS FRLN_MNO
@@ -51,6 +54,8 @@
 			     , PLI.CRTR_AREA			AS CRTR_AREA
 				 , PLI.PLNTNG_AREA 			AS PLNTNG_AREA
 				 , PLI.YR 					AS YR
+				 , PLI.XCRD 				AS XCRD
+				 , PLI.YCRD 				AS YCRD
 			     , PLI.DEL_YN               AS DEL_YN
 			  FROM TB_PRDCR_LAND_INFO PLI
 			 WHERE PLI.DEL_YN = 'N'
@@ -67,6 +72,12 @@
 			<if test='yr != null and yr !=""'>
 			   AND PLI.YR		= #{yr}
 			</if>
+            <if test='coords != null and coords != ""'>
+                AND PLI.XCRD != 0
+                AND PLI.XCRD IS NOT NULL
+                AND PLI.YCRD != 0
+                AND PLI.YCRD IS NOT NULL
+            </if>
 		<![CDATA[
 		]]>
 	</select>
@@ -89,6 +100,8 @@
 					, PRDCR_LAND_INFO_NO
 					, ITEM_CD
 					, FRLN_ADDR
+                    , XCRD
+                    , YCRD
 					, STDG_CD
 					, FRLN_MNO
 					, FRLN_SNO
@@ -111,6 +124,8 @@
 					, #{prdcrLandInfoNo}
 					, #{itemCd}
 					, #{frlnAddr}
+                    , #{xcrd}
+                    , #{ycrd}
 					, #{stdgCd}
 					, #{frlnMno}
 					, #{frlnSno}
@@ -143,6 +158,8 @@
 			UPDATE /* com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper.updatePrdcrLandInfo */
 				   TB_PRDCR_LAND_INFO
 			   SET FRLN_ADDR				= #{frlnAddr}
+				 , XCRD          		    = #{xcrd}
+				 , YCRD          		    = #{ycrd}
 				 , STDG_CD          		= #{stdgCd}
 				 , FRLN_MNO         		= #{frlnMno}
 				 , FRLN_SNO         		= #{frlnSno}

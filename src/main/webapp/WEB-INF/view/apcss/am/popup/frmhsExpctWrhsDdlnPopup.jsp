@@ -30,12 +30,12 @@
 				<table class="table table-bordered tbl_row tbl_fixed">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
-						<col style="width: 12%">
-						<col style="width: 24%">
-						<col style="width: 12%">
-						<col style="width: 24%">
-						<col style="width: 12%">
-						<col style="width: 24%">
+						<col style="width: 10%">
+						<col style="width: 22%">
+						<col style="width: 10%">
+						<col style="width: 22%">
+						<col style="width: 14%">
+						<col style="width: 22%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -51,13 +51,13 @@
 								></sbux-datepicker>
 							</th>
 							<th scope="row">마감일</th>
-							<th>
+							<th style="display: flex; align-items: center">
 								<sbux-spinner
 									id="ddln-inp-ymd"
 									name="ddln-inp-ymd"
 									uitype="normal"
 									class="form-control input-sm"
-									number-min-value="0"
+									number-min-value="1"
 									number-max-value="31"
 								></sbux-spinner>
 							</th>
@@ -93,9 +93,11 @@
 		modalId: 'modal-ddln',
 		prvApcCd : "",
 		prvItemCd : "",
+		prvDdlnKndCd : "",
 		callbackFnc: function() {},
-		init: async function(_apcCd, _itemCd, _yr, _callbackFnc) {
+		init: async function(_apcCd, _yr, _ddlnKndCd, _callbackFnc, _itemCd = null) {
 			prvApcCd = _apcCd;
+			prvDdlnKndCd = _ddlnKndCd;
 			prvItemCd = _itemCd;
 			SBUxMethod.set("ddln-dtp-yr", _yr);
 
@@ -109,6 +111,7 @@
 		search : async function () {
 			let postJsonPromise = gfn_postJSON("/am/wrhs/selectFrmhsExpctWrhsDdln.do", {
 				apcCd 	: prvApcCd,
+				ddlnKndCd	: prvDdlnKndCd,
 				itemCd	: prvItemCd,
 				yr 		: SBUxMethod.get("ddln-dtp-yr")
 	 		});
@@ -143,6 +146,7 @@
 		save : async function () {
 			let postJsonPromise = gfn_postJSON("/am/wrhs/updateFrmhsExpctWrhsDdln.do", {
 				apcCd 		: prvApcCd,
+				ddlnKndCd	: prvDdlnKndCd,
 				itemCd		: prvItemCd,
 				yr 			: SBUxMethod.get("ddln-dtp-yr"),
 				ymd 		: SBUxMethod.get("ddln-inp-ymd"),

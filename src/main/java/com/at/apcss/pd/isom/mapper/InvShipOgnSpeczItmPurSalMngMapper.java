@@ -78,6 +78,14 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO);
 
 	/**
+	 * 출자출하조직 전문품목 매입매출 조회 2025년 : 육성 -> 승인 추가
+	 * @param invShipOgnSpeczItmPurSalMngVO
+	 * @return
+	 */
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectIsoMajorItemPrchsSlsListForUpbrToAprv(InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO);
+
+
+	/**
 	 * 출자출하조직 전문품목 매입매출 저장 2025년
 	 * @param invShipOgnSpeczItmPurSalMngVO
 	 * @return int

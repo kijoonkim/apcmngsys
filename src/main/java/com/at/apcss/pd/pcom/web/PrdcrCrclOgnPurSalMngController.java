@@ -23,7 +23,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 @Controller
 public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
-	@Resource(name= "PrdcrCrclOgnPurSalMngService")
+	@Resource(name= "prdcrCrclOgnPurSalMngService")
 	private PrdcrCrclOgnPurSalMngService prdcrCrclOgnPurSalMngService;
 
 	//화면이동
@@ -255,6 +255,37 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 			resultPrchsList = prdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngPrchsList(prdcrCrclOgnPurSalMngVO);
 			//매출 리스트
 			resultSlsList = prdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngSlsList(prdcrCrclOgnPurSalMngVO);
+			//임시저장 정보
+			result = prdcrCrclOgnPurSalMngService.selectTempSaveUoAps(prdcrCrclOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put("resultPrchsList", resultPrchsList);
+		resultMap.put("resultSlsList", resultSlsList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 통합조직총매입매출 목록 조회 (육성 -> 승인)
+	 * @param model
+	 * @param prdcrCrclOgnPurSalMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pcom/selectUoTotalListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoTotalListForUpbrToAprv(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
+		List<PrdcrCrclOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		PrdcrCrclOgnPurSalMngVO result = new PrdcrCrclOgnPurSalMngVO();
+		try {
+			//매입 리스트
+			resultPrchsList = prdcrCrclOgnPurSalMngService.selectUoTotalPurchaseListForUpbrToAprv(prdcrCrclOgnPurSalMngVO);
+			//매출 리스트
+			resultSlsList = prdcrCrclOgnPurSalMngService.selectUoTotalSaleListForUpbrToAprv(prdcrCrclOgnPurSalMngVO);
 			//임시저장 정보
 			result = prdcrCrclOgnPurSalMngService.selectTempSaveUoAps(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {

@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : isoSummry2025.jsp
+	 * @Description : 출자출하조직 관리 총괄표 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -271,6 +287,16 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<!--
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -450,6 +476,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
@@ -682,6 +711,7 @@
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","출자출하조직의\n통합조직 판매위임비율","전체출하\n[(A+B)/E]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtTotRt',   	type:'output',  width:'100px',    style:'text-align:right;'},
 			{caption: ["적합여부","적합여부","적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
+			{caption: ["적합여부\n(육성->승인)","적합여부\n(육성->승인)","적합여부\n(육성->승인)"], 	ref: 'stbltYn',   	type:'output',  width:'90px',    style:'text-align:center;'},
 			{caption: ["탈락사유","탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -799,14 +829,18 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		fn_clearForm();//초기화
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//통합조직인 경우
-		if(gfn_isEmpty(yr)){
+		if (gfn_isEmpty(yr)){
 			yr = SBUxMethod.get("dtl-input-yr");//
 		}
 		//년도 검색값이 없는 경우 최신년도
-		if(gfn_isEmpty(yr)){
+		if (gfn_isEmpty(yr)){
 			let now = new Date();
 			let year = now.getFullYear();
 			yr = year;
@@ -1004,7 +1038,7 @@
 	async function fn_dtlGridSearch() {
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
-		if(gfn_isEmpty(apoCd)){return;}
+		if (gfn_isEmpty(apoCd)) return;
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let ctgryCd = SBUxMethod.get('dtl-input-ctgryCd');
@@ -1012,12 +1046,24 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
-		if(gfn_isEmpty(uoBrno)){
-			alert("통합조직을 선택해 주세요");
+		if (gfn_isEmpty(uoBrno)){
+			gfn_comConfirm("W0001", "통합조직");		// W0001	{0}을/를 선택하세요.
 			return;
 		}
 
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
+
 		try {
+
+			jsonPrdcrOgnCurntMng01.length = 0;
+
 			const param = {
 				apoCd: apoCd,
 				apoSe: apoSe,
@@ -1027,64 +1073,66 @@
 				brno: brno,
 				yr : yr
 			}
-			//"/pd/isom/selectIsoPrchsSlsSummaryList.do";
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngListNew.do", param);
+
+			const defaultUrl = "/pd/isom/selectInvShipOgnGenalTblMngListNew.do";
+			const upbrToAprvUrl = "/pd/isom/selectIsoPrchsSlsSummaryListForUpbrToAprv.do";
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
+
+			const postJsonPromise = gfn_postJSON(postUrl, param);
 			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoPrchsSlsSummaryList.do", param);
 			const data = await postJsonPromise;
 
-			jsonPrdcrOgnCurntMng01.length = 0;
-			//console.log("data==="+data);
-			data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO01 = {
-					apoCd: 	item.apoCd
-					,apoSe: item.apoSe
-					,brno: 	item.brno
-					,crno: 	item.crno
-					,corpNm: item.corpNm
-					,delYn: item.delYn
-					,yr: item.yr
+			if (_.isEqual("S", data['resultStatus'])) {
+				data.resultList.forEach((item, index) => {
+					let PrdcrOgnCurntMngVO01 = {
+						apoCd: 					item.apoCd,
+						apoSe: 					item.apoSe,
+						brno: 					item.brno,
+						crno: 					item.crno,
+						corpNm: 				item.corpNm,
+						delYn: 					item.delYn,
+						yr: 					item.yr,
+						aprv: 					item.aprv,
+						sttgUpbrItemSe: 		item.sttgUpbrItemSe,
+						sttgUpbrItemNm: 		item.sttgUpbrItemNm,
+						itemCd: 				item.itemCd,
+						itemNm: 				item.itemNm,
+						ctgryCd: 				item.ctgryCd,
+						ctgryNm: 				item.ctgryNm,
+						uoSpmtAmt: 				item.uoSpmtAmt,
+						uoSpmtAmtOther: 		item.uoSpmtAmtOther,
+						uoOtherSpmtAmt: 		item.uoOtherSpmtAmt,
+						uoOtherSpmtAmtOther:	item.uoOtherSpmtAmtOther,
+						uoSpmtVlm: 				item.uoSpmtVlm,
+						uoSpmtVlmOther: 		item.uoSpmtVlmOther,
+						uoOtherSpmtVlm: 		item.uoOtherSpmtVlm,
+						uoOtherSpmtVlmOther: 	item.uoOtherSpmtVlmOther,
+						uoSpmtAmtRt: 			item.uoSpmtAmtRt,
+						uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt,
+						uoSpmtVlmTot: 			item.uoSpmtVlmTot,
+						uoSpmtAmtTot: 			item.uoSpmtAmtTot,
+						stbltYn: 				item.stbltYn,			//적합여부 기준 적용 결과
+						orgStbltYn: 			item.orgStbltYn,	//적합여부 현재 적용 값
+						//stbltYnNm: fn_calStbltYn(item),
+						//stbltYnNm: 				item.stbltYnNm,
+						stbltYnNm: 				_.isEqual("Y", upbrToAprvYn) ? item.stbltYnNm : fn_calStbltYn(item),
+						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						actnMttr: 				item.actnMttr,
+						</c:if>
+					};
 
-					,aprv: item.aprv
+					jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
+				});
 
-					,sttgUpbrItemSe: item.sttgUpbrItemSe
-					,sttgUpbrItemNm: item.sttgUpbrItemNm
+				grdPrdcrOgnCurntMng01.rebuild();
+				const needsColHidden = !_.isEqual("Y", upbrToAprvYn);
+				grdPrdcrOgnCurntMng01.setColHidden(grdPrdcrOgnCurntMng01.getColRef("stbltYn"), needsColHidden);
 
-					,itemCd: 		item.itemCd
-					,itemNm: 		item.itemNm
+				let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
 
-					,ctgryCd: 		item.ctgryCd
-					,ctgryNm: 		item.ctgryNm
-
-					,uoSpmtAmt: 			item.uoSpmtAmt
-					,uoSpmtAmtOther: 		item.uoSpmtAmtOther
-					,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
-					,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
-
-					,uoSpmtVlm: 			item.uoSpmtVlm
-					,uoSpmtVlmOther: 		item.uoSpmtVlmOther
-					,uoOtherSpmtVlm: 		item.uoOtherSpmtVlm
-					,uoOtherSpmtVlmOther: 	item.uoOtherSpmtVlmOther
-
-					,uoSpmtAmtRt: 			item.uoSpmtAmtRt
-					,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
-					,uoSpmtVlmTot: 			item.uoSpmtVlmTot
-					,uoSpmtAmtTot: 			item.uoSpmtAmtTot
-
-					,stbltYn: item.stbltYn//적합여부 기준 적용 결과
-					,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
-					,stbltYnNm: fn_calStbltYn(item)
-					,stbltYnNm: item.stbltYnNm
-					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
-					,actnMttr: 		item.actnMttr
-					</c:if>
-				};
-
-				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
-			});
-
-			grdPrdcrOgnCurntMng01.rebuild();
-
-			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
 
 			// fn_dtlSearchClsfTot(); // 요약 - 부류별합계
 		} catch (e) {
@@ -1093,6 +1141,8 @@
 			}
 			console.error("failed", e.message);
 		}
+
+
 	}
 	//탈락적합 사유
 	function fn_calStbltYn(item) {
@@ -1105,8 +1155,8 @@
 			}
 		}
 
-		if(item.aprv == '1'){
-			if(item.sttgUpbrItemSe == '1'){
+		if (item.aprv == '1') {
+			if (item.sttgUpbrItemSe == '1'){
 				if(item.chkAA != 'Y'){
 					stbltYnNmMng.push('통합조직 판매위임 금액 미달');
 				}
@@ -1135,16 +1185,14 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		const nCol = grdPrdcrOgnCurntMng.getCol();
 		if (nCol < 1) {
 			return;
 		}
 
-		var nRow = grdPrdcrOgnCurntMng.getRow();
-
+		let nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
 			return;
 		}
@@ -1164,6 +1212,14 @@
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+		</c:if>
 		await fn_searchUoList(rowData.yr);
 	}
 
@@ -1181,6 +1237,8 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonClsfTot.length= 0;
+
+		grdPrdcrOgnCurntMng01.setColHidden(grdPrdcrOgnCurntMng01.getColRef("stbltYn"), true);
 		//grdClsfTot.rebuild();
 	}
 

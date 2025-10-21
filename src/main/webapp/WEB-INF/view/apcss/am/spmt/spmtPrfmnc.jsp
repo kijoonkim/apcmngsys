@@ -33,6 +33,15 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하실적조회 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+							id="btn-srch-apcLinkPop"
+							name="btn-srch-apcLinkPop"
+							class="btn btn-sm btn-outline-danger"
+							text="연계요청"
+							uitype="modal"
+							target-id="modal-apcLinkPop"
+							onclick="fn_popApcLink"
+					></sbux-button>
 					<sbux-button id="btnDocSpmt" name="btnDocSpmt" uitype="normal" text="송품장" class="btn btn-sm btn-primary" onclick="fn_docSpmt"></sbux-button>
 					<sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_del"></sbux-button>
 					<sbux-button id="btnRetrun" name="btnRetrun" uitype="normal" text="반품" class="btn btn-sm btn-outline-danger" onclick="fn_rtn"></sbux-button>
@@ -194,6 +203,22 @@
     <div id="body-modal-rtn">
     	<jsp:include page="../../am/popup/rtnPopup.jsp"></jsp:include>
     </div>
+
+	<div>
+		<sbux-modal
+				id="modal-apcLinkPop"
+				name="modal-apcLinkPop"
+				uitype="middle"
+				header-title="출고연계수신"
+				body-html-id="body-modal-apcLinkPop"
+				header-is-close-button="false"
+				footer-is-close-button="false"
+				style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-apcLinkPop">
+		<jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 	var jsonSpmtPrfmnc		= [];
@@ -203,6 +228,7 @@
 	var jsonComVrty			= [];	// 품종
 	var jsonComWarehouse	= [];	// 창고
 	var jsonComTrsprtCoCd	= [];	// 운송사
+	var jsonApcAtrb 		= []; 	// 연계사용
 	var jsonComRtnGdsYn 	= [
 		{'value' : 'N', 'text' : '출하'},
 		{'value' : 'Y', 'text' : '반품'}
@@ -213,9 +239,17 @@
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
 		 	gfn_setTrsprtsSBSelect('srch-slt-trsprtCoCd', 	jsonComTrsprtCoCd, 	gv_selectedApcCd),						// 운송사
-		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd)						// 품목
+		 	gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonComItem, 		gv_selectedApcCd),						// 품목
+			gfn_setComCdSBSelect('srch-slt-warehouseSeCd', 	jsonApcAtrb, 		'APC_ATRB', 	gv_selectedApcCd),		// 연계사용
+
 		]);
 		await fn_TotalSearch();
+
+		if (jsonApcAtrb.find(item => item.value === "SPMT_LINK")) {
+			SBUxMethod.show('btn-srch-apcLinkPop');
+		} else {
+			SBUxMethod.hide('btn-srch-apcLinkPop');
+		}
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
@@ -1062,6 +1096,25 @@
  		gfn_popClipReport("송품장", rptUrl, {apcCd: gv_selectedApcCd, spmtno: spmtno});
  	}
 
+	/**
+	 * @name fn_popApcLink
+	 * @description 연계버튼팝업
+	 */
+	const fn_popApcLink = function() {
+		popApcLink.init(
+				{
+					apcCd: gv_selectedApcCd,
+					apcNm: gv_selectedApcNm,
+					linkKnd: "D",
+					kndList: ["D"]
+				},
+				fn_popApcLinkCallBack
+		);
+	}
+
+	const fn_popApcLinkCallBack = function() {
+
+	}
 
 
 	$(function(){

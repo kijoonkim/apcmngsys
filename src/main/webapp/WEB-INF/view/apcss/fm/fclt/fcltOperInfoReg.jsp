@@ -28,6 +28,11 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+	<style>
+		table.sbux-pik-pop-year thead th{
+			background-color: initial!important;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -323,6 +328,42 @@
 										placeholder="주소 검색하여 작성"
 										readonly
 									></sbux-input>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>시설설립연도</th>
+							<td class="td_input" style="border-right:hidden;" colspan="3">
+								<sbux-datepicker id="dtp-fcltFndnYr" name="dtp-fcltFndnYr" uitype="popup" datepicker-mode="year" class="form-control input-sm sbux-pik-group-apc input-sm-ast"></sbux-datepicker>
+							</td>
+						</tr>
+						<tr>
+							<th>담당자명</th>
+							<td>
+								<sbux-input id="dtl-inp-picNm" name="dtl-inp-picNm" uitype="text" class="form-control input-sm" autocomplete="off"></sbux-input>
+							</td>
+							<th>담당자 연락처</th>
+							<td>
+								<sbux-input id="dtl-inp-picTelno" name="dtl-inp-picTelno" uitype="text" class="form-control input-sm" permit-keycodes-set="num" autocomplete="off" maxlength="11"></sbux-input>
+							</td>
+						</tr>
+						<tr>
+							<th>개인정보 이용동의</th>
+							<td colspan="3">
+								<div>
+									<h5> 개인정보 수집 및 이용에 동의해 주세요.</h5>
+									<ul>
+										<li><strong>수집하는 개인정보 : </strong> 성명, 핸드폰</li>
+										<li><strong>이용목적 : </strong> 2025년 APC 전수조사 확인 및 관리, APC 건립지원사업 등 관련 정책지원사업 안내를 위함</li>
+										<li><strong>보유기간 : </strong> ~26.12.31.</li>
+									</ul>
+									<p class="ad_input_row">
+										<sbux-radio id="rdo-agre" name="rdo-prvc" uitype="normal" value="Y"  class="radio_label" text="동의" checked onchange="fn_clickPrvcRdo"></sbux-radio>
+									</p>
+									<p class="ad_input_row">
+										<sbux-radio id="rdo-dsag" name="rdo-prvc" uitype="normal" value="N" class="radio_label" text="미동의" onchange="fn_clickPrvcRdo"></sbux-radio>
+									</p>
+
 								</div>
 							</td>
 						</tr>
@@ -640,6 +681,11 @@
 							// , operOgnzBrno : userInfoVO.operOgnzBrno
 							// , operOgnzCrno : userInfoVO.operOgnzCrno
 							// , rprsv : userInfoVO.rprsv
+
+							, picNm : resultVO.pic
+							, picTelno : resultVO.cttpc
+							, prvcClctAgreYn : resultVO.prvcClctAgreYn
+							, fndnYr : resultVO.fndnYr
 						};
 						/*for (let i = 0; i < resultVO.itemList.length; i++) {
 							const itemData = resultVO.itemList[i];
@@ -711,7 +757,20 @@
 					SBUxMethod.set("dtl-inp-apcBmno", resultVO.apcBmno);//apc 건물 본번
 					SBUxMethod.set("dtl-inp-apcSlno", resultVO.apcSlno);//apc 건물 부번
 
+					// 2025.10.04 담당자명,연락처, 개인정보이용동의, 시설설립연도 추가요청
+					SBUxMethod.set('dtl-inp-picNm',resultVO.pic); // 담당자 명
+					SBUxMethod.set('dtl-inp-picTelno',resultVO.cttpc); // 담당자 연락처
+					if (resultVO.prvcClctAgreYn == null || resultVO.prvcClctAgreYn === undefined) {
+						// 초기화
+						SBUxMethod.clear('rdo-prvc');
+					} else {
+						SBUxMethod.set('rdo-prvc', resultVO.prvcClctAgreYn);
+						fn_clickPrvcRdo();
+					}
 
+					SBUxMethod.set('dtp-fcltFndnYr',resultVO.fndnYr); // 시설설립연도
+
+					/** 품목 리스트 **/
 					for (var i = 0; i < resultVO.itemList.length; i++) {
 						let itemData = resultVO.itemList[i];
 						let sn = itemData.sn;
@@ -741,6 +800,13 @@
 				SBUxMethod.set("dtl-inp-rprsv", resultVO.rprsv);//대표자
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
+
+				// 2025.10.04 담당자명,연락처 추가 요청
+				SBUxMethod.set('dtl-inp-picNm',resultVO.picNm); // 담당자 명
+				SBUxMethod.set('dtl-inp-picTelno',resultVO.mblTelno); // 담당자 연락처
+				SBUxMethod.set('rdo-prvc','Y'); // 개인정보이용동의 기본값 동의로 설정
+				fn_clickPrvcRdo();
+
 			}
 
 		}catch (e) {
@@ -791,6 +857,12 @@
 
 		SBUxMethod.set("dtl-inp-operOgnzRoadNmAddrFull", null);//운영조직 주소
 		SBUxMethod.set("dtl-inp-apcRoadNmAddrFull", null);//apc 주소
+
+		SBUxMethod.set('dtl-inp-picNm',null); // 담당자명
+		SBUxMethod.set('dtl-inp-picTelno',null); // 담당자연락처
+		SBUxMethod.clear('rdo-prvc'); // 담당자 개인정보 이용동의
+		fn_clickPrvcRdo();
+		SBUxMethod.set('dtp-fcltFndnYr',""); // 시설설립연도
 
 		for (var i = 1; i < 5; i++) {
 			SBUxMethod.set("dtl-inp-operOgnzItemNm"+i, null);
@@ -950,6 +1022,40 @@
 		let apcAddr = SBUxMethod.get("dtl-inp-apcRoadNmAddrFull");
 		if (gfn_isEmpty(apcAddr)) {
 			gfn_comAlert("W0002", "APC주소");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		// 담당자명, 연락처, 개인정보 이용동의, 시설설립연도
+		const picNm = SBUxMethod.get('dtl-inp-picNm');
+		const picTelno = SBUxMethod.get('dtl-inp-picTelno');
+		const prvcAgre = SBUxMethod.get('rdo-prvc');
+		const fndnYr = SBUxMethod.get('dtp-fcltFndnYr');
+
+		if (gfn_isEmpty(picNm)) {
+			gfn_comAlert("W0002", "담당자명");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		if (gfn_isEmpty(picTelno)) {
+			gfn_comAlert("W0002", "담당자 연락처");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		if (gfn_isEmpty(prvcAgre)) {
+			gfn_comAlert("W0001", "개인정보 이용동의");	//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		if (!gfn_isEmpty(prvcAgre) && _.isEqual(prvcAgre,'N')) {
+			gfn_comAlert("W0021", "저장","개인정보 수집 및 이용에 동의하신 분");	//	W0021	{0}은/는 {1}만 가능합니다.
+			return;
+		}
+
+		if (gfn_isEmpty(fndnYr)) {
+			gfn_comAlert("W0001", "시설설립연도"); // W0001 {0}을/를 선택하세요.
+			return;
+		} else if (fndnYr.length != 4) {
+			gfn_comAlert("W0002", "시설설립연도 4자리"); // W0002 {0}을/를 입력하세요.
 			return;
 		}
 
@@ -1113,6 +1219,12 @@
 			}
 		}
 
+		// 담당자명, 연락처, 개인정보 이용동의, 시설설립연도
+		const picNm = SBUxMethod.get('dtl-inp-picNm');
+		const picTelno = SBUxMethod.get('dtl-inp-picTelno');
+		const prvcAgre = SBUxMethod.get('rdo-prvc');
+		const fndnYr = SBUxMethod.get('dtp-fcltFndnYr');
+
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertOperOgnz.do", {
 			crtrYr: crtrYr  // 등록년도
 			, prgrsYn : 'Y' //진척도 갱신 여부
@@ -1152,6 +1264,11 @@
 			, apcSlno : gfn_nvl(SBUxMethod.get("dtl-inp-apcSlno")) //apc 건물 부번
 
 			, itemList : itemArr //품목 리스트
+
+			, pic : picNm
+			, cttpc : picTelno
+			, prvcClctAgreYn : prvcAgre
+			, fndnYr : fndnYr
 		});
 
 		const data = await postJsonPromise;
@@ -1519,6 +1636,17 @@
 		SBUxMethod.set("dtl-inp-apcBmno", data.apcBmno);//apc 건물 본번
 		SBUxMethod.set("dtl-inp-apcSlno", data.apcSlno);//apc 건물 부번
 
+		// 2025.10.04 담당자명,연락처, 개인정보이용동의 추가요청
+		SBUxMethod.set('dtl-inp-picNm',data.picNm); // 담당자 명
+		SBUxMethod.set('dtl-inp-picTelno',data.picTelno); // 담당자 연락처
+		if (data.prvcClctAgreYn == null || data.prvcClctAgreYn == undefined) {
+			// 초기화
+			SBUxMethod.clear('rdo-prvc');
+		} else {
+			SBUxMethod.set('rdo-prvc', resultVO.prvcClctAgreYn);
+		}
+
+		SBUxMethod.set('dtp-fcltFndnYr', data.fndnYr); // 시설설립연도
 
 		/*const itemList = data.itemList;
 
@@ -1673,6 +1801,26 @@
 		});
 
 		inputEl.closest('tr').find('td, th').css('vertical-align', 'top');
+	}
+
+	function fn_clickPrvcRdo() {
+
+		// 초기화
+		document.querySelectorAll('.sbux-rdo-txt').forEach(text => {
+			text.style.fontSize = '';
+		});
+
+		const checkedInput = document.querySelector('input[name="rdo-prvc"]:checked');
+		if (!checkedInput) return;
+
+		const rdoId = checkedInput.id;
+
+		// 글씨크기
+		const selectedText = document.querySelector(`label[for="${'${rdoId}'}"] .sbux-rdo-txt`);
+		if (selectedText) {
+			selectedText.style.fontSize = 'medium';
+		}
+
 	}
 
 

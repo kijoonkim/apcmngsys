@@ -219,6 +219,9 @@
 				<if test='prgrsSel.equals("14")'>
 				, PRGRS_14			= #{prgrsVal}
 				</if>
+				<if test='prgrsSel.equals("15")'>
+				, PRGRS_15			= #{prgrsVal}
+				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
 				, PRGRS_LAST		= #{prgrsLast}
 				</if>
@@ -269,6 +272,9 @@
 				</if>
 				<if test='prgrsSel.equals("14")'>
 				  , PRGRS_14
+				</if>
+				<if test='prgrsSel.equals("15")'>
+					, PRGRS_15
 				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
 				  , PRGRS_LAST
@@ -328,6 +334,9 @@
 				</if>
 				<if test='prgrsSel.equals("14")'>
 				 , #{prgrsVal}
+				</if>
+				<if test='prgrsSel.equals("15")'>
+					, #{prgrsVal}
 				</if>
 				<if test='prgrsLast != null and !prgrsLast.equals("")'>
 				 , #{prgrsLast}
