@@ -120,6 +120,10 @@
         .my-toast-title{
             font-size: x-large !important;
         }
+        #pckgGrdInfoWrap > div.carousel_container > div > button.active{
+            background-color: #2c3e50!important;
+            color: #FFF!important;
+        }
 
     </style>
 </head>
@@ -691,12 +695,13 @@
         /** folding **/
         fn_folding(header);
 
-        /** 색상으로 포장등급 선택된 요소 trigger (이렇게하면 안됨) **/
-        const $selected = $("#pckgGrdInfoWrap button[class^='pckg_grd_']").filter(function () {
-            const color = $(this).css("color");  // 또는 background-color
-            return color === "rgb(255, 255, 255)";  // 원하는 색 비교
+        /** 거래처 변경시 등급 선택 초기화 **/
+        let grdBtns = $("#pckgGrdInfoWrap button");
+        let grdBtnsArray = [...grdBtns];
+
+        grdBtnsArray.forEach(b => {
+            b.classList.remove('active');
         });
-        $selected[0]?.click();
 
         /** 현황판에 거래처 전달 **/
         PckgRegWs.send(JSON.stringify({
@@ -722,22 +727,29 @@
 
         const clickedBtn = _el.currentTarget;
         const carouselEl = clickedBtn.parentElement;
+        const selectFlag = clickedBtn.classList.contains('active');
 
+        /** 외 버튼 ui 초기화 **/
         const buttons = carouselEl.querySelectorAll("button");
         buttons.forEach(b => {
-            b.style.backgroundColor = "#FFF";
-            b.style.color = "#000";
+            b.classList.remove('active');
         });
 
-        clickedBtn.style.backgroundColor = "#2c3e50";
-        clickedBtn.style.color = "#FFF";
+        /** 버튼 선택 **/
+        clickedBtn.classList.add('active');
 
-        selectedPckgGrd = clickedBtn.className;
+        /** active class 제외 **/
+        let filterClassPrefix = clickedBtn.className.split(' ').filter(function(cls){
+           return cls !== 'active' && cls !== '';
+        });
+
+        selectedPckgGrd = filterClassPrefix[0];
         const td = document.querySelector("td." + selectedPckgGrd);
-        // const td = $("#sumInfoTbody > td." + selectedPckgGrd);
         if(td) grdQntt.value = parseInt(td.innerText) || 0;
-        /** 클릭시 ++ **/
-        await fn_countUp(clickedBtn);
+
+        if(selectFlag){
+            await fn_countUp(clickedBtn);
+        }
     }
 
     /**
@@ -748,7 +760,9 @@
         val++;
         grdQntt.value = val;
 
+        /** 등급 수량 총합계연산 **/
         fn_updateGrdSum();
+        /** 현황판에 전달 **/
         fn_patchQntt(val);
 
         if(_el != null){
@@ -814,6 +828,7 @@
         });
 
         document.querySelector("td.pckg_grd_sum").innerText = sum;
+
         /** 거래처별 data Temp 반영 **/
         let prevData = $('#sumInfoTbody td[class^="pckg_grd_"]').map(function () {
             const className = Array.from(this.classList).find(cls => cls.startsWith('pckg_grd_'));
