@@ -1,3 +1,19 @@
+<%
+	/**
+	 * @Class Name : uoMajoritem2025.jsp
+	 * @Description : 전문품목 매입·매출 (출자출하조직 보유) 2025
+	 * @author SI개발부
+	 * @since 2025.10.04
+	 * @version 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      	수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2025.10.04   	신정철	    최초 생성
+	 * @see
+	 *
+	 */
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -258,6 +274,16 @@
 
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
+						<sbux-checkbox
+								id="dtl-chk-upbrToAprv"
+								name="dtl-chk-upbrToAprv"
+								uitype="normal"
+								text="육성형을 승인형으로 조회"
+								text-left-padding="5px"
+								text-right-padding="25px"
+								true-value="Y"
+								false-value="N"
+						></sbux-checkbox>
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
@@ -422,6 +448,9 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
+
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
@@ -1226,6 +1255,9 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		SBUxMethod.hide('dtl-chk-upbrToAprv');
+
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
 		if (gfn_isEmpty(yr)){
@@ -1369,11 +1401,11 @@
 		fn_clearForm();
 
 		//데이터가 존재하는 그리드 범위 확인
-		var nCol = grdPrdcrOgnCurntMng.getCol();
+		const nCol = grdPrdcrOgnCurntMng.getCol();
 		if (nCol < 1) {
 			return;
 		}
-		var nRow = grdPrdcrOgnCurntMng.getRow();
+		let nRow = grdPrdcrOgnCurntMng.getRow();
 		if (nRow < 1) {
 			return;
 		}
@@ -1389,6 +1421,15 @@
 		SBUxMethod.set('dtl-input-crno', gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno', gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr', gfn_nvl(rowData.yr))//등록년도
+
+		SBUxMethod.refresh('dtl-chk-upbrToAprv');
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+		if (_.isEqual(rowData.aprv, "1")) {
+			SBUxMethod.hide('dtl-chk-upbrToAprv');
+		} else {
+			SBUxMethod.show('dtl-chk-upbrToAprv');
+		}
+		</c:if>
 	}
 
 	//그리드 초기화
@@ -1415,13 +1456,25 @@
 			return;
 		}
 
-		try {
+		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+		const keys = Object.getOwnPropertyNames(chkObj);
+		let upbrToAprvYn;
+		for (let i=0; i<keys.length; i++){
+			if (chkObj[keys[i]]) {
+				upbrToAprvYn = chkObj[keys[i]];
+			}
+		}
 
+		try {
 			jsonPrdcrOgnCurntMng01.length = 0;
 			let totalRecordCount = 0;
 
+			const defaultUrl = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do";
+			const upbrToAprvUrl = "/pd/pcom/selectUoMajorItemListForUpbrToAprv.do";
+			const postUrl = _.isEqual("Y", upbrToAprvYn) ? upbrToAprvUrl : defaultUrl;
+
 			//const url = "/pd/pcom/selectUoMajorItemPrchsSlsList.do";
-			const url = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do";
+			//const url = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do";
 			// const postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", {
 
 			const param = {
@@ -1429,22 +1482,23 @@
 				brno: brno
 			}
 
-			const postJsonPromise = gfn_postJSON(url, param);
-			const data = await postJsonPromise ;
+			const postJsonPromise = gfn_postJSON(postUrl, param);
+			const data = await postJsonPromise;
 
-			const tmprVo = data.resultMap;
-			if (tmprVo != null){
-				if (_.isEqual(tmprVo.tmprStrgYn, 'Y')){
-					$("#tmprArea").show();
-					$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
-				} else {
-					$("#tmprArea").hide();
-					$("#tmprStrgRsn").text("");
+			if (_.isEqual("S", data['resultStatus'])) {
+				const tmprVo = data.resultMap;
+				if (tmprVo != null){
+					if (_.isEqual(tmprVo.tmprStrgYn, 'Y')){
+						$("#tmprArea").show();
+						$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
+					} else {
+						$("#tmprArea").hide();
+						$("#tmprStrgRsn").text("");
+					}
 				}
-			}
 
-			data.resultList.forEach((item, index) => {
-				jsonPrdcrOgnCurntMng01.push({
+				data.resultList.forEach((item, index) => {
+					jsonPrdcrOgnCurntMng01.push({
 						yr: 				item.yr,
 						brno: 				item.brno,
 						apoSe: 				item.apoSe,
@@ -1464,16 +1518,19 @@
 						slsCnsgnSlsAmt: 	item.slsCnsgnSlsAmt,
 						slsCnsgnSlsVlm: 	item.slsCnsgnSlsVlm,
 						rmrk: 				item.rmrk,
-
 						trmtType: 			item.trmtType,
 						trmtTypeNm: 		item.trmtTypeNm,
 						ognzStbltYn: 		item.ognzStbltYn,
 					});
 
-				if (index === 0) {
-					totalRecordCount = item.totalRecordCount;
-				}
-			});
+					if (index === 0) {
+						totalRecordCount = item.totalRecordCount;
+					}
+				});
+
+			} else {
+				gfn_comAlert(data['resultCode'], data['resultMessage']);
+			}
 
 		} catch (e) {
 			if (!(e instanceof Error)) {

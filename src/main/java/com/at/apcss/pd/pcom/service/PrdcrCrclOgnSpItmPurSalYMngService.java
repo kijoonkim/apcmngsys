@@ -74,6 +74,15 @@ public interface PrdcrCrclOgnSpItmPurSalYMngService {
 
 	/* 개발서버 신규화면 조회 */
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
+	/**
+	 * 통합조직 전문품목 매입매출 목록 조회 (육성 -> 승인)
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemListForUpbrToAprv(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
 	/* 개발서버 신규화면 등록 */
 	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 	/* 개발서버 신규화면 등록 */

@@ -23,7 +23,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 @Controller
 public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 
-	@Resource(name= "PrdcrCrclOgnSpItmPurSalYMngService")
+	@Resource(name= "prdcrCrclOgnSpItmPurSalYMngService")
 	private PrdcrCrclOgnSpItmPurSalYMngService prdcrCrclOgnSpItmPurSalYMngService;
 
 	//화면이동
@@ -35,7 +35,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	// 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalYMngList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnSpItmPurSalYMngService.selectPrdcrCrclOgnSpItmPurSalYMngList(prdcrCrclOgnSpItmPurSalYMngVO);
@@ -50,7 +50,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	//등록
 	@PostMapping(value = "/pd/pcom/insertPrdcrCrclOgnSpItmPurSalYMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnSpItmPurSalYMng(@RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest requset) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
@@ -78,7 +78,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnSpItmPurSalYMngList(@RequestBody List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
@@ -100,8 +100,6 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 
 	@PostMapping(value = "/pd/pcom/deletePrdcrCrclOgnSpItmPurSalYMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnSpItmPurSalYMng(@RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception {
-		logger.debug("/pd/pcom/deletePrdcrCrclOgnSpItmPurSalYMng >>> 호출 >>> ");
-
 		int result = 0;
 		try {
 			result = prdcrCrclOgnSpItmPurSalYMngService.deletePrdcrCrclOgnSpItmPurSalYMng(prdcrCrclOgnSpItmPurSalYMngVO);
@@ -117,7 +115,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	// 통합조직 전문품목 매입매출 로우데이터 조회 2024년
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnSpItmPurSalYMngService.selectRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
@@ -132,7 +130,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	// 통합조직 전문품목 매입매출 로우데이터 조회 2025년
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnSpItmPurSalYMngService.selectRawDataList2025(prdcrCrclOgnSpItmPurSalYMngVO);
@@ -158,7 +156,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 				@RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO,
 				HttpServletRequest request) throws Exception{
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		try {
 			resultList = prdcrCrclOgnSpItmPurSalYMngService.selectUoMajorItemPrchsSlsRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
@@ -185,7 +183,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 				Model model,
 				@RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO,
 				HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		PrdcrCrclOgnSpItmPurSalYMngVO result = new PrdcrCrclOgnSpItmPurSalYMngVO();
 		try {
@@ -203,7 +201,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	// 개발서버 신규화면 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalYMngListNew(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		PrdcrCrclOgnSpItmPurSalYMngVO result = new PrdcrCrclOgnSpItmPurSalYMngVO();
 		try {
@@ -218,12 +216,36 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 통합조직 전문품목 매입매출 목록 조회 (육성 -> 승인)
+	 * @param model
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pcom/selectUoMajorItemListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoMajorItemListForUpbrToAprv(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList;
+		PrdcrCrclOgnSpItmPurSalYMngVO result;
+		try {
+			resultList = prdcrCrclOgnSpItmPurSalYMngService.selectUoMajorItemListForUpbrToAprv(prdcrCrclOgnSpItmPurSalYMngVO);
+			result = prdcrCrclOgnSpItmPurSalYMngService.selectTempSaveUoPst(prdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result == null ? new PrdcrCrclOgnSpItmPurSalYMngVO() : result);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	// 개발서버 신규화면 등록
 	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnSpItmPurSalYMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(@RequestBody List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {

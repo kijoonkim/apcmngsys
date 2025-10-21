@@ -36,7 +36,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	// 통합조직 리스트 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngUoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngUoList(Model model, @RequestBody PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngUoList(prdcrCrclOgnGenalTblMngVO);
@@ -51,7 +51,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	// 총괄표 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngList(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngList(itemUoStbltYnVo);
@@ -68,7 +68,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/updateStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
 		logger.debug("/pd/aom/updateStbltYn.do >>> 호출 >>> ");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
@@ -112,7 +112,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/updateUserPrfmncCorpDdlnYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateUserPrfmncCorpDdlnYn(@RequestBody PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		int resultCnt = 0;
 		String tempList = "";
 		try {
@@ -147,7 +147,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/updateAllUoStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateAllUoStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
 		logger.debug("/pd/aom/updateAllUoStbltYn.do >>> 호출 >>> ");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
@@ -188,7 +188,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
 		logger.debug("/pd/aom/selectPrdcrCrclOgnGenalTblMngRawDataList.do >>> 호출 >>> ");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectRawDataList(itemUoStbltYnVo);
@@ -204,7 +204,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
 		logger.debug("/pd/aom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do >>> 호출 >>> ");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectRawDataList2025(itemUoStbltYnVo);
@@ -222,7 +222,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	@PostMapping(value = "/pd/pcom/multiSaveItemUoActnMttr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<PrdcrCrclOgnGenalTblMngVO> prdcrCrclOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
@@ -245,7 +245,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	// 부류별 합계
 	@PostMapping(value = "/pd/pcom/selectUoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectUoClsfTot(Model model, @RequestBody PrdcrCrclOgnGenalTblMngVO prdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectUoClsfTot(prdcrCrclOgnGenalTblMngVO);
@@ -260,7 +260,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	// 신규 총괄표 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngListNew(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngListNew(itemUoStbltYnVo);
@@ -272,10 +272,32 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 통합조직 총괄표 (육성->승인)
+	 * @param model
+	 * @param itemUoStbltYnVo
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pcom/selectUoPrchsSlsSummaryListForUpbrToAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoPrchsSlsSummaryListForUpbrToAprv(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
+		try {
+			resultList = prdcrCrclOgnGenalTblMngService.selectUoPrchsSlsSummaryListForUpbrToAprv(itemUoStbltYnVo);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 신규 총괄표 조회
 	@PostMapping(value = "/pd/pcom/selectUoPrchsSlsSummaryList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectUoPrchsSlsSummaryList(Model model, @RequestBody ItemUoStbltYnVO itemUoStbltYnVo, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
 		try {
 			resultList = prdcrCrclOgnGenalTblMngService.selectUoPrchsSlsSummaryList(itemUoStbltYnVo);

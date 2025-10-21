@@ -216,7 +216,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row" class="th_bg th-mbl">규격/재고/<span style="color: red">투입</span></th>
+                    <th scope="row" class="th_bg th-mbl">규격/재고</th>
                     <td class="td_input">
                         <div style="display: flex; gap: 10px">
                             <sbux-input
@@ -228,15 +228,15 @@
                                     placeholder=""
                                     readonly
                             ></sbux-input>
-                            <sbux-input
-                                    id="dtl-inp-qntt"
-                                    name="dtl-inp-qntt"
-                                    uitype="text"
-                                    wrap-style="flex-basis: 30%"
-                                    class="inpt-mbl inpt_data_reqed"
-                                    onchange="fn_qnttChange(dtl-inp-qntt)"
-                                    placeholder=""
-                            ></sbux-input>
+<%--                            <sbux-input--%>
+<%--                                    id="dtl-inp-qntt"--%>
+<%--                                    name="dtl-inp-qntt"--%>
+<%--                                    uitype="text"--%>
+<%--                                    wrap-style="flex-basis: 30%"--%>
+<%--                                    class="inpt-mbl inpt_data_reqed"--%>
+<%--                                    onchange="fn_qnttChange(dtl-inp-qntt)"--%>
+<%--                                    placeholder=""--%>
+<%--                            ></sbux-input>--%>
                             <sbux-input
                                     id="dtl-inp-rawMtrSpcfctNm"
                                     name="dtl-inp-rawMtrSpcfctNm"
@@ -390,6 +390,10 @@
 
     var jsonSave = [];
     var jsonRawMtrInvntr = [];
+
+    /** 원물 재고 규격 **/
+    var jsonRawSpcfctCd = [];
+    /** 상품 규격 **/
     var jsonSpcfctCd = [];
     /** 조회 JSON **/
     var jsonSearchList = [];
@@ -518,17 +522,17 @@
         window.parent.cfn_openTabSearch(JSON.stringify({target:"AM_003_022",pltno:pltno}));
     }
 
-    function fn_qnttChange(_value){
-        let val = parseInt(_value);
-        let invtrQntt = SBUxMethod.get("dtl-inp-invntrQntt");
-        if(val > parseInt(invtrQntt)){
-            gfn_comAlert("W0008","재고","투입");
-            SBUxMethod.set("dtl-inp-qntt",invtrQntt);
-        }
-        let wght = SBUxMethod.get("wght");
-        let wrhsno = SBUxMethod.get("dtl-inp-wrhsno");
-        jsonRawMtrInvntr[0] = {inptQntt : val, inptWght : val * parseInt(wght), wrhsno : wrhsno};
-    }
+    // function fn_qnttChange(_value){
+    //     let val = parseInt(_value);
+    //     let invtrQntt = SBUxMethod.get("dtl-inp-invntrQntt");
+    //     if(val > parseInt(invtrQntt)){
+    //         gfn_comAlert("W0008","재고","투입");
+    //         SBUxMethod.set("dtl-inp-qntt",invtrQntt);
+    //     }
+    //     let wght = SBUxMethod.get("wght");
+    //     let wrhsno = SBUxMethod.get("dtl-inp-wrhsno");
+    //     jsonRawMtrInvntr[0] = {inptQntt : val, inptWght : val * parseInt(wght), wrhsno : wrhsno};
+    // }
 
     const fn_add = async function(){
         let check = gfn_getTableElement("saveTable","dtl-",["warehouseSeCd","grdCd","flnm","sortno"]);
@@ -539,16 +543,27 @@
         let spcfctCd = SBUxMethod.get("dtl-slt-spcfctCd");
         let itemCd = SBUxMethod.get("dtl-inp-itemCd");
 
+        /** 원물 단중 **/
+        let rawWght = SBUxMethod.get("wght");
+        /** 상품 단중**/
         let wght = 0;
+
         let postJsonPromise = gfn_postJSON("/am/cmns/selectApcSpcfctList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, spcfctCd : spcfctCd});
         let data = await postJsonPromise;
+
         if(data.resultStatus === 'S'){
            wght =  data.resultList[0].wght;
         }
 
         check.apcCd = gv_selectedApcCd;
         check.spcfctNm = spcfctNm;
-        check.sortWght = parseInt(check.sortQntt) * parseInt(wght);
+        check.sortWght = (parseFloat(check.sortQntt) * parseFloat(wght)).toFixed(3);
+
+        /** 투입수량 연산 **/
+        check.inptQntt = Math.ceil(check.sortWght / rawWght);
+
+        /** 출하포장단위 set **/
+        check.spmtPckgUnitCd = jsonSpcfctCd.filter(i => i.spcfctCd === check.spcfctCd)[0].spmtPckgUnitCd;
 
         await fn_setSaveTable(check);
     }
@@ -582,6 +597,9 @@
             </td>
              <td>
                 ${'${item.sortQntt}'}
+            </td>
+             <td style=display:none>
+                ${'${item.sortWght}'}
             </td>
            </tr>
            `;
@@ -619,7 +637,6 @@
            jsonSave[idx].autoPckgInptYn = 'Y';
            jsonSave[idx].fcltCd = "01";
            jsonSave[idx].gdsGrd = "01";
-           jsonSave[idx].spmtPckgUnitCd = jsonSave[idx].spcfctCd;
            jsonSave[idx].stdGrdList = [{
                grdCd : "01",
                grdKnd : "01",
@@ -645,13 +662,30 @@
            });
             return !flag;
         });
+        /** 생산 수량 만큼 투입연산 **/
+        let wrhsno = SBUxMethod.get("dtl-inp-wrhsno");
+
+        // 원물 단중(kg)
+        const rawUnitWght = Number(SBUxMethod.get("wght")) || 0;
+
+        // 총중량만 합산
+        const inptWght = jsonSave.reduce((sum, { sortWght }) => {
+            return sum + (Number(sortWght) || 0);
+        }, 0);
+
+        // 총중량 → 실제 수량(올림)
+        const inptQntt = rawUnitWght > 0
+            ? Math.ceil((inptWght + Number.EPSILON) / rawUnitWght)
+            : 0;
+
+        jsonRawMtrInvntr[0] = {inptQntt,inptWght,wrhsno};
 
         const sortMng = {
             apcCd: gv_selectedApcCd,
             sortYmd: sortYmd,
             sortno: sortno,
             rawMtrInvntrList: jsonRawMtrInvntr,
-            sortPrfmncList: jsonSave
+            sortPrfmncList: jsonSave,
         }
 
         let postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);

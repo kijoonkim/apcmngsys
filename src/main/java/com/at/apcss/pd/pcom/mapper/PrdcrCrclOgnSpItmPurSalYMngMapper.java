@@ -68,6 +68,13 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 
 	/* 개발서버 신규 화면 조회 */
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
+
+	/**
+	 * 통합조직 전문품목 매입매출 목록 조회 (육성->승인)
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemListForUpbrToAprv(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 	/* 개발서버 신규 화면 등록 */
 	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 	/* 개발서버 신규 화면 적합여부 */

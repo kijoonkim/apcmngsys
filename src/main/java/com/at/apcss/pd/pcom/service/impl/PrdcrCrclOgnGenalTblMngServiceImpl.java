@@ -181,6 +181,11 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
+	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryListForUpbrToAprv(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception {
+		return prdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv(itemUoStbltYnVo);
+	}
+
+	@Override
 	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception {
 		return prdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew(itemUoStbltYnVo);
 	}

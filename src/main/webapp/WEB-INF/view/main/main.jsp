@@ -1346,6 +1346,23 @@
         mfn_displayButton();
 
         await fn_topMenuSet();
+
+        // if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
+        //     const jsonTabSelect = {
+        //         'text': 'Agent',	//'대시보드'
+        //         'targetid': "TAB_CO_020",
+        //         'targetvalue': "TAB_CO_020",
+        //         'targetname': 'frmJson',
+        //         'link': '/co/menu/openPage.do/CO_020',	// _url
+        //         'closeicon': false,
+        //     };
+        //     SBUxMethod.addTab('tab_menu',jsonTabSelect);
+        //
+        //     /** dashboard 용 UI변신 **/
+        //     SBUxMethod.closeSideMenu('idxSide_menu');
+        //     $('#pinToggle').trigger("click");
+        //     document.getElementById('main_header').classList.remove('visible');
+        // }
     }
 
 
@@ -1700,7 +1717,6 @@
                 prslType: "M1"
             }
         await insertComLog(data);
-
     }
 
     function gfn_tabClose(_menuId) {
@@ -2245,6 +2261,19 @@
     function fn_toggleButtonDisable(_btnName,_flag = false){
         let uiId = '#main-btn-' + _btnName;
         $(uiId).prop("disabled",_flag);
+    }
+    /** agentDashboard 활성화시 UI정리 **/
+    function cfn_initDashboard(){
+        console.log("호출이 안되어버리기");
+        /** 관리자 00,10 type시 agent 대시보드 노출 **/
+        if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
+            console.log(SBUxMethod);
+            console.log(typeof SBUxMethod,"TQA");
+            /** dashboard 용 UI **/
+            SBUxMethod.closeSideMenu('side_menu');
+            $('#pinToggle').trigger("click");
+            document.getElementById('main_header').classList.remove('visible');
+        }
     }
 </script>
 
