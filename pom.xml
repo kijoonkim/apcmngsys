@@ -440,6 +440,13 @@
 		<profile>
 			<id>tomcat</id>
 			<activation><activeByDefault>true</activeByDefault></activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-devtools</artifactId>
+					<optional>true</optional>
+				</dependency>
+			</dependencies>
 			<!-- 별도 설정 불필요 -->
 		</profile>
 
