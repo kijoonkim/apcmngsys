@@ -1268,26 +1268,6 @@
 		let rowData = grdWghPrfmnc.getRowData(rowIdx);
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: rowData.prdcrCd});
 
-		/**
-		 * 입력자				oprtrNm
-		 * 출고일				wghYmd
-		 * 이동번호(계량번호) - TAYYYYMMDD01 / 계량대코드 fcltCd/fcltNm, 	wghno
-		 * 순번					wghnoSn
-		 * 거래처명(생산자)		prdcrNm
-		 * 별칭					prdcr.abbrNm
-		 * 재배농가				prdcr.frmhsNm
-		 * 연락처(생산자)		prdcr.telno
-		 * 밭주소				prdcr.frmhsAddr
-		 * 차량번호				vhclno
-		 * 기사명				drvrNm
-		 * 계좌주				getVhclInfo.rmrk
-		 * 은행
-		 * 연락처(기사)
-		 * 운임
-		 * 계좌
-		 *
-		 * 팔레트
-		 * */
 		let jsonData = [];
 		rowData.abbrNm = prdcr.abbrNm;
 		rowData.frmhsNm = prdcr.frmhsNm;
@@ -1296,17 +1276,16 @@
 
 		if(getVhclInfo && getVhclInfo.rmrk) {
 			const rmrkArr = getVhclInfo.rmrk.split('|');
-			rowData.dpstrNm = rmrkArr[0] || '';
-			rowData.bankNm = rmrkArr[1] || '';
-			rowData.drivrTelno = rmrkArr[2] || '';
-			rowData.trsprtCst = rmrkArr[3] || '';
-			rowData.actNo = rmrkArr[4] || '';
+			rowData.bankNm = rmrkArr[0] || '';
+			rowData.actNo = rmrkArr[1] || '';
+			rowData.dpstrNm = rmrkArr[2] || '';
+			rowData.drivrTelno = rmrkArr[3] || '';
 		}
 
 		jsonData.push(rowData);
 
 		let pltVO = {};
-		let dtBxPltData = grdDtBxPlt.getGridDataAllExceptTotal();
+		let dtBxPltData = grdDtBxPlt.getGridDataAll();
 		dtBxPltData.forEach((item, idx) => {
 			pltVO["bxNm" + idx] = item.BpltBxNm || "",
 			pltVO["bxQntt" + idx] = item.Bqntt || "",
@@ -1328,13 +1307,8 @@
 					}
 				}
 		);
-		console.log("============");
-		console.log(conn);
 
 		gfn_popClipReportPost("출고확인증", "am/rawMtrWghPltSpmtDoc_0669.crf",null, conn);
-
-		//const wghno = wghnoList.join("','");
-		// gfn_popClipReport("계량확인서", "am/rawMtrWghDoc_0669.crf", reportVo);
 	}
 
 	/**
