@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
+import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
@@ -958,6 +960,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					gdsInvntrVO.setItemCd(wghPrfmncVO.getItemCd());
 					gdsInvntrVO.setVrtyCd(wghPrfmncVO.getVrtyCd());
 					gdsInvntrVO.setGdsGrd(wghPrfmncVO.getGrdCd());
+					gdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 
 					List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 
@@ -1010,6 +1013,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 									updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
 									updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
 									updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+									updateGdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 									updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 									updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -1054,6 +1058,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 									updateGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
 									updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
 									updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+									updateGdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 									updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 									updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 									resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
@@ -1081,6 +1086,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							insertGdsInvntrVO.setItemCd(spmtPrfmncVO.getItemCd());
 							insertGdsInvntrVO.setVrtyCd(spmtPrfmncVO.getVrtyCd());
 							insertGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+							insertGdsInvntrVO.setWarehouseSeCd(spmtPrfmncVO.getWarehouseSeCd());
 
 							insertGdsInvntrVO.setInvntrQntt(remainderSpmtQntt * -1);
 							insertGdsInvntrVO.setSpmtQntt(spmtPrfmncVO.getSpmtQntt());
@@ -1114,6 +1120,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						insertGdsInvntrVO.setInvntrQntt(wghPrfmncVO.getBxQntt() * -1);
 						insertGdsInvntrVO.setPckgYmd(wghPrfmncVO.getWghYmd());
 						insertGdsInvntrVO.setSpmtQntt(wghPrfmncVO.getBxQntt());
+						insertGdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 
 						insertGdsInvntrVO.setPckgno(pckgno);
 						insertGdsInvntrVO.setPckgSn(seq);
@@ -1468,6 +1475,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					gdsInvntrVO.setItemCd(wghPrfmncVO.getItemCd());
 					gdsInvntrVO.setVrtyCd(wghPrfmncVO.getVrtyCd());
 					gdsInvntrVO.setGdsGrd(wghPrfmncVO.getGrdCd());
+					gdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 
 					List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 
@@ -1520,6 +1528,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 									updateGdsInvntrVO.setSpmtQntt(wghPrfmncVO.getBxQntt());
 									updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
 									updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+									updateGdsInvntrVO.setWarehouseSeCd(spmtPrfmncVO.getWarehouseSeCd());
 									updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 									updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 
@@ -1564,6 +1573,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 									updateGdsInvntrVO.setSpmtQntt(wghPrfmncVO.getBxQntt());
 									updateGdsInvntrVO.setSpmtPckgUnitCd(spmtPrfmncVO.getSpmtPckgUnitCd());
 									updateGdsInvntrVO.setGdsGrd(spmtPrfmncVO.getGdsGrd());
+									updateGdsInvntrVO.setWarehouseSeCd(spmtPrfmncVO.getWarehouseSeCd());
 									updateGdsInvntrVO.setSysLastChgPrgrmId(spmtPrfmncVO.getSysLastChgPrgrmId());
 									updateGdsInvntrVO.setSysLastChgUserId(spmtPrfmncVO.getSysLastChgUserId());
 									resultMap = gdsInvntrService.updateGdsInvntrSpmtPrfmnc(updateGdsInvntrVO);
@@ -1594,6 +1604,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 							insertGdsInvntrVO.setInvntrQntt(remainderSpmtQntt * -1);
 							insertGdsInvntrVO.setSpmtQntt(wghPrfmncVO.getBxQntt());
+							insertGdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 
 							insertGdsInvntrVO.setPckgno(pckgno);
 							insertGdsInvntrVO.setPckgSn(wghPrfmncVO.getWghSn());
@@ -1624,6 +1635,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						insertGdsInvntrVO.setInvntrQntt(wghPrfmncVO.getBxQntt() * -1);
 						insertGdsInvntrVO.setSpmtQntt(wghPrfmncVO.getBxQntt());
 						insertGdsInvntrVO.setPckgYmd(wghPrfmncVO.getWghYmd());
+						insertGdsInvntrVO.setWarehouseSeCd(wghPrfmncVO.getWarehouseSeCd());
 
 						insertGdsInvntrVO.setPckgno(pckgno);
 						insertGdsInvntrVO.setPckgSn(wghPrfmncVO.getWghSn());
@@ -2216,6 +2228,14 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception {
 
 		List<HashMap<String, Object>> resultList = wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
+
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghPrfmncPltBxSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception {
+
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncPltBxSpmtList(wghPrfmncVO);
 
 		return resultList;
 	}

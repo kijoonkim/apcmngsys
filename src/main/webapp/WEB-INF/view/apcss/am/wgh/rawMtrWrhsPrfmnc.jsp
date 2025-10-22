@@ -719,7 +719,7 @@ async function cfn_search() {
 
 		// 거산 임시
 		if (checkedWghnos.size > 0 && gv_selectedApcCd === '0669') {
-			gfn_comAlert("E0000", "원물계량실적이 존재합니다. 원물계량시스템에서 삭제해주세요.");
+			gfn_comAlert("E0000", "원물계량실적이 존재합니다.");
 			return;
 		}
 

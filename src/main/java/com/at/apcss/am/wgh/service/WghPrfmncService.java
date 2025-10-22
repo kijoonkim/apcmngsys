@@ -342,4 +342,12 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량실적 출고 박스/팔레트 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghPrfmncPltBxSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception;
 }
