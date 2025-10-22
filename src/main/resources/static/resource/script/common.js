@@ -1195,6 +1195,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				gdsSeCd: item.gdsSeCd,
 				trsprtSeCd: item.trsprtSeCd,
 				vhclno: item.vhclno,
+				telno: item.telno,
 				prdcrLinkCd: item.prdcrLinkCd,
 				prdcrIdentno: item.prdcrIdentno,
 				name:item.prdcrNm,

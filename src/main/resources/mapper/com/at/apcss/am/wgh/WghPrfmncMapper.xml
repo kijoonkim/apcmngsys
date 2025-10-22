@@ -2824,76 +2824,112 @@
 	<!-- =============================================================================	-->
 	<select id="selectWghPrfmncPltBxSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			 SELECT
-			        WC.APC_CD				AS APC_CD
-			      , WC.WGHNO				AS WGHNO
-			      , WC.WGH_YMD				AS WGH_YMD
-			      , WC.VHCLNO				AS VHCLNO
-			      , WC.PRDCR_CD				AS PRDCR_CD
-			      , (SELECT FN_GET_PRDCR_NM(WC.PRDCR_CD, WC.APC_CD) FROM DUAL) AS PRDCR_NM
-                  , WD.ITEM_CD				AS ITEM_CD
-			      , MAX((SELECT FN_GET_ITEM_NM(WD.ITEM_CD, WD.APC_CD) FROM DUAL)) AS ITEM_NM
-				  , LISTAGG(WD.VRTY_CD, ',') WITHIN GROUP(ORDER BY WD.VRTY_CD) AS VRTY_CD
-                  , LISTAGG(FN_GET_VRTY_NM(WD.ITEM_CD, WD.VRTY_CD, WD.APC_CD), ',') WITHIN GROUP(ORDER BY WD.VRTY_CD) AS VRTY_NM
-			      , WC.FCLT_CD				AS FCLT_CD
-			      , (SELECT FN_GET_COM_CD_VL_NM('WGH_FCLT_CD', WC.FCLT_CD, WC.APC_CD) FROM DUAL) AS FCLT_NM
-			      , WC.WRHS_SPMT_TYPE		AS WRHS_SPMT_TYPE
-			      , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', WC.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
-			 	  , SUM(CASE WHEN PWS.WRHS_SPMT_SE_CD = '1' AND PWS.PLT_BX_SE_CD = 'B' THEN PWS.QNTT ELSE 0 END) AS BX_QNTT
-		       	  , SUM(CASE WHEN PWS.WRHS_SPMT_SE_CD = '1' AND PWS.PLT_BX_SE_CD = 'P' THEN PWS.QNTT ELSE 0 END) AS PLT_QNTT
-       			  , SUM(CASE WHEN PWS.WRHS_SPMT_SE_CD = '2' AND PWS.PLT_BX_SE_CD = 'B' THEN PWS.QNTT ELSE 0 END) AS SHPGOT_QNTT
-       	  		  , SUM(CASE WHEN PWS.WRHS_SPMT_SE_CD = '2' AND PWS.PLT_BX_SE_CD = 'P' THEN PWS.QNTT ELSE 0 END) AS SHPGOT_PLT_QNTT
-			      , MAX(WC.SHPGOT_WGHT)			AS SHPGOT_WGHT
-                  , MAX(WC.OINST_SPMT_NM)		AS OINST_SPMT_NM
-                  , MAX(WC.TRSPRT_CST)			AS TRSPRT_CST
-                  , MAX(WC.OPRTR_NM)			AS OPRTR_NM
-			      , MAX(WC.WHOL_WGHT)			AS WHOL_WGHT
-			      , MAX(WC.EMPT_VHCL_WGHT)		AS EMPT_VHCL_WGHT
-			      , MAX(WC.WHOL_WGHT) - NVL(MAX(WC.EMPT_VHCL_WGHT), 0) AS ACTL_WGHT
-                  , MAX(WC.RMRK)				AS RMRK
-				  , MAX(VI.DRVR_NM)				AS DRVR_NM
-                  , MAX(VI.BANK_CD)				AS BANK_CD
-                  , FN_UTL_DECRYPT_ARIA(MAX(VI.ACTNO))            AS ACTNO
-                  , MAX(VI.TELNO)				AS TELNO
-			   FROM TB_WGH_PRFMNC_COM WC
+			 SELECT X.APC_CD                AS APC_CD
+			      , X.WGHNO                 AS WGHNO
+			      , X.WGH_YMD               AS WGH_YMD
+			      , X.VHCLNO                AS VHCLNO
+			      , X.PRDCR_CD	            AS PRDCR_CD
+			      , (SELECT FN_GET_PRDCR_NM(X.PRDCR_CD, X.APC_CD) FROM DUAL) AS PRDCR_NM
+			      , X.ITEM_CD               AS ITEM_CD
+			      , (SELECT FN_GET_ITEM_NM(X.ITEM_CD, X.APC_CD) FROM DUAL) AS ITEM_NM
+			      , LISTAGG(X.VRTY_CD, ',') WITHIN GROUP(ORDER BY X.VRTY_CD) AS VRTY_CD
+                  , LISTAGG(FN_GET_VRTY_NM(X.ITEM_CD, X.VRTY_CD, X.APC_CD), ',') WITHIN GROUP(ORDER BY X.VRTY_CD) AS VRTY_NM
+			      , X.FCLT_CD		        AS FCLT_CD
+			      , (SELECT FN_GET_COM_CD_VL_NM('WGH_FCLT_CD', X.FCLT_CD, X.APC_CD) FROM DUAL) AS FCLT_NM
+			      , X.WRHS_SPMT_TYPE        AS WRHS_SPMT_TYPE
+			      , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', X.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
+			 	  , X.BX_QNTT			    AS BX_QNTT
+		       	  , X.PLT_QNTT		        AS PLT_QNTT
+       			  , X.SHPGOT_QNTT		    AS SHPGOT_QNTT
+       	  		  , X.SHPGOT_PLT_QNTT	    AS SHPGOT_PLT_QNTT
+			      , MAX(X.SHPGOT_WGHT)      AS SHPGOT_WGHT
+                  , MAX(X.OINST_SPMT_NM)    AS OINST_SPMT_NM
+                  , MAX(X.TRSPRT_CST)       AS TRSPRT_CST
+                  , MAX(X.OPRTR_NM)         AS OPRTR_NM
+			      , MAX(X.WHOL_WGHT)        AS WHOL_WGHT
+			      , MAX(X.EMPT_VHCL_WGHT)   AS EMPT_VHCL_WGHT
+			      , MAX(X.WHOL_WGHT) - NVL(MAX(X.EMPT_VHCL_WGHT), 0) AS ACTL_WGHT
+                  , MAX(X.RMRK)				AS RMRK
+			      , MAX(X.DRVR_NM)          AS DRVR_NM
+                  , MAX(X.BANK_CD)          AS BANK_CD
+                  , FN_UTL_DECRYPT_ARIA(MAX(X.ACTNO))            AS ACTNO
+                  , MAX(X.TELNO)            AS TELNO
+			   FROM (
+			        SELECT WC.APC_CD             AS APC_CD
+			             , WC.WGHNO              AS WGHNO
+			             , WC.WGH_YMD            AS WGH_YMD
+			             , WC.VHCLNO             AS VHCLNO
+			             , WC.PRDCR_CD	         AS PRDCR_CD
+			             , WC.WHOL_WGHT          AS WHOL_WGHT
+			             , WC.EMPT_VHCL_WGHT     AS EMPT_VHCL_WGHT
+			             , WD.ITEM_CD            AS ITEM_CD
+			             , WD.VRTY_CD            AS VRTY_CD
+			             , WC.FCLT_CD		     AS FCLT_CD
+			             , WC.WRHS_SPMT_TYPE     AS WRHS_SPMT_TYPE
+			             , PWS.BX_QNTT           AS BX_QNTT
+			             , PWS.PLT_QNTT          AS PLT_QNTT
+			             , PWS.SHPGOT_QNTT       AS SHPGOT_QNTT
+			             , PWS.SHPGOT_PLT_QNTT   AS SHPGOT_PLT_QNTT
+                         , WC.SHPGOT_WGHT        AS SHPGOT_WGHT
+                         , WC.OINST_SPMT_NM      AS OINST_SPMT_NM
+                         , WC.TRSPRT_CST         AS TRSPRT_CST
+                         , WC.OPRTR_NM           AS OPRTR_NM
+                         , WC.RMRK               AS RMRK
+                         , VI.DRVR_NM            AS DRVR_NM
+                         , VI.BANK_CD            AS BANK_CD
+                         , VI.ACTNO              AS ACTNO
+                         , VI.TELNO              AS TELNO
+			          FROM TB_WGH_PRFMNC_COM WC
 
-		  LEFT JOIN (
-		  		SELECT APC_CD, WGHNO, ITEM_CD, VRTY_CD
-		  		  FROM TB_WGH_PRFMNC_DTL
-		  		  WHERE DEL_YN = 'N'
-		  ) WD
-			   	 ON WC.APC_CD = WD.APC_CD
-			   	AND WC.WGHNO = WD.WGHNO
+			          LEFT JOIN (
+			                    SELECT DISTINCT APC_CD, WGHNO, ITEM_CD, VRTY_CD
+			                      FROM TB_WGH_PRFMNC_DTL
+			                     WHERE DEL_YN = 'N'
+			          ) WD
+			   	         ON WC.APC_CD = WD.APC_CD
+			   	        AND WC.WGHNO = WD.WGHNO
 
-          LEFT JOIN TB_PLT_WRHS_SPMT PWS
-		         ON WC.APC_CD = PWS.APC_CD
-			   	AND WC.WGH_YMD = PWS.JOB_YMD
-			   	AND WC.WGHNO = PWS.PRCS_NO
-			   	AND PWS.DEL_YN = 'N'
+			          LEFT JOIN (
+			          		SELECT
+			          			  APC_CD
+			          			, JOB_YMD
+			          			, PRCS_NO
+			          			, SUM(CASE WHEN WRHS_SPMT_SE_CD = '1' AND PLT_BX_SE_CD = 'B' THEN QNTT ELSE 0 END) AS BX_QNTT
+			          			, SUM(CASE WHEN WRHS_SPMT_SE_CD = '1' AND PLT_BX_SE_CD = 'P' THEN QNTT ELSE 0 END) AS PLT_QNTT
+			          			, SUM(CASE WHEN WRHS_SPMT_SE_CD = '2' AND PLT_BX_SE_CD = 'B' THEN QNTT ELSE 0 END) AS SHPGOT_QNTT
+			          			, SUM(CASE WHEN WRHS_SPMT_SE_CD = '2' AND PLT_BX_SE_CD = 'P' THEN QNTT ELSE 0 END) AS SHPGOT_PLT_QNTT
+			          		  FROM TB_PLT_WRHS_SPMT
+			          		 WHERE DEL_YN = 'N'
+			          		 GROUP BY APC_CD, JOB_YMD, PRCS_NO
+			          	) PWS
+		                 ON WC.APC_CD = PWS.APC_CD
+			   	        AND WC.WGH_YMD = PWS.JOB_YMD
+			   	        AND WC.WGHNO = PWS.PRCS_NO
 
-		  LEFT JOIN TB_WRHS_VHCL_INFO VI
-			   	 ON WC.APC_CD = VI.APC_CD
-			   	AND WC.VHCLNO = VI.VHCLNO
-			   	AND VI.DEL_YN = 'N'
+			          LEFT JOIN TB_WRHS_VHCL_INFO VI
+			   	         ON WC.APC_CD = VI.APC_CD
+			   	        AND WC.VHCLNO = VI.VHCLNO
+			   	        AND VI.DEL_YN = 'N'
 
-			  WHERE WC.DEL_YN = 'N'
-			    AND WC.APC_CD = #{apcCd}
-			    AND EXISTS (
-			 			SELECT 1
-			 			  FROM TB_PLT_WRHS_SPMT SUB_PWS
-			 			 WHERE SUB_PWS.APC_CD = WC.APC_CD
-			 	  		   AND SUB_PWS.JOB_YMD = WC.WGH_YMD
-			 	  		   AND SUB_PWS.PRCS_NO = WC.WGHNO
-			 	  		   AND SUB_PWS.WRHS_SPMT_SE_CD = '2'
-			 	  		   AND SUB_PWS.DEL_YN = 'N'
-			 	)
+			          WHERE WC.DEL_YN = 'N'
+			            AND WC.APC_CD = #{apcCd}
+			            AND EXISTS (
+			 			        SELECT 1
+			 			          FROM TB_PLT_WRHS_SPMT SUB_PWS
+			 			         WHERE SUB_PWS.APC_CD = WC.APC_CD
+			 	  		           AND SUB_PWS.JOB_YMD = WC.WGH_YMD
+			 	  		           AND SUB_PWS.PRCS_NO = WC.WGHNO
+			 	  		           AND SUB_PWS.WRHS_SPMT_SE_CD = '2'
+			 	  		           AND SUB_PWS.DEL_YN = 'N'
+			 	        )
 		]]>
 		<if test='wghYmd != null and wghYmd !=""'>
 			AND WC.WGH_YMD = #{wghYmd}
 		</if>
 		<![CDATA[
-			 GROUP BY WC.APC_CD, WC.WGHNO, WC.WGH_YMD, WC.VHCLNO, WC.PRDCR_CD, WD.ITEM_CD, WC.FCLT_CD, WC.WRHS_SPMT_TYPE
-			 ORDER BY WC.WGHNO DESC
+			  ) X
+			 GROUP BY X.APC_CD, X.WGHNO, X.WGH_YMD, X.VHCLNO, X.PRDCR_CD, X.ITEM_CD, X.FCLT_CD, X.WRHS_SPMT_TYPE, X.BX_QNTT, X.PLT_QNTT, X.SHPGOT_QNTT, X.SHPGOT_PLT_QNTT
+			 ORDER BY X.WGHNO DESC
 		]]>
 	</select>
 </mapper>
