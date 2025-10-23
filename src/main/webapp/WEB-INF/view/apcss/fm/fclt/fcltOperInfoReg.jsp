@@ -351,11 +351,13 @@
 							<th>개인정보 이용동의</th>
 							<td colspan="3">
 								<div>
-									<h5> 개인정보 수집 및 이용에 동의해 주세요.</h5>
+									<h5> 개인정보 수집이용 및 제 3자 이용에 동의해 주세요.</h5>
 									<ul>
-										<li><strong>수집하는 개인정보 : </strong> 성명, 핸드폰</li>
-										<li><strong>이용목적 : </strong> 2025년 APC 전수조사 확인 및 관리, APC 건립지원사업 등 관련 정책지원사업 안내를 위함</li>
+										<li><strong>수집 및 이용되는 개인정보 : </strong> 성명, 핸드폰</li>
+										<li><strong>개인정보를 제공받는 자 : </strong> 시도 및 시군 지자체 담당자, APC 사이트 관리자</li>
+										<li><strong>이용목적 : </strong> 2025년 APC 전수조사 확인 및 관리, APC 건립지원사업 등 관련 정책지원사업 안내</li>
 										<li><strong>보유기간 : </strong> ~26.12.31.</li>
+										<li><strong>동의를 거부하실 수 있으나 전수조사 참여가 불가능합니다.</strong></li>
 									</ul>
 									<p class="ad_input_row">
 										<sbux-radio id="rdo-agre" name="rdo-prvc" uitype="normal" value="Y"  class="radio_label" text="동의" checked onchange="fn_clickPrvcRdo"></sbux-radio>
