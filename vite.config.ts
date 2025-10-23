@@ -41,10 +41,13 @@ export default defineConfig({
         },
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css'],
     },
-    // server:{
-    //     proxy: {
-    //         '/api': 'http://localhost:8080',
-    //         '/openapi': 'https://api.public.go.kr',
-    //     }
-    // }
+    server:{
+        proxy: {
+            // '/api'로 시작하는 요청을 http://localhost:8080/으로 전달합니다.
+            '/api': {
+                target: 'http://localhost:8080', // 실제 백엔드 서버 주소
+                changeOrigin: true, // CORS 오류 방지를 위해 호스트 헤더를 변경
+            }
+        }
+    }
 });
