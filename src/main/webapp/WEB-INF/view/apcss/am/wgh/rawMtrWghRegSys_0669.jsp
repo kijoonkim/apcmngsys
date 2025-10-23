@@ -835,8 +835,8 @@
 		ws.init();
 
 		/** report 버튼 활성화 */
-		SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
-		SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
+		// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
+		// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
 
 		/** addRow 대체 **/
 		// await fn_addRow();
@@ -1265,7 +1265,21 @@
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return ;
 		}
-		let rowData = grdWghPrfmnc.getRowData(rowIdx);
+
+        /** SQL **/
+        let rowData = grdWghPrfmnc.getRowData(rowIdx);
+
+        let wghno = rowData.wghno;
+        let reportVo = {
+            APC_CD : gv_selectedApcCd,
+            WGHNO : wghno,
+            JOB_YMD : rowData.wghYmd
+        }
+
+        gfn_popClipReport("출고확인증", "am/rawMtrWghPltSpmtDoc_0669.crf", reportVo);
+
+        /** json **/
+		/*let rowData = grdWghPrfmnc.getRowData(rowIdx);
 		let prdcr = _.find(jsonPrdcr, {prdcrCd: rowData.prdcrCd});
 
 		let jsonData = [];
@@ -1308,7 +1322,7 @@
 				}
 		);
 
-		gfn_popClipReportPost("출고확인증", "am/rawMtrWghPltSpmtDoc_0669.crf",null, conn);
+		gfn_popClipReportPost("출고확인증", "am/rawMtrWghPltSpmtDoc_0669.crf",null, conn);*/
 	}
 
 	/**
@@ -1326,6 +1340,14 @@
 			item.rmrk = '';
 		});
 		grdPltBox.rebuild();
+		jsonDtBxPlt.forEach(function(item){
+			item.Bqntt = '';
+			item.Pqntt = '';
+			item.Bsn = 0;
+			item.Psn = 0;
+			item.rmrk = '';
+		});
+		grdDtBxPlt.rebuild();
 
 	}
 
@@ -1618,8 +1640,8 @@
 
 		if (wrhsSpmtType == "RT") {
 			// 버튼 상태 설정
-			SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
-			SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
+			// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
+			// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
 
 			// 필수값 확인
 			SBUxMethod.attr("dtl-inp-wholWght", "class", "form-control input-sm input-sm-ast inpt_data_reqed");
@@ -1653,8 +1675,8 @@
 
 		} else if (wrhsSpmtType == "DT") {
 			// 버튼 상태 설정
-			SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "true");
-			SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "false");
+			// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "true");
+			// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "false");
 
 			// 필수값 확인
 			SBUxMethod.attr("dtl-inp-wholWght", "class", "form-control input-sm input-sm-ast");
