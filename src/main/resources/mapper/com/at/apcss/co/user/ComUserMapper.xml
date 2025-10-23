@@ -758,7 +758,7 @@
     	</choose>
 
     	<![CDATA[
-    		 ORDER BY USER_NM, USER_ID
+    		 ORDER BY APLY_DT DESC, USER_NM, USER_ID
     		  ) pt0
     	]]>
 		<!-- Start 페이징 -->
@@ -985,7 +985,7 @@
     	</choose>
 
     	<![CDATA[
-    		 ORDER BY USER_NM, USER_ID
+    		 ORDER BY APLY_DT DESC, USER_NM, USER_ID
     		  ) pt0
     	]]>
 		<!-- Start 페이징 -->
