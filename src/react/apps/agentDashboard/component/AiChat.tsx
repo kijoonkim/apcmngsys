@@ -114,6 +114,13 @@ export default function AIAssistant() {
         }
     };
 
+    function renderSimpleMarkdown(text) {
+        // 정규표현식을 사용하여 **단어** 를 <strong>단어</strong> 로 바꿉니다.
+        const boldHtml = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // (나중에 다른 마크다운도 추가할 수 있습니다. 예: *italic*)
+        return boldHtml;
+    }
+
     // --- 백엔드 응답 시뮬레이션 함수 (나중에 삭제될 부분) ---
     const mockBackendResponse = (currentMessages, prompt) => {
         return new Promise(resolve => {
@@ -151,7 +158,11 @@ export default function AIAssistant() {
                         {messages.map((msg, index) => (
                             <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-lg px-4 py-3 rounded-2xl ${msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
-                                    <p className="whitespace-pre-wrap">{msg.content}</p>
+                                    {/*<p className="whitespace-pre-wrap">{msg.content}</p>*/}
+                                    <p
+                                        className="whitespace-pre-wrap"
+                                        dangerouslySetInnerHTML={{ __html: renderSimpleMarkdown(msg.content) }}
+                                    />
                                 </div>
                             </div>
                         ))}
