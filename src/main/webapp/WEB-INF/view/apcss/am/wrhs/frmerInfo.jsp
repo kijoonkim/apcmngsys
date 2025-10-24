@@ -2354,7 +2354,7 @@
             popupAnchor: [0, -25]
         });
 
-        marker = L.marker([parseFloat(lng), parseFloat(lat)], { icon: svgIcon }).addTo(window.leafletMap);
+        marker = L.marker([lng, lat], { icon: svgIcon }).addTo(window.leafletMap);
         jsonMarker.push(marker);
 
         if(label) {
@@ -2759,49 +2759,38 @@
             return null;
         }
 
-        const callGeocoder = function(address, type) {
+        const callGeocoder = function(address) {
             return new Promise((resolve) => {
                 $.ajax({
-                    url: "https://api.vworld.kr/req/address?",
+                    url: "https://dapi.kakao.com/v2/local/search/address.json",
                     type: "GET",
-                    dataType: "jsonp",
+                    dataType: "json",
+                    headers: {
+                        "Authorization": 'KakaoAK 8f471c814f2ca4c1daf3bf1399080411'
+                    },
                     data: {
-                        service: "address",
-                        request: "GetCoord",
-                        version: "2.0",
-                        crs: "EPSG:4326",
-                        type: type,
-                        address: address,
-                        format: "json",
-                        errorformat: "json",
-                        key: "FC4EDA75-1904-32F7-950C-B0E45DFBEFDD"
+                        query: address
                     },
                     success: function(data) {
-                        if(data.response.status === "OK" && data.response.result.point) {
-                            const point = data.response.result.point;
+                        if(data.documents && data.documents.length > 0) {
+                            const point = data.documents[0];
 
                             resolve({
                                 xcrd: point.x,
                                 ycrd: point.y
                             });
                         } else {
-                            console.warn(data.response.errorMessage);
                             resolve(null);
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error(`API 호출 오류:`, status, error);
                         resolve(null);
                     }
                 });
             });
         };
 
-        let coords = await callGeocoder(address, "ROAD");
-
-        if(!coords) {
-            coords = await callGeocoder(address, "PARCEL");
-        }
+        let coords = await callGeocoder(address);
 
         return coords;
     }
