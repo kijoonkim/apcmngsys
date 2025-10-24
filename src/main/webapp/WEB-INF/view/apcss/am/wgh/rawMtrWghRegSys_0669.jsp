@@ -506,6 +506,7 @@
 											name="dtl-inp-bxQntt"
 											class="form-control input-sm"
 											mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+											onchange="fn_onChangeBxQntt(dtl-inp-bxQntt)"
 											readonly
 									></sbux-input>
 								</td>
@@ -516,6 +517,7 @@
 											name="dtl-inp-pltQntt"
 											class="form-control input-sm"
 											mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+											onchange="fn_onChangePltQntt(dtl-inp-pltQntt)"
 									></sbux-input>
 								</td>
 								<td colspan="2"></td>
@@ -1714,6 +1716,44 @@
 		await fn_onChangeSrchItemCd({value: prvItemCd});
 	}
 
+	/**
+	 * @name fn_onChangeBxQntt
+	 * @description 입고(출고) 가구/팔레트 event
+	 */
+	const fn_onChangeBxQntt = async function(value) {
+		/** 25.10.24 팔레트불출관리 - APC(0001) 수량 추가 (일단 입고만)*/
+		let wrhsSpmtType = SBUxMethod.get("dtl-slt-wrhsSpmtType") == "RT" ? "입고" : "출고";
+		let defaultWrhs = '거산APC';
+		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
+
+		jsonPltBox.forEach(item => {
+			if (item.type == "입고" && item.BpltBxCd == "0001" && wrhsSpmtType == "입고") {
+				item.Bqntt = value;
+				item.rmrk = gfn_isEmpty(item.rmrk) ? defaultWrhs : item.rmrk;
+			}
+		});
+		grdPltBox.refresh();
+	}
+
+	/**
+	 * @name fn_onChangePltQntt
+	 * @description 입고(출고) 가구/팔레트 event
+	 */
+	const fn_onChangePltQntt = async function(value) {
+		/** 25.10.24 팔레트불출관리 - APC(0001) 수량 추가 (일단 입고만)*/
+		let wrhsSpmtType = SBUxMethod.get("dtl-slt-wrhsSpmtType") == "RT" ? "입고" : "출고";
+		let defaultWrhs = '거산APC';
+		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
+
+		jsonPltBox.forEach(item => {
+			if (item.type == "입고" && item.BpltBxCd == "0001" && wrhsSpmtType == "입고") {
+				item.Pqntt = value;
+				item.rmrk = gfn_isEmpty(item.rmrk) ? defaultWrhs : item.rmrk;
+			}
+		});
+		grdPltBox.refresh();
+	}
+
 	const fn_grdQnttChanged = function () {
 
 		let itemCd = SBUxMethod.get('dtl-slt-itemCd');
@@ -1740,8 +1780,24 @@
 		}
 		SBUxMethod.set("dtl-inp-bxQntt", total);
 		/** 25.10.13 입고가구 / 36 = 팔레트 */
-		SBUxMethod.set("dtl-inp-pltQntt", parseInt(total / 36));
+		let pltTotal = parseInt(total / 36);
+		SBUxMethod.set("dtl-inp-pltQntt", pltTotal);
 
+		/** 25.10.24 팔레트불출관리 - APC(0001) 수량 추가 (일단 입고만)*/
+		/*let wrhsSpmtType = SBUxMethod.get("dtl-slt-wrhsSpmtType") == "RT" ? "입고" : "출고";
+		let defaultWrhs = '거산APC';
+		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
+
+		jsonPltBox.forEach(item => {
+			if (item.type == "입고" && item.BpltBxCd == "0001" && wrhsSpmtType == "입고") {
+				item.Bqntt = total;
+				item.Pqntt = pltTotal;
+				item.rmrk = defaultWrhs;
+			}
+		});
+		grdPltBox.refresh();*/
+		fn_onChangeBxQntt(total);
+		fn_onChangePltQntt(pltTotal);
 	}
 
 	/**
@@ -2149,12 +2205,12 @@
 
 		if (itemCd === "dtPlt") {
 			wghPrfmnc.itemCd = "";
-			wghPrfmnc.wrhsSpmtType = prvWghPrfmncData.wrhsSpmtType || wrhsSpmtType;
 			wghPrfmnc.groupId = 1;
 			if (gfn_isEmpty(wghno)) {
 				wghPrfmnc.rowSts = 'I';
 				multiList.push(wghPrfmnc);
 			} else {
+				wghPrfmnc.wrhsSpmtType = prvWghPrfmncData.wrhsSpmtType;
 				wghPrfmnc.rowSts = 'U';
 
 				await gfn_setApcGdsGrdSBSelect('grdVrty', 		jsonGrdCd, 		gv_selectedApcCd, prvWghPrfmncData.itemCd, "01");		// 등급
@@ -3070,6 +3126,7 @@
 		const rmrkCol = currentGrd.getColRef('rmrk');
 		const getRowData = currentGrd.getRowData(nRow);
 		const getCellData = currentGrd.getCellData(nRow, nCol);
+		const getRmrkData = currentGrd.getCellData(nRow, rmrkCol);
 
 		let defaultWrhs = '거산APC';
 		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
@@ -3077,7 +3134,7 @@
 		let setRmrk = '';
 
 		// 입/출고 입력 변경 X
-		if (nCol === rmrkCol) {
+		if (nCol === rmrkCol || !gfn_isEmpty(getRmrkData)) {
 			return;
 		}
 
