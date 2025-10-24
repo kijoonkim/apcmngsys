@@ -758,12 +758,12 @@
     	</choose>
 
     	<![CDATA[
-    		 ORDER BY APLY_DT DESC, USER_NM, USER_ID
+    		 ORDER BY USER_NM, USER_ID
     		  ) pt0
     	]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		ORDER BY USER_TYPE
+    		ORDER BY APLY_DT DESC NULLS LAST, USER_TYPE
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
@@ -985,12 +985,12 @@
     	</choose>
 
     	<![CDATA[
-    		 ORDER BY APLY_DT DESC, USER_NM, USER_ID
+    		 ORDER BY USER_NM, USER_ID
     		  ) pt0
     	]]>
 		<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
-    		ORDER BY USER_TYPE
+    		ORDER BY APLY_DT DESC NULLS LAST, USER_TYPE
 			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
 			FETCH FIRST #{recordCountPerPage} ROWS ONLY
     	</if>
