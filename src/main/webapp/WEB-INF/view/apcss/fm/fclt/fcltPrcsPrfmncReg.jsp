@@ -37,7 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 산지유통처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
+			<%--	<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>--%>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -595,7 +595,7 @@
 								</td>
 								<td>%</td>
 							</tr>
-							<tr class="extra-row">
+							<tr class="extra-row" style="display: none">
 								<th class="text-center">
 									<span id="itemNmExtra">조정품목</span>
 									<sbux-input id="dtl-inp-itemCdExtra" name="dtl-inp-extraItemCd" uitype="hidden"></sbux-input>
@@ -1007,7 +1007,7 @@
 		await cfn_selectPrgrs();
 
 		// 전년도
-		await fn_selectAtMcIfList(true);
+		// await fn_selectAtMcIfList(true);
 		await fn_selectAtMcIfList();
 	}
 
@@ -1067,34 +1067,35 @@
 				});
 			} else {
 				data.resultList.forEach((item, index) => {
+					<c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
 
-					if (_.isEqual("XC01", item.itemCd)) {
+						if (_.isEqual("XC01", item.itemCd)) {
 
-						extraRow.style.display = '';
+							extraRow.style.display = '';
 
-						SBUxMethod.set('dtl-inp-apcTrmtVlmExtra', item.apcTrmtVlm);
-						SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtExtra', item.apcGnrlTrmtAmt);
-						SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstExtra', item.apcOgnzCprtnSortTrst);
-						SBUxMethod.set('dtl-inp-apcCtrtEmspapExtra', item.apcCtrtEmspap);
-						SBUxMethod.set('dtl-inp-apcTmSpmtAmtExtra', item.tmSpmtAmt);
-					} else {
-						let sn = item.sn;
-						SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
-						if (sn == '4') {
-							$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
-							SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemNm); // 품목명
-						} else {
-							$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
-							SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemCd); // 품목코드
+							SBUxMethod.set('dtl-inp-apcTrmtVlmExtra', item.apcTrmtVlm);
+							SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtExtra', item.apcGnrlTrmtAmt);
+							SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstExtra', item.apcOgnzCprtnSortTrst);
+							SBUxMethod.set('dtl-inp-apcCtrtEmspapExtra', item.apcCtrtEmspap);
+							SBUxMethod.set('dtl-inp-apcTmSpmtAmtExtra', item.tmSpmtAmt);
 						}
-						SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
-
-						SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
-						SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
-						SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
-						SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
-						SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+					</c:if>
+					let sn = item.sn;
+					SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
+					if (sn == '4') {
+						$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemNm); // 품목명
+					} else {
+						$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemCd); // 품목코드
 					}
+					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
+
+					SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
+					SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
+					SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
+					SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
+					SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
 				});
 
 				fn_cal();
@@ -1384,7 +1385,7 @@
 	}
 
 	// 전년도 데이터 set
-	function fn_pySearch() {
+	/*function fn_pySearch() {
 		// 데이터 검증 메세지 초기화
 		const msgDivs = document.getElementsByClassName('div-msg');
 		for (let i = 0; i < msgDivs.length; i++) {
@@ -1449,7 +1450,7 @@
 		}
 
 		fn_cal();
-	}
+	}*/
 
 
 	// 값 변경 시 실행 함수
