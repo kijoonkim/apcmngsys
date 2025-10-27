@@ -86,6 +86,9 @@
             max-width: 75vw;
             width: 75vw;
         }
+        .btn{
+            min-height: initial!important;
+        }
     </style>
 </head>
 <body>
@@ -391,7 +394,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 <script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
 <script src="${pageContext.request.contextPath}/api/mobile/js/pages/dashboard.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/agentDashboard.css">
+<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/agentDashboard.css">--%>
 <script src="${pageContext.request.contextPath}/js/out/agentDashboard.bundle.js?v={{$timestamp}}" type="module"></script>
 </body>
 </html>
