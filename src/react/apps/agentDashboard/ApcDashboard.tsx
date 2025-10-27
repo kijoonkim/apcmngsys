@@ -5,12 +5,16 @@ import {useDisclosure} from "@mantine/hooks";
 import Gemini from "@apps/agentDashboard/component/Gemini";
 import AiPrompt from "@apps/agentDashboard/component/AiPrompt";
 import AiChat from "@apps/agentDashboard/component/AiChat";
+import ApcList from "@apps/agentDashboard/component/ApcList";
 
 type ViewKey = 'policy' | 'vendor' | 'main';
 
-export default function App() {
-    const [tab, setTab] = useState<ViewKey>('main');
+export default function App({ initialProps }: { initialProps: { apcCode?: string } }) {
+    const [tab, setTab] = useState<ViewKey>('vendor');
     const [opened, { toggle }] = useDisclosure();
+    const [apcCode, setApcCode] = React.useState(initialProps.apcCode ?? "");
+
+    console.log(apcCode);
 
     return (
         <AppShell
@@ -30,9 +34,10 @@ export default function App() {
                         w='100%'
                     >
                         <Tabs.List>
+                            <Tabs.Tab value="vendor">운영성과</Tabs.Tab>
                             <Tabs.Tab value="main">mainTest</Tabs.Tab>
                             <Tabs.Tab value="policy">정책성과</Tabs.Tab>
-                            <Tabs.Tab value="vendor">운영성과</Tabs.Tab>
+                            <Tabs.Tab value="apcList">APC목록</Tabs.Tab>
                         </Tabs.List>
                     </Tabs>
 
@@ -56,6 +61,12 @@ export default function App() {
                     {tab === 'vendor' && (
                         <Box>
                             <AiChat></AiChat>
+                        </Box>
+                    )}
+
+                    {tab === 'apcList' && (
+                        <Box>
+                            <ApcList></ApcList>
                         </Box>
                     )}
                 </Box>

@@ -29,9 +29,25 @@ const qc = new QueryClient();
 //         </QueryClientProvider>
 //     </React.StrictMode>
 //     );
+type Boot = { apcCode?: string; };
+
+function readBoot(): Boot {
+    const el = document.getElementById("react-dashboard-root");
+    const s = el?.getAttribute("data-app-props");
+    if (!s) return {};
+    try {
+        // JSON 형태면 파싱, 아니면 단일 문자열로 해석
+        return s.trim().startsWith("{") || s.trim().startsWith("[")
+            ? JSON.parse(s)
+            : { apcCode: s };
+    } catch {
+        return { apcCode: s }; // 파싱 실패 시 폴백
+    }
+}
+const boot = readBoot();
 
 ReactDOM.createRoot(document.getElementById('react-dashboard-root')!).render(
     <MantineProvider theme={theme} defaultColorScheme="light">
-        <App />
+        <App initialProps={boot} />
     </MantineProvider>
 );

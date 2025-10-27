@@ -9,6 +9,9 @@
 <!DOCTYPE html>
 <html lang="ko" style="margin: 0!important;">
 <head>
+    <%@ include file="../../../frame/inc/headerMeta.jsp" %>
+    <%@ include file="../../../frame/inc/headerScript.jsp" %>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
@@ -93,7 +96,7 @@
 </head>
 <body>
 <div class="page" style="max-height: 100%">
-    <div id="react-dashboard-root"></div>
+    <div id="react-dashboard-root" data-app-props='<c:out value="${gv_selectedApcCd}"/>'></div>
     <div class="container-xl">
         <div class="page-header">
             <div class="row align-items-center justify-content-between" style="height: auto;">

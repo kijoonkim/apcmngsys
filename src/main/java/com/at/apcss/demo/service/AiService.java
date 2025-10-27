@@ -208,14 +208,15 @@ public class AiService {
         String type = args.path("performance_type").asText();
         String start = args.path("start_date").asText();
         String end = args.path("end_date").asText();
+        String apcName = args.path("apc_name").asText();
 
         Map<String, Object> result = apcRepository.getPerformance(apcCode, type, start, end);
 
         // 3차 AI 호출 (결과 요약)을 여기서 하거나,
         // 지금은 간단히 문자열을 조합하여 반환합니다.
         return String.format(
-                "조회 결과: %s의 %s부터 %s까지 %s 실적은 총 %,d%s 입니다.",
-                apcCode, start, end, type,
+                "%s[%s]의 %s부터 %s까지 %s 입고실적은 총 %,d%s 입니다.",
+                apcName, apcCode, start, end, type,
                 (Integer)result.get("total_kg"), result.get("unit")
         );
     }
