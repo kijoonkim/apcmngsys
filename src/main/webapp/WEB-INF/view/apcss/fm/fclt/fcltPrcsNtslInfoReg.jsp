@@ -28,6 +28,9 @@
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
+<style>
+	.is-hidden { display:none; }
+</style>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid" style="height: 100vh">
@@ -37,7 +40,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 산지유통판매처 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
+				<%--<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>--%>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -120,8 +123,8 @@
 						<col style="width: 60px">
 						<col style="width: 20%">
 						<col style="width: 60px">
-						<col style="width: 20%">
-						<col style="width: 60px">
+						<col style="width: 20%" class="extra">
+						<col style="width: 60px" class="extra">
 						<col style="width: 20%">
 						<col style="width: 60px">
 						<col style="width: 20%">
@@ -133,7 +136,7 @@
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm2">품목2</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm3">품목3</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm4">기타</span></th>
-							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNmExtra">조정품목</span></th>
+							<th class="text-center extra-cell is-hidden" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNmExtra">조정품목</span></th>
 							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
@@ -186,9 +189,9 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
-							<td style="border-right:hidden; padding-right: 0px !important;">
-							</td>
-							<td>(백만원)</td>
+							<%-- 조정품목부분 --%>
+							<td id="td-extra-1" class="extra-cell is-hidden" style="border-right:hidden; padding-right: 0px !important;"></td>
+							<td id="td-extra-2" class="extra-cell is-hidden">(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-rtlOgnzTotTrmtAmtTot"
@@ -219,7 +222,7 @@
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm2">품목2</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm3">품목3</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm4">기타</span></th>
-							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNmExtra">조정품목</span></th>
+							<th class="text-center extra-cell is-hidden" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNmExtra">조정품목</span></th>
 							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
@@ -272,7 +275,7 @@
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
-							<td style="border-right:hidden; padding-right: 0px !important;">
+							<td id="td-extra-3" class="extra-cell is-hidden" style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 										id="dtl-inp-apcTrmtAmtExtra"
 										name="dtl-inp-apcTrmtAmtExtra"
@@ -283,7 +286,8 @@
 										readonly
 								></sbux-input>
 							</td>
-							<td>(백만원)</td>
+							<td id="td-extra-4" class="extra-cell is-hidden">(백만원)</td>
+
 							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-apcTrmtAmtTot"
@@ -579,7 +583,7 @@
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
 		</c:if>
-
+		fn_hiddenExtraItem(0); // 초기에는 숨김 처리
 		fn_init();
 
 	});
@@ -673,7 +677,7 @@
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',null);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',null);
 
-		SBUxMethod.set('dtl-inp-apcTrmtAmtExtra',null);
+		SBUxMethod.set('dtl-inp-apcTrmtAmtExtra',null); // 조정품목
 
 		// 데이터 검증 메세지 초기화
 		const msgDivs = document.getElementsByClassName('div-msg');
@@ -692,12 +696,14 @@
 		}
 		await fn_clearForm();
 
+		fn_hiddenExtraItem(0); // 조정품목 숨김처리
+
 		//진척도
 		await cfn_selectPrgrs();
 
 		await fn_selectItmPrfList();
 		// 전년도
-		await fn_selectItmPrfList(true);
+		// await fn_selectItmPrfList(true);
 	}
 
 	const fn_selectItmPrfList = async function(isPrev = false) {
@@ -777,8 +783,11 @@
 					SBUxMethod.set('dtl-inp-apcTrmtAmt2', item.apcTrmtAmt2);
 					SBUxMethod.set('dtl-inp-apcTrmtAmt3', item.apcTrmtAmt3);
 					SBUxMethod.set('dtl-inp-apcTrmtAmt4', item.apcTrmtAmt4);
-					SBUxMethod.set('dtl-inp-apcTrmtAmtExtra', item.apcTrmtAmtExtra);
-
+					/** 조정품목 (관리자만 값이 있으면 보이게) **/
+					<c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+						SBUxMethod.set('dtl-inp-apcTrmtAmtExtra', item.apcTrmtAmtExtra); // 조정품목
+						fn_hiddenExtraItem(item.apcTrmtAmtExtra);
+					</c:if>
 					SBUxMethod.set('dtl-inp-apcTrmtAmtTot', item.apcTrmtAmtTot);
 					SBUxMethod.set('dtl-inp-apcTrmtAmtTot1', fn_numberToKorean(item.apcTrmtAmtTot));
 
@@ -1007,7 +1016,7 @@
 	}
 
 	// 전년도 데이터 set
-	function fn_pySearch() {
+	/*function fn_pySearch() {
 		// 데이터 검증 메세지 초기화
 		const msgDivs = document.getElementsByClassName('div-msg');
 		for (let i = 0; i < msgDivs.length; i++) {
@@ -1051,7 +1060,7 @@
 
 		fn_cal();
 
-	}
+	}*/
 
 	function fn_changeValue(args) {
 		if (!args) return;
@@ -1118,8 +1127,24 @@
 			});
 			tr.find('td').css('vertical-align', 'top');
 		}
-
-
 	}
+
+	function fn_hiddenExtraItem(value) {
+
+		const extraCols = document.querySelectorAll('col.extra'); // colgroup
+		const extraHeaders = document.querySelectorAll('.extra-cell');
+
+		if (!value || value === '' || value === 0) {
+			// 값 없으면 숨김
+			extraHeaders.forEach(el => el.classList.add('is-hidden'));
+			// col 숨김
+			extraCols.forEach(col => col.style.display = 'none');
+		} else {
+			// 값 있으면 보임
+			extraHeaders.forEach(el => el.classList.remove('is-hidden'));
+			extraCols.forEach(col => col.style.display = '');
+		}
+	}
+
 </script>
 </html>
