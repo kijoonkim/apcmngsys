@@ -703,7 +703,7 @@
 
 		await fn_selectItmPrfList();
 		// 전년도
-		// await fn_selectItmPrfList(true);
+		await fn_selectItmPrfList(true);
 	}
 
 	const fn_selectItmPrfList = async function(isPrev = false) {
@@ -1086,7 +1086,6 @@
 		if (noVisibleDiv) {
 			tr.find('td').css('vertical-align', 'middle');
 		}
-
 
 		if (gfn_isEmpty(jsonPrevData)) return;
 

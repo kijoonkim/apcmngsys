@@ -1005,7 +1005,7 @@
 		await cfn_selectPrgrs();
 
 		// 전년도
-		// await fn_selectOgPcList(true);
+		await fn_selectOgPcList(true);
 		await fn_selectOgPcList();
 	}
 
