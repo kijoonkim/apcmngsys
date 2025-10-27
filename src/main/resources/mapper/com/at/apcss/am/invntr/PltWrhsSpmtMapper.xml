@@ -199,6 +199,7 @@
 				)
 		WHEN MATCHED THEN
 			UPDATE SET
+				PLT_NM = source.PLT_NM,
 				QNTT = source.QNTT,
 		    	RMRK = source.RMRK,
 			    DEL_YN = 'N'
@@ -283,6 +284,7 @@
 		<![CDATA[
 			  SELECT pt0.*
 				 , (SELECT FN_GET_COM_CD_VL_NM('PLT_BX_SE_CD', pt0.PLT_BX_SE_CD) FROM DUAL) AS PLT_BX_SE_NM
+			     , (SELECT FN_GET_PLT_BX_NM(pt0.PLT_BX_SE_CD, pt0.PLT_BX_CD, pt0.APC_CD) FROM DUAL) AS PLT_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_SE_CD', pt0.WRHS_SPMT_SE_CD) FROM DUAL) AS WRHS_SPMT_SE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', pt0.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('PLT_CNPT', pt0.PLT_CNPT_CD) FROM DUAL)                  AS PLT_CNPT_NM
@@ -295,7 +297,6 @@
 			             , PWS.PLT_BX_SE_CD         AS PLT_BX_SE_CD
 			             , PWS.PLT_BX_CD            AS PLT_BX_CD
 			             , PWS.PRDCR_CD             AS PRDCR_CD
-			             , PWS.PLT_NM               AS PLT_NM
 			             , PWS.RMRK                 AS RMRK
 			             , PWS.SN                   AS SN
 			             , PWS.UNIT_WGHT            AS UNIT_WGHT
@@ -314,8 +315,8 @@
 			         WHERE 1=1
 			            AND PWS.DEL_YN 					= 'N'
 		]]>
-		<if test='pltNm != null and pltNm != ""'>
-						AND PWS.PLT_NM 					= #{pltNm}
+		<if test='pltBxCd != null and pltBxCd != ""'>
+						AND PWS.PLT_BX_CD 					= #{pltBxCd}
 		</if>
 		<if test='pltBxSeCd != null and pltBxSeCd != ""'>
 						AND PWS.PLT_BX_SE_CD 			= #{pltBxSeCd}

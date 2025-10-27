@@ -537,7 +537,7 @@
 			delYn: 'N',
 			pltBxSeCd: pltBxSeCd,
 			wrhsSpmtSeCd : wrhsSpmtSeCd,
-			pltNm: pltNm
+			pltBxCd: pltNm
   		});
 
         const data = await postJsonPromise;
