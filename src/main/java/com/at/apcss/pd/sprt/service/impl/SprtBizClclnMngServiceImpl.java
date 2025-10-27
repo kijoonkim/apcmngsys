@@ -801,4 +801,9 @@ public class SprtBizClclnMngServiceImpl extends BaseServiceImpl implements SprtB
 
         return null;
     }
+
+    @Override
+    public List<SprtBizClclnMngVO> selectSprtClclnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception {
+        return sprtBizClclnMngMapper.selectSprtClclnAplyDocList(sprtBizClclnMngVO);
+    }
 }

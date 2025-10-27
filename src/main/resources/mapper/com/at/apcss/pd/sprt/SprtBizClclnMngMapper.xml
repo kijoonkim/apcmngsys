@@ -12,9 +12,17 @@
 
 <mapper namespace="com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper">
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtBizDtbnMngList  -->
+    <!-- DESC : 산지조직지원 - 교부관리 목록 조회                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.10.22  	유민지        	제출여부 조회조건 추가                          -->
+    <!-- ==========================================================================	-->
     <select id="selectSprtBizDtbnMngList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
         <![CDATA[
-            SELECT
+            SELECT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtBizDtbnMngList*/
                 SBO.SPRT_BIZ_YR AS SPRT_BIZ_YR
                 , SBO.SPRT_BIZ_CD AS SPRT_BIZ_CD
                 , SBO.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
@@ -159,6 +167,25 @@
             <if test='corpNm != null and corpNm != ""'>
                 AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
             </if>
+
+        <choose>
+            <when test='sbmsnYn != null and sbmsnYn != ""'>
+                <if test='sbmsnYn.equals("Y")'>
+                    AND DOC.ATCH_FILE_SN IS NOT NULL
+                    AND DOC.ATCH_FILE_SN > 0
+                </if>
+
+                <if test='sbmsnYn.equals("N")'>
+                    AND DOC.ATCH_FILE_SN IS NULL
+                    OR DOC.ATCH_FILE_SN = 0
+                </if>
+
+                <if test='sbmsnYn.equals("U")'>
+                    AND DOC.ATCH_FILE_SN > 0
+                    AND DOC.CHG_YN = 'Y'
+                </if>
+            </when>
+        </choose>
 
     </select>
 
@@ -497,6 +524,38 @@
         <if test='corpNm != null and corpNm != ""'>
             AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
         </if>
+
+--         제출여부
+        <choose>
+            <when test='sbmsnYn != null and sbmsnYn != ""'>
+                -- 3개중 하나라도 제출
+                <if test='sbmsnYn.equals("Y")'>
+                    AND (
+                        ( SBCD.ATCH_FILE_SN IS NOT NULL AND SBCD.ATCH_FILE_SN >0 )
+                        OR ( EXCEL.ATCH_FILE_SN IS NOT NULL AND EXCEL.ATCH_FILE_SN >0 )
+                        OR ( CHK.ATCH_FILE_SN IS NOT NULL AND CHK.ATCH_FILE_SN >0 )
+                    )
+                </if>
+
+                --  3개모두 미제출
+                <if test='sbmsnYn.equals("N")'>
+                    AND (
+                        (SBCD.ATCH_FILE_SN IS NULL OR SBCD.ATCH_FILE_SN = 0 )
+                        AND ( EXCEL.ATCH_FILE_SN IS NULL OR EXCEL.ATCH_FILE_SN = 0 )
+                        AND ( CHK.ATCH_FILE_SN IS NULL OR CHK.ATCH_FILE_SN = 0 )
+                    )
+                </if>
+
+                -- 3개중 하나라도 변경제출
+                <if test='sbmsnYn.equals("U")'>
+                    AND (
+                        SBCD.CHG_YN = 'Y'
+                        OR EXCEL.CHG_YN = 'Y'
+                        OR CHK.CHG_YN = 'Y'
+                    )
+                </if>
+            </when>
+        </choose>
     </select>
 
     <!-- ==========================================================================	-->
@@ -1631,4 +1690,70 @@
                  )
 
     </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnAplyDocList    -->
+    <!-- DESC : 지원사업 정산신청 정산요청서 일괄 다운로드 목록 조회                         -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.10.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtClclnAplyDocList" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+        SELECT
+            SBCD.SPRT_BIZ_YR AS SPRT_BIZ_YR
+             , SBCD.SPRT_BIZ_CD AS SPRT_BIZ_CD
+             , SBCD.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+             , SBCD.CLCLN_SEQ AS CLCLN_SEQ
+             , SBCD.DOC_SEQ AS DOC_SEQ
+             , SBCD.DOC_KND AS DOC_KND
+             , SBCD.DOC_CD AS DOC_CD
+             , (SELECT FN_GET_EV_SRPT_BIZ_DTL_NM (SBCD.SPRT_BIZ_YR, SBCD.SPRT_BIZ_CD, SBCD.DOC_KND, SBCD.DOC_CD) FROM DUAL) AS DOC_NM
+             , SBCD.ATCH_FILE_SN AS ATCH_FILE_SN
+
+             , FL.FILE_PATH_NM AS FILE_PATH_NM
+             , FL.LGC_FILE_NM AS LGC_FILE_NM
+             , FL.PHYS_FILE_NM AS PHYS_FILE_NM
+             , FL.FILE_SZ AS FILE_SZ
+             , FL.FILE_EXTN_NM AS FILE_EXTN_NM
+
+             , SBO.BRNO AS BRNO
+             , EUA.CORP_NM AS CORP_NM
+             , EUA.APO_CD AS APO_CD
+
+        FROM TB_EV_SPRT_BIZ_CLCLN_DOC SBCD
+
+        JOIN TB_EV_SPRT_BIZ_ATCHFL FL
+            ON FL.ATCH_FILE_SN = SBCD.ATCH_FILE_SN
+            AND FL.DEL_YN = 'N'
+
+        LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+            ON SBO.SPRT_BIZ_YR = SBCD.SPRT_BIZ_YR
+            AND SBO.SPRT_BIZ_CD = SBCD.SPRT_BIZ_CD
+            AND SBO.SPRT_OGNZ_ID = SBCD.SPRT_OGNZ_ID
+            AND SBO.DEL_YN = 'N'
+
+        LEFT JOIN VW_EV_UO_APRV EUA
+            ON EUA.BRNO = SBO.BRNO
+            AND EUA.CRNO = SBO.CRNO
+            AND EUA.YR = SBO.SPRT_BIZ_YR
+
+        WHERE SBCD.DEL_YN = 'N'
+          AND SBCD.SPRT_BIZ_YR = #{sprtBizYr}
+          AND SBCD.CLCLN_SEQ = #{clclnSeq}
+          AND SBCD.DOC_SEQ IN ('2','3','4')
+        ]]>
+        <if test='brno != null and brno != ""'>
+            AND SBO.BRNO = #{brno}
+        </if>
+        <if test='corpNm != null and corpNm != ""'>
+            AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
+        </if>
+
+        <![CDATA[
+            ORDER BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, DOC_SEQ
+        ]]>
+
+    </select>
 </mapper>
