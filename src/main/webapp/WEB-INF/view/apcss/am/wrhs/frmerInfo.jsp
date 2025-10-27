@@ -168,26 +168,39 @@
 				</table>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData">
+					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData" callback-after-select="fn_selectTab">
 					</sbux-tabs>
 					<div class="tab-content">
 						<div id="cltvtnHstryTab" >
-							<div id="sb-area-cltvtnHstry" style="height:500px;"></div>
+							<div id="sb-area-cltvtnHstry" style="height: 570px;"></div>
 						</div>
 						<div id="frmhsQltTab" >
-							<div id="sb-area-cltvtnFrmhsQlt" style="height:500px;"></div>
+							<div id="sb-area-cltvtnFrmhsQlt" style="height:570px;"></div>
 						</div>
 						<div id="frmhsExpctWrhsTab" >
-							<div id="sb-area-frmhsExpctWrhs" style="height:500px;"></div>
+							<div id="sb-area-frmhsExpctWrhs" style="height:570px;"></div>
 						</div>
 						<div id="landInfoTab" >
-							<div id="sb-area-landInfo" style="height:500px;"></div>
-							<div class="exp-div-excel" style="display: none;width: 1000px;">
-								<div id="sbexp-area-grdExpLandInfo" style="height:1px; width: 100%;"></div>
-								<div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
-								<input type="file" id="btnFileUploadLandInfo" name="btnFileUploadLandInfo" style="visibility: hidden;" onchange="importExcelDataLandInfo(event)" />
-								<input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
-							</div>
+                            <div class="col-sm-4">
+                                <div class="row row-cards">
+                                    <div class="col-12">
+                                        <div class="card h-full">
+                                            <div class="card-body">
+                                                <div id="map" style="height: 570px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div id="sb-area-landInfo" style="height:570px;"></div>
+                                <div class="exp-div-excel" style="display: none;width: 1000px;">
+                                    <div id="sbexp-area-grdExpLandInfo" style="height:1px; width: 100%;"></div>
+                                    <div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
+                                    <input type="file" id="btnFileUploadLandInfo" name="btnFileUploadLandInfo" style="visibility: hidden;" onchange="importExcelDataLandInfo(event)" />
+                                    <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
+                                </div>
+                            </div>
 						</div>
 						<div id="frmerInfoTab" >
 							<div class="ad_tbl_top">
@@ -379,7 +392,7 @@
 										</ul>
 									</div>
 									<div>
-										<div id="sb-area-prdcrLandInfo" style="height:208px;"></div>
+										<div id="sb-area-prdcrLandInfo" style="height:235px;"></div>
 									</div>
 								</div>
 								<div class="col-sm-6">
@@ -392,7 +405,7 @@
 										</ul>
 									</div>
 									<div>
-										<div id="sb-area-cltvtnHstryPrdcr" style="height:208px;"></div>
+										<div id="sb-area-cltvtnHstryPrdcr" style="height:235px;"></div>
 									</div>
 								</div>
 							</div>
@@ -504,9 +517,11 @@
 	var jsonGrdPrchsCmptnYn			= [];
 	var jsonComYn 					= [];
 	var jsonQltEvl					= [];
+    var jsonMarker                  = [];
 	let choicePrdcrLandInfoNo = "";
 	var excelYn = "N";
     var btnClick = "N";
+    var pickedMarker;
 
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
@@ -552,6 +567,7 @@
 		fn_createCltvtnHstryPrdcr();
 		fn_createCltvtnFrmhsQlt();
 		fn_frmhsExpctWrhs();
+        fn_setLandInfo();
 
     	grdFrmhsExpctWrhs.refresh({"combo":true})
 
@@ -683,7 +699,7 @@
 					format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},hidden:true},
 				{caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
-				{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;'},
+				{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '190px', style: 'text-align:left; background:#FFF8DC;'},
 		);
 
 		SBGridProperties.columns = columns;
@@ -1009,7 +1025,6 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.contextmenu = true;							// 우클린 메뉴 호출 여부
@@ -1022,12 +1037,12 @@
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procLandInfo(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-		    {caption: ['생산자'], 		ref: 'prdcrCd', 	width: '200px', type:'inputcombo',  	style:'text-align:center; background:#FFF8DC;',
+		    {caption: ['생산자'], 		ref: 'prdcrCd', 	width: '100px', type:'inputcombo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '400px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
-	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '100px', style: 'text-align: right',
+	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
+	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '80px', style: 'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '100px', style: 'text-align: right;',
+	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '80px', style: 'text-align: right;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
                 typeinfo : {callback: fn_modalStdgCd}},
@@ -1036,9 +1051,12 @@
             {caption : ['X좌표'], 		ref: 'xcrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
             {caption : ['Y좌표'], 		ref: 'ycrd', 		type: 'output', width: '80px', typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
 	    	{caption : [''], 			ref: 'rmrk', 		type: 'output', width: '200px', },
+            {caption : ['생산자명'], 	ref: 'prdcrNm', 	type: 'output', hidden : true },
 	    ];
 	    grdLandInfo = _SBGrid.create(SBGridProperties);
 	    grdLandInfo.bind("afterimportexcel", setDataAfterImport);
+        grdLandInfo.bind('rowchanged', 'fn_setMarker');
+        grdLandInfo.bind('click', 'fn_setFrmerInfo');
 	}
 
 	const objMenuListExpctLandInfo = {
@@ -1343,6 +1361,29 @@
 				SBUxMethod.set("idxTab_norm", "frmerInfoTab");
 			}
 		}
+
+        if(choiceTab == "landInfoTab") {
+            nRow = grdLandInfo.getRow();
+            nCol = grdLandInfo.getCol();
+
+            if(nRow <= 0) return;
+
+            let prdcrNmCol = grdLandInfo.getColRef("prdcrCd");
+            if(nCol == prdcrNmCol) {
+                let rowData = grdLandInfo.getRowData(nRow);
+                prdcrCd = rowData.prdcrCd;
+
+                let prdcr = _.find(jsonPrdcr, {prdcrCd: prdcrCd});
+                fn_setPrdcrFormDtl(prdcr);
+
+                fn_setCltvtnFrmhsQltPrdcr(prdcrCd);
+                fn_setPrdcrLandInfo(prdcrCd)
+
+                if(!gfn_isEmpty(choicePrdcrLandInfoNo)) {
+                    await fn_setCltvtnHstryPrdcr();
+                }
+            }
+        }
 	}
 
 	/**
@@ -2228,6 +2269,8 @@
 
 		jsonLandInfo.length = 0;
 
+        clearMarkers();
+
 		try {
 			const postJsonPromise = gfn_postJSON("/am/wrhs/selectPrdcrLandInfoList.do", param, null, false);
 	        const data = await postJsonPromise;
@@ -2243,6 +2286,7 @@
                     frlnSno: fn_zero(item.frlnSno),
                     plntngArea: fn_zero(item.plntngArea),
                     prdcrCd: item.prdcrCd,
+                    prdcrNm: item.prdcrNm,
                     prdcrLandInfoNo: item.prdcrLandInfoNo,
                     rowSts: item.rowSts,
                     stdgCd: item.stdgCd,
@@ -2252,6 +2296,8 @@
                 }
 
 	        	jsonLandInfo.push(landInfoVO);
+
+                addMarker(parseFloat(item.xcrd), parseFloat(item.ycrd), "(" + item.prdcrNm + ") " + item.frlnAddr, item.stdgCd, fn_zero(item.frlnMno), fn_zero(item.frlnSno));
 	        });
 
 	        grdLandInfo.rebuild();
@@ -2265,6 +2311,101 @@
 			}
 			console.error("failed", e.message);
 		}
+    }
+
+    function fn_selectTab() {
+        let tab = SBUxMethod.get("idxTab_norm");
+
+        // 농지정보 탭으로 변경 시 맵 로드
+        if(tab === 'landInfoTab') {
+            if(window.leafletMap) {
+                window.leafletMap.invalidateSize();
+            }
+        }
+    }
+
+    // 농지정보 목록 조회 시 마커 초기화
+    function clearMarkers() {
+        if(!window.leafletMap) return;
+
+        jsonMarker.forEach(function(marker) {
+            window.leafletMap.removeLayer(marker);
+        });
+
+        jsonMarker = [];
+    }
+
+    // 농지정보 목록 조회 시
+    function addMarker(lat, lng, label, stdgCd, frlnMno, frlnSno) {
+        if(!window.leafletMap) return;
+
+        let marker;
+
+        const svgIcon = L.divIcon({
+            className: 'blinking-icon',
+            html: `
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">
+                    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#59A1D5"/>
+                    <circle cx="12" cy="12" r="5" fill="white"/>
+                </svg>
+            `,
+            iconSize: [20, 30],    // 실제 렌더링 크기
+            iconAnchor: [7.5, 25],    // 기준점: 아래 중앙
+            popupAnchor: [0, -25]
+        });
+
+        marker = L.marker([lng, lat], { icon: svgIcon }).addTo(window.leafletMap);
+        jsonMarker.push(marker);
+
+        if(label) {
+            marker.bindPopup(label);
+            marker.on('click', function(e) {
+                SBUxMethod.openModal('modal-framldMap');
+                popFramldMap.init(gv_selectedApcCd, stdgCd, frlnMno, frlnSno);
+            });
+        }
+    }
+
+    // 농지정보 목록 클릭 시
+    const fn_setMarker = async function() {
+        if(!window.leafletMap) return;
+
+        let rowData = grdLandInfo.getRowData(grdLandInfo.getRow());
+        let lat = rowData.xcrd;
+        let lng = rowData.ycrd;
+
+        if(gfn_isEmpty(lat) || gfn_isEmpty(lng)) return;
+
+        if(pickedMarker) {
+            window.leafletMap.removeLayer(pickedMarker);
+            pickedMarker = null;
+        }
+
+        const svgIcon = L.divIcon({
+            className: 'blinking-icon',
+            html: `
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">
+                    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#D55959"/>
+                    <circle cx="12" cy="12" r="5" fill="white"/>
+                </svg>
+            `,
+            iconSize: [20, 30],
+            iconAnchor: [7.5, 25],
+            popupAnchor: [0, -25]
+        });
+
+        let marker = L.marker([parseFloat(lng), parseFloat(lat)], { icon: svgIcon }).addTo(window.leafletMap).bindPopup("(" + rowData.prdcrNm + ") " + rowData.frlnAddr).openPopup();
+        pickedMarker = marker;
+
+        marker.on('click', function(e) {
+            SBUxMethod.openModal('modal-framldMap');
+            popFramldMap.init(gv_selectedApcCd, rowData.stdgCd, rowData.frlnMno, rowData.frlnSno);
+        });
+
+        window.leafletMap.setView([lng, lat], 18, {
+            animate: true,
+            duration: 0.8
+        });
     }
 
     const fn_zero = function(val) {
@@ -2618,49 +2759,38 @@
             return null;
         }
 
-        const callGeocoder = function(address, type) {
+        const callGeocoder = function(address) {
             return new Promise((resolve) => {
                 $.ajax({
-                    url: "https://api.vworld.kr/req/address?",
+                    url: "https://dapi.kakao.com/v2/local/search/address.json",
                     type: "GET",
-                    dataType: "jsonp",
+                    dataType: "json",
+                    headers: {
+                        "Authorization": 'KakaoAK 8f471c814f2ca4c1daf3bf1399080411'
+                    },
                     data: {
-                        service: "address",
-                        request: "GetCoord",
-                        version: "2.0",
-                        crs: "EPSG:4326",
-                        type: type,
-                        address: address,
-                        format: "json",
-                        errorformat: "json",
-                        key: "FC4EDA75-1904-32F7-950C-B0E45DFBEFDD"
+                        query: address
                     },
                     success: function(data) {
-                        if(data.response.status === "OK" && data.response.result.point) {
-                            const point = data.response.result.point;
+                        if(data.documents && data.documents.length > 0) {
+                            const point = data.documents[0];
 
                             resolve({
                                 xcrd: point.x,
                                 ycrd: point.y
                             });
                         } else {
-                            console.warn(data.response.errorMessage);
                             resolve(null);
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error(`API 호출 오류:`, status, error);
                         resolve(null);
                     }
                 });
             });
         };
 
-        let coords = await callGeocoder(address, "ROAD");
-
-        if(!coords) {
-            coords = await callGeocoder(address, "PARCEL");
-        }
+        let coords = await callGeocoder(address);
 
         return coords;
     }
@@ -3749,4 +3879,6 @@
 	}
 
 </script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/leaflet.css">
+<script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
 </html>

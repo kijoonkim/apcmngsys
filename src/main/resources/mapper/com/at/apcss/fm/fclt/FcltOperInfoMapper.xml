@@ -986,12 +986,26 @@
 		  						GROUP BY APC_CD
 		  						)
 		</if>
-		<if test='userId != null and userId != ""'>
+		<!--<if test='userId != null and userId != ""'>
 			<if test='userType == "27"'>
 			  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
 			</if>
 			<if test='userType == "28"'>
 			  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
+			</if>
+		</if>-->
+		<if test='userId != null and userId != ""'>
+			<if test='userType == "27" or userType == "28"'>
+				AND AOPO.APC_CD IN (SELECT APC_CD
+				FROM TB_APC_INFO
+				WHERE 1=1
+				<if test='userType == "27"'>
+					AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				<if test='userType == "28"'>
+					AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				)
 			</if>
 		</if>
 		ORDER BY AOPO.APC_NM
@@ -1068,12 +1082,26 @@
 			<if test='crtrYr != null and !crtrYr.equals("")'>
 			  AND AOPO.CRTR_YR = #{crtrYr}
 			</if>
-			<if test='userId != null and userId != ""'>
+			<!--<if test='userId != null and userId != ""'>
 				<if test='userType == "27"'>
 				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
 				</if>
 				<if test='userType == "28"'>
 				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+			</if>-->
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27" or userType == "28"'>
+					AND AOPO.APC_CD IN (SELECT APC_CD
+					FROM TB_APC_INFO
+					WHERE 1=1
+					<if test='userType == "27"'>
+						AND CTPV = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+					</if>
+					<if test='userType == "28"'>
+						AND SGG = (SELECT SGG FROM TB_COM_USER WHERE USER_ID = #{userId})
+					</if>
+					)
 				</if>
 			</if>
 	</select>

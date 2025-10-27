@@ -37,7 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 유통조직처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
+				<%--<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>--%>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -1339,7 +1339,7 @@
 	}
 
 	// 전년도 데이터 set
-	function fn_pySearch() {
+	/*function fn_pySearch() {
 
 		// 데이터 검증 메세지 초기화
 		const msgDivs = document.getElementsByClassName('div-msg');
@@ -1397,7 +1397,7 @@
 		}
 
 		fn_sum();
-	}
+	}*/
 
 	// 값변경
 	function fn_changeValue(args) {
