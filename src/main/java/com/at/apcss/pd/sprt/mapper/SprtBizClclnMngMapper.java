@@ -266,4 +266,12 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public int insertSprtAplyDoc(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
+
+    /**
+     * 정산신청 - 정산요청서 일괄 다운 목록조회
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnMngVO> selectSprtClclnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
 }

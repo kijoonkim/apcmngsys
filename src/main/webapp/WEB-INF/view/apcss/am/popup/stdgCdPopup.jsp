@@ -101,6 +101,7 @@
             this.prvApcCd = _apcCd;
 
             SBUxMethod.set("stdgCd-inp-apcNm", _apcNm);
+            SBUxMethod.set("stdgCd-inp-stdgNm", _stdgCd);
 
             if(!gfn_isEmpty(_callbackSelectFnc) && typeof _callbackSelectFnc === 'function') {
                 this.callbackSelectFnc = _callbackSelectFnc;
