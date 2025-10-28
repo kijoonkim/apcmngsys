@@ -28,17 +28,6 @@ public class AiService {
             System.out.printf("DB 조회: 'TB_APC_EVRMNT_STNG'에서 '%s' 검색...\n", name);
             List<Map<String, String>> result = aiMapper.findByName(name);
             return result;
-//            if (name.contains("거산")) {
-//                // 1. 결과가 1건일 때 시뮬레이션
-//                // return List.of(Map.of("APC_CD", "A123", "APC_NM", "거산유통"));
-//
-//                // 2. 결과가 여러 건일 때 시뮬레이션
-//                return List.of(
-//                        Map.of("APC_CD", "A123", "APC_NM", "거산유통"),
-//                        Map.of("APC_CD", "B456", "APC_NM", "거산인삼")
-//                );
-//            }
-//            return List.of();
         }
         public Map<String, Object> getPerformance(String apcCode, String type, String start, String end) {
             System.out.printf("DB 조회: 'DAILY_RECORDS'에서 %s, %s, %s, %s 검색...\n", apcCode, type, start, end);

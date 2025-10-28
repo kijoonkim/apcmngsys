@@ -9,8 +9,6 @@
 <!DOCTYPE html>
 <html lang="ko" style="margin: 0!important;">
 <head>
-    <%@ include file="../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../frame/inc/headerScript.jsp" %>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

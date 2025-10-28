@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { APC_TOOLS } from '@apps/agentDashboard/component/AiTools';
+import ReactMarkdown from 'react-markdown';
 // Vite + React 환경에서는 Tailwind CSS가 설정되어 있다고 가정합니다.
 
 /**
@@ -8,7 +9,36 @@ import { APC_TOOLS } from '@apps/agentDashboard/component/AiTools';
  * AI는 이 '사용 설명서'를 보고 어떤 도구를 사용할지 결정합니다.
  */
 
+const markdownContent = `
+저희 APC 정보지원시스템에 **'AI 챗봇 비서'**가 새롭게 탑재되었습니다.
+이제 시스템에 대해 궁금한 점이 있다면, 복잡한 메뉴를 클릭할 필요 없이 채팅창에 **자연스러운 말로 질문**하기만 하면 됩니다.
 
+* "거산APC 이번 달 실적 알려줘." * "APC가 무슨 뜻인가요?" (일반적인 질문도 OK!)
+
+AI 챗봇 비서는 여러분의 질문 의도를 파악하고, 시스템 내의 **정확한 정보**를 찾아 **핵심만 요약**해서 빠르게 알려주거나, 일반적인 질문에도 똑똑하게 답변합니다.
+저희는 Google의 최첨단 AI 두뇌를 사용하지만, **가장 중요하게 생각한 것은 바로 '보안'과 '데이터 프라이버시'**입니다. 그래서 AI가 우리 시스템의 민감한 정보(데이터베이스)에 **절대로 직접 접근할 수 없도록** 설계했습니다.
+마치 **'외부의 천재 컨설턴트(AI)'**와 **'내부의 꼼꼼한 비서(우리 시스템 서버)'**가 협업하는 방식과 같습니다.
+
+1.  **여러분의 질문:** 여러분이 비서에게 질문합니다. (예: "거산 실적 보여줘")
+2.  **비서의 1차 판단:** 비서는 질문을 듣고, 외부 컨설턴트에게 어떤 종류의 분석을 맡겨야 할지 판단합니다. (이때, 비서는 컨설턴트가 이해할 수 있는 **'업무 요청서 양식(Tools)'**을 알고 있습니다.)
+3.  **비서 → 컨설턴트 (업무 요청):** 비서는 컨설턴트에게 "손님이 '거산'의 '실적'을 원하는데, 어떤 데이터를 가져와야 할지 **정확한 지시**를 내려주세요." 라고 요청합니다. (이때 '업무 요청서 양식'을 함께 보여줍니다.)
+4.  **컨설턴트의 분석 및 지시:** 컨설턴트는 양식을 보고 "아, '거산'이라는 이름으로 먼저 정확한 APC 코드를 찾고, 그다음 실적 데이터를 가져오라고 지시해야겠군!" 이라고 판단하여, **구체적인 '데이터 요청 지시서(Function Call)'**를 비서에게 전달합니다. (컨설턴트는 실제 데이터는 보지 못합니다!)
+5.  **비서의 안전한 데이터 조회:** 비서는 컨설턴트가 준 지시서에 따라, **회사 내부의 안전한 데이터 창고(DB)에서 딱 필요한 정보만!** 정확하게 가져옵니다. (AI가 시키지 않은 정보나 위험한 작업은 절대 하지 않습니다.)
+6.  **비서 → 컨설턴트 (핵심 정보 전달):** 비서는 가져온 **핵심 데이터만** 컨설턴트에게 보여주며 "이 데이터를 가지고 손님에게 알기 쉽게 설명해주세요." 라고 최종 요청합니다.
+7.  **컨설턴트의 답변 작성:** 컨설턴트는 방금 받은 **제한된 정보만을 이용**하여, 여러분이 이해하기 쉬운 최종 답변을 작성합니다.
+8.  **비서 → 여러분 (최종 답변 전달):** 비서는 컨설턴트가 작성한 답변을 여러분께 전달합니다.
+
+**핵심은, AI는 우리 회사 건물 밖에 있고, 모든 정보 전달과 실제 데이터 접근은 우리 내부 직원인 '비서'가 안전하게 통제한다는 것입니다.**
+
+> *  🛡️ 강력한 보안:** AI는 우리 데이터베이스에 절대 직접 접속하지 않습니다. 모든 요청은 우리 시스템(비서)을 통해 **안전하게 필터링**됩니다.
+> *  🔒 데이터 프라이버시 보장:** AI에게 분석을 위해 데이터를 전달하더라도, 그 데이터는 **오직 답변 생성을 위해서만 임시로 사용**되고, AI 서버에는 **절대 저장되거나 학습에 이용되지 않습니다.** (독립적인 요청 처리 후 즉시 폐기)
+> *  🎯 믿을 수 있는 정보:** AI는 인터넷 정보가 아닌, 우리 시스템 내부의 **실시간 데이터**를 기반으로 답변하므로 항상 정확합니다.
+> *  ⏱️ 업무 효율성 향상:** 복잡한 메뉴 대신, **간단한 질문**만으로 원하는 정보를 즉시 얻을 수 있습니다.
+> *  🔑 권한 관리:** AI는 답변 시 **여러분의 계정 권한을 존중**합니다. 여러분이 볼 수 있는 정보만 AI를 통해 확인할 수 있습니다. (민감 정보 자동 필터링)
+> *  📈 뛰어난 확장성:** 앞으로 AI 비서에게 더 많은 '업무 요청서 양식(Tools)'을 가르쳐주면, 실적 조회뿐만 아니라 더 다양한 업무를 AI를 통해 처리할 수 있게 됩니다.
+
+**APC 정보지원시스템의 새로운 AI 챗봇 비서와 함께 더욱 스마트하고 효율적인 업무를 경험해보세요!**
+`;
 
 export default function AIAssistant() {
     const [messages, setMessages] = useState([
@@ -96,17 +126,7 @@ export default function AIAssistant() {
 
     return (
         <div className="bg-gray-100 font-sans flex h-screen"  style={{ height: '89vh' }}>
-            <div className="w-1/3 p-6 bg-white border-r border-gray-200 overflow-y-auto">
-                <h2 className="text-2xl font-bold mb-4">AI 도구 설명서 (Tools)</h2>
-                <p className="text-sm text-gray-600 mb-4">
-                    이 JSON 객체는 AI에게 어떤 기능을 사용할 수 있는지 알려주는 '사용 설명서'입니다.
-                    React 앱은 사용자의 질문과 이 설명서를 함께 백엔드 서버로 전송합니다.
-                </p>
-                <pre className="bg-gray-800 text-white p-4 rounded-lg text-xs whitespace-pre-wrap">
-                    {JSON.stringify(APC_TOOLS, null, 2)}
-                </pre>
-            </div>
-            <div className="w-2/3 flex flex-col bg-gray-50">
+            <div className="w-1/2 flex flex-col bg-gray-50">
                 <div className="flex-1 p-6 overflow-y-auto">
                     <div className="space-y-4">
                         {messages.map((msg, index) => (
@@ -156,6 +176,34 @@ export default function AIAssistant() {
                         </button>
                     </div>
                 </div>
+            </div>
+            <div className="w-1/2 p-6 bg-white border-r border-gray-200 overflow-y-auto">
+                <h2 className="text-2xl font-bold mb-4">AI 도구 설명서 (Tools)</h2>
+                <p className="text-lg text-gray-600 mb-4">
+                    APC 정보지원시스템 AI 챗봇은 기존에 제공되는 기능들과 AI 모델에 자체적으로 학습된 정보들을 제공합니다.
+                    기존에 사용하던 메뉴들의 정보를 간략하고 빠르게 확인해야하는경우엔 간단한 질의를 통하여 빠르게 확인이 가능합니다.
+                    또, 각 계정에 분리된 권한을 통해 민감한 정보들은 제외하여 제공할 수 있습니다.
+                    AI가 직접 데이터베이스에 접근하는 형식이 아니기 때문에 보안성이 좋습니다.
+                    데이터를 전달하여 분석을 요청하는 경우에도 독립적인 요청으로 임시처리만 하며, 응답생성이 완료되면, 그 데이터는 즉시폐기 됩니다.
+                </p>
+                <pre className="bg-gray-800 text-white p-4 rounded-lg text-xl whitespace-pre-wrap">
+                    APC 정보지원시스템 AI 챗봇은 기존에 제공되는 기능들과 AI 모델에 자체적으로 학습된 정보들을 제공합니다.
+                    기존에 사용하던 메뉴들의 정보를 간략하고 빠르게 확인해야하는경우엔 간단한 질의를 통하여 빠르게 확인이 가능합니다.
+                    또, 각 계정에 분리된 권한을 통해 민감한 정보들은 제외하여 제공할 수 있습니다.
+                    AI가 직접 데이터베이스에 접근하는 형식이 아니기 때문에 보안성이 좋습니다.
+                    데이터를 전달하여 분석을 요청하는 경우에도 독립적인 요청으로 임시처리만 하며, 응답생성이 완료되면, 그 데이터는 즉시폐기 됩니다.
+                </pre>
+                <ReactMarkdown>
+                    {markdownContent}
+                </ReactMarkdown>
+
+                {/*<p className="text-sm text-gray-600 mb-4">*/}
+                {/*    이 JSON 객체는 AI에게 어떤 기능을 사용할 수 있는지 알려주는 '사용 설명서'입니다.*/}
+                {/*    React 앱은 사용자의 질문과 이 설명서를 함께 백엔드 서버로 전송합니다.*/}
+                {/*</p>*/}
+                {/*<pre className="bg-gray-800 text-white p-4 rounded-lg text-xs whitespace-pre-wrap">*/}
+                {/*    {JSON.stringify(APC_TOOLS, null, 2)}*/}
+                {/*</pre>*/}
             </div>
         </div>
     );
