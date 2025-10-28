@@ -82,8 +82,9 @@
 	        	}
 	        }},
 	        {caption: ["창고 명"], 		ref: 'cdVlNm',   		type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 100}), typeinfo : {maxlength : 33}},
-	        {caption: ["설비연계"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'300px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
+			{caption : ['사용여부'],	ref : 'useYn',	type : 'multiradio',	width : '100px',	style : 'text-align:center', typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
+			{caption: ["설비연계"], 	ref: 'extrnlLnkgCd',  		type:'input',  width:'80px',    style:'text-align:center'},
+	        {caption: ["비고"], 		ref: 'cdVlExpln',   	type:'input',  width:'200px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 333}},
 	        {caption: ["표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'80px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
 	        {caption: ["공통ID"], 		ref: 'cdId',   		type:'input',  hidden : true},
@@ -114,6 +115,7 @@
 				  , apcCd 		: item.apcCd
 				  , cdId 		: item.cdId
 				  , extrnlLnkgCd : item.extrnlLnkgCd
+				  , useYn		: item.useYn
 				}
 				newJsonWarehouse.push(warehouseVO);
 			});
@@ -158,6 +160,8 @@
 			gfn_comAlert("W0003", "저장");
 			return;
 		}
+
+		console.log("saveList", saveList);
 
 		if(gfn_comConfirm("Q0001", "저장")){
 			const postJsonPromise = gfn_postJSON("/co/cd/multiSaveComCdDtlList.do", saveList, this.prgrmId);	// 프로그램id 추가
