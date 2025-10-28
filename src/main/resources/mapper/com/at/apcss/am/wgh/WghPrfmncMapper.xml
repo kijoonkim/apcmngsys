@@ -2926,6 +2926,9 @@
 		<if test='wghYmd != null and wghYmd !=""'>
 			AND WC.WGH_YMD = #{wghYmd}
 		</if>
+		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
+			AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
+		</if>
 		<![CDATA[
 			  ) X
 			 GROUP BY X.APC_CD, X.WGHNO, X.WGH_YMD, X.VHCLNO, X.PRDCR_CD, X.ITEM_CD, X.FCLT_CD, X.WRHS_SPMT_TYPE, X.BX_QNTT, X.PLT_QNTT, X.SHPGOT_QNTT, X.SHPGOT_PLT_QNTT
