@@ -57,29 +57,23 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
 
             <AppShell.Main style={{padding : '64px 0 0 0', height: 'calc(100vh - 64px)'}}>
                 {showSplitView ? (
-                    <Grid gutter="md" style={{ height: '100%' }}>
-                        <Grid.Col span={6} style={{ height: '50%' }}>
-                            {/* 각 컴포넌트 Box 스타일 조정 (패딩 추가 등) */}
-                            <Box style={{ height: '100%', overflow: 'auto', border: '1px solid #dee2e6', borderRadius: '4px', padding: 'var(--mantine-spacing-md)' }}>
-                                <AiChat />
-                            </Box>
-                        </Grid.Col>
-                        <Grid.Col span={6} style={{ height: '50%' }}>
-                            <Box style={{ height: '100%', overflow: 'auto', border: '1px solid #dee2e6', borderRadius: '4px', padding: 'var(--mantine-spacing-md)' }}>
-                                <ApcTotal />
-                            </Box>
-                        </Grid.Col>
-                        <Grid.Col span={6} style={{ height: '50%' }}>
-                            <Box style={{ height: '100%', overflow: 'auto', border: '1px solid #dee2e6', borderRadius: '4px', padding: 'var(--mantine-spacing-md)' }}>
-                                <ApcMap />
-                            </Box>
-                        </Grid.Col>
-                        <Grid.Col span={6} style={{ height: '50%' }}>
-                            <Box style={{ height: '100%', overflow: 'auto', border: '1px solid #dee2e6', borderRadius: '4px', padding: 'var(--mantine-spacing-md)' }}>
-                                <ApcList />
-                            </Box>
-                        </Grid.Col>
-                    </Grid>
+                    // --- 4분할 그리드 뷰 재구현 ---
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '16px', height: '100%', padding: '16px' }}>
+                        {/* 각 그리드 셀 */}
+                        <div style={{ overflow: 'hidden' }}> {/* 셀 자체는 스크롤 숨김 */}
+                            <AiChat /> {/* 내부에서 스크롤 처리 */}
+                        </div>
+                        <div style={{ overflow: 'hidden' }}>
+                            <ApcTotal />
+                        </div>
+                        <div style={{ overflow: 'hidden' }}>
+                            <ApcMap />
+                        </div>
+                        <div style={{ overflow: 'hidden' }}>
+                            <ApcList />
+                        </div>
+                    </div>
+                    // --- 재구현 끝 ---
                 ) : (
                     <Box style={{ height: '100%', overflow: 'auto' }}>
                         {tab === 'vendor' && <AiChat />}
