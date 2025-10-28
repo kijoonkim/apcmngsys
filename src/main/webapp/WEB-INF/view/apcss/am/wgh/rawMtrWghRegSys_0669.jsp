@@ -765,6 +765,7 @@
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
 			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		jsonComWarehouse = jsonComWarehouse.filter(i => i.useYn == "Y");
 		jsonComWarehouse.unshift({
 			label: "",
 			mastervalue: "",
@@ -1344,7 +1345,7 @@
 			item.rmrk = '';
 		});
 		grdDtBxPlt.rebuild();
-
+		// fn_init();
 	}
 
 	/** ui event */
