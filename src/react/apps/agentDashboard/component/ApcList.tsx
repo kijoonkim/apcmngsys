@@ -272,14 +272,110 @@ export default function ApcList() {
             // let data = await response.json();
 
             // 백엔드에서 받은 데이터 시뮬레이션 (이전 더미 데이터 사용)
-            let data = [ /* 원본 apcData 배열을 여기에 복사 */
-                { id: 1, name: '나주 스마트 APC', location: '전라남도 나주시', pestAlert: '주의', lastUsed: '2025-10-20', mainItem: '배', performance: { receiving: 85, sorting: 92, packing: 88, }, weather: 'loading'}, // 날씨 초기 상태: 로딩중
-                { id: 2, name: '상주 첨단 APC', location: '경상북도 상주시', pestAlert: '경보', lastUsed: '2025-10-19', mainItem: '사과', performance: { receiving: 95, sorting: 88, packing: 91, }, weather: 'loading'},
-                { id: 3, name: '제주 감귤 APC', location: '제주특별자치도 서귀포시', pestAlert: '양호', lastUsed: '2025-10-20', mainItem: '감귤', performance: { receiving: 78, sorting: 85, packing: 80, }, weather: 'loading'},
-                { id: 4, name: '평창 고랭지 APC', location: '강원도 평창군', pestAlert: '양호', lastUsed: '2025-10-18', mainItem: '배추', performance: { receiving: 91, sorting: 95, packing: 93, }, weather: 'loading'},
-                { id: 5, name: '김해 신선 APC', location: '경상남도 김해시', pestAlert: '주의', lastUsed: '2025-10-19', mainItem: '토마토', performance: { receiving: 88, sorting: 89, packing: 90, }, weather: 'loading'},
-                { id: 6, name: '안동 농산물 APC', location: '경상북도 안동시', pestAlert: '양호', lastUsed: '2025-10-17', mainItem: '고추', performance: { receiving: 82, sorting: 81, packing: 85, }, weather: 'loading'},
-            ];
+            let data = [
+                {
+                    "id": 1,
+                    "name": "거산", // 요청하신 이름
+                    "location": "경기 여주시", // Matched_Address 기반 간략 주소
+                    "weather": "맑음 ☀️", // 임의 값
+                    "pestAlert": "주의", // 임의 값
+                    "lastUsed": "2025-10-25", // 임의 값
+                    "mainItem": "브로콜리", // CSV 또는 임의 값
+                    "isPeakSeason": true, // 임의 값 (계산 필요)
+                    "performance": { // 임의 값
+                        "receiving": 82,
+                        "sorting": 85,
+                        "packing": 80
+                    },
+                    "lat": 37.32877251, // CSV 값
+                    "lng": 127.6943874 // CSV 값
+                },
+                {
+                    "id": 2,
+                    "name": "신미네",
+                    "location": "경북 문경시",
+                    "weather": "구름 많음 ☁️",
+                    "pestAlert": "양호",
+                    "lastUsed": "2025-10-26",
+                    "mainItem": "상추",
+                    "isPeakSeason": false,
+                    "performance": {
+                        "receiving": 88,
+                        "sorting": 90,
+                        "packing": 85
+                    },
+                    "lat": 36.55983904,
+                    "lng": 128.2374222
+                },
+                {
+                    "id": 3,
+                    "name": "영흥",
+                    "location": "전남 무안군",
+                    "weather": "비 🌧️",
+                    "pestAlert": "경보",
+                    "lastUsed": "2025-10-24",
+                    "mainItem": "양파", // CSV 기반 가정 (실제 데이터 필요)
+                    "isPeakSeason": true,
+                    "performance": {
+                        "receiving": 91,
+                        "sorting": 88,
+                        "packing": 90
+                    },
+                    "lat": 34.96081395,
+                    "lng": 126.3262334
+                },
+                {
+                    "id": 4,
+                    "name": "신선미", // '신선미세상'으로 매칭
+                    "location": "경기 남양주시",
+                    "weather": "맑음 ☀️",
+                    "pestAlert": "주의",
+                    "lastUsed": "2025-10-27",
+                    "mainItem": "콩", // CSV 기반 가정
+                    "isPeakSeason": false,
+                    "performance": {
+                        "receiving": 75,
+                        "sorting": 80,
+                        "packing": 78
+                    },
+                    "lat": 37.74088003,
+                    "lng": 127.1952285
+                },
+                {
+                    "id": 5,
+                    "name": "상주", // '상주원예영농'으로 매칭
+                    "location": "경북 상주시",
+                    "weather": "흐림 🌥️",
+                    "pestAlert": "양호",
+                    "lastUsed": "2025-10-26",
+                    "mainItem": "딸기", // CSV 기반 가정
+                    "isPeakSeason": true,
+                    "performance": {
+                        "receiving": 95,
+                        "sorting": 92,
+                        "packing": 93
+                    },
+                    "lat": 36.43441798,
+                    "lng": 128.1524178
+                },
+                {
+                    "id": 6,
+                    "name": "버들", // '버들농산'으로 매칭
+                    "location": "전남 영암군",
+                    "weather": "구름 많음 ☁️",
+                    "pestAlert": "주의",
+                    "lastUsed": "2025-10-25",
+                    "mainItem": "호박", // CSV 기반 가정
+                    "isPeakSeason": false,
+                    "performance": {
+                        "receiving": 80,
+                        "sorting": 82,
+                        "packing": 81
+                    },
+                    "lat": 34.86877174,
+                    "lng": 126.6908581
+                }
+            ]
 
             // --- 성수기 정보 처리 ---
             const today = new Date();
@@ -356,30 +452,30 @@ export default function ApcList() {
 
     return (
         <div className="bg-slate-50 min-h-screen font-sans p-4 sm:p-6 lg:p-8">
-            <div className="max-w-screen-xl mx-auto">
+            <div className="max-w-screen-xxl mx-auto">
                 {/* 헤더 */}
                 <header className="mb-8">
                     <h1 className="text-3xl font-bold text-slate-800">📘 APC 정보지원시스템</h1>
-                    <p className="text-slate-500 mt-1">전국 농수산물 유통 현황을 한눈에 파악하세요.</p>
+                    {/*<p className="text-slate-500 mt-1">전국 농수산물 유통 현황을 한눈에 파악하세요.</p>*/}
                 </header>
 
                 {/* 탭 네비게이션 */}
-                <div className="mb-6 border-b border-gray-200">
-                    <nav className="flex space-x-4 -mb-px">
-                        <button
-                            onClick={() => setActiveTab('apcList')}
-                            className={`py-3 px-1 text-base font-semibold transition-colors duration-200 ${activeTab === 'apcList' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}
-                        >
-                            APC 목록
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('kpi')}
-                            className={`py-3 px-1 text-base font-semibold transition-colors duration-200 ${activeTab === 'kpi' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}
-                        >
-                            KPI 통계
-                        </button>
-                    </nav>
-                </div>
+                {/*<div className="mb-6 border-b border-gray-200">*/}
+                {/*    <nav className="flex space-x-4 -mb-px">*/}
+                {/*        <button*/}
+                {/*            onClick={() => setActiveTab('apcList')}*/}
+                {/*            className={`py-3 px-1 text-base font-semibold transition-colors duration-200 ${activeTab === 'apcList' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}*/}
+                {/*        >*/}
+                {/*            APC 목록*/}
+                {/*        </button>*/}
+                {/*        <button*/}
+                {/*            onClick={() => setActiveTab('kpi')}*/}
+                {/*            className={`py-3 px-1 text-base font-semibold transition-colors duration-200 ${activeTab === 'kpi' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-blue-600'}`}*/}
+                {/*        >*/}
+                {/*            KPI 통계*/}
+                {/*        </button>*/}
+                {/*    </nav>*/}
+                {/*</div>*/}
 
                 {/* 탭 컨텐츠 */}
                 <main>

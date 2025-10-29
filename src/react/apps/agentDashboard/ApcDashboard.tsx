@@ -61,7 +61,7 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '16px', height: '100%', padding: '16px' }}>
                         {/* 각 그리드 셀 */}
                         <div style={{ overflow: 'hidden' }}> {/* 셀 자체는 스크롤 숨김 */}
-                            <AiChat /> {/* 내부에서 스크롤 처리 */}
+                            <ApcList />
                         </div>
                         <div style={{ overflow: 'hidden' }}>
                             <ApcTotal />
@@ -70,7 +70,7 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
                             <ApcMap />
                         </div>
                         <div style={{ overflow: 'hidden' }}>
-                            <ApcList />
+                            <AiChat /> {/* 내부에서 스크롤 처리 */}
                         </div>
                     </div>
                     // --- 재구현 끝 ---
