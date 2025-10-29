@@ -316,6 +316,10 @@ public class PrdcrVO extends ComVO {
 	 * 계좌번호
 	 */
 	private String actno;
+	/**
+	 * 삭제 불가능 사유
+	 */
+	private String delible;
 
 
 	private int crtrArea;

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PrdcrVO;
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 
 /**
  * 생산자정보관리 Service 인터페이스
@@ -154,5 +155,13 @@ public interface PrdcrService {
 	 * @throws Exception
 	 */
 	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) throws Exception;
+
+	/**
+	 * 생산자정보 삭제 가능 여부
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public String prdcrDelible(PrdcrVO prdcrVO) throws Exception;
 
 }

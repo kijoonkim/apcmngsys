@@ -2,6 +2,7 @@ package com.at.apcss.am.cmns.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.cmns.vo.PrdcrVO;
@@ -174,4 +175,12 @@ public interface PrdcrMapper {
 	 * @throws Exception
 	 */
 	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) ;
+
+	/**
+	 * 생산자정보 삭제 가능 여부
+	 * @param prdcrVO
+	 * @return List<PrdcrVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrVO> prdcrDelible(PrdcrVO prdcrVO) throws Exception;
 }

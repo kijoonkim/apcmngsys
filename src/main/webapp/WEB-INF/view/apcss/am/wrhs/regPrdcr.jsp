@@ -682,7 +682,8 @@
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		fn_search();
 	        	} else {
-	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        		// gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+					gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
 	        } catch(e) {
 	    		if (!(e instanceof Error)) {
