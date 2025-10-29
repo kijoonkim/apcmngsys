@@ -155,4 +155,12 @@ public interface PrdcrService {
 	 */
 	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) throws Exception;
 
+	/**
+	 * 생산자정보 삭제 가능 여부
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public String prdcrDelible(PrdcrVO prdcrVO) throws Exception;
+
 }
