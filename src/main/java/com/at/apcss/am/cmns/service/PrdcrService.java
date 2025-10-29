@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.cmns.vo.PrdcrVO;
-import com.at.apcss.am.cmns.vo.WrhsVhclVO;
 
 /**
  * 생산자정보관리 Service 인터페이스
