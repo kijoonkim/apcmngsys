@@ -9,6 +9,7 @@ import ApcList from "@apps/agentDashboard/component/ApcList";
 import ApcTotal from "@apps/agentDashboard/component/ApcTotal";
 import ApcMap from "@apps/agentDashboard/component/ApcMap";
 import headerLogo from '@assets/header_logo.png';
+import ApcItem from "@apps/agentDashboard/component/ApcItem";
 
 type ViewKey = 'policy' | 'vendor' | 'main';
 
@@ -16,7 +17,7 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
     const [tab, setTab] = useState<ViewKey>('vendor');
     const [opened, { toggle }] = useDisclosure();
     const [apcCode, setApcCode] = React.useState(initialProps.apcCode ?? "");
-    const [showSplitView, setShowSplitView] = useState(false);
+    const [showSplitView, setShowSplitView] = useState(true);
 
     const handleLogoDoubleClick = () => {
         setShowSplitView(prev => !prev);
@@ -28,34 +29,33 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
         <AppShell
             padding="md"
             header={{ height: 64 }}>
-            <AppShell.Header withBorder={false}>
-                <Group h="100%" px="md" justify="flex-start" wrap="nowrap" gap='100'>
-                    <Image
-                        radius="md"
-                        w="auto"
-                        src={headerLogo} // 수정된 이미지 경로 사용
-                        onDoubleClick={handleLogoDoubleClick}
-                        style={{ cursor: 'pointer', height: '40px' }} // 이미지 높이 조절 (선택 사항)
-                        alt="APC Logo" // alt 속성 추가
-                    />
-                    <Tabs
-                        value={tab}
-                        onChange={(v) => setTab((v as ViewKey) ?? 'main')}
-                        keepMounted={false}
-                        w='100%'
-                    >
-                        <Tabs.List>
-                            <Tabs.Tab value="vendor">ChatBot Search</Tabs.Tab>
-                            <Tabs.Tab value="main">운영성과</Tabs.Tab>
-                            <Tabs.Tab value="policy">정책성과</Tabs.Tab>
-                            <Tabs.Tab value="apcList">APC목록</Tabs.Tab>
-                        </Tabs.List>
-                    </Tabs>
+            {/*<AppShell.Header withBorder={false}>*/}
+            {/*    <Group h="100%" px="md" justify="flex-start" wrap="nowrap" gap='100'>*/}
+            {/*        <Image*/}
+            {/*            radius="md"*/}
+            {/*            w="auto"*/}
+            {/*            src={headerLogo} // 수정된 이미지 경로 사용*/}
+            {/*            onDoubleClick={handleLogoDoubleClick}*/}
+            {/*            style={{ cursor: 'pointer', height: '40px' }} // 이미지 높이 조절 (선택 사항)*/}
+            {/*            alt="APC Logo" // alt 속성 추가*/}
+            {/*        />*/}
+            {/*        <Tabs*/}
+            {/*            value={tab}*/}
+            {/*            onChange={(v) => setTab((v as ViewKey) ?? 'main')}*/}
+            {/*            keepMounted={false}*/}
+            {/*            w='100%'*/}
+            {/*        >*/}
+            {/*            <Tabs.List>*/}
+            {/*                <Tabs.Tab value="vendor">ChatBot Search</Tabs.Tab>*/}
+            {/*                <Tabs.Tab value="main">운영성과</Tabs.Tab>*/}
+            {/*                <Tabs.Tab value="policy">정책성과</Tabs.Tab>*/}
+            {/*                <Tabs.Tab value="apcList">APC목록</Tabs.Tab>*/}
+            {/*            </Tabs.List>*/}
+            {/*        </Tabs>*/}
+            {/*    </Group>*/}
+            {/*</AppShell.Header>*/}
 
-                </Group>
-            </AppShell.Header>
-
-            <AppShell.Main style={{padding : '64px 0 0 0', height: 'calc(100vh - 64px)'}}>
+            <AppShell.Main style={{padding : '0', height: 'calc(100vh - 64px)'}}>
                 {showSplitView ? (
                     // --- 4분할 그리드 뷰 재구현 ---
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '16px', height: '100%', padding: '16px' }}>
@@ -70,7 +70,7 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
                             <ApcMap />
                         </div>
                         <div style={{ overflow: 'hidden' }}>
-                            <AiChat /> {/* 내부에서 스크롤 처리 */}
+                            <ApcItem /> {/* 내부에서 스크롤 처리 */}
                         </div>
                     </div>
                     // --- 재구현 끝 ---

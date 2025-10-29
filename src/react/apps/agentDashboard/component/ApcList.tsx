@@ -161,7 +161,8 @@ const APCListView = ({ apcList, loading, error }) => {
 
     return (
         <div>
-            <div className="flex justify-end mb-4">
+            <div className="flex mb-4 justify-between">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">APC 운영 현황</h2>
                 <div className="flex items-center bg-slate-200 rounded-lg p-1">
                     <button onClick={() => setViewType('card')} className={`px-3 py-1 rounded-md text-sm font-semibold ${viewType === 'card' ? 'bg-white shadow' : 'text-slate-600'}`}><GridIcon /></button>
                     <button onClick={() => setViewType('list')} className={`px-3 py-1 rounded-md text-sm font-semibold ${viewType === 'list' ? 'bg-white shadow' : 'text-slate-600'}`}><ListIcon /></button>
@@ -454,10 +455,10 @@ export default function ApcList() {
         <div className="bg-slate-50 min-h-screen font-sans p-4 sm:p-6 lg:p-8">
             <div className="max-w-screen-xxl mx-auto">
                 {/* 헤더 */}
-                <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-slate-800">📘 APC 정보지원시스템</h1>
-                    {/*<p className="text-slate-500 mt-1">전국 농수산물 유통 현황을 한눈에 파악하세요.</p>*/}
-                </header>
+                {/*<header className="mb-8">*/}
+                {/*    <h2 className="text-2xl font-bold text-gray-800 mb-6">APC 운영 현황</h2>*/}
+                {/*    /!*<p className="text-slate-500 mt-1">전국 농수산물 유통 현황을 한눈에 파악하세요.</p>*!/*/}
+                {/*</header>*/}
 
                 {/* 탭 네비게이션 */}
                 {/*<div className="mb-6 border-b border-gray-200">*/}

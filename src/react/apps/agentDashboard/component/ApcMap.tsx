@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 // react-leaflet 및 leaflet import 유지
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 // CSS import 유지
 import 'leaflet/dist/leaflet.css';
+// 한국 시도 경계 GeoJSON 데이터 import
+import southKoreaGeoJson from '@assets/data/korea-provinces.json';
 
 // --- Leaflet 아이콘 설정 ---
 // Leaflet CSS가 기본 아이콘 경로를 참조하도록 합니다.
@@ -90,7 +92,7 @@ const parseCoordCSV = (csvText) => {
         // 필드 개수가 부족하거나 많은 경우 건너뛰기 + 빈 줄 건너뛰기
         if (values.length !== headers.length || values.join('').trim() === '') {
             if(values.join('').trim() !== '') {
-                console.warn(`CSV ${i+1}번째 줄 파싱 오류. 건너<0xEB><0x9A><0x9C>니다:`, lines[i]);
+                console.warn(`CSV ${i+1}번째 줄 파싱 오류. 건너뛰니다:`, lines[i]);
             }
             continue;
         }
@@ -128,24 +130,16 @@ const parseCoordCSV = (csvText) => {
 };
 
 
-// --- 대한민국 시도 GeoJSON (간단한 임시 데이터) ---
-const southKoreaGeoJson = {
-    type: "FeatureCollection",
-    features: [
-        // 실제 GeoJSON 데이터 필요
-        { type: "Feature", properties: { name: "서울특별시" }, geometry: { type: "Polygon", coordinates: [[[126.7, 37.4], [127.1, 37.4], [127.1, 37.7], [126.7, 37.7], [126.7, 37.4]]] } },
-        { type: "Feature", properties: { name: "경기도" }, geometry: { type: "Polygon", coordinates: [[[126.5, 37.0], [127.5, 37.0], [127.5, 38.0], [126.5, 38.0], [126.5, 37.0]]] } },
-        { type: "Feature", properties: { name: "전라남도" }, geometry: { type: "Polygon", coordinates: [[[126.0, 34.5], [127.0, 34.5], [127.0, 35.5], [126.0, 35.5], [126.0, 34.5]]] } },
-        // ...
-    ]
-};
-
 // --- 유틸리티 함수 ---
 const formatNumber = (num) => num ? num.toLocaleString('ko-KR') : '0';
 const getColorByValue = (value, max) => {
     if (!value || max === 0) return '#edf2f7';
     const ratio = value / max;
-    if (ratio > 0.8) return '#3182ce'; if (ratio > 0.6) return '#4299e1'; if (ratio > 0.4) return '#63b3ed'; if (ratio > 0.2) return '#90cdf4'; return '#bee3f8';
+    if (ratio > 0.8) return '#3182ce';
+    if (ratio > 0.6) return '#4299e1';
+    if (ratio > 0.4) return '#63b3ed';
+    if (ratio > 0.2) return '#90cdf4';
+    return '#bee3f8';
 };
 
 // --- 메인 컴포넌트 ---
@@ -153,7 +147,9 @@ const ApcMap = () => {
     // APC 마커 데이터 상태 변경
     const [apcMarkers, setApcMarkers] = useState([]);
     // 지역별 집계 데이터 상태 추가 (GeoJSON용)
-    const [regionalAggData, setRegionalAggData] = useState({ byProvince: {}, maxReceiving: 0 });
+    const [regionalAggData, setRegionalAggData] = useState({ byProvince: {}, maxReceiving: 0, provinceItems: {} });
+    // 선택된 지역 상태 추가
+    const [selectedProvince, setSelectedProvince] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // 1. 데이터 로딩 (컴포넌트 마운트 시)
@@ -165,17 +161,79 @@ const ApcMap = () => {
 
             // --- 지역별 집계 로직 (실제 실적 데이터 필요) ---
             // 현재는 마커 데이터 기반 임시 집계
-            const byProvince = parsedMarkers.reduce((acc, d) => {
-                const province = d.address?.split(' ')[0] || d.apc_name.split(' ')[0] || '기타';
-                if (!acc[province]) {
-                    acc[province] = { name: province, totalReceiving: 0, count: 0 };
+            const byProvince = {};
+            const provinceItems = {}; // 지역별 품목 데이터
+
+            parsedMarkers.forEach(d => {
+                // 주소에서 시도 추출 (첫 번째 단어)
+                let province = d.address?.split(' ')[0] || '기타';
+
+                // 시도 이름 정규화 (특별시/광역시/도 포함)
+                if (province === '경기' || province === '경기도') province = '경기도';
+                else if (province === '강원' || province === '강원도') province = '강원도';
+                else if (province === '충북' || province === '충청북도') province = '충청북도';
+                else if (province === '충남' || province === '충청남도') province = '충청남도';
+                else if (province === '전북' || province === '전라북도') province = '전라북도';
+                else if (province === '전남' || province === '전라남도') province = '전라남도';
+                else if (province === '경북' || province === '경상북도') province = '경상북도';
+                else if (province === '경남' || province === '경상남도') province = '경상남도';
+                else if (province === '제주' || province === '제주특별자치도') province = '제주특별자치도';
+                else if (province === '서울' || province === '서울특별시') province = '서울특별시';
+                else if (province === '부산' || province === '부산광역시') province = '부산광역시';
+                else if (province === '대구' || province === '대구광역시') province = '대구광역시';
+                else if (province === '인천' || province === '인천광역시') province = '인천광역시';
+                else if (province === '광주' || province === '광주광역시') province = '광주광역시';
+                else if (province === '대전' || province === '대전광역시') province = '대전광역시';
+                else if (province === '울산' || province === '울산광역시') province = '울산광역시';
+                else if (province === '세종' || province === '세종특별자치시') province = '세종특별자치시';
+
+                if (!byProvince[province]) {
+                    byProvince[province] = { name: province, totalReceiving: 0, count: 0 };
+                    provinceItems[province] = [];
                 }
-                acc[province].totalReceiving += Math.random() * 10000;
-                acc[province].count += 1;
-                return acc;
-            }, {});
+
+                // 임시 실적 데이터 생성 (APC별)
+                const receiving = Math.floor(Math.random() * 10000) + 1000;
+                const sorting = Math.floor(receiving * (0.85 + Math.random() * 0.1));
+                const shipping = Math.floor(sorting * (0.85 + Math.random() * 0.1));
+
+                byProvince[province].totalReceiving += receiving;
+                byProvince[province].count += 1;
+
+                // 품목별 데이터 생성 (임시)
+                const items = ['사과', '배', '감귤', '딸기', '참외', '수박', '토마토', '오이', '호박', '배추'];
+                const randomItems = items.sort(() => 0.5 - Math.random()).slice(0, Math.floor(Math.random() * 3) + 2);
+
+                randomItems.forEach(item => {
+                    const existingItem = provinceItems[province].find(pi => pi.item_name === item);
+                    const itemReceiving = Math.floor(Math.random() * 3000) + 500;
+                    const itemSorting = Math.floor(itemReceiving * (0.85 + Math.random() * 0.1));
+                    const itemShipping = Math.floor(itemSorting * (0.85 + Math.random() * 0.1));
+
+                    if (existingItem) {
+                        existingItem.receiving += itemReceiving;
+                        existingItem.sorting += itemSorting;
+                        existingItem.shipping += itemShipping;
+                    } else {
+                        provinceItems[province].push({
+                            item_name: item,
+                            receiving: itemReceiving,
+                            sorting: itemSorting,
+                            shipping: itemShipping,
+                        });
+                    }
+                });
+            });
+
             const maxReceiving = Math.max(0, ...Object.values(byProvince).map(p => p.totalReceiving));
-            setRegionalAggData({ byProvince, maxReceiving });
+            setRegionalAggData({ byProvince, maxReceiving, provinceItems });
+
+            console.log('데이터 로딩 완료:', {
+                apcCount: parsedMarkers.length,
+                provinces: Object.keys(byProvince).length,
+                items: Object.keys(provinceItems).length
+            });
+
             // --- 지역별 집계 로직 끝 ---
 
             setLoading(false);
@@ -188,17 +246,37 @@ const ApcMap = () => {
         const data = regionalAggData.byProvince[provinceName];
         const value = data ? data.totalReceiving : 0;
         const color = getColorByValue(value, regionalAggData.maxReceiving);
-        return { fillColor: color, weight: 1, opacity: 1, color: 'white', dashArray: '3', fillOpacity: 0.7 };
+        return {
+            fillColor: color,
+            weight: 2,
+            opacity: 1,
+            color: '#ffffff',
+            dashArray: '',
+            fillOpacity: 0.6
+        };
     };
-    // 3. 마우스 오버 효과 함수 (이전과 동일)
+
+    // 3. 마우스 오버 효과 함수
     const highlightFeature = (e) => {
         const layer = e.target;
-        layer.setStyle({ weight: 2, color: '#666', dashArray: '', fillOpacity: 0.9 });
-        if (layer.feature) { layer.bringToFront(); }
+        layer.setStyle({
+            weight: 3,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.8
+        });
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
     };
+
     const resetHighlight = (e) => {
-        if (e.target.feature) { e.target.setStyle(geoJsonStyle(e.target.feature)); }
+        const layer = e.target;
+        if (layer.feature) {
+            layer.setStyle(geoJsonStyle(layer.feature));
+        }
     };
+
     // 4. 각 지역 이벤트 함수 (regionalAggData 사용)
     const onEachFeature = (feature, layer) => {
         layer.on({
@@ -207,25 +285,41 @@ const ApcMap = () => {
             click: (e) => {
                 const provinceName = feature.properties.name;
                 const data = regionalAggData.byProvince[provinceName];
+
+                // 지역 선택 상태 업데이트
+                setSelectedProvince(provinceName);
+
                 const popupContent = `
-                    <strong>${provinceName}</strong><br/>
-                    총 입고량(임시): ${formatNumber(data?.totalReceiving || 0)} kg<br/>
-                    APC 개수: ${data?.count || 0} 개소
+                    <div style="font-family: 'Pretendard', sans-serif;">
+                        <strong style="font-size: 14px;">${provinceName}</strong><br/>
+                        <span style="font-size: 12px;">총 입고량(임시): ${formatNumber(data?.totalReceiving || 0)} kg</span><br/>
+                        <span style="font-size: 12px;">APC 개수: ${data?.count || 0} 개소</span>
+                    </div>
                  `;
-                if (typeof L !== 'undefined') {
-                    L.popup().setLatLng(e.latlng).setContent(popupContent).openOn(e.target._map);
-                }
+                L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent(popupContent)
+                    .openOn(e.target._map);
             }
         });
+
         const provinceName = feature.properties.name;
-        if (layer.bindTooltip) { layer.bindTooltip(provinceName, { sticky: true }); }
+        if (layer.bindTooltip) {
+            layer.bindTooltip(provinceName, {
+                sticky: true,
+                direction: 'center',
+                className: 'province-tooltip'
+            });
+        }
     };
 
     // 로딩 처리
-    if (loading) { return <div className="p-6 text-center">지역별 분석 데이터를 불러오는 중입니다...</div>; }
+    if (loading) {
+        return <div className="p-6 text-center">지역별 분석 데이터를 불러오는 중입니다...</div>;
+    }
 
     // 지도 초기 위치 및 줌 레벨
-    const mapPosition = [36.0, 127.5];
+    const mapPosition = [36.5, 127.5];
     const mapZoom = 7;
 
     return (
@@ -233,12 +327,17 @@ const ApcMap = () => {
             {/* 지도 영역 */}
             <div className="lg:col-span-2 row-span-3 bg-white p-4 rounded-xl shadow h-full">
                 <h3 className="text-lg font-semibold text-gray-700 mb-4">지역별 분포 및 APC 위치</h3>
-                <MapContainer center={mapPosition} zoom={mapZoom} style={{ height: 'calc(100% - 60px)', width: '100%', borderRadius: '8px' }}>
+                <MapContainer
+                    center={mapPosition}
+                    zoom={mapZoom}
+                    style={{ height: 'calc(100% - 60px)', width: '100%', borderRadius: '8px' }}
+                    scrollWheelZoom={true}
+                >
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {/* GeoJSON (옵션) */}
+                    {/* GeoJSON - 실제 시도 경계 */}
                     {southKoreaGeoJson && southKoreaGeoJson.features && (
                         <GeoJSON
                             key={JSON.stringify(regionalAggData.byProvince)}
@@ -247,7 +346,7 @@ const ApcMap = () => {
                             onEachFeature={onEachFeature}
                         />
                     )}
-                    {/* --- 마커 렌더링 (CSV 데이터 기반) --- */}
+                    {/* 마커 렌더링 (CSV 데이터 기반) */}
                     {apcMarkers.map((marker) => (
                         <Marker key={marker.id} position={[marker.lat, marker.lng]}>
                             <Popup>
@@ -256,14 +355,15 @@ const ApcMap = () => {
                             </Popup>
                         </Marker>
                     ))}
-                    {/* --- 마커 렌더링 끝 --- */}
                 </MapContainer>
                 {/* 범례 */}
                 <div className="mt-2 flex items-center justify-end space-x-2 text-xs">
                     <span className="font-semibold">입고량(임시):</span>
-                    <span className="w-4 h-4 inline-block bg-[#bee3f8]"></span><span>낮음</span>
-                    <span className="w-4 h-4 inline-block bg-[#63b3ed]"></span>
-                    <span className="w-4 h-4 inline-block bg-[#3182ce]"></span><span>높음</span>
+                    <span className="w-4 h-4 inline-block bg-[#bee3f8] border border-gray-300"></span>
+                    <span>낮음</span>
+                    <span className="w-4 h-4 inline-block bg-[#63b3ed] border border-gray-300"></span>
+                    <span className="w-4 h-4 inline-block bg-[#3182ce] border border-gray-300"></span>
+                    <span>높음</span>
                 </div>
             </div>
 
@@ -290,27 +390,54 @@ const ApcMap = () => {
                 </table>
             </div>
 
-            {/* 품목이랄까? */}
+            {/* 품목별 요약 테이블 - 선택된 지역의 품목 표시 */}
             <div className="bg-white p-6 rounded-xl shadow overflow-y-auto">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">지역별 요약 (APC 수)</h3>
-                <table className="w-full text-sm text-left">
-                    <thead className="bg-gray-50 sticky top-0">
-                    <tr>
-                        <th className="p-3 font-semibold">지역</th>
-                        <th className="p-3 font-semibold text-right">APC 수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {Object.values(regionalAggData.byProvince)
-                        .sort((a, b) => b.count - a.count)
-                        .map(data => (
-                            <tr key={data.name} className="border-b hover:bg-gray-50">
-                                <td className="p-3 font-medium text-gray-800">{data.name}</td>
-                                <td className="p-3 text-gray-600 text-right">{data.count}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                    {selectedProvince ? `${selectedProvince} - 품목별 실적` : '품목별 실적'}
+                </h3>
+                {selectedProvince && regionalAggData.provinceItems?.[selectedProvince] ? (
+                    <table className="w-full text-sm text-left">
+                        <thead className="bg-gray-50 sticky top-0">
+                        <tr>
+                            <th className="p-3 font-semibold">품목</th>
+                            <th className="p-3 font-semibold text-right">입고(kg)</th>
+                            <th className="p-3 font-semibold text-right">선별(kg)</th>
+                            <th className="p-3 font-semibold text-right">출하(kg)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {regionalAggData.provinceItems[selectedProvince]
+                            .sort((a, b) => b.receiving - a.receiving)
+                            .map((item, idx) => (
+                                <tr key={idx} className="border-b hover:bg-gray-50">
+                                    <td className="p-3 font-medium text-gray-800">{item.item_name}</td>
+                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.receiving)}</td>
+                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.sorting)}</td>
+                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.shipping)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot className="bg-gray-50 font-semibold sticky bottom-0">
+                        <tr className="border-t-2">
+                            <td className="p-3">합계</td>
+                            <td className="p-3 text-right">
+                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.receiving, 0))}
+                            </td>
+                            <td className="p-3 text-right">
+                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.sorting, 0))}
+                            </td>
+                            <td className="p-3 text-right">
+                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.shipping, 0))}
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                ) : (
+                    <div className="text-center py-8 text-gray-500">
+                        <p className="mb-2">지도에서 지역을 선택하세요</p>
+                        <p className="text-xs">클릭하면 해당 지역의 품목별 실적을 확인할 수 있습니다</p>
+                    </div>
+                )}
             </div>
         </div>
     );
