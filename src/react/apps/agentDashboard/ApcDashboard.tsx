@@ -26,6 +26,18 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
     console.log(apcCode);
 
     return (
+        <>
+        <style>
+            {`
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}
+        </style>
         <AppShell
             padding="md"
             header={{ height: 64 }}>
@@ -58,18 +70,18 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
             <AppShell.Main style={{padding : '0', height: 'calc(100vh - 64px)'}}>
                 {showSplitView ? (
                     // --- 4분할 그리드 뷰 재구현 ---
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '16px', height: '100%', padding: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '16px', height: '100%', padding: '16px', backgroundColor: '#eaf1ff'}}>
                         {/* 각 그리드 셀 */}
-                        <div style={{ overflow: 'hidden' }}> {/* 셀 자체는 스크롤 숨김 */}
+                        <div style={{ overflow: 'hidden', borderRadius: '15px' }}> {/* 셀 자체는 스크롤 숨김 */}
                             <ApcList />
                         </div>
-                        <div style={{ overflow: 'hidden' }}>
+                        <div style={{ overflow: 'hidden'}}>
                             <ApcTotal />
                         </div>
-                        <div style={{ overflow: 'hidden' }}>
+                        <div style={{ overflow: 'hidden'}}>
                             <ApcMap />
                         </div>
-                        <div style={{ overflow: 'hidden' }}>
+                        <div className="hide-scrollbar" style={{ overflow: 'scroll', borderRadius: '15px'}}>
                             <ApcItem /> {/* 내부에서 스크롤 처리 */}
                         </div>
                     </div>
@@ -84,5 +96,6 @@ export default function App({ initialProps }: { initialProps: { apcCode?: string
                 )}
             </AppShell.Main>
         </AppShell>
+        </>
     );
 }

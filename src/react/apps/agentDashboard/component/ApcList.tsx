@@ -452,7 +452,7 @@ export default function ApcList() {
 
 
     return (
-        <div className="bg-slate-50 min-h-screen font-sans p-4 sm:p-6 lg:p-8">
+        <div className="bg-slate-50 font-sans p-4 sm:p-6 lg:p-8" style={{paddingTop: '15px'}}>
             <div className="max-w-screen-xxl mx-auto">
                 {/* 헤더 */}
                 {/*<header className="mb-8">*/}

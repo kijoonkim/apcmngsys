@@ -87,8 +87,9 @@ const COLORS = ['rgba(72,140,199,0.91)', '#55a679', '#e37e45', '#e065a3', '#805a
 
 const ApcItem = () => {
     const [rawData, setRawData] = useState([]);
-    const [selectedItem, setSelectedItem] = useState<string | null>(null);
+    const [selectedItem, setSelectedItem] = useState<string | null>("브로콜리");
     const [loading, setLoading] = useState(true);
+    const tableScrollRef = React.useRef<HTMLDivElement>(null);
 
     // 데이터 로딩
     useEffect(() => {
@@ -98,6 +99,64 @@ const ApcItem = () => {
             setLoading(false);
         }, 300);
     }, []);
+
+    useEffect(() => {
+        const scrollContainer = tableScrollRef.current;
+        if (!scrollContainer || loading) return;
+
+        let scrollDirection = 1;
+        let isScrolling = true;
+        let pauseTimer: NodeJS.Timeout | null = null;
+
+        const autoScroll = () => {
+            if (!isScrolling || !scrollContainer || pauseTimer) return;
+
+            const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            const currentScroll = scrollContainer.scrollTop;
+            const scrollSpeed = 1.5;
+
+            if (scrollDirection === 1) {
+                if (currentScroll >= maxScroll - 5) {
+                    pauseTimer = setTimeout(() => {
+                        scrollDirection = -1;
+                        pauseTimer = null;
+                    }, 2000);
+                } else {
+                    scrollContainer.scrollTop += scrollSpeed;
+                }
+            } else {
+                if (currentScroll <= 5) {
+                    pauseTimer = setTimeout(() => {
+                        scrollDirection = 1;
+                        pauseTimer = null;
+                    }, 2000);
+                } else {
+                    scrollContainer.scrollTop -= scrollSpeed;
+                }
+            }
+        };
+
+        const intervalId = setInterval(autoScroll, 30);
+
+        const handleMouseEnter = () => {
+            isScrolling = false;
+        };
+
+        const handleMouseLeave = () => {
+            isScrolling = true;
+        };
+
+        scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+        scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            clearInterval(intervalId);
+            if (pauseTimer) clearTimeout(pauseTimer);
+            scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+            scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, [loading]);
+
 
     // 품목별 집계 데이터
     const itemSummary = useMemo(() => {

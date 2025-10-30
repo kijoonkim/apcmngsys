@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 // CSS import 유지
 import 'leaflet/dist/leaflet.css';
+
 // 한국 시도 경계 GeoJSON 데이터 import
 import southKoreaGeoJson from '@assets/data/korea-provinces.json';
 
@@ -326,7 +327,8 @@ const ApcMap = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-pretendard h-full">
             {/* 지도 영역 */}
             <div className="lg:col-span-2 row-span-3 bg-white p-4 rounded-xl shadow h-full">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">지역별 분포 및 APC 위치</h3>
+                {/*<h3 className="text-lg font-semibold text-gray-700 mb-4">지역별 분포 및 APC 위치</h3>*/}
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">지역별 분포 및 APC 위치</h2>
                 <MapContainer
                     center={mapPosition}
                     zoom={mapZoom}
@@ -368,10 +370,10 @@ const ApcMap = () => {
             </div>
 
             {/* 지역별 실적 표 (regionalAggData 사용) */}
-            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">지역별 요약 (APC 수)</h3>
+            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar">
+                <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">지역별 요약 (APC 수)</h3>
                 <table className="w-full text-sm text-left">
-                    <thead className="bg-gray-50 sticky top-[-24px]">
+                    <thead className="bg-gray-50">
                     <tr>
                         <th className="p-3 font-semibold">지역</th>
                         <th className="p-3 font-semibold text-right">APC 수</th>
@@ -391,8 +393,8 @@ const ApcMap = () => {
             </div>
 
             {/* 품목별 요약 테이블 - 선택된 지역의 품목 표시 */}
-            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4">
+            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar ">
+                <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">
                     {selectedProvince ? `${selectedProvince} - 품목별 실적` : '품목별 실적'}
                 </h3>
                 {selectedProvince && regionalAggData.provinceItems?.[selectedProvince] ? (
@@ -417,7 +419,7 @@ const ApcMap = () => {
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot className="bg-gray-50 font-semibold sticky bottom-0">
+                        <tfoot className="bg-gray-50 font-semibold sticky bottom-[-24px]">
                         <tr className="border-t-2">
                             <td className="p-3">합계</td>
                             <td className="p-3 text-right">
