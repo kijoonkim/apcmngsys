@@ -147,6 +147,15 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+							id="btn-srch-apcLinkPop"
+							name="btn-srch-apcLinkPop"
+							class="btn btn-sm btn-outline-danger"
+							text="연계요청"
+							uitype="modal"
+							target-id="modal-apcLinkPop"
+							onclick="fn_popApcLink"
+					></sbux-button>
+					<sbux-button
 							id="btnPltBx"
 							name="btnPltBx"
 							uitype="normal"
@@ -671,19 +680,6 @@
     	<jsp:include page="../../am/popup/vhclPopup.jsp"></jsp:include>
     </div>
 
-    <!-- 원물계량연계 Modal -->
-    <div>
-        <sbux-modal
-            id="modal-apcLinkPop"
-            name="modal-apcLinkPop"
-            uitype="middle"
-            header-title="원물연계수신"
-            body-html-id="body-modal-apcLinkPop"
-            header-is-close-button="false"
-            footer-is-close-button="false"
-            style="width:800px"
-        ></sbux-modal>
-    </div>
 	<!-- 생산작업자 등록 Modal -->
 	<div>
 		<sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
@@ -692,9 +688,22 @@
 		<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
 	</div>
 
-    <div id="body-modal-apcLinkPop">
-        <jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
-     </div>
+	<!-- 원물계량연계 Modal -->
+	<div>
+		<sbux-modal
+				id="modal-apcLinkPop"
+				name="modal-apcLinkPop"
+				uitype="middle"
+				header-title="계량연계송신"
+				body-html-id="body-modal-apcLinkPop"
+				header-is-close-button="false"
+				footer-is-close-button="false"
+				style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-apcLinkPop">
+		<jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+	</div>
 
 </body>
 <script type="text/javascript">
@@ -2927,8 +2936,8 @@
                      {
                          apcCd: gv_selectedApcCd,
                          apcNm: gv_selectedApcNm,
-                         linkKnd: "W",
-                         kndList: ["W", "R"]
+                         linkKnd: "1",
+                         kndList: ["1"]
                      },
                      fn_popApcLinkCallBack
                  );
