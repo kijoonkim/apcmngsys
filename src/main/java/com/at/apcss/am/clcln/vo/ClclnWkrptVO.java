@@ -63,6 +63,7 @@ public class ClclnWkrptVO extends ComVO {
 	private String prdcrNmSat;
 	private String prdcrNmSun;
 
+	private String prdcrCd;
 	private String prdcrNm;
 
 	private String dy;
