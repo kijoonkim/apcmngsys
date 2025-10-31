@@ -2804,6 +2804,12 @@
 		<if test='vhclno != null and vhclno != ""'>
 			AND WC.VHCLNO = #{vhclno}
 		</if>
+		<if test='sysFrstInptDt != null and sysFrstInptDt != ""'>
+			AND WC.SYS_FRST_INPT_DT > TO_DATE(#{sysFrstInptDt} , 'YYYY-MM-DD HH24:MI:SS')
+		</if>
+		<if test='sysLastChgDt != null and sysLastChgDt != ""'>
+			AND WC.SYS_LAST_CHG_DT > TO_DATE(#{sysLastChgDt} , 'YYYY-MM-DD HH24:MI:SS')
+		</if>
 		<![CDATA[
 		 	 ORDER BY APC_CD, PO_DATE, PO_NO
     		  ) pt0
