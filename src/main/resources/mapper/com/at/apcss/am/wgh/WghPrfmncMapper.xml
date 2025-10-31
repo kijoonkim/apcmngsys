@@ -2738,6 +2738,7 @@
 			    , WC.PRDCR_CD		AS CUST_CD
 				, WC.OPRTR_NM		AS OPRTR_NM
 				, WC.RMRK           AS REMARKS
+			    , WD.WGH_SN			AS WGH_SN
                 , WD.GRD_CD         AS GRD_CD
 				, WD.GDS_CD			AS GOODS_CD
 				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
