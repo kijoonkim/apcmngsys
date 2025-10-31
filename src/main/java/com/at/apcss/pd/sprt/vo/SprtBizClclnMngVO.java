@@ -538,6 +538,16 @@ public class SprtBizClclnMngVO extends ComVO {
     private String untyOgnzCd;
 
     /**
+     * 제출여부
+     */
+    private String sbmsnYn;
+
+    /**
+     * 문서명
+     */
+    private String docNm;
+
+    /**
      * 교부신청서 파일
      */
     private List<MultipartFile> dtbnAplyFiles;

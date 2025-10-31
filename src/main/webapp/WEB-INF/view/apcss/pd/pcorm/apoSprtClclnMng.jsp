@@ -95,6 +95,13 @@
             <sbux-input id="dtl-inp-corpNm" name="dtl-inp-corpNm" uitype="text" class="form-control input-sm" ></sbux-input>
           </td>
         </tr>
+
+        <tr>
+          <th scope="row" class="th_bg">제출여부</th>
+          <td class="td_input" style="border-right: hidden">
+            <sbux-select id="dtl-slt-clclnAplyAtch" name="dtl-slt-clclnAplyAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonSbmsnYn"></sbux-select>
+          </td>
+        </tr>
         </tbody>
       </table>
 
@@ -107,6 +114,7 @@
                 uitype="normal"
                 is-scrollable="false"
                 jsondata-ref="tabJsonData"
+                onclick="fn_clickTabs()"
         ></sbux-tabs>
 
         <div class="tab-content" style="height: 600px">
@@ -301,6 +309,7 @@
               <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
                 <div style="display:flex; gap:10px; align-items:center; justify-content: end">
                   <div><sbux-select id="dtl-slt-clclnDownSeq" name="dtl-slt-clclnDownSeq" class="form-control input-sm" uitype="single" jsondata-ref="jsonClclnSeq"></sbux-select></div>
+                  <div><sbux-button id="btnDownAllClclnAplyDoc" name="btnDownAllClclnAplyDoc" uitype="normal" text="정산요청서 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllClclnAplyDoc()"></sbux-button></div>
                   <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
                   <div><sbux-button id="btnSaveClclnRmrk" name="btnSaveClclnRmrk" uitype="normal" text="비고 저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRmrk()"></sbux-button></div>
                 </div>
@@ -308,6 +317,28 @@
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnAply" style="height: 300px"></div>
+
+            <%--정산신청 소계--%>
+            <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
+              <colgroup>
+                <col style="width: 28%">
+                <col style="width: 7%">
+                <col style="width: 7%">
+                <col style="width: 7%">
+                <col style="width: 7%">
+                <col style="width: 10%">
+                <col style="width: 33%">
+              </colgroup>
+              <tr>
+                <td>소계</td>
+                <td><span id="clclnPsbltAmt"></span></td>
+                <td>제출 : <span id="clclnAplySbmsn">0</span> 개</td>
+                <td>확인 : <span id="clclnAplyAprv">0</span> 개</td>
+                <td></td>
+                <td><span id="clclnDmndAmt"></span></td>
+                <td></td>
+              </tr>
+            </table>
 
             <div style="height: 10px"></div>
 
@@ -584,7 +615,15 @@
   var jsonClclnSeq = [
     {value : 1, text :"1차"},
     {value : 2, text :"2차"},
-  ]
+  ];
+
+  /** 제출 여부 **/
+  var jsonSbmsnYn = [
+    {value : "Y", text :"제출"},
+    {value : "N", text :"미제출"},
+    {value : "U", text :"제출(변경)"},
+  ];
+
 
   window.addEventListener('DOMContentLoaded', async function(e) {
     await fn_init()
@@ -697,6 +736,14 @@
     SBGridProperties.oneclickedit = true;
 
     SBGridProperties.columns = [
+      {
+        caption : [`<input type="checkbox" onchange="fn_checkAll(gridClclnAply, this, 'gridClclnAply')">`,`<input type="checkbox" onchange="fn_checkAll(gridClclnAply, this, 'gridClclnAply')">`],
+        ref: 'checkedYn', type: 'checkbox',  width:'3%',
+        style: 'text-align:center',
+        userattr: {colNm: "checkedYn"},
+        typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true, fixedcellcheckbox : {usemode : false, rowindex : 0}}
+      },
+
       {caption: ['연도','연도'],			ref: 'sprtBizYr', 	    width: '5%', type: 'output',style: 'text-align:center'},
       {caption: ['법인명','법인명'], 			ref: 'corpNm', 	width: '15%', type: 'output', style: 'text-align:left',userattr : {colNm :"corpNm"}},
       {caption: ['회차','회차'], 			ref: 'clclnSeq', 		width: '6%', type: 'output', style: 'text-align:center'},
@@ -708,10 +755,11 @@
       /*{caption: ['증빙서류','제출여부'], 			ref: 'prufSbmsnYn', 	width: '7%', type: 'output', style: 'text-align:right'},
       {caption: ['증빙서류','확인여부'], 			ref: 'prufAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},*/
       {caption: ['증빙서류\n미리보기','증빙서류\n미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
-      {caption: ['비고','비고'], 			ref: 'clclnRmrk', 		width: '34%', type: 'input', style: 'text-align:left'},
+      {caption: ['비고','비고'], 			ref: 'clclnRmrk', 		width: '26%', type: 'input', style: 'text-align:left', userattr: {colNm: "clclnAplyRmrk"}},
     ];
     gridClclnAply = _SBGrid.create(SBGridProperties);
     gridClclnAply.bind('click','fn_clickGridClclnAply');
+    gridClclnAply.bind('valuechanged','fn_gridClclnAplyValueChange');
   }
 
 
@@ -770,7 +818,7 @@
     SBGridProperties.columns = [
 
       {
-        caption : ["<input type='checkbox' onchange='fn_checkAll(gridDtbnMng, this);'>","<input type='checkbox' onchange='fn_checkAll(gridDtbnMng, this);'>"],
+        caption : [`<input type="checkbox" onchange="fn_checkAll(gridDtbnMng, this, 'gridDtbnMng')">`,`<input type="checkbox" onchange="fn_checkAll(gridDtbnMng, this, 'gridDtbnMng')">`],
         ref: 'checkedYn', type: 'checkbox',  width:'3%',
         style: 'text-align:center',
         userattr: {colNm: "checkedYn"},
@@ -1016,6 +1064,7 @@
     let brno = SBUxMethod.get('dtl-inp-brno');
     const crtrYr = SBUxMethod.get('dtl-spi-yr');
     const corpNm = SBUxMethod.get('dtl-inp-corpNm');
+    const dtbnSbmsnYn = SBUxMethod.get('dtl-slt-clclnAplyAtch');
 
     <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
       brno = "${loginVO.brno}";
@@ -1024,6 +1073,7 @@
       crtrYr: crtrYr,
       brno: brno,
       corpNm: corpNm,
+      sbmsnYn : dtbnSbmsnYn
     });
 
     const data = await postJsonPromise;
@@ -1331,7 +1381,7 @@
    * @name fn_checkAll
    * @description 그리드 체크박스 전체 선택
    */
-  const fn_checkAll = function (grid, obj) {
+  const fn_checkAll = function (grid, obj, gridName) {
 
     const checkedYn = obj.checked ? "Y" : "N";
     //체크박스 열 index
@@ -1341,7 +1391,16 @@
     }
 
     grid.refresh();
-    fn_setTotal();
+
+    if (_.isEqual(gridName,"gridDtbnMng")) {
+      fn_setTotal();
+    } else if (_.isEqual(gridName,"gridClclnAply")) {
+      const allData = gridClclnAply.getGridDataAll();
+      if (!gfn_isEmpty(allData)) {
+        fn_calcClclnAplySum(allData);
+      }
+    }
+
   }
 
   /**
@@ -1510,41 +1569,59 @@
     brno = "${loginVO.brno}";
     </c:if>
 
+    const clclnSbmsnYn = SBUxMethod.get('dtl-slt-clclnAplyAtch');
+
     const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizClclnAplyList.do", {
       crtrYr: crtrYr,
       brno: brno,
       corpNm: corpNm,
+      sbmsnYn : clclnSbmsnYn
     });
     const data = await postJsonPromise;
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
         data.resultList.forEach(item => {
-          // 제출
+
+          const aplyAtchFileSn = item.aplyAtchFileSn;
+          const excelAtchFileSn = item.excelAtchFileSn;
+          const chkAtchFileSn = item.chkAtchFileSn;
+
+          // 제출여부
           let sbmsnYn;
-          let atchFileSn = item.aplyAtchFileSn;
-          if (gfn_isEmpty(atchFileSn) || _.isEqual(atchFileSn,0)) {
-            sbmsnYn = "미제출";
-          } else if (atchFileSn > 0 && _.isEqual(item.chgYn, "Y")) {
+          const isAplySbmsn  = !gfn_isEmpty(aplyAtchFileSn)  && !_.isEqual(aplyAtchFileSn, 0);
+          const isExcelSbmsn = !gfn_isEmpty(excelAtchFileSn) && !_.isEqual(excelAtchFileSn, 0);
+          const isChkSbmsn   = !gfn_isEmpty(chkAtchFileSn)   && !_.isEqual(chkAtchFileSn, 0);
+
+          const isAplyChg  = _.isEqual(item.aplyChgYn, "Y") && isAplySbmsn;
+          const isExcelChg = _.isEqual(item.excelChgYn, "Y") && isExcelSbmsn;
+          const isChkChg   = _.isEqual(item.chkChgYn, "Y") && isChkSbmsn;
+
+          // 3개중 한개라도 제출변경
+          if (isAplyChg || isExcelChg || isChkChg) {
             sbmsnYn = "제출(변경)";
-          } else {
+          // 3개중 한개라도 제출
+          } else if (isAplySbmsn || isExcelSbmsn || isChkSbmsn) {
             sbmsnYn = "제출";
+          // 3개다 미제출
+          } else {
+            sbmsnYn = "미제출";
           }
 
           // 정산 요청서 확인여부
           let aplyAprvYnNm;
-          if (gfn_isEmpty(atchFileSn) || _.isEqual(atchFileSn,0)) {
+          if (gfn_isEmpty(aplyAtchFileSn) || _.isEqual(aplyAtchFileSn,0)) {
             aplyAprvYnNm = null;
-          } else if (atchFileSn > 0 && gfn_isEmpty(item.aplyAprvYn)) {
+          } else if (aplyAtchFileSn > 0 && gfn_isEmpty(item.aplyAprvYn)) {
             aplyAprvYnNm = "미확인";
-          } else if (atchFileSn > 0 && _.isEqual(item.aplyAprvYn,"Y")) {
+          } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn,"Y")) {
             aplyAprvYnNm = "확인";
-          } else if (atchFileSn > 0 && _.isEqual(item.aplyAprvYn,"N")) {
+          } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn,"N")) {
             aplyAprvYnNm = "수정요청";
           }
+
           // 엑셀 세부내역서 확인여부
           let excelAprvYnNm;
-          const excelAtchFileSn = item.excelAtchFileSn;
           if (gfn_isEmpty(excelAtchFileSn) || _.isEqual(excelAtchFileSn,0)) {
             excelAprvYnNm = null;
           } else if (excelAtchFileSn > 0 && gfn_isEmpty(item.excelAprvYn)) {
@@ -1557,7 +1634,6 @@
 
           // 체크리스트 확인여부
           let chkAprvYnNm;
-          const chkAtchFileSn = item.chkAtchFileSn;
           if (gfn_isEmpty(chkAtchFileSn) || _.isEqual(chkAtchFileSn,0)) {
             chkAprvYnNm = null;
           } else if (chkAtchFileSn > 0 && gfn_isEmpty(item.chkAprvYn)) {
@@ -1620,6 +1696,12 @@
         document.querySelector('#clclnAplyList').innerText = data.resultList.length;
       }
       gridClclnAply.refresh();
+      // 정산신청 소계
+      const allData = gridClclnAply.getGridDataAll();
+      if (!gfn_isEmpty(allData)) {
+        fn_calcClclnAplySum(allData);
+      }
+
     } catch (e) {
       if (!(e instanceof Error)) {
         e = new Error(e);
@@ -3796,7 +3878,7 @@
     const saveList = [];
 
     for (let i = 0; i < allData.length; i++) {
-      if (_.isEqual(gridClclnAply.getRowStatus(i + 2), 2)) { // 상태가 수정인 경우
+      if (_.isEqual(allData[i].checkedYn,"Y")) {
         saveList.push({
           sprtBizYr: allData[i].sprtBizYr,
           sprtBizCd: allData[i].sprtBizCd,
@@ -3893,6 +3975,103 @@
       gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
 
+  }
+
+  /**
+   * @name fn_gridDtbnMngValueChange
+   * @description 교부관리그리드 값 변경
+   */
+  const fn_gridClclnAplyValueChange = function () {
+    const row = gridClclnAply.getRow();
+    const col = gridClclnAply.getCol();
+    const colNm = gridClclnAply.getColUserAttr(col).colNm;
+    const rowData = gridClclnAply.getRowData(row, false); // false : 'call by refrence'로 반환
+
+    if (gfn_isEmpty(rowData)) {
+      return;
+    }
+
+    if (_.isEqual(colNm, "checkedYn")) {
+
+      const allData = gridClclnAply.getGridDataAll();
+
+      if (gfn_isEmpty(allData)) {
+        return;
+      }
+
+      // 체크된것만
+      const checkedData = allData.filter(item => item.checkedYn === "Y");
+
+      if (checkedData.length === 0) {
+        fn_calcClclnAplySum(allData); // 전체
+      } else {
+        fn_calcClclnAplySum(checkedData); // 선택
+      }
+      gridClclnAply.refresh();
+
+    } else if (colNm, "clclnAplyRmrk") {
+      rowData.checkedYn = "Y";
+      gridClclnAply.refresh();
+    }
+  }
+
+  /**
+   * @name fn_calcClclnAplySum
+   * @description 정산신청 소계 계산
+   */
+  function fn_calcClclnAplySum (dataList) {
+    let clclnPsbltAmt = 0; // 정산가능액
+    let clclnAplySbmsnCnt = 0; // 정산요청서 제출
+    let clclnAplyAprvCnt = 0; // 정산요청서 승인
+    let clclnDmndAmt = 0; // 정산요청액
+
+    for (let i = 0; i < dataList.length; i++) {
+      const row = dataList[i];
+      clclnPsbltAmt += parseInt(row.clclnPsbltyAmt || 0);
+      clclnDmndAmt += parseInt(row.dmndAmtTot || 0);
+
+      if (!_.isEqual(row.clclnDmndSbmsnYn, "미제출")) {
+        clclnAplySbmsnCnt++;
+      }
+      if (_.isEqual(row.clclnDmndAprvYn, "확인")) {
+        clclnAplyAprvCnt++;
+      }
+    }
+
+    document.querySelector('#clclnPsbltAmt').innerText = clclnPsbltAmt.toLocaleString();
+    document.querySelector('#clclnAplySbmsn').innerText = clclnAplySbmsnCnt;
+    document.querySelector('#clclnAplyAprv').innerText = clclnAplyAprvCnt;
+    document.querySelector('#clclnDmndAmt').innerText = clclnDmndAmt.toLocaleString();
+  }
+
+  /**
+   * @name fn_downAllClclnAplyDoc
+   * @description 정산요청서 일괄 다운로드
+   */
+  const fn_downAllClclnAplyDoc = function () {
+    const sprtBizYr = SBUxMethod.get('dtl-spi-yr'); // 지업사업연도
+    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnDownSeq')); // 회차
+    const brno   = SBUxMethod.get('dtl-inp-brno')   || ""; // 사업자번호
+    const corpNm = SBUxMethod.get('dtl-inp-corpNm') || ""; // 법인명
+
+    if (gfn_isEmpty(sprtBizYr)) {
+      gfn_comAlert("W0005", "연도"); // W0005  {0}이/가 없습니다.
+      return;
+    }
+
+    if (gfn_isEmpty(clclnSeq)) {
+      gfn_comAlert("W0001", "회차"); // W0005  {0}을/를 선택하세요.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "정산요청서 일괄 다운로드")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const url = "/pd/downloadAllSprtClclnAplyDoc.do?sprtBizYr="+sprtBizYr
+            + "&clclnSeq=" + clclnSeq + "&brno=" + brno + "&corpNm=" + corpNm;
+
+    window.open(url);
   }
 
 </script>
