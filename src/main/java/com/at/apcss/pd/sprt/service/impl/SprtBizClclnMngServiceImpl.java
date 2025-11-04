@@ -806,4 +806,9 @@ public class SprtBizClclnMngServiceImpl extends BaseServiceImpl implements SprtB
     public List<SprtBizClclnMngVO> selectSprtClclnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception {
         return sprtBizClclnMngMapper.selectSprtClclnAplyDocList(sprtBizClclnMngVO);
     }
+
+    @Override
+    public List<SprtBizClclnMngVO> selectDtbnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception {
+        return sprtBizClclnMngMapper.selectDtbnAplyDocList(sprtBizClclnMngVO);
+    }
 }
