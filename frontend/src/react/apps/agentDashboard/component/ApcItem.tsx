@@ -90,6 +90,7 @@ const ApcItem = () => {
     const [selectedItem, setSelectedItem] = useState<string | null>("브로콜리");
     const [loading, setLoading] = useState(true);
     const tableScrollRef = React.useRef<HTMLDivElement>(null);
+    const innerTableScrollRef = React.useRef<HTMLDivElement>(null);
 
     // 데이터 로딩
     useEffect(() => {
@@ -100,62 +101,7 @@ const ApcItem = () => {
         }, 300);
     }, []);
 
-    // useEffect(() => {
-    //     const scrollContainer = tableScrollRef.current;
-    //     if (!scrollContainer || loading) return;
-    //
-    //     let scrollDirection = 1;
-    //     let isScrolling = true;
-    //     let pauseTimer: NodeJS.Timeout | null = null;
-    //
-    //     const autoScroll = () => {
-    //         if (!isScrolling || !scrollContainer || pauseTimer) return;
-    //
-    //         const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-    //         const currentScroll = scrollContainer.scrollTop;
-    //         const scrollSpeed = 1.5;
-    //
-    //         if (scrollDirection === 1) {
-    //             if (currentScroll >= maxScroll - 5) {
-    //                 pauseTimer = setTimeout(() => {
-    //                     scrollDirection = -1;
-    //                     pauseTimer = null;
-    //                 }, 2000);
-    //             } else {
-    //                 scrollContainer.scrollTop += scrollSpeed;
-    //             }
-    //         } else {
-    //             if (currentScroll <= 5) {
-    //                 pauseTimer = setTimeout(() => {
-    //                     scrollDirection = 1;
-    //                     pauseTimer = null;
-    //                 }, 2000);
-    //             } else {
-    //                 scrollContainer.scrollTop -= scrollSpeed;
-    //             }
-    //         }
-    //     };
-    //
-    //     const intervalId = setInterval(autoScroll, 30);
-    //
-    //     const handleMouseEnter = () => {
-    //         isScrolling = false;
-    //     };
-    //
-    //     const handleMouseLeave = () => {
-    //         isScrolling = true;
-    //     };
-    //
-    //     scrollContainer.addEventListener('mouseenter', handleMouseEnter);
-    //     scrollContainer.addEventListener('mouseleave', handleMouseLeave);
-    //
-    //     return () => {
-    //         clearInterval(intervalId);
-    //         if (pauseTimer) clearTimeout(pauseTimer);
-    //         scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
-    //         scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
-    //     };
-    // }, [loading]);
+    // "페이지 전체" 스크롤 로직 (맨 위/맨 아래 왕복)
     useEffect(() => {
         const scrollContainer = tableScrollRef.current;
         if (!scrollContainer || loading) return;
@@ -163,53 +109,37 @@ const ApcItem = () => {
         let scrollDirection = 1; // 1: 아래로, -1: 위로
         let isScrolling = true; // 마우스 호버 시 멈춤 플래그
 
-        // 1. 함수 이름을 'paneScroll' (페이지 스크롤)로 변경
-        const paneScroll = () => {
+        // 1. 함수 이름을 'edgeScroll' (끝과 끝)로 변경
+        const edgeScroll = () => {
             if (!isScrolling || !scrollContainer) return;
 
-            // 2. '한 판'의 높이를 계산합니다.
-            const clientHeight = scrollContainer.clientHeight;
-            const maxScroll = scrollContainer.scrollHeight - clientHeight;
-            const currentScroll = scrollContainer.scrollTop;
+            // 2. 스크롤 가능한 최대 높이 계산
+            const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+
+            // 3. 스크롤할 내용이 없으면 (maxScroll <= 0) 중지
+            if (maxScroll <= 0) return;
 
             if (scrollDirection === 1) {
-                // --- 아래로 스크롤 ---
-                if (currentScroll >= maxScroll - 10) {
-                    // 3. 거의 맨 아래에 도달하면, 방향을 바꾸고 위로 한 판 올립니다.
-                    scrollDirection = -1;
-                    scrollContainer.scrollBy({
-                        top: -clientHeight, // 👈 위로 한 판
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // 4. 아직 맨 아래가 아니면, 아래로 한 판 내립니다.
-                    scrollContainer.scrollBy({
-                        top: clientHeight, // 👈 아래로 한 판
-                        behavior: 'smooth'
-                    });
-                }
+                // --- 4. 맨 아래로 스크롤 ---
+                scrollContainer.scrollTo({
+                    top: maxScroll, // 👈 맨 아래
+                    behavior: 'smooth'
+                });
+                // 5. 다음엔 위로 가도록 방향 전환
+                scrollDirection = -1;
             } else {
-                // --- 위로 스크롤 ---
-                if (currentScroll <= 10) {
-                    // 5. 거의 맨 위에 도달하면, 방향을 바꾸고 아래로 한 판 내립니다.
-                    scrollDirection = 1;
-                    scrollContainer.scrollBy({
-                        top: clientHeight, // 👈 아래로 한 판
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // 6. 아직 맨 위가 아니면, 위로 한 판 올립니다.
-                    scrollContainer.scrollBy({
-                        top: -clientHeight, // 👈 위로 한 판
-                        behavior: 'smooth'
-                    });
-                }
+                // --- 6. 맨 위로 스크롤 ---
+                scrollContainer.scrollTo({
+                    top: 0, // 👈 맨 위
+                    behavior: 'smooth'
+                });
+                // 7. 다음엔 아래로 가도록 방향 전환
+                scrollDirection = 1;
             }
         };
 
-        // 7. 30ms 간격 대신, 3초(3000ms) 간격으로 페이지를 넘깁니다.
-        //    (약 1초 스크롤 + 2초 멈춤. 기존 2초 멈춤과 비슷하게)
-        const intervalId = setInterval(paneScroll, 15000);
+        // 8. 15초(15000ms) 간격으로 맨 위/맨 아래로 이동
+        const intervalId = setInterval(edgeScroll, 15000); // 👈 15초 유지
 
         // 마우스 호버 시 멈춤 로직 (기존과 동일)
         const handleMouseEnter = () => {
@@ -226,11 +156,73 @@ const ApcItem = () => {
         // 정리 함수 (기존과 동일)
         return () => {
             clearInterval(intervalId);
-            // pauseTimer는 제거되었으므로 clearTimeout은 필요 없습니다.
             scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
             scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
         };
-    }, [loading]); // 의존성 배열은 [loading]으로 동일
+    }, [loading]);
+
+    useEffect(() => {
+        // 1. 새 ref (innerTableScrollRef)를 사용합니다.
+        const scrollContainer = innerTableScrollRef.current;
+        if (!scrollContainer || loading) return;
+
+        let scrollDirection = 1;
+        let isScrolling = true;
+        let pauseTimer: NodeJS.Timeout | null = null;
+
+        const autoScroll = () => {
+            if (!isScrolling || !scrollContainer || pauseTimer) return;
+
+            const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+
+            // 2. 스크롤할 내용이 없으면 (maxScroll <= 0) 작동 중지
+            if (maxScroll <= 0) return;
+
+            const currentScroll = scrollContainer.scrollTop;
+            const scrollSpeed = 1.5; // 👈 1.5px의 느린 속도
+
+            if (scrollDirection === 1) {
+                if (currentScroll >= maxScroll - 5) {
+                    pauseTimer = setTimeout(() => {
+                        scrollDirection = -1;
+                        pauseTimer = null;
+                    }, 2000); // 2초 멈춤
+                } else {
+                    scrollContainer.scrollTop += scrollSpeed;
+                }
+            } else {
+                if (currentScroll <= 5) {
+                    pauseTimer = setTimeout(() => {
+                        scrollDirection = 1;
+                        pauseTimer = null;
+                    }, 2000); // 2초 멈춤
+                } else {
+                    scrollContainer.scrollTop -= scrollSpeed;
+                }
+            }
+        };
+
+        // 3. 30ms 간격으로 부드럽게 스크롤
+        const intervalId = setInterval(autoScroll, 30);
+
+        // 마우스 호버 시 멈춤 로직
+        const handleMouseEnter = () => {
+            isScrolling = false;
+        };
+        const handleMouseLeave = () => {
+            isScrolling = true;
+        };
+
+        scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+        scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            clearInterval(intervalId);
+            if (pauseTimer) clearTimeout(pauseTimer);
+            scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+            scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+        };
+    }, [loading]);
 
     // 품목별 집계 데이터
     const itemSummary = useMemo(() => {
@@ -467,9 +459,12 @@ const ApcItem = () => {
             {/* 품목별 상세 테이블 */}
             <div className="bg-white p-6 rounded-lg shadow">
                 <h3 className="text-lg font-semibold text-gray-700 mb-4">품목별 상세 현황</h3>
-                <div className="overflow-x-auto">
+                <div
+                    ref={innerTableScrollRef} // 👈 (추가) 테이블 스크롤용 ref 연결
+                    className="overflow-x-auto overflow-y-auto max-h-56" // (기존) 5줄 제한
+                >
                     <table className="w-full text-sm">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-gray-50 sticky top-0 z-10">
                         <tr>
                             <th className="px-4 py-3 text-left font-semibold">순위</th>
                             <th className="px-4 py-3 text-left font-semibold">품목명</th>
