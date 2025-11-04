@@ -246,6 +246,11 @@ public class PckgPrfmncVO extends ComVO {
 	private String spmtPrfmncYn;
 
 	/**
+	 * 출하번호
+	 * */
+	private String spmtno;
+
+	/**
 	 * 표준등급
 	 */
 	private List<GdsStdGrdVO> stdGrdList;

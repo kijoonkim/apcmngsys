@@ -1771,6 +1771,28 @@
 			 ORDER BY SPMT_YMD, SPMTNO, ITEM_CD, VRTY_CD, SEQ
 		]]>
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncDtlAll	-->
+	<!-- DESC : 출하실적 상세 전체 삭제.	                         	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.10.15  	김호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="deleteSpmtPrfmncDtlAll" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncDtlAll */
+			TB_SPMT_PRFMNC_DTL
+		SET SYS_LAST_CHG_DT			= SYSDATE
+		  , SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+		  , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		  , DEL_YN 					= 'Y'
+		WHERE APC_CD 	= #{apcCd}
+		  AND SPMTNO	= #{spmtno}
+		  AND PCKGNO    = #{pckgno}
+		]]>
+	</update>
 </mapper>
 
 

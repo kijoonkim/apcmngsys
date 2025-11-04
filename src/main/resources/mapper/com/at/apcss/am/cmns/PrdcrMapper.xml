@@ -183,6 +183,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS CRTR_PRCL
@@ -190,6 +191,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PLNTNG_PRCL
@@ -197,6 +199,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_QNTT
@@ -204,6 +207,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT
@@ -211,6 +215,7 @@
 					  FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+				       AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT

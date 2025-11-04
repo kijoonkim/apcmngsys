@@ -12,7 +12,7 @@
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
-	<section class="content container-fluid">
+	<section>
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div>
@@ -172,13 +172,13 @@
 					</sbux-tabs>
 					<div class="tab-content">
 						<div id="cltvtnHstryTab" >
-							<div id="sb-area-cltvtnHstry" style="height: 570px;"></div>
+							<div id="sb-area-cltvtnHstry" style="height: 560px;"></div>
 						</div>
 						<div id="frmhsQltTab" >
-							<div id="sb-area-cltvtnFrmhsQlt" style="height:570px;"></div>
+							<div id="sb-area-cltvtnFrmhsQlt" style="height:560px;"></div>
 						</div>
 						<div id="frmhsExpctWrhsTab" >
-							<div id="sb-area-frmhsExpctWrhs" style="height:570px;"></div>
+							<div id="sb-area-frmhsExpctWrhs" style="height:560px;"></div>
 						</div>
 						<div id="landInfoTab" >
                             <div class="col-sm-4">
@@ -186,14 +186,14 @@
                                     <div class="col-12">
                                         <div class="card h-full">
                                             <div class="card-body">
-                                                <div id="map" style="height: 570px;"></div>
+                                                <div id="map" style="height: 560px;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <div id="sb-area-landInfo" style="height:570px;"></div>
+                                <div id="sb-area-landInfo" style="height:560px;"></div>
                                 <div class="exp-div-excel" style="display: none;width: 1000px;">
                                     <div id="sbexp-area-grdExpLandInfo" style="height:1px; width: 100%;"></div>
                                     <div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>

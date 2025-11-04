@@ -318,4 +318,20 @@ public interface RawMtrWrhsService {
 	 * @throws Exception
 	 */
 	HashMap<String, Object> insertUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 통합 입고 실적 변경
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> updateUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+	/**
+	 * 통합 입고 실적 변경
+	 * @param rawMtrWrhsVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> deleteUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 }

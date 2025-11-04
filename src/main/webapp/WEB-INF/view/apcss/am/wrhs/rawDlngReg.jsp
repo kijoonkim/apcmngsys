@@ -613,14 +613,14 @@
 		 * 통합실적타입별로 실적을 생성 여부 판단. (R : 입고, W : 계량, S : 선별, P : 포장, D : 출하, 투입 : I)
 		 * 각각의 실적별 모듈 번호로 타입 설정
 		 * 현재 논산배수출 화면 기준
-		 * 입고 (R0 : 실적 생성 없음, R1 : 입고 다중 실적, R2 : 입고 단일 실적, R3 : 실적 강제 생성)
+		 * 입고 (R0 : 실적 생성 없음, R1 : 입고 단일 실적, R2 : 입고 다중 실적, R3 : 실적 강제 생성)
 		 * 계량 (W1 : 상세 실적 다중, W2 : 상세 단일 실적
-		 * 선별 (S0 : 실적 생성 없음, S1 : 실적 다중 생성, S2 : 실적 단일 생성, S3 : 실적 상세 생성)
-		 * 포장 (P0 : 실적 생성 없음, P1 : 실적 다중 생성, P2 : 실적 단일 생성, P3 : 실적 상세 생성)
-		 * 출하 (D0 : 실적 생성 없음, D1 : 실적 다중 생성, D2 : 실적 단일 생성)
-		 * 투입 (I0 : 실적 생성 없음, I1 : 실적 다중 생성, I2 : 실적 단일 생성, I3 : 실적 상세 생성)
+		 * 선별 (S0 : 실적 생성 없음, S1 : 실적 단일 생성, S2 : 실적 다중 생성, S3 : 실적 상세 생성)
+		 * 포장 (P0 : 실적 생성 없음, P1 : 실적 단일 생성, P2 : 실적 다중 생성, P3 : 실적 상세 생성)
+		 * 출하 (D0 : 실적 생성 없음, D1 : 실적 생성	, D2 : 포장실적 참조 출하실적 생성)
+		 * 투입 (I0 : 실적 생성 없음, I1 : 실적 단일 생성, I2 : 실적 다중 생성, I3 : 실적 상세 생성)
 		 * untyPrfmncType 에 값 설정
-		 * EX)논산배수출영농조합 원물거래명세서 -> R2S1I2P1I1D0 (입고단일 ->선별투입단일 ->선별다중->포장투입다중->포장다중->출하없음)
+		 * EX)논산배수출영농조합 원물거래명세서 -> R1S2I1P2I2D0 (입고단일 ->선별투입단일 ->선별다중->포장투입다중->포장다중->출하없음)
 		 * */
 		let untyPrfmncList = [];
 
@@ -630,7 +630,7 @@
 			/**
 			 * 통합실적타입
 			 * */
-			untyPrfmncVO.untyPrfmncType = "R2S2I1P2I2D0";
+			untyPrfmncVO.untyPrfmncType = "R1S2I1P2I2D0";
 			let rowData = JSON.parse(JSON.stringify(checkedRowData[i].data));
 			rowData.apcCd = gv_selectedApcCd;
 
@@ -776,7 +776,7 @@
 
 		const postJsonPromise = gfn_postJSON("/am/unty/multiUntyPrfmncList.do", untyPrfmncList);
 		const data = await postJsonPromise;
-		try{
+		try {
 			if (_.isEqual("S", data.resultStatus)) {
 
 				gfn_comAlert("I0001");					// I0001 처리 되었습니다.

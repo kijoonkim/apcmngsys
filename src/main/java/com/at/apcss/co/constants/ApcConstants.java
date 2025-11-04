@@ -97,12 +97,12 @@ public class ApcConstants {
      */
     public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R0 = "R0";
     /**
-     * 입고실적 다중 생성
+     * 입고실적 단일 생성
      */
     public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R1 = "R1";
 
     /**
-     * 입고실적 단일 생성
+     * 입고실적 다중 생성
      */
     public final static String RAW_MTR_WRHS_PRFMNC_TYPE_R2 = "R2";
 
@@ -187,7 +187,12 @@ public class ApcConstants {
     public final static String SPMT_PRFMNC_TYPE_D0 = "D0";
 
     /**
-     * 출하실적 생성
+     * 출하실적 포장실적 참조 생성 공통 : 상세 1:N
      */
     public final static String SPMT_PRFMNC_TYPE_D1 = "D1";
+
+    /**
+     * 출하실적 포장실적 참조 생성 공통 : 상세 = 1:1
+     */
+    public final static String SPMT_PRFMNC_TYPE_D2 = "D2";
 }

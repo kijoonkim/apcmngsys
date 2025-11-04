@@ -1,5 +1,6 @@
 package com.at.apcss.am.unty.mapper;
 
+import com.at.apcss.am.unty.vo.RegSpmtPrfmncVO;
 import com.at.apcss.am.unty.vo.UntyPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -30,4 +31,11 @@ public interface UntyPrfmncMapper {
 	 */
 	public List<UntyPrfmncVO> selectRawDlngPrfmncList(UntyPrfmncVO untyPrfmncVO) throws Exception;
 
+	/**
+	 * 양송이출고등록조회(참사랑)
+	 * @param regSpmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<RegSpmtPrfmncVO> selectRegSpmtPrfmncList(RegSpmtPrfmncVO regSpmtPrfmncVO) throws Exception;
 }
