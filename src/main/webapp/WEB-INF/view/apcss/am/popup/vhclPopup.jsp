@@ -166,7 +166,7 @@
 		    SBGridProperties.jsonref = this.jsonId;
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'free';
-		    SBGridProperties.explorerbar = 'move';
+		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
@@ -198,7 +198,7 @@
 // 					typeinfo : {mask : {alias : 'numeric'}}, validate : gfn_chkByte.bind({byteLimit: 256})},
 		        {caption: ['비고'], 		ref: 'rmrk',			width: '200px', type: 'input', 									sortable: false,
 					validate : gfn_chkByte.bind({byteLimit: 1000})},
-		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center', 	sortable: false},
+		        {caption: ['최종처리일시'],	ref: 'sysLastChgDt',	width: '140px', type: 'output',		style:'text-align:center', 	sortable: true},
 			    {caption: ['APC코드'], 	ref: 'apcCd', 			hidden : true},
 			    {caption: ['은행명'], 	ref: 'bankNm', 			hidden : true}
 		    ];
@@ -228,9 +228,12 @@
 			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
 			grdVhclPop.setCellDisabled(0, 2, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
 
+			/** 25.11.03 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
 			let nRow = grdVhclPop.getRows();
-			grdVhclPop.addRow(true);
-			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			// grdVhclPop.addRow(true);
+			// grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			grdVhclPop.insertRow(0);
+			grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
 		    grdVhclPop.unbind('dblclick');
 
 		},
@@ -248,9 +251,10 @@
 		add: function(nRow, nCol) {
 			grdVhclPop.setCellData(nRow, nCol, "N", true);
 			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, false);
+			grdVhclPop.insertRow(nRow);
 			nRow++;
-			grdVhclPop.addRow(true);
-			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			// grdVhclPop.addRow(true);
+			grdVhclPop.setCellDisabled(                                                                                                                                                                                                                                                                                                                                                                               nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
@@ -269,8 +273,8 @@
 				const data = await postJsonPromise;
 		        try {
 		        	if (_.isEqual("S", data.resultStatus)) {
-		        		//gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-		        		gfn_comAlert(data.resultCode, data.resultMessage);
+		        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+		        		// gfn_comAlert(data.resultCode, data.resultMessage);
 		        		this.searchInEdit();
 		        	} else {
 		        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -395,6 +399,11 @@
 
 	        	document.querySelector('#vhcl-pop-cnt').innerText = jsonVhclPop.length;
 
+				if (apcCd == '0669') {
+					let sysLastChgDtColIdx = grdVhclPop.getColRef('sysLastChgDt');
+					grdVhclPop.sortColumn(sysLastChgDtColIdx, 'desc');
+				}
+
 	        } catch (e) {
 	    		if (!(e instanceof Error)) {
 	    			e = new Error(e);
@@ -410,9 +419,15 @@
 			grdVhclPop.rebuild();
 			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
 
+			/**
+			 * 25.11.03
+			 * 1. 추가 행 맨 밑이 아닌 위로
+			 * */
 			let nRow = grdVhclPop.getRows();
-			grdVhclPop.addRow(true);
-			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			// grdVhclPop.addRow(true);
+			// grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			grdVhclPop.insertRow(0);
+			grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
 			grdVhclPop.unbind('dblclick');
 	    }
 	}

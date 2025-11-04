@@ -2702,7 +2702,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi	-->
-	<!-- DESC : API 계량실적 공통 목록 조회.                                 			-->
+	<!-- DESC : API 계량실적 입고 목록 조회.                                 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -2730,17 +2730,30 @@
                 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS STORAGE_NO
     			, (SELECT FN_GET_COM_USER_NM(pt0.SYS_FRST_INPT_USER_ID) FROM DUAL) AS REG_ID
     			, (SELECT FN_GET_COM_USER_NM(pt0.SYS_LAST_CHG_USER_ID) FROM DUAL) AS UPD_ID
+    			, pt0.TOT_WGT - NVL(pt0.EMPTY_CAR_WGT, 0) AS REAL_WGT
+    			, RTRIM(TO_CHAR(CASE WHEN NVL(pt0.PALLET_CNT, 0) = 0 THEN 0 ELSE pt0.BOX_CNT / pt0.PALLET_CNT END, 'FM9990.99'), '.') AS PALLET_PER_BOX
     		  FROM (
 			SELECT
 				  WC.APC_CD		    AS APC_CD
 				, WC.WGHNO		    AS PO_NO
+			    , WC.WGH_YMD		AS IC_DATE
 				, WC.VHCLNO         AS VHCL_NO
 			    , WC.PRDCR_CD		AS CUST_CD
+			    , WC.WHOL_WGHT		AS TOT_WGT
+			    , WC.EMPT_VHCL_WGHT	AS EMPTY_CAR_WGT
 				, WC.OPRTR_NM		AS OPRTR_NM
+			    , WC.TRSPRT_CST		AS SHIPPING_CHARGE
 				, WC.RMRK           AS REMARKS
+			    , WD.WGH_SN			AS WGH_SN
+			    , WC.RDCD_WGHT		AS REDUCE_WGT
+			    , WC.RDCD_RT		AS REDUCE_PER
 			    , WD.WGH_SN			AS WGH_SN
                 , WD.GRD_CD         AS GRD_CD
 				, WD.GDS_CD			AS GOODS_CD
+			    , WD.BX_QNTT		AS BOX_CNT
+			    , WD.PLT_QNTT		AS PALLET_CNT
+			    , WD.BX_WGHT		AS BOX_WGT
+			    , WD.PLT_WGHT		AS PALLET_WGT
 				, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
 				, INV.ITEM_CD       AS ITEM_CD
 				, INV.VRTY_CD       AS BREED_CD
@@ -2768,6 +2781,7 @@
 			   AND WD.DEL_YN = 'N'
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
+			   AND WC.WRHS_SPMT_TYPE = 'RT'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 			AND WC.APC_CD = #{apcCd}

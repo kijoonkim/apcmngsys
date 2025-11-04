@@ -176,6 +176,7 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', PR.PLOR_CD) FROM DUAL) AS PLOR_NM
 			     , PR.BANK_CD			AS BANK_CD
 			     , FN_UTL_DECRYPT_ARIA(PR.ACTNO) AS ACTNO
+	    	     , PR.SYS_LAST_CHG_DT	AS SYS_LAST_CHG_DT
 		]]>
 		<if test='yr != null and yr != ""'>
 				 , (SELECT CRTR_PRCL

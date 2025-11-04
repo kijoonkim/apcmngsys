@@ -191,7 +191,7 @@
 		    SBGridProperties.jsonref = this.jsonId;		//'jsonComAuthUserPop';		//'jsonComAuthUserPop';
 		    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'free';
-		    SBGridProperties.explorerbar = 'move';
+		    SBGridProperties.explorerbar = 'sortmove';
 		    SBGridProperties.extendlastcol = 'scroll';
 		    SBGridProperties.oneclickedit = true;
 		    SBGridProperties.allowcopy = true;
@@ -214,7 +214,7 @@
 		            	}
 			    }},
 			    {caption: ['번호'], 			ref: 'prdcrIdentno', 	type: 'input', 	width: '50px', style: 'text-align:center', sortable: false},
-		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false,
+		        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: true,
 		        	validate : gfn_chkByte.bind({byteLimit: 100})},
 				{caption: ['약어명'], 		ref: 'abbrNm', 		type: 'input', 	width: '65px', style: 'text-align:center', sortable: false},
 	        	{caption: ['생산자코드'], 			ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
@@ -258,6 +258,7 @@
 		        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 		        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
 		        {caption: ['ROW STATUS'], ref: 'rowSts', hidden : true},
+				{caption: ['최종처리일시'],			ref: 'sysLastChgDt', 	type: 'output', 	width: '140px', style: 'text-align:center', sortable: true},
 		    ];
 		    grdPrdcrPop = _SBGrid.create(SBGridProperties);
 		    grdPrdcrPop.bind("afterimportexcel", popPrdcr.setDataAfterImport);
@@ -288,8 +289,12 @@
 			grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 
 			let nRow = grdPrdcrPop.getRows();
-			grdPrdcrPop.addRow(true);
-			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+			/** 25.11.03 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
+			// grdPrdcrPop.addRow(true);
+			grdPrdcrPop.insertRow(0);
+
+			// grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+			grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
 			grdPrdcrPop.unbind('dblclick');
 		},
 		cancel: function() {
@@ -308,8 +313,9 @@
 		add: function(nRow, nCol) {
 			grdPrdcrPop.setCellData(nRow, nCol, "N", true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
+			grdPrdcrPop.insertRow(nRow);
 			nRow++;
-			grdPrdcrPop.addRow(true);
+			// grdPrdcrPop.addRow(true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
@@ -501,7 +507,8 @@
 					    frmhsCtpv		: item.frmhsCtpv,
 					    frmhsTelno		: item.frmhsTelno,
 						plorCd			: item.plorCd,
-						plorNm			: item.plorNm
+						plorNm			: item.plorNm,
+						sysLastChgDt	: item.sysLastChgDt
 					}
 
 					if (!gfn_isEmpty(item.rprsItemCd) && !gfn_isEmpty(item.rprsVrtyCd)) {
@@ -515,11 +522,24 @@
 	        	if (isEditable) {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 	        		let nRow = grdPrdcrPop.getRows();
-					grdPrdcrPop.addRow(true);
-					grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+					/**
+					 * 25.11.03
+					 * 1. 추가 행 맨 밑이 아닌 위로
+					 * */
+					// grdPrdcrPop.addRow(true);
+					// grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+					grdPrdcrPop.insertRow(0);
+					grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
+
 	        	} else {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
 	        	}
+
+				/** 25.11.03 거산 최종수정날짜로 내림차순 */
+				if (apcCd == '0669') {
+					let sysLastChgDtColIdx = grdPrdcrPop.getColRef('sysLastChgDt');
+					grdPrdcrPop.sortColumn(sysLastChgDtColIdx, 'desc');
+				}
 
 	        	document.querySelector('#prdcr-pop-cnt').innerText = jsonPrdcrPop.length;
 

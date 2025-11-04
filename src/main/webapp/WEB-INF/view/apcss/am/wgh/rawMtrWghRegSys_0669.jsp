@@ -428,6 +428,7 @@
 													maxlength="6"
 													autocomplete="off"
 													mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+													init = 0
 													onchange="fn_onChangeEmptVhclWght"
 											></sbux-input>
 										</div>
@@ -444,6 +445,7 @@
 													time-format="HH:MM"
 													time-hours="24hours"
 													time-meridiem="none"
+													init = "00:00"
 											></sbux-spinner>
 										</div>
 										<div style="display: flex">
@@ -551,6 +553,7 @@
 											name="dtl-inp-oprtrNm"
 											class="form-control input-sm"
 											style="width:80%"
+											init = "김복영"
 									></sbux-input>
 								</td>
 
@@ -708,6 +711,8 @@
 </body>
 <script type="text/javascript">
 	let prvRowNum = -1;
+	let isSaved = false;
+	let chkWghno = "";
 
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
@@ -982,9 +987,13 @@
     }
 
 
-	const fn_view = async function () {
+	const fn_view = async function (param) {
 
 		let nRow = grdWghPrfmnc.getRow();
+
+		if (param > 0) {
+			nRow = param;
+		}
 
 		if (nRow < 1) {
 			return;
@@ -1381,7 +1390,7 @@
   		SBUxMethod.set('dtl-inp-emptVhclWght', 0);
   		SBUxMethod.set('dtl-inp-actlWght', 0);
   		SBUxMethod.set('dtl-inp-wholWghtTime', '');
-  		SBUxMethod.set('dtl-inp-emptVhclWghtTime', '');
+  		SBUxMethod.set('dtl-inp-emptVhclWghtTime', '0000');
 
 
   		if (jsonApcItem.length == 1) {
@@ -1400,7 +1409,7 @@
   		SBUxMethod.set('dtl-inp-oinstSpmtNm', '')
   		SBUxMethod.set('dtl-inp-shpgotQntt', 0)
   		SBUxMethod.set('dtl-inp-shpgotPltQntt', 0);
-  		SBUxMethod.set('dtl-inp-oprtrNm', '');
+  		SBUxMethod.set('dtl-inp-oprtrNm', '김복영');
 
 		SBUxMethod.set('frmhsInfo', '');
 		SBUxMethod.set('vhclInfo', '');
@@ -1780,28 +1789,20 @@
 
 				if (vrtyQntt > 0) {
 					total += parseInt(vrtyQntt);
+
+					/** 25.11.03 입력한 품종 검품등급 기본값 세팅*/
+					jsonInsp[0][vrtyCdKey] = gfn_isEmpty(jsonInsp[0][vrtyCdKey]) ? "3" : jsonInsp[0][vrtyCdKey];
+					jsonInsp[1][vrtyCdKey] = gfn_isEmpty(jsonInsp[1][vrtyCdKey]) ? "3" : jsonInsp[1][vrtyCdKey];
 				}
 			}
 		}
+		grdInsp.refresh();
+
 		SBUxMethod.set("dtl-inp-bxQntt", total);
 		/** 25.10.13 입고가구 / 36 = 팔레트 */
 		let pltTotal = parseInt(total / 36);
 		SBUxMethod.set("dtl-inp-pltQntt", pltTotal);
 
-		/** 25.10.24 팔레트불출관리 - APC(0001) 수량 추가 (일단 입고만)*/
-		/*let wrhsSpmtType = SBUxMethod.get("dtl-slt-wrhsSpmtType") == "RT" ? "입고" : "출고";
-		let defaultWrhs = '거산APC';
-		let defaultSpmt = SBUxMethod.get("dtl-inp-prdcrNm") || '';
-		let setRmrk = wrhsSpmtType == "입고" ? defaultWrhs : defaultSpmt;
-
-		jsonPltBox.forEach(item => {
-			if (item.type == wrhsSpmtType && item.BpltBxCd == "0001") {
-				item.Bqntt = total;
-				item.Pqntt = pltTotal;
-				item.rmrk = gfn_isEmpty(item.rmrk) ? setRmrk : item.rmrk;
-			}
-		});
-		grdPltBox.refresh();*/
 		fn_onChangeBxQntt(total);
 		fn_onChangePltQntt(pltTotal);
 	}
@@ -1908,11 +1909,18 @@
           		grdWghPrfmnc.refresh();
           	} else {
 	          	grdWghPrfmnc.rebuild();
-          	}
+			}
 			/** 계량 내역 set **/
 			SBUxMethod.set("crtr-ymd",wghYmd);
 			$("#cnt-wgh").text(data.resultList.length || 0);
-			fn_onChangeWrhsSpmtType();
+
+			/** 25.11.03 저장 후 해당 내용 출력*/
+			if (isSaved) {
+				let row = chkWghno ? jsonWghPrfmnc.findIndex(item => item.wghno == chkWghno) + 1 : 1;
+				await fn_view(row);
+			}
+			isSaved = false;
+			chkWghno = "";
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -2512,9 +2520,11 @@
 				const data = await postJsonPromise;
 
 				if (_.isEqual("S", data.resultStatus)) {
-					await fn_search();
-					await fn_reset();
+					// await fn_reset();
 					gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+					chkWghno = wghno || "";
+					isSaved = true;
+					await fn_search();
 				} else {
 					gfn_comAlert(data.resultCode, data.resultMessage);
 				}
@@ -2555,9 +2565,11 @@
 				 const data = await postJsonPromise;
 
 				 if (_.isEqual("S", data.resultStatus)) {
-					 await fn_search();
-					 await fn_reset();
+					 // await fn_reset();
 					 gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+					 chkWghno = wghno || "";
+					 isSaved = true;
+					 await fn_search();
 				 } else {
 					 gfn_comAlert(data.resultCode, data.resultMessage);
 				 }
