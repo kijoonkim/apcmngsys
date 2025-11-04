@@ -1481,4 +1481,125 @@ public class SprtBizClclnMngController extends BaseController {
         }
     }
 
+    @GetMapping("/pd/downloadAllSprtDtbnAplyDoc.do")
+    public void downloadAllSprtDtbnAplyDoc (HttpServletRequest request, HttpServletResponse response
+            , @RequestParam("sprtBizYr") String sprtBizYr
+            , @RequestParam(value = "brno" , required = false) String brno
+            , @RequestParam(value = "corpNm" , required = false) String corpNm
+    ) throws Exception {
+
+        ZipOutputStream zos = null;
+
+        // 파일 정보 조회
+        SprtBizClclnMngVO sprtBizClclnMngVO = new SprtBizClclnMngVO();
+        sprtBizClclnMngVO.setSprtBizYr(sprtBizYr);
+        sprtBizClclnMngVO.setBrno(brno);
+        sprtBizClclnMngVO.setCorpNm(corpNm);
+
+
+        List<SprtBizClclnMngVO> dtbnAplyDocList = sprtBizClclnMngService.selectDtbnAplyDocList(sprtBizClclnMngVO);
+
+        try {
+            // 파일 없음
+            if (dtbnAplyDocList == null || dtbnAplyDocList.isEmpty()) {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.setContentType("text/plain; charset=UTF-8");
+                response.getWriter().write("등록된 파일이 없습니다.");
+                return;
+            }
+
+            // 헤더용 파일명
+            String zipFileNm = "산지조직 교부신청서 일괄 다운로드.zip";
+            String convertFileNm = URLEncoder.encode(zipFileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/zip");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + convertFileNm +  "\";");
+
+            // 파일경로
+            String uploadPath = getFilepathPd();
+
+            // 권한 확인
+            String untyAuthrtType = getUntyAuthrtType();
+            String untyOgnzCd = getUntyOgnzCd();
+
+            zos = new ZipOutputStream(response.getOutputStream());
+
+            // 파일명 중복확인용 List
+            List<String> fileNameList = new ArrayList<>();
+
+            for (SprtBizClclnMngVO docInfo : dtbnAplyDocList) {
+
+                // 권한 체크
+                if (!ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)
+                        && !ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+                    if (!ComUtil.nullToEmpty(untyOgnzCd)
+                            .equals(ComUtil.nullToEmpty("UO" + docInfo.getApoCd()))) {
+//                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        return;
+                    }
+                }
+
+                // 서버 저장 파일명
+                String physFileNm = docInfo.getPhysFileNm();
+                // 확장자명
+                String fileExtnNm = docInfo.getFileExtnNm();
+                // 파일 경로명
+                String filePathNm = docInfo.getFilePathNm();
+                // 원본 파일명
+                String lgcFileNm = docInfo.getLgcFileNm();
+                // 법인명
+                String coprNm = docInfo.getCorpNm();
+
+                String fileNm = coprNm + "_" +lgcFileNm;
+
+                String namePart = fileNm.substring(0,fileNm.lastIndexOf('.'));
+                String extensionPart = fileNm.substring(fileNm.lastIndexOf('.'));
+
+                // zip에 들어가는 파일명이 중복이 생기는 경우
+                int duplicateCount = 1;
+                while (fileNameList.contains(fileNm)) {
+                    duplicateCount++;
+                    fileNm = namePart + " (" + duplicateCount + ")" + extensionPart;
+                }
+
+                fileNameList.add(fileNm);
+
+                // 물리 파일명
+                String filename = physFileNm + "_" + fileExtnNm;
+
+                String filePath = uploadPath + filePathNm;
+
+                if (filePath == null || filePath.contains("..")) {
+//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return;
+                }
+
+                File atchFile = new File(filePath, filename);
+
+                if (atchFile.exists()) {
+                    zos.putNextEntry(new ZipEntry(fileNm));
+                    try (FileInputStream fis = new FileInputStream(atchFile)) {
+                        StreamUtils.copy(fis, zos);
+                    }
+                    zos.closeEntry();
+                }
+            }
+
+        }  catch (Exception e) {
+            logger.error("ZIP 다운로드 오류", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } finally {
+            if (zos != null) {
+                try {
+                    zos.close();
+                } catch (IOException ignore) {
+                    logger.debug(ignore.getMessage());
+                }
+            }
+        }
+    }
 }
