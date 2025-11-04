@@ -519,6 +519,12 @@
 				});
 				grdPrdcrPop.rebuild();
 
+				/** 25.11.03 거산 최종수정날짜로 내림차순 */
+				if (apcCd == '0669') {
+					let sysLastChgDtColIdx = grdPrdcrPop.getColRef('sysLastChgDt');
+					grdPrdcrPop.sortColumn(sysLastChgDtColIdx, 'desc');
+				}
+
 	        	if (isEditable) {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 	        		let nRow = grdPrdcrPop.getRows();
@@ -534,12 +540,6 @@
 	        	} else {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
 	        	}
-
-				/** 25.11.03 거산 최종수정날짜로 내림차순 */
-				if (apcCd == '0669') {
-					let sysLastChgDtColIdx = grdPrdcrPop.getColRef('sysLastChgDt');
-					grdPrdcrPop.sortColumn(sysLastChgDtColIdx, 'desc');
-				}
 
 	        	document.querySelector('#prdcr-pop-cnt').innerText = jsonPrdcrPop.length;
 
