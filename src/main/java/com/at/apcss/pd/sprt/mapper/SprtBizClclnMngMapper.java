@@ -274,4 +274,12 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public List<SprtBizClclnMngVO> selectSprtClclnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 정산신청 - 교부신청서 일괄 다운 목록조회
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnMngVO> selectDtbnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
 }
