@@ -550,8 +550,24 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	@Override
 	public HashMap<String, Object> insertUntySortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception {
 
+		HashMap<String, Object> rtnObj = new HashMap<String, Object>();
 
+		String sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
+		sortPrfmncVO.setSortno(sortno);
+		sortPrfmncVO.setSortSn(1);
 
+		rtnObj =  insertSortPrfmnc(sortPrfmncVO);
+		if (rtnObj != null ) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "등록 중 오류가 발생 했습니다."))); // E0000	{0}
+		}
+
+		SortInvntrVO sortInvntrVO = new SortInvntrVO();
+		BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
+
+		rtnObj = sortInvntrService.insertSortInvntr(sortInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
 
 		return null;
 	}

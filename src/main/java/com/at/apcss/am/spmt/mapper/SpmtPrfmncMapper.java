@@ -216,4 +216,12 @@ public interface SpmtPrfmncMapper {
 	 */
 	public List<SpmtPrfmncVO> selectForcedShipmentListForCompare(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
+	/**
+	 * 출하실적 상세 전체 삭제
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtPrfmncDtlAll(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
 }

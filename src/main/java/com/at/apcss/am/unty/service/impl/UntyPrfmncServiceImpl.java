@@ -14,7 +14,9 @@ import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.am.sort.vo.SortPrfmncAtrbVO;
 import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.at.apcss.am.unty.vo.RegSpmtPrfmncVO;
 import com.at.apcss.am.unty.vo.UntyPrfmncVO;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
@@ -130,7 +132,7 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		 * 통합실적 인 경우 입고->출하 모든 데이터를 생성한다.
 		 * 계량실적 OR 입고실적 -> 선별실적 -> 포장실적 -> 출하실적
 		* */
-		for (UntyPrfmncVO untyPrfmncVO: untyPrfmncList) {
+		for (UntyPrfmncVO untyPrfmncVO : untyPrfmncList) {
 
 			rtnObj = multiUntyPrfmnc(untyPrfmncVO);
 
@@ -193,35 +195,9 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		if (!ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R0.equals(rawMtrWrhsPrfmncType)) {
 
 			/**
-			 * 입고실적 다중 생성
-			 * */
-			if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R1.equals(rawMtrWrhsPrfmncType)) {
-
-				rawMtrWrhsList = untyPrfmncVO.getRawMtrWrhsList();
-
-				for (RawMtrWrhsVO rawMtrWrhs : rawMtrWrhsList) {
-					rawMtrWrhs.setSortPrfmncType(sortPrfmncType);
-					rawMtrWrhs.setSysFrstInptUserId(sysFrstInptUserId);
-					rawMtrWrhs.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
-					rawMtrWrhs.setSysLastChgUserId(sysFrstInptUserId);
-					rawMtrWrhs.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
-					rtnObj = rawMtrWrhsSet(rawMtrWrhs);
-					if (rtnObj != null) {
-						throw new EgovBizException(getMessageForMap(rtnObj));
-					}
-
-					rtnObj = insertRawMtrWrhsPrfmnc(rawMtrWrhsVO);
-					if (rtnObj != null) {
-						throw new EgovBizException(getMessageForMap(rtnObj));
-					}
-				}
-
-			}
-
-			/**
 			 * 입고실적 단일 생성
 			 * */
-			if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R2.equals(rawMtrWrhsPrfmncType)) {
+			if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R1.equals(rawMtrWrhsPrfmncType)) {
 
 				rawMtrWrhsVO = untyPrfmncVO.getRawMtrWrhsVO();
 				rawMtrWrhsVO.setSortPrfmncType(sortPrfmncType);
@@ -283,6 +259,34 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 						pltBxSn++;
 					}
 				}
+
+			}
+
+			/**
+			 * 입고실적 다중 생성
+			 * */
+			if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R2.equals(rawMtrWrhsPrfmncType)) {
+
+				rawMtrWrhsList = untyPrfmncVO.getRawMtrWrhsList();
+
+				for (RawMtrWrhsVO rawMtrWrhs : rawMtrWrhsList) {
+					rawMtrWrhs.setSortPrfmncType(sortPrfmncType);
+					rawMtrWrhs.setSysFrstInptUserId(sysFrstInptUserId);
+					rawMtrWrhs.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+					rawMtrWrhs.setSysLastChgUserId(sysFrstInptUserId);
+					rawMtrWrhs.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
+					rtnObj = rawMtrWrhsSet(rawMtrWrhs);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+					rtnObj = insertRawMtrWrhsPrfmnc(rawMtrWrhsVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+				}
+
+
 			}
 
 			/**
@@ -318,16 +322,81 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 			 * */
 			if (ApcConstants.SORT_PRFMNC_TYPE_S1.equals(sortPrfmncType)) {
 				sortPrfmncVO = untyPrfmncVO.getSortPrfmncVO();
-				sortPrfmncVO.setRowSts(rowSts);
 				sortPrfmncVO.setSysFrstInptUserId(sysFrstInptUserId);
 				sortPrfmncVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
 				sortPrfmncVO.setSysLastChgUserId(sysFrstInptUserId);
 				sortPrfmncVO.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
 
+				if (!StringUtils.hasText(sortPrfmncVO.getRowSts())) {
+					sortPrfmncVO.setRowSts(rowSts);
+				}
+
 				rtnObj =  sortPrfmncSet(sortPrfmncVO);
 				if (rtnObj != null) {
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
+
+				if (ComConstants.ROW_STS_UPDATE.equals(sortPrfmncVO.getRowSts())) {
+					sortPrfmncService.deletePrfmncAll(sortPrfmncVO);
+				}
+
+				sortPrfmncService.insertUntySortPrfmnc(sortPrfmncVO);
+				sortPrfmncList.add(sortPrfmncVO);
+
+				/**
+				 * 선별투입실적 생성 없음
+				 * */
+				if (!ApcConstants.INPT_PRFMNC_TYPE_I0.equals(sortInptPrfmncType)) {
+
+					/**
+					 * 선별투입실적 단일 생성
+					 * */
+					if (ApcConstants.INPT_PRFMNC_TYPE_I1.equals(sortInptPrfmncType)) {
+
+						/**
+						 * 입고실적 여부
+						 * */
+						if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R1.equals(rawMtrWrhsPrfmncType)) {
+
+							if (ComConstants.CON_YES.equals(rawMtrWrhsVO.getInptPrfmncYn())) {
+								BeanUtils.copyProperties(rawMtrWrhsVO, sortInptPrfmncVO);
+								sortInptPrfmncVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+								sortInptPrfmncVO.setInptSn(1);
+								sortInptPrfmncVO.setInptYmd(rawMtrWrhsVO.getWrhsYmd());
+								sortInptPrfmncVO.setQntt((int)rawMtrWrhsVO.getBxQntt());
+								sortInptPrfmncVO.setWght(rawMtrWrhsVO.getWght());
+								if (!StringUtils.hasText(sortInptPrfmncVO.getRowSts())) {
+									sortInptPrfmncVO.setRowSts(rowSts);
+								}
+							}
+
+							rtnObj = sortInptSet(sortInptPrfmncVO);
+							if (rtnObj != null) {
+								throw new EgovBizException(getMessageForMap(rtnObj));
+							}
+
+							sortInptPrfmncVO.setSortno(sortPrfmncVO.getSortno());
+							rtnObj = multiUntySortInptPrfmnc(sortInptPrfmncVO);
+							if (rtnObj != null) {
+								throw new EgovBizException(getMessageForMap(rtnObj));
+							}
+						}
+
+					}
+					/**
+					 * 선별투입실적 다중 생성
+					 * */
+					if (ApcConstants.INPT_PRFMNC_TYPE_I2.equals(sortInptPrfmncType)) {
+
+					}
+					/**
+					 * 선별투입실적 강제 생성
+					 * */
+					if (ApcConstants.INPT_PRFMNC_TYPE_I3.equals(sortInptPrfmncType)) {
+
+					}
+				}
+
 			}
 			/**
 			 * 선별실적생성 다중
@@ -342,7 +411,10 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 					sortPrfmnc.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
 					sortPrfmnc.setSysLastChgUserId(sysFrstInptUserId);
 					sortPrfmnc.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
-					sortPrfmnc.setRowSts(rowSts);
+
+					if (!StringUtils.hasText(sortPrfmnc.getRowSts())) {
+						sortPrfmnc.setRowSts(rowSts);
+					}
 
 					rtnObj =  sortPrfmncSet(sortPrfmnc);
 					if (rtnObj != null) {
@@ -366,9 +438,9 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 					if (ApcConstants.INPT_PRFMNC_TYPE_I1.equals(sortInptPrfmncType)) {
 
 						/**
-						 * 원물계량실적 여부
+						 * 입고실적 여부
 						 * */
-						if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R2.equals(rawMtrWrhsPrfmncType)) {
+						if (ApcConstants.RAW_MTR_WRHS_PRFMNC_TYPE_R1.equals(rawMtrWrhsPrfmncType)) {
 
 							if (ComConstants.CON_YES.equals(rawMtrWrhsVO.getInptPrfmncYn())) {
 								BeanUtils.copyProperties(rawMtrWrhsVO, sortInptPrfmncVO);
@@ -377,7 +449,10 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 								sortInptPrfmncVO.setInptYmd(rawMtrWrhsVO.getWrhsYmd());
 								sortInptPrfmncVO.setQntt((int)rawMtrWrhsVO.getBxQntt());
 								sortInptPrfmncVO.setWght(rawMtrWrhsVO.getWght());
-								sortInptPrfmncVO.setRowSts(rowSts);
+
+								if (!StringUtils.hasText(sortInptPrfmncVO.getRowSts())) {
+									sortInptPrfmncVO.setRowSts(rowSts);
+								}
 							}
 
 							rtnObj = sortInptSet(sortInptPrfmncVO);
@@ -505,14 +580,23 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 			if (ApcConstants.PCKG_PRFMNC_TYPE_P2.equals(pckgPrfmncType)) {
 
 				pckgPrfmncList = untyPrfmncVO.getPckgPrfmncList();
-
+				List<SpmtPrfmncVO> deleteSpmtPrfmncList = new ArrayList<>();
 				for (PckgPrfmncVO pckgPrfmnc : pckgPrfmncList) {
 
 					pckgPrfmnc.setSysFrstInptUserId(sysFrstInptUserId);
 					pckgPrfmnc.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
 					pckgPrfmnc.setSysLastChgUserId(sysFrstInptUserId);
 					pckgPrfmnc.setSysLastChgPrgrmId(sysFrstInptPrgrmId);
-					pckgPrfmnc.setRowSts(rowSts);
+
+					if (!StringUtils.hasText(pckgPrfmnc.getRowSts())) {
+						pckgPrfmnc.setRowSts(rowSts);
+					}
+
+					if (StringUtils.hasText((pckgPrfmnc.getSpmtno()))) {
+						SpmtPrfmncVO spmtPrfmnc = new SpmtPrfmncVO();
+						BeanUtils.copyProperties(pckgPrfmnc, spmtPrfmnc);
+						deleteSpmtPrfmncList.add(spmtPrfmnc);
+					}
 
 					rtnObj = pckgPrfmncSet(pckgPrfmnc);
 					if (rtnObj != null) {
@@ -524,8 +608,6 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
 
-
-
 				/**
 				 * 투입 실적 생성 없음
 				 * */
@@ -534,6 +616,32 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 					 * 투입 실적 단일 생성
 					 * */
 					if (ApcConstants.INPT_PRFMNC_TYPE_I1.equals(pckgInptPrfmncType)) {
+
+						String pckgno = pckgPrfmncList.get(0).getPckgno();
+
+						if (ComConstants.CON_YES.equals(sortPrfmncVO.getInptPrfmncYn())) {
+
+							PckgInptVO pckgInptVO = new PckgInptVO();
+							BeanUtils.copyProperties(sortPrfmncVO, pckgInptVO);
+							pckgInptVO.setPckgno(pckgno);
+							pckgInptVO.setInptSn(1);
+							pckgInptVO.setQntt(sortPrfmncVO.getSortQntt());
+							pckgInptVO.setWght(sortPrfmncVO.getSortWght());
+
+							if (!StringUtils.hasText(pckgInptVO.getRowSts())) {
+								pckgInptVO.setRowSts(rowSts);
+							}
+
+							rtnObj = pckgInptSet(pckgInptVO);
+							if (rtnObj != null) {
+								throw new EgovBizException(getMessageForMap(rtnObj));
+							}
+
+							rtnObj = insertUntyPckgInptPrfmnc(pckgInptVO);
+							if (rtnObj != null) {
+								throw new EgovBizException(getMessageForMap(rtnObj));
+							}
+						}
 					}
 					/**
 					 * 투입 실적 다중 생성
@@ -565,7 +673,10 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 								pckgInptVO.setInptSn(pckgInptSn);
 								pckgInptVO.setQntt(sortPrfmnc.getSortQntt());
 								pckgInptVO.setWght(sortPrfmnc.getSortWght());
-								pckgInptVO.setRowSts(rowSts);
+
+								if (!StringUtils.hasText(pckgInptVO.getRowSts())) {
+									pckgInptVO.setRowSts(rowSts);
+								}
 
 								rtnObj = pckgInptSet(pckgInptVO);
 								if (rtnObj != null) {
@@ -589,7 +700,15 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 
 					}
 				}
+				if (!deleteSpmtPrfmncList.isEmpty()) {
+					for (SpmtPrfmncVO deleteSpmtPrfmncVO : deleteSpmtPrfmncList) {
 
+						rtnObj = spmtPrfmncService.deleteUntySpmtPrfmncAll(deleteSpmtPrfmncVO);
+						if (rtnObj != null) {
+							throw new EgovBizException(getMessageForMap(rtnObj));
+						}
+					}
+				}
 			}
 			/**
 			 * 포장실적 강제 생성
@@ -599,6 +718,57 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 			}
 		}
 
+		if (!ApcConstants.SPMT_PRFMNC_TYPE_D0.equals(spmtPrfmncType)) {
+			/**
+			 * 출하실적생성
+			 * */
+			if (ApcConstants.SPMT_PRFMNC_TYPE_D1.equals(spmtPrfmncType)) {
+
+			}
+
+			/**
+			 * 포장실적참조 출하실적생성
+			 * 포장실적기반으로 동일하게 출하실적 생성하는 경우
+			 * 이 경우 두가지 경우가 발생 -> 거래처가 같은 경우 거래처가 다를 경우
+			 * 같을 경우 단일 공통실적에 다중 상세로 등록 	-> D1
+			 * 다를 경우 공통 공통, 상세 1:1 로 생성	-> D2
+			 * */
+			if (ApcConstants.SPMT_PRFMNC_TYPE_D2.equals(spmtPrfmncType)) {
+
+				/**
+				 * 포장실적 단일
+				 * */
+				if (ApcConstants.PCKG_PRFMNC_TYPE_P1.equals(pckgPrfmncType)) {
+
+				}
+
+				/**
+				 * 포장실적 다중
+				 * */
+				if (ApcConstants.PCKG_PRFMNC_TYPE_P2.equals(pckgPrfmncType)) {
+
+					for (PckgPrfmncVO pckgPrfmnc : pckgPrfmncList) {
+
+						SpmtPrfmncVO spmtPrfmnc = new SpmtPrfmncVO();
+						BeanUtils.copyProperties(pckgPrfmnc, spmtPrfmnc);
+						spmtPrfmnc.setSpmtYmd(pckgPrfmnc.getPckgYmd());
+						spmtPrfmnc.setSpmtno(untyPrfmncVO.getSpmtno());
+
+						rtnObj = spmtPrfmncSet(spmtPrfmnc);
+						if (rtnObj != null) {
+							throw new EgovBizException(getMessageForMap(rtnObj));
+						}
+						spmtPrfmncList.add(spmtPrfmnc);
+					}
+
+					rtnObj = spmtPrfmncService.insertUntySpmtPrfmncList(spmtPrfmncList);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+				}
+
+			}
+		}
 
 
 		return null;
@@ -774,6 +944,12 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 
 		return null;
 	}
+
+	@Override
+	public List<RegSpmtPrfmncVO> selectRegSpmtPrfmncList(RegSpmtPrfmncVO regSpmtPrfmncVO) throws Exception {
+		return untyPrfmncMapper.selectRegSpmtPrfmncList(regSpmtPrfmncVO);
+	}
+
 	@Override
 	public HashMap<String, Object> pckgPrfmncSet (PckgPrfmncVO pckgPrfmncVO) throws Exception {
 
@@ -872,6 +1048,46 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		return null;
 	}
 
+	public HashMap<String, Object> spmtPrfmncSet(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+
+		String apcCd = spmtPrfmncVO.getApcCd();
+		String spmtYmd = spmtPrfmncVO.getSpmtYmd();
+		String cnptCd = spmtPrfmncVO.getCnptCd();
+		int spmtQntt = spmtPrfmncVO.getSpmtQntt();
+		double spmtWght = spmtPrfmncVO.getSpmtWght();
+		String itemCd = spmtPrfmncVO.getItemCd();
+		String vrtyCd = spmtPrfmncVO.getVrtyCd();
+		String pckgno = spmtPrfmncVO.getPckgno();
+		int pckgSn = spmtPrfmncVO.getPckgSn();
+		String spmtPckgUnitCd = spmtPrfmncVO.getSpmtPckgUnitCd();
+
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+		if (!StringUtils.hasText(spmtYmd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하일자");
+		}
+		if (!StringUtils.hasText(cnptCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "거래처코드");
+		}
+		if (spmtQntt == 0 && spmtWght == 0) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "수량 및 중량");
+		}
+		if (!StringUtils.hasText(pckgno)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장번호");
+		}
+		if (pckgSn == 0) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장순번");
+		}
+		if (!StringUtils.hasText(spmtPckgUnitCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상품코드");
+		}
+
+
+		return null;
+	}
+
 	@Override
 	public HashMap<String, Object> insertRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 		HashMap<String, Object> rtnObj = new HashMap<String, Object>();
@@ -888,7 +1104,7 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
 
-		rtnObj = rawMtrWrhsService.updateRawMtrWrhs(rawMtrWrhsVO);
+		rtnObj = rawMtrWrhsService.updateUntyRawMtrWrhsPrfmnc(rawMtrWrhsVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
@@ -965,18 +1181,24 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		HashMap<String, Object> rtnObj = new HashMap<>();
 
 		if (ComConstants.ROW_STS_INSERT.equals(sortInptPrfmnc.getRowSts())) {
+
 			rtnObj = sortInptPrfmncService.insertSortInptPrfmnc(sortInptPrfmnc);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
+
 		}
 
 		if (ComConstants.ROW_STS_UPDATE.equals(sortInptPrfmnc.getRowSts())) {
+
 			rtnObj = sortInptPrfmncService.updateSortInptPrfmnc(sortInptPrfmnc);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
+
 		}
+
+
 
 		return null;
 	}
@@ -1008,18 +1230,12 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 	public HashMap<String, Object> multiUntyPckgPrfmncList(List<PckgPrfmncVO> pckgPrfmncList) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
-
-		List<PckgPrfmncVO> insertPckgPrfmncList = new ArrayList<>();
 		List<PckgPrfmncVO> updatePckgPrfmncList = new ArrayList<>();
 
 		/**
-		 * 등록 및 변경 리스트 분리
+		 * 변경 리스트 분리 -> 삭제
 		 * */
 		for (PckgPrfmncVO pckgPrfmncVO : pckgPrfmncList) {
-
-			if (ComConstants.ROW_STS_INSERT.equals(pckgPrfmncVO.getRowSts())) {
-				insertPckgPrfmncList.add(pckgPrfmncVO);
-			}
 
 			if (ComConstants.ROW_STS_UPDATE.equals(pckgPrfmncVO.getRowSts())) {
 				updatePckgPrfmncList.add(pckgPrfmncVO);
@@ -1027,17 +1243,7 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 		}
 
 		/**
-		 * 포장실적 등록
-		 * */
-		if (!insertPckgPrfmncList.isEmpty()) {
-			rtnObj = pckgPrfmncService.insertUntyPckgPrfmncList(insertPckgPrfmncList);
-			if (rtnObj != null) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-		}
-
-		/**
-		 * 포장실적 변경 -> 삭제 후 재 등록 으로 처리 한다.
+		 * 포장실적 변경 -> 삭제
 		 * */
 		if (!updatePckgPrfmncList.isEmpty()) {
 
@@ -1047,12 +1253,14 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
+		}
 
-			rtnObj = pckgPrfmncService.insertUntyPckgPrfmncList(updatePckgPrfmncList);
-			if (rtnObj != null) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
-			}
-
+		/**
+		 * 포장실적 등록
+		 * */
+		rtnObj = pckgPrfmncService.insertUntyPckgPrfmncList(pckgPrfmncList);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
 
 		return null;
@@ -1060,12 +1268,56 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 
 	@Override
 	public HashMap<String, Object> multyUntySpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		List<SpmtPrfmncVO> insertSpmtPrfmncList = new ArrayList<>();
+		List<SpmtPrfmncVO> updateSpmtPrfmncList = new ArrayList<>();
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+
+			if (ComConstants.ROW_STS_INSERT.equals(spmtPrfmncVO.getRowSts())) {
+				insertSpmtPrfmncList.add(spmtPrfmncVO);
+			}
+			if (ComConstants.ROW_STS_UPDATE.equals(spmtPrfmncVO.getRowSts())) {
+				updateSpmtPrfmncList.add(spmtPrfmncVO);
+			}
+		}
+
+		if (!insertSpmtPrfmncList.isEmpty()) {
+
+			rtnObj = spmtPrfmncService.insertUntySpmtPrfmncList(insertSpmtPrfmncList);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+		}
+
+		if (!updateSpmtPrfmncList.isEmpty()) {
+			/**
+			 * 통합실적변경 시 기존 출하실적은 삭제 처리 후 재 등록 처리 한다.
+			 * */
+			for (SpmtPrfmncVO spmtPrfmncVO : updateSpmtPrfmncList) {
+
+				String spmtno = spmtPrfmncVO.getAfterSpmtno();
+				SpmtPrfmncVO deleteSpmtPrfmncVO = new SpmtPrfmncVO();
+				BeanUtils.copyProperties(spmtPrfmncVO, deleteSpmtPrfmncVO);
+				deleteSpmtPrfmncVO.setSpmtno(spmtno);
+
+				spmtPrfmncService.deleteUntySpmtPrfmncAll(deleteSpmtPrfmncVO);
+			}
+
+			rtnObj = spmtPrfmncService.insertUntySpmtPrfmncList(updateSpmtPrfmncList);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public HashMap<String, Object> deleteUntyPrfmncList(List<UntyPrfmncVO> untyPrfmncList) throws Exception {
-
+		HashMap<String, Object> rtnObj = new HashMap<>();
 		/**
 		 * 통합실적 삭제
 		 * */
@@ -1076,13 +1328,17 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 			String sortno = untyPrfmncVO.getSortno();
 			String pckgno = untyPrfmncVO.getPckgno();
 			String spmtno = untyPrfmncVO.getSpmtno();
+			List<SpmtPrfmncVO> spmtPrfmncList = untyPrfmncVO.getSpmtPrfmncList();
 			/**
 			 * 원물입고 삭제
 			 * */
 			if (StringUtils.hasText(wrhsno)) {
 				RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
 				BeanUtils.copyProperties(untyPrfmncVO, rawMtrWrhsVO);
-				rawMtrWrhsService.deleteRawMtrWrhs(rawMtrWrhsVO);
+				rtnObj = rawMtrWrhsService.deleteUntyRawMtrWrhsPrfmnc(rawMtrWrhsVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
 			}
 
 			/**
@@ -1096,7 +1352,10 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 				if (StringUtils.hasText(wrhsno)) {
 					SortInptPrfmncVO sortInptPrfmncVO = new SortInptPrfmncVO();
 					BeanUtils.copyProperties(untyPrfmncVO, sortInptPrfmncVO);
-					sortInptPrfmncService.deleteSortInptPrfmncAll(sortInptPrfmncVO);
+					rtnObj = sortInptPrfmncService.deleteSortInptPrfmncAll(sortInptPrfmncVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
 				}
 
 				SortPrfmncVO sortPrfmncVO = new SortPrfmncVO();
@@ -1114,12 +1373,35 @@ public class UntyPrfmncServiceImpl extends BaseServiceImpl implements UntyPrfmnc
 				if (StringUtils.hasText(sortno)) {
 					PckgInptVO pckgInptVO = new PckgInptVO();
 					BeanUtils.copyProperties(untyPrfmncVO, pckgInptVO);
-					pckgInptService.deletePckgInptPrfmncAll(pckgInptVO);
+					rtnObj = pckgInptService.deletePckgInptPrfmncAll(pckgInptVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
 				}
 
 			}
 			if (StringUtils.hasText(spmtno)) {
 
+				SpmtPrfmncVO spmtPrfmncVO = new SpmtPrfmncVO();
+				BeanUtils.copyProperties(untyPrfmncVO, spmtPrfmncVO);
+				spmtPrfmncVO.setPckgno(pckgno);
+				rtnObj = spmtPrfmncService.deleteUntySpmtPrfmncAll(spmtPrfmncVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+
+			if (!spmtPrfmncList.isEmpty()) {
+				for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+
+					spmtPrfmncVO.setSysLastChgPrgrmId(untyPrfmncVO.getSysLastChgPrgrmId());
+					spmtPrfmncVO.setSysLastChgUserId(untyPrfmncVO.getSysLastChgUserId());
+					rtnObj = spmtPrfmncService.deleteUntySpmtPrfmncAll(spmtPrfmncVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+				}
 			}
 		}
 

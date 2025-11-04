@@ -2,6 +2,7 @@ package com.at.apcss.am.unty.service;
 
 import com.at.apcss.am.pckg.vo.PckgInptVO;
 import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
+import com.at.apcss.am.unty.vo.RegSpmtPrfmncVO;
 import com.at.apcss.am.unty.vo.UntyPrfmncVO;
 import com.at.apcss.am.sort.vo.SortPrfmncVO;
 import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
@@ -168,4 +169,11 @@ public interface UntyPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> sortInptSet (SortInptPrfmncVO sortInptPrfmncVO) throws Exception;
+	/**
+	 * 양송이출고등록조회(참사랑)
+	 * @param regSpmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<RegSpmtPrfmncVO> selectRegSpmtPrfmncList(RegSpmtPrfmncVO regSpmtPrfmncVO) throws Exception;
 }

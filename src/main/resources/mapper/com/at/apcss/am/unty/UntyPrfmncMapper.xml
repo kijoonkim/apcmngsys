@@ -180,4 +180,401 @@
 		]]>
     </select>
 
+	<!-- =============================================================================	-->
+	<!-- NAME : com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList	-->
+	<!-- DESC : 양송이출고등록 조회.	                                       				-->
+	<!-- =============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	==============================================	-->
+	<!-- 2025.10.29  	김  호        		Initial Creation                        	-->
+	<!-- =============================================================================	-->
+	<select id="selectRegSpmtPrfmncList" parameterType="com.at.apcss.am.unty.vo.RegSpmtPrfmncVO" resultType="com.at.apcss.am.unty.vo.RegSpmtPrfmncVO">
+		<![CDATA[
+			/* com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList */
+	    	SELECT Y.APC_CD                     AS APC_CD
+				 , Y.GDS_NM                     AS GDS_NM
+				 , MAX(Y.WRHS_YMD)              AS WRHS_YMD
+				 , MAX(Y.PRDCR_CD)              AS PRDCR_CD
+				 , MAX(Y.ITEM_CD)               AS ITEM_CD
+				 , Y.CNPT_CD                    AS CNPT_CD
+				 , MAX(WRHSNO_1)                AS WRHSNO_1
+				 , MAX(WRHSNO_2)                AS WRHSNO_2
+				 , MAX(WRHSNO_3)                AS WRHSNO_3
+				 , MAX(WRHSNO_4)                AS WRHSNO_4
+	    	     , MAX(PLTNO_1)					AS PLTNO_1
+	    	     , MAX(PLTNO_2)					AS PLTNO_2
+	    	     , MAX(PLTNO_3)					AS PLTNO_3
+	    	     , MAX(PLTNO_4)					AS PLTNO_4
+				 , MAX(SORTNO_1)                AS SORTNO_1
+				 , MAX(SORTNO_2)                AS SORTNO_2
+				 , MAX(SORTNO_3)                AS SORTNO_3
+				 , MAX(SORTNO_4)                AS SORTNO_4
+				 , MAX(PCKGNO_1)                AS PCKGNO_1
+				 , MAX(PCKGNO_2)                AS PCKGNO_2
+				 , MAX(PCKGNO_3)                AS PCKGNO_3
+				 , MAX(PCKGNO_4)                AS PCKGNO_4
+				 , MAX(SPMTNO_1)                AS SPMTNO_1
+				 , MAX(SPMTNO_2)                AS SPMTNO_2
+				 , MAX(SPMTNO_3)                AS SPMTNO_3
+				 , MAX(SPMTNO_4)                AS SPMTNO_4
+				 , MAX(VRTY_CD_1)               AS VRTY_CD_1
+				 , MAX(VRTY_CD_2)               AS VRTY_CD_2
+				 , MAX(VRTY_CD_3)               AS VRTY_CD_3
+				 , MAX(VRTY_CD_4)               AS VRTY_CD_4
+				 , MAX(VRTY_QNTT_1)             AS VRTY_QNTT_1
+				 , MAX(VRTY_QNTT_2)             AS VRTY_QNTT_2
+				 , MAX(VRTY_QNTT_3)             AS VRTY_QNTT_3
+				 , MAX(VRTY_QNTT_4)             AS VRTY_QNTT_4
+				 , MAX(VRTY_WGHT_1)             AS VRTY_WGHT_1
+				 , MAX(VRTY_WGHT_2)             AS VRTY_WGHT_2
+				 , MAX(VRTY_WGHT_3)             AS VRTY_WGHT_3
+				 , MAX(VRTY_WGHT_4)             AS VRTY_WGHT_4
+				 , ''                           AS SPMT_PCKG_UNIT_CD_1
+				 , ''                           AS SPMT_PCKG_UNIT_CD_2
+				 , ''                           AS SPMT_PCKG_UNIT_CD_3
+				 , ''                           AS SPMT_PCKG_UNIT_CD_4
+				 , NVL(MAX(Y.WRHS_YMD), #{wrhsYmd})   AS SPMT_YMD_1
+				 , NVL(MAX(Y.WRHS_YMD), #{wrhsYmd})   AS SPMT_YMD_2
+				 , NVL(MAX(Y.WRHS_YMD), #{wrhsYmd})   AS SPMT_YMD_3
+				 , NVL(MAX(Y.WRHS_YMD), #{wrhsYmd})   AS SPMT_YMD_4
+				 , SUM(BX_QNTT)                 AS TOT_QNTT
+				 , SUM(WRHS_WGHT)               AS TOT_WGHT
+	    		 , MAX(RMRK)                    AS RMRK
+			  FROM (SELECT NVL(X.APC_CD, #{apcCd})    AS APC_CD
+						 , '입고'                 AS GDS_NM
+						 , '0000'                AS CNPT_CD
+						 , X.WRHSNO
+			             , X.PLTNO
+						 , X.WRHS_YMD
+						 , X.BX_QNTT
+						 , X.WRHS_WGHT
+						 , NVL(X.ITEM_CD, VC.ITEM_CD)   AS ITEM_CD
+						 , X.VRTY_CD
+						 , X.PRDCR_CD
+			             , X.RMRK
+						 , CASE WHEN VRTY_RANK = 1 THEN X.WRHSNO END AS WRHSNO_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.WRHSNO END AS WRHSNO_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.WRHSNO END AS WRHSNO_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.WRHSNO END AS WRHSNO_4
+			             , CASE WHEN VRTY_RANK = 1 THEN X.PLTNO END AS PLTNO_1
+			             , CASE WHEN VRTY_RANK = 2 THEN X.PLTNO END AS PLTNO_2
+			             , CASE WHEN VRTY_RANK = 3 THEN X.PLTNO END AS PLTNO_3
+			             , CASE WHEN VRTY_RANK = 4 THEN X.PLTNO END AS PLTNO_4
+						 , CASE WHEN VRTY_RANK = 1 THEN X.SORTNO END AS SORTNO_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.SORTNO END AS SORTNO_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.SORTNO END AS SORTNO_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.SORTNO END AS SORTNO_4
+						 , CASE WHEN VRTY_RANK = 1 THEN X.PCKGNO END AS PCKGNO_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.PCKGNO END AS PCKGNO_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.PCKGNO END AS PCKGNO_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.PCKGNO END AS PCKGNO_4
+						 , CASE WHEN VRTY_RANK = 1 THEN X.SPMTNO END AS SPMTNO_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.SPMTNO END AS SPMTNO_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.SPMTNO END AS SPMTNO_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.SPMTNO END AS SPMTNO_4
+						 , CASE WHEN VRTY_RANK = 1 THEN VC.VRTY_CD END AS VRTY_CD_1
+						 , CASE WHEN VRTY_RANK = 2 THEN VC.VRTY_CD END AS VRTY_CD_2
+						 , CASE WHEN VRTY_RANK = 3 THEN VC.VRTY_CD END AS VRTY_CD_3
+						 , CASE WHEN VRTY_RANK = 4 THEN VC.VRTY_CD END AS VRTY_CD_4
+						 , CASE WHEN VRTY_RANK = 1 THEN X.BX_QNTT END AS VRTY_QNTT_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.BX_QNTT END AS VRTY_QNTT_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.BX_QNTT END AS VRTY_QNTT_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.BX_QNTT END AS VRTY_QNTT_4
+						 , CASE WHEN VRTY_RANK = 1 THEN X.WRHS_WGHT END AS VRTY_WGHT_1
+						 , CASE WHEN VRTY_RANK = 2 THEN X.WRHS_WGHT END AS VRTY_WGHT_2
+						 , CASE WHEN VRTY_RANK = 3 THEN X.WRHS_WGHT END AS VRTY_WGHT_3
+						 , CASE WHEN VRTY_RANK = 4 THEN X.WRHS_WGHT END AS VRTY_WGHT_4
+					  FROM (SELECT WP.APC_CD
+								 , WP.WRHSNO
+					             , WP.PLTNO
+								 , WP.WRHS_YMD
+								 , MAX(WP.BX_QNTT)      AS BX_QNTT
+								 , MAX(WP.WRHS_WGHT)    AS WRHS_WGHT
+								 , MAX(WP.PRDCR_CD)     AS PRDCR_CD
+								 , RI.ITEM_CD
+								 , RI.VRTY_CD
+					             , MAX(WP.RMRK)			AS RMRK
+								 , MAX(SP.SORTNO)       AS SORTNO
+								 , MAX(PP.PCKGNO)       AS PCKGNO
+								 , MAX(SC.SPMTNO)       AS SPMTNO
+							  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+								 , TB_RAW_MTR_INVNTR RI
+								 , TB_SORT_INPT_PRFMNC SIP
+								 , TB_SORT_PRFMNC SP
+								 , TB_SORT_INVNTR SI
+								 , TB_PCKG_INPT_PRFMNC PIP
+								 , TB_PCKG_PRFMNC PP
+								 , TB_GDS_INVNTR GI
+								 , TB_SPMT_PRFMNC_COM SC
+								 , TB_SPMT_PRFMNC_DTL SD
+							 WHERE WP.APC_CD = RI.APC_CD
+							   AND WP.WRHSNO = RI.WRHSNO
+							   AND WP.APC_CD = SIP.APC_CD
+							   AND WP.WRHSNO = SIP.WRHSNO
+							   AND SIP.APC_CD = SP.APC_CD
+							   AND SIP.SORTNO = SP.SORTNO
+							   AND SP.APC_CD = SI.APC_CD
+							   AND SP.SORTNO = SI.SORTNO
+							   AND SP.SORT_SN = SI.SORT_SN
+							   AND SI.APC_CD = PIP.APC_CD
+							   AND SI.SORTNO = PIP.SORTNO
+							   AND SI.SORT_SN = PIP.SORT_SN
+							   AND PIP.APC_CD = PP.APC_CD
+							   AND PIP.PCKGNO = PP.PCKGNO
+							   AND PP.APC_CD = GI.APC_CD
+							   AND PP.PCKGNO = GI.PCKGNO
+							   AND PP.PCKG_SN = GI.PCKG_SN
+							   AND GI.APC_CD = SD.APC_CD
+							   AND GI.PCKGNO = SD.PCKGNO
+							   AND GI.PCKG_SN = SD.PCKG_SN
+							   AND SD.APC_CD = SC.APC_CD
+							   AND SD.SPMTNO = SC.SPMTNO
+							   AND WP.DEL_YN = 'N'
+							   AND RI.DEL_YN = 'N'
+							   AND SIP.DEL_YN = 'N'
+							   AND SP.DEL_YN = 'N'
+							   AND SI.DEL_YN = 'N'
+							   AND PIP.DEL_YN = 'N'
+							   AND PP.DEL_YN = 'N'
+							   AND GI.DEL_YN = 'N'
+							   AND SC.DEL_YN = 'N'
+							   AND SD.DEL_YN = 'N'
+							   AND WP.APC_CD = #{apcCd}
+							   AND WP.WRHS_YMD = #{wrhsYmd}
+		]]>
+			<choose>
+				<when test='prdcrCd != null and prdcrCd !=""'>
+							   AND WP.PRDCR_CD = #{prdcrCd}
+				</when>
+				<otherwise>
+							   AND WP.PRDCR_CD = NULL
+				</otherwise>
+			</choose>
+		<![CDATA[
+					 GROUP BY WP.APC_CD, WP.WRHSNO, WP.PLTNO, WP.WRHS_YMD, RI.ITEM_CD, RI.VRTY_CD
+							) X
+						  , (SELECT AVC.APC_CD
+								  , AVC.ITEM_CD
+								  , AVC.VRTY_CD
+								  , RANK() OVER (ORDER BY SN) AS VRTY_RANK
+							   FROM TB_APC_VRTY_CRTR AVC
+							  WHERE AVC.APC_CD = #{apcCd}
+								AND AVC.ITEM_CD = #{itemCd}
+							) VC
+					  WHERE X.APC_CD(+) = VC.APC_CD
+						AND X.ITEM_CD(+) = VC.ITEM_CD
+						AND X.VRTY_CD(+) = VC.VRTY_CD
+					) Y
+			 GROUP BY Y.APC_CD, Y.CNPT_CD, Y.GDS_NM
+			 UNION ALL
+			SELECT Y.APC_CD                     AS APC_CD
+				 , Y.GDS_NM                     AS GDS_NM
+				 , MAX(Y.WRHS_YMD)              AS WRHS_YMD
+				 , MAX(Y.PRDCR_CD)              AS PRDCR_CD
+				 , MAX(Y.ITEM_CD)               AS ITEM_CD
+				 , Y.CNPT_CD                    AS CNPT_CD
+				 , MAX(WRHSNO_1)                AS WRHSNO_1
+				 , MAX(WRHSNO_2)                AS WRHSNO_2
+				 , MAX(WRHSNO_3)                AS WRHSNO_3
+				 , MAX(WRHSNO_4)                AS WRHSNO_4
+			     , MAX(PLTNO_1)					AS PLTNO_1
+	    	     , MAX(PLTNO_2)					AS PLTNO_2
+	    	     , MAX(PLTNO_3)					AS PLTNO_3
+	    	     , MAX(PLTNO_4)					AS PLTNO_4
+				 , MAX(SORTNO_1)                AS SORTNO_1
+				 , MAX(SORTNO_2)                AS SORTNO_2
+				 , MAX(SORTNO_3)                AS SORTNO_3
+				 , MAX(SORTNO_4)                AS SORTNO_4
+				 , MAX(PCKGNO_1)                AS PCKGNO_1
+				 , MAX(PCKGNO_2)                AS PCKGNO_2
+				 , MAX(PCKGNO_3)                AS PCKGNO_3
+				 , MAX(PCKGNO_4)                AS PCKGNO_4
+				 , MAX(SPMTNO_1)                AS SPMTNO_1
+				 , MAX(SPMTNO_2)                AS SPMTNO_2
+				 , MAX(SPMTNO_3)                AS SPMTNO_3
+				 , MAX(SPMTNO_4)                AS SPMTNO_4
+				 , MAX(VRTY_CD_1)               AS VRTY_CD_1
+				 , MAX(VRTY_CD_2)               AS VRTY_CD_2
+				 , MAX(VRTY_CD_3)               AS VRTY_CD_3
+				 , MAX(VRTY_CD_4)               AS VRTY_CD_4
+				 , MAX(VRTY_QNTT_1)             AS VRTY_QNTT_1
+				 , MAX(VRTY_QNTT_2)             AS VRTY_QNTT_2
+				 , MAX(VRTY_QNTT_3)             AS VRTY_QNTT_3
+				 , MAX(VRTY_QNTT_4)             AS VRTY_QNTT_4
+				 , MAX(VRTY_WGHT_1)             AS VRTY_WGHT_1
+				 , MAX(VRTY_WGHT_2)             AS VRTY_WGHT_2
+				 , MAX(VRTY_WGHT_3)             AS VRTY_WGHT_3
+				 , MAX(VRTY_WGHT_4)             AS VRTY_WGHT_4
+				 , MAX(SPMT_PCKG_UNIT_CD_1)     AS SPMT_PCKG_UNIT_CD_1
+				 , MAX(SPMT_PCKG_UNIT_CD_2)     AS SPMT_PCKG_UNIT_CD_2
+				 , MAX(SPMT_PCKG_UNIT_CD_3)     AS SPMT_PCKG_UNIT_CD_3
+				 , MAX(SPMT_PCKG_UNIT_CD_4)     AS SPMT_PCKG_UNIT_CD_4
+				 , MAX(SPMT_YMD_1)              AS SPMT_YMD_1
+				 , MAX(SPMT_YMD_2)              AS SPMT_YMD_2
+				 , MAX(SPMT_YMD_3)              AS SPMT_YMD_3
+				 , MAX(SPMT_YMD_4)              AS SPMT_YMD_4
+				 , SUM(BX_QNTT)                 AS TOT_QNTT
+				 , SUM(WRHS_WGHT)               AS TOT_WGHT
+				 , MAX(RMRK)					AS RMRK
+			  FROM (
+					SELECT NVL(X.APC_CD, #{apcCd})    AS APC_CD
+							 , X.WRHSNO
+							 , X.WRHS_YMD
+							 , X.BX_QNTT
+							 , X.WRHS_WGHT
+							 , X.PRDCR_CD
+							 , NVL(X.ITEM_CD, CI.ITEM_CD)   AS ITEM_CD
+							 , X.VRTY_CD
+							 , X.SPMT_PCKG_UNIT_CD
+							 , CI.CNPT_CD
+							 , CI.GDS_NM
+					    	 , X.RMRK
+							 , CASE WHEN CNPT_RANK = 1 THEN X.WRHSNO END AS WRHSNO_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.WRHSNO END AS WRHSNO_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.WRHSNO END AS WRHSNO_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.WRHSNO END AS WRHSNO_4
+					     	 , CASE WHEN CNPT_RANK = 1 THEN X.PLTNO END AS PLTNO_1
+			                 , CASE WHEN CNPT_RANK = 2 THEN X.PLTNO END AS PLTNO_2
+			             	 , CASE WHEN CNPT_RANK = 3 THEN X.PLTNO END AS PLTNO_3
+			             	 , CASE WHEN CNPT_RANK = 4 THEN X.PLTNO END AS PLTNO_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.SORTNO END AS SORTNO_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.SORTNO END AS SORTNO_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.SORTNO END AS SORTNO_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.SORTNO END AS SORTNO_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.PCKGNO END AS PCKGNO_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.PCKGNO END AS PCKGNO_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.PCKGNO END AS PCKGNO_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.PCKGNO END AS PCKGNO_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.SPMTNO END AS SPMTNO_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.SPMTNO END AS SPMTNO_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.SPMTNO END AS SPMTNO_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.SPMTNO END AS SPMTNO_4
+							 , CASE WHEN CNPT_RANK = 1 THEN CI.VRTY_CD END AS VRTY_CD_1
+							 , CASE WHEN CNPT_RANK = 2 THEN CI.VRTY_CD END AS VRTY_CD_2
+							 , CASE WHEN CNPT_RANK = 3 THEN CI.VRTY_CD END AS VRTY_CD_3
+							 , CASE WHEN CNPT_RANK = 4 THEN CI.VRTY_CD END AS VRTY_CD_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.BX_QNTT END AS VRTY_QNTT_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.BX_QNTT END AS VRTY_QNTT_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.BX_QNTT END AS VRTY_QNTT_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.BX_QNTT END AS VRTY_QNTT_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.WRHS_WGHT END AS VRTY_WGHT_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.WRHS_WGHT END AS VRTY_WGHT_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.WRHS_WGHT END AS VRTY_WGHT_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.WRHS_WGHT END AS VRTY_WGHT_4
+							 , CASE WHEN CNPT_RANK = 1 THEN CI.SPMT_PCKG_UNIT_CD END AS SPMT_PCKG_UNIT_CD_1
+							 , CASE WHEN CNPT_RANK = 2 THEN CI.SPMT_PCKG_UNIT_CD END AS SPMT_PCKG_UNIT_CD_2
+							 , CASE WHEN CNPT_RANK = 3 THEN CI.SPMT_PCKG_UNIT_CD END AS SPMT_PCKG_UNIT_CD_3
+							 , CASE WHEN CNPT_RANK = 4 THEN CI.SPMT_PCKG_UNIT_CD END AS SPMT_PCKG_UNIT_CD_4
+							 , CASE WHEN CNPT_RANK = 1 THEN X.SPMT_YMD END AS SPMT_YMD_1
+							 , CASE WHEN CNPT_RANK = 2 THEN X.SPMT_YMD END AS SPMT_YMD_2
+							 , CASE WHEN CNPT_RANK = 3 THEN X.SPMT_YMD END AS SPMT_YMD_3
+							 , CASE WHEN CNPT_RANK = 4 THEN X.SPMT_YMD END AS SPMT_YMD_4
+						  FROM (SELECT WP.APC_CD
+									 , WP.WRHSNO
+						             , WP.PLTNO
+									 , WP.WRHS_YMD
+									 , MAX(SD.SPMT_QNTT)    AS BX_QNTT
+									 , MAX(SD.SPMT_WGHT)    AS WRHS_WGHT
+									 , RI.PRDCR_CD
+									 , RI.ITEM_CD
+									 , RI.VRTY_CD
+									 , SP.SORTNO
+									 , PP.PCKGNO
+						             , MAX(PP.RMRK)			AS RMRK
+									 , SD.SPMTNO
+									 , GI.SPMT_PCKG_UNIT_CD
+									 , SC.CNPT_CD
+									 , MAX(SC.SPMT_YMD)     AS SPMT_YMD
+								  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+									 , TB_RAW_MTR_INVNTR RI
+									 , TB_SORT_INPT_PRFMNC SIP
+									 , TB_SORT_PRFMNC SP
+									 , TB_SORT_INVNTR SI
+									 , TB_PCKG_INPT_PRFMNC PIP
+									 , TB_PCKG_PRFMNC PP
+									 , TB_GDS_INVNTR GI
+									 , TB_SPMT_PRFMNC_COM SC
+									 , TB_SPMT_PRFMNC_DTL SD
+								 WHERE WP.APC_CD = RI.APC_CD
+								   AND WP.WRHSNO = RI.WRHSNO
+								   AND WP.APC_CD = SIP.APC_CD
+								   AND WP.WRHSNO = SIP.WRHSNO
+								   AND SIP.APC_CD = SP.APC_CD
+								   AND SIP.SORTNO = SP.SORTNO
+								   AND SP.APC_CD = SI.APC_CD
+								   AND SP.SORTNO = SI.SORTNO
+								   AND SP.SORT_SN = SI.SORT_SN
+								   AND SI.APC_CD = PIP.APC_CD
+								   AND SI.SORTNO = PIP.SORTNO
+								   AND SI.SORT_SN = PIP.SORT_SN
+								   AND PIP.APC_CD = PP.APC_CD
+								   AND PIP.PCKGNO = PP.PCKGNO
+								   AND PP.APC_CD = GI.APC_CD
+								   AND PP.PCKGNO = GI.PCKGNO
+								   AND PP.PCKG_SN = GI.PCKG_SN
+								   AND GI.APC_CD = SD.APC_CD
+								   AND GI.PCKGNO = SD.PCKGNO
+								   AND GI.PCKG_SN = SD.PCKG_SN
+								   AND SD.APC_CD = SC.APC_CD
+								   AND SD.SPMTNO = SC.SPMTNO
+								   AND WP.DEL_YN = 'N'
+								   AND RI.DEL_YN = 'N'
+								   AND SIP.DEL_YN = 'N'
+								   AND SP.DEL_YN = 'N'
+								   AND SI.DEL_YN = 'N'
+								   AND PIP.DEL_YN = 'N'
+								   AND PP.DEL_YN = 'N'
+								   AND GI.DEL_YN = 'N'
+								   AND SC.DEL_YN = 'N'
+								   AND SD.DEL_YN = 'N'
+								   AND WP.APC_CD = #{apcCd}
+								   AND WP.WRHS_YMD = #{wrhsYmd}
+		]]>
+			<choose>
+				<when test='prdcrCd != null and prdcrCd !=""'>
+								   AND WP.PRDCR_CD = #{prdcrCd}
+				</when>
+				<otherwise>
+								   AND WP.PRDCR_CD = NULL
+				</otherwise>
+			</choose>
+		<![CDATA[
+						  GROUP BY WP.APC_CD, WP.WRHSNO, WP.PLTNO, WP.WRHS_YMD, RI.PRDCR_CD, RI.ITEM_CD, RI.VRTY_CD, SP.SORTNO, PP.PCKGNO, SD.SPMTNO, GI.SPMT_PCKG_UNIT_CD, SC.CNPT_CD
+							  ) X
+
+							  , (
+								 SELECT CI.APC_CD
+									  , CI.CNPT_CD
+									  , CI.CNPT_NM
+									  , SPU.VRTY_CD
+									  , SPU.ITEM_CD
+									  , SPU.SPMT_PCKG_UNIT_CD
+									  , SPU.SPMT_PCKG_UNIT_NM
+									  , CI.CNPT_NM || ' ' || CASE WHEN SPU.SPMT_PCKG_UNIT_NM != '상품명없음' THEN SPU.SPMT_PCKG_UNIT_NM ELSE '' END AS GDS_NM
+									  , RANK() OVER (PARTITION BY CI.CNPT_CD, SPU.SPCFCT_CD ORDER BY CI.CNPT_CD, SPU.SPCFCT_CD, SPU.VRTY_CD) AS CNPT_RANK
+								   FROM TB_CNPT_INFO CI
+									  , TB_CNPT_SPMT_PCKG_UNIT CSP
+									  , TB_SPMT_PCKG_UNIT SPU
+								  WHERE CI.APC_CD = CSP.APC_CD
+									AND CI.CNPT_CD = CSP.CNPT_CD
+									AND CSP.APC_CD = SPU.APC_CD
+									AND CSP.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+									AND CI.DEL_YN = 'N'
+									AND SPU.DEL_YN = 'N'
+									AND CSP.DEL_YN = 'N'
+									AND CI.APC_CD = #{apcCd}
+								  ORDER BY CI.CNPT_CD
+								) CI
+						  WHERE X.APC_CD(+) = CI.APC_CD
+							AND X.ITEM_CD(+) = CI.ITEM_CD
+							AND X.VRTY_CD(+) = CI.VRTY_CD
+							AND X.CNPT_CD(+) = CI.CNPT_CD
+							AND X.SPMT_PCKG_UNIT_CD(+) = CI.SPMT_PCKG_UNIT_CD
+						  ORDER BY CI.CNPT_CD
+				) Y
+			 GROUP BY Y.APC_CD, Y.CNPT_CD, Y.GDS_NM
+			 ORDER BY APC_CD, CNPT_CD, GDS_NM
+		]]>
+	</select>
+
 </mapper>

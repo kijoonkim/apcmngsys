@@ -301,4 +301,29 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
     public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 통합출하실적 목록 등록
+	 * @param spmtPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception;
+
+	/**
+	 * 통합출하실적 등록
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertUntySpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 통합 출하실적 전체 삭제
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteUntySpmtPrfmncAll(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
 }

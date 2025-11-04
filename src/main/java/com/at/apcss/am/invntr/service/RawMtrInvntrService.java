@@ -261,4 +261,22 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateInvntrShpgotCncl(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 통합 원물재고 삭제
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteUntyRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 통합 원물재고 삭제(DEL_YN)
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateUntyRawMtrInvntrForDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
 }

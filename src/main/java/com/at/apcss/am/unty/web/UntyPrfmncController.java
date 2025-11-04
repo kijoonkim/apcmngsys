@@ -1,5 +1,6 @@
 package com.at.apcss.am.unty.web;
 
+import com.at.apcss.am.unty.vo.RegSpmtPrfmncVO;
 import com.at.apcss.am.unty.vo.UntyPrfmncVO;
 import com.at.apcss.am.unty.service.UntyPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
@@ -140,6 +141,32 @@ public class UntyPrfmncController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 양송이출고등록조회(참사랑)
+	 * @param regSpmtPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/unty/selectRegSpmtPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRegSpmtPrfmncList(@RequestBody RegSpmtPrfmncVO regSpmtPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<RegSpmtPrfmncVO> resultList;
+
+		try {
+			resultList = untyPrfmncService.selectRegSpmtPrfmncList(regSpmtPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			setMenuComLog(request);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
 	}

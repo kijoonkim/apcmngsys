@@ -394,6 +394,11 @@ public class SpmtPrfmncVO extends ComVO {
 	private String spmtSlsUntprc;
 
 	/**
+	 * 기존출하실적번호
+	 */
+	private String afterSpmtno;
+
+	/**
 	 * 출하상품목록
 	 */
 	private List<SpmtGdsVO> spmtGdsList;

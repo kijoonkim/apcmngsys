@@ -746,4 +746,63 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 
 		return null;
 	}
+
+	@Override
+	public HashMap<String, Object> updateUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null
+				|| !StringUtils.hasText(wrhsInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		invntrVO.setPltno(null);
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.deleteUntyRawMtrInvntr(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rawMtrWrhsVO.setDelYn(null);
+		rawMtrWrhsMapper.updateRawMtrWrhs(rawMtrWrhsVO);
+
+		rtnObj = insertRawMtrWrhs(rawMtrWrhsVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteUntyRawMtrWrhsPrfmnc(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		// 원물재고 상태 확인
+		RawMtrWrhsVO wrhsInfo = selectRawMtrWrhs(rawMtrWrhsVO);
+		if (wrhsInfo == null
+				|| !StringUtils.hasText(wrhsInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(wrhsInfo.getDelYn()) ) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "입고정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, invntrVO);
+
+		// 원물재고 삭제
+		rtnObj = rawMtrInvntrService.updateUntyRawMtrInvntrForDelY(invntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 입고실적 삭제
+		rawMtrWrhsMapper.updateRawMtrWrhsDelY(rawMtrWrhsVO);
+
+		return null;
+	}
 }
