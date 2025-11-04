@@ -395,8 +395,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 <script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
 <script src="${pageContext.request.contextPath}/api/mobile/js/pages/dashboard.js"></script>
-<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/agentDashboard.css">--%>
-<script src="${pageContext.request.contextPath}/js/out/agentDashboard.bundle.js?v={{$timestamp}}" type="module"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/static/bundles/dashboard.css">
+<script type="module" src="/static/bundles/dashboard.js"></script>
+
 </body>
 </html>
 
