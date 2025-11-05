@@ -143,24 +143,20 @@
             <%--교부관리 소계--%>
             <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
               <colgroup>
-                <col style="width: 3%">
-                <col style="width: 5%">
-                <col style="width: 10%">
-                <col style="width: 7%">
+                <col style="width: 26%">
                 <col style="width: 5%">
                 <col style="width: 5%">
                 <col style="width: 5%">
                 <col style="width: 8%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 6%">
                 <col style="width: 8%">
-                <col style="width: 7%">
-                <col style="width: 8%">
-                <col style="width: 7%">
-                <col style="width: 5%">
-                <col style="width: 14%">
+                <col style="width: 19%">
               </colgroup>
               <tr>
                 <td>소계</td>
-                <td colspan="3"></td>
                 <td>제출 : <span id="dtbnAplySbmsn">0</span> 개</td>
                 <td>확인 : <span id="dtbnAplyAplyAprv">0</span> 개</td>
                 <td></td>
@@ -581,6 +577,30 @@
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnRslt" style="height: 530px"></div>
+
+            <%--정산결과 소계--%>
+           <%-- <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
+              <colgroup>
+                <col style="width: 31%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 9%">
+              </colgroup>
+              <tr>
+                <td>소계</td>
+                <td><span id="clclnRsltPsbltAmt"></span></td>
+                <td><span id="clclnRsltDmndAmt"></span></td>
+                <td><span id="clclnRsltAprvAmt"></span></td>
+                <td><span id="clclnRsltRjctAmt"></span></td>
+                <td><span id="clclnRsltUnuseAmt"></span></td>
+                <td><span id="clclnRsltBlncTotAmt"></span></td>
+                <td></td>
+              </tr>
+            </table>--%>
           </div>
         </div>
       </div>
@@ -1493,9 +1513,9 @@
     document.querySelector('#dtbnAplySbmsn').innerText = dtbnAplySbmsn;
     document.querySelector('#dtbnAplyAplyAprv').innerText = dtbnAplyAplyAprv;
     document.querySelector('#rpnAmtNe').innerText = rpnAmtNe.toLocaleString();
-    // document.querySelector('#dtbnDcsnAmt1').innerText = dtbnDcsnAmt1.toLocaleString();
-    // document.querySelector('#dtbnDcsnAmt2').innerText = dtbnDcsnAmt2.toLocaleString();
-    // document.querySelector('#blnc').innerText = blnc.toLocaleString();
+    document.querySelector('#dtbnDcsnAmt1').innerText = dtbnDcsnAmt1.toLocaleString();
+    document.querySelector('#dtbnDcsnAmt2').innerText = dtbnDcsnAmt2.toLocaleString();
+    document.querySelector('#blnc').innerText = blnc.toLocaleString();
   }
 
   /**
