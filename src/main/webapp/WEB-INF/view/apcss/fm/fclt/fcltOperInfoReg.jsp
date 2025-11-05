@@ -684,6 +684,17 @@
 							// , operOgnzCrno : userInfoVO.operOgnzCrno
 							// , rprsv : userInfoVO.rprsv
 
+							, ognzTypeCd : resultVO.ognzTypeCd
+							, ctpvCd : resultVO.ctpvCd
+							, sigunCd : resultVO.sigunCd
+							, apcAdmCd : resultVO.apcAdmCd
+							, apcRoadNmCd : resultVO.apcRoadNmCd
+							, apcSlno : resultVO.apcSlno
+							, apcBmno : resultVO.apcBmno
+							, operOgnzRoadNmCd : resultVO.operOgnzRoadNmCd
+							, operOgnzSlno : resultVO.operOgnzSlno
+							, operOgnzBmno : resultVO.operOgnzBmno
+
 							, picNm : resultVO.pic
 							, picTelno : resultVO.cttpc
 							, prvcClctAgreYn : resultVO.prvcClctAgreYn
