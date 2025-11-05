@@ -101,6 +101,10 @@
           <td class="td_input" style="border-right: hidden">
             <sbux-select id="dtl-slt-clclnAplyAtch" name="dtl-slt-clclnAplyAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonSbmsnYn"></sbux-select>
           </td>
+          <th scope="row" class="th_bg">회차</th>
+          <td class="td_input" style="border-right: hidden">
+            <sbux-select id="dtl-slt-clclnSeq" name="dtl-slt-clclnSeq" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonClclnSeqSlt"></sbux-select>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -620,6 +624,13 @@
     {value : 2, text :"2차"},
   ];
 
+  var jsonClclnSeqSlt = [
+    {value : 1, text :"1차"},
+    {value : 2, text :"2차"},
+    {value : 99, text :"최종"},
+  ];
+
+
   /** 제출 여부 **/
   var jsonSbmsnYn = [
     {value : "Y", text :"제출"},
@@ -738,7 +749,7 @@
     SBGridProperties.extendlastcol = 'scroll';
     SBGridProperties.oneclickedit = true;
 
-    SBGridProperties.total = {
+    /*SBGridProperties.total = {
       type 		: 'sub',
       position	: 'bottom',
       columns		: {
@@ -753,7 +764,7 @@
           stylestartcol	: 0
         },
       }
-    };
+    };*/
 
     SBGridProperties.columns = [
       {
@@ -766,7 +777,7 @@
 
       {caption: ['연도','연도'],			ref: 'sprtBizYr', 	    width: '5%', type: 'output',style: 'text-align:center'},
       {caption: ['법인명','법인명'], 			ref: 'corpNm', 	width: '15%', type: 'output', style: 'text-align:left',userattr : {colNm :"corpNm"}},
-      {caption: ['회차','회차'], 			ref: 'clclnSeq', 		width: '6%', type: 'output', style: 'text-align:center'},
+      {caption: ['회차','회차'], 			ref: 'clclnSeqNm', 		width: '6%', type: 'output', style: 'text-align:center'},
       {caption: ['정산가능액(A)\n(원)','정산가능액(A)\n(원)'], 			ref: 'clclnPsbltyAmt', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['정산요청서','제출여부'], 			ref: 'clclnDmndSbmsnYn', 		width: '7%', type: 'output', style: 'text-align:center'},
       {caption: ['정산요청서','확인여부'], 			ref: 'clclnDmndAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},
@@ -811,13 +822,14 @@
       {caption: ['회차','회차'], 			ref: 'clclnSeqNm', 		width: '6%', type: 'output', style: 'text-align:center'},
       {caption: ['정산가능액(A)\n(원)','정산가능액(A)\n(원)'], 		ref: 'clclnPsbltyAmt', 		width: '10%', type: 'output', style: 'text-align:right', typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['정산요청액\n(원)','정산요청액\n(원)'], 			ref: 'clclnDmndAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['정산인정액(B)\n(원)','정산인정액(B)\n(원)'], 		ref: 'clclnAprvAmt', 		width: '10%', type: isAdmin ? 'input' : 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['정산인정액(B)\n(원)','정산인정액(B)\n(원)'], 		ref: 'clclnAprvAmt', 		width: '10%', type: isAdmin ? 'input' : 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'} ,userattr: {colNm: "clclnAprvAmt"}},
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','합계'], 			ref: 'blncTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['집행률(%)','집행률(%)'], 			ref: 'implRt', 		width: '9%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number'/*,rule:'0.0%'*/}},
     ];
     gridClclnRslt = _SBGrid.create(SBGridProperties);
+    gridClclnRslt.bind('valuechanged','fn_gridRsltValueChange');
   }
 
 
@@ -948,10 +960,13 @@
     brno = "${loginVO.brno}";
     </c:if>
 
+    const clclnSeq = SBUxMethod.get('dtl-slt-clclnSeq');
+
     const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtClclnRsltList.do", {
       crtrYr: crtrYr,
       brno: brno,
       corpNm: corpNm,
+      clclnSeq : clclnSeq
     });
     const data = await postJsonPromise;
 
@@ -1369,20 +1384,32 @@
   const fn_checkAll = function (grid, obj, gridName) {
 
     const checkedYn = obj.checked ? "Y" : "N";
-    //체크박스 열 index
+    const allData = grid.getGridDataAll();
     const getColRef = grid.getColRef("checkedYn");
-    for (var i=0; i<grid.getGridDataAll().length; i++ ){
-      grid.setCellData(i+2, getColRef, checkedYn, true, false);
-    }
 
-    grid.refresh();
+    // 교부관리
+    if (_.isEqual(gridName, "gridDtbnMng")) {
+      for (let i = 0; i < allData.length; i++) {
+        grid.setCellData(i + 2, getColRef, checkedYn, true, false);
+      }
 
-    if (_.isEqual(gridName,"gridDtbnMng")) {
+      grid.refresh();
       fn_setTotal();
-    } else if (_.isEqual(gridName,"gridClclnAply")) {
-      const allData = gridClclnAply.getGridDataAll();
-      if (!gfn_isEmpty(allData)) {
-        const filteredData = allData.filter(row => row.corpNm !== "합계");
+
+    } else if (_.isEqual(gridName, "gridClclnAply")) { // 정산신청
+      for (let i = 0; i < allData.length; i++) {
+        const row = allData[i];
+
+        if (row.clclnSeq !== 99) {
+          grid.setCellData(i + 2, getColRef, checkedYn, true, false);
+        } else {
+          grid.setCellData(i + 2, getColRef, "N", true, false);
+        }
+      }
+      grid.refresh();
+      // 합계 제외하고 다시 계산
+      const filteredData = allData.filter(row => row.clclnSeq !== 99);
+      if (!gfn_isEmpty(filteredData)) {
         fn_calcClclnAplySum(filteredData);
       }
     }
@@ -1556,12 +1583,14 @@
     </c:if>
 
     const clclnSbmsnYn = SBUxMethod.get('dtl-slt-clclnAplyAtch');
+    const clclnSeq = SBUxMethod.get('dtl-slt-clclnSeq');
 
     const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizClclnAplyList.do", {
       crtrYr: crtrYr,
       brno: brno,
       corpNm: corpNm,
-      sbmsnYn : clclnSbmsnYn
+      sbmsnYn : clclnSbmsnYn,
+      clclnSeq : clclnSeq
     });
     const data = await postJsonPromise;
 
@@ -1573,63 +1602,68 @@
           const excelAtchFileSn = item.excelAtchFileSn;
           const chkAtchFileSn = item.chkAtchFileSn;
 
-          // 제출여부
-          let sbmsnYn;
-          const isAplySbmsn  = !gfn_isEmpty(aplyAtchFileSn)  && !_.isEqual(aplyAtchFileSn, 0);
-          const isExcelSbmsn = !gfn_isEmpty(excelAtchFileSn) && !_.isEqual(excelAtchFileSn, 0);
-          const isChkSbmsn   = !gfn_isEmpty(chkAtchFileSn)   && !_.isEqual(chkAtchFileSn, 0);
+          let sbmsnYn = null;
+          let aplyAprvYnNm = null;
+          let excelAprvYnNm = null;
+          let chkAprvYnNm = null;
 
-          const isAplyChg  = _.isEqual(item.aplyChgYn, "Y") && isAplySbmsn;
-          const isExcelChg = _.isEqual(item.excelChgYn, "Y") && isExcelSbmsn;
-          const isChkChg   = _.isEqual(item.chkChgYn, "Y") && isChkSbmsn;
+          if (item.clclnSeq !== 99) {
+            // 제출여부
+            const isAplySbmsn = !gfn_isEmpty(aplyAtchFileSn) && !_.isEqual(aplyAtchFileSn, 0);
+            const isExcelSbmsn = !gfn_isEmpty(excelAtchFileSn) && !_.isEqual(excelAtchFileSn, 0);
+            const isChkSbmsn = !gfn_isEmpty(chkAtchFileSn) && !_.isEqual(chkAtchFileSn, 0);
 
-          // 3개중 한개라도 제출변경
-          if (isAplyChg || isExcelChg || isChkChg) {
-            sbmsnYn = "제출(변경)";
-          // 3개중 한개라도 제출
-          } else if (isAplySbmsn || isExcelSbmsn || isChkSbmsn) {
-            sbmsnYn = "제출";
-          // 3개다 미제출
-          } else {
-            sbmsnYn = "미제출";
+            const isAplyChg = _.isEqual(item.aplyChgYn, "Y") && isAplySbmsn;
+            const isExcelChg = _.isEqual(item.excelChgYn, "Y") && isExcelSbmsn;
+            const isChkChg = _.isEqual(item.chkChgYn, "Y") && isChkSbmsn;
+
+            // 3개중 한개라도 제출변경
+            if (isAplyChg || isExcelChg || isChkChg) {
+              sbmsnYn = "제출(변경)";
+              // 3개중 한개라도 제출
+            } else if (isAplySbmsn || isExcelSbmsn || isChkSbmsn) {
+              sbmsnYn = "제출";
+              // 3개다 미제출
+            } else {
+              sbmsnYn = "미제출";
+            }
+
+            // 정산 요청서 확인여부
+
+            if (gfn_isEmpty(aplyAtchFileSn) || _.isEqual(aplyAtchFileSn, 0)) {
+              aplyAprvYnNm = null;
+            } else if (aplyAtchFileSn > 0 && gfn_isEmpty(item.aplyAprvYn)) {
+              aplyAprvYnNm = "미확인";
+            } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn, "Y")) {
+              aplyAprvYnNm = "확인";
+            } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn, "N")) {
+              aplyAprvYnNm = "수정요청";
+            }
+
+            // 엑셀 세부내역서 확인여부
+
+            if (gfn_isEmpty(excelAtchFileSn) || _.isEqual(excelAtchFileSn, 0)) {
+              excelAprvYnNm = null;
+            } else if (excelAtchFileSn > 0 && gfn_isEmpty(item.excelAprvYn)) {
+              excelAprvYnNm = "미확인";
+            } else if (excelAtchFileSn > 0 && _.isEqual(item.excelAprvYn, "Y")) {
+              excelAprvYnNm = "확인";
+            } else if (excelAtchFileSn > 0 && _.isEqual(item.excelAprvYn, "N")) {
+              excelAprvYnNm = "수정요청";
+            }
+
+            // 체크리스트 확인여부
+
+            if (gfn_isEmpty(chkAtchFileSn) || _.isEqual(chkAtchFileSn, 0)) {
+              chkAprvYnNm = null;
+            } else if (chkAtchFileSn > 0 && gfn_isEmpty(item.chkAprvYn)) {
+              chkAprvYnNm = "미확인";
+            } else if (chkAtchFileSn > 0 && _.isEqual(item.chkAprvYn, "Y")) {
+              chkAprvYnNm = "확인";
+            } else if (chkAtchFileSn > 0 && _.isEqual(item.chkAprvYn, "N")) {
+              chkAprvYnNm = "수정요청";
+            }
           }
-
-          // 정산 요청서 확인여부
-          let aplyAprvYnNm;
-          if (gfn_isEmpty(aplyAtchFileSn) || _.isEqual(aplyAtchFileSn,0)) {
-            aplyAprvYnNm = null;
-          } else if (aplyAtchFileSn > 0 && gfn_isEmpty(item.aplyAprvYn)) {
-            aplyAprvYnNm = "미확인";
-          } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn,"Y")) {
-            aplyAprvYnNm = "확인";
-          } else if (aplyAtchFileSn > 0 && _.isEqual(item.aplyAprvYn,"N")) {
-            aplyAprvYnNm = "수정요청";
-          }
-
-          // 엑셀 세부내역서 확인여부
-          let excelAprvYnNm;
-          if (gfn_isEmpty(excelAtchFileSn) || _.isEqual(excelAtchFileSn,0)) {
-            excelAprvYnNm = null;
-          } else if (excelAtchFileSn > 0 && gfn_isEmpty(item.excelAprvYn)) {
-            excelAprvYnNm = "미확인";
-          } else if (excelAtchFileSn > 0 && _.isEqual(item.excelAprvYn,"Y")) {
-            excelAprvYnNm = "확인";
-          } else if (excelAtchFileSn > 0 && _.isEqual(item.excelAprvYn,"N")) {
-            excelAprvYnNm = "수정요청";
-          }
-
-          // 체크리스트 확인여부
-          let chkAprvYnNm;
-          if (gfn_isEmpty(chkAtchFileSn) || _.isEqual(chkAtchFileSn,0)) {
-            chkAprvYnNm = null;
-          } else if (chkAtchFileSn > 0 && gfn_isEmpty(item.chkAprvYn)) {
-            chkAprvYnNm = "미확인";
-          } else if (chkAtchFileSn > 0 && _.isEqual(item.chkAprvYn,"Y")) {
-            chkAprvYnNm = "확인";
-          } else if (chkAtchFileSn > 0 && _.isEqual(item.chkAprvYn,"N")) {
-            chkAprvYnNm = "수정요청";
-          }
-
           const vo = {
             sprtBizYr: item.sprtBizYr,
             sprtBizCd: item.sprtBizCd,
@@ -1638,6 +1672,7 @@
             brno : item.brno,
             crno : item.crno,
             clclnSeq : item.clclnSeq == 0 ? 1 : item.clclnSeq,
+            clclnSeqNm : item.clclnSeqNm,
             clclnPsbltyAmt : item.clclnPsbltyAmt,
             clclnDmndSbmsnYn : sbmsnYn,
             clclnDmndAprvYn : aplyAprvYnNm,
@@ -1671,10 +1706,11 @@
         document.querySelector('#clclnAplyList').innerText = data.resultList.length;
       }
       gridClclnAply.refresh();
+      fn_setClclnAplyCellStyle();
       // 정산신청 소계
       const allData = gridClclnAply.getGridDataAll();
       if (!gfn_isEmpty(allData)){
-        const filteredData = allData.filter(row => row.corpNm !== "합계");
+        const filteredData = allData.filter(row => row.clclnSeq !== 99);
         fn_calcClclnAplySum(filteredData);
       }
     } catch (e) {
@@ -1701,7 +1737,7 @@
     const col = gridClclnAply.getCol();
     const rowData = gridClclnAply.getRowData(row);
     //const userAttr = gridClclnAply.getColUserAttr(col);
-    if (gfn_isEmpty(rowData) || _.isEqual(rowData.corpNm,"합계")) {
+    if (gfn_isEmpty(rowData) || rowData.clclnSeq == 99) {
       SBUxMethod.refresh('dtl-slt-clclnAplySeq');
       return;
     }
@@ -3984,7 +4020,7 @@
       const checkedData = allData.filter(item => item.checkedYn === "Y");
 
       if (checkedData.length === 0) {
-        const filteredData = allData.filter(row => row.corpNm !== "합계");
+        const filteredData = allData.filter(row => row.clclnSeq !== 99);
         fn_calcClclnAplySum(filteredData);
       } else {
         fn_calcClclnAplySum(checkedData); // 선택
@@ -4064,6 +4100,9 @@
       if (item.clclnSeq == 99) {
         gridClclnRslt.setCellStyle('background-color', index +2 ,0, index+2 , gridClclnRslt.getCols()-1 ,'lightgrey');
         gridClclnRslt.setCellDisabled(index+2, 0, index+2, gridClclnRslt.getCols()-1,true);
+      } else {
+        gridClclnRslt.removeCellStyles(index +2 ,0, index+2 , gridClclnRslt.getCols()-1);
+        gridClclnRslt.setCellDisabled(index+2, 0, index+2, gridClclnRslt.getCols()-1,false);
       }
     });
   }
@@ -4091,6 +4130,36 @@
     window.open(url);
   }
 
+  function fn_setClclnAplyCellStyle() {
+    const gridDataAll = gridClclnAply.getGridDataAll();
+    if (gfn_isEmpty(gridDataAll)) return;
+
+    gridDataAll.forEach((item, index) =>{
+      if (item.clclnSeq == 99) {
+        gridClclnAply.setCellStyle('background-color', index +2 ,0, index+2 , gridClclnAply.getCols()-1 ,'lightgrey');
+        gridClclnAply.setCellDisabled(index+2, 0, index+2, gridClclnAply.getCols()-1,true);
+      } else {
+        gridClclnAply.removeCellStyles(index +2 ,0, index+2 , gridClclnAply.getCols()-1);
+        gridClclnAply.setCellDisabled(index+2, 0, index+2, gridClclnAply.getCols()-1,false);
+      }
+    });
+  }
+
+  function fn_gridRsltValueChange() {
+    const row = gridClclnRslt.getRow();
+    const col = gridClclnRslt.getCol();
+    const colNm = gridClclnRslt.getColUserAttr(col).colNm;
+    const rowData = gridClclnRslt.getRowData(row, false); // false : 'call by refrence'로 반환
+
+    if (gfn_isEmpty(rowData)) {
+      return;
+    }
+
+    if (_.isEqual(colNm,"clclnAprvAmt")) {
+      rowData.checkedYn = "Y";
+      gridClclnRslt.refresh();
+    }
+  }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
