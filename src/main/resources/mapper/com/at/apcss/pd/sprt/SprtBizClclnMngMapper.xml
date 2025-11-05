@@ -537,7 +537,7 @@
 
 
         /* 2차 정산가능액 : 1차잔액 합계 => ( 1차 정산요청액 - 1차 정산인정액 )  + ( 1차 정산가능액 - 1차 정산인정액 - 1차 불인정액(1차 정산요청액 - 1차 정산인정액) */
-        ((DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - SBC1.CLCLN_APRV_AMT - (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT))) AS CLCLN_PSBLTY_AMT,
+        ((NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)))) AS CLCLN_PSBLTY_AMT,
 
 
         NVL(SBC.CLCLN_SEQ, 2)                            AS CLCLN_SEQ,
@@ -1332,19 +1332,19 @@
               -- 정산가능액 합계(산지조직지원신청관리 배정액국비+자부담 합계)
               , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000                                         AS CLCLN_PSBLTY_AMT
               -- 정산요청액합계
-              , DMND_SUM.SUM_DMND_AMT                                                                   AS DMND_AMT_TOT
+              , NVL(DMND_SUM.SUM_DMND_AMT,0)                                                                   AS DMND_AMT_TOT
               -- 정산인정액
-              , SBC.CLCLN_APRV_AMT                                                                      AS CLCLN_APRV_AMT
+              , NVL(SBC.CLCLN_APRV_AMT,0)                                                                      AS CLCLN_APRV_AMT
               -- 불인정 (1차정산요청액-1차정산인정액)
-              , DMND_SUM.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT                                              AS CLCLN_RJCT_AMT
+              , NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)                                              AS CLCLN_RJCT_AMT
               -- 미사용액(1차 정산가능액 - 1차정산인정액 - 불인정액)
-              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 - SBC.CLCLN_APRV_AMT -
-                (DMND_SUM.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT)                                            AS UNUSE_AMT
+              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 - NVL(SBC.CLCLN_APRV_AMT,0) -
+                (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0))                                            AS UNUSE_AMT
               -- 합계
-              , (DMND_SUM.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT) + (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 -
-                SBC.CLCLN_APRV_AMT - (DMND_SUM.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT)                       AS BLNC_TOT
+              , (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) + (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 -
+                NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0))                       AS BLNC_TOT
               -- 집행률
-              , ROUND(SBC.CLCLN_APRV_AMT / (NULLIF((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)), 0)*1000) * 100,3) AS IMPL_RT
+              , ROUND(NVL(SBC.CLCLN_APRV_AMT,0) / (NULLIF((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)), 0)*1000) * 100,3) AS IMPL_RT
 
             FROM TB_EV_SPRT_BIZ_OGNZ SBO
 
@@ -1404,20 +1404,20 @@
               , '2차' AS CLCLN_SEQ_NM
 
               -- 정산가능액(1차 잔액 합계)
-              , ((DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - SBC1.CLCLN_APRV_AMT - (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT))) AS CLCLN_PSBLTY_AMT
+              , ((NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)))) AS CLCLN_PSBLTY_AMT
               -- 정산요청액합계
-              , DMND_SUM_2.SUM_DMND_AMT                                                                   AS DMND_AMT_TOT
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0)                                                                   AS DMND_AMT_TOT
               -- 정산인정액
-              , SBC.CLCLN_APRV_AMT                                                                      AS CLCLN_APRV_AMT
+              , NVL(SBC.CLCLN_APRV_AMT,0)                                                                      AS CLCLN_APRV_AMT
               -- 불인정 (2차정산요청액 - 2차정산인정액)
-              , DMND_SUM_2.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT                                              AS CLCLN_RJCT_AMT
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)                                              AS CLCLN_RJCT_AMT
               -- 미사용액(2차정산가능액 - 2차정산인정액 - 불인정액)
-              , (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - SBC1.CLCLN_APRV_AMT - (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT)) - SBC.CLCLN_APRV_AMT - (DMND_SUM_2.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT) AS UNUSE_AMT
+              , (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) AS UNUSE_AMT
               -- 잔액합계
-              , (DMND_SUM_2.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT) +
-                (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - SBC1.CLCLN_APRV_AMT - (DMND_SUM_1.SUM_DMND_AMT - SBC1.CLCLN_APRV_AMT)) - SBC.CLCLN_APRV_AMT - (DMND_SUM_2.SUM_DMND_AMT - SBC.CLCLN_APRV_AMT) AS BLNC_TOT
+              , (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) +
+                (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) AS BLNC_TOT
               -- 2차집행률(1차 정산인정액 + 2차 정산인정액)/1차 정산가능액 * 100
-              , ROUND((SBC1.CLCLN_APRV_AMT + SBC.CLCLN_APRV_AMT) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0), 0) * 1000) * 100 ,3) AS IMPL_RT
+              , ROUND((NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC.CLCLN_APRV_AMT,0)) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0), 0) * 1000) * 100 ,3) AS IMPL_RT
 
             FROM TB_EV_SPRT_BIZ_OGNZ SBO
 
@@ -1493,18 +1493,18 @@
               -- 최종 정산가능액
               , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000                                         AS CLCLN_PSBLTY_AMT
               -- 최종 정산요청액
-              , DMND_SUM_1.SUM_DMND_AMT + DMND_SUM_2.SUM_DMND_AMT AS DMND_AMT_TOT
+              , NVL(DMND_SUM_1.SUM_DMND_AMT,0) + NVL(DMND_SUM_2.SUM_DMND_AMT,0) AS DMND_AMT_TOT
               -- 최종 정산인정액
-              , SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT AS CLCLN_APRV_AMT
-              -- 최종 불인정(1차정산가능액 - 합계정산인정액)
-              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 - ( SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT)  AS CLCLN_RJCT_AMT
-              -- 최종 미사용(최종정산가능액 - 최종정산인정액 - 최종불인정액)
-              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) *1000 - (SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT) - ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0))*1000 - ( SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT)) AS UNUSE_AMT
+              , NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC2.CLCLN_APRV_AMT,0) AS CLCLN_APRV_AMT
+              -- 최종 불인정(2차불인정)
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)  AS CLCLN_RJCT_AMT
+              -- 최종 미사용(2차미사용액)
+              , (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC2.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)) AS UNUSE_AMT
               -- 최종 잔액 합계 (최종불인정 + 최종미사용액)
               , ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0))*1000 - ( SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT)) +
                 (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0))*1000 - (SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT) - ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0))*1000 - ( SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT))AS BLNC_TOT
               -- 최종 집행률
-              , ROUND( (SBC1.CLCLN_APRV_AMT + SBC2.CLCLN_APRV_AMT) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0), 0)*1000) * 100 , 3) AS IMPL_RT
+              , ROUND((NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC2.CLCLN_APRV_AMT,0)) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0), 0)*1000) * 100 , 3) AS IMPL_RT
 
             FROM TB_EV_SPRT_BIZ_OGNZ SBO
 
