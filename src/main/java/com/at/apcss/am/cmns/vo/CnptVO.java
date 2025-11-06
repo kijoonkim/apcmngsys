@@ -128,4 +128,14 @@ public class CnptVO extends ComVO {
 	 * 사용여부
 	 * */
 	private String useYn;
+
+	/**
+	 * 거래처구분코드
+	 * */
+	private String cnptSeCd;
+	/**
+	 * 단가
+	 * */
+	private int untprc;
+
 }
