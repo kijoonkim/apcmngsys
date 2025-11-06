@@ -846,7 +846,7 @@
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','합계'], 			ref: 'blncTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['집행률(%)','집행률(%)'], 			ref: 'implRt', 		width: '9%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number'/*,rule:'0.0%'*/}},
+      {caption: ['집행률(%)','집행률(%)'], 			ref: 'implRt', 		width: '9%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number'}},
     ];
     gridClclnRslt = _SBGrid.create(SBGridProperties);
     gridClclnRslt.bind('valuechanged','fn_gridRsltValueChange');
