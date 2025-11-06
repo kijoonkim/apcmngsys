@@ -522,6 +522,7 @@
 	var excelYn = "N";
     var btnClick = "N";
     var pickedMarker;
+    var map;
 
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
@@ -567,7 +568,6 @@
 		fn_createCltvtnHstryPrdcr();
 		fn_createCltvtnFrmhsQlt();
 		fn_frmhsExpctWrhs();
-        fn_setLandInfo();
 
     	grdFrmhsExpctWrhs.refresh({"combo":true})
 
@@ -1055,7 +1055,7 @@
 	    ];
 	    grdLandInfo = _SBGrid.create(SBGridProperties);
 	    grdLandInfo.bind("afterimportexcel", setDataAfterImport);
-        grdLandInfo.bind('rowchanged', 'fn_setMarker');
+        grdLandInfo.bind('rowchanged', 'fn_clickLandInfo');
         grdLandInfo.bind('click', 'fn_setFrmerInfo');
 	}
 
@@ -2318,18 +2318,35 @@
 
         // 농지정보 탭으로 변경 시 맵 로드
         if(tab === 'landInfoTab') {
-            if(window.leafletMap) {
-                window.leafletMap.invalidateSize();
+            if(!map) {
+                // 맵 로드
+                map = new naver.maps.Map('map', {
+                    center: new naver.maps.LatLng(36.5, 127.8),
+                    zoom: 7,
+                    minZoom: 6,
+                    maxZoom: 18,
+                    mapTypeControl: true,
+                    mapTypeControlOptions: {
+                        style: naver.maps.MapTypeControlStyle.DROPDOWN,
+                        position: naver.maps.Position.TOP_LEFT
+                    }
+                });
+
+                // set 지적편집도
+                new naver.maps.CadastralLayer().setMap(map);
+
+                // 농지정보 목록 조회
+                fn_setLandInfo();
             }
         }
     }
 
     // 농지정보 목록 조회 시 마커 초기화
     function clearMarkers() {
-        if(!window.leafletMap) return;
+        if(!map) return;
 
         jsonMarker.forEach(function(marker) {
-            window.leafletMap.removeLayer(marker);
+            marker.setMap(null);
         });
 
         jsonMarker = [];
@@ -2337,29 +2354,25 @@
 
     // 농지정보 목록 조회 시
     function addMarker(lat, lng, label, stdgCd, frlnMno, frlnSno) {
-        if(!window.leafletMap) return;
+        if(!map) return;
 
-        let marker;
-
-        const svgIcon = L.divIcon({
-            className: 'blinking-icon',
-            html: `
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">
-                    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#59A1D5"/>
-                    <circle cx="12" cy="12" r="5" fill="white"/>
-                </svg>
-            `,
-            iconSize: [20, 30],    // 실제 렌더링 크기
-            iconAnchor: [7.5, 25],    // 기준점: 아래 중앙
-            popupAnchor: [0, -25]
+        const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(lng, lat),
+            map: map,
+            icon: {
+                content:
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">' +
+                        '<path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#59A1D5"/>' +
+                        '<circle cx="12" cy="12" r="5" fill="white"/>' +
+                    '</svg>',
+                anchor: new naver.maps.Point(7.5, 25)
+            }
         });
 
-        marker = L.marker([lng, lat], { icon: svgIcon }).addTo(window.leafletMap);
         jsonMarker.push(marker);
 
         if(label) {
-            marker.bindPopup(label);
-            marker.on('click', function(e) {
+            new naver.maps.Event.addListener(marker, 'click', function(e) {
                 SBUxMethod.openModal('modal-framldMap');
                 popFramldMap.init(gv_selectedApcCd, stdgCd, frlnMno, frlnSno);
             });
@@ -2367,8 +2380,8 @@
     }
 
     // 농지정보 목록 클릭 시
-    const fn_setMarker = async function() {
-        if(!window.leafletMap) return;
+    const fn_clickLandInfo = async function() {
+        if(!map) return;
 
         let rowData = grdLandInfo.getRowData(grdLandInfo.getRow());
         let lat = rowData.xcrd;
@@ -2377,35 +2390,32 @@
         if(gfn_isEmpty(lat) || gfn_isEmpty(lng)) return;
 
         if(pickedMarker) {
-            window.leafletMap.removeLayer(pickedMarker);
-            pickedMarker = null;
+            pickedMarker.setMap(null);
         }
 
-        const svgIcon = L.divIcon({
-            className: 'blinking-icon',
-            html: `
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">
-                    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#D55959"/>
-                    <circle cx="12" cy="12" r="5" fill="white"/>
-                </svg>
-            `,
-            iconSize: [20, 30],
-            iconAnchor: [7.5, 25],
-            popupAnchor: [0, -25]
+        var marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(lng, lat),
+            map: map,
+            icon: {
+                content:
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">' +
+                        '<path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#D55959"/>' +
+                        '<circle cx="12" cy="12" r="5" fill="white"/>' +
+                    '</svg>',
+                anchor: new naver.maps.Point(7.5, 25)
+            }
         });
 
-        let marker = L.marker([parseFloat(lng), parseFloat(lat)], { icon: svgIcon }).addTo(window.leafletMap).bindPopup("(" + rowData.prdcrNm + ") " + rowData.frlnAddr).openPopup();
         pickedMarker = marker;
 
-        marker.on('click', function(e) {
+        new naver.maps.Event.addListener(marker, 'click', function(e) {
             SBUxMethod.openModal('modal-framldMap');
             popFramldMap.init(gv_selectedApcCd, rowData.stdgCd, rowData.frlnMno, rowData.frlnSno);
         });
 
-        window.leafletMap.setView([lng, lat], 18, {
-            animate: true,
-            duration: 0.8
-        });
+        const position = new naver.maps.LatLng(lng, lat);
+        map.setCenter(position);
+        map.setZoom(18);
     }
 
     const fn_zero = function(val) {
@@ -3879,6 +3889,5 @@
 	}
 
 </script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/leaflet.css">
-<script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
+<script type="text/javascript" charset="utf-8" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=2dy7azbx3m"></script>
 </html>
