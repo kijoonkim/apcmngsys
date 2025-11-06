@@ -807,13 +807,14 @@
 	var jsonComboPrdcrMngType = [];
 
 
-	var comboUnitCdJsData = [];
-	var comboGridBankCdJsData = [];
+	var comboUnitCdJsData 		= [];
+	var comboGridBankCdJsData 	= [];
 	var comboGridCnptTypeJsData = [];
-    var comboGridPltCnptJsData = [];
+    var comboGridPltCnptJsData 	= [];
 
-	var jsonComGdsSeCd = [];
-	var jsonComApcGdsSeCd = [];
+	var jsonComGdsSeCd 		= [];
+	var jsonComApcGdsSeCd 	= [];
+	var jsonComCnptSeCd		= []; // 거래처구분코드
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 		//SBUxMethod.set("inp-apcCd", gv_apcCd);
@@ -854,13 +855,14 @@
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000'),
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_selectedApcCd),
 			gfn_setComCdSBSelect('slt-prdcrMngType', jsonComboPrdcrMngType, 'PRDCR_MNG_TYPE'),
-
 			gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000"),
 			gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000"),
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
 			gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
+			gfn_setComCdGridSelect('grdCnpt', jsonComCnptSeCd, "CNPT_SE_CD", "0000"),
+
 		])
 
 		await selectApcEvrmntStng();
