@@ -2733,6 +2733,7 @@
 			, pt0.TOT_WGT - NVL(pt0.EMPTY_CAR_WGT, 0) AS REAL_WGT
 			, RTRIM(TO_CHAR(CASE WHEN NVL(pt0.PALLET_CNT, 0) = 0 THEN 0 ELSE pt0.BOX_CNT / pt0.PALLET_CNT END, 'FM9990.99'), '.') AS PALLET_PER_BOX
 			, pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL AS ADJ_WGT
+			, ROUND((pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL) / pt0.QNTT, 1) AS BOX_PER_ADJ_WGT
 		  FROM (
 			SELECT
 				  WC.APC_CD                                              AS APC_CD
@@ -2765,6 +2766,7 @@
 				, INV.WRHS_YMD                                           AS PO_DATE
 				, INV.WRHS_QNTT                                          AS GOODS_CNT
 				, INV.WRHS_WGHT                                          AS GOODS_WGT
+				, PC.QNTT                                                AS QNTT
 				, PC.WGHT_TOTAL                                          AS WGHT_TOTAL
 			  FROM TB_WGH_PRFMNC_COM WC
 			 INNER JOIN TB_WGH_PRFMNC_DTL WD
@@ -2785,6 +2787,7 @@
 			  		WS.APC_CD,
 			  		WS.JOB_YMD,
 			  		WS.PRCS_NO,
+			  		SUM(CASE WHEN WS.PLT_BX_SE_CD = 'B' THEN WS.QNTT ELSE 0 END) AS QNTT,
 			  		SUM(BI.UNIT_WGHT * WS.QNTT) AS WGHT_TOTAL
 			  	FROM TB_PLT_WRHS_SPMT WS
 			  		JOIN TB_PLT_BX_INFO BI
