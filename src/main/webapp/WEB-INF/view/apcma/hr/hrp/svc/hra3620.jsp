@@ -266,6 +266,7 @@
         SBGridProperties.jsonref 			= 'jsonServiceFeeList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.selectmode = 'free';
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
@@ -1163,7 +1164,6 @@
     							item.NATION_CODE 	= earner["HBTN_NTN_CD"] || '';
     							item.TXN_ID 		= 0;
 
-    							console.log(item);
     							TOT_AMOUNT += Number(item.TOT_AMOUNT);
     							TOT_PAY_AMT += Number(item.TOT_PAY_AMT);
     							gvwInfo.addRow(true, item);
