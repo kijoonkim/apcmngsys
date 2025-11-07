@@ -2735,7 +2735,6 @@
 			, pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL AS ADJ_WGT
 		  FROM (
 			SELECT
-				-- 계량실적 공통 정보
 				  WC.APC_CD                                              AS APC_CD
 				, WC.WGHNO                                               AS PO_NO
 				, WC.WGH_YMD                                             AS IC_DATE
