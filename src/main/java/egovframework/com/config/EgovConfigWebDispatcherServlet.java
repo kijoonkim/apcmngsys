@@ -3,6 +3,7 @@ package egovframework.com.config;
 import java.util.List;
 import java.util.Properties;
 
+import egovframework.com.cmm.interceptor.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
-import egovframework.com.cmm.interceptor.AuthenticInterceptor;
-import egovframework.com.cmm.interceptor.CustomAuthenticInterceptor;
-import egovframework.com.cmm.interceptor.HttpInterceptor;
-import egovframework.com.cmm.interceptor.MobileAuthenticInterceptor;
 import egovframework.com.cmm.service.EgovProperties;
 
 /**
@@ -92,7 +89,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/report/**",
 				"/api/mobile/**/*",
 				"/hr/hrp/rep/selectHrp2436Report.do",
-				"/hr/hrp/svc/selectHra3630Report.do"
+				"/hr/hrp/svc/selectHra3630Report.do",
+				"mainApcDashboard.do"
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
@@ -102,7 +100,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/uat/uia/**",
 				"/saveExcel.do",
 				"/report/**",
-				"/api/mobile/**/*");
+				"/api/mobile/**/*",
+				"mainApcDashboard.do");
 		registry.addInterceptor(mobileAuthenticInterceptor())
 			.addPathPatterns(
 				"/api/mobile/**/*")
@@ -115,6 +114,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/api/mobile/js/**",
 				"/api/mobile/plugins/**",
 				"/api/mobile/bootstrap/**");
+		registry.addInterceptor(adminAuthorizationInterceptor())
+			.addPathPatterns("/mainApcDashboard.do");
 		registry.addInterceptor(new HttpInterceptor())
 			.addPathPatterns(
 					"/**")
@@ -129,6 +130,11 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 	@Bean
 	public MobileAuthenticInterceptor mobileAuthenticInterceptor() {
 	    return new MobileAuthenticInterceptor();
+	}
+
+	@Bean
+	public AdminAuthorizationInterceptor adminAuthorizationInterceptor() {
+		return new AdminAuthorizationInterceptor();
 	}
 
 	// -------------------------------------------------------------

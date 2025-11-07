@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="ko" style="margin: 0!important;">
 <head>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
@@ -86,11 +87,14 @@
             max-width: 75vw;
             width: 75vw;
         }
+        .btn{
+            min-height: initial!important;
+        }
     </style>
 </head>
 <body>
 <div class="page" style="max-height: 100%">
-    <div id="react-dashboard-root"></div>
+    <div id="react-dashboard-root" data-app-props='<c:out value="${gv_selectedApcCd}"/>'></div>
     <div class="container-xl">
         <div class="page-header">
             <div class="row align-items-center justify-content-between" style="height: auto;">
@@ -391,8 +395,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
 <script src="${pageContext.request.contextPath}/js/out/dashboard.bundle.js" type="module"></script>
 <script src="${pageContext.request.contextPath}/api/mobile/js/pages/dashboard.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/agentDashboard.css">
-<script src="${pageContext.request.contextPath}/js/out/agentDashboard.bundle.js?v={{$timestamp}}" type="module"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="/static/bundles/dashboard.css">
+<script type="module" src="/static/bundles/dashboard.js"></script>
+
 </body>
 </html>
 

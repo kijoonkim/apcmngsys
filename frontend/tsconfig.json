@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["jquery"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@apps/*": ["src/react/apps/*"],
+      "@shared/*": ["src/react/shared/*"],
+      "@ui/*": ["src/react/shared/components/ui/*"],
+      "@lib/*": ["src/react/shared/lib/*"],
+      "@hooks/*": ["src/react/shared/hooks/*"],
+      "@types/*": ["src/react/shared/types/*"],
+      "@assets/*": ["src/react/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@entries/*": ["src/entries/*"],
+      "@vanilla/*": ["src/vanilla/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}
