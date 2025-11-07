@@ -1,7 +1,7 @@
 // 헤더에서 로드된 전역 jQuery 사용
 const $ = (window as any).jQuery;
 if (!$) {
-    throw new Error("jQuery is not loaded. Make sure header.jsp includes it before this bundle.");
+  throw new Error('jQuery is not loaded. Make sure header.jsp includes it before this bundle.');
 }
 
 // jQuery 플러그인 (전역 jQuery에 붙음)

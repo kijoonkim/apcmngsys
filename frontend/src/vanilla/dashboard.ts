@@ -11,8 +11,8 @@ import $ from 'jquery';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import iconUrl       from 'leaflet/dist/images/marker-icon.png';
-import shadowUrl     from 'leaflet/dist/images/marker-shadow.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 L.Icon.Default.mergeOptions({ iconRetinaUrl, iconUrl, shadowUrl });
 
 // Chart.js / ApexCharts
@@ -23,9 +23,9 @@ import ApexCharts from 'apexcharts';
 
 // 지도 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    const mapEl = document.getElementById('map');
-    if (!mapEl) return;
-    const map = L.map(mapEl).setView([36.5, 127.8], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
-    (window as any).leafletMap = map;
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  const map = L.map(mapEl).setView([36.5, 127.8], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+  (window as any).leafletMap = map;
 });

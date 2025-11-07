@@ -11,11 +11,18 @@ import 'smartwizard/dist/css/smart_wizard_all.min.css';
 import smartWizardUrl from 'smartwizard/dist/js/jquery.smartWizard.min.js?url';
 
 declare global {
-    interface Window {
-        initSmartWizard?: (selector: string | HTMLElement | JQuery, options?: any) => Promise<JQuery>;
-        onSmartWizard?: (selector: string | HTMLElement | JQuery, eventName: string, handler: (...args: any[]) => void) => Promise<void>;
-        jQuery: any; $: any; Swal: typeof Swal; XLSX: typeof XLSX;
-    }
+  interface Window {
+    initSmartWizard?: (selector: string | HTMLElement | JQuery, options?: any) => Promise<JQuery>;
+    onSmartWizard?: (
+      selector: string | HTMLElement | JQuery,
+      eventName: string,
+      handler: (...args: any[]) => void,
+    ) => Promise<void>;
+    jQuery: any;
+    $: any;
+    Swal: typeof Swal;
+    XLSX: typeof XLSX;
+  }
 }
 
 const $: any = (window as any).jQuery || (window as any).$;
@@ -25,55 +32,61 @@ window.Swal = Swal;
 window.XLSX = XLSX;
 
 function toJQ(sel: string | HTMLElement | JQuery): JQuery {
-    if ((sel as any)?.jquery) return sel as JQuery;
-    if (sel instanceof HTMLElement) return $(sel);
-    return $(sel as string);
+  if ((sel as any)?.jquery) return sel as JQuery;
+  if (sel instanceof HTMLElement) return $(sel);
+  return $(sel as string);
 }
 
 // ⬇️ 유틸을 이 파일 안에 “정의” (export 불필요)
 let swLoaded = false;
 async function loadSmartWizard(): Promise<void> {
-    if (typeof $.fn.smartWizard === 'function') { swLoaded = true; return; }
-    if (swLoaded) return;
-    await new Promise<void>((resolve, reject) => {
-        const s = document.createElement('script');
-        s.src = smartWizardUrl;
-        s.onload = () => resolve();
-        s.onerror = (e) => reject(e);
-        document.head.appendChild(s);
-    });
-    if (typeof $.fn.smartWizard !== 'function') {
-        throw new Error('SmartWizard failed to attach to header jQuery.');
-    }
+  if (typeof $.fn.smartWizard === 'function') {
     swLoaded = true;
+    return;
+  }
+  if (swLoaded) return;
+  await new Promise<void>((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = smartWizardUrl;
+    s.onload = () => resolve();
+    s.onerror = (e) => reject(e);
+    document.head.appendChild(s);
+  });
+  if (typeof $.fn.smartWizard !== 'function') {
+    throw new Error('SmartWizard failed to attach to header jQuery.');
+  }
+  swLoaded = true;
 }
 
-async function initSmartWizard(selector: string | HTMLElement | JQuery, options: any = {}): Promise<JQuery> {
-    await loadSmartWizard();
-    const $el = toJQ(selector);
-    if ($el.length === 0) throw new Error(`initSmartWizard: element not found: ${selector}`);
+async function initSmartWizard(
+  selector: string | HTMLElement | JQuery,
+  options: any = {},
+): Promise<JQuery> {
+  await loadSmartWizard();
+  const $el = toJQ(selector);
+  if ($el.length === 0) throw new Error(`initSmartWizard: element not found: ${selector}`);
 
-    const merged = {
-        theme: 'arrows', // ← 너 원래 설정으로 복구
-        toolbar: { showNextButton: false, showPreviousButton: false, position: 'none' },
-        autoAdjustHeight: false,
-        transition: { animation: 'slideHorizontal', speed: 400 },
-        anchor: { enableDoneState: true },
-        ...options,
-    };
+  const merged = {
+    theme: 'arrows', // ← 너 원래 설정으로 복구
+    toolbar: { showNextButton: false, showPreviousButton: false, position: 'none' },
+    autoAdjustHeight: false,
+    transition: { animation: 'slideHorizontal', speed: 400 },
+    anchor: { enableDoneState: true },
+    ...options,
+  };
 
-    $el.smartWizard(merged);
-    return $el;
+  $el.smartWizard(merged);
+  return $el;
 }
 
 async function onSmartWizard(
-    selector: string | HTMLElement | JQuery,
-    eventName: string,
-    handler: (...args: any[]) => void
+  selector: string | HTMLElement | JQuery,
+  eventName: string,
+  handler: (...args: any[]) => void,
 ): Promise<void> {
-    await loadSmartWizard();
-    toJQ(selector).on(eventName, handler);
+  await loadSmartWizard();
+  toJQ(selector).on(eventName, handler);
 }
 
 (window as any).initSmartWizard = initSmartWizard;
-(window as any).onSmartWizard   = onSmartWizard;
+(window as any).onSmartWizard = onSmartWizard;

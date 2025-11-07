@@ -1,11 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import tailwindcss from '@tailwindcss/vite';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { readdirSync } from 'fs';
 
-// ✅ 이렇게 수정
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -32,7 +30,7 @@ function getVanillaEntries() {
 }
 
 export default defineConfig({
-    plugins: [react(), tailwindcss()],
+    plugins: [react()],
     base: './',
     publicDir: false,
 
@@ -84,5 +82,9 @@ export default defineConfig({
                 changeOrigin: true,
             }
         }
-    }
+    },
+
+    // ✅ PostCSS는 루트의 postcss.config.cjs가 자동으로 처리합니다
+    // Vite가 자동으로 postcss.config.cjs를 찾아서 사용하므로
+    // 여기서는 별도 설정이 필요 없습니다
 });

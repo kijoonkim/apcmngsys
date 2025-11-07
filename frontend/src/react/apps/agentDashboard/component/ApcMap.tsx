@@ -15,16 +15,15 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconAnchor: [12, 41], // 아이콘 앵커 위치
-    popupAnchor: [1, -34], // 팝업 앵커 위치
-    shadowSize: [41, 41]  // 그림자 크기
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconAnchor: [12, 41], // 아이콘 앵커 위치
+  popupAnchor: [1, -34], // 팝업 앵커 위치
+  shadowSize: [41, 41], // 그림자 크기
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
 // --- 아이콘 설정 끝 ---
-
 
 // --- 가상 데이터 로딩 및 처리 ---
 // ... (apcCoordCsvData 변수는 기존과 동일하게 유지) ...
@@ -71,437 +70,496 @@ const apcCoordCsvData = `SQL_APC_Name,Excel_Best_Match,Similarity_Score,Matched_
 // --- CSV 파싱 함수 수정 ---
 // (기존 코드와 동일, 문제 없음)
 const parseCoordCSV = (csvText) => {
-    const lines = csvText.trim().split('\n');
-    if (lines.length < 2) return [];
-    const headers = lines[0].split(',').map(h => h.trim());
-    console.log("CSV Headers:", headers);
+  const lines = csvText.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map((h) => h.trim());
+  console.log('CSV Headers:', headers);
 
-    const latIndex = headers.indexOf('Latitude_Y');
-    const lngIndex = headers.indexOf('Longitude_X');
-    const nameIndex1 = headers.indexOf('SQL_APC_Name');
-    const nameIndex2 = headers.indexOf('Excel_Best_Match');
-    const addrIndex = headers.indexOf('Matched_Address');
+  const latIndex = headers.indexOf('Latitude_Y');
+  const lngIndex = headers.indexOf('Longitude_X');
+  const nameIndex1 = headers.indexOf('SQL_APC_Name');
+  const nameIndex2 = headers.indexOf('Excel_Best_Match');
+  const addrIndex = headers.indexOf('Matched_Address');
 
-    if (latIndex === -1 || lngIndex === -1) {
-        console.error("CSV 파일에 필수 좌표 컬럼(Latitude_Y, Longitude_X)이 없습니다.");
-        return [];
+  if (latIndex === -1 || lngIndex === -1) {
+    console.error('CSV 파일에 필수 좌표 컬럼(Latitude_Y, Longitude_X)이 없습니다.');
+    return [];
+  }
+  if (nameIndex1 === -1 && nameIndex2 === -1) {
+    console.error('CSV 파일에 이름 컬럼(SQL_APC_Name 또는 Excel_Best_Match)이 없습니다.');
+    return [];
+  }
+
+  const data = [];
+  for (let i = 1; i < lines.length; i++) {
+    const values =
+      lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map((v) => v.replace(/^"|"$/g, '')) || [];
+
+    if (values.length !== headers.length || values.join('').trim() === '') {
+      if (values.join('').trim() !== '') {
+        console.warn(`CSV ${i + 1}번째 줄 파싱 오류. 건너뛰니다:`, lines[i]);
+      }
+      continue;
     }
-    if (nameIndex1 === -1 && nameIndex2 === -1) {
-        console.error("CSV 파일에 이름 컬럼(SQL_APC_Name 또는 Excel_Best_Match)이 없습니다.");
-        return [];
+
+    const lat = parseFloat(values[latIndex]);
+    const lng = parseFloat(values[lngIndex]);
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+      let apcName = '';
+      if (
+        nameIndex2 !== -1 &&
+        values[nameIndex2] &&
+        values[nameIndex2].trim() &&
+        values[nameIndex2].trim() !== '매칭 없음'
+      ) {
+        apcName = values[nameIndex2].trim();
+      } else if (nameIndex1 !== -1 && values[nameIndex1]) {
+        apcName = values[nameIndex1].trim();
+      } else {
+        apcName = `Unknown APC ${i}`;
+      }
+
+      const id = nameIndex1 !== -1 && values[nameIndex1] ? values[nameIndex1].trim() : `apc-${i}`;
+
+      data.push({
+        id: id,
+        apc_name: apcName,
+        address: addrIndex !== -1 ? values[addrIndex].trim() : '',
+        lat: lat,
+        lng: lng,
+      });
     }
-
-    const data = [];
-    for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map(v => v.replace(/^"|"$/g, '')) || [];
-
-        if (values.length !== headers.length || values.join('').trim() === '') {
-            if(values.join('').trim() !== '') {
-                console.warn(`CSV ${i+1}번째 줄 파싱 오류. 건너뛰니다:`, lines[i]);
-            }
-            continue;
-        }
-
-        const lat = parseFloat(values[latIndex]);
-        const lng = parseFloat(values[lngIndex]);
-
-        if (!isNaN(lat) && !isNaN(lng)) {
-            let apcName = '';
-            if (nameIndex2 !== -1 && values[nameIndex2] && values[nameIndex2].trim() && values[nameIndex2].trim() !== '매칭 없음') {
-                apcName = values[nameIndex2].trim();
-            } else if (nameIndex1 !== -1 && values[nameIndex1]) {
-                apcName = values[nameIndex1].trim();
-            } else {
-                apcName = `Unknown APC ${i}`;
-            }
-
-            const id = (nameIndex1 !== -1 && values[nameIndex1] ? values[nameIndex1].trim() : `apc-${i}`);
-
-            data.push({
-                id: id,
-                apc_name: apcName,
-                address: addrIndex !== -1 ? values[addrIndex].trim() : '',
-                lat: lat,
-                lng: lng,
-            });
-        }
-    }
-    console.log(`CSV 파싱 완료: ${data.length}개의 유효한 좌표 데이터 추출`);
-    return data;
+  }
+  console.log(`CSV 파싱 완료: ${data.length}개의 유효한 좌표 데이터 추출`);
+  return data;
 };
-
 
 // --- 유틸리티 함수 ---
 // (기존 코드와 동일, 문제 없음)
-const formatNumber = (num) => num ? num.toLocaleString('ko-KR') : '0';
+const formatNumber = (num) => (num ? num.toLocaleString('ko-KR') : '0');
 const getColorByValue = (value, max) => {
-    if (!value || max === 0) return '#edf2f7';
-    const ratio = value / max;
-    if (ratio > 0.8) return '#3182ce';
-    if (ratio > 0.6) return '#4299e1';
-    if (ratio > 0.4) return '#63b3ed';
-    if (ratio > 0.2) return '#90cdf4';
-    return '#bee3f8';
+  if (!value || max === 0) return '#edf2f7';
+  const ratio = value / max;
+  if (ratio > 0.8) return '#3182ce';
+  if (ratio > 0.6) return '#4299e1';
+  if (ratio > 0.4) return '#63b3ed';
+  if (ratio > 0.2) return '#90cdf4';
+  return '#bee3f8';
 };
-
 
 // --- 4. (개선) 시/도 이름 정규화 맵 ---
 // 기존 if/else 문을 대체할 객체 (관리가 더 쉬움)
 const provinceNormalizationMap = {
-    '경기': '경기도', '경기도': '경기도',
-    '강원': '강원도', '강원도': '강원도',
-    '충북': '충청북도', '충청북도': '충청북도',
-    '충남': '충청남도', '충청남도': '충청남도',
-    '전북': '전라북도', '전라북도': '전라북도',
-    '전남': '전라남도', '전라남도': '전라남도',
-    '경북': '경상북도', '경상북도': '경상북도',
-    '경남': '경상남도', '경상남도': '경상남도',
-    '제주': '제주특별자치도', '제주특별자치도': '제주특별자치도',
-    '서울': '서울특별시', '서울특별시': '서울특별시',
-    '부산': '부산광역시', '부산광역시': '부산광역시',
-    '대구': '대구광역시', '대구광역시': '대구광역시',
-    '인천': '인천광역시', '인천광역시': '인천광역시',
-    '광주': '광주광역시', '광주광역시': '광주광역시',
-    '대전': '대전광역시', '대전광역시': '대전광역시',
-    '울산': '울산광역시', '울산광역시': '울산광역시',
-    '세종': '세종특별자치시', '세종특별자치시': '세종특별자치시',
+  경기: '경기도',
+  경기도: '경기도',
+  강원: '강원도',
+  강원도: '강원도',
+  충북: '충청북도',
+  충청북도: '충청북도',
+  충남: '충청남도',
+  충청남도: '충청남도',
+  전북: '전라북도',
+  전라북도: '전라북도',
+  전남: '전라남도',
+  전라남도: '전라남도',
+  경북: '경상북도',
+  경상북도: '경상북도',
+  경남: '경상남도',
+  경상남도: '경상남도',
+  제주: '제주특별자치도',
+  제주특별자치도: '제주특별자치도',
+  서울: '서울특별시',
+  서울특별시: '서울특별시',
+  부산: '부산광역시',
+  부산광역시: '부산광역시',
+  대구: '대구광역시',
+  대구광역시: '대구광역시',
+  인천: '인천광역시',
+  인천광역시: '인천광역시',
+  광주: '광주광역시',
+  광주광역시: '광주광역시',
+  대전: '대전광역시',
+  대전광역시: '대전광역시',
+  울산: '울산광역시',
+  울산광역시: '울산광역시',
+  세종: '세종특별자치시',
+  세종특별자치시: '세종특별자치시',
 };
-
 
 // --- 메인 컴포넌트 ---
 const ApcMap = () => {
-    // State
-    const [apcMarkers, setApcMarkers] = useState([]);
-    const [regionalAggData, setRegionalAggData] = useState({ byProvince: {}, maxReceiving: 0, provinceItems: {} });
-    const [selectedProvince, setSelectedProvince] = useState(null);
-    const [loading, setLoading] = useState(true);
+  // State
+  const [apcMarkers, setApcMarkers] = useState([]);
+  const [regionalAggData, setRegionalAggData] = useState({
+    byProvince: {},
+    maxReceiving: 0,
+    provinceItems: {},
+  });
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    // --- 3. GeoJSON 레이어 저장을 위한 Ref ---
-    const geoJsonLayersRef = useRef({});
+  // --- 3. GeoJSON 레이어 저장을 위한 Ref ---
+  const geoJsonLayersRef = useRef({});
 
-    // 1. 데이터 로딩 (컴포넌트 마운트 시)
-    useEffect(() => {
-        // 실제 구현: fetch('/api/apc-coords-data')...
-        setTimeout(() => {
-            const parsedMarkers = parseCoordCSV(apcCoordCsvData);
-            setApcMarkers(parsedMarkers);
+  // 1. 데이터 로딩 (컴포넌트 마운트 시)
+  useEffect(() => {
+    // 실제 구현: fetch('/api/apc-coords-data')...
+    setTimeout(() => {
+      const parsedMarkers = parseCoordCSV(apcCoordCsvData);
+      setApcMarkers(parsedMarkers);
 
-            // --- 지역별 집계 로직 (개선됨) ---
-            const byProvince = {};
-            const provinceItems = {};
+      // --- 지역별 집계 로직 (개선됨) ---
+      const byProvince = {};
+      const provinceItems = {};
 
-            parsedMarkers.forEach(d => {
-                // 주소에서 시도 추출 (첫 번째 단어)
-                let provinceKey = d.address?.split(' ')[0] || '기타';
+      parsedMarkers.forEach((d) => {
+        // 주소에서 시도 추출 (첫 번째 단어)
+        let provinceKey = d.address?.split(' ')[0] || '기타';
 
-                // (개선) 정규화 맵을 사용하여 시도 이름 통일
-                let province = provinceNormalizationMap[provinceKey] || '기타';
+        // (개선) 정규화 맵을 사용하여 시도 이름 통일
+        let province = provinceNormalizationMap[provinceKey] || '기타';
 
-                if (!byProvince[province]) {
-                    byProvince[province] = { name: province, totalReceiving: 0, count: 0 };
-                    provinceItems[province] = [];
-                }
+        if (!byProvince[province]) {
+          byProvince[province] = { name: province, totalReceiving: 0, count: 0 };
+          provinceItems[province] = [];
+        }
 
-                // ... (임시 실적 데이터 생성 로직은 기존과 동일) ...
-                const receiving = Math.floor(Math.random() * 10000) + 1000;
-                byProvince[province].totalReceiving += receiving;
-                byProvince[province].count += 1;
+        // ... (임시 실적 데이터 생성 로직은 기존과 동일) ...
+        const receiving = Math.floor(Math.random() * 10000) + 1000;
+        byProvince[province].totalReceiving += receiving;
+        byProvince[province].count += 1;
 
-                const items = ['사과', '배', '감귤', '딸기', '참외', '수박', '토마토', '오이', '호박', '배추'];
-                const randomItems = items.sort(() => 0.5 - Math.random()).slice(0, Math.floor(Math.random() * 3) + 2);
-                randomItems.forEach(item => {
-                    const existingItem = provinceItems[province].find(pi => pi.item_name === item);
-                    const itemReceiving = Math.floor(Math.random() * 3000) + 500;
-                    const itemSorting = Math.floor(itemReceiving * (0.85 + Math.random() * 0.1));
-                    const itemShipping = Math.floor(itemSorting * (0.85 + Math.random() * 0.1));
+        const items = [
+          '사과',
+          '배',
+          '감귤',
+          '딸기',
+          '참외',
+          '수박',
+          '토마토',
+          '오이',
+          '호박',
+          '배추',
+        ];
+        const randomItems = items
+          .sort(() => 0.5 - Math.random())
+          .slice(0, Math.floor(Math.random() * 3) + 2);
+        randomItems.forEach((item) => {
+          const existingItem = provinceItems[province].find((pi) => pi.item_name === item);
+          const itemReceiving = Math.floor(Math.random() * 3000) + 500;
+          const itemSorting = Math.floor(itemReceiving * (0.85 + Math.random() * 0.1));
+          const itemShipping = Math.floor(itemSorting * (0.85 + Math.random() * 0.1));
 
-                    if (existingItem) {
-                        existingItem.receiving += itemReceiving;
-                        existingItem.sorting += itemSorting;
-                        existingItem.shipping += itemShipping;
-                    } else {
-                        provinceItems[province].push({
-                            item_name: item,
-                            receiving: itemReceiving,
-                            sorting: itemSorting,
-                            shipping: itemShipping,
-                        });
-                    }
-                });
+          if (existingItem) {
+            existingItem.receiving += itemReceiving;
+            existingItem.sorting += itemSorting;
+            existingItem.shipping += itemShipping;
+          } else {
+            provinceItems[province].push({
+              item_name: item,
+              receiving: itemReceiving,
+              sorting: itemSorting,
+              shipping: itemShipping,
             });
-
-            const maxReceiving = Math.max(0, ...Object.values(byProvince).map(p => p.totalReceiving));
-            setRegionalAggData({ byProvince, maxReceiving, provinceItems });
-
-            console.log('데이터 로딩 완료:', {
-                apcCount: parsedMarkers.length,
-                provinces: Object.keys(byProvince).length,
-            });
-
-            setLoading(false);
-        }, 500);
-    }, []); // 마운트 시 한 번만 실행 (의존성 배열: [])
-
-    // 2. GeoJSON 스타일 함수
-    const geoJsonStyle = (feature) => {
-        const provinceName = feature.properties.name;
-        const data = regionalAggData.byProvince[provinceName];
-        const value = data ? data.totalReceiving : 0;
-        const color = getColorByValue(value, regionalAggData.maxReceiving);
-        return {
-            fillColor: color,
-            weight: 2,
-            opacity: 1,
-            color: '#ffffff',
-            dashArray: '',
-            fillOpacity: 0.6
-        };
-    };
-
-    // 3. 마우스 오버 효과 함수
-    const highlightFeature = (e) => {
-        const layer = e.target;
-        layer.setStyle({
-            weight: 3,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.8
+          }
         });
-        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-            layer.bringToFront();
-        }
+      });
+
+      const maxReceiving = Math.max(0, ...Object.values(byProvince).map((p) => p.totalReceiving));
+      setRegionalAggData({ byProvince, maxReceiving, provinceItems });
+
+      console.log('데이터 로딩 완료:', {
+        apcCount: parsedMarkers.length,
+        provinces: Object.keys(byProvince).length,
+      });
+
+      setLoading(false);
+    }, 500);
+  }, []); // 마운트 시 한 번만 실행 (의존성 배열: [])
+
+  // 2. GeoJSON 스타일 함수
+  const geoJsonStyle = (feature) => {
+    const provinceName = feature.properties.name;
+    const data = regionalAggData.byProvince[provinceName];
+    const value = data ? data.totalReceiving : 0;
+    const color = getColorByValue(value, regionalAggData.maxReceiving);
+    return {
+      fillColor: color,
+      weight: 2,
+      opacity: 1,
+      color: '#ffffff',
+      dashArray: '',
+      fillOpacity: 0.6,
     };
+  };
 
-    const resetHighlight = (e) => {
-        const layer = e.target;
-        if (layer.feature) {
-            layer.setStyle(geoJsonStyle(layer.feature));
+  // 3. 마우스 오버 효과 함수
+  const highlightFeature = (e) => {
+    const layer = e.target;
+    layer.setStyle({
+      weight: 3,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.8,
+    });
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+  };
+
+  const resetHighlight = (e) => {
+    const layer = e.target;
+    if (layer.feature) {
+      layer.setStyle(geoJsonStyle(layer.feature));
+    }
+  };
+
+  // --- 5. (수정) onEachFeature ---
+  // 각 지역 레이어에 이벤트 핸들러를 바인딩하고, Ref에 레이어를 저장합니다.
+  const onEachFeature = (feature, layer) => {
+    const provinceName = feature.properties.name;
+
+    // (추가) Ref에 레이어 저장
+    geoJsonLayersRef.current[provinceName] = layer;
+
+    layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight,
+      click: (e) => {
+        if (geoJsonLayersRef.current) {
+          Object.values(geoJsonLayersRef.current).forEach((layerInstance) => {
+            // layerInstance가 유효하고, isTooltipOpen 함수가 있으며, 툴팁이 열려있는지 확인
+            if (
+              layerInstance &&
+              typeof layerInstance.isTooltipOpen === 'function' &&
+              layerInstance.isTooltipOpen()
+            ) {
+              layerInstance.closeTooltip(); // 해당 레이어의 툴팁을 닫음
+            }
+          });
         }
-    };
 
-    // --- 5. (수정) onEachFeature ---
-    // 각 지역 레이어에 이벤트 핸들러를 바인딩하고, Ref에 레이어를 저장합니다.
-    const onEachFeature = (feature, layer) => {
-        const provinceName = feature.properties.name;
+        const data = regionalAggData.byProvince[provinceName];
 
-        // (추가) Ref에 레이어 저장
-        geoJsonLayersRef.current[provinceName] = layer;
+        // 지역 선택 상태 업데이트
+        setSelectedProvince(provinceName);
 
-        layer.on({
-            mouseover: highlightFeature,
-            mouseout: resetHighlight,
-            click: (e) => {
-                if (geoJsonLayersRef.current) {
-                    Object.values(geoJsonLayersRef.current).forEach(layerInstance => {
-                        // layerInstance가 유효하고, isTooltipOpen 함수가 있으며, 툴팁이 열려있는지 확인
-                        if (layerInstance && typeof layerInstance.isTooltipOpen === 'function' && layerInstance.isTooltipOpen()) {
-                            layerInstance.closeTooltip(); // 해당 레이어의 툴팁을 닫음
-                        }
-                    });
-                }
-
-                const data = regionalAggData.byProvince[provinceName];
-
-                // 지역 선택 상태 업데이트
-                setSelectedProvince(provinceName);
-
-                const popupContent = `
+        const popupContent = `
                     <div style="font-family: 'Pretendard', sans-serif;">
                         <strong style="font-size: 14px;">${provinceName}</strong><br/>
                         <span style="font-size: 12px;">총 입고량(임시): ${formatNumber(data?.totalReceiving || 0)} kg</span><br/>
                         <span style="font-size: 12px;">APC 개수: ${data?.count || 0} 개소</span>
                     </div>
                  `;
-                L.popup()
-                    .setLatLng(e.latlng) // 클릭 이벤트의 latlng 사용
-                    .setContent(popupContent)
-                    .openOn(e.target._map);
-            }
-        });
+        L.popup()
+          .setLatLng(e.latlng) // 클릭 이벤트의 latlng 사용
+          .setContent(popupContent)
+          .openOn(e.target._map);
+      },
+    });
 
-        if (layer.bindTooltip) {
-            layer.bindTooltip(provinceName, {
-                sticky: true,
-                direction: 'center',
-                className: 'province-tooltip'
-            });
-        }
-    };
+    if (layer.bindTooltip) {
+      layer.bindTooltip(provinceName, {
+        sticky: true,
+        direction: 'center',
+        className: 'province-tooltip',
+      });
+    }
+  };
 
-
-    // --- 6. (추가) 지역별 자동 클릭 (투어) 효과 ---
-    useEffect(() => {
-        // 로딩이 끝났고, 집계 데이터가 있을 때만 실행
-        if (loading || Object.keys(regionalAggData.byProvince).length === 0) {
-            return;
-        }
-
-        // 데이터가 있는 시/도 이름 목록
-        const provincesToClick = Object.keys(regionalAggData.byProvince);
-        let currentIndex = 0;
-
-        // 3초 간격으로 실행
-        const intervalId = setInterval(() => {
-            // 목록 순환
-            if (currentIndex >= provincesToClick.length) {
-                currentIndex = 0;
-            }
-
-            const provinceName = provincesToClick[currentIndex];
-            const layer = geoJsonLayersRef.current[provinceName];
-
-            if (layer) {
-                // 팝업을 띄울 위치 계산 (지역의 중앙)
-                const center = layer.getBounds().getCenter();
-
-                // 'click' 이벤트를 강제로 발생시킴
-                // onEachFeature의 click 핸들러가 'e.latlng'과 'e.target'을 사용하므로,
-                // 해당 속성을 가진 가짜 이벤트 객체를 전달합니다.
-                layer.fire('click', {
-                    latlng: center,
-                    target: layer
-                });
-            }
-
-            currentIndex++;
-        }, 3000); // 3초 간격 (조절 가능)
-
-        // 컴포넌트가 언마운트되거나, 의존성이 변경되어 effect가 다시 실행될 때
-        // 기존의 인터벌을 정리합니다. (메모리 누수 방지)
-        return () => clearInterval(intervalId);
-
-        // 이 effect는 loading 또는 regionalAggData가 변경될 때마다 다시 실행됩니다.
-    }, [loading, regionalAggData]);
-
-
-    // --- 렌더링 ---
-    if (loading) {
-        return <div className="p-6 text-center">지역별 분석 데이터를 불러오는 중입니다...</div>;
+  // --- 6. (추가) 지역별 자동 클릭 (투어) 효과 ---
+  useEffect(() => {
+    // 로딩이 끝났고, 집계 데이터가 있을 때만 실행
+    if (loading || Object.keys(regionalAggData.byProvince).length === 0) {
+      return;
     }
 
-    const mapPosition = [36.5, 127.5];
-    const mapZoom = 7;
+    // 데이터가 있는 시/도 이름 목록
+    const provincesToClick = Object.keys(regionalAggData.byProvince);
+    let currentIndex = 0;
 
-    return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-pretendard h-full">
-            {/* 지도 영역 */}
-            <div className="lg:col-span-2 row-span-3 bg-white p-4 rounded-xl shadow h-full">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">지역별 분포 및 APC 위치</h2>
-                <MapContainer
-                    center={mapPosition}
-                    zoom={mapZoom}
-                    style={{ height: 'calc(100% - 60px)', width: '100%', borderRadius: '8px' }}
-                    scrollWheelZoom={true}
-                >
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {/* GeoJSON - key를 사용해 data 변경 시 리렌더링 강제 */}
-                    {southKoreaGeoJson && southKoreaGeoJson.features && (
-                        <GeoJSON
-                            key={JSON.stringify(regionalAggData.byProvince)}
-                            data={southKoreaGeoJson}
-                            style={geoJsonStyle}
-                            onEachFeature={onEachFeature}
-                        />
-                    )}
-                    {/* 마커 렌더링 */}
-                    {apcMarkers.map((marker) => (
-                        <Marker key={marker.id} position={[marker.lat, marker.lng]}>
-                            <Popup>
-                                <strong>{marker.apc_name}</strong><br/>
-                                {marker.address || '주소 정보 없음'}
-                            </Popup>
-                        </Marker>
-                    ))}
-                </MapContainer>
-                {/* 범례 */}
-                <div className="mt-2 flex items-center justify-end space-x-2 text-xs">
-                    <span className="font-semibold">입고량(임시):</span>
-                    <span className="w-4 h-4 inline-block bg-[#bee3f8] border border-gray-300"></span>
-                    <span>낮음</span>
-                    <span className="w-4 h-4 inline-block bg-[#63b3ed] border border-gray-300"></span>
-                    <span className="w-4 h-4 inline-block bg-[#3182ce] border border-gray-300"></span>
-                    <span>높음</span>
-                </div>
-            </div>
+    // 3초 간격으로 실행
+    const intervalId = setInterval(() => {
+      // 목록 순환
+      if (currentIndex >= provincesToClick.length) {
+        currentIndex = 0;
+      }
 
-            {/* 지역별 실적 표 */}
-            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">지역별 요약 (APC 수)</h3>
-                <table className="w-full text-sm text-left">
-                    <thead className="bg-gray-50">
-                    <tr>
-                        <th className="p-3 font-semibold">지역</th>
-                        <th className="p-3 font-semibold text-right">APC 수</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {Object.values(regionalAggData.byProvince)
-                        .sort((a, b) => b.count - a.count)
-                        .map(data => (
-                            <tr key={data.name} className={`border-b hover:bg-gray-50 ${selectedProvince === data.name ? 'bg-blue-50' : ''}`}>
-                                <td className="p-3 font-medium text-gray-800">{data.name}</td>
-                                <td className="p-3 text-gray-600 text-right">{data.count}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+      const provinceName = provincesToClick[currentIndex];
+      const layer = geoJsonLayersRef.current[provinceName];
 
-            {/* 품목별 요약 테이블 */}
-            <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar ">
-                <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">
-                    {selectedProvince ? `${selectedProvince} - 품목별 실적` : '품목별 실적'}
-                </h3>
-                {selectedProvince && regionalAggData.provinceItems?.[selectedProvince] ? (
-                    <table className="w-full text-sm text-left">
-                        <thead className="bg-gray-50 sticky top-0">
-                        <tr>
-                            <th className="p-3 font-semibold">품목</th>
-                            <th className="p-3 font-semibold text-right">입고(kg)</th>
-                            <th className="p-3 font-semibold text-right">선별(kg)</th>
-                            <th className="p-3 font-semibold text-right">출하(kg)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {regionalAggData.provinceItems[selectedProvince]
-                            .sort((a, b) => b.receiving - a.receiving)
-                            .map((item, idx) => (
-                                <tr key={idx} className="border-b hover:bg-gray-50">
-                                    <td className="p-3 font-medium text-gray-800">{item.item_name}</td>
-                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.receiving)}</td>
-                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.sorting)}</td>
-                                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.shipping)}</td>
+      if (layer) {
+        // 팝업을 띄울 위치 계산 (지역의 중앙)
+        const center = layer.getBounds().getCenter();
 
-                                </tr>
-                            ))}
-                        </tbody>
-                        <tfoot className="bg-gray-50 font-semibold sticky bottom-[-24px]">
-                        <tr className="border-t-2">
-                            <td className="p-3">합계</td>
-                            <td className="p-3 text-right">
-                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.receiving, 0))}
-                            </td>
-                            <td className="p-3 text-right">
-                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.sorting, 0))}
-                            </td>
-                            <td className="p-3 text-right">
-                                {formatNumber(regionalAggData.provinceItems[selectedProvince].reduce((sum, item) => sum + item.shipping, 0))}
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                ) : (
-                    <div className="text-center py-8 text-gray-500">
-                        <p className="mb-2">지도에서 지역을 선택하세요</p>
-                        <p className="text-xs">클릭하면 해당 지역의 품목별 실적을 확인할 수 있습니다</p>
-                    </div>
-                )}
-            </div>
+        // 'click' 이벤트를 강제로 발생시킴
+        // onEachFeature의 click 핸들러가 'e.latlng'과 'e.target'을 사용하므로,
+        // 해당 속성을 가진 가짜 이벤트 객체를 전달합니다.
+        layer.fire('click', {
+          latlng: center,
+          target: layer,
+        });
+      }
+
+      currentIndex++;
+    }, 3000); // 3초 간격 (조절 가능)
+
+    // 컴포넌트가 언마운트되거나, 의존성이 변경되어 effect가 다시 실행될 때
+    // 기존의 인터벌을 정리합니다. (메모리 누수 방지)
+    return () => clearInterval(intervalId);
+
+    // 이 effect는 loading 또는 regionalAggData가 변경될 때마다 다시 실행됩니다.
+  }, [loading, regionalAggData]);
+
+  // --- 렌더링 ---
+  if (loading) {
+    return <div className="p-6 text-center">지역별 분석 데이터를 불러오는 중입니다...</div>;
+  }
+
+  const mapPosition = [36.5, 127.5];
+  const mapZoom = 7;
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-pretendard h-full">
+      {/* 지도 영역 */}
+      <div className="lg:col-span-2 row-span-3 bg-white p-4 rounded-xl shadow h-full">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">지역별 분포 및 APC 위치</h2>
+        <MapContainer
+          center={mapPosition}
+          zoom={mapZoom}
+          style={{ height: 'calc(100% - 60px)', width: '100%', borderRadius: '8px' }}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {/* GeoJSON - key를 사용해 data 변경 시 리렌더링 강제 */}
+          {southKoreaGeoJson && southKoreaGeoJson.features && (
+            <GeoJSON
+              key={JSON.stringify(regionalAggData.byProvince)}
+              data={southKoreaGeoJson}
+              style={geoJsonStyle}
+              onEachFeature={onEachFeature}
+            />
+          )}
+          {/* 마커 렌더링 */}
+          {apcMarkers.map((marker) => (
+            <Marker key={marker.id} position={[marker.lat, marker.lng]}>
+              <Popup>
+                <strong>{marker.apc_name}</strong>
+                <br />
+                {marker.address || '주소 정보 없음'}
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+        {/* 범례 */}
+        <div className="mt-2 flex items-center justify-end space-x-2 text-xs">
+          <span className="font-semibold">입고량(임시):</span>
+          <span className="w-4 h-4 inline-block bg-[#bee3f8] border border-gray-300"></span>
+          <span>낮음</span>
+          <span className="w-4 h-4 inline-block bg-[#63b3ed] border border-gray-300"></span>
+          <span className="w-4 h-4 inline-block bg-[#3182ce] border border-gray-300"></span>
+          <span>높음</span>
         </div>
-    );
+      </div>
+
+      {/* 지역별 실적 표 */}
+      <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar">
+        <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">
+          지역별 요약 (APC 수)
+        </h3>
+        <table className="w-full text-sm text-left">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="p-3 font-semibold">지역</th>
+              <th className="p-3 font-semibold text-right">APC 수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.values(regionalAggData.byProvince)
+              .sort((a, b) => b.count - a.count)
+              .map((data) => (
+                <tr
+                  key={data.name}
+                  className={`border-b hover:bg-gray-50 ${selectedProvince === data.name ? 'bg-blue-50' : ''}`}
+                >
+                  <td className="p-3 font-medium text-gray-800">{data.name}</td>
+                  <td className="p-3 text-gray-600 text-right">{data.count}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* 품목별 요약 테이블 */}
+      <div className="bg-white p-6 rounded-xl shadow overflow-y-auto hide-scrollbar ">
+        <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-[-24px] bg-white">
+          {selectedProvince ? `${selectedProvince} - 품목별 실적` : '품목별 실적'}
+        </h3>
+        {selectedProvince && regionalAggData.provinceItems?.[selectedProvince] ? (
+          <table className="w-full text-sm text-left">
+            <thead className="bg-gray-50 sticky top-0">
+              <tr>
+                <th className="p-3 font-semibold">품목</th>
+                <th className="p-3 font-semibold text-right">입고(kg)</th>
+                <th className="p-3 font-semibold text-right">선별(kg)</th>
+                <th className="p-3 font-semibold text-right">출하(kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {regionalAggData.provinceItems[selectedProvince]
+                .sort((a, b) => b.receiving - a.receiving)
+                .map((item, idx) => (
+                  <tr key={idx} className="border-b hover:bg-gray-50">
+                    <td className="p-3 font-medium text-gray-800">{item.item_name}</td>
+                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.receiving)}</td>
+                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.sorting)}</td>
+                    <td className="p-3 text-gray-600 text-right">{formatNumber(item.shipping)}</td>
+                  </tr>
+                ))}
+            </tbody>
+            <tfoot className="bg-gray-50 font-semibold sticky bottom-[-24px]">
+              <tr className="border-t-2">
+                <td className="p-3">합계</td>
+                <td className="p-3 text-right">
+                  {formatNumber(
+                    regionalAggData.provinceItems[selectedProvince].reduce(
+                      (sum, item) => sum + item.receiving,
+                      0,
+                    ),
+                  )}
+                </td>
+                <td className="p-3 text-right">
+                  {formatNumber(
+                    regionalAggData.provinceItems[selectedProvince].reduce(
+                      (sum, item) => sum + item.sorting,
+                      0,
+                    ),
+                  )}
+                </td>
+                <td className="p-3 text-right">
+                  {formatNumber(
+                    regionalAggData.provinceItems[selectedProvince].reduce(
+                      (sum, item) => sum + item.shipping,
+                      0,
+                    ),
+                  )}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        ) : (
+          <div className="text-center py-8 text-gray-500">
+            <p className="mb-2">지도에서 지역을 선택하세요</p>
+            <p className="text-xs">클릭하면 해당 지역의 품목별 실적을 확인할 수 있습니다</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ApcMap;
