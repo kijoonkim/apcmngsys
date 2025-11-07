@@ -2369,48 +2369,109 @@ const gfnma_validateResidentNumber = function(residentNumber) {
 	return remainder === digits[12];
 }
 
-const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, PARAM_LIST, COMP_CODE, CLIENT_CODE  ){
+const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, PARAM_LIST, COMP_CODE, CLIENT_CODE  ) {
 
 	var paramObj = {
-		     V_P_DEBUG_MODE_YN      : ''
-		    ,V_P_LANG_ID            : ''
-		    ,V_P_COMP_CODE          : COMP_CODE
-		    ,V_P_CLIENT_CODE        : CLIENT_CODE
-		    ,V_P_BIZCOMP_ID_LIST    : BIZCOMP_ID_LIST
-		    ,V_P_WHERE_CLAUSE_LIST  : WHERE_CLAUSE_LIST
-		    ,V_P_PARAM_LIST         : PARAM_LIST
-		    ,V_P_FORM_ID            : ''
-		    ,V_P_MENU_ID            : ''
-		    ,V_P_PROC_ID            : ''
-		    ,V_P_USERID             : ''
-		    ,V_P_PC                 : ''
-    };
+		V_P_DEBUG_MODE_YN: ''
+		, V_P_LANG_ID: ''
+		, V_P_COMP_CODE: COMP_CODE
+		, V_P_CLIENT_CODE: CLIENT_CODE
+		, V_P_BIZCOMP_ID_LIST: BIZCOMP_ID_LIST
+		, V_P_WHERE_CLAUSE_LIST: WHERE_CLAUSE_LIST
+		, V_P_PARAM_LIST: PARAM_LIST
+		, V_P_FORM_ID: ''
+		, V_P_MENU_ID: ''
+		, V_P_PROC_ID: ''
+		, V_P_USERID: ''
+		, V_P_PC: ''
+	};
 
-    const postJsonPromise = gfn_postJSON("/com/comSelectListMulti.do", {
-    	getType				: 'json',
-    	workType			: 'Q',
-    	cv_count			: '1',
-    	params				: gfnma_objectToString(paramObj, true)
+	const postJsonPromise = gfn_postJSON("/com/comSelectListMulti.do", {
+		getType: 'json',
+		workType: 'Q',
+		cv_count: '1',
+		params: gfnma_objectToString(paramObj, true)
 	});
 
-    const data = await postJsonPromise;
-    try {
+	const data = await postJsonPromise;
+	try {
 		if (_.isEqual("S", data.resultStatus)) {
 			console.log(' gfn_bizComponentData data ==>', data);
-			if(!gfn_isEmpty(data.v_errorStr)){
+			if (!gfn_isEmpty(data.v_errorStr)) {
 				console.log(' ERROR COMPONENT==>', data.v_errorStr);
 			}
 			return data;
-    	} else {
+		} else {
 			console.log(' ERROR data ==>', data);
-      		alert(data.resultMessage);
-    	}
+			alert(data.resultMessage);
+		}
 
-    } catch (e) {
+	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
 		}
 		console.error("failed", e.message);
-    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-    }
+		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	}
 }
+
+	/**
+	 * 공통 코드맵 생성 유틸
+	 *
+	 * @param {string|Element|jQuery} root  기준 요소 (table / input / button 다 가능)
+	 * @param {Object} [options]
+	 *   - codeIndex:  코드가 들어있는 TD 인덱스 (기본 0)
+	 *   - nameIndex:  명칭이 들어있는 TD 인덱스 (기본 1)
+	 *   - useClosestDiv: true면 $(root).closest('div').find('tbody') 기준 (기본 true)
+	 *   - rowFilter: 행 포함 여부를 결정하는 콜백 (기본: "선택" 행, 빈 코드 행 스킵)
+	 *
+	 * @returns {Object} { 코드: 명칭 } 형태의 맵
+	 */
+	const gfnma_getCodeMap = function (root, options) {
+		var $root = $(root);
+
+		var opts = $.extend({
+			codeIndex: 0,
+			nameIndex: 1,
+			useClosestDiv: true,
+			rowFilter: function ($tr, idx) {
+				var $tds = $tr.find('td');
+				// TD 두 개 미만(예: colspan=2 "선택" 행) → 스킵
+				if ($tds.length < 2) return false;
+
+				var code = $.trim($tds.eq(this.codeIndex).text());
+				// 코드가 없거나 "선택"이면 스킵
+				if (!code || code === '선택') return false;
+
+				return true;
+			}
+		}, options);
+
+		// tbody 찾는 기준: 기존 gfnma_multiSelectGet 패턴 유지
+		var $tbody;
+		if (opts.useClosestDiv) {
+			$tbody = $root.closest('div').find('tbody').first();
+		} else {
+			// root가 table이면 그냥 그 안에서 찾기
+			$tbody = $root.find('tbody').first();
+		}
+
+		var map = {};
+
+		$tbody.find('tr').each(function (idx) {
+			var $tr = $(this);
+			if (!opts.rowFilter.call(opts, $tr, idx)) {
+				return; // continue
+			}
+
+			var $tds = $tr.find('td');
+			var code = $.trim($tds.eq(opts.codeIndex).text());
+			var name = $.trim($tds.eq(opts.nameIndex).text());
+
+			if (code) {
+				map[code] = name; // 예: map["1"] = "내국인"
+			}
+		});
+
+		return map;
+	};

@@ -330,6 +330,7 @@
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
         SBGridProperties.scrollbubbling = false;
+        SBGridProperties.filtering = true;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -347,14 +348,16 @@
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
+                ,filtering: {displayui : false}
             },
             {caption: ["지급확정"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
+                , filtering: {displayui : false}
             },
             {caption: ["지급회차"],         ref: 'SEQ',    type:'output',  	width:'50px',  style:'text-align:center', hidden: true},
-            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left', filtering: {displayui : false}},
+            {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left', filtering: {displayui : false}},
             {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '60px',
                 typeinfo: {
                     ref			: 'jsonWorkRegion',
@@ -363,37 +366,44 @@
                     itemcount	: 10
                 }
                 , disabled: true
+                , filtering: {displayui : false}
             },
             {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
+                , filtering: {displayui : false}
             },
             {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
+                , filtering: {displayui : false}
             },
             {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
+                , filtering: {displayui : false}
             },
             {caption: ["총 금액"],         ref: 'TOT_AMOUNT',    type:'output',  	width:'60px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+                , filtering: {displayui : false}
             },
             {caption: ["총 지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+                , filtering: {displayui : false}
             },
             {caption: ["총 공제액"],         ref: 'TOT_DEDUCT_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+                , filtering: {displayui : false}
             },
-            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'60px',  style:'text-align:left'},
-            {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'60px',  style:'text-align:left'},
-            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'110px',  style:'text-align:left'},
+            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'60px',  style:'text-align:left', filtering: {displayui : false}},
+            {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'60px',  style:'text-align:left', filtering: {displayui : false}},
+            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'110px',  style:'text-align:left', filtering: {displayui : false}},
             {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'combo',  	width:'75px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPayCycle',
@@ -402,11 +412,12 @@
                     itemcount	: 10
                 }
                 , disabled: true
+                , filtering: {displayui : false}
             },
-            {caption: ["휴대폰번호"], 		ref: 'TEL',   	    	type:'output', style:'text-align:left' ,width: '90px'}, 
+            {caption: ["휴대폰번호"], 		ref: 'TEL',   	    	type:'output', style:'text-align:left' ,width: '90px', filtering: {displayui : false}},
             {caption: ["SMS 발송시간"], 		ref: 'SMS_SNDNG_DT',   	type:'output', style:'text-align:left' ,width: '120px'}, 
-            {caption: ["이메일 주소"], 		ref: 'EMAIL',   	    type:'output', style:'text-align:left' ,width: '150px'},
-            {caption: ["Email 발송시간"], 	ref: 'MAIL_SEND_TM',   	type:'output', style:'text-align:left' ,width: '120px'},
+            {caption: ["이메일 주소"], 		ref: 'EMAIL',   	    type:'output', style:'text-align:left' ,width: '150px', filtering: {displayui : false}},
+            {caption: ["Email 발송시간"], 	ref: 'MAIL_SEND_TM',   	type:'output', style:'text-align:left' ,width: '120px', filtering: {displayui : false}},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);

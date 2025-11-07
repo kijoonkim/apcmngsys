@@ -63,6 +63,13 @@ public class MainController extends BaseController {
 		return doMainForSystemId(model, request, SystemId.CS);
 	}
 
+	@GetMapping("/mainApcDashboard.do")
+	public String doMainApcDashboard(Model model, HttpServletRequest request) {
+		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+		model.addAttribute("loginVO",loginVO);
+		return "main/dashboard";
+	}
+
 
 	public String doMainForSystemId (Model model, HttpServletRequest request, SystemId systemId) {
 
