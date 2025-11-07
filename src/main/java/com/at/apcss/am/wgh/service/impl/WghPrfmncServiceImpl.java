@@ -111,9 +111,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public List<WghPrfmncVO> selectWghPrfmncList(WghPrfmncVO wghPrfmncVO) throws Exception {
 
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncList(wghPrfmncVO);
-
-		return resultList;
+		return wghPrfmncMapper.selectWghPrfmncList(wghPrfmncVO);
 	}
 
 	@Override
@@ -123,7 +121,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		int pltQntt = wghPrfmncDtlList.size();
 		if (pltQntt == 0) {
-			return ComUtil.getResultMap("W0005", "팔레트정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "팔레트정보");	// W0005	{0}이/가 없습니다.
 		}
 
 		double totalWght = wghPrfmncVO.getWrhsWght();
@@ -135,7 +133,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 
 		if (totalBxQntt <= 0) {
-			return ComUtil.getResultMap("W0005", "박스수량");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "박스수량");	// W0005	{0}이/가 없습니다.
 		}
 
 		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
@@ -216,7 +214,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		int pltQntt = wghPrfmncDtlList.size();
 		if (pltQntt == 0) {
-			return ComUtil.getResultMap("W0005", "팔레트정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "팔레트정보");	// W0005	{0}이/가 없습니다.
 		}
 
 		double totalWght = wghPrfmncVO.getWrhsWght();
@@ -228,7 +226,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 
 		if (totalBxQntt <= 0) {
-			return ComUtil.getResultMap("W0005", "박스수량");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "박스수량");	// W0005	{0}이/가 없습니다.
 		}
 
 		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
@@ -309,7 +307,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
 
 		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
-			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "계량정보");	// W0005	{0}이/가 없습니다.
 		}
 
 		// 원물입고 실적 삭제 : 재고, 입고실적
@@ -355,7 +353,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public HashMap<String, Object> updateWghVhclPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
 
-		HashMap<String, Object> rtnObj = new HashMap<>();
+		HashMap<String, Object> rtnObj;
 		// 상세 변경 후 공통 변경
 		// int updatedCnt = wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
 
@@ -363,7 +361,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
 
 		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
-			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "계량정보");	// W0005	{0}이/가 없습니다.
 		}
 
 		// 원물입고 실적 삭제 : 재고, 입고실적
@@ -409,12 +407,12 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public HashMap<String, Object> deleteWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
 
-		HashMap<String, Object> rtnObj = new HashMap<>();
+		HashMap<String, Object> rtnObj;
 
 		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
 
 		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
-			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "계량정보");	// W0005	{0}이/가 없습니다.
 		}
 
 		if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
@@ -470,29 +468,21 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		return null;
 	}
 
-
 	@Override
 	public WghPrfmncDtlVO selectWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
-
-		WghPrfmncDtlVO resultVO = wghPrfmncMapper.selectWghPrfmncDtl(wghPrfmncDtlVO);
-
-		return resultVO;
+		return wghPrfmncMapper.selectWghPrfmncDtl(wghPrfmncDtlVO);
 	}
 
 	@Override
 	public List<WghPrfmncDtlVO> selectWghPrfmncDtlList(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
-
-		List<WghPrfmncDtlVO> resultList = wghPrfmncMapper.selectWghPrfmncDtlList(wghPrfmncDtlVO);
-
-		return resultList;
+		return wghPrfmncMapper.selectWghPrfmncDtlList(wghPrfmncDtlVO);
 	}
 
 	@Override
 	public HashMap<String, Object> insertWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
-
 		int insertedCnt = wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
 		if (insertedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량상세등록")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -501,7 +491,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> updateWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
 		int updatedCnt = wghPrfmncMapper.updateWghPrfmncDtl(wghPrfmncDtlVO);
 		if (updatedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량상세변경")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -510,7 +500,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> deleteWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception {
 		int deletedCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
 		if (deletedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량상세삭제".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량상세삭제")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -518,9 +508,8 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public HashMap<String, Object> deleteWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
 
-		HashMap<String, Object> rtnObj = new HashMap<>();
-
 		for ( WghPrfmncVO wghPrfmncVO : wghPrfmncList ) {
+			HashMap<String, Object> rtnObj = new HashMap<>();
 			rtnObj = deleteWghPrfmnc(wghPrfmncVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
@@ -532,21 +521,19 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public List<WghPrfmncVO> selectWghInfoWrhsMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoWrhsMngList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghInfoWrhsMngList(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghInfoSpmtMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoMngSpmtList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghInfoMngSpmtList(wghPrfmncVO);
 	}
 
 	@Override
 	public HashMap<String, Object> updateStrgLoctnCd(WghPrfmncVO wghPrfmncVO) throws Exception {
 		int updatedCnt = wghPrfmncMapper.updateStrgLoctnCd(wghPrfmncVO);
 		if (updatedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량정보변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량정보변경")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
@@ -556,7 +543,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
 
-			HashMap<String, Object> rtnObj = new HashMap<>();
+			HashMap<String, Object> rtnObj;
 
 			rtnObj = updateStrgLoctnCd(wghPrfmncVO);
 			if (rtnObj != null) {
@@ -577,54 +564,52 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public HashMap<String, Object> updateRdcdRt(WghPrfmncVO wghPrfmncVO) throws Exception {
 		int updatedCnt = wghPrfmncMapper.updateRdcdRt(wghPrfmncVO);
 		if (updatedCnt != 1) {
-			throw new EgovBizException(getMessage("E0003", "계량정보변경".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량정보변경")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
 		}
 		return null;
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghRcptWrhsList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptWrhsList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghRcptWrhsList(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghRcptSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptSpmtList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghRcptSpmtList(wghPrfmncVO);
 	}
 
 	@Override
 	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltDelList) throws Exception {
 		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
-		if(rtnObj != null){
+		if (rtnObj != null){
 			throw new EgovBizException();
 		}
 
 		/** 검품등급 삭제 **/
-		if(wghInspPrfmncVOList.size() > 0){
+		if (!wghInspPrfmncVOList.isEmpty()){
 			int delCnt = wghPrfmncMapper.deleteWghInspPrfmncList(wghInspPrfmncVOList);
-			if(delCnt != wghInspPrfmncVOList.size()){
+			if (delCnt != wghInspPrfmncVOList.size()){
 				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
 			}
 		}
 		String prcsNo = wghPrfmncList.get(0).getWghno();
 
 		/** plt/box 삭제 **/
-		if(pltDelList.size() > 0){
+		if (!pltDelList.isEmpty()){
 			for(PltWrhsSpmtVO vo : pltDelList){
 				if (prcsNo.equals(vo.getPrcsNo())) {
 					rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
 				}
-				if(rtnObj != null){
+				if (rtnObj != null){
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
 			}
 		}
 
-		if(pltWrhsSpmtList.size() > 0){
-			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
-				if(pltWrhsSpmtVO.getSn() == 0){
+		if (!pltWrhsSpmtList.isEmpty()){
+			for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
+				if (pltWrhsSpmtVO.getSn() == 0){
 					int sn = pltWrhsSpmtMapper.selectPltWrhsSpmtSN(pltWrhsSpmtVO);
 					pltWrhsSpmtVO.setSn(sn);
 				}
@@ -636,17 +621,19 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 		}
 		/** 계량이력 실적 생성 및 수정 **/
-		for(WghHstryVO vo : wghHstryVOList){
+		for (WghHstryVO vo : wghHstryVOList) {
 			vo.setWghno(prcsNo);
 		}
-		try{
+
+		try {
 			int hstryCnt = wghPrfmncMapper.mergeWghHstry(wghHstryVOList);
 
-		}catch (SQLException e){
-			throw new EgovBizException(getMessage("계량이력 생성중 에러가 발생했습니다."));
-		}catch (Exception e){
+		} catch (SQLException e) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량이력생성")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+		} catch (Exception e) {
 			throw new EgovBizException();
 		}
+
 		return null;
 	}
 
@@ -664,33 +651,21 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 			if (ComConstants.ROW_STS_INSERT.equals(wghPrfmncVO.getRowSts())) {
 
-				if ("RT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+				if (AmConstants.CON_WRHS_SPMT_TYPE_RCPT.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					insertWrhsList.add(wghPrfmncVO);
-				}
-
-				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+				} else if (AmConstants.CON_WRHS_SPMT_TYPE_DIST.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					insertSpmtList.add(wghPrfmncVO);
 				}
-
-
-			}
-
-			if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())) {
-
-				if ("RT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+			} else if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())) {
+				if (AmConstants.CON_WRHS_SPMT_TYPE_RCPT.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					updateWrhsList.add(wghPrfmncVO);
-				}
-				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+				} else if (AmConstants.CON_WRHS_SPMT_TYPE_DIST.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					updateSpmtList.add(wghPrfmncVO);
 				}
 			}
 		}
 
-		if (insertWrhsList != null && insertWrhsList.size() > 0) {
+		if (!insertWrhsList.isEmpty()) {
 
 			int groupId = 0;
 			int start = 1;
@@ -749,7 +724,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 insert **/
 						/** 검품등급 wghno set **/
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList != null && inspList.size() > 0){
+						if(inspList != null && !inspList.isEmpty()){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}
@@ -821,7 +796,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		}
 
-		if (insertSpmtList != null && insertSpmtList.size() > 0) {
+		if (!insertSpmtList.isEmpty()) {
 			int groupId = 0;
 			int start = 1;
 			String wghno = "";
@@ -926,7 +901,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
 				wghPrfmncDtlVO.setWghSn(seq);
 
-				if ("Y".equals(wghPrfmncVO.getSpmtPrfmncYn())) {
+				if (ComConstants.CON_YES.equals(wghPrfmncVO.getSpmtPrfmncYn())) {
 
 					SpmtPrfmncVO spmtPrfmncVO = new SpmtPrfmncVO();
 
@@ -964,7 +939,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 					List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectGdsInvntrList(gdsInvntrVO);
 
-					if (gdsInvntrList.size() > 0) {
+					if (!gdsInvntrList.isEmpty()) {
 						int remainderSpmtQntt = spmtPrfmncVO.getSpmtQntt();
 						// 출하량 만큼 재고 리스트에서 순차적으로 차감
 						for (GdsInvntrVO gdsInvntr : gdsInvntrList) {
@@ -1145,7 +1120,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 
 			// 출하시 강제 생성된 재고 등록
-			if (insertgdsInvntrList.size() > 0) {
+			if (!insertgdsInvntrList.isEmpty()) {
 
 				gdsInvntrService.insertGdsInvntrList(insertgdsInvntrList);
 
@@ -1153,7 +1128,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		}
 
-		if (updateWrhsList != null && updateWrhsList.size() > 0) {
+		if (!updateWrhsList.isEmpty()) {
 
 			int groupId = 0;
 			int start = 1;
@@ -1176,7 +1151,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 wghno set **/
 					String wghno = wghPrfmncVO.getWghno();
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList != null && inspList.size() > 0){
+					if (inspList != null && !inspList.isEmpty()){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -1203,7 +1178,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						/** 검품등급 wghno set **/
 						String wghno = wghPrfmncVO.getWghno();
 						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-						if(inspList != null && inspList.size() > 0){
+						if(inspList != null && !inspList.isEmpty()){
 							for(WghInspPrfmncVO vo : inspList){
 								vo.setWghno(wghno);
 							}
@@ -1220,7 +1195,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					}
 				}
 
-				if ("Y".equals(wghPrfmncVO.getNewYn())) {
+				if (ComConstants.CON_YES.equals(wghPrfmncVO.getNewYn())) {
 					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
 					String gdsSecd = wghPrfmncVO.getGdsSeCd();
 					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
@@ -1341,7 +1316,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		}
 
-		if (updateSpmtList != null && updateSpmtList.size() > 0) {
+		if (!updateSpmtList.isEmpty()) {
 			int groupId = 0;
 			int start = 1;
 
@@ -1381,7 +1356,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					/** 검품등급 wghno set **/
 					String wghno = wghPrfmncVO.getWghno();
 					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
-					if(inspList != null && inspList.size() > 0){
+					if(inspList != null && !inspList.isEmpty()){
 						for(WghInspPrfmncVO vo : inspList){
 							vo.setWghno(wghno);
 						}
@@ -1442,7 +1417,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
 				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
 
-				if ("Y".equals(wghPrfmncVO.getSpmtPrfmncYn())) {
+				if (ComConstants.CON_YES.equals(wghPrfmncVO.getSpmtPrfmncYn())) {
 					SpmtPrfmncVO spmtPrfmncVO = new SpmtPrfmncVO();
 
 					BeanUtils.copyProperties(wghPrfmncVO, spmtPrfmncVO);
@@ -1653,7 +1628,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					wghPrfmncDtlVO.setSpmtno(spmtno);
 				}
 
-				if ("Y".equals(wghPrfmncVO.getNewYn())) {
+				if (ComConstants.CON_YES.equals(wghPrfmncVO.getNewYn())) {
 					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
 					String gdsSecd = wghPrfmncVO.getGdsSeCd();
 					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
@@ -1699,19 +1674,17 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 
 			// 기존 출하 실적 삭제
-			if (spmtPrfmncList.size() > 0) {
+			if (!spmtPrfmncList.isEmpty()) {
 
 				spmtPrfmncService.deleteSpmtPrfmnc(spmtPrfmncList);
 			}
 
-
 			// 출하시 강제 생성된 재고 등록
-			if (insertgdsInvntrList.size() > 0) {
+			if (!insertgdsInvntrList.isEmpty()) {
 				gdsInvntrService.insertGdsInvntrList(insertgdsInvntrList);
 			}
 
 		}
-
 
 		return null;
 	}
@@ -1740,10 +1713,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public int insertWghOutVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
 			String wghno = wghPrfmncVO.getWghno();
 			WghPrfmncVO wghVO = wghPrfmncMapper.selectWghVhcl(wghPrfmncVO);
-			if(wghVO != null) {
+			if (wghVO != null) {
 				wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
 				wghPrfmncMapper.updateWghVhcl(wghPrfmncVO);
-			}else {
+			} else {
 				//wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
 				wghPrfmncMapper.insertWghVhcl(wghPrfmncVO);
 			}
@@ -1761,9 +1734,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public List<WghPrfmncVO> selectWghEntrVhclList(WghPrfmncVO wghPrfmnc) throws Exception {
-
-		List<WghPrfmncVO> result = wghPrfmncMapper.selectWghVhclList(wghPrfmnc);
-		return result;
+		return wghPrfmncMapper.selectWghVhclList(wghPrfmnc);
 	}
 
 	@Override
@@ -1815,14 +1786,12 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public List<WghPrfmncVO> selectWghRcptWrhsDtlList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptWrhsDtlList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghRcptWrhsDtlList(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghRcptSpmtDtlList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptSpmtDtlList(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghRcptSpmtDtlList(wghPrfmncVO);
 	}
 
 	@Override
@@ -1832,20 +1801,20 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public HashMap<String, Object> deleteWghPrfmncInspList(WghPrfmncVO wghPrfmncVO, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltWrhsSpmtVOList) throws Exception {
-		/** 계량실적 관련 삭제 **/
+		/* 계량실적 관련 삭제 */
 		HashMap<String, Object> rtnObj = deleteWghPrfmnc(wghPrfmncVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
-		/** 검품등급 삭제 **/
-		if(wghInspPrfmncVOList.size() > 0){
+		/* 검품등급 삭제 */
+		if (!wghInspPrfmncVOList.isEmpty()){
 			int delCnt = wghPrfmncMapper.deleteWghInspPrfmncList(wghInspPrfmncVOList);
 			if(delCnt != wghInspPrfmncVOList.size()){
 				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
 			}
 		}
-		/** 팔레트 불출관리 삭제 **/
-		if(pltWrhsSpmtVOList.size() > 0){
+		/* 팔레트 불출관리 삭제 */
+		if(!pltWrhsSpmtVOList.isEmpty()){
 			for(PltWrhsSpmtVO vo : pltWrhsSpmtVOList){
 				rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
 				if(rtnObj != null){
@@ -1863,35 +1832,33 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public List<WghPrfmncVO> selectWghPrfmncListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncListForSpmtReg(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghPrfmncListForSpmtReg(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghInfoForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoForSpmtReg(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectWghInfoForSpmtReg(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectInvntrListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectInvntrListForSpmtReg(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectInvntrListForSpmtReg(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectInvntrDtlListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectInvntrDtlListForSpmtReg(wghPrfmncVO);
-		return resultList;
+		return wghPrfmncMapper.selectInvntrDtlListForSpmtReg(wghPrfmncVO);
 	}
 
 	@Override
 	public HashMap<String, Object> insertSpmtPrfmncByWgh (SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByWgh(spmtPrfmncComVO);
+
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
+
 		String apcCd = spmtPrfmncComVO.getApcCd();
 		String wghno = spmtPrfmncComVO.getWghno();
 		String spmtno = spmtPrfmncComVO.getSpmtno();
@@ -1934,7 +1901,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 		for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncList) {
 
-
 			rtnObj = spmtPrfmncService.deleteSpmt(spmtPrfmncComVO);
 			if (rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));
@@ -1967,46 +1933,29 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public HashMap<String, Object> updateWghInfoDtlList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
-		//List<WghPrfmncVO> insertWrhsList = new ArrayList<>();
-		List<WghPrfmncVO> insertSpmtList = new ArrayList<>();
-		//List<WghPrfmncVO> updateWrhsList = new ArrayList<>();
-		List<WghPrfmncVO> updateSpmtList = new ArrayList<>();
 
-		HashMap<String, Object> resultMap;
+		List<WghPrfmncVO> insertSpmtList = new ArrayList<>();
+		List<WghPrfmncVO> updateSpmtList = new ArrayList<>();
 
 		for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
 
-			if (ComConstants.ROW_STS_INSERT.equals(wghPrfmncVO.getRowSts())) {
-
-
-				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+			if (ComConstants.ROW_STS_INSERT.equals(wghPrfmncVO.getRowSts())
+					&& AmConstants.CON_WRHS_SPMT_TYPE_DIST.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					insertSpmtList.add(wghPrfmncVO);
 				}
 
-
-			}
-
-			if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())) {
-
-
-				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
-
+			if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())
+					&& AmConstants.CON_WRHS_SPMT_TYPE_DIST.equals(wghPrfmncVO.getWrhsSpmtType())) {
 					updateSpmtList.add(wghPrfmncVO);
 				}
-			}
 		}
 
 
-		if (insertSpmtList != null && insertSpmtList.size() > 0) {
+		if (!insertSpmtList.isEmpty()) {
 			int groupId = 0;
 			int start = 1;
 			String wghno = "";
 			int seq = 1;
-			String pckgno = "";
-			String spmtno = "";
-			List<GdsInvntrVO> insertgdsInvntrList = new ArrayList<>();
-
 
 			for (WghPrfmncVO wghPrfmncVO : insertSpmtList) {
 
@@ -2091,24 +2040,18 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 
 
-		if (updateSpmtList != null && updateSpmtList.size() > 0) {
+		if (!updateSpmtList.isEmpty()) {
 			int groupId = 0;
 			int start = 1;
 
 			String pckgno = "";
 			String spmtno = "";
 
-			List<SpmtPrfmncVO> spmtPrfmncList = new ArrayList<>();
-			List<GdsInvntrVO> insertgdsInvntrList = new ArrayList<>();
-
 			for (WghPrfmncVO wghPrfmncVO : updateSpmtList) {
 
 				if (start == 1) {
 					groupId = wghPrfmncVO.getGroupId();
-
 					wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
-
-
 
 					String vhclno = wghPrfmncVO.getVhclno();
 
@@ -2125,7 +2068,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					if (groupId != wghPrfmncVO.getGroupId()) {
 						groupId = wghPrfmncVO.getGroupId();
 						wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
-
 
 						String vhclno = wghPrfmncVO.getVhclno();
 
@@ -2210,33 +2152,21 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					if ( 0 == wghPrfmncMapper.updateSpmtWghPrfmncDtl(wghPrfmncDtlVO)) {
 						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량실적상세 수정")));		// E0003	{0} 시 오류가 발생하였습니다.
 					}
-
-
 				}
 				start++;
 			}
-
-
-
 		}
-
 
 		return null;
 	}
 
 	@Override
 	public List<HashMap<String, Object>> selectWghPrfmncListForApi(WghPrfmncVO wghPrfmncVO) throws Exception {
-
-		List<HashMap<String, Object>> resultList = wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
-
-		return resultList;
+		return wghPrfmncMapper.selectWghPrfmncListForApi(wghPrfmncVO);
 	}
 
 	@Override
 	public List<WghPrfmncVO> selectWghPrfmncPltBxSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception {
-
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncPltBxSpmtList(wghPrfmncVO);
-
-		return resultList;
+		return wghPrfmncMapper.selectWghPrfmncPltBxSpmtList(wghPrfmncVO);
 	}
 }

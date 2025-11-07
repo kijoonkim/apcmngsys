@@ -334,4 +334,9 @@ public class AmConstants {
     public final static String CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO = "D3";		// 출하 강제 변경 (마이너스허용)
     public final static String CON_INVNTR_STTS_CD_FRCS_SORT_CREDIT = "S3";		// 선별 강제 생성 (신용)
 
+
+    public final static String  CON_WRHS_SPMT_TYPE_DIST = "DT";     // 출고
+    public final static String  CON_WRHS_SPMT_TYPE_RCPT = "RT";     // 입고
+    public final static String  CON_WRHS_SPMT_TYPE_TRSF = "TF";     //  이송
+
 }
