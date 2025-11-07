@@ -1824,8 +1824,8 @@ const gfn_gridRowPlusMinus = function(_event, _gubun, _nRow){
 		grdObj.setCellDisabled(grdObj.getRows() -1, 0, grdObj.getRows() -1, grdObj.getCols() -1, true);
 	}
 	if (_gubun === "DEL") {
-		if(grdObj.getRowStatus(_nRow) == 0 || grdObj.getRowStatus(_nRow) == 2){
-			var delVO = grdObj.getRowData(_nRow);
+		if (grdObj.getRowStatus(_nRow) === 0 || grdObj.getRowStatus(_nRow) === 2){
+			let delVO = grdObj.getRowData(_nRow);
 			const nonEmptyCount = Object.values(delVO).filter(v => v !== "" && v !== null && v !== undefined).length;
 			if(nonEmptyCount >= 2){
 				if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){

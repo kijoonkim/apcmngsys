@@ -49,34 +49,22 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 
 	@Override
 	public List<ComMenuVO> selectComMenuList(ComMenuVO comMenuVO) throws Exception {
-
-		List<ComMenuVO> menuList = comMenuMapper.selectComMenuList(comMenuVO);
-
-		return menuList;
+		return comMenuMapper.selectComMenuList(comMenuVO);
 	}
 
 	@Override
 	public List<ComMenuVO> selectMenuTreeList(ComMenuVO comMenuVO) throws Exception {
-
-		List<ComMenuVO> menuList = comMenuMapper.selectMenuTreeList(comMenuVO);
-
-		return menuList;
+		return comMenuMapper.selectMenuTreeList(comMenuVO);
 	}
 
 	@Override
 	public List<ComMenuVO> selectTopMenuList(ComMenuVO comMenuVO) throws Exception {
-
-		List<ComMenuVO> menuList = comMenuMapper.selectTopMenuList(comMenuVO);
-
-		return menuList;
+		return comMenuMapper.selectTopMenuList(comMenuVO);
 	}
 
 	@Override
 	public List<ComMenuVO> selectLeftMenuList(ComMenuVO comMenuVO) throws Exception {
-
-		List<ComMenuVO> menuList = comMenuMapper.selectLeftMenuList(comMenuVO);
-
-		return menuList;
+		return comMenuMapper.selectLeftMenuList(comMenuVO);
 	}
 
 	@Override
@@ -91,8 +79,7 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 
 	@Override
 	public List<ComMenuVO> selectMenuList(ComMenuVO comMenuVO) throws Exception {
-		List<ComMenuVO> menuList = comMenuMapper.selectMenuList(comMenuVO);
-		return menuList;
+		return comMenuMapper.selectMenuList(comMenuVO);
 	}
 
 	@Override
@@ -138,24 +125,6 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 	@Override
 	public HashMap<String, Object> multiSaveComUiList(List<ComUiVO> comUiList) throws Exception {
 
-		/*
-		List<ComMenuVO> menuInfoList = comUiList.get(0).getMenuInfoList();
-		
-		if (menuInfoList.size() > 0) {
-			menuInfoList.get(0).setSysLastChgPrgrmId(comUiList.get(0).getSysLastChgPrgrmId());
-			menuInfoList.get(0).setSysLastChgUserId(comUiList.get(0).getSysLastChgUserId());
-			
-			if (0 == updateMenu(menuInfoList.get(0))) {
-				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
-			}
-		}
-
-		if (!Objects.isNull(comUiList.get(0).getEntyId())) {
-			
-			
-		}
-		*/
-		
 		for (ComUiVO comUiVO : comUiList) {
 			
 			if (ComConstants.CON_ENTY_TYPE_CMNS_BUTTON.equals(comUiVO.getEntyType())) {
@@ -175,15 +144,12 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 			} else {
 				if (ComConstants.ROW_STS_INSERT.equals(comUiVO.getRowSts())){
 					if (0 == insertComUi(comUiVO)) {
-						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "저장")));		// E0003	{0} 시 오류가 발생하였습니다.
 					}
-				} else if (ComConstants.ROW_STS_UPDATE.equals(comUiVO.getRowSts())) {
-					if (0 == updateComUi(comUiVO)) {
-						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+				} else if (ComConstants.ROW_STS_UPDATE.equals(comUiVO.getRowSts()) && 0 == updateComUi(comUiVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "저장")));		// E0003	{0} 시 오류가 발생하였습니다.
 					}
-				} else {
-					
-				}
+
 			}
 		}
 		
@@ -192,11 +158,7 @@ public class ComMenuServiceImpl extends BaseServiceImpl implements ComMenuServic
 
 	@Override
 	public List<ComMenuVO> selectMenuListByType(ComMenuVO comMenuVO) throws Exception {
-		List<ComMenuVO> resultList = comMenuMapper.selectMenuListByType(comMenuVO);
-		return resultList;
+		return comMenuMapper.selectMenuListByType(comMenuVO);
 	}
-
-
-
 
 }

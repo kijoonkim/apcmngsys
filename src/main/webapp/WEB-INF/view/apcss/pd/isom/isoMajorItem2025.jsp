@@ -1334,14 +1334,19 @@
 			return;
 		}
 
-		const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
-		const keys = Object.getOwnPropertyNames(chkObj);
-		let upbrToAprvYn;
-		for (let i=0; i<keys.length; i++){
-			if (chkObj[keys[i]]) {
-				upbrToAprvYn = chkObj[keys[i]];
+		let upbrToAprvYn = "N";
+		try {
+			const chkObj = SBUxMethod.get("dtl-chk-upbrToAprv");		// 육성형을 승인형으로 조회할 것인가
+			const keys = Object.getOwnPropertyNames(chkObj);
+			for (let i=0; i<keys.length; i++){
+				if (chkObj[keys[i]]) {
+					upbrToAprvYn = chkObj[keys[i]];
+				}
 			}
+		} catch (e) {
+
 		}
+
 
 		try {
 
