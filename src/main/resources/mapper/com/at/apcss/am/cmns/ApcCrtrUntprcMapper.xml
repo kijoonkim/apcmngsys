@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcCrtrUntprcMapper.xml                                   			-->
+<!-- DESC : APC기준단가 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.11.07  	김 호        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper">
+
+	<!-- =================================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.selectApcCrtrUntprcList	  	-->
+	<!-- DESC : APC기준단가 목록 조회 		                            						-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2025.11.07  	kimho        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<select id="selectApcCrtrUntprcList" parameterType="com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO" resultType="com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.selectApcCrtrUntprcList */
+				   CC.CD_ID
+				 , CD.APC_CD
+				 , CD.CD_VL
+				 , CD.CD_VL_NM
+				 , CU.CRTR_UNTPRC
+				 , CU.INDCT_NM
+				 , CU.USE_YN
+			  FROM TB_COM_CD CC
+			 INNER JOIN TB_COM_CD_DTL CD
+				ON CC.CD_ID = CD.CD_ID
+			  LEFT JOIN TB_APC_CRTR_UNTPRC CU
+				ON CD.APC_CD = CU.APC_CD
+			   AND CD.CD_VL = CU.CRTR_UNTPRC_CD
+			 WHERE CC.CD_ID = #{cdId}
+			   AND CD.APC_CD = #{apcCd}
+			   AND CU.DEL_YN = 'N'
+			   AND CC.DEL_YN = 'N'
+			   AND CD.DEL_YN = 'N'
+		]]>
+			<if test='useYn != null and useYn != ""'>
+				AND CU.USE_YN = 'Y'
+			</if>
+		<![CDATA[
+			 ORDER BY CD.INDCT_SEQ
+		]]>
+	</select>
+	<!-- =================================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.insertApcCrtrUntprc	  		-->
+	<!-- DESC : APC기준단가 목록 조회 		                            						-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2025.11.07  	kimho        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<insert id="insertApcCrtrUntprc" parameterType="com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO">
+		<![CDATA[
+		INSERT /* com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.insertApcCrtrUntprc */
+		  INTO TB_APC_CRTR_UNTPRC
+			 (
+			   APC_CD
+			 , CRTR_UNTPRC_CD
+			 , CRTR_UNTPRC
+			 , INDCT_NM
+			 , USE_YN
+			 , SYS_FRST_INPT_DT
+			 , SYS_FRST_INPT_USER_ID
+			 , SYS_FRST_INPT_PRGRM_ID
+			 , SYS_LAST_CHG_DT
+			 , SYS_LAST_CHG_USER_ID
+			 , SYS_LAST_CHG_PRGRM_ID
+			 )
+		VALUES
+			 (
+			   #{apcCd}
+			 , #{crtrUntprcCd}
+			 , #{crtrUntprc}
+			 , #{indctNm}
+			 , #{useYn}
+			 , SYSDATE
+			 , #{sysFrstInptUserId}
+			 , #{sysFrstInptPrgrmId}
+			 , SYSDATE
+			 , #{sysLastChgUserId}
+			 , #{sysLastChgPrgrmId}
+			 )
+		]]>
+	</insert>
+	<!-- =================================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.updateApcCrtrUntprc	  		-->
+	<!-- DESC : APC기준단가 목록 조회 		                            						-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2025.11.07  	kimho        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<update id="updateApcCrtrUntprc" parameterType="com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.updateApcCrtrUntprc */
+			   TB_APC_CRTR_UNTPRC
+		   SET CRTR_UNTPRC				= #{crtrUntprc}
+		     , INDCT_NM					= #{indctNm}
+		     , USE_YN					= #{useYn}
+		     , SYS_LAST_CHG_DT			= SYSDATE
+		     , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		 WHERE APC_CD 					= #{apcCd}
+		   AND CRTR_UNTPRC_CD			= #{crtrUntprcCd}
+		]]>
+	</update>
+
+	<!-- =================================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.deleteApcCrtrUntprc	  		-->
+	<!-- DESC : APC기준단가 목록 조회 		                            						-->
+	<!-- =================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	==================================================	-->
+	<!-- 2025.11.07  	kimho        	Initial Creation                            		-->
+	<!-- =================================================================================	-->
+	<delete id="deleteApcCrtrUntprc" parameterType="com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO">
+		<![CDATA[
+		DELETE /* com.at.apcss.am.cmns.mapper.ApcCrtrUntprcMapper.deleteApcCrtrUntprc */
+		  FROM TB_APC_CRTR_UNTPRC
+		 WHERE APC_CD 					= #{apcCd}
+		   AND CRTR_UNTPRC_CD			= #{crtrUntprcCd}
+		]]>
+	</delete>
+
+</mapper>
+
+

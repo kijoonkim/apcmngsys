@@ -42,6 +42,7 @@ const URL_SPMT_PCKG_UINT	= "/am/cmns/spmtPckgUnits";	//	출하포장단위
 const URL_APC_INFO			= "/am/apc/apcInfos";		//	APC리스트
 const URL_CRTR_YR			= "/am/fclt/crtrYr";		//  기준년도 가져오기
 const URL_APC_RPT_KNDS		= "/co/cd/apcRptKnds";		//  리포트경로
+const URL_APC_CRTR_UNTPRC	= "/am/cmns/apcCrtrUntprcs";	//  APC기준단가
 
 
 /** END URL
@@ -1086,6 +1087,31 @@ const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _a
 			sourceJson.push(item);
 		});
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/** APC기준단가 */
+/**
+ * @name gfn_getApcCrtrUntprc
+ * @description  APC별 기준단가
+ * @function
+ * @param {string} _apcCd		APC코드
+ * @param {string} _cdId		공통코드
+ * @returns {any[]}
+ */
+const gfn_getApcCrtrUntprc = async function (_apcCd, _cdId) {
+	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, delYn: "N"}, null, true);
+	const data = await postJsonPromise;
+	const sourceJson = [];
+	data.resultList.forEach((item) => {
+		sourceJson.push({
+			cdId: item.cdId,
+			cdVl: item.cdVl,
+			cdVlNm: item.cdVlNm,
+			crtrUntprc: item.crtrUntprc,
+			indctNm: item.indctNm,
+		});
+	});
+	return sourceJson;
 }
 
 /** APC 이송목록 */
