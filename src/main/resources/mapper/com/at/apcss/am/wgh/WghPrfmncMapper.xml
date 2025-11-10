@@ -2733,7 +2733,7 @@
 			, pt0.TOT_WGT - NVL(pt0.EMPTY_CAR_WGT, 0) AS REAL_WGT
 			, RTRIM(TO_CHAR(CASE WHEN NVL(pt0.PALLET_CNT, 0) = 0 THEN 0 ELSE pt0.BOX_CNT / pt0.PALLET_CNT END, 'FM9990.99'), '.') AS PALLET_PER_BOX
 			, pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL AS ADJ_WGT
-			, ROUND((pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL) / pt0.QNTT, 1) AS BOX_PER_ADJ_WGT
+			, ROUND((pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL) / pt0.BOX_CNT, 1) AS BOX_PER_ADJ_WGT
 		  FROM (
 			SELECT
 				  WC.APC_CD                                              AS APC_CD
@@ -2755,10 +2755,6 @@
 				, WD.WGH_SN                                              AS WGH_SN
 				, WD.GRD_CD                                              AS GRD_CD
 				, WD.GDS_CD                                              AS GOODS_CD
-				, WD.BX_QNTT                                             AS BOX_CNT
-				, WD.PLT_QNTT                                            AS PALLET_CNT
-				, WD.BX_WGHT                                             AS BOX_WGT
-				, WD.PLT_WGHT                                            AS PALLET_WGT
 				, INV.WAREHOUSE_SE_CD                                    AS WAREHOUSE_SE_CD
 				, INV.ITEM_CD                                            AS ITEM_CD
 				, INV.VRTY_CD                                            AS BREED_CD
@@ -2766,8 +2762,11 @@
 				, INV.WRHS_YMD                                           AS PO_DATE
 				, INV.WRHS_QNTT                                          AS GOODS_CNT
 				, INV.WRHS_WGHT                                          AS GOODS_WGT
-				, PC.QNTT                                                AS QNTT
-				, PC.WGHT_TOTAL                                          AS WGHT_TOTAL
+				, PB.BOX_CNT                                             AS BOX_CNT
+				, PB.PALLET_CNT                                          AS PALLET_CNT
+				, PB.BOX_WGT                                             AS BOX_WGT
+				, PB.PALLET_WGT                                          AS PALLET_WGT
+				, PB.WGHT_TOTAL                                          AS WGHT_TOTAL
 			  FROM TB_WGH_PRFMNC_COM WC
 			 INNER JOIN TB_WGH_PRFMNC_DTL WD
 			    ON WC.APC_CD = WD.APC_CD
@@ -2784,25 +2783,28 @@
 			   AND INV.DEL_YN = 'N'
 			  LEFT JOIN (
 			  	SELECT
-			  		WS.APC_CD,
-			  		WS.JOB_YMD,
-			  		WS.PRCS_NO,
-			  		SUM(CASE WHEN WS.PLT_BX_SE_CD = 'B' THEN WS.QNTT ELSE 0 END) AS QNTT,
-			  		SUM(BI.UNIT_WGHT * WS.QNTT) AS WGHT_TOTAL
-			  	FROM TB_PLT_WRHS_SPMT WS
+			  		PWS.APC_CD
+			  	  ,	PWS.JOB_YMD
+			  	  , PWS.PRCS_NO
+			  	  ,	SUM(CASE WHEN PWS.PLT_BX_SE_CD = 'B' THEN PWS.QNTT ELSE 0 END) AS BOX_CNT
+			  	  ,	SUM(CASE WHEN PWS.PLT_BX_SE_CD = 'P' THEN PWS.QNTT ELSE 0 END) AS PALLET_CNT
+			  	  ,	SUM(CASE WHEN PWS.PLT_BX_SE_CD = 'B' THEN BI.UNIT_WGHT * PWS.QNTT ELSE 0 END) AS BOX_WGT
+			  	  ,	SUM(CASE WHEN PWS.PLT_BX_SE_CD = 'P' THEN BI.UNIT_WGHT * PWS.QNTT ELSE 0 END) AS PALLET_WGT
+			  	  ,	SUM(BI.UNIT_WGHT * PWS.QNTT) AS WGHT_TOTAL
+			  	FROM TB_PLT_WRHS_SPMT PWS
 			  		JOIN TB_PLT_BX_INFO BI
-			  			ON WS.APC_CD = BI.APC_CD
-			  				AND WS.PLT_BX_SE_CD = BI.PLT_BX_SE_CD
-			  				AND WS.PLT_BX_CD = BI.PLT_BX_CD
-			  	WHERE WS.WRHS_SPMT_SE_CD = '1'
+			  			ON PWS.APC_CD = BI.APC_CD
+			  				AND PWS.PLT_BX_SE_CD = BI.PLT_BX_SE_CD
+			  				AND PWS.PLT_BX_CD = BI.PLT_BX_CD
+			  	WHERE PWS.WRHS_SPMT_SE_CD = '1'
 			  	GROUP BY
-			  		WS.APC_CD,
-			  		WS.PRCS_NO,
-			  		WS.JOB_YMD
-			  ) PC
-			  	ON WC.APC_CD = PC.APC_CD
-			  		AND WC.WGHNO = PC.PRCS_NO
-			  		AND WC.WGH_YMD = PC.JOB_YMD
+			  		PWS.APC_CD,
+			  		PWS.PRCS_NO,
+			  		PWS.JOB_YMD
+			  ) PB
+			  	ON WC.APC_CD = PB.APC_CD
+			  		AND WC.WGHNO = PB.PRCS_NO
+			  		AND WC.WGH_YMD = PB.JOB_YMD
 			 WHERE WC.DEL_YN = 'N'
 			   AND WC.WRHS_SPMT_TYPE = 'RT'
 		]]>
