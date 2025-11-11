@@ -21,13 +21,17 @@ public class SprtBizRsltInqVO extends ComVO {
     private String bzmnConm;
     private String crno;
     private String brno;
+    private String stdgCtpvCd;
+    private String stdgSggCd;
     private String slctnYr;
     private String sprtYr;
     private String altmntAmt;
     private String altmntInt;
     private String rmrk;
-    private String itemId;
+    private String itemCd;
     private String bizType;
     private String onslfBrdnAmt;
     private String sprtBizCd;
+    private String sprtBizYrMax;
+    private String sprtBizYrMin;
 }

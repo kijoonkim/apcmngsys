@@ -6,20 +6,20 @@
 
     <select id="selectSprtBizRsltInqList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
 
-    <!-- Start 페이징 -->
-    <if test='pagingYn != null and pagingYn.equals("Y")'>
         SELECT
         ROWNUM AS ROW_SEQ
         , COUNT(*) OVER() AS TOTAL_RECORD_COUNT
         , pt0.*
         FROM (
-    </if>
+
 
         SELECT T1.SPRT_BIZ_YR AS SPRT_BIZ_YR
              , T1.SPRT_BIZ_NM AS SPRT_BIZ_NM
              , T1.BZMN_CONM AS BZMN_CONM
              , T1. CRNO AS CRNO
              , T1.BRNO AS BRNO
+             , ( SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV', T1.STDG_CTPV_CD) FROM DUAL ) AS STDG_CTPV_CD
+             , ( SELECT FN_GET_COM_CD_VL_EXPLN('UNTY_SGG', T1.STDG_CD) FROM DUAL ) AS STDG_SGG_CD
              , T1.SLCTN_YR AS SLCTN_YR
              , T1.SPRT_YR AS SPRT_YR
              , T1.ALTMNT_AMT AS ALTMNT_AMT
@@ -27,7 +27,7 @@
              , T1.ALTMNT_INT AS ALTMNT_INT
              , T1.RMRK AS RMRK
 
-             , ( SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = T2.ATRB_NM ) AS ITEM_ID
+             , ( SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = T2.ATRB_NM ) AS ITEM_CD
              , ( SELECT FN_GET_COM_CD_VL_NM ('WRHS_SE_CD', T3.ATRB_NM) FROM DUAL) AS BIZ_TYPE
 
         FROM ( 	SELECT A.SPRT_BIZ_YR AS SPRT_BIZ_YR
@@ -41,6 +41,8 @@
                              WHEN C.PSN_SE_CD = '2' THEN B.BRNO
                              ELSE ''
                           END AS BRNO
+                       , C.STDG_CTPV_CD AS STDG_CTPV_CD
+                       , C.STDG_CD AS STDG_CD
                        , D.SLCTN_YR AS SLCTN_YR
                        , D.SPRT_YR AS SPRT_YR
                        , D.ALTMNT_AMT AS ALTMNT_AMT
@@ -108,23 +110,21 @@
           AND T1.SPRT_BIZ_CD = T3.SPRT_BIZ_CD(+)
           AND T1.SPRT_OGNZ_ID = T3.SPRT_OGNZ_ID(+)
           AND T1.REG_SEQ = T3.REG_SEQ(+)
-
-        <!-- 페이징 -->
-    <if test='pagingYn != null and pagingYn.equals("Y")'>
         ) pt0
-        OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
-        FETCH FIRST #{recordCountPerPage} ROWS ONLY
-    </if>
+
 
     </select>
 
     <select id="selectSprtBizRsltInqSeCd" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
-        SELECT DISTINCT SPRT_BIZ_CD
-                      , SPRT_BIZ_NM
-          FROM TB_EV_SPRT_BIZ_MSTR
-         WHERE 1=1
-           AND DEL_YN = 'N'
-         ORDER BY SPRT_BIZ_CD
+        SELECT MIN(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MIN
+             , MAX(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MAX
+             , SPRT_BIZ_CD
+             , SPRT_BIZ_NM
+        FROM TB_EV_SPRT_BIZ_MSTR
+        WHERE 1=1
+          AND DEL_YN = 'N'
+        GROUP BY SPRT_BIZ_NM, SPRT_BIZ_CD
+        ORDER BY SPRT_BIZ_NM
     </select>
 
 </mapper>
