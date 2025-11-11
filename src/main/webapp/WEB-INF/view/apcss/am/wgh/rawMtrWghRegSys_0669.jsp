@@ -164,12 +164,20 @@
 							text="팔레트불출관리"
 					></sbux-button>
 					<sbux-button
-						id="btnDocRawMtrWgh"
-						name="btnDocRawMtrWgh"
+						id="btnDocRawMtrWghV1"
+						name="btnDocRawMtrWghV1"
 						uitype="normal"
 						class="btn btn-sm btn-primary"
-						onclick="fn_docRawMtrWgh"
-						text="계량확인서"
+						onclick="fn_docRawMtrWgh(this)"
+						text="계량확인서V1"
+					></sbux-button>
+					<sbux-button
+							id="btnDocRawMtrWghV2"
+							name="btnDocRawMtrWghV2"
+							uitype="normal"
+							class="btn btn-sm btn-primary"
+							onclick="fn_docRawMtrWgh(this)"
+							text="계량확인서V2"
 					></sbux-button>
 					<sbux-button
 							id="btnDocBxPltSpmt"
@@ -256,24 +264,30 @@
 								</td>
 								<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
 								<td colspan="9" class="td_input">
-									<div style="display: flex; gap: 10px; width: 30%">
+									<div style="display: flex; gap: 15px; align-items: center">
 										<sbux-datepicker
-												id="dtl-dtp-wghYmd"
-												name="dtl-dtp-wghYmd"
+												id="dtl-dtp-wghYmdFrom"
+												name="dtl-dtp-wghYmdFrom"
 												uitype="popup"
-												wrap-style="flex:1; display:flex"
+<%--												wrap-style="flex:1; display:flex"--%>
 												date-format="yyyy-mm-dd"
 												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
 										></sbux-datepicker>
-<%--										<sbux-spinner--%>
-<%--												id="dtl-spi-wghDt"--%>
-<%--												name="dtl-spi-wghDt"--%>
-<%--												uitype="normal"--%>
-<%--												wrap-style="flex:1"--%>
-<%--												data-type="time"--%>
-<%--												time-format="HH:MM"--%>
-<%--												time-hours="24hours"--%>
-<%--										></sbux-spinner>--%>
+										<sbux-datepicker
+												id="dtl-dtp-wghYmdTo"
+												name="dtl-dtp-wghYmdTo"
+												uitype="popup"
+<%--												wrap-style="flex:1; display:flex"--%>
+												date-format="yyyy-mm-dd"
+												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+										></sbux-datepicker>
+										<sbux-checkbox
+												id="chkbox_norm"
+												name="chkbox_norm"
+												uitype="normal"
+												text="일일기준"
+												onclick="fn_oneDay()">
+										</sbux-checkbox>
 									</div>
 								</td>
 							</tr>
@@ -294,6 +308,7 @@
 													oninput="fn_onInputPrdcrNm(event)"
 													style="flex: 3"
 													autocomplete-select-callback="fn_onSelectPrdcrNm"
+													onkeyenter="fn_srchPrdcr(dtl-inp-prdcrNm)"
 											></sbux-input>
 											<sbux-input
 													uitype="text"
@@ -345,6 +360,7 @@
 													id="dtl-inp-vhclno"
 													name="dtl-inp-vhclno"
 													class="form-control input-sm inpt_data_reqed"
+													onkeyenter="fn_srchVhclno"
 													autocomplete="off"
 											></sbux-input>
 											<sbux-button
@@ -598,13 +614,22 @@
 							<span>원물계량 내역</span>
 							<span style="font-size:12px">(기준일자 :
 								<sbux-label
-									id="crtr-ymd"
-									name="crtr-ymd"
+									id="crtr-ymdFrom"
+									name="crtr-ymdFrom"
 									uitype="normal"
 									text=""
 									class="bold"
 									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-								></sbux-label> , 조회건수 <span id="cnt-wgh">0</span>건)
+								></sbux-label> ~
+								<sbux-label
+										id="crtr-ymdTo"
+										name="crtr-ymdTo"
+										uitype="normal"
+										text=""
+										class="bold"
+										mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
+								></sbux-label>
+								, 조회건수 <span id="cnt-wgh">0</span>건)
 							</span>
 						</li>
 					</ul>
@@ -812,7 +837,11 @@
 			SBUxMethod.set('dtl-slt-wrhsSpmtType', 'RT');
 		}
 
-		SBUxMethod.set('dtl-dtp-wghYmd', gfn_dateToYmd(new Date()));
+		/** 계량일자 **/
+		SBUxMethod.hide('dtl-dtp-wghYmdTo');
+		SBUxMethod.attr('chkbox_norm','checked',true);
+		SBUxMethod.set('dtl-dtp-wghYmdFrom', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('dtl-dtp-wghYmdTo', gfn_dateToYmd(new Date()));
 	}
 
 	window.addEventListener('DOMContentLoaded',async function(e) {
@@ -850,7 +879,7 @@
 		ws.init();
 
 		/** report 버튼 활성화 */
-		// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
+		// SBUxMethod.attr("btnDocRawMtrWghV1", "disabled", "false");
 		// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
 
 		/** addRow 대체 **/
@@ -1003,7 +1032,7 @@
 		let wrhsSpmtType = SBUxMethod.get('dtl-slt-itemCd') === "dtPlt" ? "DT" : rowData.wrhsSpmtType;
 		let itemCd = SBUxMethod.get('dtl-slt-itemCd') === "dtPlt" || gfn_isEmpty(rowData.itemCd) ? "dtPlt" : rowData.itemCd;
 
-		SBUxMethod.set('dtl-dtp-wghYmd', rowData.wghYmd);
+		SBUxMethod.set('dtl-dtp-wghYmdFrom', rowData.wghYmd);
       	SBUxMethod.set('dtl-inp-wghno', rowData.wghno);
  		SBUxMethod.set('dtl-inp-prdcrCd', rowData.prdcrCd);
  		SBUxMethod.set('dtl-inp-prdcrNm', rowData.prdcrNm);
@@ -1244,27 +1273,26 @@
      * @name fn_docRawMtrWgh
      * @description 계량확인서 발행 버튼
      */
-	const fn_docRawMtrWgh = function() {
+	const fn_docRawMtrWgh = function(obj) {
 
-		const wghnoList = [];
+		let rptUrl = obj.id === "btnDocRawMtrWghV1" ? "am/rawMtrWghDocV1_0669.crf" : "am/rawMtrWghDocV2_0669.crf";
 
 		let rowIdx = grdWghPrfmnc.getRow();
+
 		if(rowIdx < 0 ){
 	 		gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return ;
 		}
 		let rowData = grdWghPrfmnc.getRowData(rowIdx);
 
-		let wghno = rowData.wghno;
 		let reportVo = {
 			APC_CD : gv_selectedApcCd,
 			ITEM_CD : rowData.itemCd,
-			WGHNO : wghno,
+			WGHNO : rowData.wghno,
 			JOB_YMD : rowData.wghYmd
 		}
 
-		//const wghno = wghnoList.join("','");
-		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc_0669.crf", reportVo);
+		gfn_popClipReport("계량확인서", rptUrl, reportVo);
 	}
 
 	/**
@@ -1275,7 +1303,10 @@
 
 		const wghnoList = [];
 
-		let rowIdx = grdWghPrfmnc.getRow();
+		// let rowIdx = grdWghPrfmnc.getRow();
+
+		let wghno = SBUxMethod.get('dtl-inp-wghno');
+		let rowIdx = wghno ? jsonWghPrfmnc.findIndex(item => item.wghno == wghno) + 1 : -1;
 		if(rowIdx < 0 ){
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return ;
@@ -1284,10 +1315,9 @@
         /** SQL **/
         let rowData = grdWghPrfmnc.getRowData(rowIdx);
 
-        let wghno = rowData.wghno;
         let reportVo = {
             APC_CD : gv_selectedApcCd,
-            WGHNO : wghno,
+            WGHNO : rowData.wghno,
             JOB_YMD : rowData.wghYmd
         }
 
@@ -1382,7 +1412,7 @@
 	 */
 	 const fn_clearForm = function () {
 		SBUxMethod.set('dtl-inp-wghno', '');
-		SBUxMethod.set('dtl-dtp-wghYmd', gfn_dateToYmd(new Date()));
+		SBUxMethod.set('dtl-dtp-wghYmdFrom', gfn_dateToYmd(new Date()));
   		SBUxMethod.set('dtl-inp-prdcrCd', '');
   		SBUxMethod.set('dtl-inp-prdcrNm', '');
   		SBUxMethod.set('dtl-inp-vhclno', '');
@@ -1654,7 +1684,7 @@
 
 		if (wrhsSpmtType == "RT") {
 			// 버튼 상태 설정
-			// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "false");
+			// SBUxMethod.attr("btnDocRawMtrWghV1", "disabled", "false");
 			// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "true");
 
 			// 필수값 확인
@@ -1689,7 +1719,7 @@
 
 		} else if (wrhsSpmtType == "DT") {
 			// 버튼 상태 설정
-			// SBUxMethod.attr("btnDocRawMtrWgh", "disabled", "true");
+			// SBUxMethod.attr("btnDocRawMtrWghV1", "disabled", "true");
 			// SBUxMethod.attr("btnDocBxPltSpmt", "disabled", "false");
 
 			// 필수값 확인
@@ -1815,10 +1845,60 @@
      */
     const fn_search = async function () {
 
-  		let wghYmd 			= SBUxMethod.get("dtl-dtp-wghYmd");		// 계량일자
-  		let itemCd 			= SBUxMethod.get("dtl-slt-itemCd");		// 품목
-  		let wrhsSpmtType 	= SBUxMethod.get("dtl-slt-wrhsSpmtType");	// 입고출고유형
- 		let url 			= "";
+		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+		let wghYmdFrom = SBUxMethod.get("dtl-dtp-wghYmdFrom");
+		let wghYmdTo = SBUxMethod.get("dtl-dtp-wghYmdTo");
+		let wghYmd = SBUxMethod.get("dtl-dtp-wghYmdFrom");						// 계량일자
+
+		let prdcrCd 		= SBUxMethod.get("dtl-inp-prdcrCd") || "";			// 생산자코드
+		let vhclno 			= SBUxMethod.get("dtl-inp-vhclno") || "";			// 차량번호
+		let trsprtCst 		= SBUxMethod.get('dtl-inp-trsprtCst') || 0;			// 운임
+		let rmrk 			= SBUxMethod.get('dtl-inp-rmrk') || "";				// 비고
+		let oinstSpmtNm 	= SBUxMethod.get('dtl-inp-oinstSpmtNm') || "";		// 타출고처
+		let oprtrNm 		= SBUxMethod.get('dtl-inp-oprtrNm') || "";			// 입력자
+
+		let itemCd 			= SBUxMethod.get("dtl-slt-itemCd") || "";					// 품목
+		let wrhsSpmtType 	= SBUxMethod.get("dtl-slt-wrhsSpmtType");			// 입고출고유형
+		let url 			= "";
+
+		if (gfn_isEmpty(itemCd)) {
+			gfn_comAlert("W0001", "품목");					//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		if (gfn_isEmpty(wrhsSpmtType)) {
+			gfn_comAlert("W0001", "구분");					//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		let params = {
+		      apcCd			: gv_selectedApcCd
+			, itemCd 		: itemCd
+			, wrhsSpmtType 	: wrhsSpmtType
+			, prdcrCd 		: prdcrCd
+			, vhclno 		: vhclno
+			, trsprtCst 	: trsprtCst
+			, rmrk 			: rmrk
+			, oinstSpmtNm 	: oinstSpmtNm
+			, oprtrNm 		: oprtrNm
+		};
+
+		let pltParams = {
+			apcCd			: gv_selectedApcCd
+			, wrhsSpmtSeCd 	: '2'	// 출고
+		}
+
+		if(isEmpty(checked)){
+			params.wghYmdFrom = wghYmdFrom;
+			params.wghYmdTo = wghYmdTo;
+			pltParams.jobYmdFrom = wghYmdFrom;
+			pltParams.jobYmdTo = wghYmdTo;
+		}else{
+			params.wghYmd = wghYmd;
+			pltParams.jobYmd = wghYmd;
+		}
 
   		if (gfn_isEmpty(wrhsSpmtType)) {
     		gfn_comAlert("W0001", "구분");					//	W0001	{0}을/를 선택하세요.
@@ -1836,21 +1916,10 @@
 			}
  		}
 
-
-		const postJsonPromise = gfn_postJSON(url, {
-				apcCd			: gv_selectedApcCd
-			  , wghYmd			: wghYmd
-			  , itemCd 			: itemCd
-			  , wrhsSpmtType 	: wrhsSpmtType
-  		});
+		const postJsonPromise = gfn_postJSON(url, params);
 
 		/** 2025.09.12 출고 팔레트/박스 수량 추가 */
-		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", {
-				apcCd			: gv_selectedApcCd
-				, jobYmd		: wghYmd
-				, wrhsSpmtSeCd 	: '2'	// 출고
-		});
-
+		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", pltParams);
 
   		try {
 
@@ -1886,8 +1955,12 @@
 					wghPrfmnc.vrtyNm = vrtyNm;
 				}
 
-				/** 25.10.02 순번 추가(계량번호 끝 4자리) */
-				wghPrfmnc.wghnoSn = parseInt(item.wghno.slice(-4));
+				/**
+				 * 25.10.02 순번 추가(계량번호 끝 4자리)
+				 * 25.11.10 조회일자 변경으로 순번 순차 부여
+				 * */
+				// wghPrfmnc.wghnoSn = parseInt(item.wghno.slice(-4));
+				wghPrfmnc.wghnoSn = data.resultList.length - index;
 
 				const pltSpmtFilter = pltSpmtPrfmnc.filter(i => i.prcsNo === wghPrfmnc.wghno);
 				const shpgotQntt = pltSpmtFilter.filter(e => e.pltBxSeCd === "B").reduce((sum, b) => sum + b.qntt, 0);
@@ -1911,12 +1984,14 @@
 	          	grdWghPrfmnc.rebuild();
 			}
 			/** 계량 내역 set **/
-			SBUxMethod.set("crtr-ymd",wghYmd);
+			SBUxMethod.set("crtr-ymdFrom",wghYmdFrom);
+			SBUxMethod.set("crtr-ymdTo",wghYmdTo);
 			$("#cnt-wgh").text(data.resultList.length || 0);
 
 			/** 25.11.03 저장 후 해당 내용 출력*/
 			if (isSaved) {
 				let row = chkWghno ? jsonWghPrfmnc.findIndex(item => item.wghno == chkWghno) + 1 : 1;
+				grdWghPrfmnc.setRow(row);
 				await fn_view(row);
 			}
 			isSaved = false;
@@ -2044,7 +2119,15 @@
  	 */
  	const fn_save = async function () {
 
- 		let wghYmd 			= SBUxMethod.get('dtl-dtp-wghYmd');
+		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+		if(isEmpty(checked)){
+			gfn_comAlert("W0001", "일일기준");					//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+ 		let wghYmd 			= SBUxMethod.get('dtl-dtp-wghYmdFrom');
  		let wghno 			= SBUxMethod.get('dtl-inp-wghno');
  		let prdcrCd 		= SBUxMethod.get('dtl-inp-prdcrCd');
  		let vhclno 			= SBUxMethod.get('dtl-inp-vhclno');
@@ -2644,6 +2727,21 @@
 	}
 
 	/**
+	 * @name fn_srchPrdcr
+	 * @description 생산자 enter 키 이벤트
+	 */
+	const fn_srchPrdcr = async function (prdcrNm) {
+		if(jsonPrdcrAutocomplete.filter(e => e.name === prdcrNm).length == 1){
+			fn_onSelectPrdcrNm(
+				jsonPrdcrAutocomplete.filter(e => e.name === prdcrNm)[0].value,
+				jsonPrdcrAutocomplete.filter(e => e.name === prdcrNm)[0].name
+			);
+		} else {
+			document.getElementById('btnSrchPrdcr').click();
+		}
+	}
+
+	/**
 	 * @name getByteLengthOfString
 	 * @description 글자 byte 크기 계산
 	 */
@@ -2816,6 +2914,20 @@
 	}
 
 	/**
+	 * @name fn_srchVhclno
+	 * @description 차량번호 enter 키 이벤트
+	 */
+	const fn_srchVhclno = async function () {
+		let vhclno = SBUxMethod.get("dtl-inp-vhclno");
+		await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, vhclno);
+		SBUxMethod.openModal('modal-vhcl');
+		if(grdVhclPop.getRows() == 2){
+			grdVhclPop.setRow(1);
+			popVhcl.choice();
+		}
+	}
+
+	/**
 	 * @name fn_choiceVhcl
 	 * @description 차량번호 선택 popup
 	 */
@@ -2934,6 +3046,18 @@
 		SBUxMethod.set("dtl-inp-rdcdWght", rdcdWght);	// 감량(Kg)
 		SBUxMethod.set("dtl-inp-wrhsWght", wrhsWght);	// 정산중량(입고중량)
 	}
+
+	const fn_oneDay = function(){
+		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+		if(isEmpty(checked)){
+			SBUxMethod.show('dtl-dtp-wghYmdTo');
+		}else{
+			SBUxMethod.hide('dtl-dtp-wghYmdTo');
+		}
+	}
+
 
 	function fn_noKeyup(event) {
 
