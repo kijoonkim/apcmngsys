@@ -1303,10 +1303,8 @@
 
 		const wghnoList = [];
 
-		// let rowIdx = grdWghPrfmnc.getRow();
+		let rowIdx = grdWghPrfmnc.getRow();
 
-		let wghno = SBUxMethod.get('dtl-inp-wghno');
-		let rowIdx = wghno ? jsonWghPrfmnc.findIndex(item => item.wghno == wghno) + 1 : -1;
 		if(rowIdx < 0 ){
 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 			return ;
