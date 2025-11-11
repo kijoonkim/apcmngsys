@@ -33,6 +33,8 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * 작업일자
 	 */
 	private String jobYmd;
+	private String jobYmdFrom;
+	private String jobYmdTo;
 
 	/**
 	 * 입출고 구분코드

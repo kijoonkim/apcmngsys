@@ -202,7 +202,10 @@
 				PLT_NM = source.PLT_NM,
 				QNTT = source.QNTT,
 		    	RMRK = source.RMRK,
-			    DEL_YN = 'N'
+			    DEL_YN = 'N',
+				SYS_LAST_CHG_DT = SYSDATE,
+				SYS_LAST_CHG_USER_ID = source.SYS_LAST_CHG_USER_ID,
+				SYS_LAST_CHG_PRGRM_ID = source.SYS_LAST_CHG_PRGRM_ID
 		WHEN NOT MATCHED THEN
 			INSERT
 	    		(
@@ -326,6 +329,12 @@
 		</if>
         <if test='jobYmd != null and jobYmd != ""'>
 				    	AND PWS.JOB_YMD 				= #{jobYmd}
+		</if>
+		<if test='jobYmdFrom != null and jobYmdFrom !=""'>
+						AND PWS.JOB_YMD <![CDATA[>=]]> #{jobYmdFrom}
+		</if>
+		<if test='jobYmdTo != null and jobYmdTo !=""'>
+						AND PWS.JOB_YMD <![CDATA[<=]]> #{jobYmdTo}
 		</if>
 		<if test='prcsNo != null and prcsNo != ""'>
 						AND PWS.PRCS_NO					= #{prcsNo}
