@@ -1058,11 +1058,32 @@
 		<if test='wghYmd != null and wghYmd !=""'>
 							   AND WC.WGH_YMD = #{wghYmd}
 		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+							   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+							   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
 		<if test='prdcrCd != null and prdcrCd !=""'>
 							   AND WC.PRDCR_CD = #{prdcrCd}
 		</if>
+		<if test='vhclno != null and vhclno !=""'>
+							   AND WC.VHCLNO = #{vhclno}
+		</if>
 		<if test='fcltCd != null and fcltCd !=""'>
 							   AND WC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='trsprtCst != null and trsprtCst !=""'>
+							   AND WC.TRSPRT_CST = #{trsprtCst}
+		</if>
+		<if test='oprtrNm != null and oprtrNm !=""'>
+							   AND WC.OPRTR_NM = #{oprtrNm}
+		</if>
+		<if test='oinstSpmtNm != null and oinstSpmtNm !=""'>
+							   AND WC.OINST_SPMT_NM = #{oinstSpmtNm}
+		</if>
+		<if test='rmrk != null and rmrk !=""'>
+							   AND WC.RMRK LIKE '%' || #{rmrk} || '%'
 		</if>
 		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
 							   AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
@@ -1437,11 +1458,32 @@
 		<if test='wghYmd != null and wghYmd !=""'>
 							   AND WC.WGH_YMD = #{wghYmd}
 		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+							   AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+							   AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
 		<if test='prdcrCd != null and prdcrCd !=""'>
 							   AND WC.PRDCR_CD = #{prdcrCd}
 		</if>
+		<if test='vhclno != null and vhclno !=""'>
+							   AND WC.VHCLNO = #{vhclno}
+		</if>
 		<if test='fcltCd != null and fcltCd !=""'>
 							   AND WC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='trsprtCst != null and trsprtCst !=""'>
+							   AND WC.TRSPRT_CST = #{trsprtCst}
+		</if>
+		<if test='oprtrNm != null and oprtrNm !=""'>
+							   AND WC.OPRTR_NM = #{oprtrNm}
+		</if>
+		<if test='oinstSpmtNm != null and oinstSpmtNm !=""'>
+							   AND WC.OINST_SPMT_NM = #{oinstSpmtNm}
+		</if>
+		<if test='rmrk != null and rmrk !=""'>
+							   AND WC.RMRK LIKE '%' || #{rmrk} || '%'
 		</if>
 		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
 							   AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
@@ -2986,6 +3028,33 @@
 		]]>
 		<if test='wghYmd != null and wghYmd !=""'>
 			AND WC.WGH_YMD = #{wghYmd}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+			AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+			AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+			AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='vhclno != null and vhclno !=""'>
+			AND WC.VHCLNO = #{vhclno}
+		</if>
+		<if test='fcltCd != null and fcltCd !=""'>
+			AND WC.FCLT_CD = #{fcltCd}
+		</if>
+		<if test='trsprtCst != null and trsprtCst !=""'>
+			AND WC.TRSPRT_CST = #{trsprtCst}
+		</if>
+		<if test='oprtrNm != null and oprtrNm !=""'>
+			AND WC.OPRTR_NM = #{oprtrNm}
+		</if>
+		<if test='oinstSpmtNm != null and oinstSpmtNm !=""'>
+			AND WC.OINST_SPMT_NM = #{oinstSpmtNm}
+		</if>
+		<if test='rmrk != null and rmrk !=""'>
+			AND WC.RMRK LIKE '%' || #{rmrk} || '%'
 		</if>
 		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
 			AND WC.WRHS_SPMT_TYPE = #{wrhsSpmtType}
