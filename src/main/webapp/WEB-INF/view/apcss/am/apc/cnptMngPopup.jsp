@@ -285,6 +285,7 @@
   					  , extrnlLnkgCd 	: item.extrnlLnkgCd
 					  , sn				: item.sn
 					  , useYn 			: item.useYn
+					  , cnptSeCd		: item.cnptSeCd
   					}
   					jsonCnpt.push(cnpt);
   				});

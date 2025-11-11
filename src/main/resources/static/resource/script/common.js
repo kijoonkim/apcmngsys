@@ -1020,8 +1020,8 @@ const gfn_setCpntRgnSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
  * @param {any[]} _jsondataRef
  * @param {string} _apcCd	APC코드
  */
-const gfn_setCpntSBSelect = async function (_targetIds, _jsondataRef, _apcCd) {
-	const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: _apcCd, delYn: "N"}, null, true);
+const gfn_setCpntSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _cnptSeCd) {
+	const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: _apcCd, cnptSeCd : _cnptSeCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
 	const sourceJson = [];
@@ -1099,9 +1099,10 @@ const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _a
  * @returns {any[]}
  */
 const gfn_getApcCrtrUntprc = async function (_apcCd, _cdId) {
-	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, delYn: "N"}, null, true);
+	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, useYn: "y"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
+	console.log("data",data)
 	data.resultList.forEach((item) => {
 		sourceJson.push({
 			cdId: item.cdId,
