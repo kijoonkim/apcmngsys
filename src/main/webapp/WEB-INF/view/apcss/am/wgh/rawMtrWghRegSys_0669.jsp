@@ -282,11 +282,19 @@
 												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
 										></sbux-datepicker>
 										<sbux-checkbox
-												id="chkbox_norm"
-												name="chkbox_norm"
+												id="chkbox_dayCrtr"
+												name="chkbox_dayCrtr"
 												uitype="normal"
 												text="일일기준"
 												onclick="fn_oneDay()">
+										</sbux-checkbox>
+										<sbux-checkbox
+												id="chkbox_search"
+												name="chkbox_search"
+												uitype="normal"
+												text="조회"
+												tooltip="검색조건(생산자, 차량번호, 운임, 입력자, 타출고처, 비고) 추가"
+												onclick="">
 										</sbux-checkbox>
 									</div>
 								</td>
@@ -839,7 +847,7 @@
 
 		/** 계량일자 **/
 		SBUxMethod.hide('dtl-dtp-wghYmdTo');
-		SBUxMethod.attr('chkbox_norm','checked',true);
+		SBUxMethod.attr('chkbox_dayCrtr','checked',true);
 		SBUxMethod.set('dtl-dtp-wghYmdFrom', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('dtl-dtp-wghYmdTo', gfn_dateToYmd(new Date()));
 	}
@@ -1843,7 +1851,9 @@
      */
     const fn_search = async function () {
 
-		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		let checked = SBUxMethod.getCheckbox('chkbox_dayCrtr', {trueValueOnly:true, ignoreDisabledValue:false});
+		let checkedSearch = SBUxMethod.getCheckbox('chkbox_search', {trueValueOnly:true, ignoreDisabledValue:false});
+
 		const isEmpty = (obj) => Object.keys(obj).length === 0;
 
 		let wghYmdFrom = SBUxMethod.get("dtl-dtp-wghYmdFrom");
@@ -1875,25 +1885,28 @@
 		      apcCd			: gv_selectedApcCd
 			, itemCd 		: itemCd
 			, wrhsSpmtType 	: wrhsSpmtType
-			, prdcrCd 		: prdcrCd
-			, vhclno 		: vhclno
-			, trsprtCst 	: trsprtCst
-			, rmrk 			: rmrk
-			, oinstSpmtNm 	: oinstSpmtNm
-			, oprtrNm 		: oprtrNm
 		};
 
 		let pltParams = {
-			apcCd			: gv_selectedApcCd
+			  apcCd			: gv_selectedApcCd
 			, wrhsSpmtSeCd 	: '2'	// 출고
+		};
+
+		if (!isEmpty(checkedSearch)) {
+			params.prdcrCd = prdcrCd;
+			params.vhclno = vhclno;
+			params.trsprtCst = trsprtCst;
+			params.rmrk = rmrk;
+			params.oinstSpmtNm = oinstSpmtNm;
+			params.oprtrNm = oprtrNm;
 		}
 
-		if(isEmpty(checked)){
+		if (isEmpty(checked)) {
 			params.wghYmdFrom = wghYmdFrom;
 			params.wghYmdTo = wghYmdTo;
 			pltParams.jobYmdFrom = wghYmdFrom;
 			pltParams.jobYmdTo = wghYmdTo;
-		}else{
+		} else {
 			params.wghYmd = wghYmd;
 			pltParams.jobYmd = wghYmd;
 		}
@@ -1913,6 +1926,8 @@
 				url = "/am/wgh/selectWghPrfmncPltBxSpmtList.do"
 			}
  		}
+
+		 console.log("params", params)
 
 		const postJsonPromise = gfn_postJSON(url, params);
 
@@ -2117,7 +2132,7 @@
  	 */
  	const fn_save = async function () {
 
-		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		let checked = SBUxMethod.getCheckbox('chkbox_dayCrtr', {trueValueOnly:true, ignoreDisabledValue:false});
 		const isEmpty = (obj) => Object.keys(obj).length === 0;
 
 		if(isEmpty(checked)){
@@ -3046,7 +3061,7 @@
 	}
 
 	const fn_oneDay = function(){
-		let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
+		let checked = SBUxMethod.getCheckbox('chkbox_dayCrtr', {trueValueOnly:true, ignoreDisabledValue:false});
 		const isEmpty = (obj) => Object.keys(obj).length === 0;
 
 		if(isEmpty(checked)){
