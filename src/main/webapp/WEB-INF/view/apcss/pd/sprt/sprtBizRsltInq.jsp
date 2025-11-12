@@ -177,6 +177,7 @@
         await Promise.all([
             fn_setSprtBizSeCdSelect('srch-slt-sprtBizNm', jsonBizSeCd)
         ]);
+        fn_setYr();
     }
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -198,6 +199,32 @@
         });
 
         gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+    }
+
+    async function fn_setYr() {
+
+        const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizRsltInqSeCd.do", {}, null, true);
+        const data = await postJsonPromise;
+
+        let maxData = 0;
+        let minData = 9999;
+        let cnt = jsonBizSeCd.length;
+
+        for(let i = 0; i < cnt; i++) {
+            if( data.resultList[i].sprtBizYrMax > maxData ) {
+                maxData = data.resultList[i].sprtBizYrMax;
+            }
+            if( data.resultList[i].sprtBizYrMin < minData ) {
+                minData = data.resultList[i].sprtBizYrMin;
+            }
+        }
+
+        let setData = minData + ',' + maxData;
+
+        SBUxMethod.set("srch-dtp-crtrYmd", setData);
+
+        SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', minData);
+        SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', maxData);
     }
 
     async function fn_selectItem(e) {
