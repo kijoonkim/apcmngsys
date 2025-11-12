@@ -200,7 +200,7 @@
     		 , PIC_TELNO				= #{picTelno}
     		 , SN						= #{sn}
 		   	 , USE_YN					= #{useYn}
-		   	 , CNPT_SE_CD				= NVL(#{untprc}, '1')
+		   	 , CNPT_SE_CD				= NVL(#{cnptSeCd}, '1')
 		     , UNTPRC					= #{untprc}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
