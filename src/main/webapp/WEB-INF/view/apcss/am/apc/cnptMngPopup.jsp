@@ -286,6 +286,7 @@
 					  , sn				: item.sn
 					  , useYn 			: item.useYn
 					  , cnptSeCd		: item.cnptSeCd
+					  , untprc			: item.untprc
   					}
   					jsonCnpt.push(cnpt);
   				});
