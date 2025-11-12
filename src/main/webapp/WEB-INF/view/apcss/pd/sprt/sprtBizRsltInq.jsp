@@ -1,3 +1,4 @@
+<%@ page import="java.util.Map" %>
 <%
     /**
      * @Class Name : sprtBizRsltInq.jsp
@@ -85,7 +86,7 @@
                     <tr>
                         <th scope="row" class="th_bg" >사업구분</th>
                         <td colspan="4" class="td_input" style="border-right:hidden;" >
-                            <sbux-select id="srch-slt-sprtBizNm" name="srch-slt-sprtBizNm" uitype="single" jsondata-ref="jsonBizSeCd" class="form-control input-sm" unselected-text="전체"></sbux-select>
+                            <sbux-select id="srch-slt-sprtBizNm" name="srch-slt-sprtBizNm" uitype="single" jsondata-ref="jsonBizSeCd" class="form-control input-sm" unselected-text="전체" onchange="fn_selectItem(event)"></sbux-select>
                         </td>
                         <th scope="row" class="th_bg" >기준연도</th>
                         <td colspan="5" class="td_input"style="border-right: hidden;">
@@ -97,6 +98,8 @@
                                     date-format="yyyy"
                                     double-open="true"
                                     show-button-bar="false"
+                                    open-on-input-selection="true"
+                                    close-on-date-selection="true"
                                     class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"
                             ></sbux-datepicker>
                         </td>
@@ -110,6 +113,8 @@
                                     date-format="yyyy"
                                     double-open="true"
                                     show-button-bar="false"
+                                    open-on-input-selection="true"
+                                    close-on-date-selection="true"
                                     class="form-control input-sm input-sm-ast inpt_data_reqed sbux-pik-group-apc"
                             ></sbux-datepicker>
                         </td>
@@ -150,7 +155,7 @@
                     <ul class="ad_tbl_count">
                         <li>
                             <span>지원사업 목록</span>
-                            <span style="font-size:12px">(조회건수 <span id="sprtBizCnt">0</span>건, 전체건수 <span id="sprtBizTotal">0</span>건)</span>
+                            <span style="font-size:12px">(조회건수 <span id="sprtBizTotal">0</span>건)</span>
                         </li>
                     </ul>
                 </div>
@@ -172,6 +177,7 @@
         await Promise.all([
             fn_setSprtBizSeCdSelect('srch-slt-sprtBizNm', jsonBizSeCd)
         ]);
+        fn_setYr();
     }
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -180,6 +186,7 @@
     });
 
     const fn_setSprtBizSeCdSelect = async function (_targetIds, _jsondataRef, _apcCd) {
+
         const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizRsltInqSeCd.do", {}, null, true);
         const data = await postJsonPromise;
 
@@ -187,10 +194,79 @@
         data.resultList.forEach((item) => {
             item.cmnsNm = item.sprtBizNm;
             item.cmnsCd = item.sprtBizCd;
+
             sourceJson.push(item);
         });
 
         gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+    }
+
+    async function fn_setYr() {
+
+        const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizRsltInqSeCd.do", {}, null, true);
+        const data = await postJsonPromise;
+
+        let maxData = 0;
+        let minData = 9999;
+        let cnt = jsonBizSeCd.length;
+
+        for(let i = 0; i < cnt; i++) {
+            if( data.resultList[i].sprtBizYrMax > maxData ) {
+                maxData = data.resultList[i].sprtBizYrMax;
+            }
+            if( data.resultList[i].sprtBizYrMin < minData ) {
+                minData = data.resultList[i].sprtBizYrMin;
+            }
+        }
+
+        let setData = minData + ',' + maxData;
+
+        SBUxMethod.set("srch-dtp-crtrYmd", setData);
+
+        SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', minData);
+        SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', maxData);
+    }
+
+    async function fn_selectItem(e) {
+
+        const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizRsltInqSeCd.do", {}, null, true);
+        const data = await postJsonPromise;
+
+        let idx = e.target.selectedIndex;
+        let cnt = jsonBizSeCd.length;
+
+        if(idx != 0) {
+            let strYr = data.resultList[idx-1].sprtBizYrMin;
+            let endYr = data.resultList[idx-1].sprtBizYrMax;
+            let setYr = strYr + ',' + endYr;
+
+            SBUxMethod.set("srch-dtp-crtrYmd", setYr);
+
+            SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', strYr);
+            SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', endYr);
+
+        }else {
+            let maxData = 0;
+            let minData = 9999;
+
+            for(let i = 0; i < cnt; i++) {
+                if( data.resultList[i].sprtBizYrMax > maxData ) {
+                    maxData = data.resultList[i].sprtBizYrMax;
+                }
+                if( data.resultList[i].sprtBizYrMin < minData ) {
+                    minData = data.resultList[i].sprtBizYrMin;
+                }
+            }
+
+            let setData = minData + ',' + maxData;
+
+            SBUxMethod.set("srch-dtp-crtrYmd", setData);
+
+            SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', minData);
+            SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', maxData);
+        }
+
+
     }
 
 
@@ -205,6 +281,7 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.fixedrowheight = '37';
+/*
         SBGridProperties.paging = {
             'type' : 'page',
             'count' : 5,
@@ -212,20 +289,23 @@
             'sorttype' : 'page',
             'showgoalpageui' : true
         };
+*/
         SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ["기준<br/>연도"],	ref: 'sprtBizYr', type:'output',  width:'60px', style:'text-align:center'},
+            {caption: ["기준<br/>연도"],	ref: 'sprtBizYr', type:'output',  width:'50px',  style:'text-align:center'},
             {caption: ["지원사업명"],	    ref: 'sprtBizNm', type:'output',  width:'200px', style:'text-align:left'},
             {caption: ["법인명"],	    ref: 'bzmnConm',  type:'output',  width:'250px', style:'text-align:left'},
-            {caption: ["법인번호"],	    ref: 'crno',      type:'output',  width:'110px',  style:'text-align:left'},
-            {caption: ["사업자번호"],	    ref: 'brno',      type:'output',  width:'90px',  style:'text-align:left'},
-            {caption: ["선정<br/>연도"],	ref: 'slctnYr',   type:'output',  width:'60px',  style:'text-align:center'},
-            {caption: ["지원<br/>연도"],	ref: 'sprtYr',    type:'output',  width:'60px',  style:'text-align:center'},
+            {caption: ["법인번호"],	    ref: 'crno',      type:'output',  width:'100px', style:'text-align:left'},
+            {caption: ["사업자번호"],	    ref: 'brno',      type:'output',  width:'80px',  style:'text-align:left'},
+            {caption: ["시도"],	        ref: 'stdgCtpvCd',type:'output',  width:'100px',  style:'text-align:center'},
+            {caption: ["시군구"],	    ref: 'stdgSggCd', type:'output',  width:'110px',  style:'text-align:center'},
+            {caption: ["선정<br/>연도"],	ref: 'slctnYr',   type:'output',  width:'50px',  style:'text-align:center'},
+            {caption: ["지원<br/>연도"],	ref: 'sprtYr',    type:'output',  width:'50px',  style:'text-align:center'},
             {
                 caption: ["배정금액<br/>(천원)"],
                 ref: 'altmntAmt',
                 type:'output',
-                width:'80px',
+                width:'70px',
                 style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}},
                 format : {
@@ -237,7 +317,7 @@
                 caption: ["자부담"],
                 ref: 'onslfBrdnAmt',
                 type:'output',
-                width:'80px',
+                width:'70px',
                 style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}},
                 format : {
@@ -249,7 +329,7 @@
                 caption: ["배정이자<br/>(%)"],
                 ref: 'altmntInt',
                 type:'output',
-                width:'80px',
+                width:'70px',
                 style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}},
                 format : {
@@ -257,13 +337,14 @@
                     rule:'#,###  '
                 }
             },
-            {caption: ["비고"],			ref: 'rmrk',     type:'output',  width:'350px',    style:'text-align:left'},
+            {caption: ["비고"],			ref: 'rmrk',     type:'output',  width:'285px',    style:'text-align:left'},
+            {caption: ["품목"],		    ref: 'itemCd',	 type:'output',  width:'100px',     style:'text-align:center'},
+            {caption: ["사업</br>유형"],	ref: 'bizType',	 type:'output',  width:'50px',     style:'text-align:center'},
 
-            {caption: ["품목"],		    ref: 'itemCd',	 type:'output',  witdth:'60px',     style:'text-align:center', hidden: true},
-            {caption: ["사업</br>유형"],	ref: 'bizType',	 type:'output',  witdth:'60px',     style:'text-align:center', hidden: true},
+
         ];
         grdSprtBiz = _SBGrid.create(SBGridProperties);
-        grdSprtBiz.bind("afterpagechanged" , fn_pagingGrdSprtBiz);
+        //grdSprtBiz.bind("afterpagechanged" , fn_pagingGrdSprtBiz);
     }
 
     // 페이징
@@ -318,10 +399,10 @@
     const fn_setGrdSprtBiz = async function(pageSize, pageNo) {
 
         let sprtBizSe = SBUxMethod.get("srch-slt-sprtBizNm");       // 사업구분
-        let crtrYmdFrom = SBUxMethod.get("srch-dtp-crtrYmd_from");   // 기준연도 시작일자
-        let crtrYmdTo = SBUxMethod.get("srch-dtp-crtrYmd_to");       // 기준연도 종료일자
-        let sprtYmdFrom = SBUxMethod.get("srch-dtp-sprtYmd_from");   // 지원연도 시작일자
-        let sprtYmdTo = SBUxMethod.get("srch-dtp-sprtYmd_to");       // 지원연도 종료일자
+        let crtrYmdFrom = SBUxMethod.get("srch-dtp-crtrYmd_from");  // 기준연도 시작일자
+        let crtrYmdTo = SBUxMethod.get("srch-dtp-crtrYmd_to");      // 기준연도 종료일자
+        let sprtYmdFrom = SBUxMethod.get("srch-dtp-sprtYmd_from");  // 지원연도 시작일자
+        let sprtYmdTo = SBUxMethod.get("srch-dtp-sprtYmd_to");      // 지원연도 종료일자
         let corpNm = SBUxMethod.get("srch-inp-corpNm");             // 법인명
         let crno = SBUxMethod.get("srch-inp-crno");                 // 법인번호
         let brno = SBUxMethod.get("srch-inp-brno");                 // 사업자번호
@@ -342,9 +423,11 @@
                , brno                : brno
 
                  //페이징
+/*
                , pagingYn            : 'Y'
                , currentPageNo       : pageNo
                , recordCountPerPage  : pageSize
+*/
             });
 
             let data = await postJsonPromise;
@@ -362,6 +445,8 @@
                   , bzmnConm        : item.bzmnConm
                   , brno            : item.brno
                   , crno            : item.crno
+                  , stdgCtpvCd      : item.stdgCtpvCd
+                  , stdgSggCd       : item.stdgSggCd
                   , slctnYr         : item.slctnYr
                   , sprtYr          : item.sprtYr
                   , altmntAmt       : item.altmntAmt
@@ -377,7 +462,6 @@
                     totalRecordCount = item.totalRecordCount;
                 }
             });
-            document.querySelector('#sprtBizCnt').innerText = jsonSprtBiz.length;
             if (jsonSprtBiz.length > 0) {
                 if(grdSprtBiz.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
                     grdSprtBiz.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
