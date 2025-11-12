@@ -1927,8 +1927,6 @@
 			}
  		}
 
-		 console.log("params", params)
-
 		const postJsonPromise = gfn_postJSON(url, params);
 
 		/** 2025.09.12 출고 팔레트/박스 수량 추가 */
