@@ -468,7 +468,7 @@
                     /** 상품규격 == 원물규격 **/
                     // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
                     // await gfn_setApcSpcfctsSBSelect('dtl-slt-spcfctCd', jsonSpcfctCd, gv_selectedApcCd, data.resultMap.itemCd);
-                    await fn_searchGrdCd(data.resultMap.itemCd);
+                    await fn_searchGrdCd(data.resultMap.itemCd, data.resultMap.vrtyCd);
                     await fn_setGrdSelect(data.resultMap.itemCd);
                     // await fn_getSortno();
                     /** 하단 table 정보 조회 **/
@@ -482,8 +482,8 @@
            console.error(e);
         }
     }
-    const fn_searchGrdCd = async function(_itemCd){
-        let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : gv_selectedApcCd, itemCd : _itemCd});
+    const fn_searchGrdCd = async function(_itemCd, _vrtyCd){
+        let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : gv_selectedApcCd, itemCd : _itemCd, vrtyCd: _vrtyCd});
         let data = await postJsonPromise;
         if(data.resultStatus === 'S'){
             jsonSpcfctCd = data.resultList;
