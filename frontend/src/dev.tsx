@@ -19,12 +19,14 @@ const theme = createTheme({
 });
 
 const queryClient = new QueryClient();
+const container = document.getElementById('root');
+const apcCd = container.dataset.apcCd;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <App initialProps={{ apcCode: 'DEV-001' }} />
+        <App apcCd={apcCd} />
       </QueryClientProvider>
     </MantineProvider>
   </React.StrictMode>,
