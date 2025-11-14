@@ -45,6 +45,10 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 진척도 확인 -->
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnLastSbmsn" name="btnLastSbmsn" uitype="normal" text="최종제출" class="btn btn-sm btn-outline-danger" onclick="fn_prgrsSttsAprv('SBMT')"></sbux-button>
+                <sbux-button id="btnLastSbmsnCancel" name="btnLastSbmsnCancel" uitype="normal" text="최종제출 취소" class="btn btn-sm btn-outline-danger" onclick="fn_prgrsSttsCancel('SBMT')"></sbux-button>
+                <sbux-button id="btnApoDdlnAprv" name="btnApoDdlnAprv" uitype="normal" text="마감" class="btn btn-sm btn-outline-danger" onclick="fn_prgrsSttsAprv('DDLN')"></sbux-button>
+                <sbux-button id="btnApoDdlnCancel" name="btnApoDdlnCancel" uitype="normal" text="마감취소" class="btn btn-sm btn-outline-danger" onclick="fn_prgrsSttsCancel('DDLN')"></sbux-button>
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
             </div>
         </div>
@@ -60,7 +64,7 @@
                     </td>
                     <th scope="row" class="th_bg">조직구분</th>
                     <td class="td_input">
-                        <sbux-select id="dtl-slt-ognzSe" name="dtl-slt-ognzSe" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonOgnzSe"></sbux-select>
+                        <sbux-select id="dtl-slt-apoSe" name="dtl-slt-apoSe" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonApoSe"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">법인체마감</th>
                     <td class="td_input">
@@ -110,9 +114,9 @@
     var jsonRegYr = [];
 
     /** 조직구분 **/
-    var jsonOgnzSe = [
-        {value : 'uo', text : '통합조직'},
-        {value : 'iso', text : '출자출하조직'}
+    var jsonApoSe = [
+        {value : '1', text : '통합조직'},
+        {value : '2', text : '출자출하조직'}
     ];
 
     /** Yn **/
@@ -121,209 +125,6 @@
         {value : 'N', text :'N'}
     ]
 
-    /** 진척도샘플데이터 **/
-    var jsonSampleData = [
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "가교버섯영농조합법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "N",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "강원감자농협조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "△", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "X",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "강원연합사업단",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "N",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "거창한거창조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "△", "prgrs9": "◯", "prgrs10": "△"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "경기과일농협조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "N",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "경주시농협원예조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "고령군농협조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "N",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "고창군농협조합공동사업법인 원예사업부",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "공주시농협조합공동사업법인",
-            "ognzSe": "통합조직",
-            "lastSbmsn": "N",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "송현농업회사법인 유한회사",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "N",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "△", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "(주)농업회사법인 지인",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "Y",
-            "prgrs1": "X", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "가람영농조합법인",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "가산농협",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "N",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "△", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "가야농업협동조합",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "감곡농협",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "N",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "감문농업협동조합",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "N",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "강경농업협동조합",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "강동농협",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "N",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "△", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "◯"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "강릉농업협동조합",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "N",
-            "corpDdln": "Y",
-            "prgrs1": "X", "prgrs2": "◯", "prgrs3": "◯", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "X"
-        },
-        {
-            "checkedYn": 'N',
-            "regYr": '2025',
-            "corpNm": "거창농업협동조합",
-            "ognzSe": "출자출하조직",
-            "lastSbmsn": "Y",
-            "corpDdln": "Y",
-            "prgrs1": "◯", "prgrs2": "◯", "prgrs3": "△", "prgrs4": "◯", "prgrs5": "◯",
-            "prgrs6": "◯", "prgrs7": "◯", "prgrs8": "◯", "prgrs9": "◯", "prgrs10": "△"
-        }
-    ]
 
     const initIndtfNo = "2025";
 
@@ -366,7 +167,7 @@
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-prgrs';
         SBGridProperties.id = 'gridPrgrs';
-        SBGridProperties.jsonref = 'jsonSampleData';
+        SBGridProperties.jsonref = 'jsonPrgrs';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true;
@@ -377,16 +178,17 @@
         SBGridProperties.columns = [
             {
                 caption : ["<input type='checkbox' onchange='fn_checkAll(gridPrgrs, this);'>"],
-                ref: 'checkedYn', type: 'checkbox',  width:'4%',
+                ref: 'checkedYn', type: 'checkbox',  width:'3%',
                 style: 'text-align:center',
                 userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true, fixedcellcheckbox : {usemode : false, rowindex : 0}}
             },
-            {caption: ['등록연도'],			ref: 'regYr', 	    width: '6%', type: 'output',style: 'text-align:center'},
-            {caption: ['법인명'], 			ref: 'corpNm', 	width: '15%', type: 'output', style: 'text-align:center'},
-            {caption: ['구분'], 			ref: 'ognzSe', 		width: '10%', type: 'output', style: 'text-align:center'},
-            {caption: ['최종제출'], 			ref: 'lastSbmsn', 		width: '5%', type: 'output', style: 'text-align:center'},
-            {caption: ['법인체마감'], 			ref: 'corpDdln', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['등록연도'],			ref: 'crtrYr', 	    width: '5%', type: 'output',style: 'text-align:center'},
+            {caption: ['법인명'], 			ref: 'corpNm', 	width: '11%', type: 'output', style: 'text-align:center'},
+            {caption: ['구분'], 			ref: 'apoSeNm', 		width: '6%', type: 'output', style: 'text-align:center'},
+            {caption: ['통합조직명'], 			ref: 'uoCorpNm', 		width: '12%', type: 'output', style: 'text-align:center'},
+            {caption: ['최종제출'], 			ref: 'lastSbmsnYn', 		width: '4%', type: 'output', style: 'text-align:center'},
+            {caption: ['법인체마감'], 			ref: 'corpDdlnYn', 		width: '4%', type: 'output', style: 'text-align:center'},
             {caption: ['1'], 			ref: 'prgrs1', 		width: '5%', type: 'output', style: 'text-align:center'},
             {caption: ['2'], 			ref: 'prgrs2', 		width: '5%', type: 'output', style: 'text-align:center'},
             {caption: ['3'], 			ref: 'prgrs3', 		width: '5%', type: 'output', style: 'text-align:center'},
@@ -426,6 +228,204 @@
         console.log("출력");
     }
 
+    /**
+     * @name fn_search
+     * @description 진척도 조회
+     */
+    const fn_search = async function () {
+        const crtrYr = SBUxMethod.get('dtl-slt-regYr'); // 등록연도
+        const apoSe = SBUxMethod.get('dtl-slt-apoSe'); // 조직구분
+        const corpDdlnYn = SBUxMethod.get('dtl-slt-corpDdln'); // 법인체마감
+        const corpNm = SBUxMethod.get('dtl-inp-corpNm'); // 법인명
+        const brno = SBUxMethod.get('dtl-inp-brno'); // 사업자번호
+        const lastSbmsnYn = SBUxMethod.get('dtl-slt-lastSbmsn'); // 최종제출
+
+        jsonPrgrs.length = 0;
+
+        const postJsonPromise = gfn_postJSON("/pd/aom/selectPruoPrgrsList.do", {
+            crtrYr : crtrYr,
+            corpNm : corpNm,
+            brno : brno,
+            apoSe : apoSe,
+            corpDdlnYn : corpDdlnYn,
+            lastSbmsnYn : lastSbmsnYn,
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultList.length > 0) {
+                    data.resultList.forEach(item => {
+                        const vo = {
+                           crtrYr : item.crtrYr
+                           , corpNm : item.corpNm
+                           , apoSeNm : item.apoSeNm
+                           , apoCd : item.apoCd
+                           , apoSe : item.apoSe
+                           , lastSbmsnYn : item.lastSbmsnYn
+                           , corpDdlnYn : item.corpDdlnYn
+                           , uoBrno : item.uoBrno
+                           , uoCorpNm : item.uoCorpNm
+                           , prgrs1: fn_prgrsChange(item.prgrs1)
+                           , prgrs2: fn_prgrsChange(item.prgrs2)
+                           , prgrs3: fn_prgrsChange(item.prgrs3)
+                           , prgrs4: fn_prgrsChange(item.prgrs4)
+                           , prgrs5: fn_prgrsChange(item.prgrs5)
+                           , prgrs6: fn_prgrsChange(item.prgrs6)
+                           , prgrs7: fn_prgrsChange(item.prgrs7)
+                           , prgrs8: fn_prgrsChange(item.prgrs8)
+                           , prgrs9: fn_prgrsChange(item.prgrs9)
+                           , prgrs10: fn_prgrsChange(item.prgrs10)
+                        }
+                        jsonPrgrs.push(vo);
+                    });
+                }
+                gridPrgrs.refresh();
+                // 조회건수
+                document.querySelector('#prgrsList').innerText = data.resultList.length;
+
+            } else {
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+
+    /**
+     * @name fn_prgrsChange
+     * @description 진행상태 모양 변경
+     */
+    function fn_prgrsChange (value) {
+        if (value == 'Y') {
+            return '◯';
+        } else if (value == 'T') {
+            return '△';
+        } else {
+            return 'X'
+        }
+    }
+
+    /**
+     * @name fn_prgrsSttsAprv
+     * @description 최종제출, 마감 처리
+     */
+    const fn_prgrsSttsAprv = async function (sttsCd) {
+
+        let sttsNm;
+        let corpDdlnSeCd;
+        if (gfn_isEmpty(sttsCd)) {
+            gfn_comAlert("W0005", "진행상태 코드"); // W0005 {0}이/가 없습니다.
+            return;
+        }
+        if (sttsCd == 'SBMT') {
+            sttsNm = "최종제출";
+        } else if (sttsCd == 'DDLN') {
+            sttsNm = "마감";
+            corpDdlnSeCd = 'Y'
+        }
+
+        const allData = gridPrgrs.getGridDataAll();
+        const checkedDataList = [];
+        for (let i = 0; i < allData.length; i++) {
+            if (_.isEqual(allData[i].checkedYn, "Y")) {
+                checkedDataList.push({
+                    crtrYr : allData[i].crtrYr,
+                    apoCd : allData[i].apoCd,
+                    prgrsStpCd : sttsCd,
+                    corpDdlnSeCd :corpDdlnSeCd
+                });
+            }
+        }
+
+        if (gfn_isEmpty(checkedDataList)) {
+            gfn_comAlert("W0003", sttsNm); // W0003 {0}할 대상이 없습니다.
+            return;
+        }
+
+        if (!gfn_comConfirm("Q0001", sttsNm)) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/pd/aom/insertPruoPrgrsApoList.do", checkedDataList);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                await fn_search();
+            } else {
+                // gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_prgrsSttsCancel = async function (sttsCd) {
+        let sttsNm;
+        if (gfn_isEmpty(sttsCd)) {
+            gfn_comAlert("W0005", "진행상태 코드"); // W0005 {0}이/가 없습니다.
+            return;
+        }
+        if (sttsCd == 'SBMT') {
+            sttsNm = "최종제출 취소";
+        } else if (sttsCd == 'DDLN') {
+            sttsNm = "마감 취소";
+        }
+
+        const allData = gridPrgrs.getGridDataAll();
+        const checkedCancelList = [];
+        for (let i = 0; i < allData.length; i++) {
+            if (_.isEqual(allData[i].checkedYn, "Y")) {
+                checkedCancelList.push({
+                    crtrYr: allData[i].crtrYr,
+                    apoCd: allData[i].apoCd,
+                    prgrsStpCd: sttsCd
+                });
+            }
+        }
+
+        if (gfn_isEmpty(checkedCancelList)) {
+            gfn_comAlert("W0003", sttsNm); // W0003 {0}할 대상이 없습니다.
+            return;
+        }
+
+        if (!gfn_comConfirm("Q0001", sttsNm)) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/pd/aom/updatePruoPrgrsApoCnclList.do", checkedCancelList);
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                await fn_search();
+            } else {
+                // gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
