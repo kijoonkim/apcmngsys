@@ -58,4 +58,49 @@
 		FROM DUAL
 		]]>
     </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdlngCd	-->
+    <!-- DESC : 육묘코드 발번	                                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.16  	최지호        		                                        -->
+    <!-- ==========================================================================	-->
+    <select id="selectFnGetIdSdlngCd" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    	<![CDATA[
+            SELECT FN_GET_ID_SDLNG_CD(#{apcCd}) AS SDLNG_CD
+            FROM DUAL
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdnlgNo	-->
+    <!-- DESC : 육묘번호 발번	                                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.16  	최지호        		                                        -->
+    <!-- ==========================================================================	-->
+    <select id="selectFnGetIdSdnlgNo" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    	<![CDATA[
+            SELECT FN_GET_ID_SDNLG_NO(#{apcCd}, #{sdngYmd}) AS SDLNG_NO
+            FROM DUAL
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdPlntngNo	-->
+    <!-- DESC : 정식번호 발번	                                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.16  	최지호        		                                        -->
+    <!-- ==========================================================================	-->
+    <select id="selectFnGetIdPlntngNo" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    	<![CDATA[
+            SELECT FN_GET_ID_PLNTNG_NO(#{apcCd}, #{plntngYmd}) AS SDLNG_NO
+            FROM DUAL
+        ]]>
+    </select>
 </mapper>
