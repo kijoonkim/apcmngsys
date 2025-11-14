@@ -672,7 +672,1011 @@
 		]]>
 	</select>
 
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngCrtrInfos			    -->
+    <!-- DESC : 육묘기준 목록 공통 조회.	                                       				-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="sdlngCrtrInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SC.APC_CD AS APC_CD
+                , SC.SDLNG_CD AS SDLNG_CD
+                , SC.SDLNG_NM AS SDLNG_NM
+                , SC.ITEM_CD AS ITEM_CD
+                , SC.VRTY_CD AS VRTY_CD
+                , SC.INDCT_SEQ AS INDCT_SEQ
+                , SC.SDLNG_DAY_CNT AS SDLNG_DAY_CNT
+                , SC.USE_YN AS USE_YN
+                , SC.DEL_YN AS DEL_YN
+                , (NVL(HS.TOTAL_PCKG_QNTT, 0) - NVL(SP.TOTAL_SPMT_QNTT, 0)) AS TOTAL_PCKG_QNTT
+                , (NVL(HS.TOTAL_PCKG_WGHT, 0) - NVL(SP.TOTAL_SPMT_WGHT, 0)) AS TOTAL_PCKG_WGHT
+            FROM TB_SDLNG_CRTR SC
+            LEFT JOIN (
+                SELECT
+                      SI.APC_CD AS APC_CD
+                    , SI.SDNLG_CD AS SDLNG_CD
+                    , SUM(SH.PCKG_QNTT) AS TOTAL_PCKG_QNTT
+                    , SUM(SH.PCKG_QNTT * SH.PCKG_WGHT) AS TOTAL_PCKG_WGHT
+                FROM TB_SDNLG_INVNTR SI
+                LEFT JOIN TB_SDNLG_PLNTNG SP ON SI.SDNLG_NO = SP.SDNLG_NO
+                AND SI.APC_CD = SP.APC_CD
+                LEFT JOIN TB_SDNLG_HRVST SH ON SP.PLNTNG_NO = SH.PLNTNG_NO
+                AND SI.APC_CD = SH.APC_CD
+                WHERE SI.DEL_YN = 'N'
+                GROUP BY
+                      SI.APC_CD
+                    , SI.SDNLG_CD
+            ) HS ON SC.APC_CD = HS.APC_CD
+            AND SC.SDLNG_CD = HS.SDLNG_CD
+            LEFT JOIN (
+                SELECT
+                      PD.APC_CD AS APC_CD
+                    , PD.ITEM_CD AS ITEM_CD
+                    , PD.VRTY_CD AS VRTY_CD
+                    , SUM(PD.SPMT_QNTT) AS TOTAL_SPMT_QNTT
+                    , SUM(PD.SPMT_WGHT) AS TOTAL_SPMT_WGHT
+                FROM TB_SPMT_PRFMNC_DTL PD
+                WHERE PD.DEL_YN = 'N'
+                GROUP BY
+                      PD.APC_CD
+                    , PD.ITEM_CD
+                    , PD.VRTY_CD
+            ) SP ON SC.APC_CD = SP.APC_CD
+            AND SC.ITEM_CD = SP.ITEM_CD
+            AND SC.VRTY_CD = SP.VRTY_CD
+            WHERE SC.DEL_YN = 'N'
+            AND SC.USE_YN = 'Y'
+            AND SC.APC_CD = #{apcCd}
+            ORDER BY SC.INDCT_SEQ
+        ]]>
+    </select>
 
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltZoneInfos          -->
+    <!-- DESC : 육묘시설 구역 목록 공통 조회.	                                       			-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="sdlngFcltZoneInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  FZ.FCLT_ID AS FCLT_ID
+                , MAX(SF.FCLT_NM) AS FCLT_NM
+                , FZ.FCLT_ZONE_SE_CD AS FCLT_ZONE_SE_CD
+                , FN_GET_SDLNG_FCLT_CRTR_NM(FZ.APC_CD, SF.FCLT_TYPE, 'ZNSC', FZ.FCLT_ZONE_SE_CD) AS SE_NM
+                , FC.CRTR_NV AS CRTR_NV
+            FROM TB_SDLNG_FCLT_ZONE FZ
+            JOIN TB_SDLNG_FCLT SF ON SF.APC_CD = FZ.APC_CD
+            AND SF.FCLT_ID = FZ.FCLT_ID
+            AND SF.FCLT_TYPE = #{fcltType}
+            AND SF.APC_CD = #{apcCd}
+            AND SF.DEL_YN = 'N'
+            JOIN TB_SDLNG_FCLT_CRTR FC ON FC.APC_CD = FZ.APC_CD
+            AND FC.FCLT_TYPE = FZ.FCLT_ID
+            AND FC.DEL_YN = 'N'
+            GROUP BY
+                  FZ.APC_CD
+                , FZ.FCLT_ID
+                , SF.FCLT_TYPE
+                , FZ.FCLT_ZONE_SE_CD
+                , FC.CRTR_NV
+            ORDER BY FZ.FCLT_ZONE_SE_CD
+        ]]>
+    </select>
 
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltRowInfos           -->
+    <!-- DESC : 육묘시설 열 목록 공통 조회.	                                       			    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="sdlngFcltRowInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  FZ.FCLT_ID AS FCLT_ID
+                , SF.FCLT_NM AS FCLT_NM
+                , FZ.FCLT_ZONE_SE_CD AS FCLT_ZONE_SE_CD
+                , USRAM.FN_GET_SDLNG_FCLT_CRTR_NM(FZ.APC_CD, SF.FCLT_TYPE, 'ZNSC', FZ.FCLT_ZONE_SE_CD) AS SE_NM
+                , FZ.FCLT_ZONE_ID AS FCLT_ZONE_ID
+                , FN_GET_SDLNG_ZONE_NM(FZ.APC_CD, FZ.FCLT_ZONE_ID) AS ZONE_NM
+            FROM TB_SDLNG_FCLT_ZONE FZ
+            JOIN TB_SDLNG_FCLT SF ON SF.APC_CD = FZ.APC_CD
+            AND SF.FCLT_ID = FZ.FCLT_ID
+            AND SF.FCLT_TYPE = #{fcltType}
+            AND SF.APC_CD = #{apcCd}
+        ]]>
+        <if test='fcltZoneSeCd != null and fcltZoneSeCd != ""'>
+            AND FZ.FCLT_ZONE_SE_CD = #{fcltZoneSeCd}
+        </if>
+        <![CDATA[
+            AND SF.DEL_YN = 'N'
+        ]]>
+    </select>
 
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngCrtrList			-->
+    <!-- DESC : 육묘기준 목록 조회.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SC.APC_CD AS APC_CD
+                , SC.SDLNG_CD AS SDLNG_CD
+                , SC.SDLNG_NM AS SDLNG_NM
+                , SC.ITEM_CD AS ITEM_CD
+                , SC.VRTY_CD AS VRTY_CD
+                , SC.INDCT_SEQ AS INDCT_SEQ
+                , SC.SDLNG_DAY_CNT AS SDLNG_DAY_CNT
+                , SC.USE_YN AS USE_YN
+                , SC.DEL_YN AS DEL_YN
+            FROM TB_SDLNG_CRTR SC
+            WHERE SC.DEL_YN = 'N'
+            AND SC.APC_CD = #{apcCd}
+            ORDER BY SC.INDCT_SEQ
+        ]]>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngCrtrList			-->
+    <!-- DESC : 육묘기준 목록 등록.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SDLNG_CRTR (
+                  APC_CD
+                , SDLNG_CD
+                , SDLNG_NM
+                , ITEM_CD
+                , VRTY_CD
+                , INDCT_SEQ
+                , SDLNG_DAY_CNT
+                , USE_YN
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                   #{apcCd}
+                 , #{sdlngCd}
+                 , #{sdlngNm}
+                 , #{itemCd}
+                 , #{vrtyCd}
+                 , #{indctSeq}
+                 , #{sdlngDayCnt}
+                 , #{useYn}
+                 , 'N'
+                 , SYSDATE
+                 , #{sysFrstInptUserId}
+                 , #{sysFrstInptPrgrmId}
+                 , SYSDATE
+                 , #{sysLastChgUserId}
+                 , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngCrtrList			-->
+    <!-- DESC : 육묘기준 목록 수정.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDLNG_CRTR
+            SET
+                  SDLNG_NM = #{sdlngNm}
+                , ITEM_CD = #{itemCd}
+                , VRTY_CD = #{vrtyCd}
+                , INDCT_SEQ = #{indctSeq}
+                , SDLNG_DAY_CNT = #{sdlngDayCnt}
+                , USE_YN = #{useYn}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SDLNG_CD = #{sdlngCd}
+        ]]>
+	</update>
+
+    <!-- ==================================================================================	-->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngCrtrList	        -->
+    <!-- DESC : 육묘기준 목록 삭제.                                             		        -->
+    <!-- ==================================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
+    <!-- ===========  	============  	===================================================	-->
+    <!-- 2025.09.16  	최지호        	Initial Creation                                    -->
+    <!-- ==================================================================================	-->
+    <update id="deleteSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    	<![CDATA[
+            UPDATE TB_SDLNG_CRTR
+            SET DEL_YN = 'Y'
+            WHERE APC_CD = #{apcCd}
+            AND SDLNG_CD = #{sdlngCd}
+        ]]>
+    </update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngList			    -->
+    <!-- DESC : 육묘장 목록 조회.	                                       					    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SI.APC_CD AS APC_CD
+                , SI.SDNLG_NO AS SDLNG_NO
+                , SI.SDNLG_CD AS SDLNG_CD
+                , SI.SDNG_YMD AS SDNG_YMD
+                , SP.PLNTNG_YMD AS PLNTNG_YMD
+                , SH.WGH_YMD AS HRVST_YMD
+                , SI.PLNTNG_EXPCT_YMD AS PLNTNG_EXPCT_YMD
+                , SI.BX_QNTT AS BX_QNTT
+                , SI.UNIT_QNTT AS UNIT_QNTT
+                , SI.SDNG_QNTT AS SDNG_QNTT
+                , SI.INVNTR_QNTT AS INVNTR_QNTT
+                , SI.PLNTNG_QNTT AS PLNTNG_QNTT
+                , SI.FCLT_ZONE_ID AS FCLT_ZONE_ID
+                , SI.RMRK AS RMRK
+                , SP.DEL_YN AS DEL_YN
+            FROM TB_SDNLG_INVNTR SI
+            LEFT JOIN TB_SDNLG_PLNTNG SP ON SI.SDNLG_NO = SP.SDNLG_NO
+            AND SI.APC_CD = SP.APC_CD
+            LEFT JOIN TB_SDNLG_HRVST SH ON SP.PLNTNG_NO = SH.PLNTNG_NO
+            AND SI.APC_CD = SH.APC_CD
+            WHERE SI.DEL_YN = 'N'
+            AND SI.APC_CD = #{apcCd}
+        ]]>
+        <if test='sdngYmdFrom != null and sdngYmdFrom != ""'>
+            AND SI.SDNG_YMD <![CDATA[>=]]> #{sdngYmdFrom}
+        </if>
+        <if test='sdngYmdTo != null and sdngYmdTo != ""'>
+            AND SI.SDNG_YMD <![CDATA[<=]]> #{sdngYmdTo}
+        </if>
+        <if test='plntngExpctYmdFrom != null and plntngExpctYmdFrom != ""'>
+            AND SI.PLNTNG_EXPCT_YMD <![CDATA[>=]]> #{plntngExpctYmdFrom}
+        </if>
+        <if test='plntngExpctYmdTo != null and plntngExpctYmdTo != ""'>
+            AND SI.PLNTNG_EXPCT_YMD <![CDATA[<=]]> #{plntngExpctYmdTo}
+        </if>
+        <if test='sdlngCd != null and sdlngCd != ""'>
+            AND SI.SDNLG_CD = #{sdlngCd}
+        </if>
+        <if test='sdlngZone != null and sdlngZone != ""'>
+            AND SUBSTR(SI.FCLT_ZONE_ID, 3, 2) = #{sdlngZone}
+        </if>
+        <if test='fcltZoneId != null and fcltZoneId != ""'>
+            AND SI.FCLT_ZONE_ID = #{fcltZoneId}
+        </if>
+        <![CDATA[
+            ORDER BY SI.SDNLG_NO
+        ]]>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngList			    -->
+    <!-- DESC : 육묘장 목록 등록.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SDNLG_INVNTR (
+                  APC_CD
+                , SDNLG_NO
+                , SDNLG_CD
+                , SDNG_YMD
+                , PLNTNG_EXPCT_YMD
+                , BX_QNTT
+                , UNIT_QNTT
+                , SDNG_QNTT
+                , INVNTR_QNTT
+                , PLNTNG_QNTT
+                , FCLT_ZONE_ID
+                , RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{sdlngNo}
+                , #{sdlngCd}
+                , #{sdngYmd}
+                , #{plntngExpctYmd}
+                , #{bxQntt}
+                , #{unitQntt}
+                , #{sdngQntt}
+                , #{invntrQntt}
+                , #{plntngQntt}
+                , #{fcltZoneId}
+                , #{rmrk}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngList			    -->
+    <!-- DESC : 육묘장 목록 수정.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDNLG_INVNTR
+            SET
+                  SDNLG_CD = #{sdlngCd}
+                , SDNG_YMD = #{sdngYmd}
+                , PLNTNG_EXPCT_YMD = #{plntngExpctYmd}
+                , BX_QNTT = #{bxQntt}
+                , UNIT_QNTT = #{unitQntt}
+                , SDNG_QNTT = #{sdngQntt}
+                , INVNTR_QNTT = #{invntrQntt}
+                , PLNTNG_QNTT = #{plntngQntt}
+                , FCLT_ZONE_ID = #{fcltZoneId}
+                , RMRK = #{rmrk}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SDNLG_NO = #{sdlngNo}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngList			    -->
+    <!-- DESC : 육묘장 목록 삭제.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="deleteSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDNLG_INVNTR
+            SET
+                  DEL_YN = 'Y'
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SDNG_YMD = #{sdngYmd}
+            AND SDNLG_NO = #{sdlngNo}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtnList			-->
+    <!-- DESC : 재배장 목록 조회.	                                       					    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SI.APC_CD AS APC_CD
+                , SI.SDNLG_NO AS SDLNG_NO
+                , SP.PLNTNG_NO AS PLNTNG_NO
+                , SI.SDNLG_CD AS SDLNG_CD
+                , SI.SDNG_YMD AS SDNG_YMD
+                , SI.PLNTNG_EXPCT_YMD AS PLNTNG_EXPCT_YMD
+                , SI.BX_QNTT AS BX_QNTT
+                , SI.UNIT_QNTT AS UNIT_QNTT
+                , SI.PLNTNG_QNTT AS SDLNG_PLNTNG_QNTT
+                , SI.INVNTR_QNTT AS SDLNG_INVNTR_QNTT
+                , SI.FCLT_ZONE_ID AS SDLNG_FCLT_ZONE_ID
+                , SP.DEL_YN AS DEL_YN
+                , SP.PLNTNG_YMD AS PLNTNG_YMD
+                , SP.PLNTNG_QNTT AS CLTVTN_PLNTNG_QNTT
+                , SP.FCLT_ZONE_ID AS CLTVTN_FCLT_ZONE_ID
+                , SI.RMRK AS SDLNG_RMRK
+                , SP.RMRK AS CLTVTN_RMRK
+                , SH.WGH_YMD AS HRVST_YMD
+            FROM TB_SDNLG_INVNTR SI
+            LEFT JOIN TB_SDNLG_PLNTNG SP ON SI.SDNLG_NO = SP.SDNLG_NO
+            AND SI.APC_CD = SP.APC_CD
+            LEFT JOIN TB_SDNLG_HRVST SH ON SP.PLNTNG_NO = SH.PLNTNG_NO
+            AND SI.APC_CD = SH.APC_CD
+            WHERE SI.DEL_YN = 'N'
+            AND SI.APC_CD = #{apcCd}
+        ]]>
+        <if test='sdngYmdFrom != null and sdngYmdFrom != ""'>
+            AND SI.SDNG_YMD <![CDATA[>=]]> #{sdngYmdFrom}
+        </if>
+        <if test='sdngYmdTo != null and sdngYmdTo != ""'>
+            AND SI.SDNG_YMD <![CDATA[<=]]> #{sdngYmdTo}
+        </if>
+        <if test='plntngYmdFrom != null and plntngYmdFrom != "" and plntngYmdTo != null and plntngYmdTo != ""'>
+            AND ((SP.PLNTNG_YMD <![CDATA[>=]]> #{plntngYmdFrom} AND SP.PLNTNG_YMD <![CDATA[<=]]> #{plntngYmdTo}) OR SP.PLNTNG_YMD IS NULL)
+        </if>
+        <if test='sdlngCd != null and sdlngCd != ""'>
+            AND SI.SDNLG_CD = #{sdlngCd}
+        </if>
+        <if test='sdlngZone != null and sdlngZone != ""'>
+            AND SUBSTR(SI.FCLT_ZONE_ID, 3, 2) = #{sdlngZone}
+        </if>
+        <if test='sdlngFcltZoneId != null and sdlngFcltZoneId != ""'>
+            AND SI.FCLT_ZONE_ID = #{sdlngFcltZoneId}
+        </if>
+        <if test='cltvtnZone != null and cltvtnZone != ""'>
+            AND SUBSTR(SP.FCLT_ZONE_ID, 3, 2) = #{cltvtnZone}
+        </if>
+        <if test='cltvtnFcltZoneId != null and cltvtnFcltZoneId != ""'>
+            AND SP.FCLT_ZONE_ID = #{cltvtnFcltZoneId}
+        </if>
+        <![CDATA[
+            ORDER BY
+                  SI.SDNLG_NO
+                , SP.PLNTNG_NO
+        ]]>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertCltvtnList			-->
+    <!-- DESC : 재배장 목록 등록.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SDNLG_PLNTNG (
+                  APC_CD
+                , PLNTNG_NO
+                , SDNLG_NO
+                , PLNTNG_YMD
+                , FCLT_ZONE_ID
+                , PLNTNG_QNTT
+                , HRVST_YMD
+                , RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{plntngNo}
+                , #{sdlngNo}
+                , #{plntngYmd}
+                , #{fcltZoneId}
+                , #{plntngQntt}
+                , #{hrvstYmd}
+                , #{rmrk}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateCltvtnList			-->
+    <!-- DESC : 재배장 목록 수정.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDNLG_PLNTNG
+            SET
+                  PLNTNG_YMD = #{plntngYmd}
+                , PLNTNG_QNTT = #{plntngQntt}
+                , FCLT_ZONE_ID = #{fcltZoneId}
+                , RMRK = #{rmrk}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND PLNTNG_NO = #{plntngNo}
+            AND SDNLG_NO = #{sdlngNo}
+        ]]>
+	</update>
+
+    <!-- ==================================================================================	-->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteCltvtnList	        -->
+    <!-- DESC : 재배장 목록 삭제.                                             			        -->
+    <!-- ==================================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
+    <!-- ===========  	============  	===================================================	-->
+    <!-- 2025.09.16  	최지호        	Initial Creation                                    -->
+    <!-- ==================================================================================	-->
+    <update id="deleteCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    	<![CDATA[
+            UPDATE TB_SDNLG_PLNTNG
+            SET DEL_YN = 'Y'
+            WHERE APC_CD = #{apcCd}
+            AND PLNTNG_NO = #{plntngNo}
+            AND SDNLG_NO = #{sdlngNo}
+        ]]>
+    </update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWghList			    -->
+    <!-- DESC : 계량 목록 조회.	                                       					    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SP.APC_CD AS APC_CD
+                , SP.PLNTNG_NO AS CLTVTN_PLNTNG_NO
+                , SH.PLNTNG_NO AS WGH_PLNTNG_NO
+                , SH.WGH_SEQ AS WGH_SEQ
+                , SI.SDNLG_CD AS SDLNG_CD
+                , SP.FCLT_ZONE_ID AS CLTVTN_FCLT_ZONE_ID
+                , SP.PLNTNG_QNTT AS CLTVTN_PLNTNG_QNTT
+                , SH.DEL_YN AS DEL_YN
+                , SH.WGH_YMD AS WGH_YMD
+                , SH.WGH_WGHT AS WGH_WGHT
+                , SH.ACTL_WGHT AS ACTL_WGHT
+                , SH.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+                , SH.PCKG_QNTT AS PCKG_QNTT
+                , SH.PCKG_WGHT AS PCKG_WGHT
+                , SI.SDNG_YMD AS SDNG_YMD
+                , SP.PLNTNG_YMD AS PLNTNG_YMD
+            FROM TB_SDNLG_INVNTR SI
+            LEFT JOIN TB_SDNLG_PLNTNG SP ON SI.SDNLG_NO = SP.SDNLG_NO
+			AND SI.APC_CD = SP.APC_CD
+            LEFT JOIN TB_SDNLG_HRVST SH ON SP.PLNTNG_NO = SH.PLNTNG_NO
+            AND SI.APC_CD = SH.APC_CD
+            WHERE SI.DEL_YN = 'N'
+            AND SP.DEL_YN = 'N'
+            AND SP.APC_CD = #{apcCd}
+        ]]>
+        <if test='sdngYmdFrom != null and sdngYmdFrom != ""'>
+            AND SI.SDNG_YMD <![CDATA[>=]]> #{sdngYmdFrom}
+        </if>
+        <if test='sdngYmdTo != null and sdngYmdTo != ""'>
+            AND SI.SDNG_YMD <![CDATA[<=]]> #{sdngYmdTo}
+        </if>
+        <if test='wghYmdFrom != null and wghYmdFrom != "" and wghYmdTo != null and wghYmdTo != ""'>
+            AND ((SH.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom} AND SH.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}) OR SH.WGH_YMD IS NULL)
+        </if>
+        <if test='sdlngCd != null and sdlngCd != ""'>
+            AND SI.SDNLG_CD = #{sdlngCd}
+        </if>
+        <if test='cltvtnZone != null and cltvtnZone != ""'>
+            AND SUBSTR(SP.FCLT_ZONE_ID, 3, 2) = #{cltvtnZone}
+        </if>
+        <if test='cltvtnFcltZoneId != null and cltvtnFcltZoneId != ""'>
+            AND SP.FCLT_ZONE_ID = #{cltvtnFcltZoneId}
+        </if>
+        <![CDATA[
+            ORDER BY
+                  SI.SDNLG_NO
+                , SP.PLNTNG_NO
+        ]]>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.countWghList			    -->
+    <!-- DESC : 계량 목록 개수 조회.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="countWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="int">
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM TB_SDNLG_HRVST SH
+            WHERE SH.APC_CD = #{apcCd}
+        ]]>
+        <if test='plntngNo != null and plntngNo != ""'>
+            AND SH.PLNTNG_NO = #{plntngNo}
+        </if>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertWghList			    -->
+    <!-- DESC : 계량 목록 등록.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SDNLG_HRVST (
+                  APC_CD
+                , PLNTNG_NO
+                , WGH_YMD
+                , WGH_SEQ
+                , WGH_WGHT
+                , ACTL_WGHT
+                , SPMT_PCKG_UNIT_CD
+                , PCKG_QNTT
+                , PCKG_WGHT
+                , RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{plntngNo}
+                , #{wghYmd}
+                , #{wghSeq}
+                , #{wghWght}
+                , #{actlWght}
+                , #{spmtPckgUnitCd}
+                , #{pckgQntt}
+                , #{pckgWght}
+                , ''
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateWghList			    -->
+    <!-- DESC : 계량 목록 수정.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDNLG_HRVST
+            SET
+                  WGH_YMD = #{wghYmd}
+                , WGH_WGHT = #{wghWght}
+                , ACTL_WGHT = #{actlWght}
+                , SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+                , PCKG_QNTT = #{pckgQntt}
+                , PCKG_WGHT = #{pckgWght}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND PLNTNG_NO = #{plntngNo}
+            AND WGH_SEQ = #{wghSeq}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.saveHrvstYmd			    -->
+    <!-- DESC : 수확일자 저장.	                                       						-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="saveHrvstYmd" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDNLG_PLNTNG
+            SET
+                  HRVST_YMD = #{wghYmd}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND PLNTNG_NO = #{plntngNo}
+        ]]>
+	</update>
+
+    <!-- ==================================================================================	-->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteWghList	            -->
+    <!-- DESC : 계량 목록 삭제.                                             			        -->
+    <!-- ==================================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
+    <!-- ===========  	============  	===================================================	-->
+    <!-- 2025.10.28  	최지호        	Initial Creation                                    -->
+    <!-- ==================================================================================	-->
+    <update id="deleteWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    	<![CDATA[
+            UPDATE TB_SDNLG_HRVST
+            SET DEL_YN = 'Y'
+            WHERE APC_CD = #{apcCd}
+            AND PLNTNG_NO = #{plntngNo}
+        ]]>
+    </update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSpmtList			    -->
+    <!-- DESC : 출고 목록 조회.	                                       					    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectSpmtList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  PD.APC_CD AS APC_CD
+                , PD.SPMTNO AS SPMTNO
+                , PC.SPMT_YMD AS SPMT_YMD
+                , PD.ITEM_CD AS ITEM_CD
+                , PD.VRTY_CD AS VRTY_CD
+                , PD.SPCFCT_CD AS SPCFCT_CD
+                , PD.GDS_GRD AS GDS_GRD
+                , PD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+                , MAX(PC.CNPT_CD) AS CNPT_CD
+                , MAX(PC.RMRK) AS RMRK
+                , MAX(PC.DEL_YN) AS DEL_YN
+                , MAX(PD.PCKGNO) AS PCKGNO
+                , SUM(PD.SPMT_QNTT) AS SPMT_QNTT
+                , SUM(PD.SPMT_WGHT) AS SPMT_WGHT
+            FROM
+                  TB_SPMT_PRFMNC_COM PC
+                , TB_SPMT_PRFMNC_DTL PD
+            WHERE PC.APC_CD = PD.APC_CD
+            AND PC.SPMTNO = PD.SPMTNO
+            AND PC.DEL_YN = 'N'
+            AND PD.DEL_YN = 'N'
+            AND PC.APC_CD = #{apcCd}
+        ]]>
+        <if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+            AND PC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+        </if>
+        <if test='spmtYmdTo != null and spmtYmdTo != ""'>
+            AND PC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+        </if>
+        <if test='vrtyCd != null and vrtyCd != ""'>
+            AND PD.VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='cnptCd != null and cnptCd != ""'>
+            AND PC.CNPT_CD = #{cnptCd}
+        </if>
+        <![CDATA[
+            GROUP BY
+                  PD.APC_CD
+                , PD.SPMTNO
+                , PC.SPMT_YMD
+                , PD.ITEM_CD
+                , PD.VRTY_CD
+                , PD.SPCFCT_CD
+                , PD.GDS_GRD
+                , PD.SPMT_PCKG_UNIT_CD
+            ORDER BY PD.SPMTNO
+        ]]>
+    </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncComList		-->
+    <!-- DESC : 출고 공통 목록 등록.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SPMT_PRFMNC_COM (
+                  APC_CD
+                , SPMTNO
+                , SPMT_YMD
+                , CNPT_CD
+                , RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{spmtno}
+                , #{spmtYmd}
+                , #{cnptCd}
+                , #{rmrk}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncDtlList		-->
+    <!-- DESC : 출고 상세 목록 등록.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <insert id="insertSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            INSERT INTO TB_SPMT_PRFMNC_DTL (
+                  APC_CD
+                , SPMTNO
+                , SPMT_SN
+                , PCKGNO
+                , PCKG_SN
+                , VRTY_CD
+                , ITEM_CD
+                , SPMT_QNTT
+                , SPMT_WGHT
+                , SPMT_PCKG_UNIT_CD
+                , RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{spmtno}
+                , '1'
+                , #{pckgno}
+                , '1'
+                , #{vrtyCd}
+                , #{itemCd}
+                , #{spmtQntt}
+                , #{spmtWght}
+                , #{spmtPckgUnitCd}
+                , #{rmrk}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+	</insert>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncComList		-->
+    <!-- DESC : 출고 공통 목록 수정.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SPMT_PRFMNC_COM
+            SET
+                  SPMT_YMD = #{spmtYmd}
+                , CNPT_CD = #{cnptCd}
+                , RMRK = #{rmrk}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SPMTNO = #{spmtno}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncDtlList		-->
+    <!-- DESC : 출고 상세 목록 수정.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SPMT_PRFMNC_DTL
+            SET
+                  ITEM_CD = #{itemCd}
+                , VRTY_CD = #{vrtyCd}
+                , SPMT_QNTT = #{spmtQntt}
+                , SPMT_WGHT = #{spmtWght}
+                , SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+                , RMRK = #{rmrk}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SPMTNO = #{spmtno}
+            AND PCKGNO = #{pckgno}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncComList		-->
+    <!-- DESC : 출고 공통 목록 삭제.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="deleteSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SPMT_PRFMNC_COM
+            SET
+                  DEL_YN = 'Y'
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND SPMTNO = #{spmtno}
+        ]]>
+	</update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncDtlList		-->
+    <!-- DESC : 출고 상세 목록 삭제.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="deleteSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SPMT_PRFMNC_DTL
+            SET
+                  DEL_YN = 'Y'
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND PCKGNO = #{pckgno}
+            AND SPMTNO = #{spmtno}
+        ]]>
+	</update>
 </mapper>
