@@ -1,7 +1,7 @@
 <%
   /**
-   * @Class Name : uoMajoritem2026'.jsp
-   * @Description : 전문품목 매입·매출 (출자출하조직 보유) 2026'
+   * @Class Name : uoMajoritem2026.jsp
+   * @Description : 전문품목 매입·매출 (출자출하조직 보유) 2026
    * @author SI개발부
    * @since 2025.11.14
    * @version 1.0
@@ -22,7 +22,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>title : 전문품목 매입·매출 (출자출하조직 보유) 2026'</title>
+  <title>title : 전문품목 매입·매출 (출자출하조직 보유) 2026</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
   <%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -34,7 +34,7 @@
       <div>
         <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
         <h3 class="box-title" style="margin-top: 6px;"> ▶ <c:out value='${menuNm}'></c:out></h3>
-        <!-- 전문품목 매입·매출 (출자출하조직 보유) 2026' -->
+        <!-- 전문품목 매입·매출 (출자출하조직 보유) 2026 -->
       </div>
       <div style="margin-left: auto;">
         <c:if test="${loginVO.userType eq '91'}">
@@ -354,10 +354,14 @@
           <p>o 기타매입 : 통합조직이 단순사입해온 실적에 대해 "매입현황" 및 "매출현황" 입력 필요(불려오는 값 없음)</p>
           <p>　⇒ "출자출하조직-전속출하 실적 + (통합조직직속)전속출하-전속출하 실적"의 합이 최종 "생산자조직 전속출하 실적"으로 인정</p>
         </div>
-        <div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none; max-height: 200px; overflow: auto;">
-          <p><b style="color: red">임시저장 상태입니다</b></p>
+
+        <%-- 진행상태 표시--%>
+        <div id="pruoPrgrsStts" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none;  max-height: 200px; overflow: auto;">
+          <sbux-label id="dtl-inp-pruoPrgrsStts" name="dtl-inp-pruoPrgrsStts" uitype="normal" style="font-weight: bold"></sbux-label>
           <p id="tmprStrgRsn"></p>
         </div>
+
+
         <div class="ad_tbl_top">
           <ul class="ad_tbl_count">
             <li>
@@ -378,7 +382,7 @@
 </body>
 <script type="text/javascript">
 
-  const initIndtfNo = "2026'";
+  const initIndtfNo = "2026";
 
   var jsonDtlPage = [];
 
@@ -1368,7 +1372,6 @@
 
     let data = await postJsonPromise ;
     try {
-      console.log("data==="+data);
       data.resultList.forEach((item, index) => {
         SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
         SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -1440,7 +1443,7 @@
     //grdPrdcrOgnCurntMng02.rebuild();
 
     //임시저장 표기
-    $("#tmprArea").hide();
+    // $("#tmprArea").hide();
     $("#tmprStrgRsn").text("");
   }
 
@@ -1450,11 +1453,19 @@
    */
   const fn_dtlGridSearch = async function() {
 
+    /** 진행상태 표시 초기화 **/
+    document.getElementById('pruoPrgrsStts').style.display = 'none';
+    SBUxMethod.set('dtl-inp-pruoPrgrsStts',"");
+
     const yr = SBUxMethod.get("dtl-input-yr");
     const brno = SBUxMethod.get("dtl-input-brno");
+    const apoCd = SBUxMethod.get('dtl-input-apoCd'); // 조직코드
     if (gfn_isEmpty(brno)) {
       return;
     }
+
+    const pruoPrgrsStts = await gfn_chkPruoPrgrsStts(yr, apoCd, "PD_006_002");
+    fn_pruoPrgrsStts(pruoPrgrsStts, "pruoPrgrsStts", "dtl-inp-pruoPrgrsStts");
 
     let upbrToAprvYn = "N";
     try {
@@ -1493,10 +1504,10 @@
         const tmprVo = data.resultMap;
         if (tmprVo != null){
           if (_.isEqual(tmprVo.tmprStrgYn, 'Y')){
-            $("#tmprArea").show();
+            // $("#tmprArea").show();
             $("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
           } else {
-            $("#tmprArea").hide();
+            // $("#tmprArea").hide();
             $("#tmprStrgRsn").text("");
           }
         }
@@ -1984,6 +1995,25 @@
     data.brno = SBUxMethod.get("dtl-input-brno");
     data.corpNm = SBUxMethod.get("dtl-input-corpNm");
     return data;
+  }
+
+  function fn_pruoPrgrsStts(pruoPrgrsStts, areaId, labelId) {
+    if (gfn_isEmpty(pruoPrgrsStts)) {
+      document.getElementById(areaId).style.display = 'none';
+      SBUxMethod.set(labelId, "");
+      return;
+    }
+
+    // 영역 보이게
+    document.getElementById(areaId).style.display = 'block';
+
+    if (_.isEqual(pruoPrgrsStts, "X")) { // 미작성
+      SBUxMethod.set(labelId,"미작성 상태입니다.");
+    } else if (_.isEqual(pruoPrgrsStts, "T")) { // 임시저장
+      SBUxMethod.set(labelId,"임시저장 상태입니다.");
+    } else if (_.isEqual(pruoPrgrsStts,"D")) {
+      SBUxMethod.set(labelId,"작성완료 상태입니다.");
+    }
   }
 
 </script>

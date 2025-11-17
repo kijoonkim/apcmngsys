@@ -14,9 +14,11 @@ import com.at.apcss.pd.isom.service.InvShipOgnPurSalMngService;
 import com.at.apcss.pd.isom.service.InvShipOgnSpeczItmPurSalMngService;
 import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.at.apcss.pd.pcom.service.PrdcrCrclOgnOnlnWhlslMrktService;
+import com.at.apcss.pd.pcom.service.PrdcrCrclOgnPurSalMngService;
+import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalNMngService;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalYMngService;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
-import com.at.apcss.pd.pcom.vo.PruoPrgrsVO;
+import com.at.apcss.pd.pcom.vo.*;
 import com.at.apcss.pd.pom.service.PrdcrOgnCurntMngService;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
@@ -52,6 +54,15 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
 
     @Resource(name = "prdcrCrclOgnSpItmPurSalYMngService")
     private PrdcrCrclOgnSpItmPurSalYMngService prdcrCrclOgnSpItmPurSalYMngService;
+
+    @Resource(name = "PrdcrCrclOgnSpItmPurSalNMngService")
+    private PrdcrCrclOgnSpItmPurSalNMngService prdcrCrclOgnSpItmPurSalNMngService;
+
+    @Resource(name = "prdcrCrclOgnPurSalMngService")
+    private PrdcrCrclOgnPurSalMngService prdcrCrclOgnPurSalMngService;
+
+    @Resource(name = "PrdcrCrclOgnOnlnWhlslMrktService")
+    private PrdcrCrclOgnOnlnWhlslMrktService prdcrCrclOgnOnlnWhlslMrktService;
 
     @Override
     public List<PruoPrgrsVO> selectPruoPrgrsList(PruoPrgrsVO pruoPrgrsVO) throws Exception {
@@ -372,6 +383,179 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
             throw new EgovBizException(getMessageForMap(rtnObj));
         }
 
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoNtslDlgtSlsPrfmncIsoN(List<PrdcrCrclOgnSpItmPurSalNMngVO> prdcrCrclOgnSpItmPurSalNMngList) throws Exception {
+
+        // 통합조직 전문품목매입매출(출자출하조직 미보유)저장
+        prdcrCrclOgnSpItmPurSalNMngService.multiSavePrdcrCrclOgnSpItmPurSalNMngListNew(prdcrCrclOgnSpItmPurSalNMngList);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+        String apoCd = prdcrCrclOgnSpItmPurSalNMngList.get(0).getApoCd();
+        String crtrYr = prdcrCrclOgnSpItmPurSalNMngList.get(0).getYr();
+        String userId = prdcrCrclOgnSpItmPurSalNMngList.get(0).getSysLastChgUserId();
+        String prgrmId = prdcrCrclOgnSpItmPurSalNMngList.get(0).getSysLastChgPrgrmId();
+        String tmptStrgYn = prdcrCrclOgnSpItmPurSalNMngList.get(0).getTmprStrgYn();
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(apoCd);
+        pruoPrgrsVO.setCrtrYr(crtrYr);
+        pruoPrgrsVO.setSysLastChgUserId(userId);
+        pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
+        pruoPrgrsVO.setWrtPrgrmId(prgrmId);
+        pruoPrgrsVO.setTmprStrgYn(tmptStrgYn);
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoTotalPrch(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception {
+
+        // 통합조직 총 매입매출 매입저장
+        prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList01(prdcrCrclOgnPurSalMngList);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+        String apoCd = prdcrCrclOgnPurSalMngList.get(0).getApoCd();
+        String crtrYr = prdcrCrclOgnPurSalMngList.get(0).getYr();
+        String userId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgUserId();
+        String prgrmId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgPrgrmId();
+        String tmptStrgYn = prdcrCrclOgnPurSalMngList.get(0).getTmprStrgYn();
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(apoCd);
+        pruoPrgrsVO.setCrtrYr(crtrYr);
+        pruoPrgrsVO.setSysLastChgUserId(userId);
+        pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_001_01");
+        pruoPrgrsVO.setTmprStrgYn(tmptStrgYn);
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoTotalSls(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception {
+
+        // 통합조직 총 매입매출 매출저장
+        prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList02(prdcrCrclOgnPurSalMngList);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+        String apoCd = prdcrCrclOgnPurSalMngList.get(0).getApoCd();
+        String crtrYr = prdcrCrclOgnPurSalMngList.get(0).getYr();
+        String userId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgUserId();
+        String prgrmId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgPrgrmId();
+        String tmptStrgYn = prdcrCrclOgnPurSalMngList.get(0).getTmprStrgYn();
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(apoCd);
+        pruoPrgrsVO.setCrtrYr(crtrYr);
+        pruoPrgrsVO.setSysLastChgUserId(userId);
+        pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_001_02");
+        pruoPrgrsVO.setTmprStrgYn(tmptStrgYn);
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoTotalSpmtPrfmnc(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception {
+
+        // 통합조직 총 매입매출 출하실적 저장
+        prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList03(prdcrCrclOgnPurSalMngList);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+        String apoCd = prdcrCrclOgnPurSalMngList.get(0).getApoCd();
+        String crtrYr = prdcrCrclOgnPurSalMngList.get(0).getYr();
+        String userId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgUserId();
+        String prgrmId = prdcrCrclOgnPurSalMngList.get(0).getSysLastChgPrgrmId();
+        String tmptStrgYn = prdcrCrclOgnPurSalMngList.get(0).getTmprStrgYn();
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(apoCd);
+        pruoPrgrsVO.setCrtrYr(crtrYr);
+        pruoPrgrsVO.setSysLastChgUserId(userId);
+        pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_001_03");
+        pruoPrgrsVO.setTmprStrgYn(tmptStrgYn);
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertWhlslMrktNtslTrgt(PrdcrCrclOgnOnlnWhlslMrktVO prdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
+
+        // 온라인도매시장 판매목표 저장
+        prdcrCrclOgnOnlnWhlslMrktService.insertPrdcrCrclOgnOnlnWhlslMrkt(prdcrCrclOgnOnlnWhlslMrktVO);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(prdcrCrclOgnOnlnWhlslMrktVO.getApoCd());
+        pruoPrgrsVO.setCrtrYr(prdcrCrclOgnOnlnWhlslMrktVO.getYr());
+        pruoPrgrsVO.setSysLastChgUserId(prdcrCrclOgnOnlnWhlslMrktVO.getSysLastChgUserId());
+        pruoPrgrsVO.setSysLastChgPrgrmId(prdcrCrclOgnOnlnWhlslMrktVO.getSysLastChgPrgrmId());
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_006_02");
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertOnlnWhlslMrktSpmtPrfmnc(List<PrdcrCrclOgnOnlnWhlslMrktVO> prdcrCrclOgnOnlnWhlslMrktList) throws Exception {
+
+        // 온라인도매시장 출하실적 저장
+        prdcrCrclOgnOnlnWhlslMrktService.multiSaveOnlnDtl(prdcrCrclOgnOnlnWhlslMrktList);
+
+        // 진척도
+        HashMap<String, Object> rtnObj = null;
+        String apoCd = prdcrCrclOgnOnlnWhlslMrktList.get(0).getApoCd();
+        String crtrYr = prdcrCrclOgnOnlnWhlslMrktList.get(0).getYr();
+        String userId = prdcrCrclOgnOnlnWhlslMrktList.get(0).getSysLastChgUserId();
+        String prgrmId = prdcrCrclOgnOnlnWhlslMrktList.get(0).getSysLastChgPrgrmId();
+
+        PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+        pruoPrgrsVO.setApoCd(apoCd);
+        pruoPrgrsVO.setCrtrYr(crtrYr);
+        pruoPrgrsVO.setSysLastChgUserId(userId);
+        pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_006_01");
+
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
 
         return null;
     }

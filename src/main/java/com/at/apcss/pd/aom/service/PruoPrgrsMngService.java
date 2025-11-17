@@ -4,8 +4,7 @@ import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
-import com.at.apcss.pd.pcom.vo.PruoPrgrsVO;
+import com.at.apcss.pd.pcom.vo.*;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
@@ -124,4 +123,52 @@ public interface PruoPrgrsMngService {
      * @throws Exception
      */
     public HashMap<String, Object> insertPruoNtslDlgtSlsPrfmnc(List<PrdcrCrclOgnSpItmPurSalYMngVO> prdcrCrclOgnSpItmPurSalYMngList) throws Exception;
+
+    /**
+     * 통합조직관리 - 전문품목매입매출(출자출하조직 미보유) (진척도 저장 포함)
+     * @param prdcrCrclOgnSpItmPurSalNMngList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoNtslDlgtSlsPrfmncIsoN(List<PrdcrCrclOgnSpItmPurSalNMngVO> prdcrCrclOgnSpItmPurSalNMngList) throws Exception;
+
+    /**
+     * 통합조직관리 - 총매입매출 - 매입저장(진척도 저장 포함)
+     * @param prdcrCrclOgnPurSalMngList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoTotalPrch(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception;
+
+    /**
+     * 통합조직관리 - 총매입매출 - 매출저장(진척도 저장 포함)
+     * @param prdcrCrclOgnPurSalMngList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoTotalSls(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception;
+
+    /**
+     * 통합조직관리 - 총매입매출 - 출하실적 저장(진척도 저장 포함)
+     * @param prdcrCrclOgnPurSalMngList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoTotalSpmtPrfmnc(List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList) throws Exception;
+
+    /**
+     * 통합조직관리 - 온라인도매시장 - 판매목표저장(진척도 저장 포함)
+     * @param prdcrCrclOgnOnlnWhlslMrktVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertWhlslMrktNtslTrgt(PrdcrCrclOgnOnlnWhlslMrktVO prdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
+    /**
+     * 통합조직관리 - 온라인도매시장 - 출하실적 저장(진척도 저장 포함)
+     * @param prdcrCrclOgnOnlnWhlslMrktList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertOnlnWhlslMrktSpmtPrfmnc(List<PrdcrCrclOgnOnlnWhlslMrktVO> prdcrCrclOgnOnlnWhlslMrktList) throws Exception;
 }

@@ -9,8 +9,7 @@ import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
-import com.at.apcss.pd.pcom.vo.PruoPrgrsVO;
+import com.at.apcss.pd.pcom.vo.*;
 import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 import org.springframework.http.MediaType;
@@ -387,6 +386,155 @@ public class PruoPrgrsMngController extends BaseController {
                 prdcrCrclOgnSpItmPurSalYMngVO.setSysLastChgUserId(getUserId());
             }
             HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoNtslDlgtSlsPrfmnc(prdcrCrclOgnSpItmPurSalYMngList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoNtslDlgtSlsPrfmncIsoN.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoNtslDlgtSlsPrfmncIsoN(@RequestBody List<PrdcrCrclOgnSpItmPurSalNMngVO> prdcrCrclOgnSpItmPurSalNMngList, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for (PrdcrCrclOgnSpItmPurSalNMngVO prdcrCrclOgnSpItmPurSalNMngVO : prdcrCrclOgnSpItmPurSalNMngList) {
+                prdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+                prdcrCrclOgnSpItmPurSalNMngVO.setSysFrstInptUserId(getUserId());
+                prdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgPrgrmId(getPrgrmId());
+                prdcrCrclOgnSpItmPurSalNMngVO.setSysLastChgUserId(getUserId());
+            }
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoNtslDlgtSlsPrfmncIsoN(prdcrCrclOgnSpItmPurSalNMngList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoTotalPrch.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoTotalPrch(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngList) {
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+            }
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoTotalPrch(prdcrCrclOgnPurSalMngList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoTotalSls.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoTotalSls(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngList) {
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+            }
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoTotalSls(prdcrCrclOgnPurSalMngList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoTotalSpmtPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoTotalSpmtPrfmnc(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngList, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngList) {
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+                prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+            }
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoTotalSpmtPrfmnc(prdcrCrclOgnPurSalMngList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertWhlslMrktNtslTrgt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertWhlslMrktNtslTrgt(@RequestBody PrdcrCrclOgnOnlnWhlslMrktVO prdcrCrclOgnOnlnWhlslMrktVO, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            prdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptPrgrmId(getPrgrmId());
+            prdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptUserId(getUserId());
+            prdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgPrgrmId(getPrgrmId());
+            prdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgUserId(getUserId());
+
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertWhlslMrktNtslTrgt(prdcrCrclOgnOnlnWhlslMrktVO);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertOnlnWhlslMrktSpmtPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertOnlnWhlslMrktSpmtPrfmnc(@RequestBody List<PrdcrCrclOgnOnlnWhlslMrktVO> prdcrCrclOgnOnlnWhlslMrktList, HttpServletRequest request) throws Exception{
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            for (PrdcrCrclOgnOnlnWhlslMrktVO prdcrCrclOgnOnlnWhlslMrktVO : prdcrCrclOgnOnlnWhlslMrktList) {
+                prdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptPrgrmId(getPrgrmId());
+                prdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptUserId(getUserId());
+                prdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgPrgrmId(getPrgrmId());
+                prdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgUserId(getUserId());
+            }
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertOnlnWhlslMrktSpmtPrfmnc(prdcrCrclOgnOnlnWhlslMrktList);
             if(rtnObj != null) {
                 return getErrorResponseEntity(rtnObj);
             }
