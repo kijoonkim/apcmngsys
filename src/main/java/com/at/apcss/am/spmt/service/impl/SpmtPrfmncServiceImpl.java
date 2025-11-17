@@ -2656,4 +2656,57 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 		return spmtPrfmncMapper.selectSpmtPrfmncReg(spmtPrfmncVO);
 	}
+
+	@Override
+	public HashMap<String, Object> insertUntySpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		for (SpmtPrfmncVO spmtPrfmncVO : spmtPrfmncList) {
+
+			rtnObj = insertUntySpmtPrfmnc(spmtPrfmncVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUntySpmtPrfmnc(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncVO.getApcCd(), spmtPrfmncVO.getSpmtYmd());
+
+		spmtPrfmncVO.setSpmtno(spmtno);
+		spmtPrfmncVO.setSpmtSn(1);
+
+		if (0 == spmtPrfmncMapper.insertSpmtPrfmncCom(spmtPrfmncVO)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적공통등록");
+		}
+
+		if (0 == spmtPrfmncMapper.insertSpmtPrfmncDtl(spmtPrfmncVO)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적상세등록");
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteUntySpmtPrfmncAll(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		if (0 == spmtPrfmncMapper.deleteSpmtPrfmncCom(spmtPrfmncVO)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적공통삭제");
+		}
+
+		if (0 == spmtPrfmncMapper.deleteSpmtPrfmncDtlAll(spmtPrfmncVO)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하실적상세삭제");
+		}
+
+		return null;
+	}
+
 }

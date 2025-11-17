@@ -359,6 +359,15 @@
 								품목별 육안선별 기준을 등록하세요. (입고 시 육안선별등록이 필요한 경우 사용됩니다)
 							</td>
 						</tr>
+						<tr>
+							<th class="ta_r th_bg" scope="row">기본단가 관리</th>
+							<td class="td_input" colspan="2">
+								<sbux-button id="btnApcCrtrUntprc" name="btnApcCrtrUntprc" uitype="modal" text="기본단가등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-apcCrtrUntprc" onclick="fn_modal('btnApcCrtrUntprc')"></sbux-button>
+							</td>
+							<td colspan="6" style="color:#999">
+								기본 단가 기준을 등록하세요. (출고 시 수수료 및 물품 단가에 사용됩니다.)
+							</td>
+						</tr>
 
 <!-- 						<tr> -->
 <!-- 							<th class="ta_r th_bg" scope="row">원산지 관리</th> -->
@@ -768,6 +777,13 @@
 	<div id="body-modal-vrtyDtl">
 		<jsp:include page="../apc/vrtyDtlPopup.jsp"></jsp:include>
 	</div>
+	<!-- 품목별 상세항목 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-apcCrtrUntprc" name="modal-apcCrtrUntprc" uitype="middle" header-title="APC기준단가 항목 관리" body-html-id="body-modal-apcCrtrUntprc" footer-is-close-button="false" header-is-close-button="false" style="width:700px"></sbux-modal>
+	</div>
+	<div id="body-modal-apcCrtrUntprc">
+		<jsp:include page="../apc/apcCrtrUntprcPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -807,13 +823,14 @@
 	var jsonComboPrdcrMngType = [];
 
 
-	var comboUnitCdJsData = [];
-	var comboGridBankCdJsData = [];
+	var comboUnitCdJsData 		= [];
+	var comboGridBankCdJsData 	= [];
 	var comboGridCnptTypeJsData = [];
-    var comboGridPltCnptJsData = [];
+    var comboGridPltCnptJsData 	= [];
 
-	var jsonComGdsSeCd = [];
-	var jsonComApcGdsSeCd = [];
+	var jsonComGdsSeCd 		= [];
+	var jsonComApcGdsSeCd 	= [];
+	var jsonComCnptSeCd		= []; // 거래처구분코드
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 		//SBUxMethod.set("inp-apcCd", gv_apcCd);
@@ -854,13 +871,14 @@
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000'),
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_selectedApcCd),
 			gfn_setComCdSBSelect('slt-prdcrMngType', jsonComboPrdcrMngType, 'PRDCR_MNG_TYPE'),
-
 			gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000"),
 			gfn_setComCdGridSelect('grdPlt', comboUnitCdJsData, "UNIT_CD", "0000"),
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
 			gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
+			gfn_setComCdGridSelect('grdCnpt', jsonComCnptSeCd, "CNPT_SE_CD", "0000"),
+
 		])
 
 		await selectApcEvrmntStng();
@@ -1026,6 +1044,9 @@
 				break;
 			case "btnBffaSort":			// 육안선별등급 등록
 				fn_createBffaGrdGrid();
+				break;
+			case "btnApcCrtrUntprc":
+				fn_ApcCrtrUntprcMngCreateGrid();
 				break;
 		}
 

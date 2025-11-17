@@ -25,6 +25,29 @@
     <title>title : 용역소득 마스터</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <script type="module" src="/bundles/exceljs.min-BT1uNkZ1.js"></script>
+    <script type="module" src="/bundles/excelDownloader_0641.js"></script>
+    <style>
+        .btn_excel{
+            font-weight: 600;
+            text-align: center;
+            padding: 3px;
+            color: #FFF;
+            border-radius: 5px;
+            border-width: 0;
+            transition: all 0.2s;
+            box-shadow: 0px 5px 0px 0px #007144;
+            background: #00AE68;
+            margin-left: 1.5vw;
+            position: absolute;
+            top: 0;
+        }
+        .btn_excel:hover{
+            box-shadow: 0px 0px 0px 0px #007144;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -87,11 +110,12 @@
                 <div class="tab-content">
                     <div id="tpgResident">
                         <div class="col-sm-3">
-                            <div class="ad_tbl_top">
+                            <div class="ad_tbl_top" style="margin-bottom: 10px">
                                 <ul class="ad_tbl_count">
                                     <li>
                                         <span>소득자 리스트</span>
                                         <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                                        <button class="btn_excel" onclick="fn_exportExcel('거주자')">Excel</button>
                                     </li>
                                 </ul>
                             </div>
@@ -313,6 +337,7 @@
                                 <ul class="ad_tbl_count">
                                     <li>
                                         <span>소득자 리스트</span>
+                                        <button class="btn_excel" onclick="fn_exportExcel('비거주자')">Excel</button>
                                     </li>
                                 </ul>
                             </div>
@@ -492,6 +517,8 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
+<sbux-progress id="loading" name="loading" uitype="loading" show-openlayer="true">
+</sbux-progress>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -903,7 +930,6 @@
             var nRow = gvwResident.getRow();
             if(nRow < 1) return;
             let rowData = gvwResident.getRowData(nRow);
-            console.log(rowData);
             SBUxMethod.set("EARNER_CODE", gfn_nvl(rowData.EARNER_CODE));
             SBUxMethod.set("SITE_CODE", gfn_nvl(rowData.SITE_CODE));
             SBUxMethod.set("TAX_SITE_CODE1", gfn_nvl(rowData.TAX_SITE_CODE));
@@ -1602,6 +1628,67 @@
             SBUxMethod.set(data.id, "");
             return;
         }
+    }
+
+    const fn_exportExcel = function (_type) {
+        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+        let excelData, targetGrid, fileName;
+        let dateYmd = gfn_dateToYmd(new Date());
+
+        /** select 값 **/
+        const makeCodeMap = (list) => Object.fromEntries(list.map(x => [x.value, x.text]));
+
+        //사업장
+        const siteCodeMap = makeCodeMap(jsonSiteCode);
+        //내외국민구분
+        const foreignTypeMap = makeCodeMap(jsonForeignType);
+        //거주지국
+        const nationCodeMap = makeCodeMap(jsonNationCode);
+        //근무지역
+        const workRegionMap = makeCodeMap(jsonWorkRegion);
+        //개인/법인 구분
+        const businessTypeMap = makeCodeMap(jsonBusinessType);
+        //소득종류
+        const incomeTypeMap = makeCodeMap(jsonIncomeType);
+        //신고사업장
+        const taxSiteCodeMap = makeCodeMap(jsonTaxSiteCode);
+
+        const incSecMap = gfnma_getCodeMap("#INCOME_SEC");
+        const payCycleMap = gfnma_getCodeMap("#PAY_CYCLE");
+
+        if(enableTab == "tpgResident") {
+            excelData = gvwResident.getGridDataAll();
+            targetGrid = gvwResident;
+            fileName = `소득자리스트_거주자_${'${dateYmd}'}`
+        }else if(enableTab == "tpgNonresident"){
+            excelData = gvwNonresident.getGridDataAll();
+            targetGrid = gvwNonresident;
+            fileName = `소득자리스트_비거주자_${'${dateYmd}'}`
+        }
+
+        /** code -> name **/
+        excelData.forEach((data) => {
+            data.SITE_CODE     = siteCodeMap[data.SITE_CODE]           ?? data.SITE_CODE;
+            data.TAX_SITE_CODE = taxSiteCodeMap[data.TAX_SITE_CODE]       ?? data.TAX_SITE_CODE;
+            data.FOREI_TYPE    = foreignTypeMap[data.FOREI_TYPE]       ?? data.FOREI_TYPE;
+            data.NATION_CODE   = nationCodeMap[data.NATION_CODE]       ?? data.NATION_CODE;
+            data.WORK_REGION   = workRegionMap[data.WORK_REGION]       ?? data.WORK_REGION;
+            data.INC_TYPE      = incomeTypeMap[data.INC_TYPE]          ?? data.INC_TYPE;
+            data.INC_SEC       = incSecMap[data.INC_SEC]               ?? data.INC_SEC;
+            data.BUSINESS_TYPE = businessTypeMap[data.BUSINESS_TYPE]   ?? data.BUSINESS_TYPE;
+            data.PAY_CYCLE     = payCycleMap[data.PAY_CYCLE]           ?? data.PAY_CYCLE;
+        });
+
+        const columns = targetGrid.getColumns().map((data) => {
+            return {
+                header: data.caption[0],
+                key: data.ref,
+                width: 14
+            }
+        });
+
+        window.ExcelDownloader.downloadExcel(excelData, columns, fileName, 'sheet1');
+
     }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

@@ -1817,7 +1817,11 @@
                 let total = parseInt($("#sortTable tbody tr").eq(rowIndex).children('td:last').find('input').val());
                 saveObj.rawMtrInvntrList[0].inptWght = total * unit;
                 saveObj.rawMtrInvntrList[0].inptQntt = total;
+                /** 원물재고 < 선별수량 허용 **/
+                saveObj.rawMtrInvntrList[0].prcsType = 'RR';
 
+                console.log(saveObj,"save");
+                // return;
                 const postUrl = gfn_isEmpty(sortno) ?
                     "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
                 try {

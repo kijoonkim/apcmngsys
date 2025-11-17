@@ -176,12 +176,14 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('STD_PLOR_CD', PR.PLOR_CD) FROM DUAL) AS PLOR_NM
 			     , PR.BANK_CD			AS BANK_CD
 			     , FN_UTL_DECRYPT_ARIA(PR.ACTNO) AS ACTNO
+	    	     , PR.SYS_LAST_CHG_DT	AS SYS_LAST_CHG_DT
 		]]>
 		<if test='yr != null and yr != ""'>
 				 , (SELECT CRTR_PRCL
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS CRTR_PRCL
@@ -189,6 +191,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PLNTNG_PRCL
@@ -196,6 +199,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_QNTT
@@ -203,6 +207,7 @@
                       FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+					   AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT
@@ -210,6 +215,7 @@
 					  FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
+				       AND X.ITEM_CD = #{itemCd}
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT
@@ -959,6 +965,81 @@
 
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.WrhsVhclMapper.vhclDelible				-->
+	<!-- DESC : 생산자정보 삭제 가능 여부.		                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.10.29  	김은총        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="prdcrDelible" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+		SELECT X.* /* com.at.apcss.am.cmns.mapper.PrdcrMapper.prdcrDelible */
+		FROM (
+				 SELECT
+					 '입고실적' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_RAW_MTR_WRHS_PRFMNC X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+				 UNION ALL
+				 SELECT
+					 '계량실적' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_WGH_PRFMNC_COM X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+				 UNION ALL
+				 SELECT
+					 '출하실적' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_SPMT_PRFMNC_DTL X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+				 UNION ALL
+				 SELECT
+					 '원물재고' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_RAW_MTR_INVNTR X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+				 UNION ALL
+				 SELECT
+					 '선별재고' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_SORT_INVNTR X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.RPRS_PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+				 UNION ALL
+				 SELECT
+					 '상품재고' AS DELIBLE
+					  , (SELECT COUNT(*)
+						 FROM TB_GDS_INVNTR X
+						 WHERE X.APC_CD = #{apcCd}
+						   AND X.RPRS_PRDCR_CD = #{prdcrCd}
+						   AND X.DEL_YN = 'N'
+				 )  AS CNT
+				 FROM DUAL
+			 ) X
+		WHERE CNT > 0
+		]]>
 
+    </select>
 
 </mapper>

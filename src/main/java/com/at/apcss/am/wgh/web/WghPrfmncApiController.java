@@ -37,7 +37,7 @@ public class WghPrfmncApiController extends BaseController {
 	private WghPrfmncService wghPrfmncService;
 
 	/**
-	 * API 계량실적 목록 조회
+	 * API 계량 입고실적 목록 조회
 	 */
 	@PostMapping(value = "/am/wgh/selectWghPrfmncListForApi", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectWghPrfmncListForApi(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {

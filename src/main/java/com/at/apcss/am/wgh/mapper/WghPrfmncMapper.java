@@ -347,7 +347,7 @@ public interface WghPrfmncMapper {
 	public int updateSpmtWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
 
 	/**
-	 * API 계량실적정보 목록 조회
+	 * API 계량 입고실적정보 목록 조회
 	 * @param wghPrfmncVO
 	 * @return
 	 * @throws Exception

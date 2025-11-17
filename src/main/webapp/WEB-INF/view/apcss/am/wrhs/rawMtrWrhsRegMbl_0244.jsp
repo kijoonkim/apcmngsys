@@ -849,6 +849,7 @@
 
         //let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
         let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
+        console.log(warehouseSeCd);
         // let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
 
         let wrhsSeCd = "2";			// 입고구분 : 수탁

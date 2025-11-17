@@ -54,6 +54,9 @@
     		 , CT.PIC_TELNO  		AS PIC_TELNO
     		 , CT.SN				AS SN
     		 , CT.USE_YN			AS USE_YN
+    	     , NVL(CT.CNPT_SE_CD, '1')		AS CNPT_SE_CD
+    	     , (SELECT FN_GET_COM_CD_VL_NM('CNPT_SE_CD', CT.CNPT_SE_CD) FROM DUAL)  AS CNPT_SE_NM
+    	     , CT.UNTPRC			AS UNTPRC
     		 , (
     		 		SELECT LISTAGG(FN_GET_SPMT_PCKG_UNIT_NM(CSPU.SPMT_PCKG_UNIT_CD, CSPU.APC_CD), ',') WITHIN GROUP (ORDER BY SPU.ITEM_CD, CSPU.SPMT_PCKG_UNIT_CD)
                  	  FROM TB_CNPT_SPMT_PCKG_UNIT CSPU
@@ -76,6 +79,9 @@
 		</if>
 		<if test='extrnlLnkgCd != null and extrnlLnkgCd != ""'>
 		   AND CT.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
+		</if>
+		<if test='cnptSeCd != null and cnptSeCd != ""'>
+		   AND NVL(CT.CNPT_SE_CD, '1') = #{cnptSeCd}
 		</if>
     	<![CDATA[
 		 ORDER BY SN,CNPT_NM
@@ -119,6 +125,8 @@
     		  , FXNO
     		  , ADDR
     		  , PIC_TELNO
+    		  , CNPT_SE_CD
+    		  , UNTPRC
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -147,6 +155,8 @@
     		  , #{fxno}
     		  , #{addr}
     		  , #{picTelno}
+    		  , #{cnptSeCd}
+    		  , NVL(#{untprc}, '1')
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}
@@ -190,6 +200,8 @@
     		 , PIC_TELNO				= #{picTelno}
     		 , SN						= #{sn}
 		   	 , USE_YN					= #{useYn}
+		   	 , CNPT_SE_CD				= NVL(#{cnptSeCd}, '1')
+		     , UNTPRC					= #{untprc}
 		 WHERE APC_CD 					= #{apcCd}
 		   AND CNPT_CD 					= #{cnptCd}
 		]]>

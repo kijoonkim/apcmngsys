@@ -167,11 +167,21 @@ public interface PrdcrMapper {
 	public int updatePrdcrTypeDtl(PrdcrVO prdcrVO) ;
 
 
-	/**
-	 * 생산자상세유형정보 목록 삭제
-	 * @param PrdcrVO
-	 * @return integer
-	 * @throws Exception
-	 */
-	public int deletePrdcrTypeDtl(PrdcrVO prdcrVO) ;
+    /**
+     * 생산자상세유형정보 목록 삭제
+     *
+     * @param PrdcrVO
+     * @return integer
+     * @throws Exception
+     */
+	int deletePrdcrTypeDtl(PrdcrVO prdcrVO);
+
+    /**
+     * 생산자정보 삭제 가능 여부
+     *
+     * @param prdcrVO
+     * @return List<PrdcrVO>
+     * @throws Exception
+     */
+	List<PrdcrVO> prdcrDelible(PrdcrVO prdcrVO) throws Exception;
 }

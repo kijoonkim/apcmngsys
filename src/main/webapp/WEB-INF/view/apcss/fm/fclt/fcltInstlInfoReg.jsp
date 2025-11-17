@@ -858,6 +858,7 @@
 		//지원사업 리스트 등록할때 필요한 값
 		let apcCd = SBUxMethod.get('srch-inp-apcCd');
 		let apcNm = SBUxMethod.get('srch-inp-apcNm');
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");//진척도 갱신, 등록가능확인용
 
 		/*
 		let regMsg = "기존데이터를 삭제 처리 하시겠습니까?";
@@ -915,6 +916,7 @@
 				,lcltExpndCtpv	:rowData.lcltExpndCtpv
 				,lcltExpndSgg	:rowData.lcltExpndSgg
 				,slfBrdn		:rowData.slfBrdn
+				, crtrYr : crtrYr
 			}
 
 			bizList.push(saveData);

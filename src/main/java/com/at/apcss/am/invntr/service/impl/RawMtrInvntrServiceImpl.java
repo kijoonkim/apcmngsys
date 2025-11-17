@@ -1049,4 +1049,35 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 		return null;
 	}
 
+	@Override
+	public HashMap<String, Object> deleteUntyRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		// 재고상태 확인
+		RawMtrInvntrVO invntrInfo = selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		rawMtrInvntrMapper.deleteRawMtrInvntr(rawMtrInvntrVO);
+		rawMtrInvntrMapper.deleteRawMtrStdGrd(rawMtrInvntrVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateUntyRawMtrInvntrForDelY(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		// 재고상태 확인
+		RawMtrInvntrVO invntrInfo = selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null
+				|| !StringUtils.hasText(invntrInfo.getWrhsno())
+				|| ComConstants.CON_YES.equals(invntrInfo.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		rawMtrInvntrMapper.updateRawMtrInvntrDelY(rawMtrInvntrVO);
+		rawMtrInvntrMapper.updateRawMtrStdGrdDelY(rawMtrInvntrVO);
+		return null;
+	}
+
 }

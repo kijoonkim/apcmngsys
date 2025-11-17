@@ -410,14 +410,14 @@
 		 */
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
-		for (let i = 0; i < elements.length; i++) {
-			const el = elements.item(i);
-			el.addEventListener("keyup", (event) => {
-				if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
-					fn_search();
-				}
-				//key	Enter
-				//keyCode
+				for (let i = 0; i < elements.length; i++) {
+					const el = elements.item(i);
+					el.addEventListener("keyup", (event) => {
+						if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {
+							fn_search();
+						}
+						//key	Enter
+						//keyCode
 			});
 		}
 	});

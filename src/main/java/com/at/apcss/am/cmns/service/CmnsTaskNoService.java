@@ -1,6 +1,7 @@
 package com.at.apcss.am.cmns.service;
 
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.vo.SdlngVO;
 import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 
 /**
@@ -144,4 +145,28 @@ public interface CmnsTaskNoService {
 	 * @throws Exception
 	 */
 	public String selectFnGetPrnmntNo(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 육묘코드 발번
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public String selectFnGetIdSdlngCd(SdlngVO sdlngVO) throws Exception;
+
+    /**
+     * 육묘번호 발번
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public String selectFnGetIdSdnlgNo(SdlngVO sdlngVO) throws Exception;
+
+    /**
+     * 정식번호 발번
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public String selectFnGetIdPlntngNo(SdlngVO sdlngVO) throws Exception;
 }

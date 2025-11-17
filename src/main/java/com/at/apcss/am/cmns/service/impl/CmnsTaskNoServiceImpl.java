@@ -1,16 +1,16 @@
 package com.at.apcss.am.cmns.service.impl;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
-import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
 import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.am.wrhs.vo.SdlngVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * @Class Name : CmnsTaskNoServiceImpl.java
@@ -247,4 +247,19 @@ public class CmnsTaskNoServiceImpl extends BaseServiceImpl implements CmnsTaskNo
 	public String selectFnGetPrnmntNo(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception {
 		return cmnsTaskNoMapper.selectFnGetPrnmntNo(rawMtrWrhsPrnmntVO);
 	}
+
+    @Override
+    public String selectFnGetIdSdlngCd(SdlngVO sdlngVO) throws Exception {
+        return cmnsTaskNoMapper.selectFnGetIdSdlngCd(sdlngVO);
+    }
+
+    @Override
+    public String selectFnGetIdSdnlgNo(SdlngVO sdlngVO) throws Exception {
+        return cmnsTaskNoMapper.selectFnGetIdSdnlgNo(sdlngVO);
+    }
+
+    @Override
+    public String selectFnGetIdPlntngNo(SdlngVO sdlngVO) throws Exception {
+        return cmnsTaskNoMapper.selectFnGetIdPlntngNo(sdlngVO);
+    }
 }

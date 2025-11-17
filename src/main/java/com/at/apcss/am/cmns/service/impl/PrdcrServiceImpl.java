@@ -117,21 +117,29 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 	@Override
 	public HashMap<String, Object> deletePrdcr(PrdcrVO prdcrVO) throws Exception {
 
-		PrdcrDtlVO prdcrDtlVO = new PrdcrDtlVO();
-		prdcrDtlVO.setApcCd(prdcrVO.getApcCd());
-		prdcrDtlVO.setPrdcrCd(prdcrVO.getPrdcrCd());
+		String errMsg = prdcrDelible(prdcrVO);
+		if(errMsg == null) {
 
-		List<PrdcrDtlVO> rtnList = prdcrDtlService.selectPrdcrDtlList(prdcrDtlVO);
+			PrdcrDtlVO prdcrDtlVO = new PrdcrDtlVO();
+			prdcrDtlVO.setApcCd(prdcrVO.getApcCd());
+			prdcrDtlVO.setPrdcrCd(prdcrVO.getPrdcrCd());
 
-		if(rtnList.size() > 0) {
-			HashMap<String, Object> rtnObj = prdcrDtlService.deletePrdcrDtl(prdcrDtlVO);
-			if (rtnObj != null) {
-				throw new EgovBizException(getMessageForMap(rtnObj));
+			List<PrdcrDtlVO> rtnList = prdcrDtlService.selectPrdcrDtlList(prdcrDtlVO);
+
+			if(rtnList.size() > 0) {
+				HashMap<String, Object> rtnObj = prdcrDtlService.deletePrdcrDtl(prdcrDtlVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
 			}
-		}
 
-		if(0 == prdcrMapper.deletePrdcr(prdcrVO)) {
-			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			if(0 == prdcrMapper.deletePrdcr(prdcrVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+
+		}else {
+
+			return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errMsg); // E0000	{0}
 		}
 
 		return null;
@@ -275,6 +283,24 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		return resultList;
 	}
 
+	public String prdcrDelible(PrdcrVO prdcrVO) throws Exception {
+		List<PrdcrVO> resultList = prdcrMapper.prdcrDelible(prdcrVO);
 
+		if(resultList.size() > 0) {
+			String delible = "해당 생산자는 ";
+			for (int i = 0; i < resultList.size(); i++) {
+				if(i == 0) {
+					delible += resultList.get(i).getDelible();
+				}else {
+					delible += ", "+resultList.get(i).getDelible();
+				}
+			}
+			delible += "이/가 존재 합니다.";
+
+			return delible;
+		}
+
+		return null;
+	}
 
 }

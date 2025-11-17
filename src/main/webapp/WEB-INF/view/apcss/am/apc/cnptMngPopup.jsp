@@ -116,6 +116,7 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
+
             {
             	caption: ["처리"],
             	ref: 'delYn',
@@ -183,16 +184,31 @@
 					//unselect: {label: '', value: ''},
 					displayui : false,
 					itemcount: 10,
-					
+
 					filtering: {
 	            		usemode: true,
 	            		uppercol: 'cnptType',
 	            		attrname: 'cdChrVl',
 	            		listall: true
 	            	}
-					
+
 				},
             },
+			{
+				caption: ["거래처구분"],
+				ref: 'cnptSeCd',
+				type:'combo',
+				width:'125px',
+				style:'text-align:center',
+				typeinfo : {
+					ref:'jsonComCnptSeCd',
+					label:'label',
+					value:'value',
+					displayui : false,
+					itemcount: 10
+				}
+			},
+			{caption: ['단가'], ref: 'untprc', type: 'input', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'}},
             {caption: ["비고"], 		ref: 'rmrk',  		type:'input',  width:'120px',    style:'text-align:center', validate : gfn_chkByte.bind({byteLimit: 1000}), typeinfo : {maxlength : 1000}},
             {caption: ["APC코드"], 		ref: 'apcCd',  		type:'output', hidden : true},
         ];
@@ -269,6 +285,8 @@
   					  , extrnlLnkgCd 	: item.extrnlLnkgCd
 					  , sn				: item.sn
 					  , useYn 			: item.useYn
+					  , cnptSeCd		: item.cnptSeCd
+					  , untprc			: item.untprc
   					}
   					jsonCnpt.push(cnpt);
   				});

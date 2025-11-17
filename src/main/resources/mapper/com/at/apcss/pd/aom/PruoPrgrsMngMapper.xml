@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PruoPrgrsMngMapper.xml                                    				-->
+<!-- DESC : 생산유통통합조직 진척도 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.11.06  	유민지        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsList   -->
+    <!-- DESC : 생산유통통합조직 진척도 목록 조회                                         -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.06  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectPruoPrgrsList" resultType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+        SELECT
+            A.CRTR_YR                      AS CRTR_YR
+            , MAX(A.APO_SE)                       AS APO_SE
+            , MAX(DECODE(A.APO_SE, '1', '통합조직', '2', '출자출하조직', '')) AS APO_SE_NM
+            , A.APO_CD                       AS APO_CD
+            , MAX(A.CORP_NM)                 AS CORP_NM
+            , MAX(A.CRNO)                    AS CRNO
+            , MAX(A.BRNO)                    AS BRNO
+            , A.UO_CORP_NM              AS UO_CORP_NM
+            , A.UO_BRNO                AS UO_BRNO
+
+            -- 법인체 마감 (DDLN)
+            , NVL(DDLN.CMPTN_YN, 'N')    AS CORP_DDLN_YN
+
+            -- 최종제출 (SBMT)
+            , NVL(SBMT.CMPTN_YN, 'N') AS LAST_SBMSN_YN
+
+            -- 단계별 진행상태
+            , MAX(CASE WHEN A.STP_SEQ = 1 THEN A.PRGRS_STTS END) AS PRGRS_1
+            , MAX(CASE WHEN A.STP_SEQ = 2 THEN A.PRGRS_STTS END) AS PRGRS_2
+            , MAX(CASE WHEN A.STP_SEQ = 30 THEN A.PRGRS_STTS END) AS PRGRS_3
+            , MAX(CASE WHEN A.STP_SEQ = 4 THEN A.PRGRS_STTS END) AS PRGRS_4
+            , MAX(CASE WHEN A.STP_SEQ = 5 THEN A.PRGRS_STTS END) AS PRGRS_5
+            , MAX(CASE WHEN A.STP_SEQ = 6 THEN A.PRGRS_STTS END) AS PRGRS_6
+            , MAX(CASE WHEN A.STP_SEQ = 7 THEN A.PRGRS_STTS END) AS PRGRS_7
+            , MAX(CASE WHEN A.STP_SEQ = 8 THEN A.PRGRS_STTS END) AS PRGRS_8
+            , MAX(CASE WHEN A.STP_SEQ = 9 THEN A.PRGRS_STTS END) AS PRGRS_9
+            , MAX(CASE WHEN A.STP_SEQ = 10 THEN A.PRGRS_STTS END) AS PRGRS_10
+
+        FROM (
+                 SELECT
+                     EAM.YR                AS CRTR_YR
+                      , EAM.APO_SE            AS APO_SE
+                      , EA.APO_CD             AS APO_CD
+                      , EA.CORP_NM            AS CORP_NM
+                      , EA.CRNO               AS CRNO
+                      , EA.BRNO               AS BRNO
+                      , UC.UO_CORP_NM         AS UO_CORP_NM
+                      , UC.UO_BRNO            AS UO_BRNO
+                      , P.STP_SEQ             AS STP_SEQ
+                      , CASE
+                            WHEN PRGRS.TMPR_STRG_YN = 'Y' THEN 'T'
+                            WHEN PRGRS.CMPTN_YN = 'Y' THEN 'Y'
+                            ELSE 'N'
+                     END AS PRGRS_STTS
+
+                FROM TB_EV_APLY_MNG EAM
+
+                JOIN TB_EV_APO EA
+                ON EA.BRNO = EAM.BRNO
+                AND EA.DEL_YN = 'N'
+
+                LEFT JOIN TB_EV_APO_UO_CD_HSTRY UC
+                ON UC.YR = EAM.YR
+                AND UC.ISO_BRNO = EAM.BRNO
+                AND UC.DEL_YN = 'N'
+
+                LEFT JOIN TB_EV_PRUO_PRGRS_APO_DTL PRGRS
+                ON PRGRS.CRTR_YR = EAM.YR
+                AND PRGRS.APO_CD = EA.APO_CD
+                AND PRGRS.DEL_YN = 'N'
+
+                LEFT JOIN TB_EV_PRUO_PRGRS P
+                ON P.CRTR_YR = EAM.YR
+                AND P.PRGRM_ID = PRGRS.PRGRM_ID
+                AND P.DEL_YN = 'N'
+                AND P.USE_YN = 'Y'
+             ) A
+
+--      마감여부
+        LEFT JOIN TB_EV_PRUO_PRGRS_APO DDLN
+        ON DDLN.CRTR_YR = A.CRTR_YR
+        AND DDLN.APO_CD = A.APO_CD
+        AND DDLN.PRGRS_STP_CD = 'DDLN'
+        AND DDLN.DEL_YN = 'N'
+--      최종제출 여부
+        LEFT JOIN TB_EV_PRUO_PRGRS_APO SBMT
+        ON SBMT.CRTR_YR = A.CRTR_YR
+        AND SBMT.APO_CD = A.APO_CD
+        AND SBMT.PRGRS_STP_CD = 'SBMT'
+        AND SBMT.DEL_YN = 'N'
+
+
+        WHERE A.CRTR_YR = #{crtrYr}
+        ]]>
+
+        <if test='apoSe != null and apoSe != ""'>
+            AND  A.APO_SE = #{apoSe}
+        </if>
+
+        <if test='corpNm != null and corpNm != ""'>
+            AND A.CORP_NM LIKE '%' || #{corpNm} || '%'
+        </if>
+
+        <if test='brno != null and brno != ""'>
+            AND A.BRNO = #{brno}
+        </if>
+
+--        법인체마감여부
+        <if test='corpDdlnYn != null and corpDdlnYn != ""'>
+            <choose>
+                <when test='corpDdlnYn.equals("Y")'>
+                    AND DDLN.CMPTN_YN = 'Y'
+                </when>
+                <when test='corpDdlnYn.equals("N")'>
+                    AND (DDLN.CMPTN_YN = 'N' OR DDLN.CMPTN_YN IS NULL)
+                </when>
+            </choose>
+        </if>
+
+--           최종제출 여부
+        <if test='lastSbmsnYn != null and lastSbmsnYn != ""'>
+            <choose>
+                <when test='lastSbmsnYn.equals("Y")'>
+                    AND SBMT.CMPTN_YN = 'Y'
+                </when>
+                <when test='lastSbmsnYn.equals("N")'>
+                    AND (SBMT.CMPTN_YN = 'N' OR SBMT.CMPTN_YN IS NULL)
+                </when>
+            </choose>
+        </if>
+
+        <![CDATA[
+
+        GROUP BY A.CRTR_YR, A.APO_CD, A.UO_BRNO, A.UO_CORP_NM, DDLN.CMPTN_YN, SBMT.CMPTN_YN
+
+        ORDER BY A.CRTR_YR, A.APO_CD, MAX(A.CORP_NM)
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo   -->
+    <!-- DESC : 생산유통통합조직 APO별 진행관리 등록                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.06  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertPruoPrgrsApo" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+            {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo*/
+                SP_PRUO_PRGRS_APO (
+                    #{sysLastChgUserId}
+                    , #{sysLastChgPrgrmId}
+                    , #{crtrYr}
+                    , #{apoCd}
+                    , #{prgrsStpCd}
+                    , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                    , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+                    )
+            }
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl   -->
+    <!-- DESC : 생산유통통합조직 APO별 진행관리 취소                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.06  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="updatePruoPrgrsApoCncl" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+        {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl*/
+            SP_PRUO_PRGRS_APO_CNCL (
+                 #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+                , #{crtrYr}
+                , #{apoCd}
+                , #{prgrsStpCd}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+                )
+            }
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt -->
+    <!-- DESC : 생산유통통합조직 APO별 진행관리 작성                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertPruoPrgrsApoWrt" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+        {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt*/
+            SP_PRUO_PRGRS_APO_WRT (
+                #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+                , #{crtrYr}
+                , #{apoCd}
+                , #{wrtPrgrmId}
+                , #{tmprStrgYn}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+                )
+            }
+        ]]>
+    </insert>
+
+    <select id="selectAplyMngInfo" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+            SELECT
+                UO_CD
+                 , YR
+                 , APLY_DAY
+                 , RAW_MTR_ENSR_SIGUN_CNT
+                 , RAW_MTR_ENSR_CTPV_CNT
+                 , CTPV_NM
+                 , SIGUN_NM
+                 , PRUO_FUND_APLY_AMT
+                 , ISO_FUND_APLY_AMT
+                 , APLY_TRGT_SE
+                 , APO_CD
+                 , APO_SE
+                 , BRNO
+                 , CRNO
+                 , CORP_NM
+                 , UO_BRNO
+                 , CORP_DDLN_SE_CD
+                 , PRFMNC_CORP_DDLN_YN
+            FROM TB_EV_APLY_MNG
+            WHERE YR = #{crtrYr}
+            AND APO_CD = #{apoCd}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd    -->
+    <!-- DESC : 생산유통통합조직 법인체마감/취소 업데이트                                  -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd*/
+                TB_EV_APLY_MNG
+            SET
+                CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
+            WHERE YR = #{crtrYr}
+            AND APO_CD = #{apoCd}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsApoDtl    -->
+    <!-- DESC : 생산유통통합조직 조직별 프로그램 상태 확인                                 -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.13  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectPruoPrgrsApoDtl" resultType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+            SELECT
+                PAD.CRTR_YR
+                 , PAD.APO_CD
+                 , PAD.PRGRM_ID
+                 , PAD.TMPR_STRG_YN
+                 , PAD.CMPTN_YN
+                 , PAD.CMPTN_DT
+                 , PAD.DEL_YN
+                 , PAD.SYS_FRST_INPT_DT
+                 , PAD.SYS_FRST_INPT_USER_ID
+                 , PAD.SYS_FRST_INPT_PRGRM_ID
+                 , PAD.SYS_LAST_CHG_DT
+                 , PAD.SYS_LAST_CHG_USER_ID
+                 , PAD.SYS_LAST_CHG_PRGRM_ID
+            FROM TB_EV_PRUO_PRGRS_APO_DTL PAD
+            WHERE PAD.CRTR_YR = #{crtrYr}
+            AND PAD.APO_CD = #{apoCd}
+            AND PAD.PRGRM_ID = #{prgrmId}
+            AND PAD.DEL_YN = 'N'
+        ]]>
+    </select>
+
+</mapper>

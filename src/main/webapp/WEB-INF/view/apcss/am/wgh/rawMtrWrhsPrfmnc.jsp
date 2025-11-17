@@ -992,6 +992,12 @@ const fn_docRawMtrWrhsList = async function() {
           		grdRawMtrWrhs.rebuild();
          	}
 
+			/** 25.11.03 거산 실적 내림차순 */
+			if (gv_selectedApcCd == '0669') {
+				let wghnoColIdx = grdRawMtrWrhs.getColRef('wghno');
+				grdRawMtrWrhs.sortColumn(wghnoColIdx, 'desc');
+			}
+
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

@@ -65,12 +65,12 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 신청액국비
      */
-    private int aplyAmtNe;
+    private long aplyAmtNe;
 
     /**
      * 신청액본인
      */
-    private int aplyAmtSlf;
+    private long aplyAmtSlf;
 
     /**
      * 신청비고
@@ -80,12 +80,12 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 배상액국비
      */
-    private int rpnAmtNe;
+    private long rpnAmtNe;
 
     /**
      * 배상액본인
      */
-    private int rpnAmtSlf;
+    private long rpnAmtSlf;
 
     /**
      * 적합여부
@@ -115,7 +115,7 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 교부결정금액
      */
-    private int dtbnDcsnAmt;
+    private long dtbnDcsnAmt;
 
     /**
      * 교부비고
@@ -268,32 +268,32 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 교부결정액 1차
      */
-    private Long dtbnDcsnAmtFirst;
+    private double dtbnDcsnAmtFirst;
 
     /**
      * 교부결정액 2차
      */
-    private Long dtbnDcsnAmtSecond;
+    private double dtbnDcsnAmtSecond;
 
     /**
      * 정산가능액1차
      */
-    private int clclnPsbltyAmt;
+    private long clclnPsbltyAmt;
 
     /**
      * 정산가능액1차
      */
-    private int clclnPsbltyAmtFirst;
+    private long clclnPsbltyAmtFirst;
 
     /**
      * 정산가능액2차
      */
-    private int clclnPsbltyAmtSecond;
+    private long clclnPsbltyAmtSecond;
 
     /**
      * 정산신청금액
      */
-    private int clclnAplyAmt;
+    private long clclnAplyAmt;
 
     /**
      * 정산신청비고
@@ -303,12 +303,12 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 정산승인금액
      */
-    private int clclnAprvAmt;
+    private long clclnAprvAmt;
 
     /**
      * 정산기각금액
      */
-    private int clclnRjctAmt;
+    private long clclnRjctAmt;
 
     /**
      * 1차 승인여부
@@ -546,6 +546,26 @@ public class SprtBizClclnMngVO extends ComVO {
      * 문서명
      */
     private String docNm;
+
+    /**
+     * 미사용액
+     */
+    private long unuseAmt;
+
+    /**
+     * 잔액합계
+     */
+    private long blncTot;
+
+    /**
+     * 잔액합계
+     */
+    private double implRt;
+
+    /**
+     * 회차명
+     */
+    private String clclnSeqNm;
 
     /**
      * 교부신청서 파일

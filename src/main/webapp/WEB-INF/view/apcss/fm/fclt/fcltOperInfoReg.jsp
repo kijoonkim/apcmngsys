@@ -684,6 +684,17 @@
 							// , operOgnzCrno : userInfoVO.operOgnzCrno
 							// , rprsv : userInfoVO.rprsv
 
+							, ognzTypeCd : resultVO.ognzTypeCd
+							, ctpvCd : resultVO.ctpvCd
+							, sigunCd : resultVO.sigunCd
+							, apcAdmCd : resultVO.apcAdmCd
+							, apcRoadNmCd : resultVO.apcRoadNmCd
+							, apcSlno : resultVO.apcSlno
+							, apcBmno : resultVO.apcBmno
+							, operOgnzRoadNmCd : resultVO.operOgnzRoadNmCd
+							, operOgnzSlno : resultVO.operOgnzSlno
+							, operOgnzBmno : resultVO.operOgnzBmno
+
 							, picNm : resultVO.pic
 							, picTelno : resultVO.cttpc
 							, prvcClctAgreYn : resultVO.prvcClctAgreYn
@@ -805,7 +816,7 @@
 
 				// 2025.10.04 담당자명,연락처 추가 요청
 				SBUxMethod.set('dtl-inp-picNm',resultVO.picNm); // 담당자 명
-				SBUxMethod.set('dtl-inp-picTelno',resultVO.mblTelno); // 담당자 연락처
+				SBUxMethod.set('dtl-inp-picTelno', gfn_nvl(resultVO.mblTelno, '').replace(/-/g, '')); // 담당자 연락처
 				SBUxMethod.set('rdo-prvc','Y'); // 개인정보이용동의 기본값 동의로 설정
 				fn_clickPrvcRdo();
 
@@ -1042,6 +1053,12 @@
 			gfn_comAlert("W0002", "담당자 연락처");	//	W0002	{0}을/를 입력하세요.
 			return;
 		}
+
+		if (picTelno.length > 11) {
+			gfn_comAlert("W0002", "담당자 연락처(11자리 이하)");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
 
 		if (gfn_isEmpty(prvcAgre)) {
 			gfn_comAlert("W0001", "개인정보 이용동의");	//	W0001	{0}을/를 선택하세요.

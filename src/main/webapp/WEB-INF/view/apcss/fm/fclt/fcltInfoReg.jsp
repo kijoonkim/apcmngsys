@@ -634,7 +634,7 @@
 						SBUxMethod.set('dtl-inp-strgPlcCurnRmrk', gfn_nvl(item.strgPlcCurnRmrk));
 						SBUxMethod.set('dtl-inp-strgPlcGnrlStrgArea', gfn_nvl(item.strgPlcGnrlStrgArea));
 						SBUxMethod.set('dtl-inp-strgPlcGnrlStrgRmrk', gfn_nvl(item.strgPlcGnrlStrgRmrk));
-						SBUxMethod.set('dtl-inp-strgPlcEtcArea', gfn_nvl(item.strgPlcEtcAreastrgPlcEtcArea));
+						SBUxMethod.set('dtl-inp-strgPlcEtcArea', gfn_nvl(item.strgPlcEtcArea));
 						SBUxMethod.set('dtl-inp-strgPlcEtcRmrk', gfn_nvl(item.strgPlcEtcRmrk));
 					});
 				}

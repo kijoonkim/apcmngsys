@@ -39,40 +39,19 @@ public class SortPrfmncAtrbServiceImpl extends BaseServiceImpl implements SortPr
 
 	@Override
 	public HashMap<String, Object> muliSaveSortPrfmncList(List<SortPrfmncAtrbVO> sortPrfmncAtrbList) throws Exception {
-		HashMap<String, Object> rtnObj = new HashMap<>();
-		List<SortPrfmncAtrbVO> insertSortPrfmncAtrbList = new ArrayList<>();
-		List<SortPrfmncAtrbVO> updateSortPrfmncAtrbList = new ArrayList<>();
 
 		for (SortPrfmncAtrbVO sortPrfmncAtrbVO :sortPrfmncAtrbList) {
-
-			if (ComConstants.ROW_STS_INSERT.equals(sortPrfmncAtrbVO.getRowSts())) {
-				insertSortPrfmncAtrbList.add(sortPrfmncAtrbVO);
-			}
-
-			if (ComConstants.ROW_STS_UPDATE.equals(sortPrfmncAtrbVO.getRowSts())) {
-				updateSortPrfmncAtrbList.add(sortPrfmncAtrbVO);
-			}
-		}
-
-		if (!insertSortPrfmncAtrbList.isEmpty()) {
-			for (SortPrfmncAtrbVO sortPrfmncAtrbVO : insertSortPrfmncAtrbList) {
-
-				if (0 == insertSortPrfmncAtrb(sortPrfmncAtrbVO)) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			if (ComConstants.ROW_STS_INSERT.equals(sortPrfmncAtrbVO.getRowSts())
+					&& 0 == insertSortPrfmncAtrb(sortPrfmncAtrbVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "저장")));		// E0003	{0} 시 오류가 발생하였습니다.
 				}
 
-			}
-		}
 
-		if (!updateSortPrfmncAtrbList.isEmpty()) {
-
-			for (SortPrfmncAtrbVO sortPrfmncAtrbVO : updateSortPrfmncAtrbList) {
-
-				if (0 == updateSortPrfmncAtrb(sortPrfmncAtrbVO)) {
-					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			if (ComConstants.ROW_STS_UPDATE.equals(sortPrfmncAtrbVO.getRowSts())
+					&& 0 == updateSortPrfmncAtrb(sortPrfmncAtrbVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "저장")));		// E0003	{0} 시 오류가 발생하였습니다.
 				}
 
-			}
 		}
 
 		return null;
