@@ -33,57 +33,57 @@ public class SpmtPrfmncSlsVO extends SpmtPrfmncVO {
 	/**
 	 * 지급금액
 	 * */
-	private double payAmt;
-	private double totPayAmt;
+	private int payAmt;
+	private int totPayAmt;
 	/**
 	 * 수입금액
 	 * */
-	private double incmAmt;
-	private double totIncmAmt;
+	private int incmAmt;
+	private int totIncmAmt;
 	/**
 	 * 법인수수료(조합법인)
 	 * */
-	private double totFeeAmt;
+	private int totFeeAmt;
 	/**
 	 * 출고수수료금액
 	 * */
-	private double spmtFeeAmt;
-	private double totSpmtFeeAmt;
+	private int spmtFeeAmt;
+	private int totSpmtFeeAmt;
 	/**
 	 * 출고금액
 	 * */
-	private double spmtAmt;
-	private double totSpmtAmt;
+	private int spmtAmt;
+	private int totSpmtAmt;
 	/**
 	 * 농협수수료금액
 	 * */
-	private double nhFeeAmt;
-	private double totNhFeeAmt;
+	private int nhFeeAmt;
+	private int totNhFeeAmt;
 
 	/**
 	 * 포장금액
 	 * */
-	private double pckgAmt;
-	private double totPckgAmt;
+	private int pckgAmt;
+	private int totPckgAmt;
 	/**
 	 * 박스금액
 	 * */
-	private double bxAmt;
-	private double totBxAmt;
+	private int bxAmt;
+	private int totBxAmt;
 	/**
 	 * 수량
 	 * */
-	private double qntt;
-	private double totQntt;
+	private int qntt;
+	private int totQntt;
 	/**
 	 * 중량
 	 * */
-	private double totWght;
-	private double wght;
+	private int totWght;
+	private int wght;
 	/**
 	 * 단가
 	 * */
-	private double untprc;
+	private int untprc;
 	/**
 	 * 매입처코드
 	 * */
