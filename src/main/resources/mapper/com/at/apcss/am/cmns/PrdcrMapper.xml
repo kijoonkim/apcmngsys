@@ -177,6 +177,12 @@
 			     , PR.BANK_CD			AS BANK_CD
 			     , FN_UTL_DECRYPT_ARIA(PR.ACTNO) AS ACTNO
 	    	     , PR.SYS_LAST_CHG_DT	AS SYS_LAST_CHG_DT
+	    	     , (SELECT UNTPRC
+                      FROM TB_CNPT_INFO X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND PR.EXTRNL_LNKG_CD = X.CNPT_CD
+                       AND X.DEL_YN = 'N'
+                   ) AS UNTPRC
 		]]>
 		<if test='yr != null and yr != ""'>
 				 , (SELECT CRTR_PRCL
