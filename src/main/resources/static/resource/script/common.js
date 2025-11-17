@@ -1178,7 +1178,6 @@ const gfn_getApcCrtrUntprc = async function (_apcCd, _cdId) {
 	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, useYn: "y"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
-	console.log("data",data)
 	data.resultList.forEach((item) => {
 		sourceJson.push({
 			cdId: item.cdId,
@@ -1314,6 +1313,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				prchsQntt:item.prchsQntt,
 				prchsAmt:item.prchsAmt,
 				frmerno:item.frmerno,
+				untprc:item.untprc
 			});
 		});
 	return sourceJson;
