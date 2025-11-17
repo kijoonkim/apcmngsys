@@ -490,7 +490,7 @@
 					width: '6%',
 					filtering: { usemode: false },
 					style:'text-align:right;',
-					format : {type:'number', rule:'#,###.###'}
+					format : {type:'number', rule:'#,###'}
 				},
 				{
 					caption : ['출하수수료'],
@@ -499,7 +499,7 @@
 					width: '6%',
 					filtering: { usemode: false },
 					style:'text-align:right;',
-					format : {type:'number', rule:'#,###.###'}
+					format : {type:'number', rule:'#,###'}
 				},
 				{
 					caption : ['출하금액'],
@@ -508,7 +508,7 @@
 					width: '6%',
 					filtering: { usemode: false },
 					style:'text-align:right;',
-					format : {type:'number', rule:'#,###.###'}
+					format : {type:'number', rule:'#,###'}
 				},
 				{
 					caption : ['농협수수료'],
@@ -516,7 +516,7 @@
 					type: 'output',
 					width: '6%',
 					style:'text-align:right;',
-					format : {type:'number', rule:'#,###.###'}
+					format : {type:'number', rule:'#,###'}
 				},
 				{
 					caption : ['운송비'],
@@ -548,7 +548,7 @@
 					type: 'output',
 					width: '6%',
 					style:'text-align:right;',
-					format : {type:'number', rule:'#,###.###'}
+					format : {type:'number', rule:'#,###'}
 				},
 		];
 
@@ -630,6 +630,10 @@
 		}
 	}
 
+	/**
+	 * @name fn_comTotSet
+	 * @description 출고 공통 금액 계산
+	 */
 	const fn_comTotSet = function () {
 
 		let totWghtCol = grdSpmtPrfmncCom.getColRef('totWght');
@@ -664,12 +668,16 @@
 		}
 	}
 
+	/**
+	 * @name fn_dtlFeeSet
+	 * @description 출고 상세 금액 계산
+	 */
 	const fn_dtlFeeSet = function () {
 
 		let rowData = grdSpmtPrfmncCom.getRowData(focusRow);
-		let totSpmtFeeAmt = parseFloat(rowData.totSpmtFeeAmt) || 0;
-		let totFeeAmt = parseFloat(rowData.totFeeAmt) || 0;
-		let totQntt = parseFloat(rowData.totQntt) || 0;
+		let totSpmtFeeAmt = parseInt(rowData.totSpmtFeeAmt) || 0;
+		let totFeeAmt = parseInt(rowData.totFeeAmt) || 0;
+		let totQntt = parseInt(rowData.totQntt) || 0;
 		let averageSpmtFeeAmt = (totSpmtFeeAmt / totQntt);
 		let averageFeeAmt = (totFeeAmt / totQntt);
 
@@ -737,7 +745,7 @@
 				if (!gfn_comConfirm("Q0001", "등록 된 출하실적 입니다. 삭제?")) {
 					return;
 				} else {
-					fn_del(rowData, nRow);
+					fn_del(rowData);
 				}
 			}
 
@@ -929,6 +937,10 @@
 		}
 	}
 
+	/**
+	 * @name fn_grdSpmtPrfmncComValueChanged
+	 * @description 출고 공통 데이터 변경 Event
+	 */
 	const fn_grdSpmtPrfmncComValueChanged = function () {
 		let nRow = grdSpmtPrfmncCom.getRow();
 		let nCol = grdSpmtPrfmncCom.getCol();
@@ -982,6 +994,10 @@
 		SBUxMethod.set("srch-dtp-spmtYmdTo", gfn_dateToYmd(new Date()));
 	})
 
+	/**
+	 * @name fn_dtpChange
+	 * @description 출고일자 선택 Event
+	 */
 	const fn_dtpChange = function() {
 		let spmtYmdFrom = SBUxMethod.get("srch-dtp-spmtYmdFrom");
 		let spmtYmdTo = SBUxMethod.get("srch-dtp-spmtYmdTo");
@@ -993,11 +1009,11 @@
 		}
 	}
 
+	/**
+	 * @name fn_search
+	 * @description 출고 공통 목록 조회.
+	 */
 	const fn_search = async function() {
-		fn_setGrdSpmtPrfmncCom()
-	}
-
-	const fn_setGrdSpmtPrfmncCom = async function() {
 		focusRow = 0;
 		let spmtYmdFrom = SBUxMethod.get('srch-dtp-spmtYmdFrom');
 		let spmtYmdTo = SBUxMethod.get('srch-dtp-spmtYmdTo');
@@ -1075,8 +1091,10 @@
 		grdSpmtPrfmncDtl.refresh();
 	}
 
-
-
+	/**
+	 * @name fn_setTotalCom
+	 * @description 출고 공통 합계 옵션
+	 */
 	const fn_setTotalCom = function () {
 		var total = {
 			type 		: 'grand',
@@ -1098,6 +1116,10 @@
 		grdSpmtPrfmncCom.setTotal(total);
 	}
 
+	/**
+	 * @name fn_setTotalDtl
+	 * @description 출고 상세 합계 옵션
+	 */
 	const fn_setTotalDtl = function () {
 		var total = {
 			type 		: 'grand',
@@ -1118,7 +1140,10 @@
 
 		grdSpmtPrfmncDtl.setTotal(total);
 	}
-
+	/**
+	 * @name fn_saveSpmtPrfmnc
+	 * @description 출고 등록
+	 */
 	const fn_saveSpmtPrfmnc = async function () {
 
 		let spmtPrfmncCom = grdSpmtPrfmncCom.getRowData(focusRow);
@@ -1250,7 +1275,7 @@
 			const postJsonPromise = gfn_postJSON("/am/spmt/multiSaveSpmtPrfmncSls.do", spmtPrfmncCom);
 			const data = await postJsonPromise;
 
-			try{
+			try {
 				if (_.isEqual("S", data.resultStatus)) {
 					fn_search();
 					gfn_comAlert("I0001");					// I0001 처리 되었습니다.
@@ -1258,7 +1283,7 @@
 				} else {
 					gfn_comAlert(data.resultCode, data.resultMessage);
 				}
-			}catch (e) {
+			} catch (e) {
 				if (!(e instanceof Error)) {
 					e = new Error(e);
 				}
@@ -1267,12 +1292,15 @@
 		}
 	}
 
-	const fn_del = async function(spmtPrfmncVO, nRow) {
+	/**
+	 * @name fn_del
+	 * @description 출고 삭제
+	 */
+	const fn_del = async function(spmtPrfmncVO) {
 
 		const postJsonPromise = gfn_postJSON("/am/spmt/deleteSpmtPrfmncSls.do", spmtPrfmncVO);
 		const data = await postJsonPromise;
-
-		try{
+		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				fn_search();
 				gfn_comAlert("I0001");					// I0001 처리 되었습니다.
@@ -1280,14 +1308,13 @@
 			} else {
 				gfn_comAlert(data.resultCode, data.resultMessage);
 			}
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 		}
 	}
-
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
