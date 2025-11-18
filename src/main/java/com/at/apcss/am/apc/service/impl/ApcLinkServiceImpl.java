@@ -146,6 +146,11 @@ public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkServic
 		linkKndList.add(AmConstants.CON_LINK_KND_SORT);
 		linkKndList.add(AmConstants.CON_LINK_KND_PCKG);
 		linkKndList.add(AmConstants.CON_LINK_KND_SPMT);
+		linkKndList.add(AmConstants.CON_LINK_KND_TRSM_WGH);
+		linkKndList.add(AmConstants.CON_LINK_KND_TRSM_RCPT);
+		linkKndList.add(AmConstants.CON_LINK_KND_TRSM_SORT);
+		linkKndList.add(AmConstants.CON_LINK_KND_TRSM_PCKG);
+		linkKndList.add(AmConstants.CON_LINK_KND_TRSM_SPMT);
 		
 		List<String> linkSttsList = new ArrayList<>();
 		linkSttsList.add(AmConstants.CON_LINK_STTS_REQ_DONE);
