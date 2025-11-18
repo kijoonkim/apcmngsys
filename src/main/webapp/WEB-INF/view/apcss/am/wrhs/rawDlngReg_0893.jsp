@@ -441,6 +441,8 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.allowcopy = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListSdlng;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["육묘번호", "육묘번호"], ref: 'sdlngNo', hidden: true },
             { caption: ["", ""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center; background: #FFF8DC;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
@@ -480,6 +482,8 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.allowcopy = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListCltvtn;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["육묘번호", "육묘번호"], ref: 'sdlngNo', hidden: true },
             { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '90px', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
@@ -490,7 +494,7 @@
             { caption: ["육묘장", "주수"], ref: 'sdlngPlanting', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
             { caption: ["육묘장", "구역"], ref: 'sdlngZone', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
             { caption: ["육묘장", "열"], ref: 'sdlngRow', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'sdlngZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
-            { caption: ["육묘장", "비고"], ref: 'sdlngRmrk', type: 'output', width: '200px', style: 'text-align: center;' },
+            { caption: ["육묘장", "비고"], ref: 'sdlngRmrk', type: 'output', width: '200px', style: 'text-align: left;' },
             {
                 caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '50px', style: 'text-align: center', merge: false, sortable: false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -508,7 +512,7 @@
             { caption: ["재배장", "베드기준"], ref: 'cltvtnBedType', type: 'input', width: '80px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'}, merge: false },
             { caption: ["재배장", "정식률(%)"], ref: 'cltvtnRate', type: 'output', width: '80px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.#'}, merge: false },
             { caption: ["수확일자", "수확일자"], ref: 'hrvstYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, merge: false },
-            { caption: ["재배장 비고", "재배장 비고"], ref: 'cltvtnRmrk', type: 'input', width: '200px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {maxlength: 1000}, merge: false },
+            { caption: ["재배장 비고", "재배장 비고"], ref: 'cltvtnRmrk', type: 'input', width: '200px', style: 'text-align: left; background: #FFF8DC;', typeinfo: {maxlength: 1000}, merge: false },
             { caption: ["정식번호", "정식번호"], ref: 'plntngNo', hidden: true }
         ];
 
@@ -530,14 +534,16 @@
         SBGridProperties.selectmode = 'free';
         SBGridProperties.oneclickedit = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListWgh;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["재배정식번호", "재배정식번호"], ref: 'cltvtnPlntngNo', hidden: true },
-            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '90px', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
-            { caption: ["구역", "구역"], ref: 'cltvtnZone', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
-            { caption: ["열", "열"], ref: 'cltvtnRow', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
-            { caption: ["주수", "주수"], ref: 'cltvtnPlanting', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '10%', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
+            { caption: ["구역", "구역"], ref: 'cltvtnZone', type: 'combo', width: '5%', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
+            { caption: ["열", "열"], ref: 'cltvtnRow', type: 'combo', width: '5%', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
+            { caption: ["주수", "주수"], ref: 'cltvtnPlanting', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
             {
-                caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '50px', style: 'text-align: center', merge: false, sortable: false,
+                caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '4%', style: 'text-align: center', merge: false, sortable: false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if(gfn_isEmpty(strValue)) {
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_wghAddRow(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -546,18 +552,18 @@
                     }
                 }
             },
-            { caption: ["계량일자", "계량일자"], ref: 'wghYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false, merge: false, sortable: false },
-            { caption: ["계량", "계량 값"], ref: 'wghVl', type: 'input', width: '70px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["계량", "실 무게"], ref: 'wghWght', type: 'output', width: '70px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포장", "출하포장단위"], ref: 'spmtPckgUnitCd', type: 'combo', width: '120px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
-            { caption: ["포장", "개수"], ref: 'pckgQntt', type: 'input', width: '70px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["포장", "중량"], ref: 'pckgWght', type: 'input', width: '70px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포장", "합계"], ref: 'pckgSum', type: 'output', width: '70px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "포장"], ref: 'pogiPckg', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "실측"], ref: 'pogiWght', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "LOSS"], ref: 'pogiLoss', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
-            { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
+            { caption: ["계량일자", "계량일자"], ref: 'wghYmd', type: 'datepicker', width: '7%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false, merge: false, sortable: false },
+            { caption: ["계량", "계량 값"], ref: 'wghVl', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["계량", "실 무게"], ref: 'wghWght', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포장", "출하포장단위"], ref: 'spmtPckgUnitCd', type: 'combo', width: '10%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
+            { caption: ["포장", "개수"], ref: 'pckgQntt', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["포장", "중량"], ref: 'pckgWght', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포장", "합계"], ref: 'pckgSum', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "포장"], ref: 'pogiPckg', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "실측"], ref: 'pogiWght', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "LOSS"], ref: 'pogiLoss', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'output', width: '7%', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
+            { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'output', width: '7%', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
             { caption: ["계량정식번호", "계량정식번호"], ref: 'wghPlntngNo', hidden: true },
             { caption: ["계량순번", "계량순번"], ref: 'wghSeq', hidden: true }
         ];
@@ -609,6 +615,8 @@
         SBGridProperties.explorerbar = 'move';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.allowcopy = true;
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListSpmt;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["포장번호", "포장번호"], ref: 'pckgno', hidden: true },
             { caption: ["출고번호", "출고번호"], ref: 'spmtno', hidden: true },
@@ -619,7 +627,7 @@
             { caption: ["상품명", "상품명"], ref: 'spmtPckgUnitCd', type: 'combo', width: '120px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
             { caption: ["박스 (개)", "박스 (개)"], ref: 'bxQntt', type: 'input', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
             { caption: ["중량 (Kg)", "중량 (Kg)"], ref: 'wght', type: 'input', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["비고", "비고"], ref: 'rmrk', type: 'input', width: '200px', style: 'text-align: center; background:#FFF8DC;' }
+            { caption: ["비고", "비고"], ref: 'rmrk', type: 'input', width: '200px', style: 'text-align: left; background:#FFF8DC;' }
         ];
 
         gridSpmt = _SBGrid.create(SBGridProperties);
@@ -2083,6 +2091,86 @@
                 return parseFloat(val);
             }
         }
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListSdlng = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldSdlng,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldSdlng
+     * @description 육묘장 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldSdlng() {
+        gridSdlng.exportLocalExcel("육묘장 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListCltvtn = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldCltvtn,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldCltvtn
+     * @description 재배장 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldCltvtn() {
+        gridCltvtn.exportLocalExcel("재배장 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListWgh = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldWgh,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldWgh
+     * @description 계량 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldWgh() {
+        gridWgh.exportLocalExcel("계량 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListSpmt = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldSpmt,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldSpmt
+     * @description 출고 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldSpmt() {
+        gridSpmt.exportLocalExcel("출고 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
