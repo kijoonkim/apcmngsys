@@ -309,6 +309,28 @@ public class AmConstants {
      * 연계 종류: D:출하
      */
     public final static String CON_LINK_KND_SPMT = "D";
+
+    /* 연계 종류 (LINK_KND) */
+    /**
+     * 연계 종류: 1:계량 송신
+     */
+    public final static String CON_LINK_KND_TRSM_WGH = "1";
+    /**
+     * 연계 종류: 2:입고 송신
+     */
+    public final static String CON_LINK_KND_TRSM_RCPT = "2";
+    /**
+     * 연계 종류: 3:선별 송신
+     */
+    public final static String CON_LINK_KND_TRSM_SORT = "3";
+    /**
+     * 연계 종류: 4:포장 송신
+     */
+    public final static String CON_LINK_KND_TRSM_PCKG = "4";
+    /**
+     * 연계 종류: 5:출하 송신
+     */
+    public final static String CON_LINK_KND_TRSM_SPMT = "5";
     
     
     /* 연계 상태 (LINK_STTS) 
