@@ -3,12 +3,8 @@ package com.at.apcss.am.ordr.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.ordr.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 
 /**
  * 발주정보 수신 Mapper 인터페이스
@@ -135,4 +131,12 @@ public interface OrdrRcvMapper {
 	 * @throws Exception
 	 */
 	public int updateMrktLinkPrcsLotte(MrktOrdrDtlVO mrktLotteDtlVO) throws Exception;
+
+	/**
+	 * 상품발주정보 목록 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 */
+	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO);
+
 }

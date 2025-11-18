@@ -657,6 +657,60 @@
 	</update>
 
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList		-->
+	<!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.18  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList */
+				  MG.ORDR_APC_CD        AS ORDR_APC_CD
+				, MG.LGSZ_MRKT_CD       AS LGSZ_MRKT_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', MG.LGSZ_MRKT_CD) FROM DUAL)	AS LGSZ_MRKT_NM
+				, MG.OUTORDRNO      	AS OUTORDRNO
+				, MG.ORDR_SEQ       	AS ORDR_SEQ
+				, MG.MRKT_WRHS_TYPE     AS MRKT_WRHS_TYPE
+				, MG.MRKT_WRHS_TYPE_NM  AS MRKT_WRHS_TYPE_NM
+				, MG.MRKT_GDS_CD        AS MRKT_GDS_CD
+				, MG.MRKT_GDS_NM        AS MRKT_GDS_NM
+				, MG.OTPT_NM        	AS OTPT_NM
+				, MG.CNTR_CD        	AS CNTR_CD
+				, MG.CNTR_NM        	AS CNTR_NM
+				, MG.WRHS_YMD       	AS WRHS_YMD
+				, MG.OUTORDR_YMD        AS OUTORDR_YMD
+				, MG.OUTORDR_TM     	AS OUTORDR_TM
+				, MG.OUTORDR_QNTT       AS OUTORDR_QNTT
+				, MG.CFMTN_QNTT     	AS CFMTN_QNTT
+				, MG.WRHS_QNTT      	AS WRHS_QNTT
+				, MG.PRCHS_TYPE_CD      AS PRCHS_TYPE_CD
+				, MG.PRCHS_TYPE_NM      AS PRCHS_TYPE_NM
+				, MG.EXMPTN_YN      	AS EXMPTN_YN
+				, MG.PRDCTN_YR      	AS PRDCTN_YR
+				, MG.MNFTR_YMD      	AS MNFTR_YMD
+				, MG.PIECE_UNTPRC       AS PIECE_UNTPRC
+				, MG.OUTORDR_UNTPRC     AS OUTORDR_UNTPRC
+				, MG.TXAMT      		AS TXAMT
+				, MG.OUTORDR_AMT        AS OUTORDR_AMT
+				, MG.WRHS_AMT       	AS WRHS_AMT
+			  FROM TB_MRKT_GDS_ORDR MG
+			 WHERE MG.ORDR_APC_CD = #{ordrApcCd}
+			   AND MG.DEL_YN = 'N'
+		]]>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+			AND MG.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+			AND MG.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ
+		]]>
+	</select>
+
 </mapper>
 
 

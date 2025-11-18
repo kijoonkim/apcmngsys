@@ -186,5 +186,7 @@ public class ApcLinkVO extends ComVO {
 
 
 	private String wrhsYmd;
-	
+	private String wrhsYmdFrom;
+	private String wrhsYmdTo;
+
 }
