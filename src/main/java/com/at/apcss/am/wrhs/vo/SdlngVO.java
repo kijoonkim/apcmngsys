@@ -144,6 +144,16 @@ public class SdlngVO extends ComVO {
     private double pckgWght;
 
     /**
+     * 수량합계
+     */
+    private int totalQntt;
+
+    /**
+     * 무게합계
+     */
+    private double totalWght;
+
+    /**
      * 포장수량합계
      */
     private int totalPckgQntt;
