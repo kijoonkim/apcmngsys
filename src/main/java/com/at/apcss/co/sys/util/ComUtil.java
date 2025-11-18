@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.http.MediaType;
 import org.springframework.util.ObjectUtils;
@@ -141,6 +144,25 @@ public class ComUtil {
 		}
 
 		return obj;
+	}
+
+	public static Map<String, Object> convertVoToMapByJackson (Object vo) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		// convertValue 메소드가 이 모든 작업을 한 줄로 처리해 줍니다.
+		// TypeReference를 사용하면 더 복잡한 제네릭 타입도 변환 가능합니다.
+		// [수정 후] TypeReference를 사용하여 정확한 제네릭 타입을 지정합니다.
+		// 이 방식은 컴파일러 경고(unchecked assignment)를 제거해 줍니다.
+		return objectMapper.convertValue(vo, new TypeReference<Map<String, Object>>() {});
+	}
+
+	public static List<Map<String, Object>> convertVoListToMapListByJackson(Object voList) {
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		// TypeReference를 사용하여 정확한 제네릭 List 타입(<List<Map<String, Object>>>)을 지정합니다.
+		return objectMapper.convertValue(
+				voList,
+				new TypeReference<List<Map<String, Object>>>() {}
+		);
 	}
 
 	public static MediaType getMediaType(String filename) {
