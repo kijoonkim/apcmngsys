@@ -420,6 +420,29 @@ public class RawMtrWrhsIgiController extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
+    // 재배장 단건 조회
+    @PostMapping(value = "/am/wrhs/selectCltvtn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectCltvtn(@RequestBody SdlngVO sdlngVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        List<SdlngVO> resultList;
+
+        try {
+            resultList = rawMtrWrhsIgiService.selectCltvtn(sdlngVO);
+        } catch(Exception e) {
+            logger.debug("error: {}", e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
     // 재배장 목록 조회
     @PostMapping(value = "/am/wrhs/selectCltvtnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
     public ResponseEntity<HashMap<String, Object>> selectCltvtnList(@RequestBody SdlngVO sdlngVO, HttpServletRequest request) throws Exception {
@@ -494,6 +517,29 @@ public class RawMtrWrhsIgiController extends BaseController {
                 return getErrorResponseEntity(rtnObj);
             }
         }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 계량 목록 단건 조회
+    @PostMapping(value = "/am/wrhs/selectWgh.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectWgh(@RequestBody SdlngVO sdlngVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        List<SdlngVO> resultList;
+
+        try {
+            resultList = rawMtrWrhsIgiService.selectWgh(sdlngVO);
+        } catch(Exception e) {
+            logger.debug("error: {}", e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
         return getSuccessResponseEntity(resultMap);
     }
