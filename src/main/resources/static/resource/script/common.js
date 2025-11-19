@@ -39,6 +39,9 @@ const URL_WRHS_VHCL			= "/am/cmns/wrhsVhcls";		//	입고차량
 const URL_TRSPRT_CO_INFO	= "/am/spmt/spmtTrsprts";	//	운송사
 const URL_TRSPRT_CST_INFO	= "/am/cmns/trsprtCsts";	//	운송지역
 const URL_SPMT_PCKG_UINT	= "/am/cmns/spmtPckgUnits";	//	출하포장단위
+const URL_SDLNG_CRTR_INFO	= "/am/wrhs/sdlngCrtrInfos";	//	육묘기준
+const URL_SDLNG_FCLT_ZONE_INFO = "/am/wrhs/sdlngFcltZoneInfos";	//	육묘시설 구역
+const URL_SDLNG_FCLT_ROW_INFO = "/am/wrhs/sdlngFcltRowInfos";	//	육묘시설 구역
 const URL_APC_INFO			= "/am/apc/apcInfos";		//	APC리스트
 const URL_CRTR_YR			= "/am/fclt/crtrYr";		//  기준년도 가져오기
 const URL_APC_RPT_KNDS		= "/co/cd/apcRptKnds";		//  리포트경로
@@ -1089,6 +1092,79 @@ const gfn_setSpmtPckgUnitSBSelect = async function (_targetIds, _jsondataRef, _a
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
 
+/**
+ * @name gfn_setSdlngCrtrSBSelect
+ * @description set SBUX-select options from 육묘기준
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd
+ */
+const gfn_setSdlngCrtrSBSelect = async function(_targetIds, _jsondataRef, _apcCd) {
+    const postJsonPromise = gfn_postJSON(URL_SDLNG_CRTR_INFO, { apcCd: _apcCd, delYn: "N" }, null, true);
+    const data = await postJsonPromise;
+
+    let sourceJson = [];
+    data.resultList.forEach((item) => {
+        item.cmnsCd = item.sdlngCd;
+        item.cmnsNm = item.sdlngNm;
+        sourceJson.push(item);
+    });
+    sourceJson = sourceJson.sort((a, b) => a.sdlngNm.localeCompare(b.sdlngNm, 'ko'));
+
+    gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_setSdlngFcltZoneSBSelect
+ * @description set SBUX-select options from 육묘시설 구역
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd
+ * @param {string} _fcltType
+ */
+const gfn_setSdlngFcltZoneSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _fcltType) {
+    const postJsonPromise = gfn_postJSON(URL_SDLNG_FCLT_ZONE_INFO, {apcCd: _apcCd, fcltType: _fcltType, delYn: "N"}, null, true);
+    const data = await postJsonPromise;
+
+    let sourceJson = [];
+    data.resultList.forEach((item) => {
+        item.cmnsCd = item.fcltZoneSeCd;
+        item.cmnsNm = item.seNm;
+        sourceJson.push(item);
+    });
+    sourceJson = sourceJson.sort((a, b) => a.fcltZoneSeCd.localeCompare(b.fcltZoneSeCd, 'ko'));
+
+    gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
+/**
+ * @name gfn_setSdlngFcltRowSBSelect
+ * @description set SBUX-select options from 육묘시설 열
+ * @function
+ * @param {(string|string[])} _targetIds
+ * @param {any[]} _jsondataRef
+ * @param {string} _apcCd
+ * @param {string} _fcltType
+ * @param {string} _fcltZoneSeCd
+ */
+const gfn_setSdlngFcltRowSBSelect = async function (_targetIds, _jsondataRef, _apcCd, _fcltType, _fcltZoneSeCd) {
+    const postJsonPromise = gfn_postJSON(URL_SDLNG_FCLT_ROW_INFO, {apcCd: _apcCd, fcltType: _fcltType, fcltZoneSeCd: _fcltZoneSeCd, delYn: "N"}, null, true);
+    const data = await postJsonPromise;
+
+    let sourceJson = [];
+    data.resultList.forEach((item) => {
+        item.cmnsCd = item.fcltZoneId;
+        item.cmnsNm = item.zoneNm;
+        item.mastervalue = item.fcltZoneSeCd;
+        sourceJson.push(item);
+    });
+    sourceJson = sourceJson.sort((a, b) => a.fcltZoneId.localeCompare(b.fcltZoneId, 'ko'));
+
+    gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
+}
+
 /** APC기준단가 */
 /**
  * @name gfn_getApcCrtrUntprc
@@ -1102,7 +1178,6 @@ const gfn_getApcCrtrUntprc = async function (_apcCd, _cdId) {
 	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, useYn: "y"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
-	console.log("data",data)
 	data.resultList.forEach((item) => {
 		sourceJson.push({
 			cdId: item.cdId,
@@ -1238,6 +1313,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				prchsQntt:item.prchsQntt,
 				prchsAmt:item.prchsAmt,
 				frmerno:item.frmerno,
+				untprc:item.untprc
 			});
 		});
 	return sourceJson;

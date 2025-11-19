@@ -1793,6 +1793,240 @@
 		  AND PCKGNO    = #{pckgno}
 		]]>
 	</update>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncSlsComList	-->
+	<!-- DESC : 출하실적매출 공통 목록 조회(태안농협).	                         	        -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.10.15  	김호        	Initial Creation                            		-->
+	<!-- ==============================================================================	-->
+	<select id="selectSpmtPrfmncSlsComList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO" >
+		<![CDATA[
+			SELECT X.APC_CD             AS APC_CD
+				 , X.SPMTNO             AS SPMTNO
+				 , MAX(X.SPMT_YMD)      AS SPMT_YMD
+				 , MAX(X.CNPT_CD)       AS CNPT_CD
+				 , MAX(X.ITEM_CD)       AS ITEM_CD
+				 , MAX(X.VRTY_CD)       AS VRTY_CD
+				 , SUM(X.QNTT)          AS TOT_QNTT
+				 , SUM(X.WGHT)          AS TOT_WGHT
+				 , SUM(X.PAY_AMT)       AS TOT_SPMT_AMT
+				 , SUM(X.PAY_AMT) - SUM(X.SPMT_FEE_AMT) AS TOT_PAY_AMT
+				 , SUM(X.PAY_AMT) - SUM(SPMT_FEE_AMT)   AS TOT_INCM_AMT
+				 , SUM(X.PAY_AMT) - SUM(SPMT_FEE_AMT) - SUM(X.SPMT_AMT) - SUM(X.NH_FEE_AMT) - SUM(X.TRSPRT_CST) - SUM(X.PCKG_AMT) - SUM(X.BX_AMT) AS TOT_FEE_AMT
+				 , SUM(X.SPMT_FEE_AMT)  AS TOT_SPMT_FEE_AMT
+				 , SUM(X.SPMT_AMT)      AS TOT_SPMT_AMT
+				 , SUM(X.NH_FEE_AMT)  / SUM(X.QNTT)   	AS CRTR_UNTPRC_CD_1
+				 , SUM(X.TRSPRT_CST)  / SUM(X.QNTT)  	AS CRTR_UNTPRC_CD_2
+				 , SUM(X.PCKG_AMT) / SUM(X.QNTT)     	AS CRTR_UNTPRC_CD_3
+				 , SUM(X.BX_AMT) / SUM(X.QNTT)       	AS CRTR_UNTPRC_CD_4
+			  FROM (SELECT SC.APC_CD
+						 , SC.SPMTNO
+						 , SC.SPMT_YMD
+						 , SC.CNPT_CD
+						 , SS.PRCHSPT_CD
+						 , SS.PRDCR_CD
+						 , SS.ITEM_CD
+						 , SS.VRTY_CD
+						 , SS.SPCFCT_CD
+						 , SS.GDS_GRD
+						 , SS.SPMT_PCKG_UNIT_CD
+						 , SS.QNTT
+						 , SS.WGHT
+						 , SS.UNTPRC
+						 , SS.PAY_AMT
+						 , SS.SPMT_FEE_AMT
+						 , SS.SPMT_AMT
+						 , SS.NH_FEE_AMT
+						 , SS.TRSPRT_CST
+						 , SS.PCKG_AMT
+						 , SS.BX_AMT
+			             , SC.RMRK
+					  FROM TB_SPMT_PRFMNC_COM SC
+					  JOIN TB_SPMT_PRFMNC_SLS SS
+						ON SC.APC_CD = SS.APC_CD
+					   AND SC.SPMTNO = SS.SPMTNO
+					 WHERE SC.APC_CD = #{apcCd}
+					   AND SC.DEL_YN = 'N'
+                       AND SS.DEL_YN = 'N'
+		]]>
+			<if test='cnptCd != null and cnptCd != ""'>
+					  AND SC.CNPT_CD = #{cnptCd}
+			</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+					  AND SS.PRDCR_CD = #{prdcrCd}
+			</if>
+			<if test='spmtYmdFrom != null and spmtYmdFrom != ""'>
+			   	   	  AND SC.SPMT_YMD <![CDATA[>=]]> #{spmtYmdFrom}
+			</if>
+			<if test='spmtYmdTo != null and spmtYmdTo != ""'>
+			   	   	  AND SC.SPMT_YMD <![CDATA[<=]]> #{spmtYmdTo}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+					  AND SS.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+					  AND SS.VRTY_CD = #{vrtyCd}
+			</if>
+		<![CDATA[
+					) X
+			  GROUP BY X.APC_CD, X.SPMTNO
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncSls	-->
+	<!-- DESC : 출하실적 매출 등록.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.17  	김호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<insert id="insertSpmtPrfmncSls" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.insertSpmtPrfmncSls */
+			  INTO TB_SPMT_PRFMNC_SLS
+				  (
+				   APC_CD
+				 , SPMTNO
+				 , INDCT_SEQ
+				 , PRCHSPT_CD
+				 , PRDCR_CD
+				 , ITEM_CD
+				 , VRTY_CD
+				 , SPCFCT_CD
+				 , GDS_GRD
+				 , SPMT_PCKG_UNIT_CD
+				 , QNTT
+				 , WGHT
+				 , UNTPRC
+				 , PAY_AMT
+				 , SPMT_FEE_AMT
+				 , SPMT_AMT
+				 , NH_FEE_AMT
+				 , TRSPRT_CST
+				 , PCKG_AMT
+				 , BX_AMT
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				  )
+			VALUES
+			    (
+			       #{apcCd}
+				 , #{spmtno}
+				 , #{indctSeq}
+				 , #{prchsptCd}
+				 , #{prdcrCd}
+				 , #{itemCd}
+				 , #{vrtyCd}
+				 , #{spcfctCd}
+				 , #{gdsGrd}
+				 , #{spmtPckgUnitCd}
+				 , #{qntt}
+				 , #{wght}
+				 , #{untprc}
+				 , #{payAmt}
+				 , #{spmtFeeAmt}
+				 , #{spmtAmt}
+				 , #{nhFeeAmt}
+				 , #{trsprtCst}
+				 , #{pckgAmt}
+				 , #{bxAmt}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				)
+		]]>
+	</insert>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.deleteSpmtPrfmncSls	-->
+	<!-- DESC : 출하실적 매출 삭제.	                         	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.17  	김호        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<update id="deleteSpmtPrfmncSlsAll" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO">
+		<![CDATA[
+			UPDATE TB_SPMT_PRFMNC_SLS
+			   SET DEL_YN 					= 'Y'
+			    , SYS_LAST_CHG_DT			= SYSDATE
+			    , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+			    , SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND SPMTNO 					= #{spmtno}
+		]]>
+	</update>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncSlsDtlList	-->
+	<!-- DESC : 출하실적매출 상세 목록 조회(태안농협).	                         	        -->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.11.17  	김호        	Initial Creation                            		-->
+	<!-- ==============================================================================	-->
+	<select id="selectSpmtPrfmncSlsDtlList" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO" >
+		<![CDATA[
+			SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncSlsDtlList */
+			       SC.SPMTNO
+				 , SS.ITEM_CD
+				 , SS.VRTY_CD
+				 , SS.SPCFCT_CD
+				 , SS.PRDCR_CD
+				 , (SELECT FRMHS_CTPV
+					  FROM TB_PRDCR_INFO X
+					 WHERE X.APC_CD = SS.APC_CD
+					   AND X.PRDCR_CD = SS.PRDCR_CD
+				   ) AS FRMHS_CTPV
+				 , SS.GDS_GRD
+				 , SS.SPMT_PCKG_UNIT_CD
+				 , SS.QNTT
+				 , SS.WGHT
+				 , SS.UNTPRC
+				 , SS.PAY_AMT
+				 , SS.SPMT_FEE_AMT
+				 , SS.SPMT_AMT
+				 , SS.NH_FEE_AMT
+				 , SS.TRSPRT_CST
+				 , SS.PCKG_AMT
+				 , SS.BX_AMT
+			     , SC.DEL_YN
+			  FROM TB_SPMT_PRFMNC_COM SC
+			  JOIN TB_SPMT_PRFMNC_SLS SS
+				ON SC.APC_CD = SS.APC_CD
+			   AND SC.SPMTNO = SS.SPMTNO
+			 WHERE SC.APC_CD = #{apcCd}
+			   AND SC.SPMTNO = #{spmtno}
+			   AND SC.DEL_YN = 'N'
+			   AND SS.DEL_YN = 'N'
+		]]>
+	</select>
+
+	<!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectGetSpmtPrfmncDtlSpmtSn	-->
+	<!-- DESC : 출하실적 상세 순번 발번 	                         	        				-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2025.11.17  	김호        	Initial Creation                            			-->
+	<!-- ==================================================================================	-->
+	<select id="selectGetSpmtPrfmncDtlSpmtSn" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="integer">
+		<![CDATA[
+			/* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectGetSpmtPrfmncDtlSpmtSn */
+			SELECT NVL(MAX(SPMT_SN) + 1, 1) AS SPMT_SN
+			  FROM TB_SPMT_PRFMNC_DTL
+			 WHERE APC_CD = #{apcCd}
+			   AND SPMTNO = #{spmtno}
+		]]>
+	</select>
 </mapper>
-
-

@@ -4,6 +4,8 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class MrktGdsOrdrVO extends ComVO {
@@ -120,12 +122,12 @@ public class MrktGdsOrdrVO extends ComVO {
     /**
      * 낱개당 단가
      */
-    private int pieceUntprc;
+    private BigDecimal pieceUntprc;
 
     /**
      * 발주단가
      */
-    private int outordrUntprc;
+    private BigDecimal outordrUntprc;
 
     /**
      * 세액
@@ -147,4 +149,3 @@ public class MrktGdsOrdrVO extends ComVO {
      */
     private String failMsg;
 }
-

@@ -681,8 +681,7 @@
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
 			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
-			     , pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT AS ACTL_WGHT
-			     , ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+				 , CASE WHEN pt0.ACTL_WGHT = 0 THEN WRHS_WGHT ELSE pt0.ACTL_WGHT - NVL(pt0.RDCD_WGHT, 0) END AS ACPTN_WGHT
 			  FROM (SELECT
 			               WC.APC_CD		    AS APC_CD
 			             , WC.WGHNO		        AS WGHNO
@@ -715,6 +714,7 @@
 			             , SUBSTR(INV.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
 			             , SUBSTR(INV.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL
 			             , SUBSTR(INV.STRG_LOCTN_CD, 4, 2)  AS STRG_LOCTN_LVL
+			        	 , NVL(WC.WHOL_WGHT - WC.EMPT_VHCL_WGHT, 0) AS ACTL_WGHT
 			          FROM TB_WGH_PRFMNC_COM WC
 			             , TB_WGH_PRFMNC_DTL WD
 			             , TB_RAW_MTR_WRHS_PRFMNC WP
@@ -2815,6 +2815,17 @@
 				, PB.BOX_WGT                                             AS BOX_WGT
 				, PB.PALLET_WGT                                          AS PALLET_WGT
 				, PB.WGHT_TOTAL                                          AS WGHT_TOTAL
+				, PI.ABBR_NM                                             AS ABBR_NM
+				, PI.TELNO                                               AS CUST_TELNO
+				, PI.FRMHS_NM                                            AS FRMHS_NM
+				, PI.FRMHS_ADDR                                          AS FRMHS_ADDR
+				, PI.RMRK                                                AS PI_RMRK
+				, VI.VHCLNO                                              AS VHCLNO
+				, VI.DRVR_NM                                             AS DRVR_NM
+				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 1)                  AS BANK_NM
+				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 2)                  AS ACTNO
+				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 3)                  AS DPSTR_NM
+				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 4)                  AS DRVR_TELNO
 			  FROM TB_WGH_PRFMNC_COM WC
 			 INNER JOIN TB_WGH_PRFMNC_DTL WD
 			    ON WC.APC_CD = WD.APC_CD
@@ -2829,6 +2840,14 @@
 			    ON WP.APC_CD = INV.APC_CD
 			   AND WP.WRHSNO = INV.WRHSNO
 			   AND INV.DEL_YN = 'N'
+			  LEFT JOIN TB_PRDCR_INFO PI
+			    ON WC.APC_CD = PI.APC_CD
+			   AND WC.PRDCR_CD = PI.PRDCR_CD
+			   AND WC.DEL_YN = 'N'
+    		  LEFT JOIN TB_WRHS_VHCL_INFO VI
+    			ON WC.APC_CD = VI.APC_CD
+    		   AND WC.VHCLNO = VI.VHCLNO
+    		   AND VI.DEL_YN = 'N'
 			  LEFT JOIN (
 			  	SELECT
 			  		PWS.APC_CD

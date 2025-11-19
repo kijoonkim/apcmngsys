@@ -2264,11 +2264,8 @@
     }
     /** agentDashboard 활성화시 UI정리 **/
     function cfn_initDashboard(){
-        console.log("호출이 안되어버리기");
         /** 관리자 00,10 type시 agent 대시보드 노출 **/
         if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
-            console.log(SBUxMethod);
-            console.log(typeof SBUxMethod,"TQA");
             /** dashboard 용 UI **/
             SBUxMethod.closeSideMenu('side_menu');
             $('#pinToggle').trigger("click");

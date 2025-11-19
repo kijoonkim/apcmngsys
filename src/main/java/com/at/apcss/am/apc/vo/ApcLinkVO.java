@@ -57,6 +57,24 @@ public class ApcLinkVO extends ComVO {
 	private String sortDspDt;
 	private String pckgDspDt;
 	private String spmtDspDt;
+
+	private String wghTrsmSttsCd;
+	private String wrhsTrsmSttsCd;
+	private String sortTrsmSttsCd;
+	private String pckgTrsmSttsCd;
+	private String spmtTrsmSttsCd;
+
+	private String wghTrsmSttsNm;
+	private String wrhsTrsmSttsNm;
+	private String sortTrsmSttsNm;
+	private String pckgTrsmSttsNm;
+	private String spmtTrsmSttsNm;
+
+	private String wghTrsmDspDt;
+	private String wrhsTrsmDspDt;
+	private String sortTrsmDspDt;
+	private String pckgTrsmDspDt;
+	private String spmtTrsmDspDt;
 	
 	private String trsmMatSttsColor;
 	private String wghSttsColor;
@@ -64,6 +82,12 @@ public class ApcLinkVO extends ComVO {
 	private String sortSttsColor;
 	private String pckgSttsColor;
 	private String spmtSttsColor;
+
+	private String wghTrsmSttsColor;
+	private String wrhsTrsmSttsColor;
+	private String sortTrsmSttsColor;
+	private String pckgTrsmSttsColor;
+	private String spmtTrsmSttsColor;
 	
 	private String wghReqYn;
 	private String wghReqDt;
@@ -105,6 +129,47 @@ public class ApcLinkVO extends ComVO {
 	private String spmtPrcsDt;
 	private String spmtPrcsCmptnDt;
 	private String spmtLinkStts;
+
+	private String wghTrsmReqYn;
+	private String wghTrsmReqDt;
+	private String wghTrsmReqCncltnDt;
+	private String wghTrsmSndDt;
+	private String wghTrsmSndCmptnDt;
+	private String wghTrsmPrcsDt;
+	private String wghTrsmPrcsCmptnDt;
+	private String wghTrsmLinkStts;
+	private String wrhsTrsmReqYn;
+	private String wrhsTrsmReqDt;
+	private String wrhsTrsmReqCncltnDt;
+	private String wrhsTrsmSndDt;
+	private String wrhsTrsmSndCmptnDt;
+	private String wrhsTrsmPrcsDt;
+	private String wrhsTrsmPrcsCmptnDt;
+	private String wrhsTrsmLinkStts;
+	private String sortTrsmReqYn;
+	private String sortTrsmReqDt;
+	private String sortTrsmReqCncltnDt;
+	private String sortTrsmSndDt;
+	private String sortTrsmSndCmptnDt;
+	private String sortTrsmPrcsDt;
+	private String sortTrsmPrcsCmptnDt;
+	private String sortTrsmLinkStts;
+	private String pckgTrsmReqYn;
+	private String pckgTrsmReqDt;
+	private String pckgTrsmReqCncltnDt;
+	private String pckgTrsmSndDt;
+	private String pckgTrsmSndCmptnDt;
+	private String pckgTrsmPrcsDt;
+	private String pckgTrsmPrcsCmptnDt;
+	private String pckgTrsmLinkStts;
+	private String spmtTrsmReqYn;
+	private String spmtTrsmReqDt;
+	private String spmtTrsmReqCncltnDt;
+	private String spmtTrsmSndDt;
+	private String spmtTrsmSndCmptnDt;
+	private String spmtTrsmPrcsDt;
+	private String spmtTrsmPrcsCmptnDt;
+	private String spmtTrsmLinkStts;
 	
 	
 	private String wghLinkUseYn;
@@ -113,6 +178,15 @@ public class ApcLinkVO extends ComVO {
 	private String pckgLinkUseYn;
 	private String spmtLinkUseYn;
 
+	private String wghTrsmLinkUseYn;
+	private String wrhsTrsmLinkUseYn;
+	private String sortTrsmLinkUseYn;
+	private String pckgTrsmLinkUseYn;
+	private String spmtTrsmLinkUseYn;
+
+
 	private String wrhsYmd;
-	
+	private String wrhsYmdFrom;
+	private String wrhsYmdTo;
+
 }

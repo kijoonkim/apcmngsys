@@ -384,8 +384,6 @@
 </div>
 <script type="text/javascript">
     window.addEventListener("DOMContentLoaded",function(){
-        console.log("죽고싶어?");
-        console.log(window.parent,"너 고아야?");
        window.parent.cfn_initDashboard();
     });
 </script>
