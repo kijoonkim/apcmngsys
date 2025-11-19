@@ -7,8 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
+import com.at.apcss.am.ordr.vo.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.service.OrdrService;
-import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -337,5 +335,75 @@ public class OrdrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/ordr/selectMrktLgstcsCntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMrktLgstcsCntrList(@RequestBody MrktLgstcsCntrVO mrktLgstcsCntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ArrayList<MrktLgstcsCntrVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = ordrService.selectMrktLgstcsCntrList(mrktLgstcsCntrVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/ordr/selectMrktGdsCdList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMrktGdsCdList(@RequestBody MrktGdsCdVO mrktGdsCdVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ArrayList<MrktGdsCdVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = ordrService.selectMrktGdsCdList(mrktGdsCdVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/ordr/insertMrktGdsOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertMrktGdsOrdrList(@RequestBody List<MrktGdsOrdrVO> mrktGdsOrdrVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultList = new HashMap<String, Object>();
+
+		try {
+			setComVOFields(mrktGdsOrdrVOList);
+			resultList = ordrService.insertMrktGdsOrdrList(mrktGdsOrdrVOList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/ordr/selectMrktGdsOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMrktGdsOrdrList(@RequestBody MrktGdsOrdrVO mrktGdsOrdrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<MrktGdsOrdrVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = ordrService.selectMrktGdsOrdrList(mrktGdsOrdrVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 
 }

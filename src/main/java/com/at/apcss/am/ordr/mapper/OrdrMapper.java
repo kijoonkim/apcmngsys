@@ -1,11 +1,10 @@
 package com.at.apcss.am.ordr.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
+import com.at.apcss.am.ordr.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
-import com.at.apcss.am.ordr.vo.OrdrVO;
 
 /**
  * 발주정보 Mapper 인터페이스
@@ -118,4 +117,32 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public void insertSpMrktRcptOrdrCncl(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+	/**
+	 * 시장물류센터 정보 조회
+	 * @param mrktLgstcsCntrVO
+	 * @return
+	 * @throws Exception
+	 */
+    ArrayList<MrktLgstcsCntrVO> selectMrktLgstcsCntrList(MrktLgstcsCntrVO mrktLgstcsCntrVO) throws Exception;
+	/**
+	 * 시장상품코드 정보 조회
+	 * @param mrktGdsCdVO
+	 * @return
+	 * @throws Exception
+	 */
+	ArrayList<MrktGdsCdVO> selectMrktGdsCdList(MrktGdsCdVO mrktGdsCdVO) throws Exception;
+	/**
+	 * 시장상품주문내역 저장
+	 * @param mrktGdsOrdrVOList
+	 * @return
+	 * @throws Exception
+	 */
+	int insertMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVOList) throws Exception;
+	/**
+	 * 시장상품주문내역 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
 }

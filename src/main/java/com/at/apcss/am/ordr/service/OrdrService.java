@@ -1,11 +1,10 @@
 package com.at.apcss.am.ordr.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.ordr.vo.OrdrVO;
+import com.at.apcss.am.ordr.vo.*;
 
 /**
  * 발주정보 Service 인터페이스
@@ -135,4 +134,33 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception;
+
+	/**
+	 * 시장물류센터 정보 조회
+	 * @param mrktLgstcsCntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	ArrayList<MrktLgstcsCntrVO> selectMrktLgstcsCntrList(MrktLgstcsCntrVO mrktLgstcsCntrVO) throws Exception;
+	/**
+     * 시장상품코드 정보 조회
+     * @param mrktGdsCdVO
+     * @return
+     * @throws Exception
+     */
+	ArrayList<MrktGdsCdVO> selectMrktGdsCdList(MrktGdsCdVO mrktGdsCdVO) throws Exception;
+	/**
+	 * 시장상품주문내역 저장
+	 * @param mrktGdsOrdrVOList
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertMrktGdsOrdrList(List<MrktGdsOrdrVO> mrktGdsOrdrVOList) throws Exception;
+	/**
+	 * 시장상품주문내역 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 * @throws Exception
+	 */
+	List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
 }
