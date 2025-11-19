@@ -136,6 +136,14 @@ public interface RawMtrWrhsIgiMapper {
     public List<SdlngVO> sdlngFcltRowInfos(SdlngVO sdlngVO) throws Exception;
 
     /**
+     * 육묘시설기준 목록 수정
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public int updateSdlngFcltCrtrList(SdlngVO sdlngVO) throws Exception;
+
+    /**
      * 육묘기준 목록 조회
      * @param sdlngVO
      * @return
@@ -200,6 +208,14 @@ public interface RawMtrWrhsIgiMapper {
     public int deleteSdlngList(SdlngVO sdlngVO) throws Exception;
 
     /**
+     * 재배장 목록 단건 조회
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SdlngVO> selectCltvtn(SdlngVO sdlngVO) throws Exception;
+
+    /**
      * 재배장 목록 조회
      * @param sdlngVO
      * @return
@@ -230,6 +246,14 @@ public interface RawMtrWrhsIgiMapper {
      * @throws Exception
      */
     public int deleteCltvtnList(SdlngVO sdlngVO) throws Exception;
+
+    /**
+     * 계량 목록 단건 조회
+     * @param sdlngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SdlngVO> selectWgh(SdlngVO sdlngVO) throws Exception;
 
     /**
      * 계량 목록 조회

@@ -28,7 +28,7 @@
       "@assets/*": ["src/react/assets/*"],
       "@components/*": ["src/components/*"],
       "@entries/*": ["src/entries/*"],
-      "@vanilla/*": ["src/vanilla/*"]
+      "@vanilla/*": ["src/vanilla/*"],
     }
   },
   "include": [

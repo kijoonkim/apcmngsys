@@ -155,5 +155,15 @@ public interface OrdrRcvService {
 	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd) throws Exception;
 	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd, String receiptYn) throws Exception;
 
-	
+	/**
+	 * 상품 발주정보 조회
+	 * @param ordrApcCd
+	 * @param wrhsYmdFrom
+	 * @param wrhsYmdTo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectMrktGdsOrdrList(String ordrApcCd, String wrhsYmdFrom, String wrhsYmdTo) throws Exception;
+
+
 }

@@ -124,7 +124,7 @@
                             </td>
                             <td style="border-right: hidden;"></td>
 
-                            <th scope="row" class="th_bg" id="cmnYmdTh" style="color: red;">예상정식일자</th>
+                            <th scope="row" class="th_bg" id="cmnYmdTh">예상정식일자</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
                                     uitype="popup"
@@ -271,7 +271,34 @@
                             <div id="sb-area-wgh" style="height: 470px;"></div>
                         </div>
                         <div id="spmtTab">
-                            <div id="sb-area-spmt" style="height: 470px;"></div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="ad_tbl_top" style="width: 98%;">
+                                        <ul class="ad_tbl_count">
+                                            <li>
+                                                <span style="color: black;">재고정보</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <div id="sb-area-gdsInvntr" style="width: 100%; height: 440px;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <div class="ad_tbl_top">
+                                            <ul class="ad_tbl_count">
+                                                <li>
+                                                    <span style="color: black;">출고정보</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div id="sb-area-spmt" style="height: 440px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -317,6 +344,7 @@
     var gridSdlng;    // 육묘장 그리드
     var gridCltvtn;    // 재배장 그리드
     var gridWgh;    // 계량 그리드
+    var gridGdsInvntr;    // 상품 재고 그리드
     var gridSpmt;    // 출고 그리드
 
     let newReg = 0;    // 신규등록 처리
@@ -326,6 +354,7 @@
     var jsonCltvtn = [];    // 재배장 내역
     var jsonSpmtPckgUnitCd = [];    // 출하포장단위 그리드    spmtPckgUnitCd    선택
     var jsonWgh = [];    // 계량 내역
+    var jsonGdsInvntr = [];    // 상품 재고 내역
     var jsonSpmt = [];    // 출고 내역
     var jsonComVrty = [];    // 품종 검색 조건    vrtyCd    선택
     var jsonGridVrty = [];    // 품종 그리드    vrtyCd    선택
@@ -356,12 +385,11 @@
     const fn_init = async function() {
         SBUxMethod.set("srch-dtp-sdngYmdFrom", gfn_dateFirstYmd(new Date()));
         SBUxMethod.set("srch-dtp-sdngYmdTo", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("srch-dtp-cmnYmdFrom", gfn_dateFirstYmd(new Date()));
-        SBUxMethod.set("srch-dtp-cmnYmdTo", gfn_dateToYmd(new Date()));
 
         fn_createSdlng();    // 육묘장 그리드 생성
         fn_createCltvtn();    // 재배장 그리드 생성
         fn_createWgh();    // 계량 그리드 생성
+        fn_createGdsInvntr();    // 상품 재고 그리드 생성
         fn_createSpmt();    // 출고 그리드 생성
 
         fn_initSBSelect();
@@ -408,7 +436,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.oneclickedit = true;
+        SBGridProperties.scrollbubbling = false;
+        SBGridProperties.explorerbar = 'move';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.allowcopy = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListSdlng;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["육묘번호", "육묘번호"], ref: 'sdlngNo', hidden: true },
             { caption: ["", ""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center; background: #FFF8DC;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
@@ -416,14 +450,14 @@
             { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false },
             { caption: ["육묘기준일", "육묘기준일"], ref: 'sdlngCrtrYmd', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
             { caption: ["예상정식일", "예상정식일"], ref: 'expctPlntngYmd', type: 'output', width: '100px', style: 'text-align: center;', format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'} },
-            { caption: ["육묘장", "판"], ref: 'sdlngTray', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 4}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["육묘장", "구"], ref: 'sdlngCell', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.###'} },
-            { caption: ["육묘장", "주수"], ref: 'sdlngPlanting', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["육묘장", "구역"], ref: 'sdlngZone', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridSdlngZone', label: 'label', value: 'value', itemcount: 10} },
-            { caption: ["육묘장", "열"], ref: 'sdlngRow', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridSdlngRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'sdlngZone', attrname: 'fcltZoneSeCd'}} },
+            { caption: ["육묘장", "판"], ref: 'sdlngTray', type: 'input', width: '60px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 4}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["육묘장", "구"], ref: 'sdlngCell', type: 'input', width: '60px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.###'} },
+            { caption: ["육묘장", "주수"], ref: 'sdlngPlanting', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["육묘장", "구역"], ref: 'sdlngZone', type: 'combo', width: '80px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridSdlngZone', label: 'label', value: 'value', itemcount: 10} },
+            { caption: ["육묘장", "열"], ref: 'sdlngRow', type: 'combo', width: '80px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridSdlngRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'sdlngZone', attrname: 'fcltZoneSeCd'}} },
             { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'output', width: '100px', style: 'text-align: center;', format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}, merge: false },
             { caption: ["수확일자", "수확일자"], ref: 'hrvstYmd', type: 'output', width: '100px', style: 'text-align: center;', format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'yyyymmdd'}, merge: false },
-            { caption: ["육묘장 비고", "육묘장 비고"], ref: 'sdlngRmrk', type: 'input', width: '200px', style: 'text-align: left; background: #FFF8DC;', typeinfo: {maxlength: 1000}, merge: false }
+            { caption: ["육묘장 비고", "육묘장 비고"], ref: 'sdlngRmrk', type: 'input', width: '200px', style: 'text-align: left; background: #FFF8DC;', typeinfo: {maxlength: 1000} }
         ];
 
         gridSdlng = _SBGrid.create(SBGridProperties);
@@ -443,17 +477,24 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.oneclickedit = true;
+        SBGridProperties.scrollbubbling = false;
+        SBGridProperties.explorerbar = 'move';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.allowcopy = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListCltvtn;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["육묘번호", "육묘번호"], ref: 'sdlngNo', hidden: true },
             { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '90px', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
             { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
             { caption: ["예상정식일", "예상정식일"], ref: 'expctPlntngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
-            { caption: ["육묘장", "판"], ref: 'sdlngTray', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["육묘장", "구"], ref: 'sdlngCell', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["육묘장", "주수"], ref: 'sdlngPlanting', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["육묘장", "구역"], ref: 'sdlngZone', type: 'combo', width: '100px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
-            { caption: ["육묘장", "열"], ref: 'sdlngRow', type: 'combo', width: '100px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'sdlngZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
+            { caption: ["육묘장", "판"], ref: 'sdlngTray', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["육묘장", "구"], ref: 'sdlngCell', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["육묘장", "주수"], ref: 'sdlngPlanting', type: 'output', width: '60px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["육묘장", "구역"], ref: 'sdlngZone', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
+            { caption: ["육묘장", "열"], ref: 'sdlngRow', type: 'combo', width: '80px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridSdlngRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'sdlngZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
+            { caption: ["육묘장", "비고"], ref: 'sdlngRmrk', type: 'output', width: '200px', style: 'text-align: left;' },
             {
                 caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '50px', style: 'text-align: center', merge: false, sortable: false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -465,18 +506,18 @@
                 }
             },
             { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false, merge: false, sortable: false },
-            { caption: ["재배장", "베드기준"], ref: 'cltvtnBedType', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'}, merge: false },
-            { caption: ["재배장", "정식률(%)"], ref: 'cltvtnRate', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'}, merge: false },
-            { caption: ["재배장", "주수"], ref: 'cltvtnPlanting', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'}, merge: false },
-            { caption: ["재배장", "구역"], ref: 'cltvtnZone', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10} },
-            { caption: ["재배장", "열"], ref: 'cltvtnRow', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}} },
-            { caption: ["육모장 비고", "육모장 비고"], ref: 'sdlngRmrk', type: 'output', width: '200px', style: 'text-align: center;', merge: true },
-            { caption: ["재배장 비고", "재배장 비고"], ref: 'cltvtnRmrk', type: 'input', width: '200px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {maxlength: 1000}, merge: false },
-            { caption: ["수확일자", "수확일자"], ref: 'hrvstYmd', type: 'output', width: '100px', style: 'text-align: left;', merge: false },
+            { caption: ["재배장", "구역"], ref: 'cltvtnZone', type: 'combo', width: '80px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10} },
+            { caption: ["재배장", "열"], ref: 'cltvtnRow', type: 'combo', width: '80px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}} },
+            { caption: ["재배장", "주수"], ref: 'cltvtnPlanting', type: 'input', width: '60px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'}, merge: false },
+            { caption: ["재배장", "베드기준"], ref: 'cltvtnBedType', type: 'input', width: '80px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 10}, format: {type: 'number', rule: '#,###'}, merge: false },
+            { caption: ["재배장", "정식률(%)"], ref: 'cltvtnRate', type: 'output', width: '80px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.#'}, merge: false },
+            { caption: ["수확일자", "수확일자"], ref: 'hrvstYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, merge: false },
+            { caption: ["재배장 비고", "재배장 비고"], ref: 'cltvtnRmrk', type: 'input', width: '200px', style: 'text-align: left; background: #FFF8DC;', typeinfo: {maxlength: 1000}, merge: false },
             { caption: ["정식번호", "정식번호"], ref: 'plntngNo', hidden: true }
         ];
 
         gridCltvtn = _SBGrid.create(SBGridProperties);
+        gridCltvtn.bind('valuechanged', 'fn_gridCltvtnValueChanged');
         gridCltvtn.rebuild();
     }
 
@@ -493,14 +534,16 @@
         SBGridProperties.selectmode = 'free';
         SBGridProperties.oneclickedit = true;
         SBGridProperties.mergecells = 'byrestriccol';
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListWgh;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["재배정식번호", "재배정식번호"], ref: 'cltvtnPlntngNo', hidden: true },
-            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '90px', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
-            { caption: ["구역", "구역"], ref: 'cltvtnZone', type: 'combo', width: '100px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
-            { caption: ["열", "열"], ref: 'cltvtnRow', type: 'combo', width: '100px', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
-            { caption: ["주수", "주수"], ref: 'cltvtnPlanting', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '10%', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
+            { caption: ["구역", "구역"], ref: 'cltvtnZone', type: 'combo', width: '5%', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnZone', label: 'label', value: 'value', itemcount: 10}, disabled: true },
+            { caption: ["열", "열"], ref: 'cltvtnRow', type: 'combo', width: '5%', style: 'text-align: center;', sortable: false, typeinfo: {ref: 'jsonGridCltvtnRow', label: 'label', value: 'value', itemcount: 10, filtering: {usemode: true, uppercol: 'cltvtnZone', attrname: 'fcltZoneSeCd'}}, disabled: true },
+            { caption: ["주수", "주수"], ref: 'cltvtnPlanting', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}, maxlength: 1}, format: {type: 'number', rule: '#,###'} },
             {
-                caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '50px', style: 'text-align: center', merge: false, sortable: false,
+                caption: ["처리", "처리"], ref: 'delYn', type: 'button', width: '4%', style: 'text-align: center', merge: false, sortable: false,
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if(gfn_isEmpty(strValue)) {
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_wghAddRow(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -509,18 +552,18 @@
                     }
                 }
             },
-            { caption: ["계량일자", "계량일자"], ref: 'wghYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false, merge: false, sortable: false },
-            { caption: ["계량", "계량 값"], ref: 'wghVl', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["계량", "실 무게"], ref: 'wghWght', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포장", "출하포장단위"], ref: 'spmtPckgUnitCd', type: 'combo', width: '90px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
-            { caption: ["포장", "개수"], ref: 'pckgQntt', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["포장", "중량"], ref: 'pckgWght', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포장", "합계"], ref: 'pckgSum', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "포장"], ref: 'pogiPckg', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "실측"], ref: 'pogiWght', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["포기당 (g)", "LOSS"], ref: 'pogiLoss', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
-            { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
-            { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
+            { caption: ["계량일자", "계량일자"], ref: 'wghYmd', type: 'datepicker', width: '7%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false, merge: false, sortable: false },
+            { caption: ["계량", "계량 값"], ref: 'wghVl', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["계량", "실 무게"], ref: 'wghWght', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포장", "출하포장단위"], ref: 'spmtPckgUnitCd', type: 'combo', width: '10%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
+            { caption: ["포장", "개수"], ref: 'pckgQntt', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["포장", "중량"], ref: 'pckgWght', type: 'input', width: '5%', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포장", "합계"], ref: 'pckgSum', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "포장"], ref: 'pogiPckg', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "실측"], ref: 'pogiWght', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["포기당 (g)", "LOSS"], ref: 'pogiLoss', type: 'output', width: '5%', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###.0'} },
+            { caption: ["파종일자", "파종일자"], ref: 'sdngYmd', type: 'output', width: '7%', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
+            { caption: ["정식일자", "정식일자"], ref: 'plntngYmd', type: 'output', width: '7%', style: 'text-align: center;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
             { caption: ["계량정식번호", "계량정식번호"], ref: 'wghPlntngNo', hidden: true },
             { caption: ["계량순번", "계량순번"], ref: 'wghSeq', hidden: true }
         ];
@@ -528,6 +571,32 @@
         gridWgh = _SBGrid.create(SBGridProperties);
         gridWgh.bind('valuechanged', 'fn_gridWghValueChanged');
         gridWgh.rebuild();
+    }
+
+    /**
+     * @name fn_createSpmt
+     * @description 상품 재고 그리드 생성
+     */
+    function fn_createGdsInvntr() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gdsInvntr';
+        SBGridProperties.id = 'gridGdsInvntr';
+        SBGridProperties.jsonref = 'jsonGdsInvntr';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.oneclickedit = true;
+        SBGridProperties.scrollbubbling = false;
+        SBGridProperties.explorerbar = 'move';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.allowcopy = true;
+        SBGridProperties.columns = [
+            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '120px', style: 'text-align: center;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'}, disabled: true },
+            { caption: ["재고 (박스)", "재고 (박스)"], ref: 'invntrBx', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
+            { caption: ["양 (Kg)", "양 (Kg)"], ref: 'amount', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} }
+        ];
+
+        gridGdsInvntr = _SBGrid.create(SBGridProperties);
+        gridGdsInvntr.rebuild();
     }
 
     /**
@@ -542,19 +611,23 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.oneclickedit = true;
+        SBGridProperties.scrollbubbling = false;
+        SBGridProperties.explorerbar = 'move';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.allowcopy = true;
+        SBGridProperties.contextmenu = true;    // 우클릭 메뉴 호출 여부
+        SBGridProperties.contextmenulist = objMenuListSpmt;    // 우클릭 메뉴 리스트
         SBGridProperties.columns = [
             { caption: ["포장번호", "포장번호"], ref: 'pckgno', hidden: true },
             { caption: ["출고번호", "출고번호"], ref: 'spmtno', hidden: true },
             { caption: ["", ""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center; background:#FFF8DC;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
             { caption: ["출고일자", "출고일자"], ref: 'spmtYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'}, disabled: false },
-            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '90px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
-            { caption: ["재고 (박스)", "재고 (박스)"], ref: 'invntrBx', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["거래처", "거래처"], ref: 'cnpt', type: 'combo', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {ref: 'jsonGridCnpt', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
-            { caption: ["상품명", "상품명"], ref: 'spmtPckgUnitCd', type: 'combo', width: '90px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
+            { caption: ["품종", "품종"], ref: 'vrtyCd', type: 'combo', width: '120px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {ref: 'jsonGridVrty', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
+            { caption: ["거래처", "거래처"], ref: 'cnpt', type: 'combo', width: '120px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {ref: 'jsonGridCnpt', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
+            { caption: ["상품명", "상품명"], ref: 'spmtPckgUnitCd', type: 'combo', width: '120px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {ref: 'jsonSpmtPckgUnitCd', displayui: false, itemcount: 10, label: 'label', value: 'value'} },
             { caption: ["박스 (개)", "박스 (개)"], ref: 'bxQntt', type: 'input', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
             { caption: ["중량 (Kg)", "중량 (Kg)"], ref: 'wght', type: 'input', width: '100px', style: 'text-align: center; background:#FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["양 (Kg)", "양 (Kg)"], ref: 'amount', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ["비고", "비고"], ref: 'rmrk', type: 'input', width: '200px', style: 'text-align: center; background:#FFF8DC;' }
+            { caption: ["비고", "비고"], ref: 'rmrk', type: 'input', width: '200px', style: 'text-align: left; background:#FFF8DC;' }
         ];
 
         gridSpmt = _SBGrid.create(SBGridProperties);
@@ -778,21 +851,11 @@
             return;
         }
 
-        if(gfn_isEmpty(cmnYmdFrom) || gfn_isEmpty(cmnYmdTo)) {
-            gfn_comAlert("W0001", document.getElementById('cmnYmdTh').innerText);    // W0002    {0}을/를 선택하세요.
-            return;
-        }
-
-        let tab = SBUxMethod.get("idxTab_norm");
-        if(tab === 'sdlngTab') {
-            fn_searchSdlngList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, sdlngZone, sdlngRow);
-        } else if(tab === 'cltvtnTab') {
-            fn_searchCltvtnList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, sdlngZone, sdlngRow, cltvtnZone, cltvtnRow);
-        } else if(tab === 'wghTab') {
-            fn_searchWghList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, cltvtnZone, cltvtnRow);
-        } else if(tab === 'spmtTab') {
-            fn_searchSpmtList(cmnYmdFrom, cmnYmdTo, sdlngCd, cnptCd);
-        }
+        fn_searchSdlngList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, sdlngZone, sdlngRow);
+        fn_searchCltvtnList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, sdlngZone, sdlngRow, cltvtnZone, cltvtnRow);
+        fn_searchWghList(sdngYmdFrom, sdngYmdTo, cmnYmdFrom, cmnYmdTo, sdlngCd, cltvtnZone, cltvtnRow);
+        fn_searchGdsInvntrList();
+        fn_searchSpmtList(cmnYmdFrom, cmnYmdTo, sdlngCd, cnptCd);
     }
 
     /**
@@ -836,6 +899,7 @@
         let tab = SBUxMethod.get("idxTab_norm");
         if(tab === 'sdlngTab') {
             jsonSdlng.push({
+                checkedYn: 'Y',
                 sdlngNo: newReg++,
                 sdngYmd: gfn_dateToYmd(new Date())
             });
@@ -843,6 +907,7 @@
             gridSdlng.refresh();
         } else if(tab === 'spmtTab') {
             jsonSpmt.push({
+                checkedYn: 'Y',
                 spmtYmd: gfn_dateToYmd(new Date())
             });
 
@@ -880,6 +945,19 @@
      */
     const fn_cltvtnDelRow = async function(nRow) {
         const rowData = gridCltvtn.getRowData(nRow);
+
+        const param = {
+            apcCd: gv_selectedApcCd,
+            plntngNo: rowData.plntngNo
+        }
+
+        const postJsonPromiseWgh = gfn_postJSON("/am/wrhs/selectWgh.do", param);
+        const dataWgh = await postJsonPromiseWgh;
+
+        if(dataWgh.resultList.length > 0) {
+            gfn_comAlert("E0000", "계량 정보가 있는 재배장입니다.");    // E0000    {0}
+            return;
+        }
 
         if(!gfn_isEmpty(rowData.plntngNo)) {
             if(!gfn_comConfirm("Q0001", "삭제")) {    // Q0001    {0} 하시겠습니까?
@@ -1098,7 +1176,7 @@
                 plntngQntt: Number(rowData.sdlngPlanting),
                 fcltZoneId: rowData.sdlngRow,
                 rmrk: rowData.sdlngRmrk
-            };
+            }
 
             if(!String(rowData.sdlngNo).includes("S")) {
                 param.rowSts = "I";
@@ -1163,6 +1241,18 @@
         checkedRows.reverse();
 
         if(sdlngList.length > 0) {
+            const param = {
+                apcCd: sdlngList[0].apcCd,
+                sdlngNo: sdlngList[0].sdlngNo
+            }
+
+            const postJsonPromiseCltvtn = gfn_postJSON("/am/wrhs/selectCltvtn.do", param);
+            const dataCltvtn = await postJsonPromiseCltvtn;
+
+            if(dataCltvtn.resultList.length > 0) {
+                gfn_comAlert("E0000", "재배장 정보가 있는 육묘장입니다.");    // E0000    {0}
+                return;
+            }
             if(!gfn_comConfirm("Q0001", "삭제")) {    // Q0001    {0} 하시겠습니까?
                 return;
             }
@@ -1191,7 +1281,7 @@
 
             gridSdlng.rebuild();
         }
-    };
+    }
 
     /**
      * @name fn_gridSdlngValueChanged
@@ -1261,6 +1351,8 @@
 
         jsonCltvtn.length = 0;
 
+        fn_initSBSelect();
+
         try {
             const postJsonPromise = gfn_postJSON("/am/wrhs/selectCltvtnList.do", param, null, false);
             const data = await postJsonPromise;
@@ -1276,7 +1368,7 @@
                 } else {
                     cltvtnBedType = jsonGridCltvtnZone.find(zone => zone.fcltZoneSeCd === item.cltvtnFcltZoneId.slice(2, 4)).crtrNv;
                     cltvtnPlanting = fn_zero(item.cltvtnPlntngQntt);
-                    cltvtnRate = (cltvtnPlanting / cltvtnBedType) == 'Infinity' ? 0 : cltvtnPlanting / cltvtnBedType;
+                    cltvtnRate = (cltvtnPlanting / cltvtnBedType * 100) == 'Infinity' ? 0 : cltvtnPlanting / cltvtnBedType * 100;
                 }
 
                 const cltvtnVO = {
@@ -1376,6 +1468,11 @@
                 return;
             }
 
+            if(gfn_isEmpty(rowData.cltvtnBedType)) {
+                gfn_comAlert("W0002", "재배장 베드기준");    // W0002    {0}을/를 입력하세요.
+                return;
+            }
+
             if(gfn_isEmpty(rowData.cltvtnPlanting)) {
                 gfn_comAlert("W0002", "재배장 주수");    // W0002    {0}을/를 입력하세요.
                 return;
@@ -1393,14 +1490,18 @@
 
             let param = {
                 apcCd: gv_selectedApcCd,
+                crtrNv: Number(rowData.cltvtnBedType),
                 plntngNo: rowData.plntngNo,
                 sdlngNo: rowData.sdlngNo,
                 plntngYmd: rowData.plntngYmd,
                 fcltZoneId: rowData.cltvtnRow,
+                fcltType: rowData.cltvtnRow.slice(0, 2),
+                fcltCrtrType: 'ZNSC',
+                fcltCrtrCd: rowData.cltvtnRow.slice(2, 4),
                 plntngQntt: Number(rowData.cltvtnPlanting),
                 hrvstYmd: rowData.hrvstYmd,
                 rmrk: rowData.cltvtnRmrk
-            };
+            }
 
             if(gfn_isEmpty(rowData.plntngNo)) {
                 param.rowSts = "I";
@@ -1435,6 +1536,30 @@
     }
 
     /**
+     * @name fn_gridCltvtnValueChanged
+     * @description 재배장 데이터 입력 시 event
+     */
+    const fn_gridCltvtnValueChanged = async function(event, col, ref) {
+        let nRow = gridCltvtn.getRow();
+        let rowData = gridCltvtn.getRowData(nRow);
+        const colData = gridCltvtn.getCellData(nRow, ref);
+        let allData = gridCltvtn.getGridDataAll();
+
+        if(ref == 13 && !gfn_isEmpty(rowData.cltvtnRow)) {
+            const selectedCltvtnZone = jsonGridCltvtnZone.find(zone => zone.fcltZoneSeCd === rowData.cltvtnRow.slice(2, 4));
+            if(selectedCltvtnZone) {
+                gridCltvtn.setCellData(nRow, 15, selectedCltvtnZone.crtrNv);
+                rowData = gridCltvtn.getRowData(nRow);
+            }
+        }
+
+        if(!gfn_isEmpty(rowData.cltvtnBedType) && !gfn_isEmpty(rowData.cltvtnPlanting)) {
+            gridCltvtn.setCellData(nRow, 16, (rowData.cltvtnPlanting / rowData.cltvtnBedType * 100) == 'Infinity' ? 0 : rowData.cltvtnPlanting / rowData.cltvtnBedType * 100);
+            rowData = gridCltvtn.getRowData(nRow);
+        }
+    }
+
+    /**
      * @name fn_searchWghList
      * @description 계량 목록 조회
      */
@@ -1451,6 +1576,8 @@
         }
 
         jsonWgh.length = 0;
+
+        fn_initSBSelect();
 
         try {
             const postJsonPromise = gfn_postJSON("/am/wrhs/selectWghList.do", param, null, false);
@@ -1593,7 +1720,7 @@
                 pckgWght: Number(rowData.pckgWght),
                 itemCd: selectedVrty.itemCd,
                 vrtyCd: selectedVrty.vrtyCd
-            };
+            }
 
             if(gfn_isEmpty(rowData.wghPlntngNo)) {
                 param.rowSts = "I";
@@ -1637,17 +1764,6 @@
         const colData = gridWgh.getCellData(nRow, ref);
         let allData = gridWgh.getGridDataAll();
 
-        if(!gfn_isEmpty(rowData.wghVl)) {
-            gridWgh.setCellData(nRow, 8, rowData.wghVl);
-            rowData = gridWgh.getRowData(nRow);
-
-            if(!gfn_isEmpty(rowData.wghWght)) {
-                gridWgh.setCellData(nRow, 14, rowData.wghWght / rowData.cltvtnPlanting * 1000);
-                rowData = gridWgh.getRowData(nRow);
-                gridWgh.setCellData(nRow, 15, rowData.pogiPckg - rowData.pogiWght);
-            }
-        }
-
         if(ref == 9 && !gfn_isEmpty(rowData.spmtPckgUnitCd)) {
             const selectedSpmtPckgUnit = jsonSpmtPckgUnitCd.find(item => item.value === rowData.spmtPckgUnitCd);
             if(selectedSpmtPckgUnit) {
@@ -1660,7 +1776,45 @@
             gridWgh.setCellData(nRow, 12, rowData.pckgQntt * rowData.pckgWght);
             rowData = gridWgh.getRowData(nRow);
             gridWgh.setCellData(nRow, 13, rowData.pckgSum / rowData.cltvtnPlanting * 1000);
+            rowData = gridWgh.getRowData(nRow);
         }
+
+        if(!gfn_isEmpty(rowData.wghVl)) {
+            gridWgh.setCellData(nRow, 8, rowData.wghVl);
+            rowData = gridWgh.getRowData(nRow);
+
+            if(!gfn_isEmpty(rowData.wghWght)) {
+                gridWgh.setCellData(nRow, 14, rowData.wghWght / rowData.cltvtnPlanting * 1000);
+                rowData = gridWgh.getRowData(nRow);
+                gridWgh.setCellData(nRow, 15, rowData.pogiPckg - rowData.pogiWght);
+            }
+        }
+    }
+
+    /**
+     * @name fn_searchGdsInvntrList
+     * @description 재고 목록 조회
+     */
+    const fn_searchGdsInvntrList = async function() {
+        jsonGdsInvntr.length = 0;
+
+        let rst = await Promise.all([
+            gfn_setSdlngCrtrSBSelect('gridSdlng', jsonGridVrty, gv_selectedApcCd)
+        ]);
+
+        jsonGridVrty.forEach(function(item) {
+            if(item.totalPckgQntt <= 0) return;
+
+            const gdsInvntrVO = {
+                vrtyCd: item.sdlngCd,
+                invntrBx: item.totalPckgQntt,
+                amount: item.totalPckgWght
+            }
+
+            jsonGdsInvntr.push(gdsInvntrVO);
+        });
+
+        gridGdsInvntr.rebuild();
     }
 
     /**
@@ -1676,7 +1830,7 @@
             spmtYmdTo: spmtYmdTo,
             vrtyCd: gfn_isEmpty(selectedVrty) ? '' : selectedVrty.vrtyCd,
             cnptCd: cnptCd
-        };
+        }
 
         jsonSpmt.length = 0;
 
@@ -1694,12 +1848,10 @@
                     vrtyCd: selectedVrty.sdlngCd,
                     cnpt: item.cnptCd,
                     spmtPckgUnitCd: item.spmtPckgUnitCd,
-                    invntrBx: selectedVrty.totalPckgQntt,
-                    amount: selectedVrty.totalPckgWght,
                     bxQntt: item.spmtQntt,
                     wght: item.spmtWght,
                     rmrk: item.rmrk
-                };
+                }
 
                 jsonSpmt.push(spmtVO);
             });
@@ -1768,7 +1920,7 @@
                 spmtQntt: Number(rowData.bxQntt),
                 spmtWght: Number(rowData.wght),
                 rmrk: rowData.rmrk
-            };
+            }
 
             if(gfn_isEmpty(rowData.spmtno)) {
                 param.rowSts = "I";
@@ -1874,48 +2026,34 @@
         let allData = gridSpmt.getGridDataAll();
 
         const selectedSpmtPckgUnit = jsonSpmtPckgUnitCd.find(item => item.value === rowData.spmtPckgUnitCd);
+        const selectedVrty = jsonGridVrty.find(item => item.value === rowData.vrtyCd);
 
-        if(!gfn_isEmpty(rowData.vrtyCd)) {
-            const selectedVrty = jsonGridVrty.find(item => item.value === rowData.vrtyCd);
-            if(selectedVrty) {
-                gridSpmt.setCellData(nRow, 5, selectedVrty.totalPckgQntt);
-                gridSpmt.setCellData(nRow, 10, selectedVrty.totalPckgWght);
+        if(ref == 6 && !gfn_isEmpty(rowData.spmtPckgUnitCd)) {
+            if(selectedSpmtPckgUnit) {
+                gridSpmt.setCellData(nRow, 8, selectedSpmtPckgUnit.spcfctWght);
                 rowData = gridSpmt.getRowData(nRow);
             }
         }
 
         if(ref == 7 && !gfn_isEmpty(rowData.spmtPckgUnitCd)) {
             if(selectedSpmtPckgUnit) {
-                gridSpmt.setCellData(nRow, 9, selectedSpmtPckgUnit.spcfctWght);
+                gridSpmt.setCellData(nRow, 8, selectedSpmtPckgUnit.spcfctWght * rowData.bxQntt);
                 rowData = gridSpmt.getRowData(nRow);
-            }
-        }
 
-        if(ref == 8 && !gfn_isEmpty(rowData.spmtPckgUnitCd)) {
-            if(selectedSpmtPckgUnit) {
-                gridSpmt.setCellData(nRow, 9, selectedSpmtPckgUnit.spcfctWght * rowData.bxQntt);
-                rowData = gridSpmt.getRowData(nRow);
-            }
-        }
+                const totalBxQntt = jsonSpmt
+                    .filter(item => item.vrtyCd === rowData.vrtyCd)
+                    .reduce((sum, item) => {
+                        const bxQntt = Number(item.bxQntt);
+                        return sum + bxQntt;
+                    }, 0);
 
-        if(!gfn_isEmpty(rowData.invntrBx) && !gfn_isEmpty(rowData.bxQntt)) {
-            if(Number(rowData.invntrBx) < Number(rowData.bxQntt)) {
-                gfn_comAlert("W0008", "재고(박스)", "박스(개)");    // W0008    {0} 보다 {1}이/가 큽니다.
+                if(selectedVrty.totalQntt < totalBxQntt) {
+                    gfn_comAlert("W0008", "재고(박스)", "박스(개)");    // W0008    {0} 보다 {1}이/가 큽니다.
 
-                gridSpmt.setCellData(nRow, 8, 0);
-                rowData = gridSpmt.getRowData(nRow);
-            }
-
-            if(Number(rowData.bxQntt) < 0) {
-                gridSpmt.setCellData(nRow, 8, 0);
-                rowData = gridSpmt.getRowData(nRow);
-            }
-        }
-
-        if(!gfn_isEmpty(rowData.amount) && !gfn_isEmpty(rowData.wght)) {
-            if(Number(rowData.wght) < 0) {
-                gridSpmt.setCellData(nRow, 9, 0);
-                rowData = gridSpmt.getRowData(nRow);
+                    gridSpmt.setCellData(nRow, 7, 0);
+                    gridSpmt.setCellData(nRow, 8, 0);
+                    rowData = gridSpmt.getRowData(nRow);
+                }
             }
         }
     }
@@ -1953,6 +2091,86 @@
                 return parseFloat(val);
             }
         }
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListSdlng = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldSdlng,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldSdlng
+     * @description 육묘장 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldSdlng() {
+        gridSdlng.exportLocalExcel("육묘장 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListCltvtn = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldCltvtn,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldCltvtn
+     * @description 재배장 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldCltvtn() {
+        gridCltvtn.exportLocalExcel("재배장 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListWgh = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldWgh,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldWgh
+     * @description 계량 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldWgh() {
+        gridWgh.exportLocalExcel("계량 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+    /**
+     * @description 메뉴트리그리드 컨텍스트메뉴 json
+     * @type {object}
+     */
+    const objMenuListSpmt = {
+        "excelDwnld": {
+            "name": "엑셀 다운로드",    // 컨텍스트메뉴에 표시될 이름
+            "accesskey": "e",    // 단축키
+            "callback": fn_excelDwnldSpmt,    // 콜백함수명
+        }
+    }
+
+    /**
+     * @name fn_excelDwnldSpmt
+     * @description 출고 정보 엑셀 다운로드
+     */
+    function fn_excelDwnldSpmt() {
+        gridSpmt.exportLocalExcel("출고 정보", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

@@ -212,5 +212,15 @@ public class SpmtPrfmncComVO extends ComVO {
 	public void setSpmtPrfmncList(List<SpmtPrfmncVO> spmtPrfmncList) {
 		this.spmtPrfmncList = spmtPrfmncList == null ? null : spmtPrfmncList.stream().collect(Collectors.toList());
 	}
+
+	private List<SpmtPrfmncSlsVO> spmtPrfmncSlsList;
+
+	public List<SpmtPrfmncSlsVO> getSpmtPrfmncSlsList() {
+		return spmtPrfmncSlsList == null ? null : spmtPrfmncSlsList.stream().collect(Collectors.toList());
+	}
+
+	public void setSpmtPrfmncSlsList(List<SpmtPrfmncSlsVO> spmtPrfmncSlsList) {
+		this.spmtPrfmncSlsList = spmtPrfmncSlsList == null ? null : spmtPrfmncSlsList.stream().collect(Collectors.toList());
+	}
 	
 }

@@ -28,12 +28,16 @@ export async function getJSON<T>(url: string, init: RequestInit = {}): Promise<T
 
 export async function postJSON<T>(url: string, data?: any, init: RequestInit = {}): Promise<T> {
   const res = await fetch(url, {
+    ...init,
     method: 'POST',
     body: data ? JSON.stringify(data) : undefined,
-    headers: { ...defaultHeaders(), ...(init.headers || {}) },
-    ...init,
+    headers: {
+      ...defaultHeaders(),
+      ...(init.headers || {}),
+    },
     credentials: 'same-origin',
   });
+
   const body = await res.json().catch(() => undefined);
   if (!res.ok) throw new HttpError(res.status, body);
   return body as T;

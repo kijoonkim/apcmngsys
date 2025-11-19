@@ -347,6 +347,8 @@ public class PrdcrVO extends ComVO {
 	private int indctSeq;
 	private String gubun;
 
+	private int untprc;
+
 	private List<PrdcrVO> prdcrList;
 
 	public List<PrdcrVO> getPrdcrList() {

@@ -859,7 +859,7 @@
 	</select>
 
 
-	<!-- ==========================================================================	-->
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.updateOutordrReceipt		-->
 	<!-- DESC : 대형마트 발주수신 상세목록 조회.	                         	        -->
 	<!-- ==========================================================================	-->
@@ -931,6 +931,189 @@
 			}
 		]]>
 	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMrktLgstcsCntrList		-->
+	<!-- DESC : 시장물류센터 조회 				                        	        	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.18  	손민성        	Initial Creation                         	-->
+	<!-- ==========================================================================	-->
+	<select id="selectMrktLgstcsCntrList" resultType="com.at.apcss.am.ordr.vo.MrktLgstcsCntrVO">
+		SELECT
+				  MLC.APC_CD AS APC_CD
+				, MLC.LGSZ_MRKT_CD AS LGSZ_MRKT_CD
+				, MLC.CNTR_CD AS CNTR_CD
+				, MLC.CNTR_NM AS CNTR_NM
+				, MLC.CNPT_CD AS CNPT_CD
+				, MLC.INDCT_SEQ AS INDCT_SEQ
+				, MLC.USE_YN AS USE_YN
+				, MLC.DEL_YN AS DEL_YN
+				, MLC.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
+				, MLC.SYS_FRST_INPT_USER_ID AS SYS_FRST_INPT_USER_ID
+				, MLC.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, MLC.SYS_LAST_CHG_DT AS SYS_LAST_CHG_DT
+				, MLC.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+				, MLC.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
+		FROM
+				TB_MRKT_LGSTCS_CNTR AS MLC
+		WHERE
+				MLC.APC_CD = #{apcCd}
+			AND	MLC.DEL_YN = 'N'
+		<if test='lgszMrktCd != null and lgszMrktCd != ""'>
+			AND MLC.LGSZ_MRKT_CD = #{lgszMrktCd}
+		</if>
+		<if test='cntrCd != null and cntrCd != ""'>
+			AND MLC.CNTR_CD = #{cntrCd}
+		</if>
+		<if test='cntrNm != null and cntrNm != ""'>
+			AND MLC.CNTR_NM = #{cntrNm}
+		</if>
+		<if test='cnptCd != null and cnptCd != ""'>
+			AND MLC.CNPT_CD = #{cnptCd}
+		</if>
+		<if test='indctSeq != null and indctSeq != ""'>
+			AND MLC.INDCT_SEQ = #{indctSeq}
+		</if>
+		<if test='useYn != null and useYn != ""'>
+			AND MLC.USE_YN = #{useYn}
+		</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMrktLgstcsCntrList		-->
+	<!-- DESC : 시장상품코드 정보 조회				                        	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.18  	손민성        	Initial Creation                         	-->
+	<!-- ==========================================================================	-->
+	<select id="selectMrktGdsCdList" resultType="com.at.apcss.am.ordr.vo.MrktGdsCdVO">
+		SELECT
+				  MGC.ORDR_APC_CD AS ORDR_APC_CD
+				, MGC.LGSZ_MRKT_CD AS LGSZ_MRKT_CD
+				, MGC.MRKT_GDS_CD AS MRKT_GDS_CD
+				, MGC.MRKT_GDS_NM AS MRKT_GDS_NM
+				, MGC.USE_YN AS USE_YN
+				, MGC.DEL_YN AS DEL_YN
+				, MGC.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
+				, MGC.SYS_FRST_INPT_USER_ID AS SYS_FRST_INPT_USER_ID
+				, MGC.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+				, MGC.SYS_LAST_CHG_DT AS SYS_LAST_CHG_DT
+				, MGC.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+				, MGC.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
+		FROM
+				TB_MRKT_GDS_CD AS MGC
+		WHERE
+		    	MGC.ORDR_APC_CD = #{ordrApcCd}
+			AND	MGC.DEL_YN = 'N'
+		  	AND MGC.USE_YN = 'Y'
+
+		<if test='lgszMrktCd != null and lgszMrktCd != ""'>
+			AND MGC.LGSZ_MRKT_CD = #{lgszMrktCd}
+		</if>
+		<if test='mrktGdsCd != null and mrktGdsCd != ""'>
+			AND MGC.MRKT_GDS_CD = #{mrktGdsCd}
+		</if>
+		<if test='mrktGdsNm != null and mrktGdsNm != ""'>
+			AND MGC.MRKT_GDS_NM = #{mrktGdsNm}
+		</if>
+		<if test='useYn != null and useYn != ""'>
+			AND MGC.USE_YN = #{useYn}
+		</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMrktLgstcsCntrList		-->
+	<!-- DESC : 시장상품주문 정보 저장				                        	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.18  	손민성        	Initial Creation                         	-->
+	<!-- ==========================================================================	-->
+	<!-- 기존 배치 INSERT 대신 단건으로 변경 -->
+	<insert id="insertMrktGdsOrdrList">
+		INSERT INTO TB_MRKT_GDS_ORDR
+		(
+			ORDR_APC_CD, LGSZ_MRKT_CD, OUTORDRNO, ORDR_SEQ,
+			MRKT_WRHS_TYPE, MRKT_WRHS_TYPE_NM, MRKT_GDS_CD, MRKT_GDS_NM,
+			CNTR_CD, CNTR_NM, WRHS_YMD, OUTORDR_YMD,
+			OUTORDR_QNTT, CFMTN_QNTT, WRHS_QNTT,
+			OUTORDR_UNTPRC, OUTORDR_AMT, WRHS_AMT,
+			DEL_YN, SYS_FRST_INPT_DT, SYS_FRST_INPT_USER_ID, SYS_FRST_INPT_PRGRM_ID,
+			SYS_LAST_CHG_DT, SYS_LAST_CHG_USER_ID, SYS_LAST_CHG_PRGRM_ID
+		)
+		SELECT
+			#{ordrApcCd},
+			G.LGSZ_MRKT_CD,
+			#{outordrno},
+			#{ordrSeq},
+			#{mrktWrhsType},
+			#{mrktWrhsTypeNm},
+			#{mrktGdsCd},
+			#{mrktGdsNm},
+			#{cntrCd},
+			#{cntrNm},
+			#{wrhsYmd},
+			#{outordrYmd},
+			#{outordrQntt},
+			#{cfmtnQntt},
+			#{wrhsQntt},
+			#{outordrUntprc},
+			#{outordrAmt},
+			#{wrhsAmt},
+			'N',
+			SYSDATE,
+			#{sysFrstInptUserId},
+			#{sysFrstInptPrgrmId},
+			SYSDATE,
+			#{sysLastChgUserId},
+			#{sysLastChgPrgrmId}
+		FROM TB_MRKT_GDS_CD G
+		WHERE G.ORDR_APC_CD = #{ordrApcCd}
+		  AND G.MRKT_GDS_CD = #{mrktGdsCd}
+		  AND G.DEL_YN = 'N'
+	</insert>
+
+	<select id="selectMrktGdsOrdrList" resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+		SELECT
+			ORDR_APC_CD,
+			LGSZ_MRKT_CD,
+			OUTORDRNO,
+			ORDR_SEQ,
+			MRKT_WRHS_TYPE,
+			MRKT_WRHS_TYPE_NM,
+			MRKT_GDS_CD,
+			MRKT_GDS_NM,
+			CNTR_CD,
+			CNTR_NM,
+			WRHS_YMD,
+			OUTORDR_YMD,
+			OUTORDR_QNTT,
+			CFMTN_QNTT,
+			WRHS_QNTT,
+			OUTORDR_UNTPRC,
+			OUTORDR_AMT,
+			WRHS_AMT,
+			DEL_YN,
+			SYS_FRST_INPT_DT,
+			SYS_FRST_INPT_USER_ID,
+			SYS_FRST_INPT_PRGRM_ID,
+			SYS_LAST_CHG_DT,
+			SYS_LAST_CHG_USER_ID,
+			SYS_LAST_CHG_PRGRM_ID
+		FROM TB_MRKT_GDS_ORDR
+		WHERE
+			ORDR_APC_CD = #{ordrApcCd}
+		AND	DEL_YN = 'N'
+		<if test='outordrYmd != null and outordrYmd != ""'>
+			AND OUTORDR_YMD = #{outordrYmd}
+		</if>
+		<if test='wrhsYmd != null and wrhsYmd != ""'>
+			AND WRHS_YMD = #{wrhsYmd}
+		</if>
+	</select>
 </mapper>
 
 

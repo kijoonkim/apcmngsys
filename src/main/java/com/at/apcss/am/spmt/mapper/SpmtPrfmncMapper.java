@@ -3,6 +3,7 @@ package com.at.apcss.am.spmt.mapper;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
@@ -223,5 +224,44 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteSpmtPrfmncDtlAll(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	/**
+	 * 출하실적매출 공통 목록 조회
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncSlsVO> selectSpmtPrfmncSlsComList(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적 매출 전체삭제.
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtPrfmncSlsAll(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적 매출 전체삭제.
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtPrfmncSls(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적매출 상세 목록 조회
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncSlsVO> selectSpmtPrfmncSlsDtlList(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적 상세 발번
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectGetSpmtPrfmncDtlSpmtSn(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 }

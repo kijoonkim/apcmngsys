@@ -692,6 +692,8 @@
                 , SC.SDLNG_DAY_CNT AS SDLNG_DAY_CNT
                 , SC.USE_YN AS USE_YN
                 , SC.DEL_YN AS DEL_YN
+                , (NVL(HS.TOTAL_PCKG_QNTT, 0)) AS TOTAL_QNTT
+                , (NVL(HS.TOTAL_PCKG_WGHT, 0)) AS TOTAL_WGHT
                 , (NVL(HS.TOTAL_PCKG_QNTT, 0) - NVL(SP.TOTAL_SPMT_QNTT, 0)) AS TOTAL_PCKG_QNTT
                 , (NVL(HS.TOTAL_PCKG_WGHT, 0) - NVL(SP.TOTAL_SPMT_WGHT, 0)) AS TOTAL_PCKG_WGHT
             FROM TB_SDLNG_CRTR SC
@@ -706,6 +708,7 @@
                 AND SI.APC_CD = SP.APC_CD
                 LEFT JOIN TB_SDNLG_HRVST SH ON SP.PLNTNG_NO = SH.PLNTNG_NO
                 AND SI.APC_CD = SH.APC_CD
+                AND SH.DEL_YN = 'N'
                 WHERE SI.DEL_YN = 'N'
                 GROUP BY
                       SI.APC_CD
@@ -759,6 +762,8 @@
             AND SF.DEL_YN = 'N'
             JOIN TB_SDLNG_FCLT_CRTR FC ON FC.APC_CD = FZ.APC_CD
             AND FC.FCLT_TYPE = FZ.FCLT_ID
+            AND FC.FCLT_CRTR_CD = FZ.FCLT_ZONE_SE_CD
+            AND FC.INDCT_NM NOT IN ('*')
             AND FC.DEL_YN = 'N'
             GROUP BY
                   FZ.APC_CD
@@ -769,6 +774,29 @@
             ORDER BY FZ.FCLT_ZONE_SE_CD
         ]]>
     </select>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngFcltCrtrList		-->
+    <!-- DESC : 육묘시설기준 목록 수정.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <update id="updateSdlngFcltCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+		<![CDATA[
+            UPDATE TB_SDLNG_FCLT_CRTR
+            SET
+                  CRTR_NV = #{crtrNv}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+            AND FCLT_TYPE = #{fcltType}
+            AND FCLT_CRTR_TYPE = #{fcltCrtrType}
+            AND FCLT_CRTR_CD = #{fcltCrtrCd}
+        ]]>
+	</update>
 
     <!-- ================================================================================== -->
     <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltRowInfos           -->
@@ -1084,6 +1112,35 @@
 	</update>
 
     <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtn			    -->
+    <!-- DESC : 재배장 목록 단건 조회.	                                       					    -->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectCltvtn" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SP.APC_CD AS APC_CD
+                , SP.PLNTNG_NO AS PLNTNG_NO
+                , SP.SDNLG_NO AS SDLNG_NO
+                , SP.PLNTNG_YMD AS PLNTNG_YMD
+                , SP.FCLT_ZONE_ID AS FCLT_ZONE_ID
+                , SP.PLNTNG_QNTT AS PLNTNG_QNTT
+                , SP.HRVST_YMD AS HRVST_YMD
+                , SP.RMRK AS RMRK
+                , SP.DEL_YN AS DEL_YN
+            FROM TB_SDNLG_PLNTNG SP
+            WHERE SP.APC_CD = #{apcCd}
+            AND SP.DEL_YN = 'N'
+        ]]>
+        <if test='sdlngNo != null and sdlngNo != ""'>
+            AND SP.SDNLG_NO = #{sdlngNo}
+        </if>
+    </select>
+
+    <!-- ================================================================================== -->
     <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtnList			-->
     <!-- DESC : 재배장 목록 조회.	                                       					    -->
     <!-- ================================================================================== -->
@@ -1143,6 +1200,9 @@
         </if>
         <if test='cltvtnFcltZoneId != null and cltvtnFcltZoneId != ""'>
             AND SP.FCLT_ZONE_ID = #{cltvtnFcltZoneId}
+        </if>
+        <if test='sdlngNo != null and sdlngNo != ""'>
+            AND SI.SDNLG_NO = #{sdlngNo}
         </if>
         <![CDATA[
             ORDER BY
@@ -1239,6 +1299,37 @@
             AND SDNLG_NO = #{sdlngNo}
         ]]>
     </update>
+
+    <!-- ================================================================================== -->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWgh			        -->
+    <!-- DESC : 계량 목록 단건 조회.	                                       					-->
+    <!-- ================================================================================== -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+    <!-- ===========  	============  	=================================================== -->
+    <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
+    <!-- ================================================================================== -->
+    <select id="selectWgh" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+        <![CDATA[
+            SELECT
+                  SH.APC_CD AS APC_CD
+                , SH.PLNTNG_NO AS PLNTNG_NO
+                , SH.WGH_YMD AS WGH_YMD
+                , SH.WGH_SEQ AS WGH_SEQ
+                , SH.WGH_WGHT AS WGH_WGHT
+                , SH.ACTL_WGHT AS ACTL_WGHT
+                , SH.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+                , SH.PCKG_QNTT AS PCKG_QNTT
+                , SH.PCKG_WGHT AS PCKG_WGHT
+                , SH.RMRK AS RMRK
+                , SH.DEL_YN AS DEL_YN
+            FROM TB_SDNLG_HRVST SH
+            WHERE SH.APC_CD = #{apcCd}
+            AND SH.DEL_YN = 'N'
+        ]]>
+        <if test='plntngNo != null and plntngNo != ""'>
+            AND SH.PLNTNG_NO = #{plntngNo}
+        </if>
+    </select>
 
     <!-- ================================================================================== -->
     <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWghList			    -->
