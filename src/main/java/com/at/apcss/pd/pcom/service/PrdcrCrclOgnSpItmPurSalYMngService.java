@@ -97,4 +97,20 @@ public interface PrdcrCrclOgnSpItmPurSalYMngService {
 	 * @throws Exception
 	 */
 	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
+	/**
+	 * 통합조직 전문품목 매입매출(출자출하조직o) 취급유형 표시 조회
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
+	/**
+	 * 통합조직 전문품목 매입매출(출자출하조직o) 취급유형 표시 rawData 조회
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 }
