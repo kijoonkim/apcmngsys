@@ -148,4 +148,9 @@ public class MrktGdsOrdrVO extends ComVO {
      * 저장실패 메세지
      */
     private String failMsg;
+
+    private String wrhsYmdFrom;
+    private String wrhsYmdTo;
+
+    private String lgszMrktNm;
 }
