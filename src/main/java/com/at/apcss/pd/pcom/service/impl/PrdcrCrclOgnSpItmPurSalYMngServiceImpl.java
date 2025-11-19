@@ -217,4 +217,14 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 
 		return prdcrCrclOgnSpItmPurSalYMngMapper.selectTempSaveUoPst(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
+
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList(prdcrCrclOgnSpItmPurSalYMngVO);
+	}
+
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
+	}
 }

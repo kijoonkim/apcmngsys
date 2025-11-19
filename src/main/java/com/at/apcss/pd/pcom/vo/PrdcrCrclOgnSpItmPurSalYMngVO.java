@@ -81,4 +81,12 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	 * 과거연도 여부
 	 */
 	private String oldDataYn;
+
+	/**
+	 * 취급유형별 소계
+	 */
+	private int subSlsCnsgnPrchsVlm;
+	private int subSlsCnsgnPrchsAmt;
+
+	private String aprvNm;
 }

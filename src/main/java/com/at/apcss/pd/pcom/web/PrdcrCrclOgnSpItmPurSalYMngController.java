@@ -264,4 +264,36 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/pd/pcom/selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList (Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = prdcrCrclOgnSpItmPurSalYMngService.selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctList(prdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/pd/pcom/selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList (Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = prdcrCrclOgnSpItmPurSalYMngService.selectPruoMajorItemPrchsSlsHldIsoTrmtTypeIndctRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
