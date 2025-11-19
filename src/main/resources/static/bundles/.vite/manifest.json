@@ -1,0 +1,11 @@
+{
+  "src/entries/ordr/GdsOrdrMng.tsx": {
+    "file": "ordr/GdsOrdrMng.js",
+    "name": "ordr/GdsOrdrMng",
+    "src": "src/entries/ordr/GdsOrdrMng.tsx",
+    "isEntry": true,
+    "css": [
+      "GdsOrdrMng.css"
+    ]
+  }
+}

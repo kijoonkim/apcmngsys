@@ -191,10 +191,19 @@ async function main() {
   }
 
   // 2. 선택된 파일 빌드
-  const entryName = path.basename(targetFile, '.tsx');
-  const displayPath = targetFile.replace('src/entries/', '');
+  // ===== 수정된 부분 시작 =====
+  // src/entries 기준 상대 경로에서 확장자 제거
+  // 예: src\entries\ordr\GdsOrdrMng.tsx -> ordr/GdsOrdrMng
+  const entryName = targetFile
+      .replace(/\\/g, '/')              // 1. Windows 경로 구분자를 먼저 / 로 변환
+      .replace(/^src\/entries\//, '')  // 2. src/entries/ 제거
+      .replace(/\.tsx$/, '');           // 3. .tsx 확장자 제거
+
+  const displayPath = targetFile.replace(/\\/g, '/').replace('src/entries/', '');
+  // ===== 수정된 부분 끝 =====
 
   console.log(`\n📦 "${displayPath}" 빌드 중...\n`);
+  console.log(`🎯 빌드 타겟: ${entryName}\n`);
 
   execSync(`npx cross-env BUILD_TARGET=${entryName} npx vite build`, {
     stdio: 'inherit',
