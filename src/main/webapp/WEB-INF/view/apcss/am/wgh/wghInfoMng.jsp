@@ -382,9 +382,11 @@
 	});
 
 	const fn_init = async function() {
-		fn_reset();
-		fn_getPrdcrs();
-		fn_initSBSelect();
+		await fn_reset();
+		await fn_getPrdcrs();
+		await fn_initSBSelect();
+
+		await fn_search();
 	}
 
 	const fn_customApc = function (type) {
@@ -450,8 +452,9 @@
 			{caption: ['총 중량'], 		ref: 'wholWght', 	width: '80px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,###.## '}},
 			{caption: ['공차중량'],		ref: 'emptVhclWght', width: '80px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,###.## '}},
 			{caption: ['입고중량'], 	ref: 'acptnWght', 	width: '80px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,###.## '}},
-			{caption: ['감량률(%)'], 		ref: 'rdcdRt', 		width: '80px', type: 'input', style:'text-align:right;', format : {type:'number', rule:'##.## '}},
-			{caption: ['인고수량'], 		ref: 'bxQntt', 		width: '100px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,### '}},
+			{caption: ['감량중량'], 		ref: 'rdcdWght', 		width: '80px', type: 'input', style:'text-align:right;', format : {type:'number', rule:'#,###.## '}},
+			{caption: ['감량률(%)'], 		ref: 'rdcdRt', 		width: '80px', type: 'output', style:'text-align:right;', format : {type:'number', rule:'##.## '}},
+			{caption: ['입고수량'], 		ref: 'bxQntt', 		width: '100px', type: 'input', style:'text-align:right', format : {type:'number', rule:'#,### '}},
 			{caption: ['열'], 			ref: 'strgLoctnRow', width:'60px',  type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonStrgLoctnRow', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 			{caption: ['행'], 			ref: 'strgLoctnCol', width:'60px',  type:'combo',  	style:'text-align:center; background:#FFF8DC;',
@@ -534,28 +537,52 @@
  		let nRow = grdWghPrfmnc.getRow();
 
  		let rdcdRtCol = grdWghPrfmnc.getColRef("rdcdRt");
- 		let wholWghtCol = grdWghPrfmnc.getColRef("wholWght");
+		let rdcdWghtCol = grdWghPrfmnc.getColRef("rdcdWght");
+		let wholWghtCol = grdWghPrfmnc.getColRef("wholWght");
  		let emptVhclWghtCol = grdWghPrfmnc.getColRef("emptVhclWght");
  		let acptnWghtCol = grdWghPrfmnc.getColRef("acptnWght");
  		let wrhsWghtCol = grdWghPrfmnc.getColRef("wrhsWght");
 
 
- 		if (nCol == wholWghtCol || nCol == emptVhclWghtCol || nCol == rdcdRtCol) {
+ 		if (nCol == wholWghtCol || nCol == emptVhclWghtCol || nCol == rdcdRtCol || nCol == rdcdWghtCol || nCol == acptnWghtCol) {
 
  			let rowData = grdWghPrfmnc.getRowData(nRow);
  			let wholWght = rowData.wholWght;
  			let emptVhclWght = rowData.emptVhclWght;
+			let actlWght = rowData.actlWght;
+			let acptnWght = rowData.acptnWght;
+			let rdcdWght = rowData.rdcdWght;
  			let rdcdRt = rowData.rdcdRt;
 
  			let wrhsWght = parseFloat(wholWght || 0) - parseFloat(emptVhclWght || 0);
 
- 			if (!gfn_isEmpty(rdcdRt)) {
+			if (nCol == acptnWghtCol) {
+				rdcdWght = wrhsWght != 0 ? wrhsWght - parseFloat(acptnWght) : 0;
+				rdcdRt = wrhsWght != 0 ? parseFloat(((rdcdWght / wrhsWght) * 100).toFixed(1)) : 0;
+				grdWghPrfmnc.setCellData(nRow, rdcdWghtCol, rdcdWght);
+				grdWghPrfmnc.setCellData(nRow, rdcdRtCol, rdcdRt);
+				return ;
+			}
+
+
+			if (!gfn_isEmpty(rdcdWght)) {
+				rdcdWght = wrhsWght != 0 ? rdcdWght : 0;
+				rdcdRt = wrhsWght != 0 ? parseFloat(((rowData.rdcdWght / wrhsWght) * 100).toFixed(1)) : 0;
+				acptnWght = wrhsWght != 0 ? wrhsWght - parseFloat(rdcdWght) : parseFloat(acptnWght);
+				grdWghPrfmnc.setCellData(nRow, rdcdWghtCol, rdcdWght);
+				grdWghPrfmnc.setCellData(nRow, rdcdRtCol, rdcdRt);
+				grdWghPrfmnc.setCellData(nRow, acptnWghtCol, acptnWght);
+			} else {
+				grdWghPrfmnc.setCellData(nRow, acptnWghtCol, wrhsWght || actlWght);
+			}
+
+ 			/*if (!gfn_isEmpty(rdcdRt)) {
 
  				let acptnWght = Math.round(parseFloat(wrhsWght) * ((100 - parseFloat(rdcdRt)) / 100), 0)
  				grdWghPrfmnc.setCellData(nRow, acptnWghtCol, acptnWght);
  			} else {
  				grdWghPrfmnc.setCellData(nRow, acptnWghtCol, wrhsWght);
- 			}
+ 			}*/
  		}
  	}
 
@@ -642,7 +669,9 @@
 						}
 						rowData.groupId = i;
 						rowData.wrhsWght = rowData.acptnWght;
-						rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
+
+						// rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
+						// rowData.rdcdRt = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) != 0 ? parseFloat(((rowData.rdcdWght / (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0))) * 100).toFixed(1)) : 0;
 
 						if (gv_selectedApcCd == "0429") {
 							rowData.strgLoctnCd = rowData.strgLoctnRow + rowData.strgLoctnCol + rowData.strgLoctnLvl;
@@ -661,7 +690,9 @@
 						}
 						rowData.groupId = i;
 						rowData.wrhsWght = rowData.acptnWght;
-						rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
+						// rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
+						// rowData.rdcdRt = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) != 0 ? parseFloat(((rowData.rdcdWght / (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0))) * 100).toFixed(1)) : 0;
+
 						rowData.strgLoctnCd = rowData.strgLoctnRow + rowData.strgLoctnCol + rowData.strgLoctnLvl
 						saveList.push(rowData);
 					} else {
