@@ -2556,8 +2556,7 @@
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
 			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
 			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
-			     , pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT AS ACTL_WGHT
-			     , ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+				 , CASE WHEN pt0.ACTL_WGHT = 0 THEN WRHS_WGHT ELSE pt0.ACTL_WGHT - NVL(pt0.RDCD_WGHT, 0) END AS ACPTN_WGHT
 			  FROM (SELECT
 			              WC.APC_CD		      AS APC_CD
 					   , WC.WGHNO		      AS WGHNO
@@ -2587,6 +2586,7 @@
 					   , SUBSTR(GI.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
 					   , SUBSTR(GI.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL
 					   , SUBSTR(GI.STRG_LOCTN_CD, 4, 2)  AS STRG_LOCTN_LVL
+			           , NVL(WC.WHOL_WGHT - WC.EMPT_VHCL_WGHT, 0) AS ACTL_WGHT
 			          FROM TB_WGH_PRFMNC_COM WC
 			             , TB_WGH_PRFMNC_DTL WD
 			             , TB_SPMT_PRFMNC_COM PC
@@ -2767,9 +2767,41 @@
 			, (SELECT FN_GET_PRDCR_NM(pt0.CUST_CD, pt0.APC_CD) FROM DUAL) AS CUST_NM
 			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
 			, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS PO_TRUST_GB
-			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.BREED_CD, pt0.APC_CD) FROM DUAL) AS BREED_NM
-			, (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS SIZE_NM
-			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS STORAGE_NO
+			, (
+				SELECT LISTAGG(FN_GET_VRTY_NM(pt0.ITEM_CD, BREED_CD, pt0.APC_CD), ', ') WITHIN GROUP (ORDER BY SN)
+				  FROM (
+					SELECT
+						TRIM(REGEXP_SUBSTR(pt0.BREED_CD_LIST, '[^, ]+', 1, LEVEL)) AS BREED_CD,
+						LEVEL AS SN
+					FROM DUAL
+					CONNECT BY LEVEL <= REGEXP_COUNT(pt0.BREED_CD_LIST, ', ') + 1
+				)
+				WHERE BREED_CD IS NOT NULL
+			) AS BREED_NM_LIST
+			, (
+				SELECT LISTAGG(FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, GRD_CD), ', ')
+					WITHIN GROUP (ORDER BY SN)
+				FROM (
+					SELECT
+						TRIM(REGEXP_SUBSTR(pt0.GRD_CD_LIST, '[^,]+', 1, LEVEL)) AS GRD_CD,
+						LEVEL AS SN
+					FROM DUAL
+					CONNECT BY LEVEL <= REGEXP_COUNT(pt0.GRD_CD_LIST, ', ') + 1
+				)
+				WHERE GRD_CD IS NOT NULL
+			) AS SIZE_NM_LIST
+			, (
+				SELECT LISTAGG(FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', WAREHOUSE_SE_CD, pt0.APC_CD), ', ')
+					WITHIN GROUP (ORDER BY SN)
+				FROM (
+					SELECT
+						TRIM(REGEXP_SUBSTR(pt0.WAREHOUSE_SE_CD_LIST, '[^,]+', 1, LEVEL)) AS WAREHOUSE_SE_CD,
+						LEVEL AS SN
+					FROM DUAL
+					CONNECT BY LEVEL <= REGEXP_COUNT(pt0.WAREHOUSE_SE_CD_LIST, ', ') + 1
+				)
+				WHERE WAREHOUSE_SE_CD IS NOT NULL
+			) AS STORAGE_NO_LIST
 			, (SELECT FN_GET_COM_USER_NM(pt0.SYS_FRST_INPT_USER_ID) FROM DUAL) AS REG_ID
 			, (SELECT FN_GET_COM_USER_NM(pt0.SYS_LAST_CHG_USER_ID) FROM DUAL) AS UPD_ID
 			, pt0.TOT_WGT - NVL(pt0.EMPTY_CAR_WGT, 0) AS REAL_WGT
@@ -2778,76 +2810,117 @@
 			, ROUND((pt0.TOT_WGT - pt0.EMPTY_CAR_WGT - pt0.WGHT_TOTAL) / pt0.BOX_CNT, 1) AS BOX_PER_ADJ_WGT
 		  FROM (
 			SELECT
-				  WC.APC_CD                                              AS APC_CD
-				, WC.WGHNO                                               AS PO_NO
-				, WC.WGH_YMD                                             AS IC_DATE
-				, WC.VHCLNO                                              AS VHCL_NO
-				, WC.PRDCR_CD                                            AS CUST_CD
-				, WC.WHOL_WGHT                                           AS TOT_WGT
-				, WC.EMPT_VHCL_WGHT                                      AS EMPTY_CAR_WGT
-				, WC.OPRTR_NM                                            AS OPRTR_NM
-				, WC.TRSPRT_CST                                          AS SHIPPING_CHARGE
-				, WC.RMRK                                                AS REMARKS
-				, WC.RDCD_WGHT                                           AS REDUCE_WGT
-				, WC.RDCD_RT                                             AS REDUCE_PER
-				, WC.SYS_FRST_INPT_USER_ID                               AS SYS_FRST_INPT_USER_ID
-				, TO_CHAR(WC.SYS_FRST_INPT_DT, 'YYYY-MM-DD HH24:MI:SS')  AS REG_DATE
-				, WC.SYS_LAST_CHG_USER_ID                                AS SYS_LAST_CHG_USER_ID
-				, TO_CHAR(WC.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI:SS')   AS UPD_DATE
-				, WD.WGH_SN                                              AS WGH_SN
-				, WD.GRD_CD                                              AS GRD_CD
-				, WD.GDS_CD                                              AS GOODS_CD
-				, INV.WAREHOUSE_SE_CD                                    AS WAREHOUSE_SE_CD
-				, INV.ITEM_CD                                            AS ITEM_CD
-				, INV.VRTY_CD                                            AS BREED_CD
-				, INV.WRHS_SE_CD                                         AS WRHS_SE_CD
-				, INV.WRHS_YMD                                           AS PO_DATE
-				, INV.WRHS_QNTT                                          AS GOODS_CNT
-				, INV.WRHS_WGHT                                          AS GOODS_WGT
-			    , PB.BOX_NM_LIST										 AS BOX_NM_LIST
-			    , PB.PALLET_NM_LIST									 	 AS PALLET_NM_LIST
-			    , PB.BOX_CNT_LIST										 AS BOX_CNT_LIST
-			    , PB.PALLET_CNT_LIST									 AS PALLET_CNT_LIST
-			    , PB.BOX_WGT_LIST										 AS BOX_WGT_LIST
-			    , PB.PALLET_WGT_LIST									 AS PALLET_WGT_LIST
-				, PB.BOX_CNT                                             AS BOX_CNT
-				, PB.PALLET_CNT                                          AS PALLET_CNT
-				, PB.BOX_WGT                                             AS BOX_WGT
-				, PB.PALLET_WGT                                          AS PALLET_WGT
-				, PB.WGHT_TOTAL                                          AS WGHT_TOTAL
-				, PI.ABBR_NM                                             AS ABBR_NM
-				, PI.TELNO                                               AS CUST_TELNO
-				, PI.FRMHS_NM                                            AS FRMHS_NM
-				, PI.FRMHS_ADDR                                          AS FRMHS_ADDR
-				, PI.RMRK                                                AS PI_RMRK
-				, VI.VHCLNO                                              AS VHCLNO
-				, VI.DRVR_NM                                             AS DRVR_NM
-				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 1)                  AS BANK_NM
-				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 2)                  AS ACTNO
-				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 3)                  AS DPSTR_NM
-				, REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 4)                  AS DRVR_TELNO
+				  WC.APC_CD                                                   AS APC_CD
+				, WC.WGHNO                                                    AS PO_NO
+				, MAX(WC.WGH_YMD)                                             AS IC_DATE
+				, MAX(WC.VHCLNO)                                              AS VHCL_NO
+				, MAX(WC.PRDCR_CD)                                            AS CUST_CD
+				, MAX(WC.WHOL_WGHT)                                           AS TOT_WGT
+				, MAX(WC.EMPT_VHCL_WGHT)                                      AS EMPTY_CAR_WGT
+				, MAX(WC.OPRTR_NM)                                            AS OPRTR_NM
+				, MAX(WC.TRSPRT_CST)                                          AS SHIPPING_CHARGE
+				, MAX(WC.RMRK)                                                AS REMARKS
+				, MAX(WC.RDCD_WGHT)                                           AS REDUCE_WGT
+				, MAX(WC.RDCD_RT)                                             AS REDUCE_PER
+				, MAX(WC.SYS_FRST_INPT_USER_ID)                               AS SYS_FRST_INPT_USER_ID
+				, MAX(TO_CHAR(WC.SYS_FRST_INPT_DT, 'YYYY-MM-DD HH24:MI:SS'))  AS REG_DATE
+				, MAX(WC.SYS_LAST_CHG_USER_ID)                                AS SYS_LAST_CHG_USER_ID
+				, MAX(TO_CHAR(WC.SYS_LAST_CHG_DT, 'YYYY-MM-DD HH24:MI:SS'))   AS UPD_DATE
+				, LISTAGG(WD.WGH_SN, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN)  AS WGH_SN_LIST
+				, LISTAGG(WD.GRD_CD, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN)  AS GRD_CD_LIST
+				, LISTAGG(WD.GDS_CD, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN)  AS GOODS_CD_LIST
+				, LISTAGG(INV.WAREHOUSE_SE_CD, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN) AS WAREHOUSE_SE_CD_LIST
+				, MAX(INV.ITEM_CD)                                            AS ITEM_CD
+				, LISTAGG(INV.VRTY_CD, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN) AS BREED_CD_LIST
+				, MAX(INV.WRHS_SE_CD)                                         AS WRHS_SE_CD
+				, MAX(INV.WRHS_YMD)                                           AS PO_DATE
+				, LISTAGG(INV.WRHS_QNTT, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN) AS GOODS_CNT_LIST
+				, LISTAGG(INV.WRHS_WGHT, ', ') WITHIN GROUP (ORDER BY WD.WGH_SN) AS GOODS_WGT_LIST
+				, MAX(INSP.GRD_NM_1)                                          AS INSP_GRD_NM_1
+				, MAX(INSP.GRD_NM_2)                                          AS INSP_GRD_NM_2
+				, MAX(INSP.GRD_NM_3)                                          AS INSP_GRD_NM_3
+				, MAX(INSP.GRD_VL_1)                                          AS INSP_GRD_VL_1
+				, MAX(INSP.GRD_VL_2)                                          AS INSP_GRD_VL_2
+				, MAX(INSP.GRD_VL_3)                                          AS INSP_GRD_VL_3
+				, MAX(PB.BOX_NM_LIST)                                         AS BOX_NM_LIST
+				, MAX(PB.PALLET_NM_LIST)                                      AS PALLET_NM_LIST
+				, MAX(PB.BOX_CNT_LIST)                                        AS BOX_CNT_LIST
+				, MAX(PB.PALLET_CNT_LIST)                                     AS PALLET_CNT_LIST
+				, MAX(PB.BOX_WGT_LIST)                                        AS BOX_WGT_LIST
+				, MAX(PB.PALLET_WGT_LIST)                                     AS PALLET_WGT_LIST
+				, MAX(PB.BOX_CNT)                                             AS BOX_CNT
+				, MAX(PB.PALLET_CNT)                                          AS PALLET_CNT
+				, MAX(PB.BOX_WGT)                                             AS BOX_WGT
+				, MAX(PB.PALLET_WGT)                                          AS PALLET_WGT
+				, MAX(PB.WGHT_TOTAL)                                          AS WGHT_TOTAL
+				, MAX(PI.ABBR_NM)                                             AS ABBR_NM
+				, MAX(PI.TELNO)                                               AS CUST_TELNO
+				, MAX(PI.FRMHS_NM)                                            AS FRMHS_NM
+				, MAX(PI.FRMHS_ADDR)                                          AS FRMHS_ADDR
+				, MAX(PI.RMRK)                                                AS PI_RMRK
+				, MAX(VI.VHCLNO)                                              AS VHCLNO
+				, MAX(VI.DRVR_NM)                                             AS DRVR_NM
+				, MAX(REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 1))                  AS BANK_NM
+				, MAX(REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 2))                  AS ACTNO
+				, MAX(REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 3))                  AS DPSTR_NM
+				, MAX(REGEXP_SUBSTR(VI.RMRK, '[^|]+', 1, 4))                  AS DRVR_TELNO
 			  FROM TB_WGH_PRFMNC_COM WC
-			 INNER JOIN TB_WGH_PRFMNC_DTL WD
+			  LEFT JOIN TB_WGH_PRFMNC_DTL WD
 			    ON WC.APC_CD = WD.APC_CD
 			   AND WC.WGHNO = WD.WGHNO
 			   AND WD.DEL_YN = 'N'
-			 INNER JOIN TB_RAW_MTR_WRHS_PRFMNC WP
+			  LEFT JOIN TB_RAW_MTR_WRHS_PRFMNC WP
 			    ON WC.APC_CD = WP.APC_CD
 			   AND WC.WGHNO = WP.WGHNO
 			   AND WD.WRHSNO = WP.WRHSNO
 			   AND WP.DEL_YN = 'N'
-			 INNER JOIN TB_RAW_MTR_INVNTR INV
+			  LEFT JOIN TB_RAW_MTR_INVNTR INV
 			    ON WP.APC_CD = INV.APC_CD
 			   AND WP.WRHSNO = INV.WRHSNO
 			   AND INV.DEL_YN = 'N'
-			  LEFT JOIN TB_PRDCR_INFO PI
-			    ON WC.APC_CD = PI.APC_CD
-			   AND WC.PRDCR_CD = PI.PRDCR_CD
-			   AND WC.DEL_YN = 'N'
-    		  LEFT JOIN TB_WRHS_VHCL_INFO VI
-    			ON WC.APC_CD = VI.APC_CD
-    		   AND WC.VHCLNO = VI.VHCLNO
-    		   AND VI.DEL_YN = 'N'
+			  LEFT JOIN (
+				SELECT
+					WP.APC_CD
+					 , WP.WGHNO
+					 , MAX(CASE WHEN WP.GRD_CD = GRD.GRD_CD_1 THEN WP.GRD_VL ELSE NULL END) AS GRD_VL_1
+					 , MAX(CASE WHEN WP.GRD_CD = GRD.GRD_CD_2 THEN WP.GRD_VL ELSE NULL END) AS GRD_VL_2
+					 , MAX(CASE WHEN WP.GRD_CD = GRD.GRD_CD_3 THEN WP.GRD_VL ELSE NULL END) AS GRD_VL_3
+					 , MAX(GRD.GRD_CD_1) AS GRD_CD_1
+					 , MAX(GRD.GRD_CD_2) AS GRD_CD_2
+					 , MAX(GRD.GRD_CD_3) AS GRD_CD_3
+					 , MAX(GRD.GRD_NM_1) AS GRD_NM_1
+					 , MAX(GRD.GRD_NM_2) AS GRD_NM_2
+					 , MAX(GRD.GRD_NM_3) AS GRD_NM_3
+				FROM TB_WGH_INSP_PRFMNC WP
+						 INNER JOIN (
+					SELECT
+						MAX(CASE WHEN A.SN = 1 THEN A.GRD_CD ELSE NULL END)    AS GRD_CD_1
+						 , MAX(CASE WHEN A.SN = 2 THEN A.GRD_CD ELSE NULL END)    AS GRD_CD_2
+						 , MAX(CASE WHEN A.SN = 3 THEN A.GRD_CD ELSE NULL END)    AS GRD_CD_3
+						 , MAX(CASE WHEN A.SN = 1 THEN A.GRD_NM ELSE NULL END)    AS GRD_NM_1
+						 , MAX(CASE WHEN A.SN = 2 THEN A.GRD_NM ELSE NULL END)    AS GRD_NM_2
+						 , MAX(CASE WHEN A.SN = 3 THEN A.GRD_NM ELSE NULL END)    AS GRD_NM_3
+						 , A.APC_CD
+						 , A.ITEM_CD
+					FROM (
+							 SELECT
+								 ROW_NUMBER() OVER (PARTITION BY SG.APC_CD, SG.ITEM_CD ORDER BY SG.SN, SG.GRD_CD)    AS SN
+						  , SG.GRD_CD
+								  , SG.GRD_NM
+								  , SG.APC_CD
+								  , SG.ITEM_CD
+							 FROM TB_APC_STD_GRD_DTL SG
+							 WHERE SG.GRD_SE_CD = '04'
+							   AND SG.DEL_YN = 'N'
+						 ) A
+					GROUP BY A.APC_CD, A.ITEM_CD
+				) GRD ON GRD.APC_CD = WP.APC_CD
+					AND GRD.ITEM_CD = WP.ITEM_CD
+				WHERE WP.DEL_YN = 'N'
+				GROUP BY WP.APC_CD, WP.WGHNO
+			) INSP
+              ON WC.APC_CD = INSP.APC_CD
+                AND WC.WGHNO = INSP.WGHNO
 			  LEFT JOIN (
 			  	SELECT
 			  		PWS.APC_CD
@@ -2879,54 +2952,63 @@
 			  	ON WC.APC_CD = PB.APC_CD
 			  		AND WC.WGHNO = PB.PRCS_NO
 			  		AND WC.WGH_YMD = PB.JOB_YMD
-			 WHERE WC.DEL_YN = 'N'
-			   AND WC.WRHS_SPMT_TYPE = 'RT'
+			  LEFT JOIN TB_PRDCR_INFO PI
+			    ON WC.APC_CD = PI.APC_CD
+			   AND WC.PRDCR_CD = PI.PRDCR_CD
+			   AND WC.DEL_YN = 'N'
+    		  LEFT JOIN TB_WRHS_VHCL_INFO VI
+    			ON WC.APC_CD = VI.APC_CD
+    		   AND WC.VHCLNO = VI.VHCLNO
+    		   AND VI.DEL_YN = 'N'
+			WHERE WC.DEL_YN = 'N'
+			  AND WC.WRHS_SPMT_TYPE = 'RT'
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
-			AND WC.APC_CD = #{apcCd}
+			  AND WC.APC_CD = #{apcCd}
 		</if>
 		<if test='wghno != null and wghno != ""'>
-			AND WC.WGHNO = #{wghno}
+			  AND WC.WGHNO = #{wghno}
 		</if>
 		<if test='wghYmd != null and wghYmd != ""'>
-			AND WC.WGH_YMD = #{wghYmd}
+			  AND WC.WGH_YMD = #{wghYmd}
 		</if>
 		<if test='wghYmdFrom != null and wghYmdFrom != ""'>
-			AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+			  AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
 		</if>
 		<if test='wghYmdTo != null and wghYmdTo != ""'>
-			AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+			  AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
 		</if>
 		<if test='prdcrCd != null and prdcrCd != ""'>
-			AND WC.PRDCR_CD = #{prdcrCd}
+			  AND WC.PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
-			AND INV.ITEM_CD = #{itemCd}
+			  AND INV.ITEM_CD = #{itemCd}
 		</if>
 		<if test='vrtyCd != null and vrtyCd != ""'>
-			AND INV.VRTY_CD = #{vrtyCd}
+			  AND INV.VRTY_CD = #{vrtyCd}
 		</if>
 		<if test='wrhsSeCd != null and wrhsSeCd != ""'>
-			AND INV.WRHS_SE_CD = #{wrhsSeCd}
+			  AND INV.WRHS_SE_CD = #{wrhsSeCd}
 		</if>
 		<if test='gdsSeCd != null and gdsSeCd != ""'>
-			AND INV.GDS_SE_CD = #{gdsSeCd}
+			  AND INV.GDS_SE_CD = #{gdsSeCd}
 		</if>
 		<if test='trsprtSeCd != null and trsprtSeCd != ""'>
-			AND INV.TRSPRT_SE_CD = #{trsprtSeCd}
+			  AND INV.TRSPRT_SE_CD = #{trsprtSeCd}
 		</if>
 		<if test='vhclno != null and vhclno != ""'>
-			AND WC.VHCLNO = #{vhclno}
+			  AND WC.VHCLNO = #{vhclno}
 		</if>
 		<if test='sysFrstInptDt != null and sysFrstInptDt != ""'>
-			AND WC.SYS_FRST_INPT_DT > TO_DATE(#{sysFrstInptDt} , 'YYYY-MM-DD HH24:MI:SS')
+			  AND WC.SYS_FRST_INPT_DT > TO_DATE(#{sysFrstInptDt} , 'YYYY-MM-DD HH24:MI:SS')
 		</if>
 		<if test='sysLastChgDt != null and sysLastChgDt != ""'>
-			AND WC.SYS_LAST_CHG_DT > TO_DATE(#{sysLastChgDt} , 'YYYY-MM-DD HH24:MI:SS')
+			  AND WC.SYS_LAST_CHG_DT > TO_DATE(#{sysLastChgDt} , 'YYYY-MM-DD HH24:MI:SS')
 		</if>
 		<![CDATA[
-		 	 ORDER BY APC_CD, PO_DATE, PO_NO
-    		  ) pt0
+			GROUP BY WC.APC_CD, WC.WGHNO
+			ORDER BY WC.APC_CD, IC_DATE, WC.WGHNO
+		  ) pt0
 		]]>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
