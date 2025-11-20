@@ -81,13 +81,15 @@
 	</section>
 </body>
 <script type="text/javascript">
+	var editMode = false;
 
 	/* grid 내 select json */
 	var jsonComBankCdVhclPop = [];	// 은행 bankCd
 
 	var grdVhclPop = null;
 	var jsonVhclPop = [];
-	var editMode = false;
+
+	var jsonApcAtrb = []	// popup 속성
 
 	/** 편집모드 상태에서 enter키 입력 */
 	const enterKeySearch = function () {
@@ -141,7 +143,8 @@
 
 			if (grdVhclPop === null || this.prvApcCd != _apcCd) {
 				let rst = await Promise.all([
-					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD')		// 은행
+					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD'),		// 은행
+					gfn_setComCdSBSelect('grdVhcl', jsonApcAtrb, 'APC_ATRB', _apcCd),		// 팝업 속성 사용
 				]);
 				await this.createGrid();
 				await this.search();
@@ -228,12 +231,16 @@
 			grdVhclPop.setCellDisabled(0, 1, grdVhclPop.getRows() - 1, 1, true);	// 차량번호 disabled
 			grdVhclPop.setCellDisabled(0, 2, grdVhclPop.getRows() - 1, grdVhclPop.getCols() - 1, false);
 
-			/** 25.11.03 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
+			/** 25.11.03 거산 : 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
 			let nRow = grdVhclPop.getRows();
-			// grdVhclPop.addRow(true);
-			// grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
-			grdVhclPop.insertRow(0);
-			grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
+
+			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+				grdVhclPop.insertRow(0);
+				grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
+			} else {
+				grdVhclPop.addRow(true);
+				grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			}
 		    grdVhclPop.unbind('dblclick');
 
 		},
@@ -251,10 +258,14 @@
 		add: function(nRow, nCol) {
 			grdVhclPop.setCellData(nRow, nCol, "N", true);
 			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, false);
-			grdVhclPop.insertRow(nRow);
+
+			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+				grdVhclPop.insertRow(nRow);
+			} else {
+				grdVhclPop.addRow(true);
+			}
 			nRow++;
-			// grdVhclPop.addRow(true);
-			grdVhclPop.setCellDisabled(                                                                                                                                                                                                                                                                                                                                                                               nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
 			const apcCd = SBUxMethod.get("vhcl-inp-apcCd");
@@ -343,9 +354,13 @@
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		// gfn_comAlert(data.resultCode, data.resultMessage);
 
-					if (apcCd == '0669') {
+					if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
 						this.cancel();
-						this.search();
+						await this.search();
+
+						/** 거산 저장 후 바로 선택 */
+						grdVhclPop.setRow(1);
+						this.choice();
 					} else {
 						this.searchInEdit();
 					}
@@ -405,7 +420,7 @@
 
 	        	document.querySelector('#vhcl-pop-cnt').innerText = jsonVhclPop.length;
 
-				if (apcCd == '0669') {
+				if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
 					let sysLastChgDtColIdx = grdVhclPop.getColRef('sysLastChgDt');
 					grdVhclPop.sortColumn(sysLastChgDtColIdx, 'desc');
 				}
@@ -430,10 +445,13 @@
 			 * 1. 추가 행 맨 밑이 아닌 위로
 			 * */
 			let nRow = grdVhclPop.getRows();
-			// grdVhclPop.addRow(true);
-			// grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
-			grdVhclPop.insertRow(0);
-			grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
+			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+				grdVhclPop.insertRow(0);
+				grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
+			} else {
+				grdVhclPop.addRow(true);
+				grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, true);
+			}
 			grdVhclPop.unbind('dblclick');
 	    }
 	}
