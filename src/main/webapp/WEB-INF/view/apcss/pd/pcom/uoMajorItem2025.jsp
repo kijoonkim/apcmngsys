@@ -1154,7 +1154,7 @@
 		// set pagination
 		let pageSize = grdPrdcrOgnCurntMng.getPageSize();
 		let pageNo = 1;
-
+		fn_clearForm();
 		fn_setGrdFcltList(pageSize, pageNo);
 	}
 
@@ -1435,8 +1435,13 @@
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
-		//jsonPrdcrOgnCurntMng02.length= 0;
-		//grdPrdcrOgnCurntMng02.rebuild();
+
+		SBUxMethod.set('dtl-input-apoCd', "");//통합조직 코드
+		SBUxMethod.set('dtl-input-apoSe', "");//통합조직 구분
+		SBUxMethod.set('dtl-input-corpNm', "");//법인명
+		SBUxMethod.set('dtl-input-crno', "");//법인등록번호
+		SBUxMethod.set('dtl-input-brno', "");//사업자등록번호
+		SBUxMethod.set('dtl-input-yr', "");//등록년도
 
 		//임시저장 표기
 		$("#tmprArea").hide();
@@ -1458,7 +1463,7 @@
 		// 버튼 숨기기 해제
 		SBUxMethod.show('btnTempSave');
 		SBUxMethod.show('btnTempSave2');
-		SBUxMethod.show('btnSearchFclt');
+		// SBUxMethod.show('btnSearchFclt');
 		SBUxMethod.show('btnSaveFclt1');
 		SBUxMethod.show('btnSaveFclt');
 		await fn_fcltMngCreateGrid01(columnsDefault); // 그리드 재생성
@@ -2003,7 +2008,7 @@
 		// 저장버튼 숨기기
 		SBUxMethod.hide('btnTempSave');
 		SBUxMethod.hide('btnTempSave2');
-		SBUxMethod.hide('btnSearchFclt');
+		// SBUxMethod.hide('btnSearchFclt');
 		SBUxMethod.hide('btnSaveFclt1');
 		SBUxMethod.hide('btnSaveFclt');
 
