@@ -8,7 +8,7 @@ import { AllCommunityModule } from 'ag-grid-community';
 ModuleRegistry.registerModules([AllCommunityModule]); // 렌더링 전에 실행
 
 import App from '@apps/spmt/App1';
-import ExcelGrid from '@vanilla/ExcelGrid';
+import Dashboard from '@apps/userDashboard';
 
 import '@mantine/core/styles.css';
 import 'keen-slider/keen-slider.min.css';
@@ -24,12 +24,13 @@ const container = document.getElementById('root');
 const apcCd = container.dataset.apcCd;
 const apcNm = container.dataset.apcNm;
 const sysPrgrmId = container.dataset.sysPrgrmId;
+const userId = container.dataset.userId;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <App apcCd={apcCd} apcNm={apcNm} sysPrgrmId={sysPrgrmId} />
+        <Dashboard apcCd={apcCd} apcNm={apcNm} sysPrgrmId={sysPrgrmId} userId={userId} />
       </QueryClientProvider>
     </MantineProvider>
   </React.StrictMode>,
