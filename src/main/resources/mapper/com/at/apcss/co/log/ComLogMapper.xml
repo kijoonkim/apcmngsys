@@ -385,7 +385,7 @@
     </select>
 
 
-       <!-- ===================================================================	-->
+	<!-- ===================================================================	-->
 	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry			-->
 	<!-- DESC : 화면열람이력 생성.                        	           		  	-->
 	<!-- ======================================================================	-->
@@ -439,6 +439,25 @@
 			, #{sysLastChgPrgrmId}
 		)
     </insert>
+
+	<select id="selectMenuHstryLimitList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+		SELECT
+			MENU_ID,
+			MENU_NM,
+			PRSL_DT
+		FROM (
+				 SELECT
+					 MENU_ID,
+					 MAX(MENU_NM) AS MENU_NM,
+					 MAX(PRSL_DT) AS PRSL_DT
+				 FROM TB_COM_MENU_LOG_HSTRY
+				 WHERE USER_ID = #{userId}
+				   AND MENU_ID NOT IN ('logout', 'login', 'TAB_CO_014', 'CO_014', 'PD_009')
+				 GROUP BY MENU_ID
+			 ) t
+		ORDER BY PRSL_DT DESC
+			LIMIT 5;
+	</select>
 
 </mapper>
 

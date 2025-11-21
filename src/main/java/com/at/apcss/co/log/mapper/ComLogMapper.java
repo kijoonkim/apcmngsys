@@ -2,6 +2,7 @@ package com.at.apcss.co.log.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.co.log.vo.ComLogVO;
@@ -40,6 +41,7 @@ public interface ComLogMapper {
 	 * @throws Exception
 	 */
 	public List<ComLogVO> selectMenuHstryList(ComLogVO comLogVO) throws Exception;
+	public List<ComLogVO> selectMenuHstryLimitList(ComLogVO comLogVO) throws Exception;
 
 	/**
 	 * 송수신 이력정보를 조회한다.

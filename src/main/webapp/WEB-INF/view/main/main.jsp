@@ -2127,6 +2127,7 @@
     function cfn_openTabSearch (obj){
         try {
             let object = JSON.parse(obj);
+            console.log(object,"PID가 뭐였떠라");
             if (!gfn_isEmpty(object)) {
                 let target = object.target;
                 /** left Menu에서 넘어온 해당 Tab의 대한 정보로 필터링 **/

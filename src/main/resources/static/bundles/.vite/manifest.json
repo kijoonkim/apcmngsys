@@ -1,11 +1,11 @@
 {
-  "src/entries/ordr/GdsOrdrMng.tsx": {
-    "file": "ordr/GdsOrdrMng.js",
-    "name": "ordr/GdsOrdrMng",
-    "src": "src/entries/ordr/GdsOrdrMng.tsx",
+  "src/entries/userDashboard.tsx": {
+    "file": "userDashboard.js",
+    "name": "userDashboard",
+    "src": "src/entries/userDashboard.tsx",
     "isEntry": true,
     "css": [
-      "GdsOrdrMng.css"
+      "userDashboard.css"
     ]
   }
 }

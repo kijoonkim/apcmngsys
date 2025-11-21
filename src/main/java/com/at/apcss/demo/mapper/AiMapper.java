@@ -1,8 +1,10 @@
 package com.at.apcss.demo.mapper;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,5 +24,7 @@ import java.util.Map;
  */
 @Mapper
 public interface AiMapper {
-    List<Map<String, String>> findByName(@Param("name") String name) throws Exception;
+    List<HashMap<String, String>> findByName(@Param("name") String name) throws Exception;
+
+    List<HashMap<String, Object>> getPerformance(@Param("apcCd") String apcCd, @Param("type") List<String> type, @Param("start") String start, @Param("end") String end) throws Exception;
 }

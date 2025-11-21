@@ -22,12 +22,13 @@ const queryClient = new QueryClient();
 const container = document.getElementById('root');
 const apcCd = container.dataset.apcCd;
 const apcNm = container.dataset.apcNm;
+const sysPrgrmId = container.dataset.sysPrgrmId;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <App apcCd={apcCd} apcNm={apcNm} />
+        <App apcCd={apcCd} apcNm={apcNm} sysPrgrmId={sysPrgrmId} />
       </QueryClientProvider>
     </MantineProvider>
   </React.StrictMode>,
