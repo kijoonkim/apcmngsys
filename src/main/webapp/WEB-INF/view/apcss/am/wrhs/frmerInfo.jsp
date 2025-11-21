@@ -2973,8 +2973,9 @@
 			let rowData = grdCltvtnHstryPrdcr.getRowData(i+2);
 			if (!gfn_isEmpty(rowData.delYn)) {
 				if (gfn_isEmpty(rowData.cfmtnYmd)) {
-					gfn_comAlert("W0002","확인일자"); 	//W0002 {0}을/를 입력하세요.
-					return;
+					if (!gfn_comConfirm("Q0003", "확인일자", "계속")) {		//	Q0003	{0}이/가 없습니다. {1} 하시겠습니까?
+						return;
+					}
 				}
 			}
 
