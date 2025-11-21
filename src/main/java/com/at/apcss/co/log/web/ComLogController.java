@@ -153,4 +153,20 @@ public class ComLogController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/co/log/selectMenuHstryLimitList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectMenuHstryLimitList(@RequestBody ComLogVO comLogVO) throws Exception{
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ComLogVO> resultList;
+		try {
+			resultList = comLogService.selectMenuHstryLimitList(comLogVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
