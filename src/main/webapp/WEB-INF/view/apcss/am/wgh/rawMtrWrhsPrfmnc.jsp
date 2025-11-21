@@ -53,7 +53,7 @@
 							text="원물인식표V2"
 							style="display:none;"
 					></sbux-button>
-					<%--거산APC(0669) 원물인식표v2 추가 START--%>
+					<%--거산APC(0669) 원물인식표v2 추가 END--%>
 					<sbux-button
 							id="btnCmndDocRaw"
 							name="btnCmndDocRaw"
@@ -395,6 +395,9 @@ async function cfn_search() {
     var jsonTrsprtSeCd			= [];	// 운송구분 checkbox 검색
     var jsonInvntrYn			= [{cdVl: "Y", cdVlNm: "재고있음"},{cdVl: "N", cdVlNm: "재고없음"}];	//
 
+	var jsonApcAtrb 		= [];		// 입고 조회 속성
+
+
 	const fn_initSBSelect = async function() {
 		// 검색 SB select
 		let rst = await Promise.all([
@@ -403,7 +406,8 @@ async function cfn_search() {
 		 	gfn_setComCdSBSelect('dtl-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'),											// 입고구분
 		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),							// 상품구분
 		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),										// 운송구분
-			gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd, 'WGH_FCLT_CD', gv_selectedApcCd),							// 설비
+			gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd, 'WGH_FCLT_CD', gv_selectedApcCd),						// 설비
+			gfn_setComCdSBSelect('grdRawMtrWrhs', jsonApcAtrb, 'APC_ATRB', gv_selectedApcCd)								// 입고조회 속성
 	 	]);
 		jsonWrhsSeCd = gfn_getJsonFilter(jsonWrhsSeCd, 'value', ["1", "2", "3"]);
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
@@ -412,6 +416,11 @@ async function cfn_search() {
 		SBUxMethod.refresh('dtl-chk-gdsSeCd');
 		jsonTrsprtSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-trsprtSeCd');
+
+		if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
+			SBUxMethod.set("btnCmndDocPckg", "원물인식표V1");
+			SBUxMethod.show("dtl-btn-addDay");
+		}
 
 	}
 
@@ -482,10 +491,6 @@ async function cfn_search() {
 		fn_getPrdcrs();
 		if(gv_selectedApcCd === '0007'){
 			SBUxMethod.hide("btnCmndDocRaw");
-		}
-		if(gv_selectedApcCd === '0669'){
-			SBUxMethod.set("btnCmndDocPckg", "원물인식표V1");
-			SBUxMethod.show("dtl-btn-addDay");
 		}
 	}
 
@@ -718,7 +723,7 @@ async function cfn_search() {
 		});
 
 		// 거산 임시
-		if (checkedWghnos.size > 0 && gv_selectedApcCd === '0669') {
+		if (checkedWghnos.size > 0 && jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
 			gfn_comAlert("E0000", "원물계량실적이 존재합니다.");
 			return;
 		}
@@ -797,7 +802,7 @@ async function cfn_search() {
 
 		let rptCdVl = "";
 
-		if (gv_selectedApcCd === '0669') {
+		if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
 			rptCdVl = obj.id === "btnCmndDocPckg" ? "RT_DOC_VER1" : "RT_DOC_VER2";
 		} else {
 			rptCdVl = "RT_DOC";
@@ -993,7 +998,7 @@ const fn_docRawMtrWrhsList = async function() {
          	}
 
 			/** 25.11.03 거산 실적 내림차순 */
-			if (gv_selectedApcCd == '0669') {
+			if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
 				let wghnoColIdx = grdRawMtrWrhs.getColRef('wghno');
 				grdRawMtrWrhs.sortColumn(wghnoColIdx, 'desc');
 			}

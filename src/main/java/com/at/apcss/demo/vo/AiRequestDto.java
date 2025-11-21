@@ -10,5 +10,6 @@ import java.util.Map;
 public class AiRequestDto {
     private String prompt;
     private List<Map<String, Object>> tools;
+    private Map<String, String> context;
 
 }

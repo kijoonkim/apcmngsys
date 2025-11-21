@@ -1,4 +1,3 @@
-[👉 프론트엔드 빌드 가이드 바로가기](./FRONTEND_BUILD.md)
  1. 프로젝트 Description
 
 ✔ 프로젝트명

@@ -64,8 +64,104 @@ public class ClclnWkrptVO extends ComVO {
 	private String prdcrNmSun;
 
 	private String prdcrNm;
+	private String prdcrCd;
+
+	private String cnptCd;
+	private String cnptNm;
 
 	private String dy;
+
+	/**
+	 * 계량번호
+	 */
+	private String wghno;
+
+	/**
+	 * 계량순번
+	 */
+	private int wghSn;
+
+	/**
+	 * 입고번호
+	 */
+	private String wrhsno;
+
+	/**
+	 * 차량번호
+	 */
+	private String vhclno;
+
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+
+	/**
+	 * 전체중량
+	 */
+	private double wholWght;
+
+	/**
+	 * 공차중량
+	 */
+	private double emptVhclWght;
+
+	/**
+	 * 실중량
+	 */
+	private double actlWght;
+
+	/**
+	 * 감량율
+	 */
+	private double rdcdRt;
+
+	/**
+	 * 감량
+	 */
+	private double rdcdWght;
+
+	/**
+	 * 입고중량
+	 */
+	private double wrhsWght;
+	private double dtlWrhsWght;
+
+	/**
+	 * 인수량
+	 */
+	private int acptnWght;
+
+	/**
+	 * 팔레트종류
+	 */
+	private String pltKnd;
+	/**
+	 * 팔레트번호
+	 */
+	private String pltno;
+
+	/**
+	 * 박스종류
+	 */
+	private String bxKnd;
+
+	/**
+	 * 팔레트중량
+	 */
+	private String pltWght;
 
 	/*
 	 * 입고토탈수
@@ -79,4 +175,6 @@ public class ClclnWkrptVO extends ComVO {
 	 * 현재재고수
 	 * */
 	private int totInvntrQntt;
+
+
 }
