@@ -4554,9 +4554,19 @@ ORDER BY
 					END                                                                                      AS SLS_CNSGN_PRCHS_AMT
 
 					  /** 출자가 통합에 판매위임(매입) 소계 - 전속출하, 요건미달 전속출하 둘다 **/
-					   , ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_VLM
-					   , ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_AMT
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 1 THEN ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_VLM
+						WHEN UPS.TYPE_SE_NO IN (2,6) AND UPS.OGNZ_STBLT_YN <> '0' THEN UPS.SLS_CNSGN_PRCHS_VLM
+						WHEN UPS.TYPE_SE_NO = 5 THEN UPS.SLS_CNSGN_PRCHS_VLM
+						ELSE NULL
+					END AS SUB_SLS_CNSGN_PRCHS_VLM
 
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 1 THEN ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_AMT
+						WHEN UPS.TYPE_SE_NO IN (2,6) AND UPS.OGNZ_STBLT_YN <> '0' THEN UPS.SLS_CNSGN_PRCHS_AMT
+						WHEN UPS.TYPE_SE_NO = 5 THEN UPS.SLS_CNSGN_PRCHS_AMT
+						ELSE NULL
+					END AS SUB_SLS_CNSGN_PRCHS_AMT
 
 					   , UPS.SLS_CNSGN_SLS_VLM                                                               AS SLS_CNSGN_SLS_VLM
 					   , UPS.SLS_CNSGN_SLS_AMT                                                               AS SLS_CNSGN_SLS_AMT
@@ -4721,7 +4731,7 @@ ORDER BY
 								AND GC.DEL_YN = 'N'
 
 							  WHERE PST.APO_SE = '2'
-								AND PST.TYPE_SE_NO IN (5, 6)
+								AND PST.TYPE_SE_NO IN (5)
 								AND PST.OGNZ_STBLT_YN = 'Y'
 								AND PST.YR = #{yr}
 		]]>
@@ -4736,9 +4746,8 @@ ORDER BY
 								  	)
 								AND PST.DEL_YN = 'N'
 								AND (
-											PST.TYPE_SE_NO = 6
-									  OR
-										  (
+
+
 													  PST.TYPE_SE_NO = 5
 												  AND EXISTS (
 												  SELECT 1
@@ -4753,7 +4762,7 @@ ORDER BY
 													AND X.TRMT_TYPE = PST.TRMT_TYPE
 													AND X.DEL_YN = 'N'
 											  )
-											  )
+
 								  )
 
 							  GROUP BY
@@ -5065,8 +5074,19 @@ ORDER BY
 					END                                                                                      AS SLS_CNSGN_PRCHS_AMT
 
 					  /** 출자가 통합에 판매위임(매입) 소계 - 전속출하, 요건미달 전속출하 둘다 **/
-					   , ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_VLM
-					   , ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_AMT
+					   , CASE
+							 WHEN UPS.TYPE_SE_NO = 1 THEN ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_VLM
+							 WHEN UPS.TYPE_SE_NO IN (2,6) AND UPS.OGNZ_STBLT_YN <> '0' THEN UPS.SLS_CNSGN_PRCHS_VLM
+							 WHEN UPS.TYPE_SE_NO = 5 THEN UPS.SLS_CNSGN_PRCHS_VLM
+							 ELSE NULL
+					END AS SUB_SLS_CNSGN_PRCHS_VLM
+
+					   , CASE
+							 WHEN UPS.TYPE_SE_NO = 1 THEN ISO_SUB_TOTAL.SUB_SLS_CNSGN_PRCHS_AMT
+							 WHEN UPS.TYPE_SE_NO IN (2,6) AND UPS.OGNZ_STBLT_YN <> '0' THEN UPS.SLS_CNSGN_PRCHS_AMT
+							 WHEN UPS.TYPE_SE_NO = 5 THEN UPS.SLS_CNSGN_PRCHS_AMT
+							 ELSE NULL
+					END AS SUB_SLS_CNSGN_PRCHS_AMT
 
 
 					   , UPS.SLS_CNSGN_SLS_VLM                                                               AS SLS_CNSGN_SLS_VLM
@@ -5227,7 +5247,7 @@ ORDER BY
 								AND GC.DEL_YN = 'N'
 
 							  WHERE PST.APO_SE = '2'
-								AND PST.TYPE_SE_NO IN (5, 6)
+								AND PST.TYPE_SE_NO IN (5)
 								AND PST.OGNZ_STBLT_YN = 'Y'
 								AND PST.YR = #{yr}
 								AND (
@@ -5236,11 +5256,7 @@ ORDER BY
 										  (PST.TMPR_STRG_YN <> 'Y' AND NVL(PST.UO_SPMT_AMT, 0) > 0)
 								  	)
 								AND PST.DEL_YN = 'N'
-								AND (
-											PST.TYPE_SE_NO = 6
-									  OR
-										  (
-													  PST.TYPE_SE_NO = 5
+								AND ( PST.TYPE_SE_NO = 5
 												  AND EXISTS (
 												  SELECT 1
 												  FROM TB_EV_FRMHS_APO X
@@ -5254,8 +5270,8 @@ ORDER BY
 													AND X.TRMT_TYPE = PST.TRMT_TYPE
 													AND X.DEL_YN = 'N'
 											  )
-											  )
-								  )
+										  )
+
 
 							  GROUP BY
 								  PST.YR
