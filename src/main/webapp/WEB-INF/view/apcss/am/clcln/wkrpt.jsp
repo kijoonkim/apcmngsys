@@ -565,15 +565,28 @@
                         saveList.push(wghPrfmncVO);
                     }
                     // 수정 (값이 변경되었을 때만)
-                    else if (existData.prdcrCd != wghPrfmncVO.prdcrCd ||
-                             existData.bxQntt != bxQntt ||
-                             existData.wrhsWght != bxWght) {
-                        let actlWght = parseFloat(item[actlWghtKey]) || 0;
-                        if (actlWght > 0) {
-                            wghPrfmncVO.rdcdWght = actlWght - bxWght;
-                            wghPrfmncVO.rdcdRt = parseFloat(((wghPrfmncVO.rdcdWght / actlWght) * 100).toFixed(1));
+                    else {
+                        // 입고(RT)일 때는 prdcrCd, 출고(DT)일 때는 cnptCd 비교
+                        let isChanged = false;
+
+                        if (item.wrhsSpmtTypeNm === 'RT') {
+                            isChanged = existData.prdcrCd != wghPrfmncVO.prdcrCd ||
+                                       existData.bxQntt != bxQntt ||
+                                       existData.wrhsWght != bxWght;
+                        } else if (item.wrhsSpmtTypeNm === 'DT') {
+                            isChanged = existData.cnptCd != wghPrfmncVO.cnptCd ||
+                                       existData.bxQntt != bxQntt ||
+                                       existData.wrhsWght != bxWght;
                         }
-                        saveList.push(wghPrfmncVO);
+
+                        if (isChanged) {
+                            let actlWght = parseFloat(item[actlWghtKey]) || 0;
+                            if (actlWght > 0) {
+                                wghPrfmncVO.rdcdWght = actlWght - bxWght;
+                                wghPrfmncVO.rdcdRt = parseFloat(((wghPrfmncVO.rdcdWght / actlWght) * 100).toFixed(1));
+                            }
+                            saveList.push(wghPrfmncVO);
+                        }
                     }
                 }
             }
