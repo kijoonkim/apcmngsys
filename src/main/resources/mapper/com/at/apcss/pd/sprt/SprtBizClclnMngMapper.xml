@@ -2248,4 +2248,272 @@
             ORDER BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID
         ]]>
     </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnRsltRawDataList -->
+    <!-- DESC : 지원사업 정산결과 로우데이터 조회                                         -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.24  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtClclnRsltRawDataList" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+        SELECT *
+        FROM (
+             /*1차*/
+            SELECT
+             SBO.SPRT_BIZ_YR                                                                         AS SPRT_BIZ_YR
+              , SBO.SPRT_BIZ_CD                                                                         AS SPRT_BIZ_CD
+              , SBO.SPRT_OGNZ_ID                                                                        AS SPRT_OGNZ_ID
+              , SBO.BRNO                                                                                AS BRNO
+              , SBO.CRNO                                                                                AS CRNO
+
+              , EUA.APO_CD                                                                              AS APO_CD
+              , EUA.CORP_NM                                                                             AS CORP_NM
+
+              -- 차수
+              , NVL(SBC.CLCLN_SEQ, 1)                                                                           AS CLCLN_SEQ
+              , '1차' AS CLCLN_SEQ_NM
+
+              -- 정산가능액 합계(산지조직지원신청관리 배정액국비+자부담 합계)
+              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000                                         AS CLCLN_PSBLTY_AMT
+              -- 정산요청액합계
+              , NVL(DMND_SUM.SUM_DMND_AMT,0)                                                                   AS DMND_AMT_TOT
+              -- 정산인정액
+              , NVL(SBC.CLCLN_APRV_AMT,0)                                                                      AS CLCLN_APRV_AMT
+              -- 불인정 (1차정산요청액-1차정산인정액)
+              , NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)                                              AS CLCLN_RJCT_AMT
+              -- 미사용액(1차 정산가능액 - 1차정산인정액 - 불인정액)
+              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 - NVL(SBC.CLCLN_APRV_AMT,0) -
+                (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0))                                            AS UNUSE_AMT
+              -- 합계
+              , (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) + (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000 -
+                NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0))                       AS BLNC_TOT
+              -- 집행률
+              , ROUND(NVL(SBC.CLCLN_APRV_AMT,0) / (NULLIF((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)), 0)*1000) * 100,1) AS IMPL_RT
+
+            FROM TB_EV_SPRT_BIZ_OGNZ SBO
+
+                  JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
+                       ON SBAD.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                           AND SBAD.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                           AND SBAD.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                           AND SBAD.APLY_DOC_CD = 'BIZ_APLY'
+                           AND SBAD.DEL_YN = 'N'
+
+                  LEFT JOIN VW_EV_UO_APRV EUA
+                            ON EUA.YR = SBO.SPRT_BIZ_YR
+                                AND EUA.BRNO = SBO.BRNO
+                                AND EUA.CRNO = SBO.CRNO
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+                            ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBA.DEL_YN = 'N'
+
+             -- 정산
+                  LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC
+                            ON SBC.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBC.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBC.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBC.CLCLN_SEQ = 1
+                                AND SBC.DEL_YN = 'N'
+
+             -- 정산요청액
+                  LEFT JOIN (SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, SUM(DMND_AMT) AS SUM_DMND_AMT
+                             FROM TB_EV_SPRT_BIZ_CLCLN_D
+                             WHERE DEL_YN = 'N'
+                               AND CLCLN_SEQ = 1
+                             GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ) DMND_SUM
+                            ON DMND_SUM.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND DMND_SUM.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND DMND_SUM.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND DMND_SUM.CLCLN_SEQ = SBC.CLCLN_SEQ
+            WHERE SBO.DEL_YN = 'N'
+
+            UNION ALL
+
+            /* 2차 */
+            SELECT
+             SBO.SPRT_BIZ_YR                                                                         AS SPRT_BIZ_YR
+              , SBO.SPRT_BIZ_CD                                                                         AS SPRT_BIZ_CD
+              , SBO.SPRT_OGNZ_ID                                                                        AS SPRT_OGNZ_ID
+              , SBO.BRNO                                                                                AS BRNO
+              , SBO.CRNO                                                                                AS CRNO
+
+              , EUA.APO_CD                                                                              AS APO_CD
+              , EUA.CORP_NM                                                                             AS CORP_NM
+
+              -- 차수
+              , NVL(SBC.CLCLN_SEQ, 2)                                                                           AS CLCLN_SEQ
+              , '2차' AS CLCLN_SEQ_NM
+
+              -- 정산가능액(1차 잔액 합계)
+              , ((NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)))) AS CLCLN_PSBLTY_AMT
+              -- 정산요청액합계
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0)                                                                   AS DMND_AMT_TOT
+              -- 정산인정액
+              , NVL(SBC.CLCLN_APRV_AMT,0)                                                                      AS CLCLN_APRV_AMT
+              -- 불인정 (2차정산요청액 - 2차정산인정액)
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)                                              AS CLCLN_RJCT_AMT
+              -- 미사용액(2차정산가능액 - 2차정산인정액 - 불인정액)
+              , (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) AS UNUSE_AMT
+              -- 잔액합계
+              , (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) +
+                (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC.CLCLN_APRV_AMT,0)) AS BLNC_TOT
+              -- 2차집행률(1차 정산인정액 + 2차 정산인정액)/1차 정산가능액 * 100
+              , ROUND((NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC.CLCLN_APRV_AMT,0)) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0), 0) * 1000) * 100 ,1) AS IMPL_RT
+
+            FROM TB_EV_SPRT_BIZ_OGNZ SBO
+
+                  JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
+                       ON SBAD.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                           AND SBAD.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                           AND SBAD.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                           AND SBAD.APLY_DOC_CD = 'BIZ_APLY'
+                           AND SBAD.DEL_YN = 'N'
+
+                  LEFT JOIN VW_EV_UO_APRV EUA
+                            ON EUA.YR = SBO.SPRT_BIZ_YR
+                                AND EUA.BRNO = SBO.BRNO
+                                AND EUA.CRNO = SBO.CRNO
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+                            ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBA.DEL_YN = 'N'
+
+             -- 정산
+                  LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC
+                            ON SBC.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBC.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBC.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBC.CLCLN_SEQ = 2
+                                AND SBC.DEL_YN = 'N'
+
+             -- 정산요청액
+                  LEFT JOIN (SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, SUM(DMND_AMT) AS SUM_DMND_AMT
+                             FROM TB_EV_SPRT_BIZ_CLCLN_D
+                             WHERE DEL_YN = 'N'
+                               AND CLCLN_SEQ = 1
+                             GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ) DMND_SUM_1
+                            ON DMND_SUM_1.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND DMND_SUM_1.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND DMND_SUM_1.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+
+
+                  LEFT JOIN (SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, SUM(DMND_AMT) AS SUM_DMND_AMT
+                             FROM TB_EV_SPRT_BIZ_CLCLN_D
+                             WHERE DEL_YN = 'N'
+                               AND CLCLN_SEQ = 2
+                             GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ) DMND_SUM_2
+                            ON DMND_SUM_2.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND DMND_SUM_2.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND DMND_SUM_2.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC1
+                            ON SBC1.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBC1.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBC1.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBC1.CLCLN_SEQ = '1'
+                                AND SBC1.DEL_YN = 'N'
+            WHERE SBO.DEL_YN = 'N'
+
+
+            UNION ALL
+            /* 최종 */
+            SELECT
+             SBO.SPRT_BIZ_YR                                                                         AS SPRT_BIZ_YR
+              , SBO.SPRT_BIZ_CD                                                                         AS SPRT_BIZ_CD
+              , SBO.SPRT_OGNZ_ID                                                                        AS SPRT_OGNZ_ID
+              , SBO.BRNO                                                                                AS BRNO
+              , SBO.CRNO                                                                                AS CRNO
+
+              , EUA.APO_CD                                                                              AS APO_CD
+              , EUA.CORP_NM                                                                             AS CORP_NM
+              -- 차수
+              , 99                                                                           AS CLCLN_SEQ
+              , '최종' AS CLCLN_SEQ_NM
+              -- 최종 정산가능액
+              , (NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0)) * 1000                                         AS CLCLN_PSBLTY_AMT
+              -- 최종 정산요청액
+              , NVL(DMND_SUM_1.SUM_DMND_AMT,0) + NVL(DMND_SUM_2.SUM_DMND_AMT,0) AS DMND_AMT_TOT
+              -- 최종 정산인정액
+              , NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC2.CLCLN_APRV_AMT,0) AS CLCLN_APRV_AMT
+              -- 최종 불인정(2차불인정)
+              , NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)  AS CLCLN_RJCT_AMT
+              -- 최종 미사용(2차미사용액)
+              , (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC2.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)) AS UNUSE_AMT
+              -- 최종 잔액 합계 (최종불인정 + 최종미사용액)
+              , (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)) +
+                (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0)) + ((NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_SLF, 0))*1000 - NVL(SBC1.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_1.SUM_DMND_AMT,0) - NVL(SBC1.CLCLN_APRV_AMT,0))) - NVL(SBC2.CLCLN_APRV_AMT,0) - (NVL(DMND_SUM_2.SUM_DMND_AMT,0) - NVL(SBC2.CLCLN_APRV_AMT,0)) AS BLNC_TOT
+              -- 최종 집행률
+              , ROUND((NVL(SBC1.CLCLN_APRV_AMT,0) + NVL(SBC2.CLCLN_APRV_AMT,0)) / (NULLIF(NVL(SBA.RPN_AMT_NE, 0) + NVL(SBA.RPN_AMT_NE, 0), 0)*1000) * 100 , 1) AS IMPL_RT
+
+            FROM TB_EV_SPRT_BIZ_OGNZ SBO
+
+                  JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
+                       ON SBAD.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                           AND SBAD.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                           AND SBAD.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                           AND SBAD.APLY_DOC_CD = 'BIZ_APLY'
+                           AND SBAD.DEL_YN = 'N'
+
+                  LEFT JOIN VW_EV_UO_APRV EUA
+                            ON EUA.YR = SBO.SPRT_BIZ_YR
+                                AND EUA.BRNO = SBO.BRNO
+                                AND EUA.CRNO = SBO.CRNO
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+                            ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBA.DEL_YN = 'N'
+
+
+                  LEFT JOIN (SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, SUM(DMND_AMT) AS SUM_DMND_AMT
+                             FROM TB_EV_SPRT_BIZ_CLCLN_D
+                             WHERE DEL_YN = 'N'
+                               AND CLCLN_SEQ = 1
+                             GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ) DMND_SUM_1
+                            ON DMND_SUM_1.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND DMND_SUM_1.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND DMND_SUM_1.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+
+
+                  LEFT JOIN (SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, SUM(DMND_AMT) AS SUM_DMND_AMT
+                             FROM TB_EV_SPRT_BIZ_CLCLN_D
+                             WHERE DEL_YN = 'N'
+                               AND CLCLN_SEQ = 2
+                             GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ) DMND_SUM_2
+                            ON DMND_SUM_2.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND DMND_SUM_2.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND DMND_SUM_2.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC1
+                            ON SBC1.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBC1.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBC1.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBC1.CLCLN_SEQ = 1
+                                AND SBC1.DEL_YN = 'N'
+
+                  LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC2
+                            ON SBC2.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                                AND SBC2.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                                AND SBC2.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                                AND SBC2.CLCLN_SEQ = 2
+                                AND SBC2.DEL_YN = 'N'
+
+
+     ) CLCLN_RSLT
+
+    WHERE CLCLN_RSLT.SPRT_BIZ_YR = #{crtrYr}
+
+    ORDER BY CLCLN_RSLT.SPRT_OGNZ_ID, CLCLN_RSLT.CLCLN_SEQ
+    ]]>
+
+    </select>
 </mapper>

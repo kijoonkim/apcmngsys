@@ -1602,4 +1602,27 @@ public class SprtBizClclnMngController extends BaseController {
             }
         }
     }
+
+    @PostMapping(value = "/pd/sprt/selectSprtClclnRsltRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectSprtClclnRsltRawDataList (@RequestBody SprtBizClclnMngVO sprtBizClclnMngVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String, Object> resultMap = new HashMap<String,Object>();
+        List<SprtBizClclnMngVO> resultList = new ArrayList<>();
+
+        try {
+            resultList = sprtBizClclnMngService.selectSprtClclnRsltRawDataList(sprtBizClclnMngVO);
+        }  catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
 }
