@@ -1849,7 +1849,7 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 			} else {
 				 param[key] = sbValue;
 			}
-		} else if (element.type === 'checkbox') {
+		} else if (element.type === 'checkbox' || element.type === 'radio') {
 
 			let sbValue = SBUxMethod.getCheckbox(element.id)[element.id];
 			param[key] = sbValue;
