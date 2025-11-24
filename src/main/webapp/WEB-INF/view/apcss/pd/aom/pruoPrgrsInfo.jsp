@@ -225,7 +225,30 @@
      * @description 진척도 출력
      */
     const fn_otptPrgrs = function() {
-        console.log("출력");
+        const row = gridPrgrs.getRow();
+        const rowData = gridPrgrs.getRowData(row);
+        if (gfn_isEmpty(rowData)) return;
+
+        const yr = rowData.crtrYr;
+        const brno = rowData.brno;
+        const uoBrno = rowData.uoBrno;
+        const corpNm = rowData.corpNm;
+        const crno = rowData.crno;
+        const apoSe = rowData.apoSe;
+
+        if (apoSe == "1") {
+            gfn_popClipReport("조직진행상황출력", "pd/all1.crf", {
+                yr : yr
+                , brno : brno
+                , uoBrno : brno
+                , corpNm : corpNm
+                , crno : crno
+            });
+        } else if (apoSe == "2") {
+            gfn_comAlert("W0005", "출력리포트"); // W0005  {0}이/가 없습니다.
+            return;
+        }
+
     }
 
     /**
@@ -266,6 +289,8 @@
                            , corpDdlnYn : item.corpDdlnYn
                            , uoBrno : item.uoBrno
                            , uoCorpNm : item.uoCorpNm
+                           , crno : item.crno
+                           , brno : item.brno
                            , prgrs1: fn_prgrsChange(item.prgrs1)
                            , prgrs2: fn_prgrsChange(item.prgrs2)
                            , prgrs3: fn_prgrsChange(item.prgrs3)
@@ -375,6 +400,7 @@
 
     const fn_prgrsSttsCancel = async function (sttsCd) {
         let sttsNm;
+        let corpDdlnSeCd;
         if (gfn_isEmpty(sttsCd)) {
             gfn_comAlert("W0005", "진행상태 코드"); // W0005 {0}이/가 없습니다.
             return;
@@ -383,6 +409,7 @@
             sttsNm = "최종제출 취소";
         } else if (sttsCd == 'DDLN') {
             sttsNm = "마감 취소";
+            corpDdlnSeCd = 'N'
         }
 
         const allData = gridPrgrs.getGridDataAll();
@@ -392,7 +419,8 @@
                 checkedCancelList.push({
                     crtrYr: allData[i].crtrYr,
                     apoCd: allData[i].apoCd,
-                    prgrsStpCd: sttsCd
+                    prgrsStpCd: sttsCd,
+                    corpDdlnSeCd : corpDdlnSeCd
                 });
             }
         }
