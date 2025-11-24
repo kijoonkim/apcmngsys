@@ -95,7 +95,8 @@
             <sbux-input id="dtl-inp-corpNm" name="dtl-inp-corpNm" uitype="text" class="form-control input-sm" ></sbux-input>
           </td>
         </tr>
-
+        <%--2차기간동안은 2차만 보이도록--%>
+        <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
         <tr>
           <th scope="row" class="th_bg">제출여부</th>
           <td class="td_input" style="border-right: hidden">
@@ -106,6 +107,7 @@
             <sbux-select id="dtl-slt-clclnSeq" name="dtl-slt-clclnSeq" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonClclnSeqSlt"></sbux-select>
           </td>
         </tr>
+        </c:if>
         </tbody>
       </table>
 
@@ -572,23 +574,26 @@
               </ul>
               <%--저장버튼--%>
 <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
-              <div><sbux-button id="btnSaveClclnRslt" name="btnSaveClclnRslt" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRslt"></sbux-button></div>
+              <div style="display:flex; gap:10px; align-items:center; justify-content: end">
+                <div><sbux-button id="btnClclnRsltRawDataDown" name="btnClclnRsltRawDataDown" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_clclnRsltRawDataDown"></sbux-button></div>
+                <div><sbux-button id="btnSaveClclnRslt" name="btnSaveClclnRslt" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRslt"></sbux-button></div>
+              </div>
 </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnRslt" style="height: 530px"></div>
 
             <%--정산결과 소계--%>
-           <%-- <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
+            <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
               <colgroup>
-                <col style="width: 31%">
+                <col style="width: 30.5%">
                 <col style="width: 10%">
                 <col style="width: 10%">
                 <col style="width: 10%">
                 <col style="width: 10%">
                 <col style="width: 10%">
                 <col style="width: 10%">
-                <col style="width: 9%">
+                <col style="width: 10%">
               </colgroup>
               <tr>
                 <td>소계</td>
@@ -600,12 +605,13 @@
                 <td><span id="clclnRsltBlncTotAmt"></span></td>
                 <td></td>
               </tr>
-            </table>--%>
+            </table>
           </div>
         </div>
       </div>
 
     </div>
+    <div id="sb-area-gridRsltRawData" style="display: none"></div>
   </div>
 
 </section>
@@ -630,6 +636,10 @@
   /** 교부 관리 **/
   var gridDtbnMng;
   var jsonDtbnMng = [];
+
+  /** 정산결과 rawdata **/
+  var gridRsltRawData;
+  var jsonRsltRawData = [];
 
   /** tab **/
   var tabJsonData = [
@@ -831,7 +841,7 @@
 
     SBGridProperties.columns = [
       {
-        caption : ["<input type='checkbox' onchange='fn_checkAll(gridClclnRslt, this);'>","<input type='checkbox' onchange='fn_checkAll(gridClclnRslt, this);'>"],
+        caption : [`<input type="checkbox" onchange="fn_checkAll(gridClclnRslt, this, 'gridClclnRslt')">`,`<input type="checkbox" onchange="fn_checkAll(gridClclnRslt, this, 'gridClclnRslt')">`],
         ref: 'checkedYn', type: 'checkbox',  width:'3%',
         style: 'text-align:center',
         userattr: {colNm: "checkedYn"},
@@ -887,7 +897,7 @@
       {caption: ['1차 교부결정액','교부결정서'], 			ref: 'dtbnDcsnDoc1', 		width: '6%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '다운로드', callback: function(){fn_dwnldDtbnDcsnDoc(1)}}},
       {caption: ['2차 교부결정액','금액'], 			ref: 'dtbnDcsnAmt2', 		width: '6%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,##0.0'}},
       {caption: ['2차 교부결정액','교부결정서'], 			ref: 'dtbnDcsnDoc2', 		width: '6%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '다운로드', callback: function(){fn_dwnldDtbnDcsnDoc(2)}}},
-      {caption: ['잔액','잔액'], 			ref: 'blnc', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['잔액','잔액'], 			ref: 'blnc', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,##0.0'}},
       {caption: ['비고','비고'], 			ref: 'rmrk', 		width: '20%', type: 'input', style: 'text-align:left',userattr: {colNm: "dtbnRmrk"}},
     ];
     gridDtbnMng = _SBGrid.create(SBGridProperties);
@@ -1015,6 +1025,13 @@
       gridClclnRslt.refresh();
       fn_setRsltCellStyle();
 
+      // 정산결과 소계
+      const allData = gridClclnRslt.getGridDataAll();
+      if (!gfn_isEmpty(allData)){
+        const filteredData = allData.filter(row => row.clclnSeq !== 99);
+        fn_calcRsltSum(filteredData);
+      }
+
     } catch (e) {
       if (!(e instanceof Error)) {
         e = new Error(e);
@@ -1132,10 +1149,10 @@
             aprvYnNm = "수정요청";
           }
 
-          const rpnAmtNe = item.rpnAmtNe ?? 0;
-          const dtbnDcsnAmtFirst = item.dtbnDcsnAmtFirst ?? 0;
-          const dtbnDcsnAmtSecond = item.dtbnDcsnAmtSecond ?? 0;
-          const blnc = rpnAmtNe - dtbnDcsnAmtFirst - dtbnDcsnAmtSecond;
+          const rpnAmtNe = Number(item.rpnAmtNe ?? 0);
+          const dtbnDcsnAmtFirst = Number(item.dtbnDcsnAmtFirst ?? 0);
+          const dtbnDcsnAmtSecond = Number(item.dtbnDcsnAmtSecond ?? 0);
+          const blnc = Number(rpnAmtNe - dtbnDcsnAmtFirst - dtbnDcsnAmtSecond);
 
           const vo = {
             yr : item.sprtBizYr,
@@ -1432,6 +1449,22 @@
       if (!gfn_isEmpty(filteredData)) {
         fn_calcClclnAplySum(filteredData);
       }
+    } else if (_.isEqual(gridName, "gridClclnRslt")) {
+      for (let i = 0; i < allData.length; i++) {
+        const row = allData[i];
+
+        if (row.clclnSeq !== 99) {
+          grid.setCellData(i + 2, getColRef, checkedYn, true, false);
+        } else {
+          grid.setCellData(i + 2, getColRef, "N", true, false);
+        }
+      }
+      grid.refresh();
+      // 합계 제외하고 다시 계산
+      const filteredData = allData.filter(row => row.clclnSeq !== 99);
+      if (!gfn_isEmpty(filteredData)) {
+        fn_calcRsltSum(filteredData);
+      }
     }
 
   }
@@ -1487,6 +1520,10 @@
     }
   }
 
+  /**
+   * @name fn_calcDtbnSum
+   * @description 교부관리 소계
+   */
   function fn_calcDtbnSum(dataList) {
     let dtbnAplySbmsn = 0;
     let dtbnAplyAplyAprv = 0;
@@ -1497,10 +1534,10 @@
 
     for (let i = 0; i < dataList.length; i++) {
       const row = dataList[i];
-      rpnAmtNe += parseInt(row.rpnAmtNe || 0);
-      dtbnDcsnAmt1 += parseInt(row.dtbnDcsnAmt1 || 0);
-      dtbnDcsnAmt2 += parseInt(row.dtbnDcsnAmt2 || 0);
-      blnc += parseInt(row.blnc || 0);
+      rpnAmtNe += parseFloat(row.rpnAmtNe || 0);
+      dtbnDcsnAmt1 += parseFloat(row.dtbnDcsnAmt1 || 0);
+      dtbnDcsnAmt2 += parseFloat(row.dtbnDcsnAmt2 || 0);
+      blnc += parseFloat(row.blnc || 0);
 
       if (parseInt(row.atchFileSn) > 0) {
         dtbnAplySbmsn++;
@@ -1512,10 +1549,10 @@
 
     document.querySelector('#dtbnAplySbmsn').innerText = dtbnAplySbmsn;
     document.querySelector('#dtbnAplyAplyAprv').innerText = dtbnAplyAplyAprv;
-    document.querySelector('#rpnAmtNe').innerText = rpnAmtNe.toLocaleString();
-    document.querySelector('#dtbnDcsnAmt1').innerText = dtbnDcsnAmt1.toLocaleString();
-    document.querySelector('#dtbnDcsnAmt2').innerText = dtbnDcsnAmt2.toLocaleString();
-    document.querySelector('#blnc').innerText = blnc.toLocaleString();
+    document.querySelector('#rpnAmtNe').innerText = rpnAmtNe.toLocaleString(); // 배정예산
+    document.querySelector('#dtbnDcsnAmt1').innerText = dtbnDcsnAmt1.toLocaleString(); // 1차 교부결정액
+    document.querySelector('#dtbnDcsnAmt2').innerText = dtbnDcsnAmt2.toLocaleString(); // 2차 교부결정액
+    document.querySelector('#blnc').innerText = blnc.toLocaleString(); // 잔액
   }
 
   /**
@@ -1596,14 +1633,18 @@
     fn_clear();
     jsonClclnAply.length = 0;
     let brno = SBUxMethod.get('dtl-inp-brno');
+    let clclnSeq = SBUxMethod.get('dtl-slt-clclnSeq');
     const crtrYr = SBUxMethod.get('dtl-spi-yr');
     const corpNm = SBUxMethod.get('dtl-inp-corpNm');
-    <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
+    <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">/*관리자가 아니라면*/
     brno = "${loginVO.brno}";
+    /** 2차 정산기간동안 2차만 보이게 설정 **/
+    clclnSeq = "2";
     </c:if>
 
     const clclnSbmsnYn = SBUxMethod.get('dtl-slt-clclnAplyAtch');
-    const clclnSeq = SBUxMethod.get('dtl-slt-clclnSeq');
+
+
 
     const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizClclnAplyList.do", {
       crtrYr: crtrYr,
@@ -4165,6 +4206,10 @@
     });
   }
 
+  /**
+   * @name fn_gridRsltValueChange
+   * @description 정산결과 값 변경
+   */
   function fn_gridRsltValueChange() {
     const row = gridClclnRslt.getRow();
     const col = gridClclnRslt.getCol();
@@ -4178,7 +4223,150 @@
     if (_.isEqual(colNm,"clclnAprvAmt")) {
       rowData.checkedYn = "Y";
       gridClclnRslt.refresh();
+    } else if (_.isEqual(colNm, "checkedYn")) {
+      const allData = gridClclnRslt.getGridDataAll();
+
+      if (gfn_isEmpty(allData)) {
+        return;
+      }
+
+      const checkedData = allData.filter(item => item.checkedYn === "Y");
+      if (checkedData.length === 0) {
+        fn_calcRsltSum(allData); // 전체
+      } else {
+        fn_calcRsltSum(checkedData); // 선택
+      }
+      gridClclnRslt.refresh();
     }
+  }
+
+  function fn_calcRsltSum(dataList) {
+    let clclnRsltPsbltAmt = 0;
+    let clclnRsltDmndAmt = 0;
+    let clclnRsltAprvAmt = 0;
+    let clclnRsltRjctAmt = 0;
+    let clclnRsltUnuseAmt = 0;
+    let clclnRsltBlncTotAmt = 0;
+
+    for (let i =0; i <dataList.length; i++) {
+      const row = dataList[i];
+      clclnRsltPsbltAmt += row.clclnPsbltyAmt || 0;
+      clclnRsltDmndAmt += row.clclnDmndAmt || 0;
+      clclnRsltAprvAmt += row.clclnAprvAmt || 0;
+      clclnRsltAprvAmt += row.clclnAprvAmt || 0;
+      clclnRsltRjctAmt += row.clclnRjctAmt || 0;
+      clclnRsltUnuseAmt += row.unuseAmt || 0;
+      clclnRsltBlncTotAmt += row.blncTot || 0;
+    }
+
+    document.querySelector('#clclnRsltPsbltAmt').innerText = clclnRsltPsbltAmt.toLocaleString(); // 정산 가능액
+    document.querySelector('#clclnRsltDmndAmt').innerText = clclnRsltDmndAmt.toLocaleString(); // 정산 요청액
+    document.querySelector('#clclnRsltAprvAmt').innerText = clclnRsltAprvAmt.toLocaleString(); // 정산인정액
+    document.querySelector('#clclnRsltRjctAmt').innerText = clclnRsltRjctAmt.toLocaleString(); // 잔액 불인정액
+    document.querySelector('#clclnRsltUnuseAmt').innerText = clclnRsltUnuseAmt.toLocaleString(); // 잔액 미사용액
+    document.querySelector('#clclnRsltBlncTotAmt').innerText = clclnRsltBlncTotAmt.toLocaleString(); // 잔액 합계
+
+  }
+
+  /**
+   * @name fn_clclnRsltRawDataDown
+   * @description 정산결과 로우데이터 조회
+   */
+  const fn_clclnRsltRawDataDown = async function() {
+    if (!gfn_comConfirm("Q0001", "RawData 다운")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    await fn_createRsltRawDataGrid();
+    const crtrYr = SBUxMethod.get('dtl-spi-yr');
+    if (gfn_isEmpty(crtrYr)) {
+      gfn_comAlert("W0002", "연도"); // W0002 {0}을/를 입력하세요.
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtClclnRsltRawDataList.do", {
+      crtrYr : crtrYr
+    });
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        data.resultList.forEach(item => {
+          jsonRsltRawData.push({
+            sprtBizYr : item.sprtBizYr,
+            sprtBizCd : item.sprtBizCd,
+            sprtOgnzId : item.sprtOgnzId,
+            corpNm : item.corpNm,
+            brno : item.brno,
+            clclnSeq : item.clclnSeq,
+            clclnSeqNm : item.clclnSeqNm,
+            clclnPsbltyAmt : item.clclnPsbltyAmt,
+            clclnDmndAmt : item.dmndAmtTot,
+            clclnAprvAmt : item.clclnAprvAmt,
+            clclnRjctAmt : item.clclnRjctAmt,
+            unuseAmt : item.unuseAmt,
+            blncTot : item.blncTot,
+            implRt : item.implRt
+          })
+        });
+      }
+      gridRsltRawData.rebuild();
+      await fn_excelDown(crtrYr);
+
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  /**
+   * @name fn_createRsltRawDataGrid
+   * @description 정산결과 로우데이터 그리드
+   */
+  const fn_createRsltRawDataGrid = function() {
+    var SBGridProperties = {};
+    SBGridProperties.parentid = 'sb-area-gridRsltRawData';
+    SBGridProperties.id = 'gridRsltRawData';
+    SBGridProperties.jsonref = 'jsonRsltRawData';
+    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+    SBGridProperties.selectmode = 'free';
+    SBGridProperties.allowcopy = true;
+    SBGridProperties.extendlastcol = 'scroll';
+
+    SBGridProperties.columns = [
+      {caption: ['연도'], ref: 'sprtBizYr', width: '5%', type: 'output',style: 'text-align:center'},
+      {caption: ['법인명'], ref: 'corpNm', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['사업자번호'], ref: 'brno', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['회차'], ref: 'clclnSeqNm', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['정산가능액(A)(원)'], ref: 'clclnPsbltyAmt', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['정산요청액(원)'], ref: 'clclnDmndAmt', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['정산인정액(B)(원)'], ref: 'clclnAprvAmt', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['잔액 불인정'], ref: 'clclnRjctAmt', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['잔액 미사용액'], ref: 'unuseAmt', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['잔액 합계'], ref: 'blncTot', width: '5%', type: 'output', style: 'text-align:center'},
+      {caption: ['집행률(%)'], ref: 'implRt', width: '5%', type: 'output', style: 'text-align:center'},
+    ];
+    gridRsltRawData = _SBGrid.create(SBGridProperties);
+  }
+
+  /**
+   * @name fn_excelDown
+   * @description 엑셀다운
+   */
+  function fn_excelDown(crtrYr){
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear().toString().padStart(4, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    let formattedDate = year + month + day;
+
+    let fileName = formattedDate + "_" + crtrYr +"년_산지조직 정산결과_RawData";
+
+    gridRsltRawData.exportData("xlsx" , fileName , true , true);
   }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
