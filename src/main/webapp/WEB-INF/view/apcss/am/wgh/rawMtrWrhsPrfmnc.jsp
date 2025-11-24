@@ -34,6 +34,15 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
+							id="btn-srch-apcLinkPop"
+							name="btn-srch-apcLinkPop"
+							class="btn btn-sm btn-outline-danger"
+							text="연계요청"
+							uitype="modal"
+							target-id="modal-apcLinkPop"
+							onclick="fn_popApcLink"
+					></sbux-button>
+					<sbux-button
 							id="btnCmndDocPckg"
 							name="btnCmndDocPckg"
 							uitype="normal"
@@ -359,6 +368,22 @@
 			></sbux-button>
 		</div>
 	</div>
+
+	<div>
+		<sbux-modal
+				id="modal-apcLinkPop"
+				name="modal-apcLinkPop"
+				uitype="middle"
+				header-title="입고연계수신"
+				body-html-id="body-modal-apcLinkPop"
+				header-is-close-button="false"
+				footer-is-close-button="false"
+				style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-apcLinkPop">
+		<jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -417,7 +442,15 @@ async function cfn_search() {
 		jsonTrsprtSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-trsprtSeCd');
 
-		if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
+		// 입고연계요청
+		if (jsonApcAtrb.find(item => item.value === "WRHS_LINK")) {
+			SBUxMethod.show('btn-srch-apcLinkPop');
+		} else {
+			SBUxMethod.hide('btn-srch-apcLinkPop');
+		}
+
+		// 입고실적페이지 리포트 추가
+		if (jsonApcAtrb.find(item => item.value === "WRHS_DOC")) {
 			SBUxMethod.set("btnCmndDocPckg", "원물인식표V1");
 			SBUxMethod.show("dtl-btn-addDay");
 		}
@@ -722,8 +755,8 @@ async function cfn_search() {
 			rawMtrInvntrList.push({ wrhsno: item.wrhsno });
 		});
 
-		// 거산 임시
-		if (checkedWghnos.size > 0 && jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
+		// 거산 : 계량실적 하나에 wgh_sn 이 여러개 있어 오류 방지(원물계량시스템에서 삭제)
+		if (checkedWghnos.size > 0 && jsonApcAtrb.find(item => item.value === "WGH_DEL")) {
 			gfn_comAlert("E0000", "원물계량실적이 존재합니다.");
 			return;
 		}
@@ -802,7 +835,7 @@ async function cfn_search() {
 
 		let rptCdVl = "";
 
-		if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
+		if (jsonApcAtrb.find(item => item.value === "WRHS_DOC")) {
 			rptCdVl = obj.id === "btnCmndDocPckg" ? "RT_DOC_VER1" : "RT_DOC_VER2";
 		} else {
 			rptCdVl = "RT_DOC";
@@ -998,7 +1031,7 @@ const fn_docRawMtrWrhsList = async function() {
          	}
 
 			/** 25.11.03 거산 실적 내림차순 */
-			if (jsonApcAtrb.find(item => item.value === "WRHS_INQ")) {
+			if (jsonApcAtrb.find(item => item.value === "SORT_DESC")) {
 				let wghnoColIdx = grdRawMtrWrhs.getColRef('wghno');
 				grdRawMtrWrhs.sortColumn(wghnoColIdx, 'desc');
 			}
@@ -1237,6 +1270,26 @@ const fn_docRawMtrWrhsList = async function() {
 		let json = JSON.stringify(data);
 		/** main에 선언되어있는 fn **/
 		window.parent.cfn_openTabSearch(json);
+	}
+
+	/**
+	 * @name fn_popApcLink
+	 * @description 연계버튼팝업
+	 */
+	const fn_popApcLink = function () {
+		popApcLink.init(
+				{
+					apcCd: gv_selectedApcCd,
+					apcNm: gv_selectedApcNm,
+					linkKnd: "R",
+					kndList: ["R"]
+				},
+				fn_popApcLinkCallBack
+		);
+	}
+
+	const fn_popApcLinkCallBack = function () {
+
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
