@@ -1700,6 +1700,8 @@
     let pageSize = grdPrdcrOgnCurntMng.getPageSize();
     let pageNo = 1;
 
+    fn_clearForm(); // 초기화
+    fn_clearPruoPrgrsStts(); // 상태표시 초기화
     fn_setGrdFcltList(pageSize, pageNo);
   }
 

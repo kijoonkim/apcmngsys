@@ -584,7 +584,9 @@
 </body>
 <script type="text/javascript">
 
-	const initIndtfNo = "2025";
+	const params = new URLSearchParams(window.location.search);
+	const initIndtfNo = params.get("idntfNo") || "2025"; // URL 없으면 기본 2025
+	// const initIndtfNo = "2025";
 
 	var jsonDtlPage = [];
 
@@ -609,9 +611,9 @@
 
 		// 연도 변경 후 조회
 		//window.location.reload();
-		// const baseUrl = window.location.pathname.split('?')[0];
-		// window.location.href = baseUrl + '?idntfNo=' + page.value;
-		const year = page.value;
+		const baseUrl = window.location.pathname.split('?')[0];
+		window.location.href = baseUrl + '?idntfNo=' + page.value;
+		/*const year = page.value;
 		SBUxMethod.set("srch-input-yr", year);
 		SBUxMethod.set("dtl-input-yr", year);
 
@@ -620,7 +622,7 @@
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
-		</c:if>
+		</c:if>*/
 
 	}
 
