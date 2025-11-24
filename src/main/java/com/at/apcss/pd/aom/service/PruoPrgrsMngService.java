@@ -171,4 +171,12 @@ public interface PruoPrgrsMngService {
      * @throws Exception
      */
     public HashMap<String, Object> insertOnlnWhlslMrktSpmtPrfmnc(List<PrdcrCrclOgnOnlnWhlslMrktVO> prdcrCrclOgnOnlnWhlslMrktList) throws Exception;
+
+    /**
+     * 통합조직관리 - 진행상태 단건(처리)
+     * @param pruoPrgrsVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoPrgrsApo(PruoPrgrsVO pruoPrgrsVO) throws Exception;
 }

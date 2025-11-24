@@ -547,4 +547,30 @@ public class PruoPrgrsMngController extends BaseController {
 
         return getSuccessResponseEntity(resultMap);
     }
+
+    @PostMapping(value = "/pd/aom/insertPruoPrgrsApo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoPrgrsApo(@RequestBody PruoPrgrsVO pruoPrgrsVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            pruoPrgrsVO.setSysFrstInptUserId(getUserId());
+            pruoPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+            pruoPrgrsVO.setSysLastChgUserId(getUserId());
+            pruoPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoPrgrsApo(pruoPrgrsVO);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
 }

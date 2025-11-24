@@ -78,12 +78,17 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
                 return ComUtil.getResultMap(prgrs.getRtnCd(), prgrs.getRtnMsg());
             }
 
-            /*PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
-            if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
-                return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+            String prgrsStpCd = prgrs.getPrgrsStpCd();
+
+            if (prgrsStpCd.equals("DDLN")) {
+                PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
+                if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+                    return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+                }
+                // TB_EV_APLY_MNG 법인체 마감
+                pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs);
             }
-            // TB_EV_APLY_MNG 법인체 마감
-            pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs); */
+
         }
 
 
@@ -98,6 +103,17 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
             pruoPrgrsMngMapper.updatePruoPrgrsApoCncl(prgrs);
             if (StringUtils.hasText(prgrs.getRtnCd())) {
                 return ComUtil.getResultMap(prgrs.getRtnCd(), prgrs.getRtnMsg());
+            }
+
+            String prgrsStpCd = prgrs.getPrgrsStpCd();
+
+            if (prgrsStpCd.equals("DDLN")) {
+                PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
+                if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+                    return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+                }
+                // TB_EV_APLY_MNG 법인체 마감 취소
+                pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs);
             }
         }
         return null;
@@ -555,6 +571,29 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
         rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
         if (rtnObj != null) {
             throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoPrgrsApo(PruoPrgrsVO pruoPrgrsVO) throws Exception {
+
+        pruoPrgrsMngMapper.insertPruoPrgrsApo(pruoPrgrsVO);
+
+        if (StringUtils.hasText(pruoPrgrsVO.getRtnCd())) {
+            return ComUtil.getResultMap(pruoPrgrsVO.getRtnCd(), pruoPrgrsVO.getRtnMsg());
+        }
+
+        String prgrsStpCd = pruoPrgrsVO.getPrgrsStpCd();
+
+        if (prgrsStpCd.equals("DDLN")) {
+            PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(pruoPrgrsVO);
+            if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+            }
+            // TB_EV_APLY_MNG 법인체 마감
+            pruoPrgrsMngMapper.updateCorpDdlnSeCd(pruoPrgrsVO);
         }
 
         return null;
