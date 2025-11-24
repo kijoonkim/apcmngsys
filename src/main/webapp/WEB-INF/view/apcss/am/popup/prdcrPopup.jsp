@@ -293,7 +293,7 @@
 
 			let nRow = grdPrdcrPop.getRows();
 			/** 25.11.03 거산: 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
-			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 				grdPrdcrPop.insertRow(0);
 				grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
 			} else {
@@ -320,7 +320,7 @@
 			grdPrdcrPop.setCellData(nRow, nCol, "N", true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
 
-			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 				grdPrdcrPop.insertRow(nRow);
 			} else {
 				grdPrdcrPop.addRow(true);
@@ -446,7 +446,7 @@
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		excelYn = "N";
 
-					if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+					if (jsonApcAtrb.find(item => item.value === "POP_CHC_UPEND")) {
 						this.cancel();
 						await this.search();
 
@@ -540,7 +540,7 @@
 				grdPrdcrPop.rebuild();
 
 				/** 25.11.03 거산 최종수정날짜로 내림차순 */
-				if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+				if (jsonApcAtrb.find(item => item.value === "SORT_DESC")) {
 					let sysLastChgDtColIdx = grdPrdcrPop.getColRef('sysLastChgDt');
 					grdPrdcrPop.sortColumn(sysLastChgDtColIdx, 'desc');
 				}
@@ -552,7 +552,7 @@
 					 * 25.11.03
 					 * 1. 추가 행 맨 밑이 아닌 위로
 					 * */
-					if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+					if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 						grdPrdcrPop.insertRow(0);
 						grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
 					} else {

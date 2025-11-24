@@ -234,7 +234,7 @@
 			/** 25.11.03 거산 : 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
 			let nRow = grdVhclPop.getRows();
 
-			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 				grdVhclPop.insertRow(0);
 				grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
 			} else {
@@ -259,7 +259,7 @@
 			grdVhclPop.setCellData(nRow, nCol, "N", true);
 			grdVhclPop.setCellDisabled(nRow, 0, nRow, grdVhclPop.getCols() - 1, false);
 
-			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 				grdVhclPop.insertRow(nRow);
 			} else {
 				grdVhclPop.addRow(true);
@@ -354,7 +354,7 @@
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		// gfn_comAlert(data.resultCode, data.resultMessage);
 
-					if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+					if (jsonApcAtrb.find(item => item.value === "POP_CHC_UPEND")) {
 						this.cancel();
 						await this.search();
 
@@ -420,7 +420,7 @@
 
 	        	document.querySelector('#vhcl-pop-cnt').innerText = jsonVhclPop.length;
 
-				if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+				if (jsonApcAtrb.find(item => item.value === "SORT_DESC")) {
 					let sysLastChgDtColIdx = grdVhclPop.getColRef('sysLastChgDt');
 					grdVhclPop.sortColumn(sysLastChgDtColIdx, 'desc');
 				}
@@ -445,7 +445,7 @@
 			 * 1. 추가 행 맨 밑이 아닌 위로
 			 * */
 			let nRow = grdVhclPop.getRows();
-			if (jsonApcAtrb.find(item => item.value === "POPUP_ATRB")) {
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
 				grdVhclPop.insertRow(0);
 				grdVhclPop.setCellDisabled(1, 0, 1, grdVhclPop.getCols() - 1, true);
 			} else {
