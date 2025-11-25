@@ -1806,6 +1806,7 @@
 		let prdcrCd 		= "";
     	let prdcrLandInfoNo = "";
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let yr = SBUxMethod.get("srch-dtp-yr");
 
     	if (gfn_isEmpty(rowData.apcCd)) {
     		//prdcrLandInfoNo = choicePrdcrLandInfoNo;
@@ -1825,6 +1826,7 @@
 		  , prdcrCd			: prdcrCd
 		  , prdcrLandInfoNo : prdcrLandInfoNo
 		  , itemCd			: itemCd
+		  , yr				: yr
 		}
 		jsonCltvtnHstryPrdcr.length = 0;
 		try {
@@ -1896,6 +1898,7 @@
 
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let yr = SBUxMethod.get("srch-dtp-yr");
 
 		let cfmtnYmdFrom = SBUxMethod.get("srch-dtp-cfmtnYmdFrom");
 		let cfmtnYmdTo = SBUxMethod.get("srch-dtp-cfmtnYmdTo");
@@ -1906,6 +1909,7 @@
 		  , itemCd			: itemCd
 		  , cfmtnYmdTo 		: cfmtnYmdTo
 		  , cfmtnYmdFrom	: cfmtnYmdFrom
+		  , yr				: yr
 		}
 		jsonCltvtnHstry.length = 0;
 		try {
