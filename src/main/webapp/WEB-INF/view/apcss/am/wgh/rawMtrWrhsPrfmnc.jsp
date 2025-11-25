@@ -125,7 +125,7 @@
 						<tr>
 							<th scope="row" class="th_bg">APC명</th>
 							<td class="td_input" colspan="3">
-								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
+								<%@ include file="../../../frame/inc/apcSelectCompAll.jsp" %>
 							</td>
 							<th scope="row" class="th_bg">계량대</th>
 							<td colspan="4" class="td_input" style="border-right: hidden">
