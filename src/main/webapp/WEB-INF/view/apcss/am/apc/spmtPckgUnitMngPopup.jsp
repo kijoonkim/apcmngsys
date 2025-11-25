@@ -54,8 +54,13 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 									onchange="fn_selectItemSpmtPckgUnit"></sbux-select>
 								</th>
-								<th></th>
-								<th></th>
+								<th scope="row">상품명</th>
+								<th>
+									<sbux-input id="spmtPckgUnit-slt-spmtPckgUnitNm"
+												name="spmtPckgUnit-slt-spmtPckgUnitNm"
+												uitype="text" class="form-control input-sm"
+												></sbux-input>
+								</th>
 							</tr>
 						</tbody>
 					</table>
@@ -169,6 +174,7 @@
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
 	    SBGridProperties.selectmode = 'byrow';
 	    SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.explorerbar = 'sort';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.columns = [
 	        {caption: ["처리"], 		ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -200,7 +206,7 @@
 					unselect: {label : '', value: ''}
  				}
 			},
-	        {caption: ["상품명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
+	        {caption: ["상품명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'200px',    style:'text-align:left',
 				typeinfo : {maxlength : 30}},
 	        {caption: ["브랜드명"], 		ref: 'brndNm',  type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
 			{
@@ -247,6 +253,8 @@
     			typeinfo : {ref:'jsonStdEcfrdCd', displayui : false, label:'label', value:'value'}},
 			{caption: ["표준단위코드"], 			ref: 'stdUnitCd',  type:'combo',  width:'100px',    style:'text-align:center',
    				typeinfo : {ref:'jsonStdUnitCd', displayui : false, label:'label', value:'value'}},
+			{caption: ["판매코드"],     	ref: 'ntslCd',  type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["체적단중"],     	ref: 'volUnitWght',  type:'input',  width:'100px',    style:'text-align:center'},
 	        {caption: ["출하포장단위코드"], ref: 'spmtPckgUnitCd',	type:'input',  hidden : true},
 	        {caption: ["APC코드"], 			ref: 'apcCd',   		type:'input',  hidden : true},
 	        {caption: ["품목명"], 			ref: 'itemNm',   		type:'input',  hidden : true},
@@ -336,12 +344,15 @@
 
 	const fn_selectSpmtPckgUnit = async function(){
 		let apcCd = gv_apcCd;
-		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd");
-		if(gfn_isEmpty(itemCd)){
+		let itemCd = SBUxMethod.get("spmtPckgUnit-slt-itemCd") || '';
+		let spmtPckgUnitNm = SBUxMethod.get("spmtPckgUnit-slt-spmtPckgUnitNm") || '';
+
+		if(gfn_isEmpty(itemCd) && gfn_isEmpty(spmtPckgUnitNm)){
 			gfn_comAlert("W0001", "품목");		//	W0002	{0}을/를 선택하세요.
 			return;
 		}
-		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd});
+
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectSpmtPckgUnitList.do", {apcCd : apcCd, itemCd : itemCd, spmtPckgUnitNm : spmtPckgUnitNm});
 	    let data = await postJsonPromise;
 	    try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -372,7 +383,9 @@
 					  	sn				: item.sn,
 						sortGrdCd		: item.sortGrdCd,
 						pckgGrdCd		: item.pckgGrdCd,
-						cnptNm			: item.cnptNm
+						cnptNm			: item.cnptNm,
+						ntslCd			: item.ntslCd,
+						volUnitWght		: item.volUnitWght
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});
@@ -408,6 +421,9 @@
 			let sortGrdCd = rowData.sortGrdCd;
 			let ntslUntprc = rowData.ntslUntprc;
 			let brndNm  = rowData.brndNm;
+			let ntslCd = rowData.ntslCd;
+			let volUnitWght = rowData.volUnitWght;
+
 			if(delYn == 'N'){
 				if (gfn_isEmpty(itemCd)) {
 		  			gfn_comAlert("W0001", "품목");		//	W0001	{0}을/를 선택하세요.
