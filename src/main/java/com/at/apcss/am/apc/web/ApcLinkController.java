@@ -163,10 +163,21 @@ public class ApcLinkController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> insertApcLinkTrsmMatList(@RequestBody List<ApcLinkVO> trsmMatList, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
+		ApcLinkVO resultVO = new ApcLinkVO();
+
 		try {
 			
 			for ( ApcLinkVO trsmMat : trsmMatList ) {
+
+				resultVO = apcLinkService.selectApcLink(trsmMat);
+
+				if (resultVO == null
+						|| ComConstants.CON_YES.equals(resultVO.getDelYn())
+						|| !StringUtils.hasText(resultVO.getApcKey())) {
+					return getErrorResponseEntity("E0000", "APC 인증키 정보 없음");
+				}
+
 				trsmMat.setSysFrstInptUserId(getUserId());
 				trsmMat.setSysFrstInptPrgrmId(getPrgrmId());
 				trsmMat.setSysLastChgUserId(getUserId());
