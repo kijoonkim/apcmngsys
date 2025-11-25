@@ -47,14 +47,6 @@
                         onclick="fn_sdlngCrtrPop"
                     ></sbux-button>
                     <sbux-button
-                        id="btnSearch"
-                        name="btnSearch"
-                        uitype="normal"
-                        class="btn btn-sm btn-outline-danger"
-                        text="조회"
-                        onclick="fn_search"
-                    ></sbux-button>
-                    <sbux-button
                         id="btnSave"
                         name="btnSave"
                         uitype="normal"
@@ -69,6 +61,14 @@
                         class="btn btn-sm btn-outline-danger"
                         text="삭제"
                         onclick="fn_delete"
+                    ></sbux-button>
+                    <sbux-button
+                        id="btnSearch"
+                        name="btnSearch"
+                        uitype="normal"
+                        class="btn btn-sm btn-outline-danger"
+                        text="조회"
+                        onclick="fn_search"
                     ></sbux-button>
                 </div>
             </div>
@@ -1351,7 +1351,10 @@
 
         jsonCltvtn.length = 0;
 
-        fn_initSBSelect();
+        let rst = await Promise.all([
+            gfn_setSdlngFcltZoneSBSelect('gridCltvtn', jsonGridCltvtnZone, gv_selectedApcCd, '02'),
+            gfn_setSdlngFcltRowSBSelect('gridCltvtn', jsonGridCltvtnRow, gv_selectedApcCd, '02')
+        ]);
 
         try {
             const postJsonPromise = gfn_postJSON("/am/wrhs/selectCltvtnList.do", param, null, false);
@@ -1577,7 +1580,9 @@
 
         jsonWgh.length = 0;
 
-        fn_initSBSelect();
+        let rst = await Promise.all([
+            gfn_setSpmtPckgUnitSBSelect('gridWgh', jsonSpmtPckgUnitCd, gv_selectedApcCd)
+        ]);
 
         try {
             const postJsonPromise = gfn_postJSON("/am/wrhs/selectWghList.do", param, null, false);
