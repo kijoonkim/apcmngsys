@@ -2824,8 +2824,8 @@
 		let prdcrVO = null;
 		let cltvtnFrmhsQltVO = null;
 
-		let frmhsAddr = SBUxMethod.get("dtl-inp-frmhsAddr");
-		let frmhsCtpv = SBUxMethod.get("dtl-inp-frmhsCtpv");
+		let frmhsAddr = SBUxMethod.get("dtl-inp-frmhsAddr") || "";
+		let frmhsCtpv = SBUxMethod.get("dtl-inp-frmhsCtpv") || "";
 		let frmhsTelno = SBUxMethod.get("dtl-inp-frmhsTelno");
 		let plntngPrcl = SBUxMethod.get("dtl-inp-plntngPrcl");
 		let prchsQntt = SBUxMethod.get("dtl-inp-prchsQntt");
@@ -3613,8 +3613,8 @@
 			SBUxMethod.set("dtl-inp-prdcrCd", jsonPrdcrDtl.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", jsonPrdcrDtl.prdcrLinkCd);
 			SBUxMethod.set("dtl-inp-frmhsTelno", jsonPrdcrDtl.frmhsTelno);
-			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv);
-			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr);
+			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv || "");
+			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr || "");
 			SBUxMethod.set("dtl-inp-crtrPrcl", jsonPrdcrDtl.crtrPrcl);
 			SBUxMethod.set("dtl-inp-plntngPrcl", jsonPrdcrDtl.plntngPrcl);
 			SBUxMethod.set("dtl-inp-landCrtrArea", jsonPrdcrDtl.landCrtrArea);
