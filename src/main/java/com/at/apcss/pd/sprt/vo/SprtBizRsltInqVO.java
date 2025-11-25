@@ -15,7 +15,6 @@ public class SprtBizRsltInqVO extends ComVO {
     private String crtrYmdTo;
     private String sprtYmdFrom;
     private String sprtYmdTo;
-    private String corpNm;
     private String sprtBizYr;
     private String sprtBizNm;
     private String bzmnConm;
@@ -34,4 +33,14 @@ public class SprtBizRsltInqVO extends ComVO {
     private String sprtBizCd;
     private String sprtBizYrMax;
     private String sprtBizYrMin;
+    private String corpNm;
+    private String psnSeCd;
+    private String ognzCd;
+    private String stdgCd;
+
+    private String errCd;
+    private String errMsg;
+    private int rowSeq;
+
+
 }

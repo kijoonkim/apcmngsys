@@ -171,6 +171,8 @@
 					     , SPU.GDS_GRD				AS GDS_GRD
 						, SPU.SORT_GRD_CD		AS SORT_GRD_CD
 						, SPU.PCKG_GRD_CD		AS PCKG_GRD_CD
+    		   			, SPU.NTSL_CD			AS NTSL_CD
+    		   			, SPU.VOL_UNIT_WGHT		AS VOL_UNIT_WGHT
                          , SC.WGHT                  AS SPCFCT_WGHT
                          , SC.BX_GDS_QNTT           AS BX_GDS_QNTT
                          , (SELECT AFTR_GRD_CD
@@ -257,6 +259,8 @@
 		    		, STD_GRD_CD
 					, SORT_GRD_CD
 					, PCKG_GRD_CD
+					, NTSL_CD
+					, VOL_UNIT_WGHT
 				)
 	   		VALUES
 	   			(
@@ -284,6 +288,8 @@
 		    		, #{stdGrdCd}
 					, #{sortGrdCd}
 					, #{pckgGrdCd}
+					, #{ntslCd}
+					, #{volUnitWght}
 	   			)
     	]]>
     </insert>
@@ -318,8 +324,10 @@
 	    		, STD_UNIT_CD				= #{stdUnitCd}
 	    		, STD_ECFRD_CD				= #{stdEcfrdCd}
 	    		, STD_GRD_CD				= #{stdGrdCd}
-				 , SORT_GRD_CD				= #{sortGrdCd}
-				 , PCKG_GRD_CD				= #{pckgGrdCd}
+				, SORT_GRD_CD				= #{sortGrdCd}
+				, PCKG_GRD_CD				= #{pckgGrdCd}
+			    , NTSL_CD					= #{ntslCd}
+			   	, VOL_UNIT_WGHT				= #{volUnitWght}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
 			   AND APC_CD					= #{apcCd}
 		]]>

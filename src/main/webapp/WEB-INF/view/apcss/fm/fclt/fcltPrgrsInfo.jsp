@@ -51,40 +51,20 @@
 			<!--[pp] 검색 -->
 			<table class="table table-bordered tbl_fixed">
 				<caption>검색 조건 설정</caption>
-				<colgroup>
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 2%">
-					<col style="width: 5%">
-					<col style="width: 2%">
-
-					<col style="width: 7%">
-					<col style="width: 4%">
-					<col style="width: 2%">
-					<col style="width: 3%">
-					<col style="width: 3%">
-					<col style="width: 3%">
-
-					<col style="width: 7%">
-					<col style="width: 6%">
-					<col style="width: 3%">
-					<col style="width: 3%">
-					<col style="width: 3%">
-				</colgroup>
 				<tbody>
 					<tr>
 						<th scope="row" class="th_bg">조사연도</th>
-						<td colspan="2" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
+									wrap-style="width:100%"
 								></sbux-spinner>
 						</td>
-						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">시도</th>
-						<td colspan="3" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-select
 								id="srch-inp-ctpv"
 								name="srch-inp-ctpv"
@@ -95,10 +75,8 @@
 								onchange="fn_ctpvChange"
 							></sbux-select>
 						</td>
-						<td colspan="2" class="td_input" style="border-right: hidden;">
-						</td>
 						<th scope="row" class="th_bg">시군구</th>
-						<td colspan="2" class="td_input" style="border-right: hidden;">
+						<td class="td_input" style="border-right: hidden;">
 							<sbux-select
 								id="srch-inp-sgg"
 								name="srch-inp-sgg"
@@ -110,12 +88,10 @@
 								jsondata-filter="mastervalue"
 							></sbux-select>
 						</td>
-						<td colspan="" class="td_input" style="border-right: hidden;">
-						</td>
 					</tr>
 					<tr>
 						<th scope="row" class="th_bg">APC명</th>
-						<td colspan="2" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-input
 								uitype="text"
 								id="srch-inp-apcNm"
@@ -125,9 +101,8 @@
 								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
-						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">품목명</th>
-						<td colspan="3" class="td_input" style="border-right:hidden;">
+						<td class="td_input" style="border-right:hidden;">
 							<sbux-input
 								uitype="text"
 								id="srch-inp-itemNm"
@@ -137,10 +112,8 @@
 								onkeyenter="fn_selectEnterKey"
 							></sbux-input>
 						</td>
-						<td colspan="2" class="td_input" style="border-right: hidden;">
-						</td>
 						<th scope="row" class="th_bg">부류</th>
-						<td colspan="2" class="td_input" style="border-right: hidden;">
+						<td class="td_input" style="border-right: hidden;">
 							<sbux-select
 								id="srch-inp-srchLclsfCd"
 								name="srch-inp-srchLclsfCd"
@@ -150,8 +123,7 @@
 								class="form-control input-sm"
 							></sbux-select>
 						</td>
-						<td colspan="" class="td_input" style="border-right: hidden;">
-						</td>
+
 					</tr>
 				</tbody>
 			</table>
@@ -346,7 +318,6 @@
      * @param {number} pageNo
 	*/
 	const fn_selectFcltPrgrsInfoList = async function(pageSize, pageNo) {
-		//console.log("******************fn_setGrdFcltPrgrsInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");
@@ -375,7 +346,6 @@
 			jsonFcltPrgrsInfo.length = 0;
 			let totalRecordCount = data.resultList.length;
 			data.resultList.forEach((item, index) => {
-				//console.log(item);
 				let itemVO = {
 						apcCd			:item.apcCd
 						,apcNm			:item.apcNm
@@ -442,7 +412,6 @@
 
 	//등록
 	const fn_save = async function() {
-		//console.log("******************fn_save**********************************");
 
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
@@ -459,7 +428,6 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed){
-		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let gridData = grdFcltPrgrsInfo.getGridDataAll();
@@ -499,7 +467,6 @@
 		} catch(e) {
 		}
 		// 결과 확인 후 재조회
-		//console.log("insert result", data);
 	}
 
 
@@ -509,13 +476,10 @@
 	}
 	// apc 선택 팝업 콜백 함수
 	const fn_setApc = function(apc) {
-		//console.log("======fn_setApc=======");
-		//console.log(apc);
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-		//console.log("======fn_setApc====end===");
 	}
 
 	//시도 변경 이벤트
@@ -545,13 +509,14 @@
 			return;
 		}
 		let strVal = "";
-		if(ynVal == "Y"){
+		if (ynVal == "Y") {
 			strVal = "승인";
-		}else if(ynVal == "N"){
+		} else if (ynVal == "N") {
 			strVal = "반려";
-		}else if(ynVal == "C"){
+		} else if (ynVal == "C") {
 			strVal = "취소";
 		}
+
 		if (!gfn_comConfirm("Q0001", strVal)) {
 			return;
 		}
@@ -561,13 +526,18 @@
 		let data = await postJsonPromise;
 
 		try{
-			//console.log(data);
-			fn_search();
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+				fn_search();
+			} else {
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -592,14 +562,15 @@
 			return;
 		}
 		let confirmStr = ""
-		if(ynVal == "Y"){
-			confirmStr = "최종제출"
-		}else if(ynVal == "N"){
+		if (ynVal == "Y") {
+			confirmStr = "최종제출을 하시면 법인APC는 입력 내용을 변경할 수 없습니다.\n최종제출";
+		} else if(ynVal == "N") {
 			confirmStr = "최종제출 해제"
-		}else{
+		} else {
 			return;
 		}
-		if (!gfn_comConfirm("Q0001", confirmStr)) {
+
+		if (!gfn_comConfirm("Q0001", confirmStr)) { // Q0001 {0} 하시겠습니까?
 			return;
 		}
 
@@ -608,13 +579,18 @@
 		let data = await postJsonPromise;
 
 		try{
-			//console.log(data);
-			fn_search();
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+				fn_search();
+			} else {
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 	}
 
@@ -627,7 +603,6 @@
 
 		let apcCd = rowData.apcCd;
 		let crtrYr = rowData.crtrYr;
-		//console.log(apcCd,crtrYr);
 
 		if(apcCd == null || apcCd == "" || apcCd === undefined){
 			return;
@@ -727,7 +702,6 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						crtrYr			:item.crtrYr
@@ -810,7 +784,6 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
@@ -1315,7 +1288,6 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd1.length = 0;
-			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						/* 운영자개요 */
@@ -1791,7 +1763,6 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		//console.log(hiddenGrd.exportData);
 		hiddenGrd1.exportData("xlsx" , fileName , true , true);
 	}
 

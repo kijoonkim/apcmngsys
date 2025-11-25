@@ -12,7 +12,6 @@
         , pt0.*
         FROM (
 
-
         SELECT T1.SPRT_BIZ_YR AS SPRT_BIZ_YR
              , T1.SPRT_BIZ_NM AS SPRT_BIZ_NM
              , T1.BZMN_CONM AS BZMN_CONM
@@ -27,10 +26,10 @@
              , T1.ALTMNT_INT AS ALTMNT_INT
              , T1.RMRK AS RMRK
 
-             , ( SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = T2.ATRB_NM ) AS ITEM_CD
-             , ( SELECT FN_GET_COM_CD_VL_NM ('WRHS_SE_CD', T3.ATRB_NM) FROM DUAL) AS BIZ_TYPE
+             , ( SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = T1.ITEM_CD ) AS ITEM_CD
+             , ( SELECT FN_GET_COM_CD_VL_NM ('WRHS_SE_CD', T1.WRHS_SE_CD ) FROM DUAL) AS BIZ_TYPE
 
-        FROM ( 	SELECT A.SPRT_BIZ_YR AS SPRT_BIZ_YR
+          FROM (  SELECT A.SPRT_BIZ_YR AS SPRT_BIZ_YR
                        , A.SPRT_BIZ_NM AS SPRT_BIZ_NM
                        , C.BZMN_CONM AS BZMN_CONM
                        , CASE
@@ -52,10 +51,29 @@
                        , D.SPRT_BIZ_CD AS SPRT_BIZ_CD
                        , D.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
                        , D.REG_SEQ AS REG_SEQ
+                       , E.ITEM_CD AS ITEM_CD
+                       , E.WRHS_SE_CD AS WRHS_SE_CD
                   FROM TB_EV_SPRT_BIZ_MSTR A
                      , TB_EV_SPRT_BIZ_OGNZ B
                      , TB_COM_CORP_BZMN C
                      , TB_EV_SPRT_BIZ_ALTMNT D
+                     , ( SELECT SPRT_BIZ_YR
+                              , SPRT_BIZ_CD
+                              , SPRT_OGNZ_ID
+                              , REG_SEQ
+                              , MAX( CASE
+                                        WHEN ATRB_CD = 'ITEM_CD' THEN ATRB_NM
+                                      END ) AS ITEM_CD
+                              , MAX( CASE
+                                        WHEN ATRB_CD = 'WRHS_SE_CD' THEN ATRB_NM
+                                      END ) AS WRHS_SE_CD
+                           FROM TB_EV_SPRT_BIZ_ALTMNT_ATRB
+                          WHERE 1=1
+                            AND DEL_YN = 'N'
+                       GROUP BY SPRT_BIZ_YR
+                              , SPRT_BIZ_CD
+                              , SPRT_OGNZ_ID
+                              , REG_SEQ ) E
                   WHERE 1=1
                     AND A.SPRT_BIZ_YR = B.SPRT_BIZ_YR
                     AND A.SPRT_BIZ_CD = B.SPRT_BIZ_CD
@@ -63,6 +81,10 @@
                     AND B.SPRT_BIZ_YR = D.SPRT_BIZ_YR
                     AND B.SPRT_BIZ_CD = D.SPRT_BIZ_CD
                     AND B.SPRT_OGNZ_ID = D.SPRT_OGNZ_ID
+                    AND D.SPRT_BIZ_YR = E.SPRT_BIZ_YR(+)
+                    AND D.SPRT_BIZ_CD = E.SPRT_BIZ_CD(+)
+                    AND D.SPRT_OGNZ_ID = E.SPRT_OGNZ_ID(+)
+                    AND D.REG_SEQ = E.REG_SEQ(+)
                     AND C.USE_YN = 'Y'
                     AND A.DEL_YN = 'N'
                     AND B.DEL_YN = 'N'
@@ -76,55 +98,122 @@
                 </if>
                     AND B.CRNO LIKE '%' || #{crno} || '%'
                     AND B.BRNO LIKE '%' || #{brno} || '%'
-                    AND C.BZMN_CONM LIKE '%' || #{corpNm} || '%'
+                    AND C.BZMN_CONM LIKE '%' || #{bzmnConm} || '%'
                 <if test='sprtYmdFrom != null and sprtYmdFrom != "" and sprtYmdTo != null and sprtYmdTo != ""'>
                     AND D.SPRT_YR BETWEEN #{sprtYmdFrom} AND #{sprtYmdTo}
                 </if>
+                  ORDER BY SPRT_BIZ_YR DESC, SPRT_BIZ_NM
             ) T1
-           , ( SELECT ATRB_NM
-                    , SPRT_BIZ_YR
-                    , SPRT_BIZ_CD
-                    , SPRT_OGNZ_ID
-                    , REG_SEQ
-                 FROM TB_EV_SPRT_BIZ_ALTMNT_ATRB
-                WHERE 1=1
-                  AND ATRB_CD = 'ITEM_CD'
-                  AND DEL_YN = 'N'
-            ) T2
-           , ( SELECT ATRB_NM
-                    , SPRT_BIZ_YR
-                    , SPRT_BIZ_CD
-                    , SPRT_OGNZ_ID
-                    , REG_SEQ
-                 FROM TB_EV_SPRT_BIZ_ALTMNT_ATRB
-                WHERE 1=1
-                  AND ATRB_CD = 'WRHS_SE_CD'
-                  AND DEL_YN = 'N'
-            ) T3
-        WHERE 1=1
-          AND T1.SPRT_BIZ_YR = T2.SPRT_BIZ_YR(+)
-          AND T1.SPRT_BIZ_CD = T2.SPRT_BIZ_CD(+)
-          AND T1.SPRT_OGNZ_ID = T2.SPRT_OGNZ_ID(+)
-          AND T1.REG_SEQ = T2.REG_SEQ(+)
-          AND T1.SPRT_BIZ_YR = T3.SPRT_BIZ_YR(+)
-          AND T1.SPRT_BIZ_CD = T3.SPRT_BIZ_CD(+)
-          AND T1.SPRT_OGNZ_ID = T3.SPRT_OGNZ_ID(+)
-          AND T1.REG_SEQ = T3.REG_SEQ(+)
-        ) pt0
+
+          ) pt0
 
 
     </select>
 
     <select id="selectSprtBizRsltInqSeCd" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
-        SELECT MIN(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MIN
-             , MAX(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MAX
-             , SPRT_BIZ_CD
-             , SPRT_BIZ_NM
-        FROM TB_EV_SPRT_BIZ_MSTR
-        WHERE 1=1
-          AND DEL_YN = 'N'
-        GROUP BY SPRT_BIZ_NM, SPRT_BIZ_CD
-        ORDER BY SPRT_BIZ_NM
+        SELECT ROWNUM AS ROW_SEQ
+             , pt0.*
+        FROM (
+                 SELECT MIN(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MIN
+                      , MAX(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MAX
+                      , SPRT_BIZ_CD
+                      , SPRT_BIZ_NM
+                 FROM TB_EV_SPRT_BIZ_MSTR
+                 WHERE 1=1
+                   AND DEL_YN = 'N'
+                 GROUP BY SPRT_BIZ_NM, SPRT_BIZ_CD
+                 ORDER BY SPRT_BIZ_NM
+             ) pt0
     </select>
+
+    <select id="selectComCorpBzmn" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+        SELECT ROWNUM AS ROW_SEQ
+             , pt0.*
+        FROM (
+                 SELECT BRNO AS BRNO
+                      , BZMN_CONM AS BZMN_CONM
+                 FROM TB_COM_CORP_BZMN
+             ) pt0
+    </select>
+
+    <select id="selectComCorp" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+        SELECT ROWNUM AS ROW_SEQ
+             , pt0.*
+        FROM (
+                 SELECT CRNO AS CRNO
+                      , CORP_NM AS CORP_NM
+                 FROM TB_COM_CORP
+             ) pt0
+    </select>
+
+    <insert id="insertSprtBizRsltInqList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    </insert>
+
+    <insert id="insertSpComCorpAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    	<![CDATA[
+        {   call SP_COM_CORP_ADD (
+            'test'
+            ,'test'
+/*                  #{userId}
+                , #{prgrmId}*/
+                , #{crno}
+                , #{corpNm}
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , #{errCd, jdbcType=VARCHAR, mode=OUT}
+                , #{errMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+        }
+        ]]>
+    </insert>
+
+    <insert id="insertSpComBzmnAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    	<![CDATA[
+        {   call SP_COM_BZMN_ADD (
+                  #{userId}
+                , #{prgrmId}
+                , #{brno}
+                , #{psnSeCd}
+                , #{bzmnConm}
+                , #{crno}
+                , #{ognzCd}
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , ''
+                , #{stdgCtpvCd}
+                , #{stdgSggCd}
+                , #{stdgCd}
+                , #{instNo, jdbcType=VARCHAR, mode=OUT}
+                , #{ognzCd, jdbcType=VARCHAR, mode=OUT}
+                , #{errCd, jdbcType=VARCHAR, mode=OUT}
+                , #{errMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+        }
+        ]]>
+    </insert>
 
 </mapper>
