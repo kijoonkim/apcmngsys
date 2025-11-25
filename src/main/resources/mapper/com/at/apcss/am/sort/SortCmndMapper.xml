@@ -70,9 +70,9 @@
 			  	   TB_SORT_CMND SC
 			  	 , TB_RAW_MTR_INVNTR RI
 	        WHERE SC.DEL_YN = 'N'
-	          AND RI.DEL_YN = 'N'
-	          AND SC.APC_CD = RI.APC_CD
-	          AND SC.WRHSNO = RI.WRHSNO
+	          AND RI.DEL_YN(+) = 'N'
+	          AND SC.APC_CD = RI.APC_CD(+)
+	          AND SC.WRHSNO = RI.WRHSNO(+)
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 	          AND SC.APC_CD = #{apcCd}
