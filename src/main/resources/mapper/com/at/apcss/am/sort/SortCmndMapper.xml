@@ -40,6 +40,7 @@
                 , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
                 , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
     			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
                 , pt0.SORT_CMNDNO || '-' || pt0.SORT_CMND_SN AS SORT_CMNDNO_INDCT
 
     		  FROM (
@@ -60,6 +61,7 @@
 			     , SC.DEL_YN            AS DEL_YN           -- 삭제유무
 			     , RI.BX_KND         	AS BX_KND
 				 , RI.GRD_CD			AS GRD_CD
+				 , RI.GDS_SE_CD			AS GDS_SE_CD
 				 , RI.INVNTR_QNTT    	AS INVNTR_QNTT
 				 , RI.INVNTR_WGHT    	AS INVNTR_WGHT
 				 , RI.WRHS_YMD       	AS WRHS_YMD
@@ -77,6 +79,9 @@
 		<if test='apcCd != null and apcCd != ""'>
 	          AND SC.APC_CD = #{apcCd}
 		</if>
+        <if test='sortCmndno != null and sortCmndno != ""'>
+             AND SC.SORT_CMNDNO = #{sortCmndno}
+        </if>
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
 		</if>

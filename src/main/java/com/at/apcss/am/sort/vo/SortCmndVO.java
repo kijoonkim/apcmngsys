@@ -1,7 +1,6 @@
 package com.at.apcss.am.sort.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -165,4 +164,14 @@ public class SortCmndVO extends ComVO {
 	 * 창고구분명
 	 */
 	private String warehouseSeNm;
+
+    /**
+     * 상품구분코드
+     */
+    private String gdsSeCd;
+
+    /**
+     * 상품구분명
+     */
+    private String gdsSeNm;
 }
