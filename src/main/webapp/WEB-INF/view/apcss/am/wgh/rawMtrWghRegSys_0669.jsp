@@ -816,7 +816,7 @@
 				if (i === maxRetries - 1) {
 					console.error('최대 재시도 횟수 초과:', error);
 					console.log('fn', fn);
-					gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+					// gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 					throw error;
 				}
 				await new Promise(resolve => setTimeout(resolve, delay));
@@ -884,9 +884,15 @@
 
 	window.addEventListener('DOMContentLoaded',async function(e) {
 		SBUxMethod.openProgress(gv_loadingOptions);
-		await fn_init();
-		await fn_search();
-		SBUxMethod.closeProgress(gv_loadingOptions);
+		try {
+			await fn_init();
+			await fn_search();
+		} catch (error) {
+			console.error("초기화 중 오류 발생:", error);
+			gfn_comAlert("E0001"); // 오류가 발생하였습니다.
+		} finally {
+			SBUxMethod.closeProgress(gv_loadingOptions);
+		}
 	});
 	const getCookie = (name) => {
 		const cookieString = `; ${'${document.cookie}'}`;
@@ -916,7 +922,16 @@
 			SBUxMethod.set("dtl-slt-itemCd",itemCd.toString());
 			SBUxMethod.dispatch('dtl-slt-itemCd', 'onchange');
 		}
-		ws.init();
+
+		// WebSocket 초기화 (비동기 non-blocking)
+		// 페이지 로드를 차단하지 않도록 백그라운드에서 실행
+		setTimeout(() => {
+			try {
+				ws.init();
+			} catch (error) {
+				console.warn("WebSocket 초기화 실패:", error);
+			}
+		}, 0);
 
 		/** report 버튼 활성화 */
 		// SBUxMethod.attr("btnDocRawMtrWghV1", "disabled", "false");
@@ -3142,10 +3157,32 @@
 		isConnected: false,
 		isReconnecting: false,
 		reconnectInterval: 30000,
+		connectionTimeout: 5000, // 5초 타임아웃
+		timeoutId: null,
 		init: function() {
+			// 기존 타임아웃 제거
+			if (this.timeoutId) {
+				clearTimeout(this.timeoutId);
+				this.timeoutId = null;
+			}
+
 			this.socket = new WebSocket("ws://localhost:9090/ws");
 
+			// 연결 타임아웃 설정
+			this.timeoutId = setTimeout(() => {
+				if (!this.isConnected && this.socket) {
+					console.warn("WebSocket 연결 타임아웃");
+					this.socket.close();
+				}
+			}, this.connectionTimeout);
+
 			this.socket.onopen = () => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
+
 				this.isConnected = true;
 
 				// $("#unit").css("display","initial");
@@ -3168,10 +3205,21 @@
 			};
 
 			this.socket.onerror = (error) => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
 				this.isConnected = false;
 			};
 
 			this.socket.onclose = () => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
+
 				this.isConnected = false;
 				this.isReconnecting = false;
 				$("#nowWght").text('수신중');
