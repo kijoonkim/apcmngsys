@@ -118,7 +118,9 @@
         li.sbux-ui-menu-item{
             font-size: x-large;
         }
-
+        #td-gdsSeCd > div {
+            font-size: 17pt;
+        }
     </style>
 
 </head>
@@ -282,7 +284,7 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>상품구분</th>
-                    <td colspan="8" class="td_input" style="border-right: hidden;">
+                    <td colspan="8" id="td-gdsSeCd" class="td_input" style="border-right: hidden;">
                         <sbux-radio
                             id="srch-rdo-gdsSeCd"
                             name="srch-rdo-gdsSeCd"
