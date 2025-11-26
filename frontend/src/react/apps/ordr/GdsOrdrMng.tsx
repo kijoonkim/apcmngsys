@@ -8,10 +8,16 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import * as XLSX from 'xlsx';
+import { parse as parseHTML } from 'node-html-parser';
 import { DatesProvider, DatePickerInput } from '@mantine/dates';
+import { MantineProvider, Tabs, Stack, Paper, Text, ActionIcon, Group, Badge } from '@mantine/core';
+import { IconX, IconUpload, IconFile } from '@tabler/icons-react';
+import { Dropzone } from '@mantine/dropzone';
 import Swal from 'sweetalert2';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { Autocomplete } from '@mantine/core';
 // AG Grid v34+ 스타일
 import 'ag-grid-community/styles/ag-grid.css';
@@ -69,6 +75,219 @@ const reverseHeaderMapping: Record<string, string> = {
   outordrAmt: '총발주 매입금',
   wrhsAmt: '입고금액',
 };
+
+// ============================================================================
+// 벤더 감지 관련 타입 및 상수
+// ============================================================================
+
+interface VendorSignature {
+  vendor: 'SHINSEGAE' | 'COUPANG' | 'LOTTE';
+  keyHeaders: string[];
+  headerCount: number;
+}
+
+const VENDOR_SIGNATURES: VendorSignature[] = [
+  {
+    vendor: 'SHINSEGAE',
+    keyHeaders: ['발주일자', '업체코드', '센터입하일자', '센터코드'],
+    headerCount: 27,
+  },
+  {
+    vendor: 'COUPANG',
+    keyHeaders: ['발주번호', '물류센터', '회송담당자', 'Xdock'],
+    headerCount: 23,
+  },
+  {
+    vendor: 'LOTTE',
+    keyHeaders: ['센터명', '센터코드', '점포명', '점포코드', '전표번호'],
+    headerCount: 17,
+  },
+];
+
+// ============================================================================
+// 롯데 한글 헤더 → 카멜케이스 매핑
+// ============================================================================
+const LOTTE_HEADER_MAPPING: Record<string, string> = {
+  센터명: 'cntrNm',
+  센터코드: 'cntrCd',
+  점포명: 'storNm',
+  점포코드: 'storCd',
+  주문일: 'outordrYmd',
+  전표번호: 'outordrno',
+  센터입하일: 'cntrWrhsYmd',
+  점입하일: 'storWrhsYmd',
+  배송구분: 'dlvrType',
+  상품코드: 'mrktGdsCd',
+  판매코드: 'mrktNtslCd',
+  상품명: 'mrktGdsNm',
+  입수: 'pieceQntt',
+  단위: 'outordrUnit',
+  주문수: 'outordrQntt',
+  단가: 'outordrUntprc',
+  주문금액: 'outordrAmt',
+};
+
+/**
+ * 헤더 패턴으로 벤더 자동 감지
+ */
+const detectVendor = (headers: string[]): string => {
+  for (const signature of VENDOR_SIGNATURES) {
+    // 1차: 헤더 개수 체크 (±2 허용)
+    if (Math.abs(headers.length - signature.headerCount) > 2) continue;
+
+    // 2차: 핵심 헤더 존재 여부 체크
+    const matchCount = signature.keyHeaders.filter((keyHeader) =>
+      headers.some((h) => h === keyHeader),
+    ).length;
+
+    // 핵심 헤더의 75% 이상 매칭되면 해당 벤더로 판정
+    if (matchCount >= signature.keyHeaders.length * 0.75) {
+      return signature.vendor;
+    }
+  }
+
+  return 'UNKNOWN';
+};
+
+/**
+ * HTML 엑셀 파싱 (롯데 계열)
+ * - 상단 불필요 행 자동 제거
+ * - colspan이 없는 첫 번째 행을 헤더로 인식
+ */
+const parseHTMLExcel = (htmlContent: string): { headers: string[]; data: any[][] } => {
+  const root = parseHTML(htmlContent);
+  const table = root.querySelector('table');
+
+  if (!table) {
+    throw new Error('테이블을 찾을 수 없습니다.');
+  }
+
+  const rows = table.querySelectorAll('tr');
+
+  // 헤더 행 찾기: colspan이 없고 셀 개수가 많은 첫 번째 행
+  let headerRowIndex = -1;
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].querySelectorAll('td, th');
+    const hasColspan = Array.from(cells).some(
+      (cell) => cell.getAttribute('colspan') && cell.getAttribute('colspan') !== '1',
+    );
+
+    if (!hasColspan && cells.length >= 8) {
+      headerRowIndex = i;
+      break;
+    }
+  }
+
+  if (headerRowIndex === -1) {
+    throw new Error('헤더 행을 찾을 수 없습니다.');
+  }
+
+  // 헤더 추출
+  const headerCells = rows[headerRowIndex].querySelectorAll('td, th');
+  const headers = Array.from(headerCells).map((cell) => cell.text.trim());
+
+  // 데이터 행 추출 (헤더 다음 행부터)
+  const data: any[][] = [];
+  for (let i = headerRowIndex + 1; i < rows.length; i++) {
+    const cells = rows[i].querySelectorAll('td, th');
+    const hasColspan = Array.from(cells).some(
+      (cell) => cell.getAttribute('colspan') && cell.getAttribute('colspan') !== '1',
+    );
+
+    // colspan이 없고 헤더와 컬럼 수가 같은 행만 추출
+    if (!hasColspan && cells.length === headers.length) {
+      const rowData = Array.from(cells).map((cell) => cell.text.trim());
+      data.push(rowData);
+    }
+  }
+
+  return { headers, data };
+};
+
+/**
+ * XLSX 파일 파싱 (자동 헤더 행 감지)
+ */
+const parseXLSXFile = (file: File): Promise<{ headers: string[]; data: any[][] }> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      try {
+        const data = new Uint8Array(e.target?.result as ArrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+          header: 1,
+          defval: '',
+        }) as any[][];
+
+        // 헤더 행 자동 감지 (비어있지 않은 셀이 5개 이상인 첫 행)
+        let headerRowIndex = -1;
+        for (let i = 0; i < Math.min(10, jsonData.length); i++) {
+          const row = jsonData[i];
+          const nonEmptyCells = row.filter(
+            (cell) => cell !== undefined && cell !== null && cell !== '',
+          );
+          if (nonEmptyCells.length >= 5) {
+            headerRowIndex = i;
+            break;
+          }
+        }
+
+        if (headerRowIndex === -1) {
+          reject(new Error('헤더 행을 찾을 수 없습니다.'));
+          return;
+        }
+
+        const headers = jsonData[headerRowIndex];
+        const dataRows = jsonData
+          .slice(headerRowIndex + 1)
+          .filter((row) => row.some((cell) => cell !== undefined && cell !== null && cell !== ''));
+
+        resolve({ headers, data: dataRows });
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    reader.onerror = () => reject(new Error('파일 읽기 실패'));
+    reader.readAsArrayBuffer(file);
+  });
+};
+
+/**
+ * HTML 파일 파싱 (래퍼)
+ */
+const parseHTMLFile = (file: File): Promise<{ headers: string[]; data: any[][] }> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      try {
+        const htmlContent = e.target?.result as string;
+        const result = parseHTMLExcel(htmlContent);
+        resolve(result);
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    reader.onerror = () => reject(new Error('파일 읽기 실패'));
+    reader.readAsText(file);
+  });
+};
+
+/**
+ * 엑셀 탭 인터페이스
+ */
+interface ExcelTab {
+  id: string;
+  fileName: string;
+  vendor: string; // 감지된 벤더 (SHINSEGAE, COUPANG, LOTTE, UNKNOWN)
+  data: any[];
+  columns: any[];
+}
+
 /**
  * 주문 APC 상품 인터페이스
  */
@@ -135,6 +354,11 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // 시장물류센터 공통정보
   const [mrktLgstcsCntr, setMrktLgstcsCntr] = useState();
 
+  // Dropzone tabs
+  const [tabs, setTabs] = useState<ExcelTab[]>([]);
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const gridApisRef = useRef<Map<string, any>>(new Map());
+
   // fn_init - 로딩 추가
   useEffect(() => {
     const fn_init = async () => {
@@ -160,6 +384,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
 
         // 상품명 공통코드
         if (mrktComCd) {
+          console.log(mrktComCd);
         }
 
         // 시장 물류센터 코드
@@ -448,7 +673,6 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       });
       // 공통부분 추가
       transformedRow['ordrApcCd'] = ordrApcCd;
-      transformedRow['ordrSeq'] = idx;
       return transformedRow as OrderRecord;
     });
   };
@@ -497,16 +721,86 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   };
 
   // ========================================
-  // 업로드 버튼 클릭
-  // ========================================
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  // ========================================
   // 서버로 데이터 전송 - 로딩 추가
   // ========================================
   const handleSave = async () => {
+    setIsLoading(true);
+    setLoadingMessage('저장중...');
+
+    if (!activeTab) {
+      Swal.fire('', '저장할 탭을 선택하세요.', 'warning');
+      return;
+    }
+
+    const gridApi = gridApisRef.current.get(activeTab);
+    if (!gridApi) {
+      Swal.fire('', '그리드를 찾을 수 없습니다.', 'error');
+      return;
+    }
+
+    // 전체 데이터 추출
+    const mrktOrdrDtlVOList: any[] = [];
+    gridApi.forEachNode((node) => {
+      mrktOrdrDtlVOList.push(node.data);
+    });
+
+    if (mrktOrdrDtlVOList.length === 0) {
+      Swal.fire('', '저장할 데이터가 없습니다.', 'warning');
+      return;
+    }
+
+    const mrktOrdrVOList = Object.values(
+      mrktOrdrDtlVOList.reduce(
+        (acc, row) => {
+          const key = row.outordrno;
+
+          if (!acc[key]) {
+            // 첫 등장 시 기본 구조 생성
+            acc[key] = {
+              ordrApcCd: row.ordrApcCd,
+              wrhsYmd: row.outordrYmd,
+              cntrNm: row.cntrNm,
+              cntrCd: row.cntrCd,
+              storNm: row.storNm,
+              storCd: row.storCd,
+              outordrYmd: row.outordrYmd,
+              outordrno: row.outordrno,
+              outordrAmt: 0,
+              dtlList: [],
+            };
+          }
+
+          // outordrAmt 누적
+          acc[key].outordrAmt += Number(row.outordrAmt) || 0;
+
+          // 상세 데이터 추가 (dtlSeq = 현재 리스트 길이)
+          acc[key].dtlList.push({
+            ...row,
+            wrhsYmd: row.outordrYmd,
+            dtlSeq: acc[key].dtlList.length + 1, // 1부터 시작
+          });
+
+          return acc;
+        },
+        {} as Record<string, any>,
+      ),
+    );
+    console.log(mrktOrdrVOList, '저장전');
+
+    try {
+      const r = await postJSON('/am/ordr/insertSpMrktOrdrLtReg.do', mrktOrdrVOList);
+      if (r.resultStatus == 'S') {
+        console.log(r);
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire('', '저장 중 오류가 발생했습니다.', 'error');
+    } finally {
+      setIsLoading(false);
+      setLoadingMessage('');
+    }
+  };
+  const handleSave_old = async () => {
     if (rowData.length === 0) {
       Swal.fire('', `저장할 데이터가없습니다.`, 'error');
       return;
@@ -561,7 +855,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   const defaultColDef = useMemo<ColDef>(
     () => ({
       sortable: true,
-      filter: true,
+      filter: false,
       resizable: true,
       tooltipValueGetter: (params) => {
         if (params.data?.failMsg) {
@@ -622,6 +916,21 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // ========================================
   // 엑셀 다운로드 (한글 헤더로) - 로딩 추가
   // ========================================
+  const autoSize = () => {
+    if (activeTab) {
+      const gridApi = gridApisRef.current.get(activeTab);
+      if (gridApi) {
+        gridApi.autoSizeAllColumns();
+        console.log('컬럼 자동 조절 실행됨');
+      } else {
+        console.log('Grid API를 찾을 수 없음');
+      }
+    } else {
+      console.log('활성 탭이 없음');
+    }
+
+    console.log(tabs);
+  };
   const handleDownload = () => {
     if (rowData.length === 0) {
       Swal.fire('', '다운로드할 데이터가 없습니다.', 'warning');
@@ -667,6 +976,158 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       }
     }, 100);
   };
+
+  // ========================================
+  // 엑셀 업로드 dropZone (벤더 자동 감지)
+  // ========================================
+  const handleFileDrop = async (files: File[]) => {
+    setIsLoading(true);
+    setLoadingMessage('파일 처리 중...');
+
+    try {
+      for (const file of files) {
+        let headers: string[] = [];
+        let rawData: any[][] = [];
+        let vendor = 'UNKNOWN';
+
+        // 파일 확장자 체크
+        const fileName = file.name.toLowerCase();
+
+        try {
+          if (fileName.endsWith('.xls')) {
+            // HTML 형식 (롯데 계열)
+            const result = await parseHTMLFile(file);
+            headers = result.headers;
+            rawData = result.data;
+            vendor = detectVendor(headers);
+            console.log(`📄 ${file.name} - HTML 파싱 완료`);
+          } else if (fileName.endsWith('.xlsx')) {
+            // XLSX 형식 (신세계/쿠팡 등)
+            const result = await parseXLSXFile(file);
+            headers = result.headers;
+            rawData = result.data;
+            vendor = detectVendor(headers);
+            console.log(`📄 ${file.name} - XLSX 파싱 완료`);
+          } else {
+            throw new Error('지원하지 않는 파일 형식입니다. (.xls, .xlsx만 가능)');
+          }
+
+          // ⛔ 롯데만 허용
+          if (vendor !== 'LOTTE') {
+            Swal.fire(
+              '',
+              `${file.name}: 현재 롯데 발주서만 업로드 가능합니다.\n(감지된 벤더: ${vendor})`,
+              'warning',
+            );
+            continue;
+          }
+
+          // 컬럼 정의 생성 (카멜케이스 field + 한글 headerName)
+          const columns = headers.map((header) => ({
+            field: LOTTE_HEADER_MAPPING[header] || header,
+            headerName: header,
+            editable: true,
+            resizable: true,
+          }));
+
+          // 데이터를 카멜케이스 키 객체 배열로 변환
+          const dataObjects = rawData.map((row, rowIdx) => {
+            const obj: any = {};
+            headers.forEach((header, idx) => {
+              const camelKey = LOTTE_HEADER_MAPPING[header] || header;
+              let value = row[idx];
+
+              // 날짜 필드 정규화 (2025.11.18 → 20251118)
+              if (['outordrYmd', 'cntrWrhsYmd', 'storWrhsYmd'].includes(camelKey) && value) {
+                value = String(value).replace(/\./g, '').replace(/-/g, '');
+              }
+
+              // 숫자 필드 정규화 (콤마 제거)
+              if (
+                ['outordrQntt', 'outordrUntprc', 'outordrAmt', 'pieceQntt'].includes(camelKey) &&
+                value
+              ) {
+                value = String(value).replace(/,/g, '');
+                value = isNaN(Number(value)) ? value : Number(value);
+              }
+
+              // 전표번호 공백 제거 (&nbsp; 등)
+              if (camelKey === 'outordrno' && value) {
+                value = String(value)
+                  .trim()
+                  .replace(/\u00A0/g, '');
+              }
+
+              obj[camelKey] = value;
+            });
+
+            // 공통 필드 추가
+            obj['ordrApcCd'] = ordrApcCd;
+
+            return obj;
+          });
+
+          // 새 탭 추가
+          const newTab: ExcelTab = {
+            id: `tab-${Date.now()}-${Math.random()}`,
+            fileName: file.name,
+            vendor: vendor,
+            data: dataObjects,
+            columns: columns,
+          };
+
+          setTabs((prev) => [...prev, newTab]);
+          setActiveTab(newTab.id);
+
+          console.log(`✅ ${file.name} 처리 완료`);
+          console.log(`  - 벤더: ${vendor}`);
+          console.log(`  - 헤더 수: ${headers.length}`);
+          console.log(`  - 데이터 행 수: ${dataObjects.length}`);
+        } catch (parseError) {
+          console.error(`❌ ${file.name} 파싱 실패:`, parseError);
+          Swal.fire(
+            '',
+            `${file.name} 처리 중 오류가 발생했습니다.\n${parseError.message}`,
+            'error',
+          );
+        }
+      }
+    } finally {
+      setIsLoading(false);
+      setLoadingMessage('');
+    }
+  };
+  const onGridReady = (params: GridReadyEvent, tabId: string) => {
+    gridApisRef.current.set(tabId, params.api); // ← 여기서 저장!
+  };
+
+  const handleCloseTab = (tabId: string) => {
+    setTabs((prev) => prev.filter((t) => t.id !== tabId));
+    if (activeTab === tabId) {
+      const remainingTabs = tabs.filter((t) => t.id !== tabId);
+      setActiveTab(remainingTabs.length > 0 ? remainingTabs[0].id : null);
+    }
+  };
+
+  // 탭이 변경될 때도 autoSize 실행
+  useEffect(() => {
+    if (activeTab) {
+      const timer = setTimeout(() => {
+        // 현재 활성 탭의 그리드 찾아서 autoSize
+        const gridElements = document.querySelectorAll('.ag-root-wrapper');
+        gridElements.forEach((el: any) => {
+          if (el.offsetParent !== null) {
+            // 보이는 그리드만
+            const gridApi = el.gridApi;
+            if (gridApi) {
+              gridApi.autoSizeAllColumns();
+            }
+          }
+        });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab]);
 
   return (
     <>
@@ -820,6 +1281,13 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
         font-size: 16px;
         font-weight: 500;
       }
+      .custom-ag-grid .ag-root-wrapper {
+        border-radius: 0 !important;
+      }
+
+      .custom-ag-grid .ag-root {
+        border-radius: 0 !important;
+      }
       `}</style>
 
       {/* ========== 로딩 오버레이 ========== */}
@@ -831,15 +1299,6 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       )}
 
       <div className="min-h-screen bg-white">
-        {/* 숨겨진 파일 input */}
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".xlsx,.xls"
-          onChange={handleFileUpload}
-          style={{ display: 'none' }}
-        />
-
         {/* 헤더 */}
         <div
           className="box-header"
@@ -1001,10 +1460,11 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           {/* 발주내역 헤더 + 버튼 */}
           <div className="section-header">
             <span className="section-title">발주내역</span>
+
             <div className="button-group">
-              <button className="btn-upload" onClick={handleUploadClick}>
-                업로드
-              </button>
+              {/*<button className="btn-upload" onClick={autoSize}>*/}
+              {/*  사이즈조절*/}
+              {/*</button>*/}
               <button className="btn-upload" onClick={handleDownload}>
                 다운로드
               </button>
@@ -1013,39 +1473,141 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
               </button>
             </div>
           </div>
-
           {/* AG Grid */}
           <div className="py-3">
-            <div className="ag-theme-quartz custom-ag-grid" style={{ height: 500, width: '100%' }}>
-              <AgGridReact
-                theme="legacy"
-                rowData={rowData}
-                columnDefs={columnDefs}
-                defaultColDef={defaultColDef}
-                tooltipShowDelay={0}
-                // ✅ v34 최신 방식
-                rowSelection={{
-                  mode: 'multiRow',
-                  checkboxes: true,
-                  headerCheckbox: true,
-                  enableClickSelection: false,
-                }}
-                animateRows={true}
-                localeText={{
-                  noRowsToShow: '엑셀 파일을 업로드하세요.',
-                }}
-                onCellValueChanged={(params) => {}}
-              />
-            </div>
+            {tabs.length > 0 && (
+              <Paper withBorder style={{ flex: 1 }} radius="xs">
+                <Tabs value={activeTab} onChange={setActiveTab}>
+                  <Tabs.List>
+                    {tabs.map((tab) => (
+                      <Tabs.Tab
+                        key={tab.id}
+                        value={tab.id}
+                        style={{ fontSize: '13px' }}
+                        rightSection={
+                          <Group gap={4}>
+                            <Badge
+                              size="xs"
+                              color={
+                                tab.vendor === 'SHINSEGAE'
+                                  ? 'blue'
+                                  : tab.vendor === 'COUPANG'
+                                    ? 'orange'
+                                    : tab.vendor === 'LOTTE'
+                                      ? 'red'
+                                      : 'gray'
+                              }
+                              variant="light"
+                            >
+                              {tab.vendor}
+                            </Badge>
+                            <ActionIcon
+                              component="div"
+                              size="xs"
+                              variant="subtle"
+                              color="gray"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCloseTab(tab.id);
+                              }}
+                              style={{ cursor: 'pointer' }}
+                            >
+                              <IconX size={12} />
+                            </ActionIcon>
+                          </Group>
+                        }
+                      >
+                        {tab.fileName}
+                      </Tabs.Tab>
+                    ))}
+                  </Tabs.List>
+
+                  {tabs.map((tab) => (
+                    <Tabs.Panel key={tab.id} value={tab.id}>
+                      <div
+                        className="ag-theme-alpine"
+                        style={{ height: 'calc(100vh - 450px)', width: '100%' }}
+                      >
+                        <AgGridReact
+                          theme="legacy"
+                          rowData={tab.data}
+                          columnDefs={tab.columns}
+                          defaultColDef={defaultColDef}
+                          onGridReady={(params) => onGridReady(params, tab.id)}
+                          tooltipShowDelay={0}
+                          // ✅ v34 최신 방식
+                          rowSelection={{
+                            mode: 'multiRow',
+                            checkboxes: true,
+                            headerCheckbox: true,
+                            enableClickSelection: false,
+                          }}
+                          animateRows={true}
+                          localeText={{
+                            noRowsToShow: '엑셀 파일을 업로드하세요.',
+                          }}
+                          onCellValueChanged={(params) => {}}
+                        />
+                      </div>
+                    </Tabs.Panel>
+                  ))}
+                </Tabs>
+              </Paper>
+            )}
+            {/*<div*/}
+            {/*  className="ag-theme-quartz custom-ag-grid"*/}
+            {/*  style={{ height: 500, width: '100%', borderRadius: 0 }}*/}
+            {/*>*/}
+            {/*  <AgGridReact*/}
+            {/*    theme="legacy"*/}
+            {/*    rowData={rowData}*/}
+            {/*    columnDefs={columnDefs}*/}
+            {/*    defaultColDef={defaultColDef}*/}
+            {/*    tooltipShowDelay={0}*/}
+            {/*    // ✅ v34 최신 방식*/}
+            {/*    rowSelection={{*/}
+            {/*      mode: 'multiRow',*/}
+            {/*      checkboxes: true,*/}
+            {/*      headerCheckbox: true,*/}
+            {/*      enableClickSelection: false,*/}
+            {/*    }}*/}
+            {/*    animateRows={true}*/}
+            {/*    localeText={{*/}
+            {/*      noRowsToShow: '엑셀 파일을 업로드하세요.',*/}
+            {/*    }}*/}
+            {/*    onCellValueChanged={(params) => {}}*/}
+            {/*  />*/}
+            {/*</div>*/}
           </div>
 
           {/* 통계 정보 */}
-          {rowData.length > 0 && (
-            <div style={{ marginTop: '10px', fontSize: '13px', color: '#666' }}>
-              총 <strong>{rowData.length}</strong>건
-            </div>
-          )}
+          {/*{rowData.length > 0 && (*/}
+          {/*  <div style={{ marginTop: '10px', fontSize: '13px', color: '#666' }}>*/}
+          {/*    총 <strong>{rowData.length}</strong>건*/}
+          {/*  </div>*/}
+          {/*)}*/}
         </div>
+        <Dropzone
+          onDrop={handleFileDrop}
+          accept={[
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-excel',
+          ]}
+          maxSize={10 * 1024 ** 2}
+          style={{ border: '1px solid #0001' }}
+        >
+          <Group justify="center" gap="md" style={{ minHeight: 150, pointerEvents: 'none' }}>
+            <IconUpload size={40} stroke={1.5} />
+            <div>
+              <Text size="md" inline>
+                엑셀 파일을 드래그하거나 클릭하여 업로드
+              </Text>
+              <Text size="sm" c="dimmed" inline mt={6}>
+                여러 파일을 동시에 업로드할 수 있습니다.
+              </Text>
+            </div>
+          </Group>
+        </Dropzone>
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
 import com.at.apcss.am.ordr.vo.*;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +42,9 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 
 	@Autowired
 	private OrdrMapper ordrMapper;
+
+	@Autowired
+	private OrdrRcvMapper ordrRcvMapper;
 
 	@Resource(name = "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
@@ -301,5 +305,36 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	@Override
 	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception {
 		return ordrMapper.selectMrktGdsOrdrList(mrktGdsOrdrVO);
+	}
+
+	@Override
+	public int insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList) throws Exception {
+		HashMap<String, Object> rtnObj = null;
+
+		try{
+			for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+				List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+
+				ordrRcvMapper.insertSpMrktOrdrLtReg(ordrVO);
+
+				if (StringUtils.hasText(ordrVO.getRtnCd())) {
+					rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+				long ordrSeq = ordrVO.getOrdrSeq();
+
+				for(MrktOrdrDtlVO dtlVO : dtlList){
+					dtlVO.setOrdrSeq(ordrSeq);
+					ordrRcvMapper.insertSpMrktOrdrLtDtlReg(dtlVO);
+					if (StringUtils.hasText(dtlVO.getRtnCd())) {
+						rtnObj = ComUtil.getResultMap(dtlVO.getRtnCd(), dtlVO.getRtnMsg());
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+				}
+			}
+		}catch (Exception e){
+			throw new EgovBizException();
+		}
+		return 0;
 	}
 }

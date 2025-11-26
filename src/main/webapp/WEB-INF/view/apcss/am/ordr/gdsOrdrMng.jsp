@@ -40,6 +40,7 @@
         if (rootEl && typeof gv_selectedApcCd !== 'undefined') {
             rootEl.setAttribute('data-apc-cd', gv_selectedApcCd);
             rootEl.setAttribute('data-apc-Nm', gv_selectedApcNm);
+            rootEl.setAttribute('data-sys-prgrm-id', postHeaders.sysPrgrmId);
         } else {
         }
     })();
