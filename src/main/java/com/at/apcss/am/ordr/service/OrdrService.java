@@ -163,4 +163,12 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
+
+	/**
+	 * 시장상품주문내역 저장 (롯데슈퍼)
+	 * @param mrktOrdrVOList
+	 * @return
+	 * @throws Exception
+	 */
+    int insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList) throws Exception;
 }

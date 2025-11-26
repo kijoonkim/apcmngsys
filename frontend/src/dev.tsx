@@ -9,6 +9,8 @@ ModuleRegistry.registerModules([AllCommunityModule]); // 렌더링 전에 실행
 
 import App from '@apps/spmt/App1';
 import Dashboard from '@apps/userDashboard';
+import OrderUpload from '@apps/ordr/index';
+import GdsOrdrMng from '@apps/ordr/GdsOrdrMng';
 
 import '@mantine/core/styles.css';
 import 'keen-slider/keen-slider.min.css';
@@ -17,6 +19,7 @@ import '@shared/styles/tailwind.css';
 const theme = createTheme({
   primaryColor: 'blue',
   defaultRadius: 'xl',
+  scale: 1.5,
 });
 
 const queryClient = new QueryClient();
@@ -30,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <Dashboard apcCd={apcCd} apcNm={apcNm} sysPrgrmId={sysPrgrmId} userId={userId} />
+        <GdsOrdrMng apcCd={apcCd} apcNm={apcNm} sysPrgrmId={sysPrgrmId} userId={userId} />
       </QueryClientProvider>
     </MantineProvider>
   </React.StrictMode>,

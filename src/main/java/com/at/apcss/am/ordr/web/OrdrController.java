@@ -3,11 +3,15 @@ package com.at.apcss.am.ordr.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.ordr.vo.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -402,6 +406,25 @@ public class OrdrController extends BaseController {
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/ordr/insertSpMrktOrdrLtReg.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpMrktOrdrLtReg(@RequestBody List<MrktOrdrVO> mrktOrdrVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int resultCnt = 0;
+
+		try {
+			setComVOFields(mrktOrdrVOList);
+
+			resultCnt = ordrService.insertSpMrktOrdrLtReg(mrktOrdrVOList);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, resultCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

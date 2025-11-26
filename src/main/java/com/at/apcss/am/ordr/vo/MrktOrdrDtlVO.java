@@ -80,5 +80,11 @@ public class MrktOrdrDtlVO extends ComVO {
 
 	private String apcOutordrno;
 
+	/** 20251126 롯데슈퍼 추가컬럼 **/
+	private String cntrWrhsYmd;
+	private String storWrhsYmd;
+	private String dlvrType;
+
+
 
 }

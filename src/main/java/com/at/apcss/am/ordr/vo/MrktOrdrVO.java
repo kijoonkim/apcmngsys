@@ -17,7 +17,7 @@ public class MrktOrdrVO extends ComVO {
 	
 	private String ordrApcCd;
 	private String wrhsYmd;
-	private long ordrSeq;
+	private Integer ordrSeq;
 	private String ordrCrtDt;
 	private String ordrPrcsCd;
 	private String ordrPrcsDt;

@@ -581,6 +581,9 @@
 					, #{outordrAmt}
 					, #{outordrUntprc}
 					, #{wrhsQntt}
+					, #{cntrWrhsYmd}
+					, #{storWrhsYmd}
+					, #{dlvrType}
 					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
 					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
 				)
