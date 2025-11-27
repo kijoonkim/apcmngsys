@@ -46,23 +46,31 @@ public interface SprtBizRsltInqMapper {
      * @return
      * @throws Exception
      */
-    public List<SprtBizRsltInqVO> insertSprtBizRsltInqList(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+    public int insertSprtBizRsltInqList(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
 
     /**
-     * 산지조직지원사업 지원사업현황조회 법인번호 신규 등록 (Call procedure)
+     * 산지조직지원사업 지원사업현황조회 법인 신규 등록 (Call procedure)
      * @param sprtBizRsltInqVO
      * @return
      * @throws Exception
      */
-    public List<SprtBizRsltInqVO> insertSpComCorpAdd(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+    public int insertSpComCorpAdd(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
 
     /**
-     * 산지조직지원사업 지원사업현황조회 사업자번호 신규 등록 (Call procedure)
+     * 산지조직지원사업 지원사업현황조회 사업자 신규 등록 (Call procedure)
      * @param sprtBizRsltInqVO
      * @return
      * @throws Exception
      */
-    public List<SprtBizRsltInqVO> insertSpComBzmnAdd(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+    public int insertSpComBzmnAdd(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+
+    /**
+     * 산지조직지원사업 지원사업현황조회 지원사업조직아이디 신규 등록 (Call procedure)
+     * @param sprtBizRsltInqVO
+     * @return
+     * @throws Exception
+     */
+    public int insertSpSprtGetBizOgnzId(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
 
 
 

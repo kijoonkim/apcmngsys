@@ -147,30 +147,29 @@
     </select>
 
     <insert id="insertSprtBizRsltInqList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+        SELECT 1 FROM DUAL;
     </insert>
 
     <insert id="insertSpComCorpAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
     	<![CDATA[
         {   call SP_COM_CORP_ADD (
-            'test'
-            ,'test'
-/*                  #{userId}
-                , #{prgrmId}*/
-                , #{crno}
-                , #{corpNm}
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
+                  #{sysLastChgUserId}           -- V_USER_ID
+                , #{sysLastChgPrgrmId}          -- V_PRGRM_ID
+                , #{crno}                       -- V_CRNO
+                , #{bzmnConm}                   -- V_CORP_NM
+                , #{corpFndnYmd}                -- V_CORP_FNDN_YMD
+                , #{corpRprsvNm}                -- V_CORP_RPRSV_NM
+                , #{corpAddr}                   -- V_CORP_ADDR
+                , #{corpTelno}                  -- V_CORP_TELNO
+                , #{corpZip}                    -- V_CORP_ZIP
+                , #{stdgCtpvCd}                 -- V_STDG_CTPV_CD
+                , #{stdgSggCd}                  -- V_STDG_SGG_CD
+                , #{stdgCd}                     -- V_STDG_CD
+                , #{lotnoAddr}                  -- V_LOTNO_ADDR
+                , #{lotnoDtlAddr}               -- V_LOTNO_DTL_ADDR
+                , #{roadNmCd}                   -- V_ROAD_NM_CD
+                , #{roadNmAddr}                 -- V_ROAD_NM_ADDR
+                , #{roadNmDaddr}                -- V_ROAD_NM_DADDR
                 , #{errCd, jdbcType=VARCHAR, mode=OUT}
                 , #{errMsg, jdbcType=VARCHAR, mode=OUT}
             )
@@ -181,32 +180,32 @@
     <insert id="insertSpComBzmnAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
     	<![CDATA[
         {   call SP_COM_BZMN_ADD (
-                  #{userId}
-                , #{prgrmId}
-                , #{brno}
-                , #{psnSeCd}
-                , #{bzmnConm}
-                , #{crno}
-                , #{ognzCd}
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , ''
-                , #{stdgCtpvCd}
-                , #{stdgSggCd}
-                , #{stdgCd}
+                  #{sysLastChgUserId}           -- v_user_id
+                , #{sysLastChgPrgrmId}          -- v_prgrm_id
+                , #{brno}                       -- v_brno
+                , #{psnSeCd}                    -- v_psn_se_cd
+                , #{bzmnConm}                   -- v_bzmn_conm
+                , #{crno}                       -- v_crno
+                , #{ognzCd}                     -- v_ognz_cd
+                , #{rprsvNm}                    -- v_rprsv_nm
+                , #{instAbbrNm}                 -- v_inst_abbr_nm
+                , #{bplcAddr}                   -- v_bplc_addr
+                , #{bplcDaddr}                  -- v_bplc_daddr
+                , #{rprsvZip}                   -- v_rprsv_zip
+                , #{rprsvEmlAddr}               -- v_rprsv_eml_addr
+                , #{rprsvTelno}                 -- v_rprsv_telno
+                , #{rprsvMblTelno}              -- v_rprsv_mbl_telno
+                , #{tpbizCd}                    -- v_tpbiz_cd
+                , #{bzstatCd}                   -- v_bzstat_cd
+                , #{clsNm}                      -- v_cls_nm
+                , #{mainPrdtNm}                 -- v_main_prdt_nm
+                , #{hmpgUrl}                    -- v_hmpg_url
+                , #{bizSttsCd}                  -- v_biz_stts_cd
+                , #{opbizYmd}                   -- v_opbiz_ymd
+                , #{clsbizYmd}                  -- v_clsbiz_ymd
+                , #{stdgCtpvCd}                 -- v_stdg_ctpv_cd
+                , #{stdgSggCd}                  -- v_stdg_sgg_cd
+                , #{stdgCd}                     -- v_stdg_cd
                 , #{instNo, jdbcType=VARCHAR, mode=OUT}
                 , #{ognzCd, jdbcType=VARCHAR, mode=OUT}
                 , #{errCd, jdbcType=VARCHAR, mode=OUT}
@@ -215,5 +214,24 @@
         }
         ]]>
     </insert>
+
+    <insert id="insertSpSprtGetBizOgnzId" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    	<![CDATA[
+        {   call SP_SPRT_GET_BIZ_OGNZ_ID (
+                  #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+                , #{sprtBizYr}
+                , #{sprtBizCd}
+                , #{crno}
+                , #{brno}
+                , #{upBrno}
+                , #{sprtOgnzId, jdbcType=VARCHAR, mode=OUT}
+                , #{errCd, jdbcType=VARCHAR, mode=OUT}
+                , #{errMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+        }
+        ]]>
+    </insert>
+
 
 </mapper>

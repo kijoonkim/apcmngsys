@@ -1,6 +1,7 @@
 package com.at.apcss.pd.sprt.service.impl;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.sprt.mapper.SprtBizRsltInqMapper;
 import com.at.apcss.pd.sprt.service.SprtBizRsltInqService;
 import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
@@ -48,13 +49,40 @@ public class SprtBizRsltInqServiceImpl extends BaseServiceImpl implements SprtBi
     }
 
     @Override
-    public List<SprtBizRsltInqVO> insertSprtBizRsltInqList(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception {
+    public int insertSprtBizRsltInqList(List<SprtBizRsltInqVO> sprtBizRsltInqVOList) throws Exception {
 
-        List<SprtBizRsltInqVO> resultList = sprtBizRsltInqMapper.insertSprtBizRsltInqList(sprtBizRsltInqVO);
+        int savedCnt = 0;
 
-        //sprtBizRsltInqMapper.insertSpComCorpAdd(sprtBizRsltInqVO);
+        for (SprtBizRsltInqVO sprtBizRsltInqVO : sprtBizRsltInqVOList) {
 
-        return resultList;
+            String errCrno = sprtBizRsltInqVO.getErrCrno();
+            String errBrno = sprtBizRsltInqVO.getErrBrno();
+            String crno = sprtBizRsltInqVO.getCrno();
+
+            // 법인 추가
+            if("Y".equals(errCrno)) {
+                logger.debug("CALL SP_COM_CORP_ADD !");
+                sprtBizRsltInqMapper.insertSpComCorpAdd(sprtBizRsltInqVO);
+            }
+
+            // 사업자 추가
+            if("Y".equals(errBrno)) {
+                if(!"".equals(crno) && crno != null) {
+                    sprtBizRsltInqVO.setPsnSeCd("2");
+                }else {
+                    sprtBizRsltInqVO.setPsnSeCd("3");
+                }
+                logger.debug("CALL SP_COM_BZMN_ADD !");
+                sprtBizRsltInqMapper.insertSpComBzmnAdd(sprtBizRsltInqVO);
+            }
+
+            logger.debug("Impl VOlist 값 : {}", sprtBizRsltInqVOList);
+            sprtBizRsltInqMapper.insertSpComCorpAdd(sprtBizRsltInqVO);
+
+            sprtBizRsltInqMapper.insertSprtBizRsltInqList(sprtBizRsltInqVO);
+
+        }
+        return savedCnt;
     }
 
 }
