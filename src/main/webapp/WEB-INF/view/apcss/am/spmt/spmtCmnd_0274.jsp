@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : sortCmnd_0274.jsp
-     * @Description : 작업지시관리(만인산) 화면
+     * @Class Name : spmtCmnd_0274.jsp
+     * @Description : 출하지시관리(만인산) 화면
      * @author R&D사업본부
      * @since 2025.11.27
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 작업지시관리(만인산)</title>
+    <title>title : 출하지시관리(만인산)</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -30,7 +30,7 @@
             <div class="box-header" style="display: flex; justify-content: flex-start;">
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 작업지시관리(만인산) -->
+                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 출하지시관리(만인산) -->
                 </div>
 
                 <div style="margin-left: auto;">
@@ -107,27 +107,35 @@
                             </td>
                             <td style="border-right: hidden;"></td>
 
-                            <th scope="row" class="th_bg">작업라인</th>
+                            <th scope="row" class="th_bg">거래처</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
-                                <sbux-select
-                                    unselected-text="전체"
-                                    id="srch-slt-jobLine"
-                                    name="srch-slt-jobLine"
+                                <sbux-input
+                                    id="srch-inp-cnptNm"
+                                    name="srch-inp-cnptNm"
                                     class="form-control input-sm"
-                                    jsondata-ref="jsonComJobLine"
-                                    uitype="single"
-                                ></sbux-select>
+                                    uitype="text"
+                                ></sbux-input>
                             </td>
-                            <td style="border-right: hidden;"></td>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-button
+                                    text="찾기"
+                                    id="btnSrchCnpt"
+                                    name="btnSrchCnpt"
+                                    class="btn btn-xs btn-outline-dark"
+                                    uitype="modal"
+                                    target-id="modal-cnpt"
+                                    onclick="fn_modalCnpt"
+                                ></sbux-button>
+                            </td>
 
-                            <th scope="row" class="th_bg">품종</th>
+                            <th scope="row" class="th_bg">센터</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-select
                                     unselected-text="전체"
-                                    id="srch-slt-vrtyNm"
-                                    name="srch-slt-vrtyNm"
+                                    id="srch-slt-cntrNm"
+                                    name="srch-slt-cntrNm"
                                     class="form-control input-sm"
-                                    jsondata-ref="jsonComVrty"
+                                    jsondata-ref="jsonComCntr"
                                     uitype="single"
                                 ></sbux-select>
                             </td>
@@ -138,20 +146,35 @@
 
                 <div class="ad_tbl_top" style="padding-top: 15px;">
                     <div class="table-responsive tbl_scroll_sm">
-                        <div id="sb-area-gridJobCmnd" style="width: 100%; height: 544px;"></div>
+                        <div id="sb-area-gridSpmtCmnd" style="width: 100%; height: 544px;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- 거래처 선택 Modal -->
+    <div>
+        <sbux-modal
+            id="modal-cnpt"
+            name="modal-cnpt"
+            uitype="middle"
+            header-title="거래처 선택"
+            body-html-id="body-modal-cnpt"
+            footer-is-close-button="false"
+            header-is-close-button="false"
+            style="width: 1000px;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-cnpt">
+        <jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
-    var gridJobCmnd;
+    var gridSpmtCmnd;
 
-    var jsonJobCmnd = [];
-    var jsonComJobLine = [];    // 검색조건    작업라인
-    var jsonComVrty = [];       // 검색조건    품종
-    var jsonGridJobLine = [];   // 그리드　    작업라인
+    var jsonSpmtCmnd = [];
+    var jsonComCntr = [];   // 검색조건    센터
 
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
@@ -169,7 +192,7 @@
             fn_initSBSelect()
         ]);
 
-        fn_createJobCmndGrid();
+        fn_createSpmtCmndGrid();
     }
 
     /**
@@ -178,40 +201,39 @@
      */
     const fn_initSBSelect = async function() {
         let result = await Promise.all([
-            gfn_setApcVrtySBSelect('srch-slt-vrtyNm', jsonComVrty, gv_selectedApcCd)    // 품종
         ]);
     }
 
     /**
-     * @name fn_createJobCmndGrid
+     * @name fn_createSpmtCmndGrid
      * @description 출하지시 그리드 생성
      */
-    function fn_createJobCmndGrid() {
+    function fn_createSpmtCmndGrid() {
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-gridJobCmnd';
-        SBGridProperties.id = 'gridJobCmnd';
-        SBGridProperties.jsonref = 'jsonJobCmnd';
+        SBGridProperties.parentid = 'sb-area-gridSpmtCmnd';
+        SBGridProperties.id = 'gridSpmtCmnd';
+        SBGridProperties.jsonref = 'jsonSpmtCmnd';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.oneclickedit = true;
         SBGridProperties.allowcopy = true;
         SBGridProperties.columns = [
-            { caption: [""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
-            { caption: ['지시번호'], ref: 'cmndno', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['지시일자'], ref: 'cmndYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
-            { caption: ['작업라인'], ref: 'jobLine', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridJobLine', label: 'label', value: 'value', itemcount: 10} },
-            { caption: ['작업순번'], ref: 'jobSn', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;' },
+            { caption: [""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center; background: #FFF8DC;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
             { caption: ['거래처'], ref: 'cnptNm', type: 'output', width: '100px', style: 'text-align: center;' },
+            { caption: ['센터'], ref: 'cntrNm', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['상품명'], ref: 'gdsNm', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['원물품종'], ref: 'rawMtrVrtyNm', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['단위'], ref: 'unit', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['지시수량'], ref: 'cmndQntt', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
-            { caption: ['비고'], ref: 'rmrk', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {maxlength: 1000} }
+            { caption: ['인증구분'], ref: 'certSeNm', type: 'output', width: '100px', style: 'text-align: center;' },
+            { caption: ['지시수량'], ref: 'cmndQntt', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
+            { caption: ['들이'], ref: 'vlm', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;' },
+            { caption: ['팔레트번호'], ref: 'pltno', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;' },
+            { caption: ['실적수량'], ref: 'prfmncQntt', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
+            { caption: ['비고'], ref: 'rmrk', type: 'input', width: '150px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {maxlength: 1000} },
+            { caption: ['출하지시번호'], ref: 'spmtCmndno', hidden: true }
         ];
 
-        gridJobCmnd = _SBGrid.create(SBGridProperties);
-        gridJobCmnd.rebuild();
+        gridSpmtCmnd = _SBGrid.create(SBGridProperties);
+        gridSpmtCmnd.rebuild();
     }
 
     /**
@@ -219,24 +241,24 @@
      * @description 작업지시서 발행
      */
     const fn_jobCmndDoc = async function() {
-        const jobCmndList = [];
+        const spmtCmndList = [];
 
-        const allData = gridJobCmnd.getGridDataAll();
+        const allData = gridSpmtCmnd.getGridDataAll();
         allData.forEach((item) => {
             if(item.checkedYn === "Y") {
-                jobCmndList.push(item.cmndno);
+                spmtCmndList.push(item.spmtCmndno);
             }
         });
 
-        if(jobCmndList.length === 0) {
+        if(spmtCmndList.length === 0) {
             gfn_comAlert("W0001", "발행대상");    // W0001    {0}을/를 선택하세요.
             return;
         }
 
-        const sortCmndno = jobCmndList.join("','");
-        gfn_popClipReport("만인산 작업지시서", "am/jobCmndDoc_0274.crf", {
+        const spmtCmndno = spmtCmndList.join("','");
+        gfn_popClipReport("만인산 출하지시서", "am/spmtCmndDoc_0274.crf", {
             apcCd: gv_selectedApcCd,
-            sortCmndno: sortCmndno
+            spmtCmndno: spmtCmndno
         });
     }
 
@@ -255,42 +277,62 @@
     const fn_search = async function() {
         let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
         let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+        let cnptNm = SBUxMethod.get("srch-inp-cnptNm");
 
         let param = {
             apcCd: gv_selectedApcCd,
             cmndYmdFrom: cmndYmdFrom,
-            cmndYmdTo: cmndYmdTo
+            cmndYmdTo: cmndYmdTo,
+            cnptNm: cnptNm
         }
 
         try {
-            const postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", param, null, false);
+            const postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtCmndList.do", param, null, false);
             const data = await postJsonPromise;
 
-            jsonJobCmnd.length = 0;
+            jsonSpmtCmnd.length = 0;
 
             data.resultList.forEach((item, index) => {
                 const spmtCmndVO = {
-                    cmndno: item.sortCmndno,
-                    cmndYmd: item.sortCmndYmd,
-                    jobLine: "",
-                    jobSn: "",
-                    cnptNm: "",
-                    gdsNm: "",
-                    rawMtrVrtyNm: "",
-                    unit: "",
+                    cnptNm: item.cnptNm,
+                    cntrNm: "",
+                    gdsNm: item.gdsNm,
+                    certSeNm: "",
                     cmndQntt: item.cmndQntt,
-                    rmrk: item.rmrk
+                    vlm: "",
+                    pltno: "",
+                    prfmncQntt: "",
+                    rmrk: item.rmrk,
+                    spmtCmndno: item.spmtCmndno
                 }
 
-                jsonJobCmnd.push(spmtCmndVO);
+                jsonSpmtCmnd.push(spmtCmndVO);
             });
 
-            gridJobCmnd.rebuild();
+            gridSpmtCmnd.rebuild();
         } catch(e) {
             if(!(e instanceof Error)) {
                 e = new Error(e);
             }
             console.error("failed", e.message);
+        }
+    }
+
+    /**
+     * @name fn_modalCnpt
+     * @description 거래처 찾기 버튼 클릭 시 event
+     */
+    const fn_modalCnpt = function() {
+        popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnptNm"), fn_setCnpt);
+    }
+
+    /**
+     * @name fn_setCnpt
+     * @description 거래처 set
+     */
+    const fn_setCnpt = function(cnpt) {
+        if(!gfn_isEmpty(cnpt)) {
+            SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
         }
     }
 

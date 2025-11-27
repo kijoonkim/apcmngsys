@@ -57,6 +57,8 @@
 			     , SC.VRTY_CD           AS VRTY_CD        	-- 품종코드
 			     , SC.CMND_QNTT         AS CMND_QNTT        -- 지시수량
 			     , SC.CMND_WGHT         AS CMND_WGHT        -- 지시중량
+			     , SC.PRFMNC_QNTT       AS PRFMNC_QNTT      -- 실적수량
+			     , SC.PRFMNC_WGHT       AS PRFMNC_WGHT      -- 실적중량
 			     , SC.RMRK              AS RMRK             -- 비고
 			     , SC.DEL_YN            AS DEL_YN           -- 삭제유무
 			     , RI.BX_KND         	AS BX_KND

@@ -116,6 +116,16 @@ public class SortCmndVO extends ComVO {
 	 */
 	private double cmndWght;
 
+    /**
+     * 지시수량
+     */
+    private int prfmncQntt;
+
+    /**
+     * 지시중량
+     */
+    private double prfmncWght;
+
 	/**
 	 * 투입수량
 	 */

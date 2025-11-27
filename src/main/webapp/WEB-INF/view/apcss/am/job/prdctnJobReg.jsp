@@ -480,7 +480,7 @@
         }
 
         function addRow(item) {
-            let jobQntt = gfn_isEmpty(item.invntrQntt) ? 0 : item.invntrQntt;
+            let jobQntt = gfn_isEmpty(item.prfmncQntt) ? 0 : item.prfmncQntt;
             const cmndQntt = item.cmndQntt;
             let rmndrQntt = cmndQntt - jobQntt;
 
@@ -491,13 +491,14 @@
                     <td>${'${gfn_isEmpty(item.gdsSeNm) ? "" : item.gdsSeNm}'}</td>
                     <td>${'${gfn_isEmpty(item.vrtyNm) ? "" : item.vrtyNm}'}</td>
                     <td>${'${gfn_isEmpty(item.bxKndNm) ? "" : item.bxKndNm}'}</td>
-                    <td>${'${cmndQntt}'}</td>
+                    <td id="cmndQntt">${'${cmndQntt}'}</td>
                     <td style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <input type="button" value="-" onclick="fn_minus(this, event)" id="btnMinus" class="btn-primary btn btn-mbl" style="width: 50px; visibility: hidden;">
                         <span id="jobQntt">${'${jobQntt}'}</span>
                         <input type="button" value="+" onclick="fn_plus(this, event)" id="btnPlus" class="btn-primary btn btn-mbl" style="width: 50px;">
                     </td>
                     <td id="rmndrQntt">${'${rmndrQntt === 0 ? "완료" : rmndrQntt}'}</td>
+                    <td id="sortCmndno" style="display: none;">${'${item.sortCmndno}'}</td>
                 </tr>
             `;
 
@@ -513,6 +514,10 @@
     const selectLatestInfo = async function(element) {
         let idx = $(element).index();
         let jsonData = jsonSave[idx];
+        console.log("jsonData: ", jsonData);
+
+        SBUxMethod.set("srch-dtp-jobYmd", jsonData.sortCmndYmd);
+        SBUxMethod.set("srch-inp-pltno", jsonData.pltno);
     }
 
     /**
@@ -537,15 +542,21 @@
         updateQntt(row, 1);
     }
 
+    /**
+     * @name updateQntt
+     * @description 수량 계산
+     */
     function updateQntt(row, change) {
         const $row = $(row);
+        const $cmndQntt = $row.find('#cmndQntt');
         const $jobQntt = $row.find('#jobQntt');
         const $rmndrQntt = $row.find('#rmndrQntt');
         const $btnMinus = $row.find('#btnMinus');
         const $btnPlus = $row.find('#btnPlus');
+        const $sortCmndno = $row.find('#sortCmndno');
 
-        let count = 0;
-        const maxQntt = 100;
+        let count = parseInt($jobQntt.text());
+        const maxQntt = parseInt($cmndQntt.text());
 
         let newQntt = count + change;
         newQntt = Math.max(0, Math.min(maxQntt, newQntt));
@@ -554,7 +565,6 @@
             const rmndrQntt = maxQntt - newQntt;
 
             $jobQntt.text(newQntt);
-            $jobQntt.attr('data-qntt', newQntt);
 
             $rmndrQntt.text(rmndrQntt === 0 ? '완료' : rmndrQntt);
 
@@ -568,6 +578,15 @@
                 $btnPlus.css('visibility', 'hidden');
             } else {
                 $btnPlus.css('visibility', 'visible');
+            }
+        }
+
+        if(sortCmndno) {
+            const sltSortCmndVO = jsonSave.find(item => item.sortCmndno == $sortCmndno.text());
+
+            if(sltSortCmndVO) {
+                sltSortCmndVO.prfmncQntt = newQntt;
+                sltSortCmndVO.prfmncWght = newQntt * (sltSortCmndVO.cmndWght / sltSortCmndVO.cmndQntt);
             }
         }
     }
