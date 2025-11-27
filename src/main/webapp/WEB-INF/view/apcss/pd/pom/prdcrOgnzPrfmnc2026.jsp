@@ -1890,7 +1890,7 @@
     SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(rowData.prfmncCorpDdlnYn))//실적 법인체 마감
     </c:if>
 
-    // fn_clearForm();
+    fn_clearForm();
   }
 
   var comUoBrno = [];//통합조직 선택
@@ -1968,11 +1968,11 @@
     SBUxMethod.set('dtl-input-sttgUpbrItemSe',null)//품목구분 전문/육성
 
     /** 생산자조직리스트 sbux **/
-    SBUxMethod.set('dtl-input-apoCd', "");//통합조직 코드
+   /* SBUxMethod.set('dtl-input-apoCd', "");//통합조직 코드
     SBUxMethod.set('dtl-input-apoSe', "");//통합조직 구분
     SBUxMethod.set('dtl-input-corpNm', "");//법인명
     SBUxMethod.set('dtl-input-crno', "");//법인등록번호
-    SBUxMethod.set('dtl-input-brno', "");//사업자등록번호
+    SBUxMethod.set('dtl-input-brno', "");//사업자등록번호*/
     // SBUxMethod.set('dtl-input-selUoBrno', "");
     // SBUxMethod.set('dtl-input-uoBrno', "");
     // SBUxMethod.set('dtl-input-uoCd', "");
@@ -2715,7 +2715,7 @@
       return;
     }
 
-    let postUrl = "/pd/pom/insertFrmhsList.do";
+    let postUrl = "/pd/aom/insertFrmhsList.do";
 
     const postJsonPromise = gfn_postJSON(postUrl, pckgPrfmncList);
     const data = await postJsonPromise;
