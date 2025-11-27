@@ -88,6 +88,7 @@
                 AND P.PRGRM_ID = PRGRS.PRGRM_ID
                 AND P.DEL_YN = 'N'
                 AND P.USE_YN = 'Y'
+                AND P.INDCT_YN = 'Y'
              ) A
 
 --      마감여부
@@ -302,4 +303,22 @@
         ]]>
     </select>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePrfmncCorpDdlnYn-->
+    <!-- DESC : 생산유통통합조직 실적 법인체 마감                                         -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.25  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updatePrfmncCorpDdlnYn" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+        <![CDATA[
+            UPDATE
+                TB_EV_APLY_MNG
+            SET
+                PRFMNC_CORP_DDLN_YN = #{prfmncCorpDdlnYn}
+            WHERE YR = #{crtrYr}
+            AND APO_CD = #{apoCd}
+        ]]>
+    </update>
 </mapper>
