@@ -44,6 +44,6 @@ public interface SprtBizRsltInqService {
      * @return
      * @throws Exception
      */
-    public List<SprtBizRsltInqVO> insertSprtBizRsltInqList(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+    public int insertSprtBizRsltInqList(List<SprtBizRsltInqVO> sprtBizRsltInqVOList) throws Exception;
 
 }

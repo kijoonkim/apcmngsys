@@ -88,20 +88,25 @@ public class SprtBizRsltInqController extends BaseController {
 
 
 	@PostMapping(value = "/pd/sprt/insertSprtBizRsltInqList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insetSprtBizRsltInqList(Model model, @RequestBody SprtBizRsltInqVO sprtBizRsltInqVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insetSprtBizRsltInqList(@RequestBody List<SprtBizRsltInqVO> sprtBizRsltInqVOList, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		List<SprtBizRsltInqVO> resultList = new ArrayList<>();
+
+		int savedCnt = 0;
+
 		try {
-			sprtBizRsltInqVO.setSysFrstInptPrgrmId(getPrgrmId());
-			sprtBizRsltInqVO.setSysFrstInptUserId(getUserId());
-			sprtBizRsltInqVO.setSysLastChgPrgrmId(getPrgrmId());
-			sprtBizRsltInqVO.setSysLastChgUserId(getUserId());
-			resultList = sprtBizRsltInqService.selectSprtBizRsltInqList(sprtBizRsltInqVO);
+			for (SprtBizRsltInqVO sprtBizRsltInqVO : sprtBizRsltInqVOList) {
+				sprtBizRsltInqVO.setSysFrstInptPrgrmId(getPrgrmId());
+				sprtBizRsltInqVO.setSysFrstInptUserId(getUserId());
+				sprtBizRsltInqVO.setSysLastChgPrgrmId(getPrgrmId());
+				sprtBizRsltInqVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = sprtBizRsltInqService.insertSprtBizRsltInqList(sprtBizRsltInqVOList);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_LIST, savedCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
 

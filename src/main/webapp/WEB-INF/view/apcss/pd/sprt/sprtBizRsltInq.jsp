@@ -890,7 +890,7 @@
                 caption: ["지원사업연도"],
                 ref: 'sprtBizYr',
                 type:'combo',
-                width:'70px',
+                width:'80px',
                 style:'text-align:center; background-color:#FFF8DC;',
                 typeinfo: {
                     ref: 'sprtBizYrFilterData',
@@ -1086,7 +1086,7 @@
         }
         console.log("saveList : ", saveList);
         // insert Controller 호출
-/*
+
         let postUrl = "/pd/sprt/insertSprtBizRsltInqList.do";
 
         const postJsonPromise = gfn_postJSON(postUrl, saveList);
@@ -1096,7 +1096,6 @@
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");	// I0001	처리 되었습니다.
                 popImp.close();
-                fn_dtlGridSearch01();
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }
@@ -1107,7 +1106,7 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-*/
+
 
 
     }
