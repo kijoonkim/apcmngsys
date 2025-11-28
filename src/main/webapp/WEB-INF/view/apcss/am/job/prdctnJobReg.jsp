@@ -192,7 +192,7 @@
                                     name="srch-slt-jobLine"
                                     unselected-text="선택"
                                     class="input-sm-ast inpt_data_reqed inpt-mbl"
-                                    jsondata-ref="jsonJobLine"
+                                    jsondata-ref="jsonComJobLine"
                                 ></sbux-select>
                             </td>
                             <td class="td_input th-mbl" style="border-right: hidden;">P/T</td>
@@ -243,7 +243,7 @@
     </section>
 </body>
 <script type="text/javascript">
-    var jsonJobLine = [];    // 작업라인
+    var jsonComJobLine = [];    // 작업라인
     var jsonSave = [];    // 조회 내역
 
     window.addEventListener('DOMContentLoaded', function(e) {
@@ -276,7 +276,9 @@
      * @description 초기 데이터 조회
      */
     const fn_initSBSelect = async function() {
-        let result = await Promise.all([]);
+        let result = await Promise.all([
+            gfn_setComCdSBSelect('srch-slt-jobLine', jsonComJobLine, 'SORT_FCLT_CD', gv_selectedApcCd)    // 작업라인
+        ]);
     }
 
     /**
@@ -369,7 +371,7 @@
         if(value.length <= 3) {
             let cmndno = 'SO' + gfn_dateToYmd(new Date());
 
-            // RT202501010001
+            // SO202501010001
             if(value < 10) {
                 cmndno = cmndno + "000" + value;
             } else if(value < 100) {
@@ -488,14 +490,14 @@
                 <tr onclick="selectLatestInfo(this)">
                     <td>${'${item.sortCmndSn}'}</td>
                     <td>${'${""}'}</td>
-                    <td>${'${gfn_isEmpty(item.gdsSeNm) ? "" : item.gdsSeNm}'}</td>
+                    <td style="text-align: left;">${'${gfn_isEmpty(item.mrktGdsNm) ? "" : item.mrktGdsNm}'}</td>
                     <td>${'${gfn_isEmpty(item.vrtyNm) ? "" : item.vrtyNm}'}</td>
                     <td>${'${gfn_isEmpty(item.bxKndNm) ? "" : item.bxKndNm}'}</td>
                     <td id="cmndQntt">${'${cmndQntt}'}</td>
                     <td style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <input type="button" value="-" onclick="fn_minus(this, event)" id="btnMinus" class="btn-primary btn btn-mbl" style="width: 50px; visibility: hidden;">
+                        <input type="button" value="-" onclick="fn_minus(this, event)" id="btnMinus" class="btn-primary btn btn-mbl" style="width: 50px; visibility: ${'${jobQntt === 0 ? "hidden" : "visible"}'};">
                         <span id="jobQntt">${'${jobQntt}'}</span>
-                        <input type="button" value="+" onclick="fn_plus(this, event)" id="btnPlus" class="btn-primary btn btn-mbl" style="width: 50px;">
+                        <input type="button" value="+" onclick="fn_plus(this, event)" id="btnPlus" class="btn-primary btn btn-mbl" style="width: 50px; visibility: ${'${jobQntt === cmndQntt ? "hidden" : "visible"}'};">
                     </td>
                     <td id="rmndrQntt">${'${rmndrQntt === 0 ? "완료" : rmndrQntt}'}</td>
                     <td id="sortCmndno" style="display: none;">${'${item.sortCmndno}'}</td>
@@ -514,9 +516,9 @@
     const selectLatestInfo = async function(element) {
         let idx = $(element).index();
         let jsonData = jsonSave[idx];
-        console.log("jsonData: ", jsonData);
 
         SBUxMethod.set("srch-dtp-jobYmd", jsonData.sortCmndYmd);
+        SBUxMethod.set("srch-slt-jobLine", jsonData.fcltCd);
         SBUxMethod.set("srch-inp-pltno", jsonData.pltno);
     }
 

@@ -55,6 +55,8 @@
 			     , SC.PRDCR_CD          AS PRDCR_CD         -- 생산자코드
 			     , SC.ITEM_CD           AS ITEM_CD          -- 품목코드
 			     , SC.VRTY_CD           AS VRTY_CD        	-- 품종코드
+			     , SC.MRKT_GDS_CD       AS MRKT_GDS_CD      -- 시장상품코드
+			     , SC.MRKT_GDS_NM       AS MRKT_GDS_NM      -- 시장상품명
 			     , SC.CMND_QNTT         AS CMND_QNTT        -- 지시수량
 			     , SC.CMND_WGHT         AS CMND_WGHT        -- 지시중량
 			     , SC.PRFMNC_QNTT       AS PRFMNC_QNTT      -- 실적수량
