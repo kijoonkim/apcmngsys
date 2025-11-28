@@ -170,6 +170,8 @@
         ]);
 
         fn_createJobCmndGrid();
+
+        fn_search();
     }
 
     /**
@@ -178,7 +180,9 @@
      */
     const fn_initSBSelect = async function() {
         let result = await Promise.all([
-            gfn_setApcVrtySBSelect('srch-slt-vrtyNm', jsonComVrty, gv_selectedApcCd)    // 품종
+            gfn_setComCdSBSelect('srch-slt-jobLine', jsonComJobLine, 'SORT_FCLT_CD', gv_selectedApcCd),    // 작업라인
+            gfn_setApcVrtySBSelect('srch-slt-vrtyNm', jsonComVrty, gv_selectedApcCd),    // 품종
+            gfn_setComCdGridSelect('gridJobCmnd', jsonGridJobLine, 'SORT_FCLT_CD', gv_selectedApcCd)    // 작업라인
         ]);
     }
 
@@ -197,13 +201,20 @@
         SBGridProperties.oneclickedit = true;
         SBGridProperties.allowcopy = true;
         SBGridProperties.columns = [
-            { caption: [""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
+            {
+                caption: ["<input type='checkbox' onchange='fn_checkAll(gridJobCmnd, this);'>"],
+                ref: 'checkedYn',
+                width: '50px',
+                style: 'text-align: center;',
+                type: 'checkbox',
+                typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
             { caption: ['지시번호'], ref: 'cmndno', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['지시일자'], ref: 'cmndYmd', type: 'datepicker', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {dateformat: 'yyyy-mm-dd'}, format: {type: 'date', rule: 'yyyy-mm-dd', origin: 'YYYYMMDD'} },
             { caption: ['작업라인'], ref: 'jobLine', type: 'combo', width: '100px', style: 'text-align: center; background: #FFF8DC;', sortable: false, typeinfo: {ref: 'jsonGridJobLine', label: 'label', value: 'value', itemcount: 10} },
             { caption: ['작업순번'], ref: 'jobSn', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;' },
             { caption: ['거래처'], ref: 'cnptNm', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['상품명'], ref: 'gdsNm', type: 'output', width: '100px', style: 'text-align: center;' },
+            { caption: ['상품명'], ref: 'gdsNm', type: 'output', width: '200px', style: 'text-align: center;' },
             { caption: ['원물품종'], ref: 'rawMtrVrtyNm', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['단위'], ref: 'unit', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['지시수량'], ref: 'cmndQntt', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
@@ -245,7 +256,34 @@
      * @description 저장 버튼 클릭 시 event
      */
     const fn_save = async function() {
+        const jobCmndList = [];
 
+        let allData = gridJobCmnd.getGridDataAll();
+
+        for(let i = 1; i <= allData.length; i++) {
+            const rowData = gridJobCmnd.getRowData(i);
+            const rowSts = gridJobCmnd.getRowStatus(i);
+
+            if(rowSts === 3) {
+                rowData.apcCd = gv_selectedApcCd;
+                rowData.rowSts = "I";
+                jobCmndList.push(rowData);
+            } else if(rowSts === 2) {
+                rowData.rowSts = "U";
+                jobCmndList.push(rowData);
+            } else {
+                continue;
+            }
+        }
+
+        if(jobCmndList.length == 0) {
+            gfn_comAlert("W0003", "저장");    // W0003    {0}할 대상이 없습니다.
+            return;
+        }
+
+        if(!gfn_comConfirm("Q0001", "저장")) {    // Q0001    {0} 하시겠습니까?
+            return;
+        }
     }
 
     /**
@@ -255,11 +293,15 @@
     const fn_search = async function() {
         let cmndYmdFrom = SBUxMethod.get("srch-dtp-cmndYmdFrom");
         let cmndYmdTo = SBUxMethod.get("srch-dtp-cmndYmdTo");
+        let fcltCd = SBUxMethod.get("srch-slt-jobLine");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyNm");
 
         let param = {
             apcCd: gv_selectedApcCd,
             cmndYmdFrom: cmndYmdFrom,
-            cmndYmdTo: cmndYmdTo
+            cmndYmdTo: cmndYmdTo,
+            fcltCd: fcltCd,
+            vrtyCd: vrtyCd
         }
 
         try {
@@ -272,11 +314,11 @@
                 const spmtCmndVO = {
                     cmndno: item.sortCmndno,
                     cmndYmd: item.sortCmndYmd,
-                    jobLine: "",
-                    jobSn: "",
+                    jobLine: item.fcltCd,
+                    jobSn: item.sortCmndSn,
                     cnptNm: "",
-                    gdsNm: "",
-                    rawMtrVrtyNm: "",
+                    gdsNm: item.mrktGdsNm,
+                    rawMtrVrtyNm: item.vrtyNm,
                     unit: "",
                     cmndQntt: item.cmndQntt,
                     rmrk: item.rmrk
@@ -310,6 +352,21 @@
 
             return;
         }
+    }
+
+    /**
+     * @name fn_checkAll
+     * @description 그리드 체크박스 전체 선택
+     */
+    const fn_checkAll = function(grid, obj) {
+        const checkedYn = obj.checked ? "Y" : "N";
+        const getColRef = grid.getColRef("checkedYn");
+
+        for(var i = 0; i < grid.getGridDataAll().length; i++) {
+            grid.setCellData(i + 1, getColRef, checkedYn, true, false);
+        }
+
+        grid.refresh();
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

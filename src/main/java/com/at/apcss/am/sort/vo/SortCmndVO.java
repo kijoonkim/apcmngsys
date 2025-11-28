@@ -106,6 +106,16 @@ public class SortCmndVO extends ComVO {
 	 */
 	private String vrtyCd;
 
+    /**
+     * 시장상품코드
+     */
+    private String mrktGdsCd;
+
+    /**
+     * 시장상품명
+     */
+    private String mrktGdsNm;
+
 	/**
 	 * 지시수량
 	 */
@@ -117,12 +127,12 @@ public class SortCmndVO extends ComVO {
 	private double cmndWght;
 
     /**
-     * 지시수량
+     * 실적수량
      */
     private int prfmncQntt;
 
     /**
-     * 지시중량
+     * 실적중량
      */
     private double prfmncWght;
 

@@ -193,6 +193,8 @@
         ]);
 
         fn_createSpmtCmndGrid();
+
+        fn_search();
     }
 
     /**
@@ -219,10 +221,17 @@
         SBGridProperties.oneclickedit = true;
         SBGridProperties.allowcopy = true;
         SBGridProperties.columns = [
-            { caption: [""], ref: 'checkedYn', type: 'checkbox',  width: '50px', style: 'text-align: center; background: #FFF8DC;', userattr: {colNm: "checkedYn"}, typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate: true, fixedcellcheckbox: {usemode: true, rowindex: 0}} },
+            {
+                caption: ["<input type='checkbox' onchange='fn_checkAll(gridSpmtCmnd, this);'>"],
+                ref: 'checkedYn',
+                width: '50px',
+                style: 'text-align: center;',
+                type: 'checkbox',
+                typeinfo: {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
             { caption: ['거래처'], ref: 'cnptNm', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['센터'], ref: 'cntrNm', type: 'output', width: '100px', style: 'text-align: center;' },
-            { caption: ['상품명'], ref: 'gdsNm', type: 'output', width: '100px', style: 'text-align: center;' },
+            { caption: ['상품명'], ref: 'gdsNm', type: 'output', width: '200px', style: 'text-align: center;' },
             { caption: ['인증구분'], ref: 'certSeNm', type: 'output', width: '100px', style: 'text-align: center;' },
             { caption: ['지시수량'], ref: 'cmndQntt', type: 'output', width: '100px', style: 'text-align: center;', typeinfo: {mask: {alias: 'numeric'}}, format: {type: 'number', rule: '#,###'} },
             { caption: ['들이'], ref: 'vlm', type: 'input', width: '100px', style: 'text-align: center; background: #FFF8DC;' },
@@ -267,7 +276,34 @@
      * @description 저장 버튼 클릭 시 event
      */
     const fn_save = async function() {
+        const spmtCmndList = [];
 
+        let allData = gridSpmtCmnd.getGridDataAll();
+
+        for(let i = 1; i <= allData.length; i++) {
+            const rowData = gridSpmtCmnd.getRowData(i);
+            const rowSts = gridSpmtCmnd.getRowStatus(i);
+
+            if(rowSts === 3) {
+                rowData.apcCd = gv_selectedApcCd;
+                rowData.rowSts = "I";
+                spmtCmndList.push(rowData);
+            } else if(rowSts === 2) {
+                rowData.rowSts = "U";
+                spmtCmndList.push(rowData);
+            } else {
+                continue;
+            }
+        }
+
+        if(spmtCmndList.length == 0) {
+            gfn_comAlert("W0003", "저장");    // W0003    {0}할 대상이 없습니다.
+            return;
+        }
+
+        if(!gfn_comConfirm("Q0001", "저장")) {    // Q0001    {0} 하시겠습니까?
+            return;
+        }
     }
 
     /**
@@ -296,7 +332,7 @@
                 const spmtCmndVO = {
                     cnptNm: item.cnptNm,
                     cntrNm: "",
-                    gdsNm: item.gdsNm,
+                    gdsNm: item.spmtPckgUnitNm,
                     certSeNm: "",
                     cmndQntt: item.cmndQntt,
                     vlm: "",
@@ -352,6 +388,21 @@
 
             return;
         }
+    }
+
+    /**
+     * @name fn_checkAll
+     * @description 그리드 체크박스 전체 선택
+     */
+    const fn_checkAll = function(grid, obj) {
+        const checkedYn = obj.checked ? "Y" : "N";
+        const getColRef = grid.getColRef("checkedYn");
+
+        for(var i = 0; i < grid.getGridDataAll().length; i++) {
+            grid.setCellData(i + 1, getColRef, checkedYn, true, false);
+        }
+
+        grid.refresh();
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
