@@ -4,6 +4,7 @@ package com.at.apcss.am.ordr.mapper;
 import java.util.List;
 
 import com.at.apcss.am.ordr.vo.*;
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**
@@ -139,4 +140,45 @@ public interface OrdrRcvMapper {
 	 */
 	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO);
 
+	/**
+	 * 상품발주정보 저장(SSG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrSsgReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(SSG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrSsgDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주정보 저장(LOTTE)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrLtReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(LOTTE)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrLtDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주정보 저장(COUPANG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrCpngReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(COUPANG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrCpngDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
 }

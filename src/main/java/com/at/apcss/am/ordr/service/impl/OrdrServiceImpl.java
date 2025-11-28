@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -308,33 +309,97 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	}
 
 	@Override
-	public int insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList) throws Exception {
+	public HashMap<String, Object> insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList, String initial) throws Exception {
 		HashMap<String, Object> rtnObj = null;
+		List<MrktOrdrVO> failList = new ArrayList<>();
+		int successCnt = 0;
 
 		try{
-			for(MrktOrdrVO ordrVO : mrktOrdrVOList){
-				List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+			switch(initial){
+				case "SSG":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
 
-				ordrRcvMapper.insertSpMrktOrdrLtReg(ordrVO);
+							ordrRcvMapper.insertMrktOrdrSsgReg(ordrVO);
 
-				if (StringUtils.hasText(ordrVO.getRtnCd())) {
-					rtnObj = ComUtil.getResultMap(ordrVO.getRtnCd(), ordrVO.getRtnMsg());
-					throw new EgovBizException(getMessageForMap(rtnObj));
-				}
-				long ordrSeq = ordrVO.getOrdrSeq();
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
 
-				for(MrktOrdrDtlVO dtlVO : dtlList){
-					dtlVO.setOrdrSeq(ordrSeq);
-					ordrRcvMapper.insertSpMrktOrdrLtDtlReg(dtlVO);
-					if (StringUtils.hasText(dtlVO.getRtnCd())) {
-						rtnObj = ComUtil.getResultMap(dtlVO.getRtnCd(), dtlVO.getRtnMsg());
-						throw new EgovBizException(getMessageForMap(rtnObj));
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								dtlVO.setOrdrSeq(ordrSeq);
+								ordrRcvMapper.insertMrktOrdrSsgDtlReg(dtlVO);
+							}
+								ordrVO.setSaveYn("Y");
+								successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
 					}
-				}
+					break;
+				case "CPNG":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+
+							ordrRcvMapper.insertMrktOrdrCpngReg(ordrVO);
+
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
+
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								dtlVO.setOrdrSeq(ordrSeq);
+								ordrRcvMapper.insertMrktOrdrCpngDtlReg(dtlVO);
+							}
+								ordrVO.setSaveYn("Y");
+								successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
+					}
+					break;
+				case "LT":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+
+							ordrRcvMapper.insertMrktOrdrLtReg(ordrVO);
+
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
+
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								dtlVO.setOrdrSeq(ordrSeq);
+								ordrRcvMapper.insertMrktOrdrLtDtlReg(dtlVO);
+							}
+							ordrVO.setSaveYn("Y");
+							successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
+					}
+					break;
 			}
+
 		}catch (Exception e){
 			throw new EgovBizException();
 		}
-		return 0;
+		HashMap<String, Object> result = new HashMap<>();
+		result.put(ComConstants.PROP_RESULT_CODE, failList.isEmpty() ? "S" : "P");  // P = Partial
+		result.put(ComConstants.PROP_INSERTED_CNT, successCnt);
+		result.put(ComConstants.PROP_FAIL_RESULT_LIST, failList);
+		return result;
 	}
 }

@@ -14,7 +14,8 @@ public class MrktOrdrVO extends ComVO {
 
 	private String rtnCd;
 	private String rtnMsg;
-	
+
+	private String ordrChgDt;
 	private String ordrApcCd;
 	private String wrhsYmd;
 	private Integer ordrSeq;
@@ -52,8 +53,14 @@ public class MrktOrdrVO extends ComVO {
 	private String warehouseTxt;
 	private String warehouseNm;
 	private String ordrDsctn;
-	
-	
+	private String outordrTm;
+	private String prcsSeCd;
+	private String linkDt;
+	private String linkPrcsDt;
+	private String sttsCdNm;
+	private String saveYn;
+	private String failMsg;
+
 	private List<MrktOrdrDtlVO> dtlList;
 
 	public List<MrktOrdrDtlVO> getDtlList() {

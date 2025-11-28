@@ -170,5 +170,5 @@ public interface OrdrService {
 	 * @return
 	 * @throws Exception
 	 */
-    int insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList) throws Exception;
+	HashMap<String, Object> insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList, String initial) throws Exception;
 }

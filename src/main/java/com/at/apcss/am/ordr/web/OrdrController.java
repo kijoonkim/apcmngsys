@@ -23,6 +23,7 @@ import com.at.apcss.am.ordr.service.OrdrService;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Class Name : OrdrController.java
@@ -410,15 +411,16 @@ public class OrdrController extends BaseController {
 	}
 
 	@PostMapping(value = "/am/ordr/insertSpMrktOrdrLtReg.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSpMrktOrdrLtReg(@RequestBody List<MrktOrdrVO> mrktOrdrVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertSpMrktOrdrLtReg(@RequestBody List<MrktOrdrVO> mrktOrdrVOList, @RequestParam(required = false) String initial, HttpServletRequest request) throws Exception {
 
+		System.out.println(initial);
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int resultCnt = 0;
 
 		try {
 			setComVOFields(mrktOrdrVOList);
 
-			resultCnt = ordrService.insertSpMrktOrdrLtReg(mrktOrdrVOList);
+			resultMap = ordrService.insertSpMrktOrdrLtReg(mrktOrdrVOList,initial);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

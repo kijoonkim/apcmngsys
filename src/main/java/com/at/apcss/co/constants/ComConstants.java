@@ -77,6 +77,7 @@ public class ComConstants {
 	public final static String PROP_RESULT_MESSAGE = "resultMessage";
 	public final static String PROP_RESULT_MAP = "resultMap";
 	public final static String PROP_RESULT_LIST = "resultList";
+	public final static String PROP_FAIL_RESULT_LIST = "failResultList";
 	public final static String PROP_RESULT_LIST_1 = "resultList1";
 	public final static String PROP_RESULT_LIST_2 = "resultList2";
 	public final static String PROP_RESULT_LIST_3 = "resultList3";
