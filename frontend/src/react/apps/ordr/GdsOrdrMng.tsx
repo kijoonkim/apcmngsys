@@ -79,9 +79,19 @@ const reverseHeaderMapping: Record<string, string> = {
 // ============================================================================
 // 벤더 감지 관련 타입 및 상수
 // ============================================================================
+type Vendor = 'SHINSEGAE' | 'COUPANG' | 'LOTTE' | 'UNKNOWN';
+type SubVendor =
+  | 'NOBRAND'
+  | 'EMART'
+  | 'TRADERS'
+  | 'EVERYDAY' // 신세계 계열
+  | 'COUPANG' // 쿠팡
+  | 'LOTTE_MART'
+  | 'LOTTE_SUPER' // 롯데 계열
+  | null;
 
 interface VendorSignature {
-  vendor: 'SHINSEGAE' | 'COUPANG' | 'LOTTE';
+  vendor: Vendor;
   keyHeaders: string[];
   headerCount: number;
 }
@@ -105,6 +115,35 @@ const VENDOR_SIGNATURES: VendorSignature[] = [
 ];
 
 // ============================================================================
+// 벤더별 세부벤더 옵션
+// ============================================================================
+const SUB_VENDOR_OPTIONS: Record<Vendor, { value: SubVendor; label: string }[]> = {
+  SHINSEGAE: [
+    { value: 'NOBRAND', label: '노브랜드', initial: 'SSG' },
+    { value: 'EMART', label: '이마트', initial: 'SSG' },
+    { value: 'TRADERS', label: '트레이더스', initial: 'SSG' },
+    { value: 'EVERYDAY', label: '에브리데이', initial: 'SSG' },
+  ],
+  COUPANG: [{ value: 'COUPANG', label: '쿠팡', initial: 'CPNG' }],
+  LOTTE: [
+    { value: 'LOTTE_MART', label: '롯데마트', initial: 'LT' },
+    { value: 'LOTTE_SUPER', label: '롯데슈퍼', initial: 'LT' },
+  ],
+  UNKNOWN: [],
+};
+
+// 세부벤더 Badge 색상
+const SUB_VENDOR_COLORS: Record<string, string> = {
+  NOBRAND: 'yellow',
+  EMART: 'blue',
+  TRADERS: 'indigo',
+  EVERYDAY: 'cyan',
+  COUPANG: 'orange',
+  LOTTE_MART: 'pink',
+  LOTTE_SUPER: 'red',
+};
+
+// ============================================================================
 // 롯데 한글 헤더 → 카멜케이스 매핑
 // ============================================================================
 const LOTTE_HEADER_MAPPING: Record<string, string> = {
@@ -126,11 +165,68 @@ const LOTTE_HEADER_MAPPING: Record<string, string> = {
   단가: 'outordrUntprc',
   주문금액: 'outordrAmt',
 };
+const SSG_HEADER_MAPPING: Record<string, string> = {
+  발주일자: 'outordrYmd',
+  업체코드: 'coCd',
+  업체명: 'coNm',
+  점포코드: 'storCd',
+  점포명: 'storNm',
+  상품코드: 'mrktGdsCd',
+  상품명: 'mrktGdsNm',
+  발주원가: 'outordrUntprc',
+  발주단위: 'ordrUnitQntt',
+  LOT: 'bndlNo',
+  수량: 'outordrQntt',
+  발주금액: 'outordrAmt',
+  문서번호: 'outordrno',
+  바이어명: 'ordrr',
+  센터입하일자: 'cntrWrhsYmd',
+  센터코드: 'cntrCd',
+  센터이름: 'cntrNm',
+  점입점일자: 'storWrhsYmd',
+  납품구분: 'dlvrType',
+  '기타(점코드)': 'etcMttr',
+  '기타(점포명)': 'etcDtlCn',
+};
+const COUPANG_HEADER_MAPPING: Record<string, string> = {
+  발주번호: 'outordrno',
+  물류센터: 'cntrNm',
+  입고유형: 'mrktWrhsType',
+  발주상태: 'sttsCdNm',
+  상품번호: 'mrktGdsCd',
+  상품바코드: 'otptNm',
+  상품이름: 'mrktGdsNm',
+  발주수량: 'outordrQntt',
+  확정수량: 'cfmtnQntt',
+  '유통(소비)기한': 'rtlTermYmd',
+  제조일자: 'mnftrYmd',
+  생산년도: 'prdctnYr',
+  납품부족사유: 'etcRsn',
+  회송담당자: 'addrseNm',
+  회송담당자연락처: 'addrseTelno',
+  회송지주소: 'addrseAddr',
+  매입가: 'outordrUntprc',
+  공급가: 'splyPrc',
+  부가세: 'txamt',
+  총발주: 'outordrAmt',
+  매입금: 'prchsAmt',
+  입고예정일: 'storWrhsYmd',
+  발주등록일시: 'outordrYmd',
+  Xdock: 'drctDlvrYn',
+};
+
+// 벤더별 헤더 매핑
+const HEADER_MAPPING: Record<Vendor, Record<string, string>> = {
+  LOTTE: LOTTE_HEADER_MAPPING,
+  SHINSEGAE: SSG_HEADER_MAPPING,
+  COUPANG: COUPANG_HEADER_MAPPING,
+  UNKNOWN: {},
+};
 
 /**
  * 헤더 패턴으로 벤더 자동 감지
  */
-const detectVendor = (headers: string[]): string => {
+const detectVendor = (headers: string[]): Vendor => {
   for (const signature of VENDOR_SIGNATURES) {
     // 1차: 헤더 개수 체크 (±2 허용)
     if (Math.abs(headers.length - signature.headerCount) > 2) continue;
@@ -283,9 +379,14 @@ const parseHTMLFile = (file: File): Promise<{ headers: string[]; data: any[][] }
 interface ExcelTab {
   id: string;
   fileName: string;
-  vendor: string; // 감지된 벤더 (SHINSEGAE, COUPANG, LOTTE, UNKNOWN)
+  vendor: Vendor;
+  subVendor: SubVendor;
+  lgszMrktCd: string | null; // 대형시장코드
+  initial: string | null; // 벤더 이니셜 (SSG, CPNG, LT)
   data: any[];
   columns: any[];
+  isSaved: boolean; // 저장 완료 여부
+  failCount: number; // 실패 건수
 }
 
 /**
@@ -354,10 +455,39 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // 시장물류센터 공통정보
   const [mrktLgstcsCntr, setMrktLgstcsCntr] = useState();
 
+  //벤더사 상세 공통코드
+  const [mrktComCdList, setMrktComCdList] = useState([]);
+  const [lgszMrktCd, setLgszMrktCd] = useState();
+
   // Dropzone tabs
   const [tabs, setTabs] = useState<ExcelTab[]>([]);
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [showFailedOnly, setShowFailedOnly] = useState<Record<string, boolean>>({});
   const gridApisRef = useRef<Map<string, any>>(new Map());
+
+  // mrktComCdList와 매핑된 세부벤더 옵션 (lgszMrktCd 포함)
+  const subVendorOptionsWithCode = useMemo(() => {
+    const result: Record<Vendor, { value: SubVendor; label: string; lgszMrktCd: string | null }[]> =
+      {
+        SHINSEGAE: [],
+        COUPANG: [],
+        LOTTE: [],
+        UNKNOWN: [],
+      };
+
+    Object.entries(SUB_VENDOR_OPTIONS).forEach(([vendor, options]) => {
+      result[vendor as Vendor] = options.map((opt) => {
+        // mrktComCdList에서 label이 일치하는 항목 찾기
+        const matched = mrktComCdList.find((item: any) => item.label === opt.label);
+        return {
+          ...opt,
+          lgszMrktCd: matched?.value || null,
+        };
+      });
+    });
+
+    return result;
+  }, [mrktComCdList]);
 
   // fn_init - 로딩 추가
   useEffect(() => {
@@ -382,9 +512,9 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           );
         }
 
-        // 상품명 공통코드
+        // 벤더사 상세 공통코드
         if (mrktComCd) {
-          console.log(mrktComCd);
+          setMrktComCdList(mrktComCd.map((i) => ({ value: i.cdVl, label: i.cdVlNm })));
         }
 
         // 시장 물류센터 코드
@@ -724,13 +854,27 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // 서버로 데이터 전송 - 로딩 추가
   // ========================================
   const handleSave = async () => {
-    setIsLoading(true);
-    setLoadingMessage('저장중...');
-
     if (!activeTab) {
       Swal.fire('', '저장할 탭을 선택하세요.', 'warning');
       return;
     }
+
+    const currentTab = tabs.find((t) => t.id === activeTab);
+    console.log(currentTab);
+
+    if (!currentTab) {
+      Swal.fire('', '탭을 찾을 수 없습니다.', 'error');
+      return;
+    }
+
+    // 세부벤더 선택 체크
+    if (!currentTab.subVendor) {
+      Swal.fire('', '세부 벤더를 선택해주세요.\n(탭을 다시 클릭하세요)', 'warning');
+      return;
+    }
+
+    setIsLoading(true);
+    setLoadingMessage('저장중...');
 
     const gridApi = gridApisRef.current.get(activeTab);
     if (!gridApi) {
@@ -766,7 +910,10 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
               outordrYmd: row.outordrYmd,
               outordrno: row.outordrno,
               outordrAmt: 0,
+              subVendor: currentTab.subVendor, // 세부벤더
+              lgszMrktCd: currentTab.lgszMrktCd, // 대형시장코드
               dtlList: [],
+              ordrPrcsCd: 'N',
             };
           }
 
@@ -786,11 +933,68 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       ),
     );
     console.log(mrktOrdrVOList, '저장전');
+    console.log(currentTab, 'tab');
+    // setIsLoading(false);
+    // setLoadingMessage('');
+    // return;
 
     try {
-      const r = await postJSON('/am/ordr/insertSpMrktOrdrLtReg.do', mrktOrdrVOList);
-      if (r.resultStatus == 'S') {
-        console.log(r);
+      const r = await postJSON(
+        `/am/ordr/insertSpMrktOrdrLtReg.do?initial=${currentTab.initial}`,
+        mrktOrdrVOList,
+      );
+
+      if (r.resultStatus === 'S') {
+        // 전체 성공
+        setTabs((prev) =>
+          prev.map((t) => (t.id === activeTab ? { ...t, isSaved: true, failCount: 0 } : t)),
+        );
+
+        // 모든 행에 saveYn = 'Y' 표시
+        gridApi.forEachNode((node: any) => {
+          node.setData({
+            ...node.data,
+            saveYn: 'Y',
+            failMsg: '',
+          });
+        });
+        gridApi.refreshCells();
+
+        Swal.fire({
+          icon: 'success',
+          text: `${r.successCnt || mrktOrdrVOList.length}건 저장 완료!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } else if (r.resultStatus === 'P') {
+        // 일부 실패
+        const failList = r.failList || [];
+
+        setTabs((prev) =>
+          prev.map((t) =>
+            t.id === activeTab ? { ...t, isSaved: true, failCount: failList.length } : t,
+          ),
+        );
+
+        // 각 행에 saveYn 표시
+        gridApi.forEachNode((node: any) => {
+          const failed = failList.find((f: any) => f.outordrno === node.data.outordrno);
+          node.setData({
+            ...node.data,
+            saveYn: failed ? 'N' : 'Y',
+            failMsg: failed?.failMsg || '',
+          });
+        });
+        gridApi.refreshCells();
+
+        Swal.fire({
+          icon: 'warning',
+          title: '일부 저장 실패',
+          html: `✅ ${r.successCnt}건 성공<br/>❌ ${failList.length}건 실패`,
+        });
+      } else {
+        // 전체 실패
+        Swal.fire('', r.resultMsg || '저장 실패', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -866,6 +1070,29 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     }),
     [],
   );
+
+  // 실패 행 스타일
+  const getRowStyle = (params: any) => {
+    if (params.data?.saveYn === 'N') {
+      return { backgroundColor: '#ffebee' }; // 연한 빨강
+    }
+    return undefined;
+  };
+
+  // 실패건 필터 토글
+  const toggleFailedFilter = (tabId: string) => {
+    setShowFailedOnly((prev) => ({
+      ...prev,
+      [tabId]: !prev[tabId],
+    }));
+
+    // 필터 변경 시 그리드 새로고침
+    const gridApi = gridApisRef.current.get(tabId);
+    if (gridApi) {
+      gridApi.onFilterChanged();
+    }
+  };
+
   // ========================================
   // 조회 - 로딩 추가
   // ========================================
@@ -881,6 +1108,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
         cntrCd,
         mrktGdsCd,
       };
+
       const r = await postJSON('/am/ordr/selectMrktGdsOrdrList.do', searchParam);
 
       if (r.resultStatus == 'S' && r.resultList.length > 0) {
@@ -1013,18 +1241,19 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           }
 
           // ⛔ 롯데만 허용
-          if (vendor !== 'LOTTE') {
-            Swal.fire(
-              '',
-              `${file.name}: 현재 롯데 발주서만 업로드 가능합니다.\n(감지된 벤더: ${vendor})`,
-              'warning',
-            );
-            continue;
-          }
+          // if (vendor !== 'LOTTE') {
+          //   Swal.fire(
+          //     '',
+          //     `${file.name}: 현재 롯데 발주서만 업로드 가능합니다.\n(감지된 벤더: ${vendor})`,
+          //     'warning',
+          //   );
+          //   continue;
+          // }
 
           // 컬럼 정의 생성 (카멜케이스 field + 한글 headerName)
+          const headerMapping = HEADER_MAPPING[vendor] || {}; // 벤더에 맞는 매핑
           const columns = headers.map((header) => ({
-            field: LOTTE_HEADER_MAPPING[header] || header,
+            field: headerMapping[header] || header,
             headerName: header,
             editable: true,
             resizable: true,
@@ -1034,17 +1263,27 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           const dataObjects = rawData.map((row, rowIdx) => {
             const obj: any = {};
             headers.forEach((header, idx) => {
-              const camelKey = LOTTE_HEADER_MAPPING[header] || header;
+              const camelKey = headerMapping[header] || header;
               let value = row[idx];
 
               // 날짜 필드 정규화 (2025.11.18 → 20251118)
               if (['outordrYmd', 'cntrWrhsYmd', 'storWrhsYmd'].includes(camelKey) && value) {
-                value = String(value).replace(/\./g, '').replace(/-/g, '');
+                value = String(value)
+                  .replace(/[\.\-\s:]/g, '') // 점, 대시, 공백, 콜론 전부 제거
+                  .substring(0, 8); // 앞 8자리만 (YYYYMMDD)
               }
 
               // 숫자 필드 정규화 (콤마 제거)
               if (
-                ['outordrQntt', 'outordrUntprc', 'outordrAmt', 'pieceQntt'].includes(camelKey) &&
+                [
+                  'outordrQntt',
+                  'outordrUntprc',
+                  'outordrAmt',
+                  'pieceQntt',
+                  'splyPrc',
+                  'txamt',
+                  'cfmtnQntt',
+                ].includes(camelKey) &&
                 value
               ) {
                 value = String(value).replace(/,/g, '');
@@ -1072,8 +1311,13 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
             id: `tab-${Date.now()}-${Math.random()}`,
             fileName: file.name,
             vendor: vendor,
+            subVendor: null,
+            lgszMrktCd: null, // 세부벤더 선택 시 설정됨
+            initial: null, // 세부벤더 선택 시 설정됨
             data: dataObjects,
             columns: columns,
+            isSaved: false,
+            failCount: 0,
           };
 
           setTabs((prev) => [...prev, newTab]);
@@ -1106,6 +1350,79 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     if (activeTab === tabId) {
       const remainingTabs = tabs.filter((t) => t.id !== tabId);
       setActiveTab(remainingTabs.length > 0 ? remainingTabs[0].id : null);
+    }
+  };
+
+  // ============================================================================
+  // 세부벤더 선택 함수
+  // ============================================================================
+  const handleSelectSubVendor = async (tabId: string) => {
+    const tab = tabs.find((t) => t.id === tabId);
+    if (!tab) return;
+
+    const options = subVendorOptionsWithCode[tab.vendor]; // lgszMrktCd 포함된 옵션
+
+    // 옵션이 없으면 (UNKNOWN) 스킵
+    if (options.length === 0) {
+      Swal.fire('', '알 수 없는 벤더입니다.', 'warning');
+      return;
+    }
+
+    // 옵션이 1개면 자동 선택 (쿠팡)
+    if (options.length === 1) {
+      setTabs((prev) =>
+        prev.map((t) =>
+          t.id === tabId
+            ? {
+                ...t,
+                subVendor: options[0].value,
+                lgszMrktCd: options[0].lgszMrktCd,
+                initial: options[0].initial,
+              }
+            : t,
+        ),
+      );
+      Swal.fire({
+        icon: 'success',
+        text: `${options[0].label} 선택됨`,
+        timer: 1000,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    // 옵션이 여러 개면 선택 모달
+    const inputOptions: Record<string, string> = {};
+    options.forEach((opt) => {
+      inputOptions[opt.value as string] = opt.label;
+    });
+
+    const { value } = await Swal.fire({
+      title: '세부 벤더 선택',
+      input: 'select',
+      inputOptions,
+      inputPlaceholder: '벤더를 선택하세요',
+      showCancelButton: true,
+      confirmButtonText: '선택',
+      cancelButtonText: '취소',
+    });
+
+    if (value) {
+      // 선택된 옵션에서 lgszMrktCd 찾기
+      const selectedOption = options.find((opt) => opt.value === value);
+
+      setTabs((prev) =>
+        prev.map((t) =>
+          t.id === tabId
+            ? {
+                ...t,
+                subVendor: value as SubVendor,
+                lgszMrktCd: selectedOption?.lgszMrktCd || null,
+                initial: selectedOption?.initial || null,
+              }
+            : t,
+        ),
+      );
     }
   };
 
@@ -1452,6 +1769,29 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                       onChange={setMrktGdsCd}
                     />
                   </td>
+                  <th scope="row" className="th_bg">
+                    발주사
+                  </th>
+                  <td className="td_input" style={{ borderRight: 'none' }}>
+                    <Select
+                      checkIconPosition="right"
+                      placeholder="검색"
+                      data={mrktComCdList}
+                      searchable
+                      clearable
+                      styles={{
+                        input: {
+                          borderRadius: 0,
+                          fontSize: '12px',
+                          minHeight: '0',
+                          height: '28px',
+                        },
+                        dropdown: { borderRadius: '0' },
+                      }}
+                      value={lgszMrktCd}
+                      onChange={setLgszMrktCd}
+                    />
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -1484,23 +1824,45 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                         key={tab.id}
                         value={tab.id}
                         style={{ fontSize: '13px' }}
+                        onClick={() => {
+                          // 이미 활성화된 탭 클릭 시 세부벤더 선택
+                          if (activeTab === tab.id) {
+                            handleSelectSubVendor(tab.id);
+                          }
+                        }}
                         rightSection={
                           <Group gap={4}>
                             <Badge
                               size="xs"
                               color={
-                                tab.vendor === 'SHINSEGAE'
-                                  ? 'blue'
-                                  : tab.vendor === 'COUPANG'
-                                    ? 'orange'
-                                    : tab.vendor === 'LOTTE'
-                                      ? 'red'
-                                      : 'gray'
+                                tab.subVendor
+                                  ? SUB_VENDOR_COLORS[tab.subVendor] || 'gray'
+                                  : tab.vendor === 'SHINSEGAE'
+                                    ? 'blue'
+                                    : tab.vendor === 'COUPANG'
+                                      ? 'orange'
+                                      : tab.vendor === 'LOTTE'
+                                        ? 'red'
+                                        : 'gray'
                               }
                               variant="light"
                             >
-                              {tab.vendor}
+                              {tab.subVendor
+                                ? SUB_VENDOR_OPTIONS[tab.vendor]?.find(
+                                    (v) => v.value === tab.subVendor,
+                                  )?.label
+                                : tab.vendor}
                             </Badge>
+                            {/* 저장 완료 체크 표시 */}
+                            {tab.isSaved ? (
+                              <Badge color="green" size="xs" variant="filled">
+                                ✓
+                              </Badge>
+                            ) : (
+                              <Badge color="gray" size="xs" variant="outline">
+                                미저장
+                              </Badge>
+                            )}
                             <ActionIcon
                               component="div"
                               size="xs"
@@ -1524,6 +1886,39 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
 
                   {tabs.map((tab) => (
                     <Tabs.Panel key={tab.id} value={tab.id}>
+                      {/* 실패건 필터 버튼 - 저장 후에만 표시 */}
+                      {tab.isSaved && (
+                        <Group style={{ margin: '5px', gap: '5px' }}>
+                          <Badge
+                            color={showFailedOnly[tab.id] ? 'red' : 'gray'}
+                            variant={showFailedOnly[tab.id] ? 'filled' : 'outline'}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => toggleFailedFilter(tab.id)}
+                          >
+                            {showFailedOnly[tab.id] ? '실패건만 보기' : '전체 보기'}
+                          </Badge>
+                          {!showFailedOnly[tab.id] && (
+                            <Badge
+                              color="gray"
+                              variant="outline"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => fn_sortCmnd(tab.id)}
+                            >
+                              선별지시등록
+                            </Badge>
+                          )}
+                          {!showFailedOnly[tab.id] && (
+                            <Badge
+                              color="gray"
+                              variant="outline"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => fn_sortCmnd(tab.id)}
+                            >
+                              포장지시등록
+                            </Badge>
+                          )}
+                        </Group>
+                      )}
                       <div
                         className="ag-theme-alpine"
                         style={{ height: 'calc(100vh - 450px)', width: '100%' }}
@@ -1533,8 +1928,12 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                           rowData={tab.data}
                           columnDefs={tab.columns}
                           defaultColDef={defaultColDef}
+                          getRowStyle={getRowStyle}
                           onGridReady={(params) => onGridReady(params, tab.id)}
                           tooltipShowDelay={0}
+                          // 실패건 필터
+                          isExternalFilterPresent={() => showFailedOnly[tab.id] || false}
+                          doesExternalFilterPass={(node) => node.data?.saveYn === 'N'}
                           // ✅ v34 최신 방식
                           rowSelection={{
                             mode: 'multiRow',

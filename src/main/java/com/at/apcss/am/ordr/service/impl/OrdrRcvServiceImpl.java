@@ -1835,7 +1835,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 			
-			long ordrSeq = ordrVO.getOrdrSeq();
+			Integer ordrSeq = ordrVO.getOrdrSeq();
 			
 			// insert ordr dtl
 			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
@@ -2750,7 +2750,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 			
-			long ordrSeq = ordrVO.getOrdrSeq();
+			Integer ordrSeq = ordrVO.getOrdrSeq();
 			
 			// insert ordr dtl
 			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
