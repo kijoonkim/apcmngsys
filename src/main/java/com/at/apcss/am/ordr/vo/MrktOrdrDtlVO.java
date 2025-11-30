@@ -87,6 +87,7 @@ public class MrktOrdrDtlVO extends ComVO {
 	private String dlvrType;
 	private String bxNo;
 	private int bxSn;
+	private double volUnitWght;
 
 	/** 20251127 신세계 추가컬럼 **/
 	private String bndlNo;

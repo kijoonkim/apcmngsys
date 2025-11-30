@@ -1,10 +1,8 @@
 package com.at.apcss.am.ordr.service.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -304,8 +302,25 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	}
 
 	@Override
-	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception {
-		return ordrMapper.selectMrktGdsOrdrList(mrktGdsOrdrVO);
+	public List<MrktOrdrDtlVO> selectMrktGdsOrdrList(MrktOrdrDtlVO mrktGdsOrdrDtlVO, String initial) throws Exception {
+		List<MrktOrdrDtlVO> resultList = new ArrayList<>();
+		try{
+			switch (initial){
+				case "SSG":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrSsgList(mrktGdsOrdrDtlVO);
+					break;
+				case "CPNG":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrCpngList(mrktGdsOrdrDtlVO);
+					break;
+				case "LT":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrLtList(mrktGdsOrdrDtlVO);
+					break;
+			}
+			
+		}catch (Exception e){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","조회")));
+		}
+		return resultList;
 	}
 
 	@Override
@@ -320,20 +335,29 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
 						try{
 							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqSsg(ordrVO);
 
 							ordrRcvMapper.insertMrktOrdrSsgReg(ordrVO);
 
 							Integer ordrSeq = ordrVO.getOrdrSeq();
+
 							if(ordrSeq == null){
 								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
 							}
 
 							for(MrktOrdrDtlVO dtlVO : dtlList){
-								dtlVO.setOrdrSeq(ordrSeq);
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
 								ordrRcvMapper.insertMrktOrdrSsgDtlReg(dtlVO);
 							}
-								ordrVO.setSaveYn("Y");
-								successCnt++;
+
+							ordrVO.setSaveYn("Y");
+							successCnt++;
 						} catch (Exception e) {
 							ordrVO.setSaveYn("N");
 							ordrVO.setFailMsg(e.getMessage());
@@ -345,20 +369,29 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
 						try{
 							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqCpng(ordrVO);
 
 							ordrRcvMapper.insertMrktOrdrCpngReg(ordrVO);
 
 							Integer ordrSeq = ordrVO.getOrdrSeq();
+
 							if(ordrSeq == null){
 								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
 							}
 
 							for(MrktOrdrDtlVO dtlVO : dtlList){
-								dtlVO.setOrdrSeq(ordrSeq);
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
 								ordrRcvMapper.insertMrktOrdrCpngDtlReg(dtlVO);
 							}
-								ordrVO.setSaveYn("Y");
-								successCnt++;
+
+							ordrVO.setSaveYn("Y");
+							successCnt++;
 						} catch (Exception e) {
 							ordrVO.setSaveYn("N");
 							ordrVO.setFailMsg(e.getMessage());
@@ -370,18 +403,27 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
 						try{
 							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqLt(ordrVO);
 
 							ordrRcvMapper.insertMrktOrdrLtReg(ordrVO);
 
 							Integer ordrSeq = ordrVO.getOrdrSeq();
+
 							if(ordrSeq == null){
 								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
 							}
 
 							for(MrktOrdrDtlVO dtlVO : dtlList){
-								dtlVO.setOrdrSeq(ordrSeq);
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
 								ordrRcvMapper.insertMrktOrdrLtDtlReg(dtlVO);
 							}
+
 							ordrVO.setSaveYn("Y");
 							successCnt++;
 						} catch (Exception e) {

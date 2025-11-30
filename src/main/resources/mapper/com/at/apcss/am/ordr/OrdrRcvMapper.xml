@@ -739,7 +739,8 @@
 
         WHEN MATCHED THEN
         UPDATE SET
-          ORDR_CHG_DT = #{ordrChgDt}
+          ORDR_SEQ = #{ordrSeq}
+        , ORDR_CHG_DT = #{ordrChgDt}
         , ORDR_PRCS_CD = #{ordrPrcsCd}
         , ORDR_PRCS_DT = SYSDATE
         , ORDR_PRCS_MSG = #{ordrPrcsMsg}
@@ -770,7 +771,7 @@
         , LINK_PRCS_DT = #{linkPrcsDt}
         WHEN NOT MATCHED THEN
         INSERT (
-        ORDR_APC_CD
+          ORDR_APC_CD
         , WRHS_YMD
         , ORDR_SEQ
         , ORDR_CRT_DT
@@ -805,7 +806,7 @@
         , LINK_DT
         , LINK_PRCS_DT
         ) VALUES (
-        #{ordrApcCd}
+          #{ordrApcCd}
         , #{wrhsYmd}
         , #{ordrSeq}
         , SYSDATE
@@ -846,18 +847,17 @@
             USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
                         , #{wrhsYmd}   AS WRHS_YMD
                         , #{ordrSeq}   AS ORDR_SEQ
-                        , #{outordrno}    AS OUTORDRNO
+                        , #{dtlSeq}    AS DTL_SEQ
                    FROM DUAL) S
             ON (
                         T.ORDR_APC_CD = S.ORDR_APC_CD
                     AND T.WRHS_YMD = S.WRHS_YMD
                     AND T.ORDR_SEQ = S.ORDR_SEQ
-                    AND T.OUTORDRNO = S.OUTORDRNO
+                    AND T.DTL_SEQ = S.DTL_SEQ
                 )
             WHEN MATCHED THEN
                 UPDATE SET
-                      DTL_SEQ = #{dtlSeq}
-                    , MRKT_GDS_CD = #{mrktGdsCd}
+                      MRKT_GDS_CD = #{mrktGdsCd}
                     , MRKT_GDS_NM = #{mrktGdsNm}
                     , MRKT_NTSL_CD = #{mrktNtslCd}
                     , STOR_CD = #{storCd}
@@ -1064,18 +1064,17 @@
             USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
                         , #{wrhsYmd}   AS WRHS_YMD
                         , #{ordrSeq}   AS ORDR_SEQ
-                        , #{outordrno}    AS OUTORDRNO
+                        , #{dtlSeq}    AS DTL_SEQ
                    FROM DUAL) S
             ON (
                         T.ORDR_APC_CD = S.ORDR_APC_CD
                     AND T.WRHS_YMD = S.WRHS_YMD
                     AND T.ORDR_SEQ = S.ORDR_SEQ
-                    AND T.OUTORDRNO = S.OUTORDRNO
+                    AND T.DTL_SEQ = S.DTL_SEQ
                 )
             WHEN MATCHED THEN
                 UPDATE SET
-                      DTL_SEQ = #{dtlSeq}
-                    , MRKT_GDS_CD = #{mrktGdsCd}
+                      MRKT_GDS_CD = #{mrktGdsCd}
                     , MRKT_GDS_NM = #{mrktGdsNm}
                     , MRKT_NTSL_CD = #{mrktNtslCd}
                     , STOR_CD = #{storCd}
@@ -1289,13 +1288,13 @@
             USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
                         , #{wrhsYmd}   AS WRHS_YMD
                         , #{ordrSeq}   AS ORDR_SEQ
-                        , #{outordrno}    AS OUTORDRNO
+                        , #{dtlSeq}    AS DTL_SEQ
                    FROM DUAL) S
             ON (
                         T.ORDR_APC_CD = S.ORDR_APC_CD
                     AND T.WRHS_YMD = S.WRHS_YMD
                     AND T.ORDR_SEQ = S.ORDR_SEQ
-                    AND T.OUTORDRNO = S.OUTORDRNO
+                    AND T.DTL_SEQ = S.DTL_SEQ
                 )
             WHEN MATCHED THEN
                 UPDATE SET
@@ -1416,6 +1415,202 @@
                              , #{rmrkCn}
                              )
     </insert>
+
+    <select id="selectMrktGdsOrdrSsgList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT
+              OISD.ORDR_APC_CD AS ordrApcCd
+            , OISD.WRHS_YMD AS wrhsYmd
+            , OISD.ORDR_SEQ AS ordrSeq
+            , OISD.OUTORDRNO AS outordrno
+            , OISD.DTL_SEQ AS dtlSeq
+            , OISD.MRKT_GDS_CD AS mrktGdsCd
+            , OISD.MRKT_GDS_NM AS mrktGdsNm
+            , OISD.MRKT_NTSL_CD AS mrktNtslCd
+            , OISD.STOR_CD AS storCd
+            , OISD.STOR_NM AS storNm
+            , OISD.MRKT_WRHS_TYPE AS mrktWrhsType
+            , OISD.MRKT_WRHS_TYPE_NM AS mrktWrhsTypeNm
+            , OISD.UP_GRD_ITEM AS upGrdItem
+            , OISD.BX_GDS_QNTT AS bxGdsQntt
+            , OISD.ORDR_UNIT_QNTT AS ordrUnitQntt
+            , OISD.OUTORDR_QNTT AS outordrQntt
+            , OISD.OUTORDR_UNIT AS outordrUnit
+            , OISD.PIECE_QNTT AS pieceQntt
+            , OISD.ZCST_QNTT AS zcstQntt
+            , OISD.PIECE_UNTPRC AS pieceUntprc
+            , OISD.TXAMT AS txamt
+            , OISD.OUTORDR_AMT AS outordrAmt
+            , OISD.OUTORDR_UNTPRC AS outordrUntprc
+            , OISD.WRHS_QNTT AS wrhsQntt
+            , OISD.CNTR_WRHS_YMD AS cntrWrhsYmd
+            , OISD.STOR_WRHS_YMD AS storWrhsYmd
+            , OISD.DLVR_TYPE AS dlvrType
+            , OISD.BNDL_NO AS bndlNo
+            , OISD.GDS_EXPLN AS gdsExpln
+            , OISD.RMRK_CN AS rmrkCn
+            , OISD.ETC_MTTR AS etcMttr
+            , OISD.ETC_DTL_CN AS etcDtlCn
+            , OISD.ETC_EXPLN AS etcExpln
+            , OISD.ORGNL_GDS_CD AS orgnlGdsCd
+            , OISD.WRHUS_CD AS wrhusCd
+            , OISD.WRHUS_NM AS wrhusNm
+        FROM
+             TB_MRKT_ORDR_IF_SSG AS OIS
+        JOIN TB_MRKT_ORDR_IF_SSG_DTL AS OISD
+            ON OIS.ORDR_APC_CD = OISD.ORDR_APC_CD
+            AND OIS.WRHS_YMD = OISD.WRHS_YMD
+            AND OIS.ORDR_SEQ = OISD.ORDR_SEQ
+            AND OIS.OUTORDRNO = OISD.OUTORDRNO
+
+        WHERE OIS.ORDR_APC_CD = #{ordrApcCd}
+          AND OIS.LGSZ_MRKT_CD = #{lgszMrktCd}
+          AND OIS.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+          AND OISD.MRKT_GDS_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OISD.OUTORDRNO, OISD.DTL_SEQ
+    </select>
+    <select id="selectMrktGdsOrdrLtList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT pt0.*, PU.VOL_UNIT_WGHT
+        FROM
+        (
+        SELECT
+              OILD.ORDR_APC_CD AS ORDR_APC_CD
+            , OILD.WRHS_YMD AS WRHS_YMD
+            , OILD.ORDR_SEQ AS ORDR_SEQ
+            , OILD.OUTORDRNO AS OUTORDRNO
+            , OILD.DTL_SEQ AS DTL_SEQ
+            , OILD.MRKT_GDS_CD AS MRKT_GDS_CD
+            , OILD.MRKT_GDS_NM AS MRKT_GDS_NM
+            , OILD.MRKT_NTSL_CD AS MRKT_NTSL_CD
+            , OILD.STOR_CD AS STOR_CD
+            , OILD.STOR_NM AS STOR_NM
+            , OILD.MRKT_WRHS_TYPE AS MRKT_WRHS_TYPE
+            , OILD.MRKT_WRHS_TYPE_NM AS MRKT_WRHS_TYPE_NM
+            , OILD.UP_GRD_ITEM AS UP_GRD_ITEM
+            , OILD.BX_GDS_QNTT AS BX_GDS_QNTT
+            , OILD.OUTORDR_QNTT AS OUTORDR_QNTT
+            , OILD.OUTORDR_UNIT AS OUTORDR_UNIT
+            , OILD.PIECE_QNTT AS PIECE_QNTT
+            , OILD.ZCST_QNTT AS ZCST_QNTT
+            , OILD.PIECE_UNTPRC AS PIECE_UNTPRC
+            , OILD.TXAMT AS TXAMT
+            , OILD.OUTORDR_AMT AS OUTORDR_AMT
+            , OILD.OUTORDR_UNTPRC AS OUTORDR_UNTPRC
+            , OILD.WRHS_QNTT AS WRHS_QNTT
+            , OILD.CNTR_WRHS_YMD AS CNTR_WRHS_YMD
+            , OILD.STOR_WRHS_YMD AS STOR_WRHS_YMD
+            , OILD.DLVR_TYPE AS DLVR_TYPE
+            , OILD.BX_NO AS BX_NO
+            , OILD.BX_SN AS BX_SN
+            , OIL.CNTR_NM AS CNTR_NM
+            , OIL.CNTR_CD AS CNTR_CD
+            , OIL.OUTORDR_YMD AS OUTORDR_YMD
+        FROM
+             TB_MRKT_ORDR_IF_LT AS OIL
+        JOIN TB_MRKT_ORDR_IF_LT_DTL AS OILD
+            ON OIL.ORDR_APC_CD = OILD.ORDR_APC_CD
+            AND OIL.WRHS_YMD = OILD.WRHS_YMD
+            AND OIL.ORDR_SEQ = OILD.ORDR_SEQ
+            AND OIL.OUTORDRNO = OILD.OUTORDRNO
+
+        WHERE OIL.ORDR_APC_CD = #{ordrApcCd}
+        AND OIL.LGSZ_MRKT_CD = #{lgszMrktCd}
+        AND OIL.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+            AND OILD.MRKT_NTSL_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OILD.OUTORDRNO, OILD.DTL_SEQ
+        )pt0
+        JOIN TB_SPMT_PCKG_UNIT AS PU
+            ON pt0.ORDR_APC_CD = PU.APC_CD
+            AND pt0.MRKT_GDS_NM = PU.SPMT_PCKG_UNIT_NM
+        ORDER BY pt0.STOR_CD DESC , PU.VOL_UNIT_WGHT DESC
+    </select>
+    <select id="selectMrktGdsOrdrCpngList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT
+              OICD.ORDR_APC_CD AS ordrApcCd
+            , OICD.WRHS_YMD AS wrhsYmd
+            , OICD.ORDR_SEQ AS ordrSeq
+            , OICD.OUTORDRNO AS outordrno
+            , OICD.DTL_SEQ AS dtlSeq
+            , OICD.MRKT_GDS_CD AS mrktGdsCd
+            , OICD.MRKT_GDS_NM AS mrktGdsNm
+            , OICD.MRKT_NTSL_CD AS mrktNtslCd
+            , OICD.OTPT_NM AS otptNm
+            , OICD.STOR_CD AS storCd
+            , OICD.STOR_NM AS storNm
+            , OICD.MRKT_WRHS_TYPE AS mrktWrhsType
+            , OICD.MRKT_WRHS_TYPE_NM AS mrktWrhsTypeNm
+            , OICD.UP_GRD_ITEM AS upGrdItem
+            , OICD.BX_GDS_QNTT AS bxGdsQntt
+            , OICD.ORDR_UNIT_QNTT AS ordrUnitQntt
+            , OICD.OUTORDR_QNTT AS outordrQntt
+            , OICD.CFMTN_QNTT AS cfmtnQntt
+            , OICD.OUTORDR_UNIT AS outordrUnit
+            , OICD.PIECE_QNTT AS pieceQntt
+            , OICD.ZCST_QNTT AS zcstQntt
+            , OICD.PIECE_UNTPRC AS pieceUntprc
+            , OICD.TXAMT AS txamt
+            , OICD.OUTORDR_AMT AS outordrAmt
+            , OICD.OUTORDR_UNTPRC AS outordrUntprc
+            , OICD.SPLY_PRC AS splyPrc
+            , OICD.MNFTR_YMD AS mnftrYmd
+            , OICD.PRDCTN_YR AS prdctnYr
+            , OICD.RTL_TERM_YMD AS rtlTermYmd
+            , OICD.ETC_RSN AS etcRsn
+            , OICD.ADDRSE_NM AS addrseNm
+            , OICD.ADDRSE_ADDR AS addrseAddr
+            , OICD.ADDRSE_TELNO AS addrseTelno
+            , OICD.DRCT_DLVR_YN AS drctDlvrYn
+            , OICD.WRHS_QNTT AS wrhsQntt
+            , OICD.DLVR_TYPE AS dlvrType
+            , OICD.BNDL_NO AS bndlNo
+            , OICD.GDS_EXPLN AS gdsExpln
+            , OICD.RMRK_CN AS rmrkCn
+        FROM
+             TB_MRKT_ORDR_IF_CPNG AS OIC
+        JOIN TB_MRKT_ORDR_IF_CPNG_DTL AS OICD
+            ON OIC.ORDR_APC_CD = OICD.ORDR_APC_CD
+            AND OIC.WRHS_YMD = OICD.WRHS_YMD
+            AND OIC.ORDR_SEQ = OICD.ORDR_SEQ
+            AND OIC.OUTORDRNO = OICD.OUTORDRNO
+
+        WHERE OIC.ORDR_APC_CD = #{ordrApcCd}
+        AND OIC.LGSZ_MRKT_CD = #{lgszMrktCd}
+        AND OIC.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+            AND OICD.MRKT_GDS_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OICD.OUTORDRNO, OICD.DTL_SEQ
+    </select>
+    <select id="selectMrktOrdrSeqLt" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_LT
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
+    <select id="selectMrktOrdrSeqSsg" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_SSG
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
+    <select id="selectMrktOrdrSeqCpng" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_CPNG
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
 
 </mapper>
 
