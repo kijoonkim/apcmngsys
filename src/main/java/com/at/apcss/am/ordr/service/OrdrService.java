@@ -162,7 +162,7 @@ public interface OrdrService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
+	List<MrktOrdrDtlVO> selectMrktGdsOrdrList(MrktOrdrDtlVO mrktGdsOrdrVO, String initial) throws Exception;
 
 	/**
 	 * 시장상품주문내역 저장 (롯데슈퍼)

@@ -400,7 +400,7 @@ public class OrdrController extends BaseController {
 		List<MrktOrdrDtlVO> resultList = new ArrayList<>();
 
 		try {
-//			resultList = ordrService.selectMrktGdsOrdrList(mrktOrdrDtlVO);
+			resultList = ordrService.selectMrktGdsOrdrList(mrktOrdrDtlVO,initial);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);

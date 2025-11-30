@@ -164,6 +164,9 @@ const LOTTE_HEADER_MAPPING: Record<string, string> = {
   주문수: 'outordrQntt',
   단가: 'outordrUntprc',
   주문금액: 'outordrAmt',
+  입고예정수: 'wrhsExpctQntt',
+  BOX순번: 'bxSn',
+  체적코드: 'volCd',
 };
 const SSG_HEADER_MAPPING: Record<string, string> = {
   발주일자: 'outordrYmd',
@@ -387,6 +390,7 @@ interface ExcelTab {
   columns: any[];
   isSaved: boolean; // 저장 완료 여부
   failCount: number; // 실패 건수
+  isFromSearch: boolean; // 조회에서 가져온 탭인지 여부
 }
 
 /**
@@ -479,7 +483,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   const [cntrCd, setCntrCd] = useState<string | null>('');
   const [cntrCdList, setCntrCdList] = useState([]);
   // 상품명
-  const [mrktGdsCd, setMrktGdsCd] = useState<string | null>('');
+  const [mrktGdsCd, setMrktGdsCd] = useState<string | null>(null);
   const [mrktGdsCdList, setMrktGdsCdList] = useState([]);
   // 상품목록 원본
   const [allGdsList, setAllGdsList] = useState<OrdrApcGds[]>([]);
@@ -517,15 +521,25 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       .filter(Boolean);
   }, [mrktComCdListOrigin]);
 
-  // 발주사 선택 핸들러
+  // 발주사 선택 핸들러 (상품명 필터링 포함)
   const handleLgszMrktCdChange = (value: string | null) => {
     setLgszMrktCd(value);
+    setMrktGdsCd(null); // 상품명 초기화
 
     if (value) {
       const selected = mrktComCdList.find((item: any) => item.value === value);
       setLgszMrktInitial(selected?.initial || null);
+
+      // 상품명 필터링 (선택된 발주사의 lgszMrktCd로 필터링)
+      const filteredGds = gdsByMarketMap.get(value) || [];
+      const options = filteredGds.map((gds) => ({
+        value: gds.mrktGdsCd,
+        label: gds.mrktGdsNm,
+      }));
+      setMrktGdsCdList(options);
     } else {
       setLgszMrktInitial(null);
+      setMrktGdsCdList([]);
     }
   };
 
@@ -624,186 +638,6 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     }));
 
     setMrktGdsCdList(options);
-  };
-
-  // ========================================
-  // 컬럼 정의 (field: 카멜케이스, headerName: 한글)
-  // ========================================
-  const columnDefs = [
-    {
-      field: 'outordrno',
-      headerName: '발주번호',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'mrktWrhsType',
-      headerName: '발주유형',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'mrktWrhsTypeNm',
-      headerName: '발주현황',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'mrktGdsCd',
-      headerName: 'SKU ID',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'mrktGdsNm',
-      headerName: 'SKU 이름',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'otptNm',
-      headerName: 'SKU Barcode',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'cntrNm',
-      headerName: '물류센터',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'wrhsYmd',
-      headerName: '입고예정일',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'outordrYmd',
-      headerName: '발주일',
-      width: 120,
-      editable: true,
-    },
-    {
-      field: 'outordrQntt',
-      headerName: '발주수량',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'cfmtnQntt',
-      headerName: '확정수량',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'wrhsQntt',
-      headerName: '입고수량',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'prchsTypeCd',
-      headerName: '매입유형',
-      width: 120,
-      editable: true,
-    },
-    {
-      field: 'exmptnYn',
-      headerName: '면세여부',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'prdctnYr',
-      headerName: '생산연도',
-      width: 120,
-      editable: true,
-    },
-    {
-      field: 'mnftrYmd',
-      headerName: '제조일자',
-      width: 120,
-      editable: true,
-    },
-    {
-      field: 'pieceUntprc',
-      headerName: '공급가',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'txamt',
-      headerName: '부가세',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'outordrAmt',
-      headerName: '총발주 매입금',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-    {
-      field: 'wrhsAmt',
-      headerName: '입고금액',
-      width: 100,
-      type: 'numericColumn',
-      editable: true,
-      valueFormatter: (params) => {
-        return params.value ? params.value.toLocaleString() : '';
-      },
-    },
-  ];
-
-  // ========================================
-  // 한글 헤더 → 카멜케이스 field 매핑
-  // ========================================
-  const headerMapping: Record<string, string> = {
-    발주번호: 'outordrno',
-    발주유형: 'mrktWrhsType',
-    발주현황: 'mrktWrhsTypeNm',
-    'SKU ID': 'mrktGdsCd',
-    'SKU 이름': 'mrktGdsNm',
-    'SKU Barcode': 'otptNm',
-    물류센터: 'cntrNm',
-    입고예정일: 'wrhsYmd',
-    발주일: 'outordrYmd',
-    발주수량: 'outordrQntt',
-    확정수량: 'cfmtnQntt',
-    입고수량: 'wrhsQntt',
-    매입유형: 'prchsTypeCd',
-    면세여부: 'exmptnYn',
-    생산연도: 'prdctnYr',
-    제조일자: 'mnftrYmd',
-    공급가: 'pieceUntprc',
-    부가세: 'txamt',
-    '총발주 매입금': 'outordrAmt',
-    입고금액: 'wrhsAmt',
   };
 
   // ========================================
@@ -929,10 +763,15 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     }
 
     const currentTab = tabs.find((t) => t.id === activeTab);
-    console.log(currentTab);
 
     if (!currentTab) {
       Swal.fire('', '탭을 찾을 수 없습니다.', 'error');
+      return;
+    }
+
+    // 조회 탭은 저장 불가
+    if (currentTab.isFromSearch) {
+      Swal.fire('', '조회된 데이터는 이미 저장되어 있습니다.', 'info');
       return;
     }
 
@@ -1001,8 +840,6 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
         {} as Record<string, any>,
       ),
     );
-    console.log(mrktOrdrVOList, '저장전');
-    console.log(currentTab, 'tab');
     // setIsLoading(false);
     // setLoadingMessage('');
     // return;
@@ -1163,6 +1000,54 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   };
 
   // ========================================
+  // BOX순번 계산 함수 (롯데 전용)
+  // - storCd 그룹별로 volUnitWght 큰 순 정렬된 상태로 들어옴 (백엔드에서 ORDER BY)
+  // - 누적 체적(volUnitWght * outordrQntt)이 1 넘으면 새 박스
+  // ========================================
+  const calculateBoxNumber = (data: any[]) => {
+    let currentStorCd: string | null = null;
+    let accumulatedVol = 0;
+    let boxNumber = 0;
+
+    return data.map((row) => {
+      // volUnitWght 없으면 패스
+      if (!row.volUnitWght) {
+        return {
+          ...row,
+          wrhsExpctQntt: row.outordrQntt,
+          bxSn: null,
+          volCd: null,
+        };
+      }
+
+      // 점포가 바뀌면 초기화
+      if (currentStorCd !== row.storCd) {
+        currentStorCd = row.storCd;
+        accumulatedVol = 0;
+        boxNumber = 1;
+      }
+
+      // 현재 row 체적
+      const rowVol = row.volUnitWght * row.outordrQntt;
+
+      // 누적 체적이 1 넘으면 새 박스
+      if (accumulatedVol + rowVol > 1) {
+        boxNumber++;
+        accumulatedVol = rowVol;
+      } else {
+        accumulatedVol += rowVol;
+      }
+
+      return {
+        ...row,
+        wrhsExpctQntt: row.outordrQntt,
+        bxSn: boxNumber,
+        volCd: '7',
+      };
+    });
+  };
+
+  // ========================================
   // 조회 - 로딩 추가
   // ========================================
   const fn_search = async () => {
@@ -1182,14 +1067,10 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     try {
       const searchParam = {
         ordrApcCd: apcCd,
-        wrhsYmd,
         outordrYmd,
-        cntrCd,
         mrktGdsCd,
         lgszMrktCd,
       };
-      console.log('조회전', searchParam);
-      console.log(lgszMrktInitial, lgszMrktCd, '벤더사');
 
       const r = await postJSON(
         `/am/ordr/selectMrktGdsOrdrList.do?initial=${lgszMrktInitial}`,
@@ -1197,10 +1078,78 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       );
 
       if (r.resultStatus == 'S' && r.resultList.length > 0) {
-        setRowData(r.resultList);
+        // 발주사 정보 찾기
+        const selectedVendor = mrktComCdList.find((item: any) => item.value === lgszMrktCd);
+        const vendorLabel = selectedVendor?.label || '조회결과';
+
+        // initial로 vendor 타입 결정
+        let vendor: Vendor = 'UNKNOWN';
+        let subVendor: SubVendor = null;
+
+        if (lgszMrktInitial === 'SSG') {
+          vendor = 'SHINSEGAE';
+          // label로 세부벤더 찾기
+          const found = SUB_VENDOR_OPTIONS.SHINSEGAE.find((v) => v.label === vendorLabel);
+          subVendor = found?.value || null;
+        } else if (lgszMrktInitial === 'CPNG') {
+          vendor = 'COUPANG';
+          subVendor = 'COUPANG';
+        } else if (lgszMrktInitial === 'LT') {
+          vendor = 'LOTTE';
+          const found = SUB_VENDOR_OPTIONS.LOTTE.find((v) => v.label === vendorLabel);
+          subVendor = found?.value || null;
+        }
+
+        // 롯데인 경우 BOX순번 계산
+        let processedData = r.resultList;
+        if (vendor === 'LOTTE') {
+          processedData = calculateBoxNumber(r.resultList);
+        }
+
+        // 벤더별 헤더 매핑 가져오기 (역방향: camelCase → 한글)
+        const headerMapping = HEADER_MAPPING[vendor] || {};
+        const reverseMapping: Record<string, string> = {};
+        Object.entries(headerMapping).forEach(([korean, camel]) => {
+          reverseMapping[camel] = korean;
+        });
+
+        // 조회용 컬럼 정의 (벤더별 매핑 사용)
+        const searchColumns = Object.entries(headerMapping).map(([headerName, field]) => ({
+          field: field,
+          headerName: headerName,
+          editable: false, // 조회 결과는 수정 불가
+          resizable: true,
+        }));
+
+        // 탭 이름 생성 (발주사_날짜)
+        const tabName = `${vendorLabel}_${outordrYmd}`;
+
+        // 새 탭 추가
+        const newTab: ExcelTab = {
+          id: `search-${Date.now()}-${Math.random()}`,
+          fileName: tabName,
+          vendor: vendor,
+          subVendor: subVendor,
+          lgszMrktCd: lgszMrktCd,
+          initial: lgszMrktInitial,
+          data: processedData,
+          columns: searchColumns,
+          isSaved: true, // 이미 저장된 데이터
+          failCount: 0,
+          isFromSearch: true, // 조회에서 가져온 탭
+        };
+
+        setTabs((prev) => [...prev, newTab]);
+        setActiveTab(newTab.id);
+
+        Swal.fire({
+          icon: 'success',
+          text: `${r.resultList.length}건 조회 완료`,
+          timer: 1000,
+          showConfirmButton: false,
+        });
       } else {
         Swal.fire('', '조회결과가 없습니다.', 'error');
-        setRowData([]);
       }
     } catch (error) {
       console.error(error);
@@ -1234,18 +1183,58 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
       const gridApi = gridApisRef.current.get(activeTab);
       if (gridApi) {
         gridApi.autoSizeAllColumns();
-        console.log('컬럼 자동 조절 실행됨');
       } else {
-        console.log('Grid API를 찾을 수 없음');
       }
     } else {
-      console.log('활성 탭이 없음');
+    }
+  };
+
+  // 롯데 전용 다운로드 헤더 매핑
+  const LOTTE_DOWNLOAD_MAPPING = [
+    { header: '전표번호', field: 'outordrno' },
+    { header: '주문일', field: 'outordrYmd' },
+    { header: '입고처명', field: 'cntrNm' },
+    { header: '입고처코드', field: 'cntrCd' },
+    { header: '편수', field: null, fixedValue: 1 },
+    { header: '입고일', field: 'storWrhsYmd' },
+    { header: '규격구분', field: null, fixedValue: 5 },
+    { header: '물류타입', field: null, fixedValue: 'S' },
+    { header: 'Dock구분', field: null, fixedValue: '' },
+    { header: '점포코드', field: 'storCd' },
+    { header: '점포명', field: 'storNm' },
+    { header: '협력업체코드', field: null, fixedValue: '019551' },
+    { header: '카테고리', field: null, fixedValue: '' },
+    { header: '상품명', field: 'mrktGdsNm' },
+    { header: '주문단위', field: 'outordrUnit' },
+    { header: '주문수량', field: 'outordrQntt' },
+    { header: '입고예정수량', field: 'wrhsExpctQntt' },
+    { header: 'BOX순번', field: 'bxSn' },
+    { header: '체적코드', field: 'volCd' },
+  ];
+
+  // 롯데 전용 엑셀 데이터 변환
+  const transformLotteDataForExcel = (data: any[]) => {
+    return data.map((row) => {
+      const excelRow: any = {};
+      LOTTE_DOWNLOAD_MAPPING.forEach((mapping) => {
+        if (mapping.field) {
+          excelRow[mapping.header] = row[mapping.field] ?? '';
+        } else {
+          excelRow[mapping.header] = mapping.fixedValue;
+        }
+      });
+      return excelRow;
+    });
+  };
+
+  const handleDownload = () => {
+    if (!activeTab) {
+      Swal.fire('', '다운로드할 탭을 선택하세요.', 'warning');
+      return;
     }
 
-    console.log(tabs);
-  };
-  const handleDownload = () => {
-    if (rowData.length === 0) {
+    const currentTab = tabs.find((t) => t.id === activeTab);
+    if (!currentTab || currentTab.data.length === 0) {
       Swal.fire('', '다운로드할 데이터가 없습니다.', 'warning');
       return;
     }
@@ -1256,27 +1245,44 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
     // setTimeout으로 UI 업데이트 보장
     setTimeout(() => {
       try {
-        // DB 데이터를 한글 헤더로 변환
-        const excelData = transformDataForExcel(rowData);
+        let excelData: any[];
+        let sheetName: string;
+
+        // 롯데(lgszMrktCd: "32", initial: "LT")인 경우 전용 헤더 사용
+        if (currentTab.lgszMrktCd === '32' && currentTab.initial === 'LT') {
+          excelData = transformLotteDataForExcel(currentTab.data);
+          sheetName = '롯데슈퍼발주';
+        } else {
+          // 다른 벤더는 기존 로직 (벤더별 헤더 매핑)
+          const headerMapping = HEADER_MAPPING[currentTab.vendor] || {};
+          excelData = currentTab.data.map((row) => {
+            const excelRow: any = {};
+            Object.entries(headerMapping).forEach(([korean, camel]) => {
+              excelRow[korean] = row[camel] ?? '';
+            });
+            return excelRow;
+          });
+          sheetName = '발주내역';
+        }
 
         // 워크시트 생성
         const worksheet = XLSX.utils.json_to_sheet(excelData);
 
         // 워크북 생성
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, '발주내역');
+        XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
         // 파일명 생성 (날짜 포함)
         const today = new Date();
         const dateStr = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
-        const fileName = `발주내역_${dateStr}.xlsx`;
+        const fileName = `${currentTab.fileName}_${dateStr}.xlsx`;
 
         // 다운로드
         XLSX.writeFile(workbook, fileName);
 
         Swal.fire({
           icon: 'success',
-          text: `${rowData.length}건 다운로드 완료`,
+          text: `${currentTab.data.length}건 다운로드 완료`,
           timer: 1500,
           showConfirmButton: false,
         });
@@ -1313,14 +1319,12 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
             headers = result.headers;
             rawData = result.data;
             vendor = detectVendor(headers);
-            console.log(`📄 ${file.name} - HTML 파싱 완료`);
           } else if (fileName.endsWith('.xlsx')) {
             // XLSX 형식 (신세계/쿠팡 등)
             const result = await parseXLSXFile(file);
             headers = result.headers;
             rawData = result.data;
             vendor = detectVendor(headers);
-            console.log(`📄 ${file.name} - XLSX 파싱 완료`);
           } else {
             throw new Error('지원하지 않는 파일 형식입니다. (.xls, .xlsx만 가능)');
           }
@@ -1403,15 +1407,11 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
             columns: columns,
             isSaved: false,
             failCount: 0,
+            isFromSearch: false, // 엑셀 업로드
           };
 
           setTabs((prev) => [...prev, newTab]);
           setActiveTab(newTab.id);
-
-          console.log(`✅ ${file.name} 처리 완료`);
-          console.log(`  - 벤더: ${vendor}`);
-          console.log(`  - 헤더 수: ${headers.length}`);
-          console.log(`  - 데이터 행 수: ${dataObjects.length}`);
         } catch (parseError) {
           console.error(`❌ ${file.name} 파싱 실패:`, parseError);
           Swal.fire(
@@ -1857,8 +1857,8 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                         value={tab.id}
                         style={{ fontSize: '13px' }}
                         onClick={() => {
-                          // 이미 활성화된 탭 클릭 시 세부벤더 선택
-                          if (activeTab === tab.id) {
+                          // 이미 활성화된 탭 클릭 시 세부벤더 선택 (조회 탭은 제외)
+                          if (activeTab === tab.id && !tab.isFromSearch) {
                             handleSelectSubVendor(tab.id);
                           }
                         }}
@@ -1885,8 +1885,12 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                                   )?.label
                                 : tab.vendor}
                             </Badge>
-                            {/* 저장 완료 체크 표시 */}
-                            {tab.isSaved ? (
+                            {/* 탭 상태 표시 */}
+                            {tab.isFromSearch ? (
+                              <Badge color="cyan" size="xs" variant="filled">
+                                조회
+                              </Badge>
+                            ) : tab.isSaved ? (
                               <Badge color="green" size="xs" variant="filled">
                                 ✓
                               </Badge>
@@ -1918,14 +1922,46 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
 
                   {tabs.map((tab) => (
                     <Tabs.Panel key={tab.id} value={tab.id}>
-                      {/* 실패건 필터 버튼 - 저장 후에만 표시 */}
-                      {tab.isSaved && (
+                      {/* 조회 탭: 작업지시 버튼들 표시 */}
+                      {tab.isFromSearch && (
                         <Group style={{ margin: '5px', gap: '5px' }}>
                           <Badge
-                            color={showFailedOnly[tab.id] ? 'red' : 'gray'}
-                            variant={showFailedOnly[tab.id] ? 'filled' : 'outline'}
+                            color="#3c6dbc"
+                            variant="filled"
+                            style={{ cursor: 'pointer' }}
+                            radius="xs"
+                          >
+                            {tab.data.length}건 조회됨
+                          </Badge>
+                          <Badge
+                            color="gray"
+                            variant="outline"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => fn_sortCmnd(tab.id)}
+                            radius="xs"
+                          >
+                            작업지시등록
+                          </Badge>
+                          <Badge
+                            color="gray"
+                            variant="outline"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => fn_sortCmnd(tab.id)}
+                            radius="xs"
+                          >
+                            출하지시등록
+                          </Badge>
+                        </Group>
+                      )}
+                      {/* 엑셀 업로드 탭: 실패건 필터 버튼 - 저장 후에만 표시 */}
+                      {!tab.isFromSearch && tab.isSaved && (
+                        <Group style={{ margin: '5px', gap: '5px' }}>
+                          <Badge
+                            color={showFailedOnly[tab.id] ? 'red' : '#3c6dbc'}
+                            variant="filled"
                             style={{ cursor: 'pointer' }}
                             onClick={() => toggleFailedFilter(tab.id)}
+                            radius="xs"
                           >
                             {showFailedOnly[tab.id] ? '실패건만 보기' : '전체 보기'}
                           </Badge>
@@ -1935,6 +1971,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                               variant="outline"
                               style={{ cursor: 'pointer' }}
                               onClick={() => fn_sortCmnd(tab.id)}
+                              radius="xs"
                             >
                               작업지시등록
                             </Badge>
@@ -1945,10 +1982,24 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                               variant="outline"
                               style={{ cursor: 'pointer' }}
                               onClick={() => fn_sortCmnd(tab.id)}
+                              radius="xs"
                             >
                               출하지시등록
                             </Badge>
                           )}
+
+                          {!showFailedOnly[tab.id] &&
+                            tab.vendor === 'LOTTE' &&
+                            tab.lgszMrktCd === '32' && (
+                              <Badge
+                                color="teal"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => fn_sortCmnd(tab.id)}
+                                radius="xs"
+                              >
+                                체적계산
+                              </Badge>
+                            )}
                         </Group>
                       )}
                       <div
