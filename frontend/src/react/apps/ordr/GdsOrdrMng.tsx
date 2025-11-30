@@ -117,7 +117,7 @@ const VENDOR_SIGNATURES: VendorSignature[] = [
 // ============================================================================
 // 벤더별 세부벤더 옵션
 // ============================================================================
-const SUB_VENDOR_OPTIONS: Record<Vendor, { value: SubVendor; label: string }[]> = {
+const SUB_VENDOR_OPTIONS: Record<Vendor, { value: SubVendor; label: string; initial: string }[]> = {
   SHINSEGAE: [
     { value: 'NOBRAND', label: '노브랜드', initial: 'SSG' },
     { value: 'EMART', label: '이마트', initial: 'SSG' },
@@ -415,6 +415,49 @@ interface GdsSelectOption {
   label: string; // mrktGdsNm
 }
 
+// ============================================================================
+// 날짜 유틸리티 함수
+// ============================================================================
+/**
+ * YYYYMMDD 문자열을 Date 객체로 변환
+ */
+const ymdToDate = (ymd: string | undefined): Date | null => {
+  if (!ymd || ymd.length !== 8) return null;
+  const year = parseInt(ymd.substring(0, 4), 10);
+  const month = parseInt(ymd.substring(4, 6), 10) - 1;
+  const day = parseInt(ymd.substring(6, 8), 10);
+  const date = new Date(year, month, day);
+  // Invalid Date 체크
+  if (isNaN(date.getTime())) return null;
+  return date;
+};
+
+/**
+ * Date 객체를 YYYYMMDD 문자열로 변환
+ */
+const dateToYmd = (date: Date | string | null | undefined): string => {
+  if (!date) return '';
+
+  // 문자열인 경우 Date로 변환 시도
+  if (typeof date === 'string') {
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return '';
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+  }
+
+  // Date 객체인지 확인
+  if (!(date instanceof Date)) return '';
+  // Invalid Date 체크
+  if (isNaN(date.getTime())) return '';
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}${month}${day}`;
+};
+
 const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   const [rowData, setRowData] = useState<OrderRecord[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -428,10 +471,10 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   const [ordrApcCd, setOrdrApcCd] = useState(apcCd);
   // 발주번호
   const [outordrno, setOutordrno] = useState();
-  // 발주일자
+  // 발주일자 (YYYYMMDD 문자열로 저장)
   const [outordrYmd, setOutordrYmd] = useState(gfn_dateToYmd(new Date()));
-  // 입고예정일자
-  const [wrhsYmd, setWrhsYmd] = useState();
+  // 입고예정일자 (YYYYMMDD 문자열로 저장)
+  const [wrhsYmd, setWrhsYmd] = useState<string>('');
   // 거래처
   const [cntrCd, setCntrCd] = useState<string | null>('');
   const [cntrCdList, setCntrCdList] = useState([]);
@@ -455,9 +498,36 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // 시장물류센터 공통정보
   const [mrktLgstcsCntr, setMrktLgstcsCntr] = useState();
 
-  //벤더사 상세 공통코드
-  const [mrktComCdList, setMrktComCdList] = useState([]);
-  const [lgszMrktCd, setLgszMrktCd] = useState();
+  //벤더사 상세 공통코드 (원본)
+  const [mrktComCdListOrigin, setMrktComCdListOrigin] = useState([]);
+  const [lgszMrktCd, setLgszMrktCd] = useState<string | null>(null);
+  const [lgszMrktInitial, setLgszMrktInitial] = useState<string | null>(null);
+
+  // SUB_VENDOR_OPTIONS에 매칭되는 것만 필터링된 발주사 목록 (initial 포함)
+  const mrktComCdList = useMemo(() => {
+    // SUB_VENDOR_OPTIONS 플랫하게 펼침
+    const allSubVendorOptions = Object.values(SUB_VENDOR_OPTIONS).flat();
+
+    // 원본 목록에서 SUB_VENDOR_OPTIONS의 label과 일치하는 것만 필터링 + initial 추가
+    return mrktComCdListOrigin
+      .map((item: any) => {
+        const matched = allSubVendorOptions.find((opt) => opt.label === item.label);
+        return matched ? { ...item, initial: matched.initial } : null;
+      })
+      .filter(Boolean);
+  }, [mrktComCdListOrigin]);
+
+  // 발주사 선택 핸들러
+  const handleLgszMrktCdChange = (value: string | null) => {
+    setLgszMrktCd(value);
+
+    if (value) {
+      const selected = mrktComCdList.find((item: any) => item.value === value);
+      setLgszMrktInitial(selected?.initial || null);
+    } else {
+      setLgszMrktInitial(null);
+    }
+  };
 
   // Dropzone tabs
   const [tabs, setTabs] = useState<ExcelTab[]>([]);
@@ -465,29 +535,28 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   const [showFailedOnly, setShowFailedOnly] = useState<Record<string, boolean>>({});
   const gridApisRef = useRef<Map<string, any>>(new Map());
 
-  // mrktComCdList와 매핑된 세부벤더 옵션 (lgszMrktCd 포함)
+  // mrktComCdListOrigin과 매핑된 세부벤더 옵션 (lgszMrktCd 포함)
   const subVendorOptionsWithCode = useMemo(() => {
-    const result: Record<Vendor, { value: SubVendor; label: string; lgszMrktCd: string | null }[]> =
-      {
-        SHINSEGAE: [],
-        COUPANG: [],
-        LOTTE: [],
-        UNKNOWN: [],
-      };
+    const result: Record<
+      Vendor,
+      { value: SubVendor; label: string; lgszMrktCd: string; initial: string }[]
+    > = {
+      SHINSEGAE: [],
+      COUPANG: [],
+      LOTTE: [],
+      UNKNOWN: [],
+    };
 
     Object.entries(SUB_VENDOR_OPTIONS).forEach(([vendor, options]) => {
-      result[vendor as Vendor] = options.map((opt) => {
-        // mrktComCdList에서 label이 일치하는 항목 찾기
-        const matched = mrktComCdList.find((item: any) => item.label === opt.label);
-        return {
-          ...opt,
-          lgszMrktCd: matched?.value || null,
-        };
+      result[vendor as Vendor] = options.flatMap((opt) => {
+        // mrktComCdListOrigin (전체 공통코드)에서 매칭
+        const matched = mrktComCdListOrigin.find((item: any) => item.label === opt.label);
+        return matched ? [{ ...opt, lgszMrktCd: matched.value }] : [];
       });
     });
 
     return result;
-  }, [mrktComCdList]);
+  }, [mrktComCdListOrigin]);
 
   // fn_init - 로딩 추가
   useEffect(() => {
@@ -512,9 +581,9 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           );
         }
 
-        // 벤더사 상세 공통코드
+        // 벤더사 상세 공통코드 (원본에 저장)
         if (mrktComCd) {
-          setMrktComCdList(mrktComCd.map((i) => ({ value: i.cdVl, label: i.cdVlNm })));
+          setMrktComCdListOrigin(mrktComCd.map((i) => ({ value: i.cdVl, label: i.cdVlNm })));
         }
 
         // 시장 물류센터 코드
@@ -1097,6 +1166,16 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
   // 조회 - 로딩 추가
   // ========================================
   const fn_search = async () => {
+    if (!outordrYmd) {
+      Swal.fire('', '발주일자를 선택해주세요.', 'error');
+      return;
+    }
+
+    if (!lgszMrktCd) {
+      Swal.fire('', '발주사를 선택해주세요.', 'error');
+      return;
+    }
+
     setIsLoading(true);
     setLoadingMessage('조회 중...');
 
@@ -1107,9 +1186,15 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
         outordrYmd,
         cntrCd,
         mrktGdsCd,
+        lgszMrktCd,
       };
+      console.log('조회전', searchParam);
+      console.log(lgszMrktInitial, lgszMrktCd, '벤더사');
 
-      const r = await postJSON('/am/ordr/selectMrktGdsOrdrList.do', searchParam);
+      const r = await postJSON(
+        `/am/ordr/selectMrktGdsOrdrList.do?initial=${lgszMrktInitial}`,
+        searchParam,
+      );
 
       if (r.resultStatus == 'S' && r.resultList.length > 0) {
         setRowData(r.resultList);
@@ -1362,9 +1447,9 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
 
     const options = subVendorOptionsWithCode[tab.vendor]; // lgszMrktCd 포함된 옵션
 
-    // 옵션이 없으면 (UNKNOWN) 스킵
-    if (options.length === 0) {
-      Swal.fire('', '알 수 없는 벤더입니다.', 'warning');
+    // 옵션이 없거나 undefined면 (UNKNOWN 또는 아직 로딩 안됨) 스킵
+    if (!options || options.length === 0) {
+      Swal.fire('', '알 수 없는 벤더이거나 데이터를 불러오는 중입니다.', 'warning');
       return;
     }
 
@@ -1636,12 +1721,14 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
           <div className="py-3">
             <table className="table table-bordered tbl_fixed">
               <colgroup>
-                <col style={{ width: '11%' }} />
-                <col style={{ width: '20%' }} />
-                <col style={{ width: '11%' }} />
-                <col style={{ width: '20%' }} />
-                <col style={{ width: '11%' }} />
-                <col style={{ width: '20%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '15%' }} />
               </colgroup>
               <tbody>
                 <tr>
@@ -1664,12 +1751,13 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                     />
                   </td>
                   <th scope="row" className="th_bg">
-                    발주일자
+                    <span style={{ color: '#e53c48', fontSize: '13px' }}>*</span>발주일자
                   </th>
                   <td className="td_input">
                     <DatesProvider settings={{ locale: 'ko', firstDayOfWeek: 0 }}>
                       <DatePickerInput
                         rightSection={<IconCalendar size={18} stroke={1.5} />}
+                        placeholder="날짜를 선택하세요."
                         styles={{
                           input: {
                             borderRadius: 0,
@@ -1681,56 +1769,23 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                         }}
                         valueFormat="YYYY년 MM월 DD일"
                         clearable
-                        value={outordrYmd}
+                        value={ymdToDate(outordrYmd)}
                         onChange={(date) => {
-                          if (date) {
-                            setOutordrYmd(date.replace(/-/g, ''));
-                          } else {
-                            setOutordrYmd('');
-                          }
+                          setOutordrYmd(dateToYmd(date));
                         }}
                       />
                     </DatesProvider>
                   </td>
+
                   <th scope="row" className="th_bg">
-                    입고예정일자
+                    <span style={{ color: '#e53c48', fontSize: '13px' }}>*</span>
+                    발주사
                   </th>
-                  <td className="td_input">
-                    <DatesProvider settings={{ locale: 'ko', firstDayOfWeek: 0 }}>
-                      <DatePickerInput
-                        rightSection={<IconCalendar size={18} stroke={1.5} />}
-                        styles={{
-                          input: {
-                            borderRadius: 0,
-                            fontSize: '12px',
-                            minHeight: '0',
-                            height: '28px',
-                          },
-                          root: { borderRadius: 0 },
-                        }}
-                        valueFormat="YYYY년 MM월 DD일"
-                        clearable
-                        value={wrhsYmd}
-                        onChange={(date) => {
-                          if (date) {
-                            setWrhsYmd(date.replace(/-/g, ''));
-                          } else {
-                            setWrhsYmd('');
-                          }
-                        }}
-                      />
-                    </DatesProvider>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" className="th_bg">
-                    거래처
-                  </th>
-                  <td className="td_input">
+                  <td className="td_input" style={{ borderRight: 'none' }}>
                     <Select
                       checkIconPosition="right"
                       placeholder="검색"
-                      data={cntrCdList}
+                      data={mrktComCdList}
                       searchable
                       clearable
                       styles={{
@@ -1742,8 +1797,8 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                         },
                         dropdown: { borderRadius: '0' },
                       }}
-                      value={cntrCd}
-                      onChange={handleLgszMrktChange}
+                      value={lgszMrktCd}
+                      onChange={handleLgszMrktCdChange}
                     />
                   </td>
                   <th scope="row" className="th_bg">
@@ -1767,29 +1822,6 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                       }}
                       value={mrktGdsCd}
                       onChange={setMrktGdsCd}
-                    />
-                  </td>
-                  <th scope="row" className="th_bg">
-                    발주사
-                  </th>
-                  <td className="td_input" style={{ borderRight: 'none' }}>
-                    <Select
-                      checkIconPosition="right"
-                      placeholder="검색"
-                      data={mrktComCdList}
-                      searchable
-                      clearable
-                      styles={{
-                        input: {
-                          borderRadius: 0,
-                          fontSize: '12px',
-                          minHeight: '0',
-                          height: '28px',
-                        },
-                        dropdown: { borderRadius: '0' },
-                      }}
-                      value={lgszMrktCd}
-                      onChange={setLgszMrktCd}
                     />
                   </td>
                 </tr>
@@ -1904,7 +1936,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                               style={{ cursor: 'pointer' }}
                               onClick={() => fn_sortCmnd(tab.id)}
                             >
-                              선별지시등록
+                              작업지시등록
                             </Badge>
                           )}
                           {!showFailedOnly[tab.id] && (
@@ -1914,7 +1946,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
                               style={{ cursor: 'pointer' }}
                               onClick={() => fn_sortCmnd(tab.id)}
                             >
-                              포장지시등록
+                              출하지시등록
                             </Badge>
                           )}
                         </Group>

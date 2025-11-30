@@ -394,13 +394,13 @@ public class OrdrController extends BaseController {
 	}
 
 	@PostMapping(value = "/am/ordr/selectMrktGdsOrdrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectMrktGdsOrdrList(@RequestBody MrktGdsOrdrVO mrktGdsOrdrVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> selectMrktGdsOrdrList(@RequestBody MrktOrdrDtlVO mrktOrdrDtlVO, @RequestParam(required = false) String initial, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<MrktGdsOrdrVO> resultList = new ArrayList<>();
+		List<MrktOrdrDtlVO> resultList = new ArrayList<>();
 
 		try {
-			resultList = ordrService.selectMrktGdsOrdrList(mrktGdsOrdrVO);
+//			resultList = ordrService.selectMrktGdsOrdrList(mrktOrdrDtlVO);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
