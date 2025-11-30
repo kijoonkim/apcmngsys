@@ -1275,7 +1275,7 @@ const App: React.FC = ({ apcCd, apcNm, sysPrgrmId }) => {
         // 파일명 생성 (날짜 포함)
         const today = new Date();
         const dateStr = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
-        const fileName = `${currentTab.fileName}_${dateStr}.xlsx`;
+        const fileName = `롯데슈퍼SCM입고예약등록폼_${dateStr}.xlsx`;
 
         // 다운로드
         XLSX.writeFile(workbook, fileName);

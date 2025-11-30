@@ -16,7 +16,7 @@ import '@shared/styles/tailwind.css';
 const theme = createTheme({
   primaryColor: 'blue',
   defaultRadius: 'xl',
-  scale: 1.5,
+  scale: 2,
 });
 
 const queryClient = new QueryClient();
