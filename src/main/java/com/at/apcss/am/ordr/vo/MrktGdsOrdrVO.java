@@ -82,17 +82,17 @@ public class MrktGdsOrdrVO extends ComVO {
     /**
      * 발주수량
      */
-    private int outordrQntt;
+    private Integer outordrQntt;
 
     /**
      * 확정수량
      */
-    private int cfmtnQntt;
+    private Integer cfmtnQntt;
 
     /**
      * 입고수량
      */
-    private int wrhsQntt;
+    private Integer wrhsQntt;
 
     /**
      * 매입유형
@@ -153,4 +153,59 @@ public class MrktGdsOrdrVO extends ComVO {
     private String wrhsYmdTo;
 
     private String lgszMrktNm;
+
+    private String ordrCrtDt;
+    private String ordrChgDt;
+    private String ordrPrcsCd;
+    private String ordrPrcsDt;
+    private String ordrPrcsMsg;
+    private String sttsCdNm;
+    private String mrktWrhsKnd;
+    private String trsmYmd;
+    private String trsmTm;
+    private String rcptnYmd;
+    private String rcptnTm;
+    private String rcptnYn;
+    private String ordrr;
+    private String splrCd;
+    private String splrNm;
+    private String userId;
+    private String bplcCd;
+    private String coCd;
+    private String coNm;
+    private String ordrDsctn;
+    private String prcsSeCd;
+    private String linkDt;
+    private String linkPrcsDt;
+    private Integer dtlSeq;
+    private String mrktNtslCd;
+    private String storCd;
+    private String storNm;
+    private String upGrdItem;
+    private Integer bxGdsQntt;
+    private Integer ordrUnitQntt;
+    private String outordrUnit;
+    private Integer pieceQntt;
+    private Integer zcstQntt;
+    private String splyPrc;
+    private String rtlTermYmd;
+    private String etcRsn;
+    private String addrseNm;
+    private String addrseAddr;
+    private String addrseTelno;
+    private String drctDlvrYn;
+    private String dlvrType;
+    private String bndlNo;
+    private String gdsExpln;
+    private String rmrkCn;
+    private String cntrWrhsYmd;
+    private String storWrhsYmd;
+    private String bxNo;
+    private String bxSn;
+    private String etcMttr;
+    private String etcDtlCn;
+    private String etcExpln;
+    private String orgnlGdsCd;
+    private String wrhusCd;
+    private String wrhusNm;
 }

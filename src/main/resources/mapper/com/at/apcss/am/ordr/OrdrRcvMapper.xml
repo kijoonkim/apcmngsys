@@ -1612,6 +1612,381 @@
           AND OUTORDRNO = #{outordrno}
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList		-->
+	<!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.11.18  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUntyMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList */
+				  A.ORDR_APC_CD         AS ORDR_APC_CD
+				, A.WRHS_YMD            AS WRHS_YMD
+				, A.ORDR_SEQ            AS ORDR_SEQ
+				, A.ORDR_CRT_DT         AS ORDR_CRT_DT
+				, A.ORDR_CHG_DT         AS ORDR_CHG_DT
+				, A.ORDR_PRCS_CD        AS ORDR_PRCS_CD
+				, A.ORDR_PRCS_DT        AS ORDR_PRCS_DT
+				, A.ORDR_PRCS_MSG       AS ORDR_PRCS_MSG
+				, A.LGSZ_MRKT_CD        AS LGSZ_MRKT_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', A.LGSZ_MRKT_CD) FROM DUAL)    AS LGSZ_MRKT_NM
+				, A.OUTORDRNO           AS OUTORDRNO
+				, A.STTS_CD_NM          AS STTS_CD_NM
+				, A.TOT_OUTORDR_AMT     AS TOT_OUTORDR_AMT
+				, A.TOT_TXAMT           AS TOT_TXAMT
+				, A.OUTORDR_YMD         AS OUTORDR_YMD
+				, A.OUTORDR_TM          AS OUTORDR_TM
+				, A.TRSM_YMD            AS TRSM_YMD
+				, A.TRSM_TM             AS TRSM_TM
+				, A.RCPTN_YMD           AS RCPTN_YMD
+				, A.RCPTN_TM            AS RCPTN_TM
+				, A.RCPTN_YN            AS RCPTN_YN
+				, A.ORDRR               AS ORDRR
+				, A.CNTR_CD             AS CNTR_CD
+				, A.CNTR_NM             AS CNTR_NM
+				, A.SPLR_CD             AS SPLR_CD
+				, A.SPLR_NM             AS SPLR_NM
+				, A.USER_ID             AS USER_ID
+				, A.BPLC_CD             AS BPLC_CD
+				, A.CO_CD               AS CO_CD
+				, A.CO_NM               AS CO_NM
+				, A.ORDR_DSCTN          AS ORDR_DSCTN
+				, A.PRCS_SE_CD          AS PRCS_SE_CD
+				, A.LINK_DT             AS LINK_DT
+				, A.LINK_PRCS_DT        AS LINK_PRCS_DT
+				, A.DTL_SEQ             AS DTL_SEQ
+				, A.MRKT_GDS_CD         AS MRKT_GDS_CD
+				, A.MRKT_GDS_NM         AS MRKT_GDS_NM
+				, A.MRKT_NTSL_CD        AS MRKT_NTSL_CD
+				, A.OTPT_NM             AS OTPT_NM
+				, A.STOR_CD             AS STOR_CD
+				, A.STOR_NM             AS STOR_NM
+				, A.MRKT_WRHS_TYPE      AS MRKT_WRHS_TYPE
+				, A.MRKT_WRHS_TYPE_NM   AS MRKT_WRHS_TYPE_NM
+				, A.UP_GRD_ITEM         AS UP_GRD_ITEM
+				, A.BX_GDS_QNTT         AS BX_GDS_QNTT
+				, A.ORDR_UNIT_QNTT      AS ORDR_UNIT_QNTT
+				, A.OUTORDR_QNTT        AS OUTORDR_QNTT
+				, A.CFMTN_QNTT          AS CFMTN_QNTT
+				, A.OUTORDR_UNIT        AS OUTORDR_UNIT
+				, A.PIECE_QNTT          AS PIECE_QNTT
+				, A.ZCST_QNTT           AS ZCST_QNTT
+				, A.PIECE_UNTPRC        AS PIECE_UNTPRC
+				, A.TXAMT               AS TXAMT
+				, A.OUTORDR_AMT         AS OUTORDR_AMT
+				, A.OUTORDR_UNTPRC      AS OUTORDR_UNTPRC
+				, A.SPLY_PRC            AS SPLY_PRC
+				, A.MNFTR_YMD           AS MNFTR_YMD
+				, A.PRDCTN_YR           AS PRDCTN_YR
+				, A.RTL_TERM_YMD        AS RTL_TERM_YMD
+				, A.ETC_RSN             AS ETC_RSN
+				, A.ADDRSE_NM           AS ADDRSE_NM
+				, A.ADDRSE_ADDR         AS ADDRSE_ADDR
+				, A.ADDRSE_TELNO        AS ADDRSE_TELNO
+				, A.DRCT_DLVR_YN        AS DRCT_DLVR_YN
+				, A.WRHS_QNTT           AS WRHS_QNTT
+				, A.DLVR_TYPE           AS DLVR_TYPE
+				, A.BNDL_NO             AS BNDL_NO
+				, A.GDS_EXPLN           AS GDS_EXPLN
+				, A.RMRK_CN             AS RMRK_CN
+				, A.CNTR_WRHS_YMD       AS CNTR_WRHS_YMD
+				, A.STOR_WRHS_YMD       AS STOR_WRHS_YMD
+				, A.BX_NO               AS BX_NO
+				, A.BX_SN               AS BX_SN
+				, A.ETC_MTTR            AS ETC_MTTR
+				, A.ETC_DTL_CN          AS ETC_DTL_CN
+				, A.ETC_EXPLN           AS ETC_EXPLN
+				, A.ORGNL_GDS_CD        AS ORGNL_GDS_CD
+				, A.WRHUS_CD            AS WRHUS_CD
+				, A.WRHUS_NM            AS WRHUS_NM
+				  FROM (
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, MO.STTS_CD_NM		AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, MO.OUTORDR_TM		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, MD.OTPT_NM		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, MD.ORDR_UNIT_QNTT		AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+					, MD.CFMTN_QNTT		AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, MD.SPLY_PRC		AS SPLY_PRC
+					, MD.MNFTR_YMD		AS MNFTR_YMD
+					, MD.PRDCTN_YR		AS PRDCTN_YR
+					, MD.RTL_TERM_YMD	AS RTL_TERM_YMD
+					, MD.ETC_RSN		AS ETC_RSN
+					, MD.ADDRSE_NM		AS ADDRSE_NM
+					, MD.ADDRSE_ADDR	AS ADDRSE_ADDR
+					, MD.ADDRSE_TELNO	AS ADDRSE_TELNO
+					, MD.DRCT_DLVR_YN	AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE		AS DLVR_TYPE
+					, MD.BNDL_NO		AS BNDL_NO
+					, MD.GDS_EXPLN		AS GDS_EXPLN
+					, MD.RMRK_CN		AS RMRK_CN
+					, NULL              AS CNTR_WRHS_YMD
+					, NULL              AS STOR_WRHS_YMD
+					, NULL              AS BX_NO
+					, NULL              AS BX_SN
+					, NULL              AS ETC_MTTR
+					, NULL              AS ETC_DTL_CN
+					, NULL              AS ETC_EXPLN
+					, NULL              AS ORGNL_GDS_CD
+					, NULL              AS WRHUS_CD
+					, NULL              AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_CPNG MO
+				  JOIN TB_MRKT_ORDR_IF_CPNG_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+		]]>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				UNION ALL
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, NULL		        AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, NULL      		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, NULL      		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, NULL		        AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT	AS OUTORDR_QNTT
+					, NULL		        AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, NULL		        AS SPLY_PRC
+					, NULL		        AS MNFTR_YMD
+					, NULL		        AS PRDCTN_YR
+					, NULL		        AS RTL_TERM_YMD
+					, NULL		        AS ETC_RSN
+					, NULL		        AS ADDRSE_NM
+					, NULL		        AS ADDRSE_ADDR
+					, NULL		        AS ADDRSE_TELNO
+					, NULL		        AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE      AS DLVR_TYPE
+					, NULL		        AS BNDL_NO
+					, NULL		        AS GDS_EXPLN
+					, NULL		        AS RMRK_CN
+					, MD.CNTR_WRHS_YMD  AS CNTR_WRHS_YMD
+					, MD.STOR_WRHS_YMD  AS STOR_WRHS_YMD
+					, MD.BX_NO          AS BX_NO
+					, MD.BX_SN          AS BX_SN
+					, NULL              AS ETC_MTTR
+					, NULL              AS ETC_DTL_CN
+					, NULL              AS ETC_EXPLN
+					, NULL              AS ORGNL_GDS_CD
+					, NULL              AS WRHUS_CD
+					, NULL              AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_LT MO
+				  JOIN TB_MRKT_ORDR_IF_LT_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+		]]>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				UNION ALL
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, NULL		        AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, NULL      		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, NULL      		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, NULL		AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+					, NULL		        AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, NULL		        AS SPLY_PRC
+					, NULL		        AS MNFTR_YMD
+					, NULL		        AS PRDCTN_YR
+					, NULL		        AS RTL_TERM_YMD
+					, NULL		        AS ETC_RSN
+					, NULL		        AS ADDRSE_NM
+					, NULL		        AS ADDRSE_ADDR
+					, NULL		        AS ADDRSE_TELNO
+					, NULL		        AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE		AS DLVR_TYPE
+					, MD.BNDL_NO		AS BNDL_NO
+					, MD.GDS_EXPLN		AS GDS_EXPLN
+					, MD.RMRK_CN		AS RMRK_CN
+					, MD.CNTR_WRHS_YMD  AS CNTR_WRHS_YMD
+					, MD.STOR_WRHS_YMD  AS STOR_WRHS_YMD
+					, NULL              AS BX_NO
+					, NULL              AS BX_SN
+					, MD.ETC_MTTR       AS ETC_MTTR
+					, MD.ETC_DTL_CN     AS ETC_DTL_CN
+					, MD.ETC_EXPLN      AS ETC_EXPLN
+					, MD.ORGNL_GDS_CD   AS ORGNL_GDS_CD
+					, MD.WRHUS_CD       AS WRHUS_CD
+					, MD.WRHUS_NM       AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_SSG MO
+				  JOIN TB_MRKT_ORDR_IF_SSG_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+		]]>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				) A
+			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ
+		]]>
+	</select>
+
+
 </mapper>
 
 

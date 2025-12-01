@@ -141,6 +141,13 @@ public interface OrdrRcvMapper {
 	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
 
 	/**
+	 * 통합 마켓상품발주정보 목록 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 */
+	public List<MrktGdsOrdrVO> selectUntyMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO);
+
+	/**
 	 * 상품발주정보 저장(SSG)
 	 * @param ordrVO, initial
 	 * @return
@@ -206,4 +213,9 @@ public interface OrdrRcvMapper {
 	Integer selectMrktOrdrSeqLt(MrktOrdrVO ordrVO) throws Exception;
 	Integer selectMrktOrdrSeqSsg(MrktOrdrVO ordrVO) throws Exception;
 	Integer selectMrktOrdrSeqCpng(MrktOrdrVO ordrVO) throws Exception;
+
+
+
+
+
 }
