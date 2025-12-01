@@ -2933,8 +2933,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		param.setWrhsYmdFrom(wrhsYmdFrom);
 		param.setWrhsYmdTo(wrhsYmdTo);
 
-		List<MrktGdsOrdrVO> ordrList = ordrRcvMapper.selectMrktGdsOrdrList(param);
-
+		//List<MrktGdsOrdrVO> ordrList = ordrRcvMapper.selectMrktGdsOrdrList(param);
+		List<MrktGdsOrdrVO> ordrList = ordrRcvMapper.selectUntyMrktGdsOrdrList(param);
 		List<Map<String, Object>> resultList = ComUtil.convertVoListToMapListByJackson(ordrList);
 
 		return resultList.stream()
