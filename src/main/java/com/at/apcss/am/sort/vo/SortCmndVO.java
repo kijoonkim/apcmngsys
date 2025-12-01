@@ -86,6 +86,11 @@ public class SortCmndVO extends ComVO {
 	 */
 	private String wrhsno;
 
+    /**
+     * 발주번호
+     */
+    private String outordrno;
+
 	/**
 	 * 생산자코드
 	 */
@@ -115,6 +120,16 @@ public class SortCmndVO extends ComVO {
      * 시장상품명
      */
     private String mrktGdsNm;
+
+    /**
+     * 대형마켓코드
+     */
+    private String lgszMrktCd;
+
+    /**
+     * 대형마켓명
+     */
+    private String lgszMrktNm;
 
 	/**
 	 * 지시수량

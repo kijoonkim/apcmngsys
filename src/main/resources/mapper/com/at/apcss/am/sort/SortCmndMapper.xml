@@ -41,6 +41,7 @@
                 , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
     			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', pt0.LGSZ_MRKT_CD) FROM DUAL) AS LGSZ_MRKT_NM
                 , pt0.SORT_CMNDNO || '-' || pt0.SORT_CMND_SN AS SORT_CMNDNO_INDCT
 
     		  FROM (
@@ -61,6 +62,8 @@
 			     , SC.CMND_WGHT         AS CMND_WGHT        -- 지시중량
 			     , SC.PRFMNC_QNTT       AS PRFMNC_QNTT      -- 실적수량
 			     , SC.PRFMNC_WGHT       AS PRFMNC_WGHT      -- 실적중량
+			     , SC.LGSZ_MRKT_CD      AS LGSZ_MRKT_CD     -- 대형마켓코드
+			     , SC.OUTORDRNO         AS OUTORDRNO        -- 발주번호
 			     , SC.RMRK              AS RMRK             -- 비고
 			     , SC.DEL_YN            AS DEL_YN           -- 삭제유무
 			     , RI.BX_KND         	AS BX_KND
