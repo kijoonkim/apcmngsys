@@ -116,6 +116,8 @@
         FROM (
                  SELECT MIN(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MIN
                       , MAX(SPRT_BIZ_YR) AS SPRT_BIZ_YR_MAX
+                      , NVL(MIN(SPRT_YR), TO_CHAR(SYSDATE, 'YYYY')) AS SPRT_YR_MIN
+                      , NVL(MAX(SPRT_YR), TO_CHAR(SYSDATE, 'YYYY')) AS SPRT_YR_MAX
                       , SPRT_BIZ_CD
                       , SPRT_BIZ_NM
                  FROM TB_EV_SPRT_BIZ_MSTR
@@ -143,6 +145,18 @@
                  SELECT CRNO AS CRNO
                       , CORP_NM AS CORP_NM
                  FROM TB_COM_CORP
+             ) pt0
+    </select>
+
+    <select id="selectSprtBizOgnz" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+        SELECT ROWNUM AS ROW_SEQ
+             , pt0.*
+        FROM (
+                 SELECT SPRT_BIZ_YR AS SPRT_BIZ_YR
+                      , SPRT_BIZ_CD AS SPRT_BIZ_CD
+                      , BRNO AS BRNO
+                 FROM TB_EV_SPRT_BIZ_OGNZ
+                 GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, BRNO
              ) pt0
     </select>
 

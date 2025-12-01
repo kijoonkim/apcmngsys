@@ -111,36 +111,32 @@
                                     class="form-control input-sm"
                                     unselected-text="전체"
                                     wrap-style="width:95%;"
-                                    onchange="fn_selectItem(event)"
+                                    onchange="fn_changeSprtBizNm(event)"
                             ></sbux-select>
                         </td>
                         <th scope="row" class="th_bg">지원사업연도</th>
                         <td colspan="5" class="td_input"style="border-right: hidden;">
-                            <sbux-spinner
-                                    uitype="normal"
+                            <sbux-select
                                     id="srch-dtp-crtrYmd"
                                     name="srch-dtp-crtrYmd"
-                                    placeholder="yyyy"
-                                    step-value="1"
-                                    number-max-value="9999"
-                                    number-mix-value="0"
+                                    uitype="single"
+                                    jsondata-ref="jsonSprtBizYr"
+                                    class="form-control input-sm"
+                                    unselected-text="전체"
                                     wrap-style="width:95%;"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            ></sbux-spinner>
+                            ></sbux-select>
                         </td>
                         <th scope="row" class="th_bg">지원연도</th>
                         <td colspan="4" class="td_input"style="border-right: hidden;">
-                            <sbux-spinner
-                                    uitype="normal"
+                            <sbux-select
                                     id="srch-dtp-sprtYmd"
                                     name="srch-dtp-sprtYmd"
-                                    placeholder="yyyy"
-                                    step-value="1"
-                                    number-max-value="9999"
-                                    number-min-value="0"
+                                    uitype="single"
+                                    jsondata-ref="jsonSprtYr"
+                                    class="form-control input-sm"
+                                    unselected-text="전체"
                                     wrap-style="width:95%;"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                            ></sbux-spinner>
+                            ></sbux-select>
                         </td>
                     </tr>
                     <tr>
@@ -151,30 +147,10 @@
                                     name="srch-inp-bzmnConm"
                                     uitype="text"
                                     class="form-control input-sm"
+                                    onclick="fn_choiceSprtBizRsltInqPopup"
                             ></sbux-input>
                         </td>
                         <td colspan="11"></td>
-<%--
-                        <th scope="row" class="th_bg">법인번호</th>
-                        <td colspan="5" class="td_input" style="border-right:hidden;">
-                            <sbux-input
-                                    id="srch-inp-crno"
-                                    name="srch-inp-crno"
-                                    uitype="text"
-                                    class="form-control input-sm"
-                            ></sbux-input>
-                        </td>
-                        <th scope="row" class="th_bg">사업자번호</th>
-                        <td colspan="4" class="td_input" >
-                            <sbux-input
-                                    id="srch-inp-brno"
-                                    name="srch-inp-brno"
-                                    uitype="text"
-                                    class="form-control input-sm"
-                            ></sbux-input>
-                        </td>
---%>
-
                     </tbody>
                 </table>
 
@@ -218,23 +194,25 @@
         <jsp:include page="../../am/popup/importExcelPopup.jsp"></jsp:include>
     </div>
 
-    <!-- 경영체 조회 팝업 -->
+    <!-- 법인명 조회 팝업 -->
     <div>
         <sbux-modal
-                id="modal-mngmstInfoId"
-                name="modal-mngmstInfoId"
+                id="modal-sprtBizRsltInqPopup"
+                name="modal-sprtBizRsltInqPopup"
                 uitype="middle"
-                header-title="경영체번호 선택"
-                body-html-id="body-modal-mngmstInfoId"
+                header-title="법인명 선택"
+                body-html-id="body-modal-sprtBizRsltInqPopup"
                 footer-is-close-button="false"
                 style="width:1000px"
         ></sbux-modal>
     </div>
-    <div id="body-modal-mngmstInfoId">
-        <jsp:include page="/WEB-INF/view/apcss/fm/popup/MngmstInfoIdPopup.jsp"></jsp:include>
+    <div id="body-modal-sprtBizRsltInqPopup">
+        <jsp:include page="/WEB-INF/view/apcss/pd/popup/sprtBizRsltInqPopup.jsp"></jsp:include>
     </div>
 
 </body>
+<%@ include file="../../../frame/inc/bottomScript.jsp" %>
+</html>
 <script type="text/javascript">
 
     var reqColor              = '#FFF8DC';  // 필수값 색깔
@@ -245,7 +223,10 @@
     var grdExpSprtBizNm;                    // 지원사업명 엑셀 그리드
 
     var jsonSprtBiz           = [];         // 지원사업 목록 그리드 데이터
+
     var jsonBizSeCd           = [];         // 사업구분 콤보박스 데이터
+    var jsonSprtBizYr         = [];         // 지원사업연도 콤보박스 데이터
+    var jsonSprtYr            = [];         // 지원연도 콤보박스 데이터
 
     var jsonExpSprtBiz        = [];         // 엑셀 데이터
     var jsonExpSprtBizSeCd    = [];         //
@@ -253,9 +234,15 @@
     var setImpBrno            = [];         // 법인번호 데이터
     var setImpCrno            = [];         // 사업자번호 데이터
     var setImpSprtBizNm       = [];         // 지원사업명 데이터
+    var setImpSprtBizOgnz     = [];         // 지원사업조직 데이터
 
     var sprtBizNmFilterData   = [];         // import 콤보박스 지원사업명 데이터 - 부모(code)
     var sprtBizYrFilterData   = [];         // import 콤보박스 지원사업연도 데이터 - 자식(code)
+    var sprtYrFilterData      = [];         // 지원연도 데이터 - 자식(code)
+
+    var brnoData = [];
+    var crnoData = [];
+    var sprtBizOgnzData = [];
 
     var flag = true;
     var confirmFlag = true;
@@ -264,8 +251,7 @@
         await Promise.all([
             fn_setSprtBizSeCdSelect('srch-slt-sprtBizNm', jsonBizSeCd)
         ]);
-        fn_setYr();
-        fn_setJsonBizSeCdYr();
+        fn_setJsonSprtBizYr();
     }
 
 
@@ -293,65 +279,42 @@
     }
 
 
-    // 지원사업연도 데이터 세팅
-    async function fn_setYr() {
 
-        SBUxMethod.set('srch-dtp-crtrYmd', gfn_dateToYear(new Date()));
-        SBUxMethod.set('srch-dtp-sprtYmd', gfn_dateToYear(new Date()));
-
-
-        let maxDate = 0;
-        let minDate = 9999;
-        let cnt = jsonBizSeCd.length;
-
-        for(let i = 0; i < cnt; i++) {
-            if( jsonBizSeCd[i].sprtBizYrMax > maxDate ) {
-                maxDate = jsonBizSeCd[i].sprtBizYrMax;
-            }
-            if( jsonBizSeCd[i].sprtBizYrMin < minDate ) {
-                minDate = jsonBizSeCd[i].sprtBizYrMin;
-            }
-        }
-
-        SBUxMethod.attr("srch-dtp-crtrYmd", "number-max-value", maxDate);
-        SBUxMethod.attr("srch-dtp-crtrYmd", "number-min-value", minDate);
-
-/*
-        let setData = minDate + ',' + maxDate;
-
-        SBUxMethod.set("srch-dtp-crtrYmd", setData);
-
-        SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', minDate);
-        SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', maxDate);
-*/
-
-    }
-
-
-    async function fn_setJsonBizSeCdYr() {
+    // 사업구분에 따른 지원사업연도, 지원연도 데이터 세팅
+    async function fn_setJsonSprtBizYr() {
 
         let cnt = jsonBizSeCd.length;
         let yearList;
+        let sprtYearList;
 
         // 최소, 최댓값 범위 안 연도 담기
         for(let i = 0; i < cnt; i++) {
             yearList = [];
+            sprtYearList = [];
 
             for(let j = jsonBizSeCd[i].sprtBizYrMin; j <= jsonBizSeCd[i].sprtBizYrMax; j++) {
                 yearList.push(String(j));
             }
-            jsonBizSeCd[i].sprtBizYr = yearList;
-        }
 
+            for(let k = jsonBizSeCd[i].sprtYrMin; k <= jsonBizSeCd[i].sprtYrMax; k++) {
+                sprtYearList.push(String(k));
+            }
+
+            jsonBizSeCd[i].sprtBizYr = yearList;
+            jsonBizSeCd[i].sprtYr = sprtYearList;
+
+        }
 
         var bizNmDupCheck = {};
         var yrDupCheck = {};
+        var sprtYrDupCheck = {};
 
         jsonBizSeCd.forEach((row) => {
             if(!bizNmDupCheck[row.sprtBizCd]){
                 sprtBizNmFilterData.push({
                     label: row.sprtBizNm,
-                    value: row.sprtBizNm
+                    value: row.sprtBizNm,
+                    sprtBizCd: row.sprtBizCd
                 });
                 bizNmDupCheck[row.sprtBizCd] = true;
             }
@@ -366,88 +329,80 @@
                 });
                 yrDupCheck[key] = true;
             })
+            row.sprtYr.forEach((yr) => {
+                var key = row.sprtBizNm + '_' + yr;
+                if(sprtYrDupCheck[key]) return;
+
+                sprtYrFilterData.push({
+                    label: yr,
+                    value: yr,
+                    code: row.sprtBizNm
+                });
+                sprtYrDupCheck[key] = true;
+            })
         });
 
     }
 
-    // 사업구분 선택 시 지원사업연도 최소 최대값 세팅
-    async function fn_selectItem(e) {
+    // 사업구분 선택 시 지원사업연도, 지원연도 데이터 변경
+    async function fn_changeSprtBizNm(e) {
 
+        let bizCd = e.target.value;
 
-/*        const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizRsltInqSeCd.do", {}, null, true);
-        const data = await postJsonPromise;*/
+        if(!bizCd){
+            gfn_setSBSelectJson("srch-dtp-crtrYmd", jsonSprtBizYr, []);
+            gfn_setSBSelectJson("srch-dtp-sprtYmd", jsonSprtYr, []);
+            return;
+        }
+        const bizInfo = sprtBizNmFilterData.find(it => it.sprtBizCd === bizCd);
+        const bizNm = bizInfo ? bizInfo.label : null
 
-        let idx = e.target.selectedIndex;
-        let cnt = jsonBizSeCd.length;
-        let sysDate = gfn_dateToYear(new Date());
-
-        if(idx != 0) {
-            let strYr = jsonBizSeCd[idx-1].sprtBizYrMin;
-            let endYr = jsonBizSeCd[idx-1].sprtBizYrMax;
-
-            SBUxMethod.attr("srch-dtp-crtrYmd", "number-max-value", endYr);
-            SBUxMethod.attr("srch-dtp-crtrYmd", "number-min-value", strYr);
-
-            if(endYr < sysDate) {
-                SBUxMethod.set("srch-dtp-crtrYmd", endYr);
-            }else {
-                SBUxMethod.set("srch-dtp-crtrYmd", sysDate);
-            }
-/*
-            let setYr = strYr + ',' + endYr;
-
-            SBUxMethod.set("srch-dtp-crtrYmd", setYr);
-
-            SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', strYr);
-            SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', endYr);
-*/
-
-        }else {
-            let maxDate = 0;
-            let minDate = 9999;
-
-            for(let i = 0; i < cnt; i++) {
-                if( jsonBizSeCd[i].sprtBizYrMax > maxDate ) {
-                    maxDate = jsonBizSeCd[i].sprtBizYrMax;
-                }
-                if( jsonBizSeCd[i].sprtBizYrMin < minDate ) {
-                    minDate = jsonBizSeCd[i].sprtBizYrMin;
-                }
-            }
-
-            SBUxMethod.attr("srch-dtp-crtrYmd", "number-max-value", maxDate);
-            SBUxMethod.attr("srch-dtp-crtrYmd", "number-min-value", minDate);
-
-            if(maxDate < sysDate) {
-                SBUxMethod.set("srch-dtp-crtrYmd", maxDate);
-            }else {
-                SBUxMethod.set("srch-dtp-crtrYmd", sysDate);
-            }
-
-/*
-            let setData = minDate + ',' + maxDate;
-
-            SBUxMethod.set("srch-dtp-crtrYmd", setData);
-
-            SBUxMethod.setDatepickerMinDate('srch-dtp-crtrYmd', minDate);
-            SBUxMethod.setDatepickerMaxDate('srch-dtp-crtrYmd', maxDate);
-*/
+        if(!bizNm){
+            gfn_setSBSelectJson("srch-dtp-crtrYmd", jsonSprtBizYr, []);
+            gfn_setSBSelectJson("srch-dtp-sprtYmd", jsonSprtYr, []);
+            return;
         }
 
+        let sourceJson = [];
+        let sprtYrSourceJson = [];
+
+        sprtBizYrFilterData.forEach((item) => {
+                item.cmnsCd = item.value;
+                item.cmnsNm = item.label;
+
+                sourceJson.push(item);
+            });
+
+        sprtYrFilterData.forEach((item) => {
+            item.cmnsCd = item.value;
+            item.cmnsNm = item.label;
+
+            sprtYrSourceJson.push(item);
+        });
+
+        sourceJson = sprtBizYrFilterData.filter(v => v.code === bizNm).map(item => ({
+            cmnsCd : item.value,
+            cmnsNm : item.label
+        }));
+
+        sprtYrSourceJson = sprtYrFilterData.filter(v => v.code === bizNm).map(item => ({
+            cmnsCd : item.value,
+            cmnsNm : item.label
+        }));
+
+        sourceJson = sourceJson.sort((a, b) => b.cmnsCd.localeCompare(a.cmnsCd));
+        sprtYrSourceJson = sprtYrSourceJson.sort((a, b) => b.cmnsCd.localeCompare(a.cmnsCd));
+
+
+        gfn_setSBSelectJson("srch-dtp-crtrYmd", jsonSprtBizYr, sourceJson);
+        gfn_setSBSelectJson("srch-dtp-sprtYmd", jsonSprtYr, sprtYrSourceJson);
     }
 
-/*
-    function bzmnConmClick(){
-        SBUxMethod.openModal('modal-mngmstInfoId');
-    }
-*/
-
-
-
+    // 초기화
     const fn_reset = async function(){
         SBUxMethod.set('srch-slt-sprtBizNm', "");
-        SBUxMethod.set("srch-dtp-crtrYmd", gfn_dateToYear(new Date()));
-        SBUxMethod.set('srch-dtp-sprtYmd', gfn_dateToYear(new Date()));
+        SBUxMethod.set("srch-dtp-crtrYmd", "");
+        SBUxMethod.set('srch-dtp-sprtYmd', "");
         SBUxMethod.set('srch-inp-bzmnConm', "");
     }
 
@@ -466,24 +421,24 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.fixedrowheight = '37';
-/*
-        SBGridProperties.paging = {
-            'type' : 'page',
-            'count' : 5,
-            'size' : 40,
-            'sorttype' : 'page',
-            'showgoalpageui' : true
-        };
-*/
+        /*
+                SBGridProperties.paging = {
+                    'type' : 'page',
+                    'count' : 5,
+                    'size' : 40,
+                    'sorttype' : 'page',
+                    'showgoalpageui' : true
+                };
+        */
         SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["지원사업<br/>연도"],	ref: 'sprtBizYr', type:'output',  width:'70px',  style:'text-align:center'},
-            {caption: ["지원사업명"],	        ref: 'sprtBizNm', type:'output',  width:'200px', style:'text-align:left'},
-            {caption: ["법인명"],	        ref: 'bzmnConm',  type:'output',  width:'240px', style:'text-align:left'},
-            {caption: ["법인번호"],	        ref: 'crno',      type:'output',  width:'100px', style:'text-align:left'},
-            {caption: ["사업자번호"],	        ref: 'brno',      type:'output',  width:'80px',  style:'text-align:left'},
-            {caption: ["시도"],	            ref: 'stdgCtpvCd',type:'output',  width:'100px',  style:'text-align:center'},
-            {caption: ["시군구"],	        ref: 'stdgSggCd', type:'output',  width:'110px',  style:'text-align:center'},
+            {caption: ["지원사업명"],	        ref: 'sprtBizNm', type:'output',  width:'220px', style:'text-align:left'},
+            {caption: ["법인명"],	        ref: 'bzmnConm',  type:'output',  width:'270px', style:'text-align:left'},
+            {caption: ["법인번호"],	        ref: 'crno',      type:'output',  width:'100px', style:'text-align:left', hidden: true},
+            {caption: ["사업자번호"],	        ref: 'brno',      type:'output',  width:'80px',  style:'text-align:left', hidden: true},
+            {caption: ["시도"],	            ref: 'stdgCtpvCd',type:'output',  width:'110px', style:'text-align:center'},
+            {caption: ["시군구"],	        ref: 'stdgSggCd', type:'output',  width:'120px', style:'text-align:center'},
             {caption: ["선정<br/>연도"],	    ref: 'slctnYr',   type:'output',  width:'50px',  style:'text-align:center'},
             {caption: ["지원<br/>연도"],	    ref: 'sprtYr',    type:'output',  width:'50px',  style:'text-align:center'},
             {
@@ -522,8 +477,8 @@
                     rule:'#,###  '
                 }
             },
-            {caption: ["비고"],			ref: 'rmrk',     type:'output',  width:'275px',    style:'text-align:left'},
-            {caption: ["품목"],		    ref: 'itemCd',	 type:'output',  width:'100px',     style:'text-align:center'},
+            {caption: ["비고"],			ref: 'rmrk',     type:'output',  width:'300px',    style:'text-align:left'},
+            {caption: ["품목"],		    ref: 'itemCd',	 type:'output',  width:'140px',    style:'text-align:center'},
             {caption: ["사업</br>유형"],	ref: 'bizType',	 type:'output',  width:'50px',     style:'text-align:center'},
 
 
@@ -553,51 +508,16 @@
             });
     }
     // 페이징
-/*
-    const fn_pagingGrdSprtBiz = async function() {
-        let recordCountPerPage = grdSprtBiz.getPageSize();
-        let currentPageNo = grdSprtBiz.getSelectPageIndex();
-        fn_setGrdSprtBiz(recordCountPerPage, currentPageNo);
-    }
-*/
+    /*
+        const fn_pagingGrdSprtBiz = async function() {
+            let recordCountPerPage = grdSprtBiz.getPageSize();
+            let currentPageNo = grdSprtBiz.getSelectPageIndex();
+            fn_setGrdSprtBiz(recordCountPerPage, currentPageNo);
+        }
+    */
 
     // 조회 버튼 클릭 시 실행
     const fn_search = async function() {
-
-/*
-        let crtrYmdFrom = SBUxMethod.get("srch-dtp-crtrYmd_from");   // 기준연도 시작일자
-        let crtrYmdTo = SBUxMethod.get("srch-dtp-crtrYmd_to");       // 기준연도 종료일자
-        let sprtYmdFrom = SBUxMethod.get("srch-dtp-sprtYmd_from");   // 지원연도 시작일자
-        let sprtYmdTo = SBUxMethod.get("srch-dtp-sprtYmd_to");       // 지원연도 종료일자
-*/
-/*
-
-        if (!gfn_isEmpty(crtrYmdFrom)) {
-            if (gfn_isEmpty(crtrYmdTo)) {
-                gfn_comAlert("W0001", "기준연도");		//	W0001	{0}을/를 선택하세요.
-                return;
-            }
-        }
-        if (!gfn_isEmpty(crtrYmdTo)) {
-            if (gfn_isEmpty(crtrYmdFrom)) {
-                gfn_comAlert("W0001", "기준연도");		//	W0001	{0}을/를 선택하세요.
-                return;
-            }
-        }
-
-        if (!gfn_isEmpty(sprtYmdFrom)) {
-            if (gfn_isEmpty(sprtYmdTo)) {
-                gfn_comAlert("W0001", "지원연도");		//	W0001	{0}을/를 선택하세요.
-                return;
-            }
-        }
-        if (!gfn_isEmpty(sprtYmdTo)) {
-            if (gfn_isEmpty(sprtYmdFrom)) {
-                gfn_comAlert("W0001", "지원연도");		//	W0001	{0}을/를 선택하세요.
-                return;
-            }
-        }
-*/
 
         grdSprtBiz.rebuild();
         let pageSize = grdSprtBiz.getPageSize();
@@ -627,21 +547,21 @@
 
             let postUrl = "/pd/sprt/selectSprtBizRsltInqList.do";
             let postJsonPromise = gfn_postJSON(postUrl, {
-                 sprtBizSe           : sprtBizSe
-               , crtrYmdFrom         : crtrYmdFrom
-               , crtrYmdTo           : crtrYmdTo
-               , sprtYmdFrom         : sprtYmdFrom
-               , sprtYmdTo           : sprtYmdTo
-               , bzmnConm            : bzmnConm
-               , crno                : crno
-               , brno                : brno
+                sprtBizSe           : sprtBizSe
+                , crtrYmdFrom         : crtrYmdFrom
+                , crtrYmdTo           : crtrYmdTo
+                , sprtYmdFrom         : sprtYmdFrom
+                , sprtYmdTo           : sprtYmdTo
+                , bzmnConm            : bzmnConm
+                , crno                : crno
+                , brno                : brno
 
-                 //페이징
-/*
-               , pagingYn            : 'Y'
-               , currentPageNo       : pageNo
-               , recordCountPerPage  : pageSize
-*/
+                //페이징
+                /*
+                               , pagingYn            : 'Y'
+                               , currentPageNo       : pageNo
+                               , recordCountPerPage  : pageSize
+                */
             });
 
             let data = await postJsonPromise;
@@ -655,21 +575,21 @@
             data.resultList.forEach((item, index) => {
                 const sprtBizVO = {
                     sprtBizYr       : item.sprtBizYr
-                  , sprtBizNm       : item.sprtBizNm
-                  , bzmnConm        : item.bzmnConm
-                  , brno            : item.brno
-                  , crno            : item.crno
-                  , stdgCtpvCd      : item.stdgCtpvCd
-                  , stdgSggCd       : item.stdgSggCd
-                  , slctnYr         : item.slctnYr
-                  , sprtYr          : item.sprtYr
-                  , altmntAmt       : item.altmntAmt
-                  , altmntInt       : item.altmntInt
-                  , rmrk            : item.rmrk
-                  , itemCd          : item.itemCd
-                  , bizType         : item.bizType
-                  , onslfBrdnAmt    : item.onslfBrdnAmt
-                  , rowSeq          : item.rowSeq
+                    , sprtBizNm       : item.sprtBizNm
+                    , bzmnConm        : item.bzmnConm
+                    , brno            : item.brno
+                    , crno            : item.crno
+                    , stdgCtpvCd      : item.stdgCtpvCd
+                    , stdgSggCd       : item.stdgSggCd
+                    , slctnYr         : item.slctnYr
+                    , sprtYr          : item.sprtYr
+                    , altmntAmt       : item.altmntAmt
+                    , altmntInt       : item.altmntInt
+                    , rmrk            : item.rmrk
+                    , itemCd          : item.itemCd
+                    , bizType         : item.bizType
+                    , onslfBrdnAmt    : item.onslfBrdnAmt
+                    , rowSeq          : item.rowSeq
                 }
                 jsonSprtBiz.push(sprtBizVO);
 
@@ -679,7 +599,7 @@
             });
             if (jsonSprtBiz.length > 0) {
                 if(grdSprtBiz.getPageTotalCount() != totalRecordCount) {	// TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
-                    grdSprtBiz.setPageTotalCount(totalRecordCount); 	// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
+                    grdSprtBiz.setPageTotalCount(totalRecordCount); 	    // 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
                     grdSprtBiz.rebuild();
                 }else{
                     grdSprtBiz.refresh();
@@ -766,11 +686,11 @@
     }
 
 
-/*
-    const fn_setSprtBizJson = async function() {
-        jsonExpSprtBiz = gfn_cloneJson(jsonSprtBiz);
-    }
-*/
+    /*
+        const fn_setSprtBizJson = async function() {
+            jsonExpSprtBiz = gfn_cloneJson(jsonSprtBiz);
+        }
+    */
 
     const fn_setBizSeCdJson = async function() {
         jsonExpSprtBizSeCd = gfn_cloneJson(jsonBizSeCd);
@@ -797,7 +717,7 @@
                 title: "",
                 unit: ""
             }
-          , {
+            , {
                 sbGrid: grdExpSprtBizNm,
                 parentid: "sbexp-area-grdExpSprtBizNm",
                 id: "grdExpSprtBizNm",
@@ -839,10 +759,10 @@
         // 엑셀 정보를 담는 변수
         var objExcelInfo = {
             strFileName : _fileName,
-            strAction : "/am/excel/saveMultiExcel",
-            bIsStyle: true,
-            bIsMerge: true,
-            bUseFormat: false,
+            strAction   : "/am/excel/saveMultiExcel",
+            bIsStyle    : true,
+            bIsMerge    : true,
+            bUseFormat  : false,
             bIncludeData: true,
             bUseCompress: false
         };
@@ -964,8 +884,9 @@
             //{caption: ["신규"],	    ref: 'sprtBizNew',  type:'output', width:'50px',  style:'text-align:center', skippaste:true}
 
             // hidden = true
-            {caption: ["법인번호여부"],	ref: 'errCrno',     type:'output', width:'30px',  style:'text-align:center', skippaste:true, hidden:true},
-            {caption: ["사업자번호여부"],	ref: 'errBrno',     type:'output', width:'30px',  style:'text-align:center', skippaste:true, hidden:true}
+            {caption: ["법인번호 여부"],	    ref: 'errCrno',         type:'output', width:'1px',  style:'text-align:center', skippaste:true, hidden:true},
+            {caption: ["사업자번호 여부"],	    ref: 'errBrno',         type:'output', width:'1px',  style:'text-align:center', skippaste:true, hidden:true},
+            {caption: ["지원사업조직ID 여부"],	ref: 'errSprtOgnzId',   type:'output', width:'1px',  style:'text-align:center', skippaste:true, hidden:true}
         );
         return _columns;
     }
@@ -1116,9 +1037,8 @@
     const fn_setDataAfterImportSprtBiz = async function(_grdImp) {
         // 데이터 담은 후 컬럼 이동
         //_grdImp.moveColumn(13, 7);
-
-        console.log("sprtBizNmFilterData", sprtBizNmFilterData);
         console.log("sprtBizYrFilterData", sprtBizYrFilterData);
+        console.log("sprtYrFilterData", sprtYrFilterData);
         // 공통법인사업자 테이블 데이터
         const postJsonPromiseBrno = gfn_postJSON("/pd/sprt/selectComCorpBzmn.do", {}, null, true);
         const brnoData = await postJsonPromiseBrno;
@@ -1127,26 +1047,63 @@
         const postJsonPromiseCrno = gfn_postJSON("/pd/sprt/selectComCorp.do", {}, null, true);
         const crnoData = await postJsonPromiseCrno;
 
+        // 지원사업조직 테이블 데이터
+        const postJsonPromiseSprtBizOgnz = gfn_postJSON("/pd/sprt/selectSprtBizOgnz.do", {}, null, true);
+        const sprtBizOgnzData = await postJsonPromiseSprtBizOgnz;
+
         const brnoList = brnoData.resultList;
         const crnoList = crnoData.resultList;
+        const sprtBizOgnzList = sprtBizOgnzData.resultList;
         const impList = _grdImp.getGridDataAll();
+
+        impList.forEach(item => {
+            const matched = sprtBizNmFilterData.find(f => f.label === item.sprtBizNm);
+
+            if(matched) {
+                item.sprtBizCd = matched.sprtBizCd;
+            }
+        });
 
         const dbBrnoList = brnoList.map(row => String(row.brno).trim());
         const dbCrnoList = crnoList.map(row => String(row.crno).trim());
+        const dbSprtBizOgnzList = sprtBizOgnzList.map(row => ({
+                sprtBizYr : String(row.sprtBizYr).trim()
+                , sprtBizCd : String(row.sprtBizCd).trim()
+                , brno      : String(row.brno).trim()
+            })
+        );
         //const dbSprtBizNm = jsonBizSeCd.map(row => String(row.sprtBizNm).trim());
 
         const dbBrnoSet = new Set(dbBrnoList);
         const dbCrnoSet = new Set(dbCrnoList);
+        const dbSprtBizOgnzSet = new Set(
+            dbSprtBizOgnzList.map(row =>
+                [
+                    String(row.sprtBizYr).trim()
+                    , String(row.sprtBizCd).trim()
+                    , String(row.brno).trim()
+                ].join('|')
+            )
+        );
         //const dbSprtBizNmSet = new Set(dbSprtBizNm);
 
         const onlyInImpBrno = impList.filter(row => !dbBrnoSet.has(String(row.brno).trim()));
         const onlyInImpCrno = impList.filter(row => !dbCrnoSet.has(String(row.crno).trim()));
+        const onlyInImpSprtBizOgnz = impList.filter(row => {
+            const key = [
+                String(row.sprtBizYr).trim()
+                , String(row.sprtBizCd).trim()
+                , String(row.brno).trim()
+            ].join('|');
+
+            return !dbSprtBizOgnzSet.has(key);
+        });
         //const onlyInImpSprtBizNm = impList.filter(row => !dbSprtBizNmSet.has(String(row.sprtBizNm).trim()));
 
         // 법인정보 테이블에 법인번호가 없을 경우 ㅡ> 적색 표시
         if(onlyInImpCrno.length > 0) {
 
-            for(let i = 0; onlyInImpCrno.length > i; i++){
+            for(let i = 0; onlyInImpCrno.length > i; i++) {
                 var nRow = Number(onlyInImpCrno[i].rowSeq);
                 var nCol = _grdImp.getColRef("crno");
 
@@ -1158,7 +1115,7 @@
         // 공통법인사업자 테이블에 사업자등록번호가 없을 경우 ㅡ> 적색 표시
         if(onlyInImpBrno.length > 0) {
 
-            for(let i = 0; onlyInImpBrno.length > i; i++){
+            for(let i = 0; onlyInImpBrno.length > i; i++) {
                 var nRow = Number(onlyInImpBrno[i].rowSeq);
                 var nCol = _grdImp.getColRef("brno");
 
@@ -1167,18 +1124,29 @@
             }
         }
 
-        // 지원사업명 신규 미등록 표시
-/*        if(onlyInImpSprtBizNm.length > 0) {
+        // 지원사업조직 테이블에 해당연도, 지원사업, 사업자번호가 없을 경우
+        if(onlyInImpSprtBizOgnz.length > 0) {
 
-            for(let i = 0; onlyInImpSprtBizNm.length > i; i++) {
-                var nRow = Number(onlyInImpSprtBizNm[i].rowSeq);
-                var nCol = _grdImp.getColRef("sprtBizNew");
+            for(let i = 0; onlyInImpSprtBizOgnz.length > i; i++) {
+                var nRow = Number(onlyInImpSprtBizOgnz[i].rowSeq);
 
-                _grdImp.setCellData(nRow, nCol, "미등록", true);
+                _grdImp.setCellData(nRow, 15, 'Y', true);
             }
-        }*/
+        }
+
+        // 지원사업명 신규 미등록 표시
+        /*        if(onlyInImpSprtBizNm.length > 0) {
+
+                    for(let i = 0; onlyInImpSprtBizNm.length > i; i++) {
+                        var nRow = Number(onlyInImpSprtBizNm[i].rowSeq);
+                        var nCol = _grdImp.getColRef("sprtBizNew");
+
+                        _grdImp.setCellData(nRow, nCol, "미등록", true);
+                    }
+                }*/
 
     }
+
 
 
     // import grid 데이터 변경 시 실행
@@ -1187,7 +1155,8 @@
         var nRow = _grdImp.getRow();
         var nCol = _grdImp.getCol();
 
-        if(flag){
+        if(flag) {
+
             // 공통법인사업자 테이블 데이터
             const postJsonPromiseBrno = gfn_postJSON("/pd/sprt/selectComCorpBzmn.do", {}, null, true);
             const brnoData = await postJsonPromiseBrno;
@@ -1196,19 +1165,40 @@
             const postJsonPromiseCrno = gfn_postJSON("/pd/sprt/selectComCorp.do", {}, null, true);
             const crnoData = await postJsonPromiseCrno;
 
+            // 지원사업조직 테이블 데이터
+            const postJsonPromiseSprtBizOgnz = gfn_postJSON("/pd/sprt/selectSprtBizOgnz.do", {}, null, true);
+            const sprtBizOgnzData = await postJsonPromiseSprtBizOgnz;
+
             const brnoList = brnoData.resultList;
             const crnoList = crnoData.resultList;
+            const sprtBizOgnzList = sprtBizOgnzData.resultList;
 
             const dbBrnoList = brnoList.map(row => String(row.brno).trim());
             const dbCrnoList = crnoList.map(row => String(row.crno).trim());
+            const dbSprtBizOgnzList = sprtBizOgnzList.map(row => ({
+                      sprtBizYr : String(row.sprtBizYr).trim()
+                    , sprtBizCd : String(row.sprtBizCd).trim()
+                    , brno      : String(row.brno).trim()
+                })
+            );
             //const dbSprtBizNmList = jsonBizSeCd.map(row => String(row.sprtBizNm).trim());
 
             const dbBrnoSet = new Set(dbBrnoList);
             const dbCrnoSet = new Set(dbCrnoList);
+            const dbSprtBizOgnzSet = new Set(
+                dbSprtBizOgnzList.map(row =>
+                    [
+                          String(row.sprtBizYr).trim()
+                        , String(row.sprtBizCd).trim()
+                        , String(row.brno).trim()
+                    ].join('|')
+                )
+            );
             //const dbSprtBizNmSet = new Set(dbSprtBizNmList);
 
             setImpBrno = dbBrnoSet;
             setImpCrno = dbCrnoSet;
+            setImpSprtBizOgnz = dbSprtBizOgnzSet;
             //setImpSprtBizNm = dbSprtBizNmSet;
 
             flag = false;
@@ -1218,6 +1208,7 @@
         console.log("nCol", nCol);
 
         var ImpData = _grdImp.getCellData(nRow, nCol);
+
 
         var onlyInImpBrno = setImpBrno.has(ImpData);
         var onlyInImpCrno = setImpCrno.has(ImpData);
@@ -1245,14 +1236,49 @@
             }
         }
 
-        // 지원사업명 수정 시
-/*        if(nCol == 6) {
-            if(onlyInImpSprtBizNm) {
-                _grdImp.setCellData(nRow, 7, "", true);
-            }else {
-                _grdImp.setCellData(nRow, 7, "미등록", true);
+
+        if(nCol == 3 || nCol == 5 || nCol == 6) {
+
+            let impList = _grdImp.getGridDataAll();
+
+            if(nCol == 6) {
+                impList.forEach(item => {
+                    const matched = sprtBizNmFilterData.find(f => f.label === item.sprtBizNm);
+
+                    if(matched) {
+                        item.sprtBizCd = matched.sprtBizCd;
+                    }
+                });
             }
-        }*/
+            var keyNm = String(_grdImp.getCellData(nRow, 6)).trim();
+            var keyYr = String(_grdImp.getCellData(nRow, 5)).trim();
+            var keyBrno = String(_grdImp.getCellData(nRow, 3)).trim();
+
+            const matchedNm = sprtBizNmFilterData.find(f => f.label === keyNm);
+
+            if(matchedNm){
+                var keyCd = matchedNm.sprtBizCd;
+            }
+
+            var key = keyYr + "|" + keyCd + "|" + keyBrno;
+            var onlyInImpSprtBizOgnz = setImpSprtBizOgnz.has(key);
+
+            if(onlyInImpSprtBizOgnz) {
+                _grdImp.setCellData(nRow, 15, '', true);
+            }else {
+                _grdImp.setCellData(nRow, 15, 'Y', true);
+            }
+
+        }
+
+        // 지원사업명 수정 시
+        /*        if(nCol == 6) {
+                    if(onlyInImpSprtBizNm) {
+                        _grdImp.setCellData(nRow, 7, "", true);
+                    }else {
+                        _grdImp.setCellData(nRow, 7, "미등록", true);
+                    }
+                }*/
 
     }
 
@@ -1262,10 +1288,16 @@
     }
 
 
+    const fn_choiceSprtBizRsltInqPopup = function() {
+        SBUxMethod.openModal('modal-sprtBizRsltInqPopup');
+        popSprtBizRsltInq.init(fn_setSprtBizRsltInqPopup);
+    }
 
-
+    const fn_setSprtBizRsltInqPopup = function(rowData) {
+        if (!gfn_isEmpty(rowData)) {
+            SBUxMethod.set("srch-inp-bzmnConm", rowData.bzmnConm);
+        }
+    }
 
 
 </script>
-<%@ include file="../../../frame/inc/bottomScript.jsp" %>
-</html>

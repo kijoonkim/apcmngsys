@@ -41,6 +41,14 @@ public interface SprtBizRsltInqMapper {
     public List<SprtBizRsltInqVO> selectComCorp(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
 
     /**
+     * 산지조직지원사업 지원사업현황조회 지원사업조직 조회
+     * @param sprtBizRsltInqVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizRsltInqVO> selectSprtBizOgnz(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception;
+
+    /**
      * 산지조직지원사업 지원사업현황조회 올리기
      * @param sprtBizRsltInqVO
      * @return

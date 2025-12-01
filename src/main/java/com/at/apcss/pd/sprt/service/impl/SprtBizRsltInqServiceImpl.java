@@ -1,7 +1,6 @@
 package com.at.apcss.pd.sprt.service.impl;
 
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
 import com.at.apcss.pd.sprt.mapper.SprtBizRsltInqMapper;
 import com.at.apcss.pd.sprt.service.SprtBizRsltInqService;
 import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
@@ -49,6 +48,14 @@ public class SprtBizRsltInqServiceImpl extends BaseServiceImpl implements SprtBi
     }
 
     @Override
+    public List<SprtBizRsltInqVO> selectSprtBizOgnz(SprtBizRsltInqVO sprtBizRsltInqVO) throws Exception {
+
+        List<SprtBizRsltInqVO> resultList = sprtBizRsltInqMapper.selectSprtBizOgnz(sprtBizRsltInqVO);
+
+        return resultList;
+    }
+
+    @Override
     public int insertSprtBizRsltInqList(List<SprtBizRsltInqVO> sprtBizRsltInqVOList) throws Exception {
 
         int savedCnt = 0;
@@ -57,29 +64,37 @@ public class SprtBizRsltInqServiceImpl extends BaseServiceImpl implements SprtBi
 
             String errCrno = sprtBizRsltInqVO.getErrCrno();
             String errBrno = sprtBizRsltInqVO.getErrBrno();
+            String errSprtOgnzId = sprtBizRsltInqVO.getErrSprtOgnzId();
             String crno = sprtBizRsltInqVO.getCrno();
 
             // 법인 추가
             if("Y".equals(errCrno)) {
-                logger.debug("CALL SP_COM_CORP_ADD !");
+                logger.debug("Start : CALL SP_COM_CORP_ADD : {} ", sprtBizRsltInqVO);
                 sprtBizRsltInqMapper.insertSpComCorpAdd(sprtBizRsltInqVO);
+                logger.debug("End : CALL SP_COM_CORP_ADD");
             }
 
             // 사업자 추가
             if("Y".equals(errBrno)) {
-                if(!"".equals(crno) && crno != null) {
+                if(crno != null && !crno.isEmpty()) {
                     sprtBizRsltInqVO.setPsnSeCd("2");
                 }else {
                     sprtBizRsltInqVO.setPsnSeCd("3");
                 }
-                logger.debug("CALL SP_COM_BZMN_ADD !");
+                logger.debug("Start : CALL SP_COM_BZMN_ADD : {} ", sprtBizRsltInqVO);
                 sprtBizRsltInqMapper.insertSpComBzmnAdd(sprtBizRsltInqVO);
+                logger.debug("End : CALL SP_COM_BZMN_ADD");
+            }
+
+            // 지원사업조직 ID 추가
+            if("Y".equals(errSprtOgnzId)) {
+                logger.debug("Start : CALL SP_COM_BZMN_ADD : {} ", sprtBizRsltInqVO);
+                sprtBizRsltInqMapper.insertSpSprtGetBizOgnzId(sprtBizRsltInqVO);
+                logger.debug("End : CALL SP_COM_BZMN_ADD");
             }
 
             logger.debug("Impl VOlist 값 : {}", sprtBizRsltInqVOList);
-            sprtBizRsltInqMapper.insertSpComCorpAdd(sprtBizRsltInqVO);
-
-            sprtBizRsltInqMapper.insertSprtBizRsltInqList(sprtBizRsltInqVO);
+            savedCnt += sprtBizRsltInqMapper.insertSprtBizRsltInqList(sprtBizRsltInqVO);
 
         }
         return savedCnt;

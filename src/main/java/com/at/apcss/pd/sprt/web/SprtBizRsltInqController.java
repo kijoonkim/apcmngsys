@@ -86,9 +86,22 @@ public class SprtBizRsltInqController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/pd/sprt/selectSprtBizOgnz.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSprtBizOgnz(Model model, @RequestBody SprtBizRsltInqVO sprtBizRsltInqVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<SprtBizRsltInqVO> resultList = new ArrayList<>();
+		try {
+			resultList = sprtBizRsltInqService.selectSprtBizOgnz(sprtBizRsltInqVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	@PostMapping(value = "/pd/sprt/insertSprtBizRsltInqList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insetSprtBizRsltInqList(@RequestBody List<SprtBizRsltInqVO> sprtBizRsltInqVOList, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insertSprtBizRsltInqList(@RequestBody List<SprtBizRsltInqVO> sprtBizRsltInqVOList, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int savedCnt = 0;
