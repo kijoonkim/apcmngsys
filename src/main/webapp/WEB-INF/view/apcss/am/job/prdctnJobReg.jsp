@@ -337,6 +337,10 @@
             const postJsonPromise = gfn_postJSON("/am/sort/selectSortCmndList.do", param, null, false);
             const data = await postJsonPromise;
 
+            if(data.resultList.length > 0) {
+                SBUxMethod.set("srch-slt-jobLine", data.resultList[0].fcltCd);
+            }
+
             data.resultList.forEach(function(item) {
                 fn_setSaveTable(item);
             });
@@ -489,7 +493,7 @@
             let el = `
                 <tr onclick="selectLatestInfo(this)">
                     <td>${'${item.sortCmndSn}'}</td>
-                    <td>${'${""}'}</td>
+                    <td>${'${gfn_isEmpty(item.lgszMrktNm) ? "" : item.lgszMrktNm}'}</td>
                     <td style="text-align: left;">${'${gfn_isEmpty(item.mrktGdsNm) ? "" : item.mrktGdsNm}'}</td>
                     <td>${'${gfn_isEmpty(item.vrtyNm) ? "" : item.vrtyNm}'}</td>
                     <td>${'${gfn_isEmpty(item.bxKndNm) ? "" : item.bxKndNm}'}</td>

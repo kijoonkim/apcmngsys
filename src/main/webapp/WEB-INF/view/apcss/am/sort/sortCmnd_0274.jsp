@@ -298,8 +298,8 @@
 
         let param = {
             apcCd: gv_selectedApcCd,
-            cmndYmdFrom: cmndYmdFrom,
-            cmndYmdTo: cmndYmdTo,
+            sortCmndFromYmd: cmndYmdFrom,
+            sortCmndToYmd: cmndYmdTo,
             fcltCd: fcltCd,
             vrtyCd: vrtyCd
         }
@@ -316,7 +316,7 @@
                     cmndYmd: item.sortCmndYmd,
                     jobLine: item.fcltCd,
                     jobSn: item.sortCmndSn,
-                    cnptNm: "",
+                    cnptNm: item.lgszMrktNm,
                     gdsNm: item.mrktGdsNm,
                     rawMtrVrtyNm: item.vrtyNm,
                     unit: "",
