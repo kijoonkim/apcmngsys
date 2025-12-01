@@ -1787,6 +1787,7 @@
 					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
 				   AND MD.WRHS_YMD    = MO.WRHS_YMD
 				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
 		]]>
 		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
 				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
@@ -1880,6 +1881,12 @@
 					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
 				   AND MD.WRHS_YMD    = MO.WRHS_YMD
 				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
+                   AND (
+                        (MO.LGSZ_MRKT_CD = '32' AND MD.BX_NO IS NOT NULL)
+                        OR
+                        MO.LGSZ_MRKT_CD <> '32'
+                    )
 		]]>
 		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
 				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
@@ -1973,6 +1980,7 @@
 					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
 				   AND MD.WRHS_YMD    = MO.WRHS_YMD
 				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
 		]]>
 		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
 				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
