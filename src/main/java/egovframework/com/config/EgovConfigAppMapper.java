@@ -81,7 +81,7 @@ public class EgovConfigAppMapper {
 				//pathMatchingResourcePatternResolver
 				//	.getResources("classpath:/egovframework/mapper/let/**/*_" + dbType + ".xml"));
 				pathMatchingResourcePatternResolver
-					.getResources("classpath:/mapper/com/at/apcss/**/**/*.xml"));
+					.getResources("classpath:/mapper/com/apcmngsys/apcss/**/**/*.xml"));
 		} catch (IOException e) {
 			pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 		}

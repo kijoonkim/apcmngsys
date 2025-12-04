@@ -107,7 +107,7 @@ public class EgovConfigAppTransaction {
 	public Advisor txAdvisor(DataSourceTransactionManager txManager) {
 		AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 		pointcut.setExpression(
-			"execution(* com.at..impl.*Impl.*(..)) or execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
+			"execution(* com.apcmngsys..impl.*Impl.*(..)) or execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..*Impl.*(..))");
 		return new DefaultPointcutAdvisor(pointcut, txAdvice(txManager));
 	}
 }
