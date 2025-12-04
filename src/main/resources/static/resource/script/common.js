@@ -1178,7 +1178,6 @@ const gfn_getApcCrtrUntprc = async function (_apcCd, _cdId) {
 	const postJsonPromise = gfn_postJSON(URL_APC_CRTR_UNTPRC, {apcCd: _apcCd, cdId: _cdId, useYn: "y"}, null, true);
 	const data = await postJsonPromise;
 	const sourceJson = [];
-	console.log("data",data)
 	data.resultList.forEach((item) => {
 		sourceJson.push({
 			cdId: item.cdId,
@@ -1314,6 +1313,7 @@ const gfn_getPrdcrs = async function(_apcCd, _yr) {
 				prchsQntt:item.prchsQntt,
 				prchsAmt:item.prchsAmt,
 				frmerno:item.frmerno,
+				untprc:item.untprc
 			});
 		});
 	return sourceJson;
@@ -1849,7 +1849,7 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 			} else {
 				 param[key] = sbValue;
 			}
-		} else if (element.type === 'checkbox') {
+		} else if (element.type === 'checkbox' || element.type === 'radio') {
 
 			let sbValue = SBUxMethod.getCheckbox(element.id)[element.id];
 			param[key] = sbValue;

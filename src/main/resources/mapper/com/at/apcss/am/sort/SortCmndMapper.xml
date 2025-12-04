@@ -40,6 +40,8 @@
                 , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
                 , (SELECT FN_GET_PLT_BX_NM('B', pt0.BX_KND, pt0.APC_CD) FROM DUAL) AS BX_KND_NM
     			, (SELECT FN_GET_GRD_NM(pt0.ITEM_CD, pt0.GRD_CD, pt0.APC_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+	    		, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', pt0.LGSZ_MRKT_CD) FROM DUAL) AS LGSZ_MRKT_NM
                 , pt0.SORT_CMNDNO || '-' || pt0.SORT_CMND_SN AS SORT_CMNDNO_INDCT
 
     		  FROM (
@@ -54,12 +56,19 @@
 			     , SC.PRDCR_CD          AS PRDCR_CD         -- 생산자코드
 			     , SC.ITEM_CD           AS ITEM_CD          -- 품목코드
 			     , SC.VRTY_CD           AS VRTY_CD        	-- 품종코드
+			     , SC.MRKT_GDS_CD       AS MRKT_GDS_CD      -- 시장상품코드
+			     , SC.MRKT_GDS_NM       AS MRKT_GDS_NM      -- 시장상품명
 			     , SC.CMND_QNTT         AS CMND_QNTT        -- 지시수량
 			     , SC.CMND_WGHT         AS CMND_WGHT        -- 지시중량
+			     , SC.PRFMNC_QNTT       AS PRFMNC_QNTT      -- 실적수량
+			     , SC.PRFMNC_WGHT       AS PRFMNC_WGHT      -- 실적중량
+			     , SC.LGSZ_MRKT_CD      AS LGSZ_MRKT_CD     -- 대형마켓코드
+			     , SC.OUTORDRNO         AS OUTORDRNO        -- 발주번호
 			     , SC.RMRK              AS RMRK             -- 비고
 			     , SC.DEL_YN            AS DEL_YN           -- 삭제유무
 			     , RI.BX_KND         	AS BX_KND
 				 , RI.GRD_CD			AS GRD_CD
+				 , RI.GDS_SE_CD			AS GDS_SE_CD
 				 , RI.INVNTR_QNTT    	AS INVNTR_QNTT
 				 , RI.INVNTR_WGHT    	AS INVNTR_WGHT
 				 , RI.WRHS_YMD       	AS WRHS_YMD
@@ -70,13 +79,16 @@
 			  	   TB_SORT_CMND SC
 			  	 , TB_RAW_MTR_INVNTR RI
 	        WHERE SC.DEL_YN = 'N'
-	          AND RI.DEL_YN = 'N'
-	          AND SC.APC_CD = RI.APC_CD
-	          AND SC.WRHSNO = RI.WRHSNO
+	          AND RI.DEL_YN(+) = 'N'
+	          AND SC.APC_CD = RI.APC_CD(+)
+	          AND SC.WRHSNO = RI.WRHSNO(+)
 		]]>
 		<if test='apcCd != null and apcCd != ""'>
 	          AND SC.APC_CD = #{apcCd}
 		</if>
+        <if test='sortCmndno != null and sortCmndno != ""'>
+             AND SC.SORT_CMNDNO = #{sortCmndno}
+        </if>
 		<if test='sortCmndYmd != null and sortCmndYmd != ""'>
 			 AND SC.SORT_CMND_YMD = #{sortCmndYmd}
 		</if>

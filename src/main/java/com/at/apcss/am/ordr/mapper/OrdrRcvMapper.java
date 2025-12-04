@@ -3,12 +3,9 @@ package com.at.apcss.am.ordr.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.ordr.vo.*;
+import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 
 /**
  * 발주정보 수신 Mapper 인터페이스
@@ -114,7 +111,7 @@ public interface OrdrRcvMapper {
 	
 	/**
 	 * 원본주문정보조회-롯데
-	 * @param mrktHomeplusDtlVO
+	 * @param mrktLotteDtlVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -135,4 +132,90 @@ public interface OrdrRcvMapper {
 	 * @throws Exception
 	 */
 	public int updateMrktLinkPrcsLotte(MrktOrdrDtlVO mrktLotteDtlVO) throws Exception;
+
+	/**
+	 * 상품발주정보 목록 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 */
+	public List<MrktGdsOrdrVO> selectMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO) throws Exception;
+
+	/**
+	 * 통합 마켓상품발주정보 목록 조회
+	 * @param mrktGdsOrdrVO
+	 * @return
+	 */
+	public List<MrktGdsOrdrVO> selectUntyMrktGdsOrdrList(MrktGdsOrdrVO mrktGdsOrdrVO);
+
+	/**
+	 * 상품발주정보 저장(SSG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrSsgReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(SSG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrSsgDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 조회(SSG)
+	 * @param mrktGdsOrdrDtlVO
+	 * @return
+	 */
+	List<MrktOrdrDtlVO> selectMrktGdsOrdrSsgList(MrktOrdrDtlVO mrktGdsOrdrDtlVO) throws Exception;
+
+	/**
+	 * 상품발주정보 저장(LOTTE)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrLtReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(LOTTE)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrLtDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 조회(LOTTE)
+	 * @param mrktGdsOrdrDtlVO
+	 * @return
+	 */
+	List<MrktOrdrDtlVO> selectMrktGdsOrdrLtList(MrktOrdrDtlVO mrktGdsOrdrDtlVO) throws Exception;
+
+	/**
+	 * 상품발주정보 저장(COUPANG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrCpngReg(MrktOrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 저장(COUPANG)
+	 * @param ordrVO, initial
+	 * @return
+	 */
+	void insertMrktOrdrCpngDtlReg(MrktOrdrDtlVO ordrVO) throws Exception;
+
+	/**
+	 * 상품발주 상세정보 조회(COUPANG)
+	 * @param mrktGdsOrdrDtlVO
+	 * @return
+	 */
+	List<MrktOrdrDtlVO> selectMrktGdsOrdrCpngList(MrktOrdrDtlVO mrktGdsOrdrDtlVO) throws Exception;
+
+	Integer selectMrktOrdrSeqLt(MrktOrdrVO ordrVO) throws Exception;
+	Integer selectMrktOrdrSeqSsg(MrktOrdrVO ordrVO) throws Exception;
+	Integer selectMrktOrdrSeqCpng(MrktOrdrVO ordrVO) throws Exception;
+
+
+
+
+
 }

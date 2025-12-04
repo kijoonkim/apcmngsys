@@ -6,9 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.shpgot.vo.ShpgotCrtrVO;
+import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
+import com.at.apcss.am.ordr.vo.*;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.ordr.mapper.OrdrMapper;
 import com.at.apcss.am.ordr.service.OrdrService;
-import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -43,6 +41,9 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 
 	@Autowired
 	private OrdrMapper ordrMapper;
+
+	@Autowired
+	private OrdrRcvMapper ordrRcvMapper;
 
 	@Resource(name = "cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
@@ -259,5 +260,188 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 		return null;
 	}
 
+	@Override
+	public ArrayList<MrktLgstcsCntrVO> selectMrktLgstcsCntrList(MrktLgstcsCntrVO mrktLgstcsCntrVO) throws Exception {
+		return ordrMapper.selectMrktLgstcsCntrList(mrktLgstcsCntrVO);
+	}
 
+	@Override
+	public ArrayList<MrktGdsCdVO> selectMrktGdsCdList(MrktGdsCdVO mrktGdsCdVO) throws Exception {
+		return ordrMapper.selectMrktGdsCdList(mrktGdsCdVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertMrktGdsOrdrList(List<MrktGdsOrdrVO> mrktGdsOrdrVOList) throws Exception {
+		HashMap<String, Object> result = new HashMap<>();
+		int successCnt = 0;
+		List<MrktGdsOrdrVO> failList = new ArrayList<>();
+
+		for(MrktGdsOrdrVO vo : mrktGdsOrdrVOList){
+			try{
+				ordrMapper.insertMrktGdsOrdrList(vo);
+				successCnt++;
+			}catch (Exception  e){
+				String errorMsg = e.getMessage();
+				// 1. UNIQUE 제약 (PK 중복)
+				if (errorMsg.contains("UNIQUE constraint violation") ||
+						errorMsg.contains("PK_MRKT_GDS_ORDR")) {
+					vo.setFailMsg("이미 등록된 발주번호입니다.");
+				}
+				// 2. LGSZ_MRKT_CD NULL (대형시장코드 누락)
+				else if (errorMsg.contains("LGSZ_MRKT_CD") ||
+						(errorMsg.contains("cannot insert NULL") && errorMsg.contains("LGSZ_MRKT_CD"))) {
+					vo.setFailMsg("대형시장코드가 누락되었습니다.");
+				}
+				failList.add(vo);
+			}
+		}
+		result.put(ComConstants.PROP_INSERTED_CNT, successCnt);
+		result.put("insertFailList", failList);
+
+		return result;
+	}
+
+	@Override
+	public List<MrktOrdrDtlVO> selectMrktGdsOrdrList(MrktOrdrDtlVO mrktGdsOrdrDtlVO, String initial) throws Exception {
+		List<MrktOrdrDtlVO> resultList = new ArrayList<>();
+		try{
+			switch (initial){
+				case "SSG":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrSsgList(mrktGdsOrdrDtlVO);
+					break;
+				case "CPNG":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrCpngList(mrktGdsOrdrDtlVO);
+					break;
+				case "LT":
+					resultList = ordrRcvMapper.selectMrktGdsOrdrLtList(mrktGdsOrdrDtlVO);
+					break;
+			}
+			
+		}catch (Exception e){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","조회")));
+		}
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertSpMrktOrdrLtReg(List<MrktOrdrVO> mrktOrdrVOList, String initial) throws Exception {
+		HashMap<String, Object> rtnObj = null;
+		List<MrktOrdrVO> failList = new ArrayList<>();
+		int successCnt = 0;
+
+		try{
+			switch(initial){
+				case "SSG":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqSsg(ordrVO);
+
+							ordrRcvMapper.insertMrktOrdrSsgReg(ordrVO);
+
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
+
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
+								ordrRcvMapper.insertMrktOrdrSsgDtlReg(dtlVO);
+							}
+
+							ordrVO.setSaveYn("Y");
+							successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
+					}
+					break;
+				case "CPNG":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqCpng(ordrVO);
+
+							ordrRcvMapper.insertMrktOrdrCpngReg(ordrVO);
+
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
+
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
+								ordrRcvMapper.insertMrktOrdrCpngDtlReg(dtlVO);
+							}
+
+							ordrVO.setSaveYn("Y");
+							successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
+					}
+					break;
+				case "LT":
+					for(MrktOrdrVO ordrVO : mrktOrdrVOList){
+						try{
+							List<MrktOrdrDtlVO> dtlList = ordrVO.getDtlList();
+							Integer prevOrdrSeq = ordrRcvMapper.selectMrktOrdrSeqLt(ordrVO);
+
+							ordrRcvMapper.insertMrktOrdrLtReg(ordrVO);
+
+							Integer ordrSeq = ordrVO.getOrdrSeq();
+
+							if(ordrSeq == null){
+								throw new EgovBizException(getMessageForMap(ComUtil.getResultMap("E0003","저장")));
+							}
+
+							for(MrktOrdrDtlVO dtlVO : dtlList){
+								if(prevOrdrSeq != null){
+									// UPDATE 케이스 → 기존 ordrSeq 사용
+									dtlVO.setOrdrSeq(prevOrdrSeq);
+								} else {
+									// INSERT 케이스 → 새로 발급받은 ordrSeq 사용
+									dtlVO.setOrdrSeq(ordrSeq);
+								}
+								ordrRcvMapper.insertMrktOrdrLtDtlReg(dtlVO);
+							}
+
+							ordrVO.setSaveYn("Y");
+							successCnt++;
+						} catch (Exception e) {
+							ordrVO.setSaveYn("N");
+							ordrVO.setFailMsg(e.getMessage());
+							failList.add(ordrVO);
+						}
+					}
+					break;
+			}
+
+		}catch (Exception e){
+			throw new EgovBizException();
+		}
+		HashMap<String, Object> result = new HashMap<>();
+		result.put(ComConstants.PROP_RESULT_CODE, failList.isEmpty() ? "S" : "P");  // P = Partial
+		result.put(ComConstants.PROP_INSERTED_CNT, successCnt);
+		result.put(ComConstants.PROP_FAIL_RESULT_LIST, failList);
+		return result;
+	}
 }

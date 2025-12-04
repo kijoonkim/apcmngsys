@@ -1806,6 +1806,7 @@
 		let prdcrCd 		= "";
     	let prdcrLandInfoNo = "";
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let yr = SBUxMethod.get("srch-dtp-yr");
 
     	if (gfn_isEmpty(rowData.apcCd)) {
     		//prdcrLandInfoNo = choicePrdcrLandInfoNo;
@@ -1825,6 +1826,7 @@
 		  , prdcrCd			: prdcrCd
 		  , prdcrLandInfoNo : prdcrLandInfoNo
 		  , itemCd			: itemCd
+		  , yr				: yr
 		}
 		jsonCltvtnHstryPrdcr.length = 0;
 		try {
@@ -1896,6 +1898,7 @@
 
 		let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
 		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let yr = SBUxMethod.get("srch-dtp-yr");
 
 		let cfmtnYmdFrom = SBUxMethod.get("srch-dtp-cfmtnYmdFrom");
 		let cfmtnYmdTo = SBUxMethod.get("srch-dtp-cfmtnYmdTo");
@@ -1906,6 +1909,7 @@
 		  , itemCd			: itemCd
 		  , cfmtnYmdTo 		: cfmtnYmdTo
 		  , cfmtnYmdFrom	: cfmtnYmdFrom
+		  , yr				: yr
 		}
 		jsonCltvtnHstry.length = 0;
 		try {
@@ -2820,8 +2824,8 @@
 		let prdcrVO = null;
 		let cltvtnFrmhsQltVO = null;
 
-		let frmhsAddr = SBUxMethod.get("dtl-inp-frmhsAddr");
-		let frmhsCtpv = SBUxMethod.get("dtl-inp-frmhsCtpv");
+		let frmhsAddr = SBUxMethod.get("dtl-inp-frmhsAddr") || "";
+		let frmhsCtpv = SBUxMethod.get("dtl-inp-frmhsCtpv") || "";
 		let frmhsTelno = SBUxMethod.get("dtl-inp-frmhsTelno");
 		let plntngPrcl = SBUxMethod.get("dtl-inp-plntngPrcl");
 		let prchsQntt = SBUxMethod.get("dtl-inp-prchsQntt");
@@ -2973,8 +2977,9 @@
 			let rowData = grdCltvtnHstryPrdcr.getRowData(i+2);
 			if (!gfn_isEmpty(rowData.delYn)) {
 				if (gfn_isEmpty(rowData.cfmtnYmd)) {
-					gfn_comAlert("W0002","확인일자"); 	//W0002 {0}을/를 입력하세요.
-					return;
+					if (!gfn_comConfirm("Q0003", "확인일자", "계속")) {		//	Q0003	{0}이/가 없습니다. {1} 하시겠습니까?
+						return;
+					}
 				}
 			}
 
@@ -3608,8 +3613,8 @@
 			SBUxMethod.set("dtl-inp-prdcrCd", jsonPrdcrDtl.prdcrCd);
 			SBUxMethod.set("dtl-inp-prdcrLinkCd", jsonPrdcrDtl.prdcrLinkCd);
 			SBUxMethod.set("dtl-inp-frmhsTelno", jsonPrdcrDtl.frmhsTelno);
-			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv);
-			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr);
+			SBUxMethod.set("dtl-inp-frmhsCtpv", jsonPrdcrDtl.frmhsCtpv || "");
+			SBUxMethod.set("dtl-inp-frmhsAddr", jsonPrdcrDtl.frmhsAddr || "");
 			SBUxMethod.set("dtl-inp-crtrPrcl", jsonPrdcrDtl.crtrPrcl);
 			SBUxMethod.set("dtl-inp-plntngPrcl", jsonPrdcrDtl.plntngPrcl);
 			SBUxMethod.set("dtl-inp-landCrtrArea", jsonPrdcrDtl.landCrtrArea);

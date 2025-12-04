@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.at.apcss.pd.popup.mapper.SprtBizRsltInqPopupMapper">
+
+    <select id="selectSprtBizRsltInqPopupList" parameterType="com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO" resultType="com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO">
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+        SELECT
+            ROWNUM AS ROW_SEQ
+             , COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+        , pt0.*
+        FROM (
+        </if>
+
+                SELECT BRNO
+                     , PSN_SE_CD
+                     , BZMN_CONM
+                     , CRNO
+                     , OGNZ_CD
+                FROM TB_COM_CORP_BZMN
+                WHERE 1=1
+                  AND USE_YN = 'Y'
+                  AND DEL_YN = 'N'
+              <if test='bzmnConm != null and bzmnConm != ""'>
+                  AND BZMN_CONM LIKE '%' || #{bzmnConm} || '%'
+              </if>
+              <if test='brno != null and brno != ""'>
+                  AND BRNO LIKE '%' || #{brno} || '%'
+              </if>
+                ORDER BY BZMN_CONM ASC
+
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+            ) pt0
+            OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+            FETCH FIRST #{recordCountPerPage} ROWS ONLY
+        </if>
+    </select>
+
+</mapper>

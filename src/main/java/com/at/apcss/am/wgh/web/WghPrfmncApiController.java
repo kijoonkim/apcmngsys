@@ -1,11 +1,14 @@
 package com.at.apcss.am.wgh.web;
 
+import com.at.apcss.am.apc.service.ApcEvrmntStngService;
+import com.at.apcss.am.apc.vo.ApcLinkVO;
 import com.at.apcss.am.wgh.service.WghPrfmncService;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +36,10 @@ import java.util.List;
 @RestController
 public class WghPrfmncApiController extends BaseController {
 
+	// APC 환경설정
+	@Resource(name = "apcEvrmntStngService")
+	private ApcEvrmntStngService apcEvrmntStngService;
+
 	@Resource(name = "wghPrfmncService")
 	private WghPrfmncService wghPrfmncService;
 
@@ -45,8 +52,39 @@ public class WghPrfmncApiController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<HashMap<String, Object>> resultList;
 
+		String apcCd = wghPrfmncVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return getErrorResponseEntity("E01", "APC코드 누락");
+		}
+
+		String apcKey = request.getHeader("API_KEY");
+		if (!StringUtils.hasText(apcKey)) {
+			return getErrorResponseEntity("E02", "인증키 누락");
+		}
+
+
+		ApcLinkVO apcLinkVO = new ApcLinkVO();
+		apcLinkVO.setApcCd(apcCd);
+		apcLinkVO.setApcKey(apcKey);
+
+		ApcLinkVO resultVO = new ApcLinkVO();
+
 		try {
+
+			resultVO = apcEvrmntStngService.selectApcLink(apcLinkVO);
+
+			if (resultVO == null
+					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+				return getErrorResponseEntity("E20", "APC연계정보 없음");
+			}
+
+			if (!apcKey.equals(resultVO.getApcKey())) {
+				return getErrorResponseEntity("E30", "인증 오류");
+			}
+
 			resultList = wghPrfmncService.selectWghPrfmncListForApi(wghPrfmncVO);
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

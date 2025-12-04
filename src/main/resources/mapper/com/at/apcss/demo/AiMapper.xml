@@ -12,9 +12,74 @@
 
 <mapper namespace="com.at.apcss.demo.mapper.AiMapper">
     <!-- APC명 검색 -->
-    <select id="findByName" resultType="java.util.Map" parameterType="String">
+    <select id="findByName" resultType="java.util.HashMap" parameterType="String">
         SELECT APC_CD,APC_NM
         FROM TB_APC_INFO
         WHERE APC_NM LIKE '%' || #{name} || '%'
+    </select>
+
+    <select id="getPerformance1" resultType="java.util.HashMap">
+        SELECT
+            SUM(SORT_QNTT) AS SORT_QNTT
+            ,SUM(SORT_WGHT) AS SORT_WGHT
+            ,COUNT(SORTNO) AS SORT_CNT
+        FROM TB_SORT_PRFMNC
+        WHERE
+            APC_CD = #{apcCode}
+        AND DEL_YN = 'N'
+        <if test='typeNm != null and typeNm != ""'>
+            AND CM.TYPE_NM LIKE '%' || #{typeNm} || '%'
+        </if>
+
+    </select>
+    <!-- AiMapper.xml -->
+    <select id="getPerformance" resultType="java.util.HashMap">
+        <foreach collection="type" item="type" separator="UNION ALL">
+            <choose>
+                <when test="type == '01'">
+                    SELECT
+                        '입고' as TYPE_NM,
+                        '01' as TYPE_CD,
+                        SUM(BX_QNTT) AS QNTT,
+                        SUM(WRHS_WGHT) AS WGHT,
+                        COUNT(WGHNO) AS CNT
+                    FROM TB_RAW_MTR_WRHS_PRFMNC
+                    WHERE APC_CD = #{apcCd}
+                    AND WRHS_YMD BETWEEN #{start} AND #{end}
+                    AND DEL_YN = 'N'
+                    GROUP BY APC_CD
+                </when>
+                <when test="type == '02'">
+                    SELECT
+                        '선별' as TYPE_NM,
+                        '02' as TYPE_CD,
+                        SUM(SORT_QNTT) AS QNTT,
+                        SUM(SORT_WGHT) AS WGHT,
+                        COUNT(SORTNO) AS CNT
+                    FROM TB_SORT_PRFMNC
+                    WHERE APC_CD = #{apcCd}
+                    AND INPT_YMD BETWEEN #{start} AND #{end}
+                    AND DEL_YN = 'N'
+                    GROUP BY APC_CD
+                </when>
+                <when test="type == '03'">
+                    SELECT
+                    '출하' as TYPE_NM,  -- 구분자
+                    '03' as TYPE_CD,
+                    SUM(PD.SPMT_QNTT) AS QNTT,
+                    SUM(PD.SPMT_WGHT) AS WGHT,
+                    COUNT(PD.SPMTNO) AS CNT
+                    FROM TB_SPMT_PRFMNC_COM AS PC
+                    JOIN TB_SPMT_PRFMNC_DTL AS PD
+                    ON PC.APC_CD = PD.APC_CD
+                    AND PC.SPMTNO = PD.SPMTNO
+                    AND PC.DEL_YN = 'N'
+                    AND PD.DEL_YN = 'N'
+                    WHERE PC.APC_CD = #{apcCd}
+                    AND PC.SPMT_YMD BETWEEN #{start} AND #{end}
+                    GROUP BY PC.APC_CD
+                </when>
+            </choose>
+        </foreach>
     </select>
 </mapper>

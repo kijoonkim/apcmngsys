@@ -1157,6 +1157,8 @@
     let pageSize = grdPrdcrOgnCurntMng.getPageSize();
     let pageNo = 1;
 
+    fn_clearForm();
+    fn_clearPruoPrgrsStts(); // 진행상황표시 초기화
     fn_setGrdFcltList(pageSize, pageNo);
   }
 
@@ -1454,8 +1456,7 @@
   const fn_dtlGridSearch = async function() {
 
     /** 진행상태 표시 초기화 **/
-    document.getElementById('pruoPrgrsStts').style.display = 'none';
-    SBUxMethod.set('dtl-inp-pruoPrgrsStts',"");
+    fn_clearPruoPrgrsStts();
 
     const yr = SBUxMethod.get("dtl-input-yr");
     const brno = SBUxMethod.get("dtl-input-brno");
@@ -2014,6 +2015,11 @@
     } else if (_.isEqual(pruoPrgrsStts,"D")) {
       SBUxMethod.set(labelId,"작성완료 상태입니다.");
     }
+  }
+
+  function fn_clearPruoPrgrsStts() {
+    document.getElementById('pruoPrgrsStts').style.display = 'none';
+    SBUxMethod.set('dtl-inp-pruoPrgrsStts',"");
   }
 
 </script>

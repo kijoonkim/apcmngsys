@@ -1,8 +1,13 @@
 package com.at.apcss.pd.pcom.vo;
 
+import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.co.sys.vo.ComVO;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -149,6 +154,11 @@ public class PruoPrgrsVO extends ComVO {
     private String wrtPrgrmId;
 
     /**
+     * 실적법인체마감구분코드(Y/N)
+     */
+    private String prfmncCorpDdlnYn;
+
+    /**
      * 진행
      */
     private String prgrs1;
@@ -164,4 +174,18 @@ public class PruoPrgrsVO extends ComVO {
 
     private String rtnCd;
     private String rtnMsg;
+
+    /**
+     * 품목리스트
+     */
+    private List<GpcVO> gpcList;
+
+    public List<GpcVO> getGpcList() {
+        return gpcList == null ? null : new ArrayList<>(gpcList);
+    }
+
+    public void setGpcList(List<GpcVO> gpcList) {
+        this.gpcList = gpcList == null ? null : new ArrayList<>(gpcList);
+    }
+
 }

@@ -793,24 +793,52 @@
 	var grdDtBxPlt;
 	var jsonDtBxPlt = [];
 	/** 검품기준 공통 **/
+	var jsonInspList = [];
 	var jsonInspCd = [];
 	/** 검품등급 비교 */
 	var jsonInspCmpr = [];
 	/** 팔레트/박스 수량 비교**/
 	var jsonPltBoxCmpr = [];
-    /**
+
+	/**
+	 * 비동기 함수 재시도
+	 * @param {Function} fn - 실행할 비동기 함수
+	 * @param {Number} maxRetries - 최대 재시도 횟수 (기본값: 3)
+	 * @param {Number} delay - 재시도 간 지연 시간 밀리초 (기본값: 500)
+	 * @returns {Promise} 함수 실행 결과
+	 */
+	const retryAsync = async (fn, maxRetries = 3, delay = 500) => {
+		for (let i = 0; i < maxRetries; i++) {
+			try {
+				return await fn();
+			} catch (error) {
+				console.warn('재시도: ', i + 1, '/', maxRetries, '실패: ', error);
+				if (i === maxRetries - 1) {
+					console.error('최대 재시도 횟수 초과:', error);
+					console.log('fn', fn);
+					// gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+					throw error;
+				}
+				await new Promise(resolve => setTimeout(resolve, delay));
+			}
+		}
+	};
+
+	/**
      * 조회 조건 select combo 설정
      */
 	const fn_initSBSelect = async function() {
-		// 검색 SB select
+		// 검색 SB select (각 Promise에 재시도 로직 적용)
 		let rst = await Promise.all([
-			gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 		'WAREHOUSE_SE_CD',	gv_selectedApcCd),	// 창고
-		 	gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, 			gv_selectedApcCd),						// 품목
-			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, 			gv_selectedApcCd),						// 품종
-			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  		'GDS_SE_CD', 		gv_selectedApcCd), 	// 상품구분 등록
-			gfn_setComCdSBSelect('dtl-slt-fcltCd',			jsonComFcltCd, 			'WGH_FCLT_CD', 		gv_selectedApcCd),	// 설비
-		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
-			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
+			retryAsync(() => gfn_setComCdSBSelect('dtl-slt-warehouseSeCd', 	jsonComWarehouse, 		'WAREHOUSE_SE_CD',	gv_selectedApcCd)),	// 창고
+		 	retryAsync(() => gfn_setApcItemSBSelect('dtl-slt-itemCd', 		jsonApcItem, 			gv_selectedApcCd)),						// 품목
+			retryAsync(() => gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 		jsonApcVrty, 			gv_selectedApcCd)),						// 품종
+			retryAsync(() => gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  		'GDS_SE_CD', 		gv_selectedApcCd)), 	// 상품구분 등록
+			retryAsync(() => gfn_setComCdSBSelect('dtl-slt-fcltCd',			jsonComFcltCd, 			'WGH_FCLT_CD', 		gv_selectedApcCd)),	// 설비
+		 	retryAsync(() => gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE')),	// 입고출고유형
+			retryAsync(() => gfn_getComCdDtls('WGH_SE_CD')),	// 입고출고유형
+
+			retryAsync(() => gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", { apcCd: gv_selectedApcCd, grdSeCd: '04', grdKnd: '01' }, null, true))	// 검품등급종류
 		]);
 		jsonComWarehouse = jsonComWarehouse.filter(i => i.useYn == "Y");
 		jsonComWarehouse.unshift({
@@ -826,6 +854,7 @@
 		SBUxMethod.refresh('dtl-slt-vrtyCd');
 
 		jsonWghSeCd = rst[6];
+		jsonInspList = rst[7];
 
 		jsonComWrhsSpmtType = jsonComWrhsSpmtType.filter(item => item.value !== 'TF');
 		jsonGrdWrhsSpmtType = jsonGrdWrhsSpmtType.filter(item => item.value !== 'TF');
@@ -850,11 +879,20 @@
 		SBUxMethod.attr('chkbox_dayCrtr','checked',true);
 		SBUxMethod.set('dtl-dtp-wghYmdFrom', gfn_dateToYmd(new Date()));
 		SBUxMethod.set('dtl-dtp-wghYmdTo', gfn_dateToYmd(new Date()));
+
 	}
 
 	window.addEventListener('DOMContentLoaded',async function(e) {
-		await fn_init();
-		await fn_search();
+		SBUxMethod.openProgress(gv_loadingOptions);
+		try {
+			await fn_init();
+			await fn_search();
+		} catch (error) {
+			console.error("초기화 중 오류 발생:", error);
+			gfn_comAlert("E0001"); // 오류가 발생하였습니다.
+		} finally {
+			SBUxMethod.closeProgress(gv_loadingOptions);
+		}
 	});
 	const getCookie = (name) => {
 		const cookieString = `; ${'${document.cookie}'}`;
@@ -884,7 +922,16 @@
 			SBUxMethod.set("dtl-slt-itemCd",itemCd.toString());
 			SBUxMethod.dispatch('dtl-slt-itemCd', 'onchange');
 		}
-		ws.init();
+
+		// WebSocket 초기화 (비동기 non-blocking)
+		// 페이지 로드를 차단하지 않도록 백그라운드에서 실행
+		setTimeout(() => {
+			try {
+				ws.init();
+			} catch (error) {
+				console.warn("WebSocket 초기화 실패:", error);
+			}
+		}, 0);
 
 		/** report 버튼 활성화 */
 		// SBUxMethod.attr("btnDocRawMtrWghV1", "disabled", "false");
@@ -897,7 +944,7 @@
 	const fn_selectPltBxList = async function(){
 		const postJsonPromise = gfn_postJSON("/am/cmns/selectPltBxMngList.do", {
 			apcCd: gv_selectedApcCd,
-		});
+		}, null, true);
 
 		const data = await postJsonPromise;
 		const cleanedArray = data.resultList.map(obj => {
@@ -1026,6 +1073,8 @@
 
 	const fn_view = async function (param) {
 
+		SBUxMethod.openProgress(gv_loadingOptionsSub);
+
 		let nRow = grdWghPrfmnc.getRow();
 
 		if (param > 0) {
@@ -1089,7 +1138,7 @@
 		if (wrhsSpmtType == "DT") {
 			rowData.vrtyCd = "";
 		}
-		const postJsonPromise = gfn_postJSON(url, rowData);
+		const postJsonPromise = gfn_postJSON(url, rowData, null, true);
 
   		try {
   			const data = await postJsonPromise;
@@ -1142,7 +1191,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 
-		const postJsonPromiseForInsp = gfn_postJSON("/am/wgh/selectWghInspPrfmncList.do",{apcCd: gv_selectedApcCd, wghno: rowData.wghno, itemCd: rowData.itemCd});
+		const postJsonPromiseForInsp = gfn_postJSON("/am/wgh/selectWghInspPrfmncList.do",{apcCd: gv_selectedApcCd, wghno: rowData.wghno, itemCd: rowData.itemCd}, null, true);
 		const dataForInsp = await postJsonPromiseForInsp;
 		if (!_.isEqual("S", dataForInsp.resultStatus)) {
 			gfn_comAlert(dataForInsp.resultCode, dataForInsp.resultMessage);
@@ -1169,7 +1218,7 @@
 		jsonInspCmpr.length = 0;
 		jsonInspCmpr = JSON.parse(JSON.stringify(jsonInsp));
 
-		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do",{apcCd: gv_selectedApcCd, prcsNo: rowData.wghno});
+		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do",{apcCd: gv_selectedApcCd, prcsNo: rowData.wghno}, null, true);
 		const dataForPlt = await postJsonPromiseForPlt;
 		if (!_.isEqual("S", dataForPlt.resultStatus)) {
 			gfn_comAlert(dataForPlt.resultCode, dataForPlt.resultMessage);
@@ -1248,7 +1297,7 @@
 		grdDtBxPlt.rebuild();
 
 		/** 계량이력 시간 **/
-		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
+		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno}, null, true);
 		const data = await postJsonPromiseHstry;
 
 		if (!_.isEqual("S", data.resultStatus)) {
@@ -1265,6 +1314,7 @@
 			}
 		});
 
+		SBUxMethod.closeProgress(gv_loadingOptionsSub);
 	}
 	const fn_formatTime = function(_date){
 		const dateStr = _date;
@@ -1573,15 +1623,24 @@
 			grdVrty.bind('valuechanged', 'fn_grdQnttChanged');
 			await fn_addRow();
 			/** 검품 등급종류 set **/
-			let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {
-				apcCd: gv_selectedApcCd,
-				itemCd: itemCd,
-				grdSeCd: '04',
-				grdKnd: '01'
-			});
-			let data = await postJsonPromise;
-			if (data.resultStatus === 'S') {
-				jsonInspCd = data.resultList.map(item => {
+			jsonInspCd.length = 0;
+			if (jsonInspList.resultStatus !== 'S') {
+				let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {
+					apcCd: gv_selectedApcCd,
+					itemCd: itemCd,
+					grdSeCd: '04',
+					grdKnd: '01'
+				}, null, true);
+				let data = await postJsonPromise;
+				if (data.resultStatus === 'S') {
+					jsonInspCd = data.resultList.map(item => {
+						item.label = item.grdNm;
+						item.value = item.grdCd;
+						return item;
+					});
+				}
+			} else {
+				jsonInspCd = jsonInspList.resultList.filter(e => e.itemCd === itemCd).map(item => {
 					item.label = item.grdNm;
 					item.value = item.grdCd;
 					return item;
@@ -1850,6 +1909,7 @@
      * @param {number} pageNo
      */
     const fn_search = async function () {
+		SBUxMethod.openProgress(gv_loadingOptionsSub);
 
 		let checked = SBUxMethod.getCheckbox('chkbox_dayCrtr', {trueValueOnly:true, ignoreDisabledValue:false});
 		let checkedSearch = SBUxMethod.getCheckbox('chkbox_search', {trueValueOnly:true, ignoreDisabledValue:false});
@@ -1927,10 +1987,10 @@
 			}
  		}
 
-		const postJsonPromise = gfn_postJSON(url, params);
+		const postJsonPromise = gfn_postJSON(url, params, null, true);
 
 		/** 2025.09.12 출고 팔레트/박스 수량 추가 */
-		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", pltParams);
+		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do", pltParams, null, true);
 
   		try {
 
@@ -2015,6 +2075,8 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
+
+		SBUxMethod.closeProgress(gv_loadingOptionsSub);
 	}
 
 	const fn_delete = async function(){
@@ -3095,10 +3157,32 @@
 		isConnected: false,
 		isReconnecting: false,
 		reconnectInterval: 30000,
+		connectionTimeout: 5000, // 5초 타임아웃
+		timeoutId: null,
 		init: function() {
+			// 기존 타임아웃 제거
+			if (this.timeoutId) {
+				clearTimeout(this.timeoutId);
+				this.timeoutId = null;
+			}
+
 			this.socket = new WebSocket("ws://localhost:9090/ws");
 
+			// 연결 타임아웃 설정
+			this.timeoutId = setTimeout(() => {
+				if (!this.isConnected && this.socket) {
+					console.warn("WebSocket 연결 타임아웃");
+					this.socket.close();
+				}
+			}, this.connectionTimeout);
+
 			this.socket.onopen = () => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
+
 				this.isConnected = true;
 
 				// $("#unit").css("display","initial");
@@ -3121,10 +3205,21 @@
 			};
 
 			this.socket.onerror = (error) => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
 				this.isConnected = false;
 			};
 
 			this.socket.onclose = () => {
+				// 타임아웃 취소
+				if (this.timeoutId) {
+					clearTimeout(this.timeoutId);
+					this.timeoutId = null;
+				}
+
 				this.isConnected = false;
 				this.isReconnecting = false;
 				$("#nowWght").text('수신중');

@@ -5,6 +5,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 import com.at.apcss.pd.aom.service.PruoPrgrsMngService;
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
@@ -540,6 +541,83 @@ public class PruoPrgrsMngController extends BaseController {
             }
         }catch (Exception e) {
             logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoPrgrsApo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoPrgrsApo(@RequestBody PruoPrgrsVO pruoPrgrsVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            pruoPrgrsVO.setSysFrstInptUserId(getUserId());
+            pruoPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+            pruoPrgrsVO.setSysLastChgUserId(getUserId());
+            pruoPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoPrgrsApo(pruoPrgrsVO);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoPrgrsApoCncl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoPrgrsApoCncl(@RequestBody PruoPrgrsVO pruoPrgrsVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            pruoPrgrsVO.setSysFrstInptUserId(getUserId());
+            pruoPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+            pruoPrgrsVO.setSysLastChgUserId(getUserId());
+            pruoPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoPrgrsApoCncl(pruoPrgrsVO);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/pd/aom/insertPruoGpcList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertPruoGpcList(@RequestBody PruoPrgrsVO pruoPrgrsVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+        pruoPrgrsVO.setSysFrstInptUserId(getUserId());
+        pruoPrgrsVO.setSysFrstInptPrgrmId(getPrgrmId());
+        pruoPrgrsVO.setSysLastChgUserId(getUserId());
+        pruoPrgrsVO.setSysLastChgPrgrmId(getPrgrmId());
+
+        try {
+            HashMap<String, Object> rtnObj = pruoPrgrsMngService.insertPruoGpcList(pruoPrgrsVO);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }  catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
             return getErrorResponseEntity(e);
         } finally {
             setMenuComLog(request);

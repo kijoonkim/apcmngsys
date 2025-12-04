@@ -21,6 +21,7 @@ public interface ComLogService {
 	 * @throws Exception
 	 */
 	public List<ComLogVO> selectMenuHstryList(ComLogVO comLogVO) throws Exception;
+	public List<ComLogVO> selectMenuHstryLimitList(ComLogVO comLogVO) throws Exception;
 
 	/**
 	 * 송수신 이력정보를 조회한다.

@@ -336,6 +336,11 @@ public class RawMtrWrhsIgiServiceImpl extends BaseServiceImpl implements RawMtrW
     }
 
     @Override
+    public List<SdlngVO> selectCltvtn(SdlngVO sdlngVO) throws Exception {
+        return rawMtrWrhsIgiMapper.selectCltvtn(sdlngVO);
+    }
+
+    @Override
     public List<SdlngVO> selectCltvtnList(SdlngVO sdlngVO) throws Exception {
         return rawMtrWrhsIgiMapper.selectCltvtnList(sdlngVO);
     }
@@ -365,12 +370,18 @@ public class RawMtrWrhsIgiServiceImpl extends BaseServiceImpl implements RawMtrW
                 if(0 == insertCltvtnList(sdlngVO)) {
                     throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.")));    // E0000    {0}
                 }
+                if(0 == updateSdlngFcltCrtrList(sdlngVO)) {
+                    throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.")));    // E0000    {0}
+                }
             }
         }
 
         if(updateCltvtnList.size() > 0) {
             for(SdlngVO sdlngVO : updateCltvtnList) {
                 if(0 == updateCltvtnList(sdlngVO)) {
+                    throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.")));    // E0000    {0}
+                }
+                if(0 == updateSdlngFcltCrtrList(sdlngVO)) {
                     throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다.")));    // E0000    {0}
                 }
             }
@@ -390,6 +401,11 @@ public class RawMtrWrhsIgiServiceImpl extends BaseServiceImpl implements RawMtrW
     }
 
     @Override
+    public int updateSdlngFcltCrtrList(SdlngVO sdlngVO) throws Exception {
+        return rawMtrWrhsIgiMapper.updateSdlngFcltCrtrList(sdlngVO);
+    }
+
+    @Override
     public HashMap<String, Object> deleteCltvtnList(SdlngVO sdlngVO) throws Exception {
         if(0 == rawMtrWrhsIgiMapper.deleteCltvtnList(sdlngVO)) {
             throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다.")));    // E0000    {0}
@@ -399,10 +415,14 @@ public class RawMtrWrhsIgiServiceImpl extends BaseServiceImpl implements RawMtrW
     }
 
     @Override
+    public List<SdlngVO> selectWgh(SdlngVO sdlngVO) throws Exception {
+        return rawMtrWrhsIgiMapper.selectWgh(sdlngVO);
+    }
+
+    @Override
     public List<SdlngVO> selectWghList(SdlngVO sdlngVO) throws Exception {
         return rawMtrWrhsIgiMapper.selectWghList(sdlngVO);
     }
-
 
     @Override
     public HashMap<String, Object> multiWghList(List<SdlngVO> WghList) throws Exception {

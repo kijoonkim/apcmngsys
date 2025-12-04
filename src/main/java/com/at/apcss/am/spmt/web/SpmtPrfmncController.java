@@ -12,6 +12,7 @@ import com.at.apcss.am.constants.AmConstants;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.spmt.service.SpmtMngService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
@@ -662,6 +663,102 @@ public class SpmtPrfmncController extends BaseController {
 			}
 
 
+		}catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncSlsComList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncSlsComList(@RequestBody SpmtPrfmncSlsVO SpmtPrfmncSlsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtPrfmncSlsVO> resultList = new ArrayList<>();
+		try {
+			resultList = spmtPrfmncService.selectSpmtPrfmncSlsComList(SpmtPrfmncSlsVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/multiSaveSpmtPrfmncSls.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> multiSaveSpmtPrfmncSls(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.multiSaveSpmtPrfmncSls(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncSlsDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncSlsDtlList(@RequestBody SpmtPrfmncSlsVO SpmtPrfmncSlsVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SpmtPrfmncSlsVO> resultList = new ArrayList<>();
+		try {
+			resultList = spmtPrfmncService.selectSpmtPrfmncSlsDtlList(SpmtPrfmncSlsVO);
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/deleteSpmtPrfmncSls.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtPrfmncSls(@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = spmtPrfmncService.deleteSpmtPrfmncSls(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
 		}catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);

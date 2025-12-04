@@ -109,6 +109,8 @@
 	var excelYn = "N";
 	var editMode = false;
 
+	var jsonApcAtrb = []	// popup 속성
+
 	const excelDwnldPrdcrPop = function () {
 		grdPrdcrPop.exportLocalExcel("생산자 목록", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
@@ -164,10 +166,11 @@
 				let rst = await Promise.all([
 					gfn_setApcItemSBSelect('grdPrdcr', jsonApcItemPrdcrPop, _apcCd),				// 품목
 					gfn_setApcVrtySBSelect('grdPrdcr', jsonApcVrtyPrdcrPop, _apcCd),				// 품종
-					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD',_apcCd),			// 상품구분
+					gfn_setComCdSBSelect('grdPrdcr', jsonComGdsSeCdPrdcrPop, 'GDS_SE_CD',_apcCd),	// 상품구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComWrhsSeCdPrdcrPop, 'WRHS_SE_CD'),		// 입고구분
 					gfn_setComCdSBSelect('grdPrdcr', jsonComTrsprtSeCdPrdcrPop, 'TRSPRT_SE_CD'),	// 운송구분
-					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrCdPrdcrPop, 'CLCLN_CRTR_CD')		// 정산기준
+					gfn_setComCdSBSelect('grdPrdcr', jsonComClclnCrtrCdPrdcrPop, 'CLCLN_CRTR_CD'),	// 정산기준
+					gfn_setComCdSBSelect('grdPrdcr', jsonApcAtrb, 'APC_ATRB', _apcCd),				// 팝업 속성 사용
 				]);
 				this.createGrid();
 				this.search();
@@ -289,12 +292,15 @@
 			grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, false);
 
 			let nRow = grdPrdcrPop.getRows();
-			/** 25.11.03 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
-			// grdPrdcrPop.addRow(true);
-			grdPrdcrPop.insertRow(0);
+			/** 25.11.03 거산: 편집 클릭시 추가 행 맨 밑이 아닌 위로 */
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
+				grdPrdcrPop.insertRow(0);
+				grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
+			} else {
+				grdPrdcrPop.addRow(true);
+				grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+			}
 
-			// grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
-			grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
 			grdPrdcrPop.unbind('dblclick');
 		},
 		cancel: function() {
@@ -313,9 +319,13 @@
 		add: function(nRow, nCol) {
 			grdPrdcrPop.setCellData(nRow, nCol, "N", true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, false);
-			grdPrdcrPop.insertRow(nRow);
+
+			if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
+				grdPrdcrPop.insertRow(nRow);
+			} else {
+				grdPrdcrPop.addRow(true);
+			}
 			nRow++;
-			// grdPrdcrPop.addRow(true);
 			grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
 		},
 		del: async function(nRow) {
@@ -435,7 +445,17 @@
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 	        		excelYn = "N";
-	        		this.search(true);
+
+					if (jsonApcAtrb.find(item => item.value === "POP_CHC_UPEND")) {
+						this.cancel();
+						await this.search();
+
+						/** 거산 저장 후 바로 선택 */
+						grdPrdcrPop.setRow(1);
+						this.choice();
+					} else {
+						this.search(true);
+					}
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}
@@ -454,7 +474,7 @@
 	    	// grid clear
 	    	jsonPrdcrPop.length = 0;
 	    	grdPrdcrPop.refresh();
-	    	this.setGrid(isEditable);
+	    	await this.setGrid(isEditable);
 		},
 		setGrid: async function(isEditable) {
 
@@ -520,7 +540,7 @@
 				grdPrdcrPop.rebuild();
 
 				/** 25.11.03 거산 최종수정날짜로 내림차순 */
-				if (apcCd == '0669') {
+				if (jsonApcAtrb.find(item => item.value === "SORT_DESC")) {
 					let sysLastChgDtColIdx = grdPrdcrPop.getColRef('sysLastChgDt');
 					grdPrdcrPop.sortColumn(sysLastChgDtColIdx, 'desc');
 				}
@@ -532,11 +552,13 @@
 					 * 25.11.03
 					 * 1. 추가 행 맨 밑이 아닌 위로
 					 * */
-					// grdPrdcrPop.addRow(true);
-					// grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
-					grdPrdcrPop.insertRow(0);
-					grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
-
+					if (jsonApcAtrb.find(item => item.value === "POP_ADD_UPEND")) {
+						grdPrdcrPop.insertRow(0);
+						grdPrdcrPop.setCellDisabled(1, 0, 1, grdPrdcrPop.getCols() - 1, true);
+					} else {
+						grdPrdcrPop.addRow(true);
+						grdPrdcrPop.setCellDisabled(nRow, 0, nRow, grdPrdcrPop.getCols() - 1, true);
+					}
 	        	} else {
 	        		grdPrdcrPop.setCellDisabled(0, 0, grdPrdcrPop.getRows() - 1, grdPrdcrPop.getCols() - 1, true);
 	        	}

@@ -1,7 +1,6 @@
 package com.at.apcss.am.sort.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -87,6 +86,11 @@ public class SortCmndVO extends ComVO {
 	 */
 	private String wrhsno;
 
+    /**
+     * 발주번호
+     */
+    private String outordrno;
+
 	/**
 	 * 생산자코드
 	 */
@@ -107,6 +111,26 @@ public class SortCmndVO extends ComVO {
 	 */
 	private String vrtyCd;
 
+    /**
+     * 시장상품코드
+     */
+    private String mrktGdsCd;
+
+    /**
+     * 시장상품명
+     */
+    private String mrktGdsNm;
+
+    /**
+     * 대형마켓코드
+     */
+    private String lgszMrktCd;
+
+    /**
+     * 대형마켓명
+     */
+    private String lgszMrktNm;
+
 	/**
 	 * 지시수량
 	 */
@@ -116,6 +140,16 @@ public class SortCmndVO extends ComVO {
 	 * 지시중량
 	 */
 	private double cmndWght;
+
+    /**
+     * 실적수량
+     */
+    private int prfmncQntt;
+
+    /**
+     * 실적중량
+     */
+    private double prfmncWght;
 
 	/**
 	 * 투입수량
@@ -165,4 +199,14 @@ public class SortCmndVO extends ComVO {
 	 * 창고구분명
 	 */
 	private String warehouseSeNm;
+
+    /**
+     * 상품구분코드
+     */
+    private String gdsSeCd;
+
+    /**
+     * 상품구분명
+     */
+    private String gdsSeNm;
 }

@@ -118,7 +118,9 @@
         li.sbux-ui-menu-item{
             font-size: x-large;
         }
-
+        #td-gdsSeCd > div {
+            font-size: 17pt;
+        }
     </style>
 
 </head>
@@ -278,6 +280,21 @@
                     </td>
                     <td colspan="2" style="border-left: hidden;">
 
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>상품구분</th>
+                    <td colspan="8" id="td-gdsSeCd" class="td_input" style="border-right: hidden;">
+                        <sbux-radio
+                            id="srch-rdo-gdsSeCd"
+                            name="srch-rdo-gdsSeCd"
+                            uitype="normal"
+                            class="radio_label"
+                            text-right-padding="10px"
+                            jsondata-ref="jsonComGdsSeCd"
+                            jsondata-text="cdVlNm"
+                            jsondata-value="cdVl"
+                        ></sbux-radio>
                     </td>
                 </tr>
                 <tr>
@@ -490,9 +507,25 @@
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
         let result = await Promise.all([
             fn_initSBSelect(),
+            fn_initSBRadio(),
             fn_getPrdcrs(),
             fn_searchWrhsPrfmncList(),
         ]);
+    }
+
+    /**
+     * @name fn_initSBRadio
+     * @description SBRadio JSON 불러오기
+     */
+    const fn_initSBRadio = async function() {
+        let result = await Promise.all([
+            gfn_getComCdDtls('GDS_SE_CD', gv_selectedApcCd)    // 상품구분
+        ]);
+
+        jsonComGdsSeCd = result[0];
+
+        SBUxMethod.refresh('srch-rdo-gdsSeCd');
+        SBUxMethod.set("srch-rdo-gdsSeCd", "1");
     }
 
     const fn_searchWrhsPrfmncList = async function(){
@@ -1035,6 +1068,7 @@
         });
 
         SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-rdo-gdsSeCd", "1");
         SBUxMethod.attr("srch-slt-itemCd","readonly","false");
         SBUxMethod.attr("srch-slt-vrtyCd","readonly","false");
         SBUxMethod.attr("srch-slt-spcfctCd","readonly","false");
@@ -1176,14 +1210,16 @@
         await SBUxMethod.set("srch-slt-chckr",jsonData.chckr);
         /** 팔레트 번호 **/
         await SBUxMethod.set("srch-inp-pltno",jsonData.pltno);
+        /** 상품구분 **/
+        await SBUxMethod.set("srch-rdo-gdsSeCd",jsonData.gdsSeCd);
     }
     const fn_add = async function(){
-        let check = gfn_getTableElement("saveTable","srch-",["pltno","wrhsno","vrtyCd","chckr"]);
+        let check = gfn_getTableElement("saveTable","srch-",["pltno","wrhsno","vrtyCd","chckr","gdsSeCd_0","gdsSeCd_1","gdsSeCd_2","gdsSeCd_3","gdsSeCd_4"]);
         if(!check){
             return false;
         }
         let wrhsSeCd = "2";			// 입고구분 : 수탁
-        let gdsSeCd = "1";			// 상품구분
+        let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");			// 상품구분
         let trsprtSeCd = "1";		// 운송구분
         /** 해당 규격의 단중 **/
         let itemSpcfctCd = check.itemCd + check.spcfctCd;

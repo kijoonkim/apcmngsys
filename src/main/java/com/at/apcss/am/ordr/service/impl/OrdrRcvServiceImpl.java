@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -1834,7 +1835,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 			
-			long ordrSeq = ordrVO.getOrdrSeq();
+			Integer ordrSeq = ordrVO.getOrdrSeq();
 			
 			// insert ordr dtl
 			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
@@ -2749,7 +2750,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 			
-			long ordrSeq = ordrVO.getOrdrSeq();
+			Integer ordrSeq = ordrVO.getOrdrSeq();
 			
 			// insert ordr dtl
 			for ( MrktOrdrDtlVO dtlVO : dtlList ) {
@@ -2922,6 +2923,23 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		param.setReceiptYn(receiptYn);
 
 		return selectOrdrListForLottesuper(param);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectMrktGdsOrdrList(String ordrApcCd, String wrhsYmdFrom, String wrhsYmdTo) throws Exception {
+
+		MrktGdsOrdrVO param = new MrktGdsOrdrVO();
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmdFrom(wrhsYmdFrom);
+		param.setWrhsYmdTo(wrhsYmdTo);
+
+		//List<MrktGdsOrdrVO> ordrList = ordrRcvMapper.selectMrktGdsOrdrList(param);
+		List<MrktGdsOrdrVO> ordrList = ordrRcvMapper.selectUntyMrktGdsOrdrList(param);
+		List<Map<String, Object>> resultList = ComUtil.convertVoListToMapListByJackson(ordrList);
+
+		return resultList.stream()
+				.map(HashMap::new)
+				.collect(Collectors.toList());
 	}
 
 

@@ -25,6 +25,8 @@ import com.at.apcss.am.ordr.vo.OrdrRcvVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @RestController
 public class ApcLinkApiController extends BaseController {
 
@@ -39,14 +41,14 @@ public class ApcLinkApiController extends BaseController {
 	// APC 환경설정 - APC 정보 조회
 	@GetMapping(value = "/am/apc/apcLink/{apcCd}")
 	public ResponseEntity<HashMap<String, Object>> selectApcLinkById(@PathVariable String apcCd, HttpServletRequest request) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 		
-		if (!StringUtils.hasText(apcCd)) {
+		if (!hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 		
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
@@ -61,7 +63,7 @@ public class ApcLinkApiController extends BaseController {
 			resultVO = apcLinkService.selectApcLink(apcLinkVO);
 			
 			if (resultVO == null 
-					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| !hasText(resultVO.getApcCd())
 					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
@@ -90,18 +92,18 @@ public class ApcLinkApiController extends BaseController {
 	@GetMapping(value = "/am/apc/apcLink/{apcCd}/{trsmMatId}")
 	public ResponseEntity<HashMap<String, Object>> selectApcLinkTrsmMat(@PathVariable String apcCd, @PathVariable String trsmMatId, HttpServletRequest request) throws Exception {
 		
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 		
-		if (!StringUtils.hasText(apcCd)) {
+		if (!hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 		
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
-		if (!StringUtils.hasText(trsmMatId)) {
+		if (!hasText(trsmMatId)) {
 			return getErrorResponseEntity("E03", "연계기기ID 누락");
 		}
 		
@@ -113,35 +115,33 @@ public class ApcLinkApiController extends BaseController {
 		ApcLinkIndctVO apcLinkIndctVO = new ApcLinkIndctVO();
 		
 		try {
-			ApcLinkVO resultVO = new ApcLinkVO();
-			resultVO = apcLinkService.selectApcLink(apcLinkVO);
-			
-			if (resultVO == null 
-					|| !StringUtils.hasText(resultVO.getApcCd())
-					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+			ApcLinkVO resultVO = apcLinkService.selectApcLink(apcLinkVO);
+			if (resultVO != null
+					&& hasText(resultVO.getApcCd())
+					&& !ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+				if (!apcKey.equals(resultVO.getApcKey())) {
+					return getErrorResponseEntity("E30", "인증 오류");
+				}
+
+				apcLinkVO.setSysFrstInptUserId(ComConstants.DEFAULT_ERR_USER);
+				apcLinkVO.setSysFrstInptPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+				apcLinkVO.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
+				apcLinkVO.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+				apcLinkService.updateApcLinkTrsmMatIdnty(apcLinkVO);
+
+				ApcLinkVO apcTrsmMatVO = new ApcLinkVO();
+				apcTrsmMatVO = apcLinkService.selectApcLinkTrsmMat(apcLinkVO);
+
+				if (apcTrsmMatVO == null
+						|| !hasText(apcTrsmMatVO.getApcCd())) {
+					return getErrorResponseEntity("E21", "APC연계기기정보 없음");
+				}
+
+				BeanUtils.copyProperties(apcTrsmMatVO, apcLinkIndctVO);
+			} else {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
-			
-			if (!apcKey.equals(resultVO.getApcKey())) {
-				return getErrorResponseEntity("E30", "인증 오류");
-			}
-			
-			apcLinkVO.setSysFrstInptUserId(ComConstants.DEFAULT_ERR_USER);
-			apcLinkVO.setSysFrstInptPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
-			apcLinkVO.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
-			apcLinkVO.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
-			apcLinkService.updateApcLinkTrsmMatIdnty(apcLinkVO);
-			
-			ApcLinkVO apcTrsmMatVO = new ApcLinkVO();
-			apcTrsmMatVO = apcLinkService.selectApcLinkTrsmMat(apcLinkVO);
-			
-			if (apcTrsmMatVO == null 
-					|| !StringUtils.hasText(apcTrsmMatVO.getApcCd())) {
-				return getErrorResponseEntity("E21", "APC연계기기정보 없음");
-			}
-			
-			BeanUtils.copyProperties(apcTrsmMatVO, apcLinkIndctVO);
-			
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -153,26 +153,25 @@ public class ApcLinkApiController extends BaseController {
 	
 	@PostMapping(value = "/am/apc/linkStts")
 	public ResponseEntity<HashMap<String, Object>> updateLinkStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
-		if (!StringUtils.hasText(apcLinkVO.getApcCd())) {
+		if (!hasText(apcLinkVO.getApcCd())) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 		
 		apcLinkVO.setApcKey(apcKey);
-		ApcLinkVO resultVO = new ApcLinkVO();
-		
+
 		try {
 
-			resultVO = apcLinkService.selectApcLink(apcLinkVO);
+			ApcLinkVO resultVO = apcLinkService.selectApcLink(apcLinkVO);
 			
 			if (resultVO == null 
-					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| !hasText(resultVO.getApcCd())
 					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
@@ -201,18 +200,18 @@ public class ApcLinkApiController extends BaseController {
 	// APC 환경설정 - APC 정보 조회
 	@PostMapping(value = "/am/apc/linkTrsmMatStts")
 	public ResponseEntity<HashMap<String, Object>> updateLinkTrsmMatStts(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
-		if (!StringUtils.hasText(apcLinkVO.getApcCd())) {
+		if (!hasText(apcLinkVO.getApcCd())) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 		
-		if (!StringUtils.hasText(apcLinkVO.getTrsmMatId())) {
+		if (!hasText(apcLinkVO.getTrsmMatId())) {
 			return getErrorResponseEntity("E03", "연계기기ID 누락");
 		}
 		
@@ -220,11 +219,10 @@ public class ApcLinkApiController extends BaseController {
 		
 		try {
 
-			ApcLinkVO resultVO = new ApcLinkVO();
-			resultVO = apcLinkService.selectApcLink(apcLinkVO);
+			ApcLinkVO resultVO = apcLinkService.selectApcLink(apcLinkVO);
 			
 			if (resultVO == null 
-					|| !StringUtils.hasText(resultVO.getApcCd())
+					|| !hasText(resultVO.getApcCd())
 					|| ComConstants.CON_YES.equals(resultVO.getDelYn())) {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
@@ -233,11 +231,10 @@ public class ApcLinkApiController extends BaseController {
 				return getErrorResponseEntity("E30", "인증 오류");
 			}
 			
-			ApcLinkVO apcTrsmMatVO = new ApcLinkVO();
-			apcTrsmMatVO = apcLinkService.selectApcLinkTrsmMat(apcLinkVO);
+			ApcLinkVO apcTrsmMatVO = apcLinkService.selectApcLinkTrsmMat(apcLinkVO);
 			
 			if (apcTrsmMatVO == null 
-					|| !StringUtils.hasText(apcTrsmMatVO.getApcCd())) {
+					|| !hasText(apcTrsmMatVO.getApcCd())) {
 				return getErrorResponseEntity("E21", "APC연계기기정보 없음");
 			}
 			
@@ -263,20 +260,19 @@ public class ApcLinkApiController extends BaseController {
 	@PostMapping(value = "/am/apc/ordr/homeplus")
 	public ResponseEntity<HashMap<String, Object>> selectOrdrHomeplus(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 		
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 
 		List<HashMap<String, Object>> ordrItems = new ArrayList<>();
 		
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
 
 		String apcCd = apcLinkVO.getApcCd();
-		String wrhsYmd = apcLinkVO.getWrhsYmd();
-		
-		if (!StringUtils.hasText(apcCd)) {
+
+		if (!hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 
@@ -343,12 +339,12 @@ public class ApcLinkApiController extends BaseController {
 	@PostMapping(value = "/am/apc/ordr/lotteSuper")
 	public ResponseEntity<HashMap<String, Object>> selectOrdrLotteSuper(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
 		
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<>();
 
 		List<HashMap<String, Object>> ordrItems = new ArrayList<>();
 		
 		String apcKey = request.getHeader("API_KEY");
-		if (!StringUtils.hasText(apcKey)) {
+		if (!hasText(apcKey)) {
 			return getErrorResponseEntity("E02", "인증키 누락");
 		}
 		
@@ -356,7 +352,7 @@ public class ApcLinkApiController extends BaseController {
 		String apcCd = apcLinkVO.getApcCd();
 		String wrhsYmd = apcLinkVO.getWrhsYmd();
 		
-		if (!StringUtils.hasText(apcCd)) {
+		if (!hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
 
@@ -418,5 +414,60 @@ public class ApcLinkApiController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
+	@PostMapping(value = "/am/apc/ordr/mrktGds")
+	public ResponseEntity<HashMap<String, Object>> selectMrktGdsOrdrList(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		List<HashMap<String, Object>> ordrItems;
+
+		String apcKey = request.getHeader("API_KEY");
+		if (!hasText(apcKey)) {
+			return getErrorResponseEntity("E02", "인증키 누락");
+		}
+
+
+		String apcCd = apcLinkVO.getApcCd();
+
+		if (!hasText(apcCd)) {
+			return getErrorResponseEntity("E01", "APC코드 누락");
+		}
+
+		String wrhsYmdFrom = apcLinkVO.getWrhsYmdFrom();
+		String wrhsYmdTo = apcLinkVO.getWrhsYmdTo();
+
+		if (!hasText(wrhsYmdFrom) || !hasText(wrhsYmdTo)) {
+			return getErrorResponseEntity("E04", "입고일자 누락");
+		}
+
+		apcLinkVO.setApcKey(apcKey);
+		ApcLinkVO resultVO = apcLinkService.selectApcLink(apcLinkVO);
+
+		if (resultVO != null
+				&& hasText(resultVO.getApcCd())
+				&& !ComConstants.CON_YES.equals(resultVO.getDelYn())) {
+			logger.debug("apcKey {}", apcKey);
+			logger.debug("resultVO.getApcKey() {}", resultVO.getApcKey());
+			if (!apcKey.equals(resultVO.getApcKey())) {
+				return getErrorResponseEntity("E30", "인증 오류");
+			}
+
+		} else {
+			return getErrorResponseEntity("E20", "APC연계정보 없음");
+		}
+
+		try {
+			// 서비스 호출
+			ordrItems = ordrRcvService.selectMrktGdsOrdrList(apcCd, wrhsYmdFrom, wrhsYmdTo);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("items", ordrItems);
+		resultMap.put("count", ordrItems.size());
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 }

@@ -50,7 +50,7 @@
                 </c:if>
                 <c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
                     <sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
-                    <sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
+                    <sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdln"></sbux-button>
                     <!--
                     <sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
                     <sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="하위출자출하조직 등록정보 출력" onclick="fn_report3"></sbux-button>
@@ -237,17 +237,15 @@
                 </table>
                 <!--[pp] //검색 -->
 
-                <!--[pp] //검색 -->
-                <!--[pp] 검색결과 -->
+
+                <%-- 법인체 마감--%>
                 <div style="display:flex; justify-content: flex-start; margin-top: 10px;" >
-                    <div>
-                    </div>
                     <div style="margin-left: auto;">
                         <c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
-                            <sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
-                            <sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(2)"></sbux-button>
-                            <sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
-                            <sbux-button id="btnCorpDdlnSeCdAllN" name="btnCorpDdlnSeCdAllN" uitype="normal" text="법인체 일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(2)"></sbux-button>
+                            <sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdln"></sbux-button>
+                            <sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnCncl"></sbux-button>
+                           <%-- <sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
+                            <sbux-button id="btnCorpDdlnSeCdAllN" name="btnCorpDdlnSeCdAllN" uitype="normal" text="법인체 일괄마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(2)"></sbux-button>--%>
                         </c:if>
                     </div>
                 </div>
@@ -2829,19 +2827,32 @@
     }
 
 
-    //법인체 선택마감
+    /** 법인체 마감 **/
     async function fn_corpDdlnSeCd(yn){
         let brno = SBUxMethod.get('dtl-input-brno');
         let yr = SBUxMethod.get('dtl-input-yr');
+        const apoCd = SBUxMethod.get('dtl-input-apoCd');
 
         let corpDdlnSeCd = null;
+        let sttsNm;
+
         if(yn == 1){
-            corpDdlnSeCd = 'Y'
+            corpDdlnSeCd = 'Y';
+            sttsNm = "법인체 마감";
         }else if(yn == 2){
-            corpDdlnSeCd = 'N'
+            corpDdlnSeCd = 'N';
+            sttsNm = "법인체 마감 취소";
         }
 
-        if(gfn_isEmpty(brno)) return;
+        if (gfn_isEmpty(brno)) {
+            gfn_comAlert("W0005", "사업자번호"); // {0}이/가 없습니다.
+            return;
+        }
+
+        if (gfn_isEmpty(apoCd)) {
+            gfn_comAlert("W0005", "조직코드"); // {0}이/가 없습니다.
+            return;
+        }
 
         if(gfn_isEmpty(yr)){
             //현재년도
@@ -2850,21 +2861,23 @@
             yr = year
         }
 
-        let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
-            brno : brno
-            ,yr : yr
-            ,corpDdlnSeCd : corpDdlnSeCd
-            //,apoSe : apoSe
+        if (!gfn_comConfirm("Q0001", sttsNm)) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        // let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
+        const postJsonPromise = gfn_postJSON("/pd/aom/insertPruoPrgrsApo.do", {
+            crtrYr : yr
+            , apoCd : apoCd
+            , brno : brno
+            , corpDdlnSeCd :corpDdlnSeCd
+            , prgrsStpCd : "DDLN"
         });
         let data = await postJsonPromise;
 
         try{
-            if(data.result > 0){
-                if(yn == 1){
-                    alert("법인체 마감 되었습니다.");
-                }else if(yn == 2){
-                    alert("법인체 마감 해제 되었습니다.");
-                }
+            if(_.isEqual("S", data.resultStatus)){
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
                 <c:if test="${loginVO.apoSe eq '1'}">
                 fn_dtlSearch();
                 </c:if>
@@ -2872,19 +2885,17 @@
                 fn_search();
                 </c:if>
             }else{
-                if(yn == 1){
-                    alert("법인체 마감 도중 오류가 발생 되었습니다.");
-                }else if(yn == 2){
-                    alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
-                }
+                gfn_comAlert(data.resultCode, data.resultMessage);
             }
         }catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
             console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
     //법인체 일괄 마감
     async function fn_corpDdlnSeCdAll(yn){
 
@@ -3242,5 +3253,103 @@
         //console.log(hiddenGrd.exportData);
         hiddenGrd.exportData("xlsx" , fileName , true , true);
     }
+    /**
+     * @name fn_corpDdln
+     * @description 법인체마감
+     */
+    const fn_corpDdln = async function (){
+        const brno = SBUxMethod.get('dtl-input-brno');
+        const apoCd = SBUxMethod.get('dtl-input-apoCd');
+        const yr = SBUxMethod.get('dtl-input-yr');
+
+        if (gfn_isEmpty(brno)) {
+            gfn_comAlert("W0005", "사업자번호"); // W0005 {0}이/가 없습니다.
+            return;
+        }
+
+        if (!gfn_comConfirm("Q0001", "법인체마감")) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/pd/aom/insertPruoPrgrsApo.do", {
+            crtrYr : yr,
+            apoCd : apoCd,
+            brno : brno,
+            prgrsStpCd : "DDLN",
+            corpDdlnSeCd : "Y"
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if(_.isEqual("S", data.resultStatus)){
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                <c:if test="${loginVO.apoSe eq '1'}">
+                fn_dtlSearch();
+                </c:if>
+                <c:if test="${loginVO.apoSe ne '1'}">
+                fn_search();
+                </c:if>
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    /**
+     * @name fn_corpDdlnCncl
+     * @description 법인체마감 취소
+     */
+    const fn_corpDdlnCncl = async function (){
+        const brno = SBUxMethod.get('dtl-input-brno');
+        const apoCd = SBUxMethod.get('dtl-input-apoCd');
+        const yr = SBUxMethod.get('dtl-input-yr');
+
+        if (gfn_isEmpty(brno)) {
+            gfn_comAlert("W0005", "사업자번호"); // W0005 {0}이/가 없습니다.
+            return;
+        }
+
+        if (!gfn_comConfirm("Q0001", "법인체마감 취소")) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/pd/aom/insertPruoPrgrsApoCncl.do", {
+            crtrYr : yr,
+            apoCd : apoCd,
+            brno : brno,
+            prgrsStpCd : "DDLN",
+            prfmncCorpDdlnYn : "N"
+        });
+
+        const data = await postJsonPromise;
+
+        try {
+            if(_.isEqual("S", data.resultStatus)){
+                gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                <c:if test="${loginVO.apoSe eq '1'}">
+                fn_dtlSearch();
+                </c:if>
+                <c:if test="${loginVO.apoSe ne '1'}">
+                fn_search();
+                </c:if>
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
 </script>
 </html>

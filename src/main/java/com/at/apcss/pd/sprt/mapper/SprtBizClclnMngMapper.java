@@ -282,4 +282,12 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public List<SprtBizClclnMngVO> selectDtbnAplyDocList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 정산결과 로우데이터 조회
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnMngVO> selectSprtClclnRsltRawDataList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
 }

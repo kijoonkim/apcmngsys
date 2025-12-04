@@ -17,7 +17,7 @@ public class MrktOrdrDtlVO extends ComVO {
 	private String wrhsYmdFrom;
 	private String wrhsYmdTo;
 
-	private long ordrSeq;
+	private Integer ordrSeq;
 	private String outordrno;
 	private int dtlSeq;
 	private String mrktGdsCd;
@@ -79,6 +79,40 @@ public class MrktOrdrDtlVO extends ComVO {
 	private String rcptnSeNm;
 
 	private String apcOutordrno;
+	private String gdsExpln;
 
+	/** 20251126 롯데슈퍼 추가컬럼 **/
+	private String cntrWrhsYmd;
+	private String storWrhsYmd;
+	private String dlvrType;
+	private String bxNo;
+	private int bxSn;
+	private double volUnitWght;
+
+	/** 20251127 신세계 추가컬럼 **/
+	private String bndlNo;
+	private int	ordrUnitQntt;
+	private String gdsExplN;
+	private String rmrkCn;
+	private String etcMttr;
+	private String etcDtlCn;
+	private String etcExpln;
+	private String strgPlcNm;
+	private String orgnlGdsCd;
+	private String wrhusCd;
+	private String wrhusNm;
+
+	/** 20251127 쿠팡 추가컬럼 **/
+	private String otptNm;
+	private int cfmtnQntt;
+	private String mnftrYmd;
+	private String prdctnYr;
+	private int splyPrc;
+	private String rtlTermYmd;
+	private String etcRsn;
+	private String addrseNm;
+	private String addrseAddr;
+	private String addrseTelno;
+	private String drctDlvrYn;
 
 }

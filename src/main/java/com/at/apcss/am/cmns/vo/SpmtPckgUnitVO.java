@@ -142,4 +142,14 @@ public class SpmtPckgUnitVO extends ComVO{
 	 * */
 	private String cnptNm;
 
+	/**
+	 * 판매코드
+	 * */
+	private String ntslCd;
+
+	/**
+	 * 체적단중
+	 * */
+	private double volUnitWght;
+
 }

@@ -7,6 +7,7 @@ import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
@@ -326,4 +327,50 @@ public interface SpmtPrfmncService {
 	 */
 	public HashMap<String, Object> deleteUntySpmtPrfmncAll(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
+	/**
+	 * 출하실적매출 공통 목록 조회
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncSlsVO> selectSpmtPrfmncSlsComList(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 통합출하실적 등록
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> multiSaveSpmtPrfmncSls(SpmtPrfmncComVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적 매출 전체삭제.
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSpmtPrfmncSlsAll(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적 매출 전체삭제.
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtPrfmncSls(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+
+	/**
+	 * 출하실적매출 상세 목록 조회
+	 * @param spmtPrfmncSlsVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncSlsVO> selectSpmtPrfmncSlsDtlList(SpmtPrfmncSlsVO spmtPrfmncSlsVO) throws Exception;
+	/**
+	 * 출하실적매출 삭제.
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteSpmtPrfmncSls (SpmtPrfmncComVO spmtPrfmncVO) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.at.apcss.pd.aom.service;
 
+import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
@@ -171,4 +172,28 @@ public interface PruoPrgrsMngService {
      * @throws Exception
      */
     public HashMap<String, Object> insertOnlnWhlslMrktSpmtPrfmnc(List<PrdcrCrclOgnOnlnWhlslMrktVO> prdcrCrclOgnOnlnWhlslMrktList) throws Exception;
+
+    /**
+     * 통합조직관리 - 진행상태 단건
+     * @param pruoPrgrsVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoPrgrsApo(PruoPrgrsVO pruoPrgrsVO) throws Exception;
+
+    /**
+     * 통합조직관리 - 진행상태 취소 단건
+     * @param pruoPrgrsVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoPrgrsApoCncl(PruoPrgrsVO pruoPrgrsVO) throws Exception;
+
+    /**
+     * 통합조직 품목리스트 저장
+     * @param gpcVOList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertPruoGpcList(PruoPrgrsVO pruoPrgrsVO) throws Exception;
 }

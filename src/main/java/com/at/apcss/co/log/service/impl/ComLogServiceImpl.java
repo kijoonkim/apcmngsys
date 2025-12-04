@@ -47,6 +47,10 @@ public class ComLogServiceImpl extends BaseServiceImpl implements ComLogService 
 
 		return resultList;
 	}
+	@Override
+	public List<ComLogVO> selectMenuHstryLimitList(ComLogVO comLogVO) throws Exception {
+		return comLogMapper.selectMenuHstryLimitList(comLogVO);
+	}
 
 	@Override
 	public List<ComLogVO> selectTrsmHstryList(ComLogVO comLogVO) throws Exception {

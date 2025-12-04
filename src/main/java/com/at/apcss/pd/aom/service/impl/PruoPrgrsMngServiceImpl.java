@@ -78,12 +78,21 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
                 return ComUtil.getResultMap(prgrs.getRtnCd(), prgrs.getRtnMsg());
             }
 
-            /*PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
+            PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
             if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
                 return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
             }
-            // TB_EV_APLY_MNG 법인체 마감
-            pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs); */
+
+            String prgrsStpCd = prgrs.getPrgrsStpCd();
+
+            if (prgrsStpCd.equals("DDLN")) {
+                // TB_EV_APLY_MNG 법인체 마감
+                pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs);
+            } else if (prgrsStpCd.equals("SBMT")) {
+                // TB_EV_APLY_MNG 실적법인체 마감 취소
+                pruoPrgrsMngMapper.updatePrfmncCorpDdlnYn(prgrs);
+            }
+
         }
 
 
@@ -98,6 +107,21 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
             pruoPrgrsMngMapper.updatePruoPrgrsApoCncl(prgrs);
             if (StringUtils.hasText(prgrs.getRtnCd())) {
                 return ComUtil.getResultMap(prgrs.getRtnCd(), prgrs.getRtnMsg());
+            }
+
+            PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(prgrs);
+            if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+            }
+
+            String prgrsStpCd = prgrs.getPrgrsStpCd();
+
+            if (prgrsStpCd.equals("DDLN")) {
+                // TB_EV_APLY_MNG 법인체 마감 취소
+                pruoPrgrsMngMapper.updateCorpDdlnSeCd(prgrs);
+            } else if (prgrsStpCd.equals("SBMT")) {
+                // TB_EV_APLY_MNG 실적법인체 마감 취소
+                pruoPrgrsMngMapper.updatePrfmncCorpDdlnYn(prgrs);
             }
         }
         return null;
@@ -237,13 +261,18 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
         // 조직 품목리스트 저장
         List<GpcVO> gpcList = prdcrCrclOgnReqMngVO.getGpcList();
         if (gpcList != null && !gpcList.isEmpty()) {
-            for (GpcVO gpcVO : gpcList) {
-                gpcVO.setSysFrstInptUserId(prdcrCrclOgnReqMngVO.getSysFrstInptUserId());
-                gpcVO.setSysFrstInptPrgrmId(prdcrCrclOgnReqMngVO.getSysFrstInptPrgrmId());
-                gpcVO.setSysLastChgUserId(prdcrCrclOgnReqMngVO.getSysLastChgUserId());
-                gpcVO.setSysLastChgPrgrmId(prdcrCrclOgnReqMngVO.getSysLastChgPrgrmId());
-            }
-            prdcrCrclOgnReqMngService.multiSaveGpcList(gpcList);
+
+            PruoPrgrsVO pruoPrgrsVO = new PruoPrgrsVO();
+            pruoPrgrsVO.setCrtrYr(prdcrCrclOgnReqMngVO.getYr());
+            pruoPrgrsVO.setApoCd(prdcrCrclOgnReqMngVO.getApoCd());
+            pruoPrgrsVO.setSysFrstInptPrgrmId(prdcrCrclOgnReqMngVO.getSysFrstInptPrgrmId());
+            pruoPrgrsVO.setSysFrstInptUserId(prdcrCrclOgnReqMngVO.getSysFrstInptUserId());
+            pruoPrgrsVO.setSysLastChgPrgrmId(prdcrCrclOgnReqMngVO.getSysLastChgPrgrmId());
+            pruoPrgrsVO.setSysLastChgUserId(prdcrCrclOgnReqMngVO.getSysLastChgUserId());
+
+            pruoPrgrsVO.setGpcList(gpcList);
+
+            insertPruoGpcList(pruoPrgrsVO);
         }
 
         HashMap<String, Object> rtnObj = null;
@@ -552,6 +581,88 @@ public class PruoPrgrsMngServiceImpl  extends BaseServiceImpl implements PruoPrg
         pruoPrgrsVO.setSysLastChgPrgrmId(prgrmId);
         pruoPrgrsVO.setWrtPrgrmId("PD_006_006_01");
 
+        rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoPrgrsApo(PruoPrgrsVO pruoPrgrsVO) throws Exception {
+
+        pruoPrgrsMngMapper.insertPruoPrgrsApo(pruoPrgrsVO);
+
+        if (StringUtils.hasText(pruoPrgrsVO.getRtnCd())) {
+            return ComUtil.getResultMap(pruoPrgrsVO.getRtnCd(), pruoPrgrsVO.getRtnMsg());
+        }
+
+        PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(pruoPrgrsVO);
+        if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+            return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+        }
+
+        String prgrsStpCd = pruoPrgrsVO.getPrgrsStpCd();
+
+        if (prgrsStpCd.equals("DDLN")) {
+            // TB_EV_APLY_MNG 법인체 마감
+            pruoPrgrsMngMapper.updateCorpDdlnSeCd(pruoPrgrsVO);
+        } else if (prgrsStpCd.equals("SBMT")) {
+            // TB_EV_APLY_MNG 실적법인체 마감
+            pruoPrgrsMngMapper.updatePrfmncCorpDdlnYn(pruoPrgrsVO);
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoPrgrsApoCncl(PruoPrgrsVO pruoPrgrsVO) throws Exception {
+
+        pruoPrgrsMngMapper.updatePruoPrgrsApoCncl(pruoPrgrsVO);
+
+        if (StringUtils.hasText(pruoPrgrsVO.getRtnCd())) {
+            return ComUtil.getResultMap(pruoPrgrsVO.getRtnCd(), pruoPrgrsVO.getRtnMsg());
+        }
+
+        PrdcrCrclOgnReqMngVO aplyMngInfo = pruoPrgrsMngMapper.selectAplyMngInfo(pruoPrgrsVO);
+        if (aplyMngInfo == null || !StringUtils.hasText(aplyMngInfo.getApoCd())) {
+            return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조직 등록정보");
+        }
+
+        String prgrsStpCd = pruoPrgrsVO.getPrgrsStpCd();
+
+        if (prgrsStpCd.equals("DDLN")) {
+            // TB_EV_APLY_MNG 법인체 마감 취소
+            pruoPrgrsMngMapper.updateCorpDdlnSeCd(pruoPrgrsVO);
+        } else if (prgrsStpCd.equals("SBMT")) {
+            // TB_EV_APLY_MNG 실적법인체 마감 취소
+            pruoPrgrsMngMapper.updatePrfmncCorpDdlnYn(pruoPrgrsVO);
+        }
+
+        return null;
+    }
+
+    @Override
+    public HashMap<String, Object> insertPruoGpcList(PruoPrgrsVO pruoPrgrsVO) throws Exception {
+
+        // 품목리스트
+        List<GpcVO> gpcList = pruoPrgrsVO.getGpcList();
+        if (gpcList != null && !gpcList.isEmpty()) {
+            for (GpcVO gpcVO : gpcList) {
+                gpcVO.setSysFrstInptUserId(pruoPrgrsVO.getSysFrstInptUserId());
+                gpcVO.setSysFrstInptPrgrmId(pruoPrgrsVO.getSysFrstInptPrgrmId());
+                gpcVO.setSysLastChgUserId(pruoPrgrsVO.getSysLastChgUserId());
+                gpcVO.setSysLastChgPrgrmId(pruoPrgrsVO.getSysLastChgPrgrmId());
+            }
+            prdcrCrclOgnReqMngService.multiSaveGpcList(gpcList);
+        }
+
+        HashMap<String, Object> rtnObj = null;
+
+        pruoPrgrsVO.setWrtPrgrmId("PD_006_003"); // 품목리스트 저장 프로그램명
+
+        // 조직 진척도 저장
         rtnObj = insertPruoPrgrsApoWrt(pruoPrgrsVO);
         if (rtnObj != null) {
             throw new EgovBizException(getMessageForMap(rtnObj));

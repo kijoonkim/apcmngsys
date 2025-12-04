@@ -14,303 +14,301 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus		-->
-	<!-- DESC : 홈플러스 발주정보 등록.                         	             	 			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus		-->
+    <!-- DESC : 홈플러스 발주정보 등록.                         	             	 			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertOrdrRcvHomeplus" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus */
-    			INTO TB_OUTORDR_INFO_IF_HOMEPLUS
-    		(
-    			  APC_CD
-				, RCPTN_YMD
-				, RCPTN_SN
-				, PRCS_SE_CD
-				, DLDTN_YMD
-				, OUTORDRNO
-				, OUTORDR_TYPE
-				, DOC_NO
-				, WRHS_TYPE
-				, WRHS_TYPE_NM
-				, OUTORDR_YMD
-				, DLVGDS_YMD
-				, ORDR_PRSN
-				, ORDR_PRSN_CD
-				, BUYER_NM
-				, DLVGDS_CO
-				, SPLY_PRSN
-				, GDS_NM
-				, GDS_CD
-				, TPND
-				, TPNB
-				, DIAMONDLINE
-				, DLDTN
-				, WRHS_TYPE2
-				, BX_GDS_QNTT
-				, OUTORDR_QNTT
-				, PIECE_QNTT
-				, UNIT_CD
-				, BX_UNTPRC
-				, PIECE_UNTPRC
-				, TX_AMT
-				, OUTORDR_AMT
-				, DLDTN_CD
-				, OUTORDR_YMD2
-				, WRHS_YMD
-				, DLVGDS_NM
-				, DLVGDS_CD
-				, CNTR_SE
-				, CNTR_CD
-				, CNTR_NM
-			) VALUES (
-				  #{apcCd}
-				, #{rcptnYmd}
-				, NVL((
-					SELECT MAX(RCPTN_SN)
-					  FROM TB_OUTORDR_INFO_IF_HOMEPLUS
-					 WHERE APC_CD = #{apcCd}
-					   AND RCPTN_YMD = #{rcptnYmd}
-				), 0) + 1
-				, #{prcsSeCd}
-				, #{dldtnYmd}
-				, #{outordrno}
-				, #{outordrType}
-				, #{docNo}
-				, #{wrhsType}
-				, #{wrhsTypeNm}
-				, #{outordrYmd}
-				, #{dlvgdsYmd}
-				, #{ordrPrsn}
-				, #{ordrPrsnCd}
-				, #{buyerNm}
-				, #{dlvgdsCo}
-				, #{splyPrsn}
-				, #{gdsNm}
-				, #{gdsCd}
-				, #{tpnd}
-				, #{tpnb}
-				, #{diamondline}
-				, #{dldtn}
-				, #{wrhsType2}
-				, #{bxGdsQntt}
-				, #{outordrQntt}
-				, #{pieceQntt}
-				, #{unitCd}
-				, #{bxUntprc}
-				, #{pieceUntprc}
-				, #{txAmt}
-				, #{outordrAmt}
-				, #{dldtnCd}
-				, #{outordrYmd2}
-				, #{wrhsYmd}
-				, #{dlvgdsNm}
-				, #{dlvgdsCd}
-				, #{cntrSe}
-				, #{cntrCd}
-				, #{cntrNm}
-   			)
-	    ]]>
+        INSERT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus */
+        INTO TB_OUTORDR_INFO_IF_HOMEPLUS
+        ( APC_CD
+        , RCPTN_YMD
+        , RCPTN_SN
+        , PRCS_SE_CD
+        , DLDTN_YMD
+        , OUTORDRNO
+        , OUTORDR_TYPE
+        , DOC_NO
+        , WRHS_TYPE
+        , WRHS_TYPE_NM
+        , OUTORDR_YMD
+        , DLVGDS_YMD
+        , ORDR_PRSN
+        , ORDR_PRSN_CD
+        , BUYER_NM
+        , DLVGDS_CO
+        , SPLY_PRSN
+        , GDS_NM
+        , GDS_CD
+        , TPND
+        , TPNB
+        , DIAMONDLINE
+        , DLDTN
+        , WRHS_TYPE2
+        , BX_GDS_QNTT
+        , OUTORDR_QNTT
+        , PIECE_QNTT
+        , UNIT_CD
+        , BX_UNTPRC
+        , PIECE_UNTPRC
+        , TX_AMT
+        , OUTORDR_AMT
+        , DLDTN_CD
+        , OUTORDR_YMD2
+        , WRHS_YMD
+        , DLVGDS_NM
+        , DLVGDS_CD
+        , CNTR_SE
+        , CNTR_CD
+        , CNTR_NM)
+        VALUES ( #{apcCd}
+               , #{rcptnYmd}
+               , NVL((SELECT MAX(RCPTN_SN)
+                      FROM TB_OUTORDR_INFO_IF_HOMEPLUS
+                      WHERE APC_CD = #{apcCd}
+                        AND RCPTN_YMD = #{rcptnYmd}), 0) + 1
+               , #{prcsSeCd}
+               , #{dldtnYmd}
+               , #{outordrno}
+               , #{outordrType}
+               , #{docNo}
+               , #{wrhsType}
+               , #{wrhsTypeNm}
+               , #{outordrYmd}
+               , #{dlvgdsYmd}
+               , #{ordrPrsn}
+               , #{ordrPrsnCd}
+               , #{buyerNm}
+               , #{dlvgdsCo}
+               , #{splyPrsn}
+               , #{gdsNm}
+               , #{gdsCd}
+               , #{tpnd}
+               , #{tpnb}
+               , #{diamondline}
+               , #{dldtn}
+               , #{wrhsType2}
+               , #{bxGdsQntt}
+               , #{outordrQntt}
+               , #{pieceQntt}
+               , #{unitCd}
+               , #{bxUntprc}
+               , #{pieceUntprc}
+               , #{txAmt}
+               , #{outordrAmt}
+               , #{dldtnCd}
+               , #{outordrYmd2}
+               , #{wrhsYmd}
+               , #{dlvgdsNm}
+               , #{dlvgdsCd}
+               , #{cntrSe}
+               , #{cntrCd}
+               , #{cntrNm})
+        ]]>
     </insert>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls		-->
-	<!-- DESC : from 발주수신정보 to 발주정보 등록 : 홈플러스                          	        -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls		-->
+    <!-- DESC : from 발주수신정보 to 발주정보 등록 : 홈플러스                          	        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertSpOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls */
-    			SP_ORDR_RCV_HMPLS (
-					  #{sysLastChgUserId}
-	   		  		, #{sysLastChgPrgrmId}
-					, #{apcCd}
-					, #{rcptnYmd}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-    			)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls */
+            SP_ORDR_RCV_HMPLS(
+                    #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+                , #{apcCd}
+                , #{rcptnYmd}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg		-->
-	<!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg		-->
+    <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrHpReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg */
-				SP_MRKT_ORDR_HP_REG (
-					  #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{outordrno}
-					, #{outordrAmt}
-					, #{outordrYmd}
-					, #{mrktWrhsKnd}
-					, #{mrktWrhsType}
-					, #{trsmYmd}
-					, #{trsmTm}
-					, #{rcptnYmd}
-					, #{rcptnTm}
-					, #{rcptnYn}
-					, #{ordrr}
-					, #{cntrCd}
-					, #{cntrNm}
-					, #{splrCd}
-					, #{splrNm}
-					, #{userId}
-					, #{bplcCd}
-					, #{coCd}
-					, #{coNm}
-					, #{vrWarehouseCd}
-					, #{vrWarehouseTxt}
-					, #{vrWarehouseNm}
-					, #{ordrSeq, jdbcType=BIGINT, mode=OUT}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg */
+            SP_MRKT_ORDR_HP_REG(
+                    #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{outordrno}
+                , #{outordrAmt}
+                , #{outordrYmd}
+                , #{mrktWrhsKnd}
+                , #{mrktWrhsType}
+                , #{trsmYmd}
+                , #{trsmTm}
+                , #{rcptnYmd}
+                , #{rcptnTm}
+                , #{rcptnYn}
+                , #{ordrr}
+                , #{cntrCd}
+                , #{cntrNm}
+                , #{splrCd}
+                , #{splrNm}
+                , #{userId}
+                , #{bplcCd}
+                , #{coCd}
+                , #{coNm}
+                , #{vrWarehouseCd}
+                , #{vrWarehouseTxt}
+                , #{vrWarehouseNm}
+                , #{ordrSeq, jdbcType=BIGINT, mode=OUT}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg	-->
-	<!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrHpDtlReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg	-->
+    <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSpMrktOrdrHpDtlReg" statementType="CALLABLE"
+            parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg */
-				SP_MRKT_ORDR_HP_DTL_REG (
-					  #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{ordrSeq}
-					, #{outordrno}
-					, #{dtlSeq}
-					, #{mrktGdsCd}
-					, #{mrktGdsNm}
-					, #{storCd}
-					, #{storNm}
-					, #{mrktWrhsType}
-					, #{mrktWrhsTypeNm}
-					, #{upGrdItem}
-					, #{bxGdsQntt}
-					, #{outordrQntt}
-					, #{outordrUnit}
-					, #{pieceQntt}
-					, #{zcstQntt}
-					, #{pieceUntprc}
-					, #{txamt}
-					, #{outordrAmt}
-					, #{outordrUntprc}
-					, #{wrhsQntt}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg */
+            SP_MRKT_ORDR_HP_DTL_REG(
+                    #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{ordrSeq}
+                , #{outordrno}
+                , #{dtlSeq}
+                , #{mrktGdsCd}
+                , #{mrktGdsNm}
+                , #{storCd}
+                , #{storNm}
+                , #{mrktWrhsType}
+                , #{mrktWrhsTypeNm}
+                , #{upGrdItem}
+                , #{bxGdsQntt}
+                , #{outordrQntt}
+                , #{outordrUnit}
+                , #{pieceQntt}
+                , #{zcstQntt}
+                , #{pieceUntprc}
+                , #{txamt}
+                , #{outordrAmt}
+                , #{outordrUntprc}
+                , #{wrhsQntt}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls	-->
-	<!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls	-->
+    <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls */
-    			SP_MRKT_ORDR_RCV_HMPLS (
-					  #{sysUserId}
-					, #{sysPrgrmId}
-					, #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{ordrSeq}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls */
+            SP_MRKT_ORDR_RCV_HMPLS(
+                    #{sysUserId}
+                , #{sysPrgrmId}
+                , #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{ordrSeq}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
-
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus		-->
-	<!-- DESC : (원본)마켓발주정보단건조회-홈플러스                          	    -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectMrktHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus		-->
+    <!-- DESC : (원본)마켓발주정보단건조회-홈플러스                          	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectMrktHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO"
+            resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus */
-				  MAX(MH.ORDR_APC_CD)	AS ORDR_APC_CD
-				, MAX(MH.WRHS_YMD)		AS WRHS_YMD
-				, MAX(MH.ORDR_SEQ)		AS ORDR_SEQ
-				, MAX(MH.OUTORDRNO)		AS OUTORDRNO
-			  FROM TB_MRKT_ORDR_IF_HP MH
-			   
-			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
-			   AND MH.WRHS_YMD = #{wrhsYmd}
-			   AND MH.OUTORDRNO = #{outordrno}
-		]]>
+        SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus */
+            MAX(MH.ORDR_APC_CD)  AS ORDR_APC_CD
+             , MAX(MH.WRHS_YMD)  AS WRHS_YMD
+             , MAX(MH.ORDR_SEQ)  AS ORDR_SEQ
+             , MAX(MH.OUTORDRNO) AS OUTORDRNO
+        FROM TB_MRKT_ORDR_IF_HP MH
+
+        WHERE MH.ORDR_APC_CD = #{ordrApcCd}
+          AND MH.WRHS_YMD = #{wrhsYmd}
+          AND MH.OUTORDRNO = #{outordrno}
+        ]]>
 	</select>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte			-->
-	<!-- DESC : (원본)마켓발주정보단건조회-롯데                          	    	-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectMrktLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte			-->
+    <!-- DESC : (원본)마켓발주정보단건조회-롯데                          	    	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectMrktLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO"
+            resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte */
-				  MAX(MH.ORDR_APC_CD)	AS ORDR_APC_CD
-				, MAX(MH.WRHS_YMD)		AS WRHS_YMD
-				, MAX(MH.ORDR_SEQ)		AS ORDR_SEQ
-				, MAX(MH.OUTORDRNO)		AS OUTORDRNO
-			  FROM TB_MRKT_ORDR_IF_LT MH
-			   
-			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
-			   AND MH.WRHS_YMD = #{wrhsYmd}
-			   AND MH.OUTORDRNO = #{outordrno}
-		]]>
+        SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte */
+            MAX(MH.ORDR_APC_CD)  AS ORDR_APC_CD
+             , MAX(MH.WRHS_YMD)  AS WRHS_YMD
+             , MAX(MH.ORDR_SEQ)  AS ORDR_SEQ
+             , MAX(MH.OUTORDRNO) AS OUTORDRNO
+        FROM TB_MRKT_ORDR_IF_LT MH
+
+        WHERE MH.ORDR_APC_CD = #{ordrApcCd}
+          AND MH.WRHS_YMD = #{wrhsYmd}
+          AND MH.OUTORDRNO = #{outordrno}
+        ]]>
 	</select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl	-->
-	<!-- DESC : (원본)마켓발주정보상세조회-홈플러스                          	    -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectOrglnOrdrHomeplusDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
-    	<![CDATA[
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl	-->
+    <!-- DESC : (원본)마켓발주정보상세조회-홈플러스                          	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectOrglnOrdrHomeplusDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO"
+            resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        <![CDATA[
 			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl */
 				  MH.ORDR_APC_CD			AS ORDR_APC_CD
 				, MH.WRHS_YMD				AS WRHS_YMD
@@ -371,43 +369,43 @@
 
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
 		]]>
-		<if test='wrhsYmd != null and wrhsYmd != ""'>
-				AND MH.WRHS_YMD = #{wrhsYmd}
-		</if>
-		<choose>
-			<when test='receiptYn != null and receiptYn.equals("Y")'>
-				AND MH.PRCS_SE_CD = 'N'
-				AND EXISTS (
-					SELECT 1
-					  FROM TB_OUTORDR_INFO OI
-					WHERE OI.APC_CD = MD.ORDR_APC_CD
-					  AND OI.WRHS_YMD = MD.WRHS_YMD
-					  AND OI.ORDR_SEQ = MD.ORDR_SEQ
-					  AND OI.DTL_SEQ = MD.DTL_SEQ
-					  AND OI.DEL_YN = 'N'
-					  AND OI.RCPT_CFMTN_YMD IS NOT NULL
-				)
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
- 		<![CDATA[
+        <if test='wrhsYmd != null and wrhsYmd != ""'>
+            AND MH.WRHS_YMD = #{wrhsYmd}
+        </if>
+        <choose>
+            <when test='receiptYn != null and receiptYn.equals("Y")'>
+                AND MH.PRCS_SE_CD = 'N'
+                AND EXISTS (
+                SELECT 1
+                FROM TB_OUTORDR_INFO OI
+                WHERE OI.APC_CD = MD.ORDR_APC_CD
+                AND OI.WRHS_YMD = MD.WRHS_YMD
+                AND OI.ORDR_SEQ = MD.ORDR_SEQ
+                AND OI.DTL_SEQ = MD.DTL_SEQ
+                AND OI.DEL_YN = 'N'
+                AND OI.RCPT_CFMTN_YMD IS NOT NULL
+                )
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+        <![CDATA[
 			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ, DTL_SEQ
 		]]>
-	</select>
-
+    </select>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl	-->
-	<!-- DESC : (원본)마켓발주정보상세조회-롯데                          	    -->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <select id="selectOrglnOrdrLotteDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
-    	<![CDATA[
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl	-->
+    <!-- DESC : (원본)마켓발주정보상세조회-롯데                          	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectOrglnOrdrLotteDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO"
+            resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        <![CDATA[
 			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl */
 				  MH.ORDR_APC_CD			AS ORDR_APC_CD
 				, MH.WRHS_YMD				AS WRHS_YMD
@@ -471,190 +469,1530 @@
 			   
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
 		]]>
-		<if test='wrhsYmd != null and wrhsYmd != ""'>
-			AND MH.WRHS_YMD = #{wrhsYmd}
-		</if>
-		<choose>
-			<when test='receiptYn != null and receiptYn.equals("Y")'>
-				AND MH.PRCS_SE_CD = 'N'
-				AND EXISTS (
-				SELECT 1
-				FROM TB_OUTORDR_INFO OI
-				WHERE OI.APC_CD = MD.ORDR_APC_CD
-				AND OI.WRHS_YMD = MD.WRHS_YMD
-				AND OI.ORDR_SEQ = MD.ORDR_SEQ
-				AND OI.DTL_SEQ = MD.DTL_SEQ
-				AND OI.DEL_YN = 'N'
-				AND OI.RCPT_CFMTN_YMD IS NOT NULL
-				)
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-		<![CDATA[
+        <if test='wrhsYmd != null and wrhsYmd != ""'>
+            AND MH.WRHS_YMD = #{wrhsYmd}
+        </if>
+        <choose>
+            <when test='receiptYn != null and receiptYn.equals("Y")'>
+                AND MH.PRCS_SE_CD = 'N'
+                AND EXISTS (
+                SELECT 1
+                FROM TB_OUTORDR_INFO OI
+                WHERE OI.APC_CD = MD.ORDR_APC_CD
+                AND OI.WRHS_YMD = MD.WRHS_YMD
+                AND OI.ORDR_SEQ = MD.ORDR_SEQ
+                AND OI.DTL_SEQ = MD.DTL_SEQ
+                AND OI.DEL_YN = 'N'
+                AND OI.RCPT_CFMTN_YMD IS NOT NULL
+                )
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+        <![CDATA[
 			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ, DTL_SEQ
 		]]>
-	</select>
+    </select>
 
-	<!-- 롯데 -->
+    <!-- 롯데 -->
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg		-->
-	<!-- DESC : 마켓발주정보등록-롯데                          	        		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg		-->
+    <!-- DESC : 마켓발주정보등록-롯데                          	        		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrLtReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg */
-				SP_MRKT_ORDR_LT_REG (
-					  #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{lgszMrktCd}
-					, #{outordrno}
-					, #{outordrAmt}
-					, #{txamt}
-					, #{outordrYmd}
-					, #{mrktWrhsKnd}
-					, #{mrktWrhsType}
-					, #{trsmYmd}
-					, #{trsmTm}
-					, #{rcptnYmd}
-					, #{rcptnTm}
-					, #{rcptnYn}
-					, #{ordrr}
-					, #{cntrCd}
-					, #{cntrNm}
-					, #{splrCd}
-					, #{splrNm}
-					, #{userId}
-					, #{bplcCd}
-					, #{coCd}
-					, #{coNm}
-					, #{warehouseCd}
-					, #{warehouseTxt}
-					, #{warehouseNm}
-					, #{ordrDsctn}
-					, #{ordrSeq, jdbcType=BIGINT, mode=OUT}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg */
+            SP_MRKT_ORDR_LT_REG(
+                    #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{lgszMrktCd}
+                , #{outordrno}
+                , #{outordrAmt}
+                , #{txamt}
+                , #{outordrYmd}
+                , #{mrktWrhsKnd}
+                , #{mrktWrhsType}
+                , #{trsmYmd}
+                , #{trsmTm}
+                , #{rcptnYmd}
+                , #{rcptnTm}
+                , #{rcptnYn}
+                , #{ordrr}
+                , #{cntrCd}
+                , #{cntrNm}
+                , #{splrCd}
+                , #{splrNm}
+                , #{userId}
+                , #{bplcCd}
+                , #{coCd}
+                , #{coNm}
+                , #{warehouseCd}
+                , #{warehouseTxt}
+                , #{warehouseNm}
+                , #{ordrDsctn}
+                , #{ordrSeq, jdbcType=BIGINT, mode=OUT}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg	-->
-	<!-- DESC : 마켓발주정보등록-롯데                          	        			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrLtDtlReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg	-->
+    <!-- DESC : 마켓발주정보등록-롯데                          	        			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSpMrktOrdrLtDtlReg" statementType="CALLABLE"
+            parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg */
-				SP_MRKT_ORDR_LT_DTL_REG (
-					  #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{ordrSeq}
-					, #{outordrno}
-					, #{dtlSeq}
-					, #{mrktGdsCd}
-					, #{mrktGdsNm}
-					, #{mrktNtslCd}
-					, #{storCd}
-					, #{storNm}
-					, #{mrktWrhsType}
-					, #{mrktWrhsTypeNm}
-					, #{upGrdItem}
-					, #{bxGdsQntt}
-					, #{outordrQntt}
-					, #{outordrUnit}
-					, #{pieceQntt}
-					, #{zcstQntt}
-					, #{pieceUntprc}
-					, #{txamt}
-					, #{outordrAmt}
-					, #{outordrUntprc}
-					, #{wrhsQntt}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg */
+            SP_MRKT_ORDR_LT_DTL_REG(
+                    #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{ordrSeq}
+                , #{outordrno}
+                , #{dtlSeq}
+                , #{mrktGdsCd}
+                , #{mrktGdsNm}
+                , #{mrktNtslCd}
+                , #{storCd}
+                , #{storNm}
+                , #{mrktWrhsType}
+                , #{mrktWrhsTypeNm}
+                , #{upGrdItem}
+                , #{bxGdsQntt}
+                , #{outordrQntt}
+                , #{outordrUnit}
+                , #{pieceQntt}
+                , #{zcstQntt}
+                , #{pieceUntprc}
+                , #{txamt}
+                , #{outordrAmt}
+                , #{outordrUntprc}
+                , #{wrhsQntt}
+                , #{cntrWrhsYmd}
+                , #{storWrhsYmd}
+                , #{dlvrType}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte	-->
-	<!-- DESC : 마켓발주정보등록-롯데                          	        			-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte	-->
+    <!-- DESC : 마켓발주정보등록-롯데                          	        			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrRcvLotte" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-    		{call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte */
-    			SP_MRKT_ORDR_RCV_LOTTE (
-					  #{sysUserId}
-					, #{sysPrgrmId}
-					, #{ordrApcCd}
-					, #{wrhsYmd}
-					, #{ordrSeq}
-					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
-					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
-				)
-    		}
-		]]>
+        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte */
+            SP_MRKT_ORDR_RCV_LOTTE(
+                    #{sysUserId}
+                , #{sysPrgrmId}
+                , #{ordrApcCd}
+                , #{wrhsYmd}
+                , #{ordrSeq}
+                , #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+                , #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+            )
+            }
+        ]]>
 	</insert>
 
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus	-->
+    <!-- DESC : 연계처리-홈플러스                          	        				-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateMrktLinkPrcsHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    	<![CDATA[
+        UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus */
+            TB_MRKT_ORDR_IF_HP
+        SET PRCS_SE_CD   = 'Y'
+          , LINK_PRCS_DT = SYSDATE
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND ORDR_SEQ = #{ordrSeq}
+        ]]>
+	</update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte	-->
+    <!-- DESC : 연계처리-롯데                          	        				-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2023.08.24  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateMrktLinkPrcsLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    	<![CDATA[
+        UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte */
+            TB_MRKT_ORDR_IF_LT
+        SET PRCS_SE_CD   = 'Y'
+          , LINK_PRCS_DT = SYSDATE
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND ORDR_SEQ = #{ordrSeq}
+        ]]>
+	</update>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList		-->
+    <!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.18  	신정철        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO"
+            resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+        <![CDATA[
+			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList */
+				  MG.ORDR_APC_CD        AS ORDR_APC_CD
+				, MG.LGSZ_MRKT_CD       AS LGSZ_MRKT_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', MG.LGSZ_MRKT_CD) FROM DUAL)	AS LGSZ_MRKT_NM
+				, MG.OUTORDRNO      	AS OUTORDRNO
+				, MG.ORDR_SEQ       	AS ORDR_SEQ
+				, MG.MRKT_WRHS_TYPE     AS MRKT_WRHS_TYPE
+				, MG.MRKT_WRHS_TYPE_NM  AS MRKT_WRHS_TYPE_NM
+				, MG.MRKT_GDS_CD        AS MRKT_GDS_CD
+				, MG.MRKT_GDS_NM        AS MRKT_GDS_NM
+				, MG.OTPT_NM        	AS OTPT_NM
+				, MG.CNTR_CD        	AS CNTR_CD
+				, MG.CNTR_NM        	AS CNTR_NM
+				, MG.WRHS_YMD       	AS WRHS_YMD
+				, MG.OUTORDR_YMD        AS OUTORDR_YMD
+				, MG.OUTORDR_TM     	AS OUTORDR_TM
+				, MG.OUTORDR_QNTT       AS OUTORDR_QNTT
+				, MG.CFMTN_QNTT     	AS CFMTN_QNTT
+				, MG.WRHS_QNTT      	AS WRHS_QNTT
+				, MG.PRCHS_TYPE_CD      AS PRCHS_TYPE_CD
+				, MG.PRCHS_TYPE_NM      AS PRCHS_TYPE_NM
+				, MG.EXMPTN_YN      	AS EXMPTN_YN
+				, MG.PRDCTN_YR      	AS PRDCTN_YR
+				, MG.MNFTR_YMD      	AS MNFTR_YMD
+				, MG.PIECE_UNTPRC       AS PIECE_UNTPRC
+				, MG.OUTORDR_UNTPRC     AS OUTORDR_UNTPRC
+				, MG.TXAMT      		AS TXAMT
+				, MG.OUTORDR_AMT        AS OUTORDR_AMT
+				, MG.WRHS_AMT       	AS WRHS_AMT
+			  FROM TB_MRKT_GDS_ORDR MG
+			 WHERE MG.ORDR_APC_CD = #{ordrApcCd}
+			   AND MG.DEL_YN = 'N'
+		]]>
+        <if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+            AND MG.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+        </if>
+        <if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+            AND MG.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+        </if>
+        <![CDATA[
+			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- DESC : vendor별 발주정보 저장			                       	    			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.11.27  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertMrktOrdrSsgReg">
+        <selectKey keyProperty="ordrSeq" resultType="java.lang.Integer" order="BEFORE">
+            SELECT SQ_MRKT_ORDR_IF_SSG.NEXTVAL FROM DUAL
+        </selectKey>
+
+        MERGE INTO TB_MRKT_ORDR_IF_SSG T
+        USING (
+        SELECT
+        #{ordrApcCd} AS ORDR_APC_CD
+        , #{wrhsYmd} AS WRHS_YMD
+        , #{outordrno} AS OUTORDRNO
+        FROM DUAL
+        ) S
+        ON (
+        T.ORDR_APC_CD = S.ORDR_APC_CD
+        AND T.WRHS_YMD = S.WRHS_YMD
+        AND T.OUTORDRNO = S.OUTORDRNO
+        )
+
+        WHEN MATCHED THEN
+        UPDATE SET
+          ORDR_SEQ = #{ordrSeq}
+        , ORDR_CHG_DT = #{ordrChgDt}
+        , ORDR_PRCS_CD = #{ordrPrcsCd}
+        , ORDR_PRCS_DT = SYSDATE
+        , ORDR_PRCS_MSG = #{ordrPrcsMsg}
+        , LGSZ_MRKT_CD = #{lgszMrktCd}
+        , OUTORDR_AMT = #{outordrAmt}
+        , TXAMT = #{txamt}
+        , OUTORDR_YMD = #{outordrYmd}
+        , OUTORDR_TM = #{outordrTm}
+        , MRKT_WRHS_KND = #{mrktWrhsKnd}
+        , MRKT_WRHS_TYPE = #{mrktWrhsType}
+        , TRSM_YMD = #{trsmYmd}
+        , TRSM_TM = #{trsmTm}
+        , RCPTN_YMD = #{rcptnYmd}
+        , RCPTN_TM = #{rcptnTm}
+        , RCPTN_YN = #{rcptnYn}
+        , ORDRR = #{ordrr}
+        , CNTR_CD = #{cntrCd}
+        , CNTR_NM = #{cntrNm}
+        , SPLR_CD = #{splrCd}
+        , SPLR_NM = #{splrNm}
+        , USER_ID = #{userId}
+        , BPLC_CD = #{bplcCd}
+        , CO_CD = #{coCd}
+        , CO_NM = #{coNm}
+        , ORDR_DSCTN = #{ordrDsctn}
+        , PRCS_SE_CD = #{prcsSeCd}
+        , LINK_DT = #{linkDt}
+        , LINK_PRCS_DT = #{linkPrcsDt}
+        WHEN NOT MATCHED THEN
+        INSERT (
+          ORDR_APC_CD
+        , WRHS_YMD
+        , ORDR_SEQ
+        , ORDR_CRT_DT
+        , ORDR_CHG_DT
+        , ORDR_PRCS_CD
+        , ORDR_PRCS_DT
+        , ORDR_PRCS_MSG
+        , LGSZ_MRKT_CD
+        , OUTORDRNO
+        , OUTORDR_AMT
+        , TXAMT
+        , OUTORDR_YMD
+        , OUTORDR_TM
+        , MRKT_WRHS_KND
+        , MRKT_WRHS_TYPE
+        , TRSM_YMD
+        , TRSM_TM
+        , RCPTN_YMD
+        , RCPTN_TM
+        , RCPTN_YN
+        , ORDRR
+        , CNTR_CD
+        , CNTR_NM
+        , SPLR_CD
+        , SPLR_NM
+        , USER_ID
+        , BPLC_CD
+        , CO_CD
+        , CO_NM
+        , ORDR_DSCTN
+        , PRCS_SE_CD
+        , LINK_DT
+        , LINK_PRCS_DT
+        ) VALUES (
+          #{ordrApcCd}
+        , #{wrhsYmd}
+        , #{ordrSeq}
+        , SYSDATE
+        , #{ordrChgDt}
+        , #{ordrPrcsCd}
+        , #{ordrPrcsDt}
+        , #{ordrPrcsMsg}
+        , #{lgszMrktCd}
+        , #{outordrno}
+        , #{outordrAmt}
+        , #{txamt}
+        , #{outordrYmd}
+        , #{outordrTm}
+        , #{mrktWrhsKnd}
+        , #{mrktWrhsType}
+        , #{trsmYmd}
+        , #{trsmTm}
+        , #{rcptnYmd}
+        , #{rcptnTm}
+        , #{rcptnYn}
+        , #{ordrr}
+        , #{cntrCd}
+        , #{cntrNm}
+        , #{splrCd}
+        , #{splrNm}
+        , #{userId}
+        , #{bplcCd}
+        , #{coCd}
+        , #{coNm}
+        , #{ordrDsctn}
+        , #{prcsSeCd}
+        , #{linkDt}
+        , #{linkPrcsDt}
+        )
+    </insert>
+    <insert id="insertMrktOrdrSsgDtlReg">
+        MERGE INTO TB_MRKT_ORDR_IF_SSG_DTL T
+            USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
+                        , #{wrhsYmd}   AS WRHS_YMD
+                        , #{ordrSeq}   AS ORDR_SEQ
+                        , #{dtlSeq}    AS DTL_SEQ
+                   FROM DUAL) S
+            ON (
+                        T.ORDR_APC_CD = S.ORDR_APC_CD
+                    AND T.WRHS_YMD = S.WRHS_YMD
+                    AND T.ORDR_SEQ = S.ORDR_SEQ
+                    AND T.DTL_SEQ = S.DTL_SEQ
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                      MRKT_GDS_CD = #{mrktGdsCd}
+                    , MRKT_GDS_NM = #{mrktGdsNm}
+                    , MRKT_NTSL_CD = #{mrktNtslCd}
+                    , STOR_CD = #{storCd}
+                    , STOR_NM = #{storNm}
+                    , MRKT_WRHS_TYPE = #{mrktWrhsType}
+                    , MRKT_WRHS_TYPE_NM = #{mrktWrhsTypeNm}
+                    , UP_GRD_ITEM = #{upGrdItem}
+                    , BX_GDS_QNTT = #{bxGdsQntt}
+                    , ORDR_UNIT_QNTT = #{ordrUnitQntt}
+                    , OUTORDR_QNTT = #{outordrQntt}
+                    , OUTORDR_UNIT = #{outordrUnit}
+                    , PIECE_QNTT = #{pieceQntt}
+                    , ZCST_QNTT = #{zcstQntt}
+                    , PIECE_UNTPRC = #{pieceUntprc}
+                    , TXAMT = #{txamt}
+                    , OUTORDR_AMT = #{outordrAmt}
+                    , OUTORDR_UNTPRC = #{outordrUntprc}
+                    , WRHS_QNTT = #{wrhsQntt}
+                    , CNTR_WRHS_YMD = #{cntrWrhsYmd}
+                    , STOR_WRHS_YMD = #{storWrhsYmd}
+                    , DLVR_TYPE = #{dlvrType}
+                    , BNDL_NO = #{bndlNo}
+                    , GDS_EXPLN = #{gdsExpln}
+                    , RMRK_CN = #{rmrkCn}
+                    , ETC_MTTR = #{etcMttr}
+                    , ETC_DTL_CN = #{etcDtlCn}
+                    , ETC_EXPLN = #{etcExpln}
+                    , ORGNL_GDS_CD = #{orgnlGdsCd}
+                    , WRHUS_CD = #{wrhusCd}
+                    , WRHUS_NM = #{wrhusNm}
+            WHEN NOT MATCHED THEN
+                INSERT (
+                        ORDR_APC_CD, WRHS_YMD, ORDR_SEQ, OUTORDRNO, DTL_SEQ, MRKT_GDS_CD, MRKT_GDS_NM, MRKT_NTSL_CD,
+                        STOR_CD, STOR_NM, MRKT_WRHS_TYPE, MRKT_WRHS_TYPE_NM, UP_GRD_ITEM, BX_GDS_QNTT, ORDR_UNIT_QNTT,
+                        OUTORDR_QNTT, OUTORDR_UNIT, PIECE_QNTT, ZCST_QNTT, PIECE_UNTPRC, TXAMT, OUTORDR_AMT,
+                        OUTORDR_UNTPRC, WRHS_QNTT, CNTR_WRHS_YMD, STOR_WRHS_YMD, DLVR_TYPE, BNDL_NO, GDS_EXPLN, RMRK_CN,
+                        ETC_MTTR, ETC_DTL_CN, ETC_EXPLN, ORGNL_GDS_CD, WRHUS_CD, WRHUS_NM
+                    ) VALUES ( #{ordrApcCd}
+                             , #{wrhsYmd}
+                             , #{ordrSeq}
+                             , #{outordrno}
+                             , #{dtlSeq}
+                             , #{mrktGdsCd}
+                             , #{mrktGdsNm}
+                             , #{mrktNtslCd}
+                             , #{storCd}
+                             , #{storNm}
+                             , #{mrktWrhsType}
+                             , #{mrktWrhsTypeNm}
+                             , #{upGrdItem}
+                             , #{bxGdsQntt}
+                             , #{ordrUnitQntt}
+                             , #{outordrQntt}
+                             , #{outordrUnit}
+                             , #{pieceQntt}
+                             , #{zcstQntt}
+                             , #{pieceUntprc}
+                             , #{txamt}
+                             , #{outordrAmt}
+                             , #{outordrUntprc}
+                             , #{wrhsQntt}
+                             , #{cntrWrhsYmd}
+                             , #{storWrhsYmd}
+                             , #{dlvrType}
+                             , #{bndlNo}
+                             , #{gdsExpln}
+                             , #{rmrkCn}
+                             , #{etcMttr}
+                             , #{etcDtlCn}
+                             , #{etcExpln}
+                             , #{orgnlGdsCd}
+                             , #{wrhusCd}
+                             , #{wrhusNm})
+    </insert>
+    <insert id="insertMrktOrdrLtReg">
+        <selectKey keyProperty="ordrSeq" resultType="java.lang.Integer" order="BEFORE">
+            SELECT SQ_MRKT_ORDR_IF_LT.NEXTVAL FROM DUAL
+        </selectKey>
+        MERGE INTO TB_MRKT_ORDR_IF_LT T
+            USING (
+                SELECT
+                    #{ordrApcCd} AS ORDR_APC_CD
+                     , #{wrhsYmd} AS WRHS_YMD
+                     , #{outordrno} AS OUTORDRNO
+                FROM DUAL
+            ) S
+            ON (
+                        T.ORDR_APC_CD = S.ORDR_APC_CD
+                    AND T.WRHS_YMD = S.WRHS_YMD
+                    AND T.OUTORDRNO = S.OUTORDRNO
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                      ORDR_CHG_DT = SYSDATE
+                    , ORDR_PRCS_CD = #{ordrPrcsCd}
+                    , ORDR_PRCS_DT = #{ordrPrcsDt}
+                    , ORDR_PRCS_MSG = #{ordrPrcsMsg}
+                    , LGSZ_MRKT_CD = #{lgszMrktCd}
+                    , OUTORDR_AMT = #{outordrAmt}
+                    , TXAMT = #{txamt}
+                    , OUTORDR_YMD = #{outordrYmd}
+                    , MRKT_WRHS_KND = #{mrktWrhsKnd}
+                    , MRKT_WRHS_TYPE = #{mrktWrhsType}
+                    , TRSM_YMD = #{trsmYmd}
+                    , TRSM_TM = #{trsmTm}
+                    , RCPTN_YMD = #{rcptnYmd}
+                    , RCPTN_TM = #{rcptnTm}
+                    , RCPTN_YN = #{rcptnYn}
+                    , ORDRR = #{ordrr}
+                    , CNTR_CD = #{cntrCd}
+                    , CNTR_NM = #{cntrNm}
+                    , SPLR_CD = #{splrCd}
+                    , SPLR_NM = #{splrNm}
+                    , USER_ID = #{userId}
+                    , BPLC_CD = #{bplcCd}
+                    , CO_CD = #{coCd}
+                    , CO_NM = #{coNm}
+                    , WAREHOUSE_CD = #{warehouseCd}
+                    , WAREHOUSE_TXT = #{warehouseTxt}
+                    , WAREHOUSE_NM = #{warehouseNm}
+                    , ORDR_DSCTN = #{ordrDsctn}
+                    , PRCS_SE_CD = #{prcsSeCd}
+                    , LINK_DT = #{linkDt}
+                    , LINK_PRCS_DT = #{linkPrcsDt}
+            WHEN NOT MATCHED THEN
+                INSERT (
+                      ORDR_APC_CD
+                    , WRHS_YMD
+                    , ORDR_SEQ
+                    , ORDR_CRT_DT
+                    , ORDR_CHG_DT
+                    , ORDR_PRCS_CD
+                    , ORDR_PRCS_DT
+                    , ORDR_PRCS_MSG
+                    , LGSZ_MRKT_CD
+                    , OUTORDRNO
+                    , OUTORDR_AMT
+                    , TXAMT
+                    , OUTORDR_YMD
+                    , MRKT_WRHS_KND
+                    , MRKT_WRHS_TYPE
+                    , TRSM_YMD
+                    , TRSM_TM
+                    , RCPTN_YMD
+                    , RCPTN_TM
+                    , RCPTN_YN
+                    , ORDRR
+                    , CNTR_CD
+                    , CNTR_NM
+                    , SPLR_CD
+                    , SPLR_NM
+                    , USER_ID
+                    , BPLC_CD
+                    , CO_CD
+                    , CO_NM
+                    , WAREHOUSE_CD
+                    , WAREHOUSE_TXT
+                    , WAREHOUSE_NM
+                    , ORDR_DSCTN
+                    , PRCS_SE_CD
+                    , LINK_DT
+                    , LINK_PRCS_DT
+                    ) VALUES (
+                               #{ordrApcCd}
+                             , #{wrhsYmd}
+                             , #{ordrSeq}
+                             , SYSDATE
+                             , #{ordrChgDt}
+                             , #{ordrPrcsCd}
+                             , #{ordrPrcsDt}
+                             , #{ordrPrcsMsg}
+                             , #{lgszMrktCd}
+                             , #{outordrno}
+                             , #{outordrAmt}
+                             , #{txamt}
+                             , #{outordrYmd}
+                             , #{mrktWrhsKnd}
+                             , #{mrktWrhsType}
+                             , #{trsmYmd}
+                             , #{trsmTm}
+                             , #{rcptnYmd}
+                             , #{rcptnTm}
+                             , #{rcptnYn}
+                             , #{ordrr}
+                             , #{cntrCd}
+                             , #{cntrNm}
+                             , #{splrCd}
+                             , #{splrNm}
+                             , #{userId}
+                             , #{bplcCd}
+                             , #{coCd}
+                             , #{coNm}
+                             , #{warehouseCd}
+                             , #{warehouseTxt}
+                             , #{warehouseNm}
+                             , #{ordrDsctn}
+                             , #{prcsSeCd}
+                             , #{linkDt}
+                             , #{linkPrcsDt}
+                             )
+    </insert>
+    <insert id="insertMrktOrdrLtDtlReg">
+        MERGE INTO TB_MRKT_ORDR_IF_LT_DTL T
+            USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
+                        , #{wrhsYmd}   AS WRHS_YMD
+                        , #{ordrSeq}   AS ORDR_SEQ
+                        , #{dtlSeq}    AS DTL_SEQ
+                   FROM DUAL) S
+            ON (
+                        T.ORDR_APC_CD = S.ORDR_APC_CD
+                    AND T.WRHS_YMD = S.WRHS_YMD
+                    AND T.ORDR_SEQ = S.ORDR_SEQ
+                    AND T.DTL_SEQ = S.DTL_SEQ
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                      MRKT_GDS_CD = #{mrktGdsCd}
+                    , MRKT_GDS_NM = #{mrktGdsNm}
+                    , MRKT_NTSL_CD = #{mrktNtslCd}
+                    , STOR_CD = #{storCd}
+                    , STOR_NM = #{storNm}
+                    , MRKT_WRHS_TYPE = #{mrktWrhsType}
+                    , MRKT_WRHS_TYPE_NM = #{mrktWrhsTypeNm}
+                    , UP_GRD_ITEM = #{upGrdItem}
+                    , BX_GDS_QNTT = #{bxGdsQntt}
+                    , OUTORDR_QNTT = #{outordrQntt}
+                    , OUTORDR_UNIT = #{outordrUnit}
+                    , PIECE_QNTT = #{pieceQntt}
+                    , ZCST_QNTT = #{zcstQntt}
+                    , PIECE_UNTPRC = #{pieceUntprc}
+                    , TXAMT = #{txamt}
+                    , OUTORDR_AMT = #{outordrAmt}
+                    , OUTORDR_UNTPRC = #{outordrUntprc}
+                    , WRHS_QNTT = #{wrhsQntt}
+                    , CNTR_WRHS_YMD = #{cntrWrhsYmd}
+                    , STOR_WRHS_YMD = #{storWrhsYmd}
+                    , DLVR_TYPE = #{dlvrType}
+                    , BX_NO = #{bxNo}
+                    , BX_SN = #{bxSn}
+            WHEN NOT MATCHED THEN
+                INSERT (
+                      ORDR_APC_CD
+                    , WRHS_YMD
+                    , ORDR_SEQ
+                    , OUTORDRNO
+                    , DTL_SEQ
+                    , MRKT_GDS_CD
+                    , MRKT_GDS_NM
+                    , MRKT_NTSL_CD
+                    , STOR_CD
+                    , STOR_NM
+                    , MRKT_WRHS_TYPE
+                    , MRKT_WRHS_TYPE_NM
+                    , UP_GRD_ITEM
+                    , BX_GDS_QNTT
+                    , OUTORDR_QNTT
+                    , OUTORDR_UNIT
+                    , PIECE_QNTT
+                    , ZCST_QNTT
+                    , PIECE_UNTPRC
+                    , TXAMT
+                    , OUTORDR_AMT
+                    , OUTORDR_UNTPRC
+                    , WRHS_QNTT
+                    , CNTR_WRHS_YMD
+                    , STOR_WRHS_YMD
+                    , DLVR_TYPE
+                    , BX_NO
+                    , BX_SN
+                    ) VALUES (
+                               #{ordrApcCd}
+                             , #{wrhsYmd}
+                             , #{ordrSeq}
+                             , #{outordrno}
+                             , #{dtlSeq}
+                             , #{mrktGdsCd}
+                             , #{mrktGdsNm}
+                             , #{mrktNtslCd}
+                             , #{storCd}
+                             , #{storNm}
+                             , #{mrktWrhsType}
+                             , #{mrktWrhsTypeNm}
+                             , #{upGrdItem}
+                             , #{bxGdsQntt}
+                             , #{outordrQntt}
+                             , #{outordrUnit}
+                             , #{pieceQntt}
+                             , #{zcstQntt}
+                             , #{pieceUntprc}
+                             , #{txamt}
+                             , #{outordrAmt}
+                             , #{outordrUntprc}
+                             , #{wrhsQntt}
+                             , #{cntrWrhsYmd}
+                             , #{storWrhsYmd}
+                             , #{dlvrType}
+                             , #{bxNo}
+                             , #{bxSn}
+                             )
+    </insert>
+    <insert id="insertMrktOrdrCpngReg">
+        <selectKey keyProperty="ordrSeq" resultType="java.lang.Integer" order="BEFORE">
+            SELECT SQ_MRKT_ORDR_IF_CPNG.NEXTVAL FROM DUAL
+        </selectKey>
+
+        MERGE INTO TB_MRKT_ORDR_IF_CPNG T
+            USING (
+                SELECT
+                    #{ordrApcCd} AS ORDR_APC_CD
+                     , #{wrhsYmd} AS WRHS_YMD
+                     , #{outordrno} AS OUTORDRNO
+                FROM DUAL
+            ) S
+            ON (
+                        T.ORDR_APC_CD = S.ORDR_APC_CD
+                    AND T.WRHS_YMD = S.WRHS_YMD
+                    AND T.OUTORDRNO = S.OUTORDRNO
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                      ORDR_CHG_DT = SYSDATE
+                    , ORDR_PRCS_CD = #{ordrPrcsCd}
+                    , ORDR_PRCS_DT = #{ordrPrcsDt}
+                    , ORDR_PRCS_MSG = #{ordrPrcsMsg}
+                    , LGSZ_MRKT_CD = #{lgszMrktCd}
+                    , STTS_CD_NM = #{sttsCdNm}
+                    , OUTORDR_AMT = #{outordrAmt}
+                    , TXAMT = #{txamt}
+                    , OUTORDR_YMD = #{outordrYmd}
+                    , OUTORDR_TM = #{outordrTm}
+                    , MRKT_WRHS_KND = #{mrktWrhsKnd}
+                    , MRKT_WRHS_TYPE = #{mrktWrhsType}
+                    , TRSM_YMD = #{trsmYmd}
+                    , TRSM_TM = #{trsmTm}
+                    , RCPTN_YMD = #{rcptnYmd}
+                    , RCPTN_TM = #{rcptnTm}
+                    , RCPTN_YN = #{rcptnYn}
+                    , ORDRR = #{ordrr}
+                    , CNTR_CD = #{cntrCd}
+                    , CNTR_NM = #{cntrNm}
+                    , SPLR_CD = #{splrCd}
+                    , SPLR_NM = #{splrNm}
+                    , USER_ID = #{userId}
+                    , BPLC_CD = #{bplcCd}
+                    , CO_CD = #{coCd}
+                    , CO_NM = #{coNm}
+                    , ORDR_DSCTN = #{ordrDsctn}
+                    , PRCS_SE_CD = #{prcsSeCd}
+                    , LINK_DT = #{linkDt}
+                    , LINK_PRCS_DT = #{linkPrcsDt}
+            WHEN NOT MATCHED THEN
+                INSERT (
+                      ORDR_APC_CD
+                    , WRHS_YMD
+                    , ORDR_SEQ
+                    , ORDR_CRT_DT
+                    , ORDR_CHG_DT
+                    , ORDR_PRCS_CD
+                    , ORDR_PRCS_DT
+                    , ORDR_PRCS_MSG
+                    , LGSZ_MRKT_CD
+                    , OUTORDRNO
+                    , STTS_CD_NM
+                    , OUTORDR_AMT
+                    , TXAMT
+                    , OUTORDR_YMD
+                    , OUTORDR_TM
+                    , MRKT_WRHS_KND
+                    , MRKT_WRHS_TYPE
+                    , TRSM_YMD
+                    , TRSM_TM
+                    , RCPTN_YMD
+                    , RCPTN_TM
+                    , RCPTN_YN
+                    , ORDRR
+                    , CNTR_CD
+                    , CNTR_NM
+                    , SPLR_CD
+                    , SPLR_NM
+                    , USER_ID
+                    , BPLC_CD
+                    , CO_CD
+                    , CO_NM
+                    , ORDR_DSCTN
+                    , PRCS_SE_CD
+                    , LINK_DT
+                    , LINK_PRCS_DT
+                    ) VALUES (
+                               #{ordrApcCd}
+                             , #{wrhsYmd}
+                             , #{ordrSeq}
+                             , SYSDATE
+                             , #{ordrChgDt}
+                             , #{ordrPrcsCd}
+                             , #{ordrPrcsDt}
+                             , #{ordrPrcsMsg}
+                             , #{lgszMrktCd}
+                             , #{outordrno}
+                             , #{sttsCdNm}
+                             , #{outordrAmt}
+                             , #{txamt}
+                             , #{outordrYmd}
+                             , #{outordrTm}
+                             , #{mrktWrhsKnd}
+                             , #{mrktWrhsType}
+                             , #{trsmYmd}
+                             , #{trsmTm}
+                             , #{rcptnYmd}
+                             , #{rcptnTm}
+                             , #{rcptnYn}
+                             , #{ordrr}
+                             , #{cntrCd}
+                             , #{cntrNm}
+                             , #{splrCd}
+                             , #{splrNm}
+                             , #{userId}
+                             , #{bplcCd}
+                             , #{coCd}
+                             , #{coNm}
+                             , #{ordrDsctn}
+                             , #{prcsSeCd}
+                             , #{linkDt}
+                             , #{linkPrcsDt}
+                             )
+    </insert>
+    <insert id="insertMrktOrdrCpngDtlReg">
+        MERGE INTO TB_MRKT_ORDR_IF_CPNG_DTL T
+            USING (SELECT #{ordrApcCd} AS ORDR_APC_CD
+                        , #{wrhsYmd}   AS WRHS_YMD
+                        , #{ordrSeq}   AS ORDR_SEQ
+                        , #{dtlSeq}    AS DTL_SEQ
+                   FROM DUAL) S
+            ON (
+                        T.ORDR_APC_CD = S.ORDR_APC_CD
+                    AND T.WRHS_YMD = S.WRHS_YMD
+                    AND T.ORDR_SEQ = S.ORDR_SEQ
+                    AND T.DTL_SEQ = S.DTL_SEQ
+                )
+            WHEN MATCHED THEN
+                UPDATE SET
+                      MRKT_GDS_CD = #{mrktGdsCd}
+                    , MRKT_GDS_NM = #{mrktGdsNm}
+                    , MRKT_NTSL_CD = #{mrktNtslCd}
+                    , OTPT_NM = #{otptNm}
+                    , STOR_CD = #{storCd}
+                    , STOR_NM = #{storNm}
+                    , MRKT_WRHS_TYPE = #{mrktWrhsType}
+                    , MRKT_WRHS_TYPE_NM = #{mrktWrhsTypeNm}
+                    , UP_GRD_ITEM = #{upGrdItem}
+                    , BX_GDS_QNTT = #{bxGdsQntt}
+                    , ORDR_UNIT_QNTT = #{ordrUnitQntt}
+                    , OUTORDR_QNTT = #{outordrQntt}
+                    , CFMTN_QNTT = #{cfmtnQntt}
+                    , OUTORDR_UNIT = #{outordrUnit}
+                    , PIECE_QNTT = #{pieceQntt}
+                    , ZCST_QNTT = #{zcstQntt}
+                    , PIECE_UNTPRC = #{pieceUntprc}
+                    , TXAMT = #{txamt}
+                    , OUTORDR_AMT = #{outordrAmt}
+                    , OUTORDR_UNTPRC = #{outordrUntprc}
+                    , SPLY_PRC = #{splyPrc}
+                    , MNFTR_YMD = #{mnftrYmd}
+                    , PRDCTN_YR = #{prdctnYr}
+                    , RTL_TERM_YMD = #{rtlTermYmd}
+                    , ETC_RSN = #{etcRsn}
+                    , ADDRSE_NM = #{addrseNm}
+                    , ADDRSE_ADDR = #{addrseAddr}
+                    , ADDRSE_TELNO = #{addrseTelno}
+                    , DRCT_DLVR_YN = #{drctDlvrYn}
+                    , WRHS_QNTT = #{wrhsQntt}
+                    , DLVR_TYPE = #{dlvrType}
+                    , BNDL_NO = #{bndlNo}
+                    , GDS_EXPLN = #{gdsExpln}
+                    , RMRK_CN = #{rmrkCn}
+            WHEN NOT MATCHED THEN
+                INSERT (
+                      ORDR_APC_CD
+                    , WRHS_YMD
+                    , ORDR_SEQ
+                    , OUTORDRNO
+                    , DTL_SEQ
+                    , MRKT_GDS_CD
+                    , MRKT_GDS_NM
+                    , MRKT_NTSL_CD
+                    , OTPT_NM
+                    , STOR_CD
+                    , STOR_NM
+                    , MRKT_WRHS_TYPE
+                    , MRKT_WRHS_TYPE_NM
+                    , UP_GRD_ITEM
+                    , BX_GDS_QNTT
+                    , ORDR_UNIT_QNTT
+                    , OUTORDR_QNTT
+                    , CFMTN_QNTT
+                    , OUTORDR_UNIT
+                    , PIECE_QNTT
+                    , ZCST_QNTT
+                    , PIECE_UNTPRC
+                    , TXAMT
+                    , OUTORDR_AMT
+                    , OUTORDR_UNTPRC
+                    , SPLY_PRC
+                    , MNFTR_YMD
+                    , PRDCTN_YR
+                    , RTL_TERM_YMD
+                    , ETC_RSN
+                    , ADDRSE_NM
+                    , ADDRSE_ADDR
+                    , ADDRSE_TELNO
+                    , DRCT_DLVR_YN
+                    , WRHS_QNTT
+                    , DLVR_TYPE
+                    , BNDL_NO
+                    , GDS_EXPLN
+                    , RMRK_CN
+                    ) VALUES (
+                               #{ordrApcCd}
+                             , #{wrhsYmd}
+                             , #{ordrSeq}
+                             , #{outordrno}
+                             , #{dtlSeq}
+                             , #{mrktGdsCd}
+                             , #{mrktGdsNm}
+                             , #{mrktNtslCd}
+                             , #{otptNm}
+                             , #{storCd}
+                             , #{storNm}
+                             , #{mrktWrhsType}
+                             , #{mrktWrhsTypeNm}
+                             , #{upGrdItem}
+                             , #{bxGdsQntt}
+                             , #{ordrUnitQntt}
+                             , #{outordrQntt}
+                             , #{cfmtnQntt}
+                             , #{outordrUnit}
+                             , #{pieceQntt}
+                             , #{zcstQntt}
+                             , #{pieceUntprc}
+                             , #{txamt}
+                             , #{outordrAmt}
+                             , #{outordrUntprc}
+                             , #{splyPrc}
+                             , #{mnftrYmd}
+                             , #{prdctnYr}
+                             , #{rtlTermYmd}
+                             , #{etcRsn}
+                             , #{addrseNm}
+                             , #{addrseAddr}
+                             , #{addrseTelno}
+                             , #{drctDlvrYn}
+                             , #{wrhsQntt}
+                             , #{dlvrType}
+                             , #{bndlNo}
+                             , #{gdsExpln}
+                             , #{rmrkCn}
+                             )
+    </insert>
+
+    <select id="selectMrktGdsOrdrSsgList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT
+              OISD.ORDR_APC_CD AS ordrApcCd
+            , OISD.WRHS_YMD AS wrhsYmd
+            , OISD.ORDR_SEQ AS ordrSeq
+            , OISD.OUTORDRNO AS outordrno
+            , OISD.DTL_SEQ AS dtlSeq
+            , OISD.MRKT_GDS_CD AS mrktGdsCd
+            , OISD.MRKT_GDS_NM AS mrktGdsNm
+            , OISD.MRKT_NTSL_CD AS mrktNtslCd
+            , OISD.STOR_CD AS storCd
+            , OISD.STOR_NM AS storNm
+            , OISD.MRKT_WRHS_TYPE AS mrktWrhsType
+            , OISD.MRKT_WRHS_TYPE_NM AS mrktWrhsTypeNm
+            , OISD.UP_GRD_ITEM AS upGrdItem
+            , OISD.BX_GDS_QNTT AS bxGdsQntt
+            , OISD.ORDR_UNIT_QNTT AS ordrUnitQntt
+            , OISD.OUTORDR_QNTT AS outordrQntt
+            , OISD.OUTORDR_UNIT AS outordrUnit
+            , OISD.PIECE_QNTT AS pieceQntt
+            , OISD.ZCST_QNTT AS zcstQntt
+            , OISD.PIECE_UNTPRC AS pieceUntprc
+            , OISD.TXAMT AS txamt
+            , OISD.OUTORDR_AMT AS outordrAmt
+            , OISD.OUTORDR_UNTPRC AS outordrUntprc
+            , OISD.WRHS_QNTT AS wrhsQntt
+            , OISD.CNTR_WRHS_YMD AS cntrWrhsYmd
+            , OISD.STOR_WRHS_YMD AS storWrhsYmd
+            , OISD.DLVR_TYPE AS dlvrType
+            , OISD.BNDL_NO AS bndlNo
+            , OISD.GDS_EXPLN AS gdsExpln
+            , OISD.RMRK_CN AS rmrkCn
+            , OISD.ETC_MTTR AS etcMttr
+            , OISD.ETC_DTL_CN AS etcDtlCn
+            , OISD.ETC_EXPLN AS etcExpln
+            , OISD.ORGNL_GDS_CD AS orgnlGdsCd
+            , OISD.WRHUS_CD AS wrhusCd
+            , OISD.WRHUS_NM AS wrhusNm
+        FROM
+             TB_MRKT_ORDR_IF_SSG AS OIS
+        JOIN TB_MRKT_ORDR_IF_SSG_DTL AS OISD
+            ON OIS.ORDR_APC_CD = OISD.ORDR_APC_CD
+            AND OIS.WRHS_YMD = OISD.WRHS_YMD
+            AND OIS.ORDR_SEQ = OISD.ORDR_SEQ
+            AND OIS.OUTORDRNO = OISD.OUTORDRNO
+
+        WHERE OIS.ORDR_APC_CD = #{ordrApcCd}
+          AND OIS.LGSZ_MRKT_CD = #{lgszMrktCd}
+          AND OIS.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+          AND OISD.MRKT_GDS_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OISD.OUTORDRNO, OISD.DTL_SEQ
+    </select>
+    <select id="selectMrktGdsOrdrLtList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT pt0.*, PU.VOL_UNIT_WGHT
+        FROM
+        (
+        SELECT
+              OILD.ORDR_APC_CD AS ORDR_APC_CD
+            , OILD.WRHS_YMD AS WRHS_YMD
+            , OILD.ORDR_SEQ AS ORDR_SEQ
+            , OILD.OUTORDRNO AS OUTORDRNO
+            , OILD.DTL_SEQ AS DTL_SEQ
+            , OILD.MRKT_GDS_CD AS MRKT_GDS_CD
+            , OILD.MRKT_GDS_NM AS MRKT_GDS_NM
+            , OILD.MRKT_NTSL_CD AS MRKT_NTSL_CD
+            , OILD.STOR_CD AS STOR_CD
+            , OILD.STOR_NM AS STOR_NM
+            , OILD.MRKT_WRHS_TYPE AS MRKT_WRHS_TYPE
+            , OILD.MRKT_WRHS_TYPE_NM AS MRKT_WRHS_TYPE_NM
+            , OILD.UP_GRD_ITEM AS UP_GRD_ITEM
+            , OILD.BX_GDS_QNTT AS BX_GDS_QNTT
+            , OILD.OUTORDR_QNTT AS OUTORDR_QNTT
+            , OILD.OUTORDR_UNIT AS OUTORDR_UNIT
+            , OILD.PIECE_QNTT AS PIECE_QNTT
+            , OILD.ZCST_QNTT AS ZCST_QNTT
+            , OILD.PIECE_UNTPRC AS PIECE_UNTPRC
+            , OILD.TXAMT AS TXAMT
+            , OILD.OUTORDR_AMT AS OUTORDR_AMT
+            , OILD.OUTORDR_UNTPRC AS OUTORDR_UNTPRC
+            , OILD.WRHS_QNTT AS WRHS_QNTT
+            , OILD.CNTR_WRHS_YMD AS CNTR_WRHS_YMD
+            , OILD.STOR_WRHS_YMD AS STOR_WRHS_YMD
+            , OILD.DLVR_TYPE AS DLVR_TYPE
+            , OILD.BX_NO AS BX_NO
+            , OILD.BX_SN AS BX_SN
+            , OIL.CNTR_NM AS CNTR_NM
+            , OIL.CNTR_CD AS CNTR_CD
+            , OIL.OUTORDR_YMD AS OUTORDR_YMD
+        FROM
+             TB_MRKT_ORDR_IF_LT AS OIL
+        JOIN TB_MRKT_ORDR_IF_LT_DTL AS OILD
+            ON OIL.ORDR_APC_CD = OILD.ORDR_APC_CD
+            AND OIL.WRHS_YMD = OILD.WRHS_YMD
+            AND OIL.ORDR_SEQ = OILD.ORDR_SEQ
+            AND OIL.OUTORDRNO = OILD.OUTORDRNO
+
+        WHERE OIL.ORDR_APC_CD = #{ordrApcCd}
+        AND OIL.LGSZ_MRKT_CD = #{lgszMrktCd}
+        AND OIL.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+            AND OILD.MRKT_NTSL_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OILD.OUTORDRNO, OILD.DTL_SEQ
+        )pt0
+        JOIN TB_SPMT_PCKG_UNIT AS PU
+            ON pt0.ORDR_APC_CD = PU.APC_CD
+            AND pt0.MRKT_GDS_NM = PU.SPMT_PCKG_UNIT_NM
+        ORDER BY pt0.STOR_CD DESC , PU.VOL_UNIT_WGHT DESC
+    </select>
+    <select id="selectMrktGdsOrdrCpngList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+        SELECT
+              OICD.ORDR_APC_CD AS ordrApcCd
+            , OICD.WRHS_YMD AS wrhsYmd
+            , OICD.ORDR_SEQ AS ordrSeq
+            , OICD.OUTORDRNO AS outordrno
+            , OICD.DTL_SEQ AS dtlSeq
+            , OICD.MRKT_GDS_CD AS mrktGdsCd
+            , OICD.MRKT_GDS_NM AS mrktGdsNm
+            , OICD.MRKT_NTSL_CD AS mrktNtslCd
+            , OICD.OTPT_NM AS otptNm
+            , OICD.STOR_CD AS storCd
+            , OICD.STOR_NM AS storNm
+            , OICD.MRKT_WRHS_TYPE AS mrktWrhsType
+            , OICD.MRKT_WRHS_TYPE_NM AS mrktWrhsTypeNm
+            , OICD.UP_GRD_ITEM AS upGrdItem
+            , OICD.BX_GDS_QNTT AS bxGdsQntt
+            , OICD.ORDR_UNIT_QNTT AS ordrUnitQntt
+            , OICD.OUTORDR_QNTT AS outordrQntt
+            , OICD.CFMTN_QNTT AS cfmtnQntt
+            , OICD.OUTORDR_UNIT AS outordrUnit
+            , OICD.PIECE_QNTT AS pieceQntt
+            , OICD.ZCST_QNTT AS zcstQntt
+            , OICD.PIECE_UNTPRC AS pieceUntprc
+            , OICD.TXAMT AS txamt
+            , OICD.OUTORDR_AMT AS outordrAmt
+            , OICD.OUTORDR_UNTPRC AS outordrUntprc
+            , OICD.SPLY_PRC AS splyPrc
+            , OICD.MNFTR_YMD AS mnftrYmd
+            , OICD.PRDCTN_YR AS prdctnYr
+            , OICD.RTL_TERM_YMD AS rtlTermYmd
+            , OICD.ETC_RSN AS etcRsn
+            , OICD.ADDRSE_NM AS addrseNm
+            , OICD.ADDRSE_ADDR AS addrseAddr
+            , OICD.ADDRSE_TELNO AS addrseTelno
+            , OICD.DRCT_DLVR_YN AS drctDlvrYn
+            , OICD.WRHS_QNTT AS wrhsQntt
+            , OICD.DLVR_TYPE AS dlvrType
+            , OICD.BNDL_NO AS bndlNo
+            , OICD.GDS_EXPLN AS gdsExpln
+            , OICD.RMRK_CN AS rmrkCn
+        FROM
+             TB_MRKT_ORDR_IF_CPNG AS OIC
+        JOIN TB_MRKT_ORDR_IF_CPNG_DTL AS OICD
+            ON OIC.ORDR_APC_CD = OICD.ORDR_APC_CD
+            AND OIC.WRHS_YMD = OICD.WRHS_YMD
+            AND OIC.ORDR_SEQ = OICD.ORDR_SEQ
+            AND OIC.OUTORDRNO = OICD.OUTORDRNO
+
+        WHERE OIC.ORDR_APC_CD = #{ordrApcCd}
+        AND OIC.LGSZ_MRKT_CD = #{lgszMrktCd}
+        AND OIC.OUTORDR_YMD = #{outordrYmd}
+        <if test='mrktGdsCd != null and mrktGdsCd != ""'>
+            AND OICD.MRKT_GDS_CD = #{mrktGdsCd}
+        </if>
+        ORDER BY OICD.OUTORDRNO, OICD.DTL_SEQ
+    </select>
+    <select id="selectMrktOrdrSeqLt" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_LT
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
+    <select id="selectMrktOrdrSeqSsg" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_SSG
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
+    <select id="selectMrktOrdrSeqCpng" resultType="java.lang.Integer">
+        SELECT
+            ORDR_SEQ
+        FROM
+            TB_MRKT_ORDR_IF_CPNG
+        WHERE ORDR_APC_CD = #{ordrApcCd}
+          AND WRHS_YMD = #{wrhsYmd}
+          AND OUTORDRNO = #{outordrno}
+    </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus	-->
-	<!-- DESC : 연계처리-홈플러스                          	        				-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList		-->
+	<!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
+	<!-- 2025.11.18  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateMrktLinkPrcsHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
-    	<![CDATA[
-			UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus */
-				TB_MRKT_ORDR_IF_HP
-			SET
-				  PRCS_SE_CD	= 'Y'
-				, LINK_PRCS_DT	= SYSDATE
-			 WHERE ORDR_APC_CD = #{ordrApcCd}
-			   AND WRHS_YMD = #{wrhsYmd}
-			   AND ORDR_SEQ = #{ordrSeq}
+	<select id="selectUntyMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList */
+				  A.ORDR_APC_CD         AS ORDR_APC_CD
+				, A.WRHS_YMD            AS WRHS_YMD
+				, A.ORDR_SEQ            AS ORDR_SEQ
+				, A.ORDR_CRT_DT         AS ORDR_CRT_DT
+				, A.ORDR_CHG_DT         AS ORDR_CHG_DT
+				, A.ORDR_PRCS_CD        AS ORDR_PRCS_CD
+				, A.ORDR_PRCS_DT        AS ORDR_PRCS_DT
+				, A.ORDR_PRCS_MSG       AS ORDR_PRCS_MSG
+				, A.LGSZ_MRKT_CD        AS LGSZ_MRKT_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', A.LGSZ_MRKT_CD) FROM DUAL)    AS LGSZ_MRKT_NM
+				, A.OUTORDRNO           AS OUTORDRNO
+				, A.STTS_CD_NM          AS STTS_CD_NM
+				, A.TOT_OUTORDR_AMT     AS TOT_OUTORDR_AMT
+				, A.TOT_TXAMT           AS TOT_TXAMT
+				, A.OUTORDR_YMD         AS OUTORDR_YMD
+				, A.OUTORDR_TM          AS OUTORDR_TM
+				, A.TRSM_YMD            AS TRSM_YMD
+				, A.TRSM_TM             AS TRSM_TM
+				, A.RCPTN_YMD           AS RCPTN_YMD
+				, A.RCPTN_TM            AS RCPTN_TM
+				, A.RCPTN_YN            AS RCPTN_YN
+				, A.ORDRR               AS ORDRR
+				, A.CNTR_CD             AS CNTR_CD
+				, A.CNTR_NM             AS CNTR_NM
+				, A.SPLR_CD             AS SPLR_CD
+				, A.SPLR_NM             AS SPLR_NM
+				, A.USER_ID             AS USER_ID
+				, A.BPLC_CD             AS BPLC_CD
+				, A.CO_CD               AS CO_CD
+				, A.CO_NM               AS CO_NM
+				, A.ORDR_DSCTN          AS ORDR_DSCTN
+				, A.PRCS_SE_CD          AS PRCS_SE_CD
+				, A.LINK_DT             AS LINK_DT
+				, A.LINK_PRCS_DT        AS LINK_PRCS_DT
+				, A.DTL_SEQ             AS DTL_SEQ
+				, A.MRKT_GDS_CD         AS MRKT_GDS_CD
+				, A.MRKT_GDS_NM         AS MRKT_GDS_NM
+				, A.MRKT_NTSL_CD        AS MRKT_NTSL_CD
+				, A.OTPT_NM             AS OTPT_NM
+				, A.STOR_CD             AS STOR_CD
+				, A.STOR_NM             AS STOR_NM
+				, A.MRKT_WRHS_TYPE      AS MRKT_WRHS_TYPE
+				, A.MRKT_WRHS_TYPE_NM   AS MRKT_WRHS_TYPE_NM
+				, A.UP_GRD_ITEM         AS UP_GRD_ITEM
+				, A.BX_GDS_QNTT         AS BX_GDS_QNTT
+				, A.ORDR_UNIT_QNTT      AS ORDR_UNIT_QNTT
+				, A.OUTORDR_QNTT        AS OUTORDR_QNTT
+				, A.CFMTN_QNTT          AS CFMTN_QNTT
+				, A.OUTORDR_UNIT        AS OUTORDR_UNIT
+				, A.PIECE_QNTT          AS PIECE_QNTT
+				, A.ZCST_QNTT           AS ZCST_QNTT
+				, A.PIECE_UNTPRC        AS PIECE_UNTPRC
+				, A.TXAMT               AS TXAMT
+				, A.OUTORDR_AMT         AS OUTORDR_AMT
+				, A.OUTORDR_UNTPRC      AS OUTORDR_UNTPRC
+				, A.SPLY_PRC            AS SPLY_PRC
+				, A.MNFTR_YMD           AS MNFTR_YMD
+				, A.PRDCTN_YR           AS PRDCTN_YR
+				, A.RTL_TERM_YMD        AS RTL_TERM_YMD
+				, A.ETC_RSN             AS ETC_RSN
+				, A.ADDRSE_NM           AS ADDRSE_NM
+				, A.ADDRSE_ADDR         AS ADDRSE_ADDR
+				, A.ADDRSE_TELNO        AS ADDRSE_TELNO
+				, A.DRCT_DLVR_YN        AS DRCT_DLVR_YN
+				, A.WRHS_QNTT           AS WRHS_QNTT
+				, A.DLVR_TYPE           AS DLVR_TYPE
+				, A.BNDL_NO             AS BNDL_NO
+				, A.GDS_EXPLN           AS GDS_EXPLN
+				, A.RMRK_CN             AS RMRK_CN
+				, A.CNTR_WRHS_YMD       AS CNTR_WRHS_YMD
+				, A.STOR_WRHS_YMD       AS STOR_WRHS_YMD
+				, A.BX_NO               AS BX_NO
+				, A.BX_SN               AS BX_SN
+				, A.ETC_MTTR            AS ETC_MTTR
+				, A.ETC_DTL_CN          AS ETC_DTL_CN
+				, A.ETC_EXPLN           AS ETC_EXPLN
+				, A.ORGNL_GDS_CD        AS ORGNL_GDS_CD
+				, A.WRHUS_CD            AS WRHUS_CD
+				, A.WRHUS_NM            AS WRHUS_NM
+				  FROM (
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, MO.STTS_CD_NM		AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, MO.OUTORDR_TM		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, MD.OTPT_NM		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, MD.ORDR_UNIT_QNTT		AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+					, MD.CFMTN_QNTT		AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, MD.SPLY_PRC		AS SPLY_PRC
+					, MD.MNFTR_YMD		AS MNFTR_YMD
+					, MD.PRDCTN_YR		AS PRDCTN_YR
+					, MD.RTL_TERM_YMD	AS RTL_TERM_YMD
+					, MD.ETC_RSN		AS ETC_RSN
+					, MD.ADDRSE_NM		AS ADDRSE_NM
+					, MD.ADDRSE_ADDR	AS ADDRSE_ADDR
+					, MD.ADDRSE_TELNO	AS ADDRSE_TELNO
+					, MD.DRCT_DLVR_YN	AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE		AS DLVR_TYPE
+					, MD.BNDL_NO		AS BNDL_NO
+					, MD.GDS_EXPLN		AS GDS_EXPLN
+					, MD.RMRK_CN		AS RMRK_CN
+					, NULL              AS CNTR_WRHS_YMD
+					, NULL              AS STOR_WRHS_YMD
+					, NULL              AS BX_NO
+					, NULL              AS BX_SN
+					, NULL              AS ETC_MTTR
+					, NULL              AS ETC_DTL_CN
+					, NULL              AS ETC_EXPLN
+					, NULL              AS ORGNL_GDS_CD
+					, NULL              AS WRHUS_CD
+					, NULL              AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_CPNG MO
+				  JOIN TB_MRKT_ORDR_IF_CPNG_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
 		]]>
-	</update>
-
-	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte	-->
-	<!-- DESC : 연계처리-롯데                          	        				-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
-	<!-- ==========================================================================	-->
-	<update id="updateMrktLinkPrcsLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
-    	<![CDATA[
-			UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte */
-				TB_MRKT_ORDR_IF_LT
-			SET
-				  PRCS_SE_CD	= 'Y'
-				, LINK_PRCS_DT	= SYSDATE
-			WHERE ORDR_APC_CD = #{ordrApcCd}
-			  AND WRHS_YMD = #{wrhsYmd}
-			  AND ORDR_SEQ = #{ordrSeq}
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				UNION ALL
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, NULL		        AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, NULL      		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, NULL      		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, NULL		        AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT	AS OUTORDR_QNTT
+					, NULL		        AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, NULL		        AS SPLY_PRC
+					, NULL		        AS MNFTR_YMD
+					, NULL		        AS PRDCTN_YR
+					, NULL		        AS RTL_TERM_YMD
+					, NULL		        AS ETC_RSN
+					, NULL		        AS ADDRSE_NM
+					, NULL		        AS ADDRSE_ADDR
+					, NULL		        AS ADDRSE_TELNO
+					, NULL		        AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE      AS DLVR_TYPE
+					, NULL		        AS BNDL_NO
+					, NULL		        AS GDS_EXPLN
+					, NULL		        AS RMRK_CN
+					, MD.CNTR_WRHS_YMD  AS CNTR_WRHS_YMD
+					, MD.STOR_WRHS_YMD  AS STOR_WRHS_YMD
+					, MD.BX_NO          AS BX_NO
+					, MD.BX_SN          AS BX_SN
+					, NULL              AS ETC_MTTR
+					, NULL              AS ETC_DTL_CN
+					, NULL              AS ETC_EXPLN
+					, NULL              AS ORGNL_GDS_CD
+					, NULL              AS WRHUS_CD
+					, NULL              AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_LT MO
+				  JOIN TB_MRKT_ORDR_IF_LT_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
+                   AND (
+                        (MO.LGSZ_MRKT_CD = '32' AND MD.BX_NO IS NOT NULL)
+                        OR
+                        MO.LGSZ_MRKT_CD <> '32'
+                    )
 		]]>
-	</update>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				UNION ALL
+				SELECT
+					  MO.ORDR_APC_CD	AS ORDR_APC_CD
+					, MO.WRHS_YMD		AS WRHS_YMD
+					, MO.ORDR_SEQ		AS ORDR_SEQ
+					, MO.ORDR_CRT_DT	AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT	AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD	AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT	AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG	AS ORDR_PRCS_MSG
+					, MO.LGSZ_MRKT_CD	AS LGSZ_MRKT_CD
+					, MO.OUTORDRNO		AS OUTORDRNO
+					, NULL		        AS STTS_CD_NM
+					, MO.OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.TXAMT		    AS TOT_TXAMT
+					, MO.OUTORDR_YMD	AS OUTORDR_YMD
+					, NULL      		AS OUTORDR_TM
+					, MO.TRSM_YMD		AS TRSM_YMD
+					, MO.TRSM_TM		AS TRSM_TM
+					, MO.RCPTN_YMD		AS RCPTN_YMD
+					, MO.RCPTN_TM		AS RCPTN_TM
+					, MO.RCPTN_YN		AS RCPTN_YN
+					, MO.ORDRR		    AS ORDRR
+					, MO.CNTR_CD		AS CNTR_CD
+					, MO.CNTR_NM		AS CNTR_NM
+					, MO.SPLR_CD		AS SPLR_CD
+					, MO.SPLR_NM		AS SPLR_NM
+					, MO.USER_ID		AS USER_ID
+					, MO.BPLC_CD		AS BPLC_CD
+					, MO.CO_CD		    AS CO_CD
+					, MO.CO_NM		    AS CO_NM
+					, MO.ORDR_DSCTN		AS ORDR_DSCTN
+					, MO.PRCS_SE_CD		AS PRCS_SE_CD
+					, MO.LINK_DT		AS LINK_DT
+					, MO.LINK_PRCS_DT	AS LINK_PRCS_DT
+					, MD.DTL_SEQ		AS DTL_SEQ
+					, MD.MRKT_GDS_CD	AS MRKT_GDS_CD
+					, MD.MRKT_GDS_NM	AS MRKT_GDS_NM
+					, MD.MRKT_NTSL_CD	AS MRKT_NTSL_CD
+					, NULL      		AS OTPT_NM
+					, MD.STOR_CD		AS STOR_CD
+					, MD.STOR_NM		AS STOR_NM
+					, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MD.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MD.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, NULL		AS ORDR_UNIT_QNTT
+					, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+					, NULL		        AS CFMTN_QNTT
+					, MD.OUTORDR_UNIT	AS OUTORDR_UNIT
+					, MD.PIECE_QNTT		AS PIECE_QNTT
+					, MD.ZCST_QNTT		AS ZCST_QNTT
+					, MD.PIECE_UNTPRC	AS PIECE_UNTPRC
+					, MD.TXAMT		    AS TXAMT
+					, MD.OUTORDR_AMT	AS OUTORDR_AMT
+					, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+					, NULL		        AS SPLY_PRC
+					, NULL		        AS MNFTR_YMD
+					, NULL		        AS PRDCTN_YR
+					, NULL		        AS RTL_TERM_YMD
+					, NULL		        AS ETC_RSN
+					, NULL		        AS ADDRSE_NM
+					, NULL		        AS ADDRSE_ADDR
+					, NULL		        AS ADDRSE_TELNO
+					, NULL		        AS DRCT_DLVR_YN
+					, MD.WRHS_QNTT		AS WRHS_QNTT
+					, MD.DLVR_TYPE		AS DLVR_TYPE
+					, MD.BNDL_NO		AS BNDL_NO
+					, MD.GDS_EXPLN		AS GDS_EXPLN
+					, MD.RMRK_CN		AS RMRK_CN
+					, MD.CNTR_WRHS_YMD  AS CNTR_WRHS_YMD
+					, MD.STOR_WRHS_YMD  AS STOR_WRHS_YMD
+					, NULL              AS BX_NO
+					, NULL              AS BX_SN
+					, MD.ETC_MTTR       AS ETC_MTTR
+					, MD.ETC_DTL_CN     AS ETC_DTL_CN
+					, MD.ETC_EXPLN      AS ETC_EXPLN
+					, MD.ORGNL_GDS_CD   AS ORGNL_GDS_CD
+					, MD.WRHUS_CD       AS WRHUS_CD
+					, MD.WRHUS_NM       AS WRHUS_NM
+				  FROM TB_MRKT_ORDR_IF_SSG MO
+				  JOIN TB_MRKT_ORDR_IF_SSG_DTL MD
+					ON MD.ORDR_APC_CD = MO.ORDR_APC_CD
+				   AND MD.WRHS_YMD    = MO.WRHS_YMD
+				   AND MD.ORDR_SEQ    = MO.ORDR_SEQ
+                 WHERE MO.ORDR_APC_CD = #{ordrApcCd}
+		]]>
+		<if test='wrhsYmdFrom != null and wrhsYmdFrom != ""'>
+				   AND MO.WRHS_YMD <![CDATA[>=]]> #{wrhsYmdFrom}
+		</if>
+		<if test='wrhsYmdTo != null and wrhsYmdTo != ""'>
+				   AND MO.WRHS_YMD <![CDATA[<=]]> #{wrhsYmdTo}
+		</if>
+		<![CDATA[
+				) A
+			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ
+		]]>
+	</select>
 
 
 </mapper>

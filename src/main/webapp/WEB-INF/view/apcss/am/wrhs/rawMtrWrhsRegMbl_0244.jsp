@@ -125,7 +125,9 @@
             vertical-align: middle;
             border-right: hidden;
         }
-
+        #td-gdsSeCd > div {
+            font-size: 17pt;
+        }
     </style>
 
 </head>
@@ -285,6 +287,21 @@
                     </td>
                 </tr>
                 <tr>
+                    <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>상품구분</th>
+                    <td colspan="11" id="td-gdsSeCd" class="td_input" style="border-right: hidden;">
+                        <sbux-radio
+                            id="srch-rdo-gdsSeCd"
+                            name="srch-rdo-gdsSeCd"
+                            uitype="normal"
+                            class="radio_label"
+                            text-right-padding="10px"
+                            jsondata-ref="jsonComGdsSeCd"
+                            jsondata-text="cdVlNm"
+                            jsondata-value="cdVl"
+                        ></sbux-radio>
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>입고일자</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
@@ -351,23 +368,6 @@
                                 class="radio_label"
                                 text-right-padding="10px"
                                 jsondata-ref="jsonComWrhsSeCd"
-                                jsondata-text="cdVlNm"
-                                jsondata-value="cdVl"
-                            />
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row" class="th_bg"><span class="data_required"></span>상품구분</th>
-                    <td colspan="11" class="td_input">
-                        <p class="ad_input_row">
-                            <sbux-radio
-                                id="srch-rdo-gdsSeCd"
-                                name="srch-rdo-gdsSeCd"
-                                uitype="normal"
-                                class="radio_label"
-                                text-right-padding="10px"
-                                jsondata-ref="jsonComGdsSeCd"
                                 jsondata-text="cdVlNm"
                                 jsondata-value="cdVl"
                             />
@@ -581,6 +581,13 @@
      * @description SBRadio JSON 불러오기
      */
     const fn_initSBRadio = async function() {
+        let result = await Promise.all([
+            gfn_getComCdDtls('GDS_SE_CD', gv_selectedApcCd)    // 상품구분
+        ]);
+
+        jsonComGdsSeCd = result[0];
+
+        SBUxMethod.refresh('srch-rdo-gdsSeCd');
 
         /*
         let result = await Promise.all([
@@ -833,7 +840,7 @@
         let wrhsno = SBUxMethod.get("srch-inp-wrhsno"); 		// 입고번호
         let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");		// 입고일자
         //let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");	// 입고구분
-        //let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
+        let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
         //let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
         let itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
@@ -853,7 +860,7 @@
         // let prdctnYr = SBUxMethod.get("srch-dtp-prdctnYr");		// 생산연도
 
         let wrhsSeCd = "2";			// 입고구분 : 수탁
-        let gdsSeCd = "1";			// 상품구분
+        // let gdsSeCd = "1";			// 상품구분
         let trsprtSeCd = "1";		// 운송구분
 
         // validation check
@@ -1385,7 +1392,8 @@
         SBUxMethod.set("srch-inp-wrhsno", "");
         // 팔레트번호
         SBUxMethod.set("srch-inp-pltno", "");
-
+        // 상품구분
+        SBUxMethod.set("srch-rdo-gdsSeCd", "1");
     }
 
     const fn_close = function(){
@@ -1474,6 +1482,7 @@
                     '<td>' + (item.bxQntt|| '') + '</td>' +
                     '<td>' + (formattedDate|| '') + '</td>' +
                     '<td>' + (formattedTime|| '') + '</td>' +
+                    '<td style="display:none">' + (item.gdsSeCd|| '') + '</td>' +
                     '</tr>';
                 $("#latestInfoBody").append(element);
             });
@@ -1503,6 +1512,7 @@
         $('#srch-inp-pltno').css('display','block');
         SBUxMethod.set("srch-inp-pltno",rawMtrWrhs[0].pltno);
         SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
+        SBUxMethod.set("srch-rdo-gdsSeCd", rawMtrWrhs[0].gdsSeCd);
         //품목 품종 세팅 필요값 설정
         rawMtrWrhs[0].rprsVrtyCd =rawMtrWrhs[0].vrtyCd;
         rawMtrWrhs[0].rprsItemCd =rawMtrWrhs[0].itemCd;

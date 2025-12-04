@@ -682,14 +682,14 @@
 
     	grdCorpApc.clearStatus();
 
-    	const untyOgnzNm = SBUxMethod.get("srch-inp-untyOgnzNm");
+    	const ognzNm = SBUxMethod.get("srch-inp-ognzNm");
     	const apcCd = SBUxMethod.get("srch-inp-apcCd");
     	const apcNm = SBUxMethod.get("srch-inp-apcNm");
     	
         try {
         	
         	const postJsonPromise = gfn_postJSON("/co/ognz/selectCorpApcList.do", {
-            	untyOgnzNm: untyOgnzNm,
+            	ognzNm: ognzNm,
             	apcCd: apcCd,
             	apcNm: apcNm,
             	// pagination
