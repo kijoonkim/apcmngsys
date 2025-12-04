@@ -1,9 +1,9 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.spmt.vo.SpmtTrsprtVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtTrsprtVO;
 
 /**
  * 출하운송회사정보 Service 인터페이스

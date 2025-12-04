@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
-import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO;
 
 import java.util.HashMap;
 import java.util.List;

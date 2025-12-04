@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.mapper.DdlnMapper;
-import com.at.apcss.am.cmns.service.DdlnService;
-import com.at.apcss.am.cmns.vo.DdlnVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.cmns.mapper.DdlnMapper;
+import com.apcmngsys.apcss.am.cmns.service.DdlnService;
+import com.apcmngsys.apcss.am.cmns.vo.DdlnVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : WrhsVhclServiceImpl.java

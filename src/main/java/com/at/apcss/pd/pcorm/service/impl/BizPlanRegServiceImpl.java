@@ -1,14 +1,14 @@
-package com.at.apcss.pd.pcorm.service.impl;
+package com.apcmngsys.apcss.pd.pcorm.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pcorm.mapper.BizPlanRegMapper;
-import com.at.apcss.pd.pcorm.service.BizPlanRegService;
-import com.at.apcss.pd.pcorm.vo.BizPlanRegFileVO;
-import com.at.apcss.pd.pcorm.vo.BizPlanRegVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanRegMapper;
+import com.apcmngsys.apcss.pd.pcorm.service.BizPlanRegService;
+import com.apcmngsys.apcss.pd.pcorm.vo.BizPlanRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.BizPlanRegVO;
 
 /**
  * @Class Name : BizPlanRegServiceImpl.java

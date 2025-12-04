@@ -1,10 +1,10 @@
-package com.at.apcss.fm.bbs.service;
+package com.apcmngsys.apcss.fm.bbs.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.fm.bbs.vo.BbsFileVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsFileVO;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsVO;
 
 
 /**

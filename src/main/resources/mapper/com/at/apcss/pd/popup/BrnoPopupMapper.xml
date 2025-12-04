@@ -10,17 +10,17 @@
 <!-- 2024.10.17  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.popup.mapper.BrnoPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoList			-->
+	<!-- NAME : com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoList			-->
 	<!-- DESC : 통합조직 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBrnoList" parameterType="com.at.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.at.apcss.pd.popup.vo.BrnoPopupVO">
+	<select id="selectBrnoList" parameterType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -32,7 +32,7 @@
 		<!-- End 페이징 -->
 
 			<![CDATA[
-			SELECT /* com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoList */
+			SELECT /* com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoList */
 				MAX(A.OGNZ_NM)	AS CORP_NM
 				, A.BRNO		AS BRNO
 				, MAX(A.OGNZ_CD)	AS APO_CD
@@ -59,14 +59,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectAplyBrnoList		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectAplyBrnoList		-->
 	<!-- DESC : 통합조직 신청 리스트	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectAplyBrnoList" parameterType="com.at.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.at.apcss.pd.popup.vo.BrnoPopupVO">
+	<select id="selectAplyBrnoList" parameterType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -78,7 +78,7 @@
 		<!-- End 페이징 -->
 
 			<![CDATA[
-			SELECT /* com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectAplyBrnoList */
+			SELECT /* com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectAplyBrnoList */
 				EAM.BRNO
 				, EAM.APO_CD
 
@@ -109,14 +109,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoMngList		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoMngList		-->
 	<!-- DESC : 통합조직 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBrnoMngList" parameterType="com.at.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.at.apcss.pd.popup.vo.BrnoPopupVO">
+	<select id="selectBrnoMngList" parameterType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO" resultType="com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -128,7 +128,7 @@
 		<!-- End 페이징 -->
 
 			<![CDATA[
-			SELECT /* com.at.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoMngList */
+			SELECT /* com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper.selectBrnoMngList */
 				TEA.BRNO
 				,TEA.CORP_NM
 				,TEA.CRNO

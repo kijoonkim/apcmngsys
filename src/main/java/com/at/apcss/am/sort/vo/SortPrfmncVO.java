@@ -1,11 +1,11 @@
-package com.at.apcss.am.sort.vo;
+package com.apcmngsys.apcss.am.sort.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
-import com.at.apcss.am.invntr.vo.SortStdGrdVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortStdGrdVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

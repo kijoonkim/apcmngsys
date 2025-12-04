@@ -1,9 +1,9 @@
-package com.at.apcss.am.apc.service;
+package com.apcmngsys.apcss.am.apc.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
 
 public interface ApcLinkService {
 

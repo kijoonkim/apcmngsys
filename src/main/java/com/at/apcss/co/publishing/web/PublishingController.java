@@ -1,7 +1,7 @@
-package com.at.apcss.co.publishing.web;
+package com.apcmngsys.apcss.co.publishing.web;
 
 import org.springframework.stereotype.Controller;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @Controller
 public class PublishingController extends BaseController{

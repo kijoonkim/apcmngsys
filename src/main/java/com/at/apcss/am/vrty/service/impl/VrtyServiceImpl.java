@@ -1,4 +1,4 @@
-package com.at.apcss.am.vrty.service.impl;
+package com.apcmngsys.apcss.am.vrty.service.impl;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.at.apcss.am.vrty.mapper.VrtyMapper;
-import com.at.apcss.am.vrty.service.VrtyService;
-import com.at.apcss.am.vrty.vo.VrtyVO;
-import com.at.apcss.co.authrt.service.ComAuthrtService;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.vrty.mapper.VrtyMapper;
+import com.apcmngsys.apcss.am.vrty.service.VrtyService;
+import com.apcmngsys.apcss.am.vrty.vo.VrtyVO;
+import com.apcmngsys.apcss.co.authrt.service.ComAuthrtService;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 //public class VrtyServiceImpl {
 	@Service("vrtyService")

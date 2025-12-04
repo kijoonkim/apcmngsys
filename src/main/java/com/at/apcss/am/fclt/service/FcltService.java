@@ -1,8 +1,8 @@
-package com.at.apcss.am.fclt.service;
+package com.apcmngsys.apcss.am.fclt.service;
 
 import java.util.List;
 
-import com.at.apcss.am.fclt.vo.FcltVO;
+import com.apcmngsys.apcss.am.fclt.vo.FcltVO;
 /**
  * 창고현황 Service 인터페이스
  * @author 김호

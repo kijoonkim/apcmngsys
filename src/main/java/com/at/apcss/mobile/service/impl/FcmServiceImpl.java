@@ -1,9 +1,9 @@
-package com.at.apcss.mobile.service.impl;
+package com.apcmngsys.apcss.mobile.service.impl;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.mobile.service.FcmService;
-import com.at.apcss.mobile.vo.FcmResponseVO;
-import com.at.apcss.mobile.vo.FcmSendVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.mobile.service.FcmService;
+import com.apcmngsys.apcss.mobile.vo.FcmResponseVO;
+import com.apcmngsys.apcss.mobile.vo.FcmSendVO;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.messaging.*;
 import org.json.simple.JSONObject;

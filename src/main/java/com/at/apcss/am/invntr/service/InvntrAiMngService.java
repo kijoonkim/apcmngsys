@@ -1,10 +1,10 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.InvntrAiMngVO;
-import com.at.apcss.am.invntr.vo.InvntrMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO;
 
 /**
  * 실사기준 Service 인터페이스

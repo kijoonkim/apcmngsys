@@ -1,9 +1,9 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
 
 /**
  * 선별재고 Service 인터페이스

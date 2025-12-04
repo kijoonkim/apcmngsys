@@ -1,8 +1,8 @@
-package com.at.apcss.am.wrhs.mapper;
+package com.apcmngsys.apcss.am.wrhs.mapper;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO;
-import com.at.apcss.am.wrhs.vo.SdlngVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO;
+import com.apcmngsys.apcss.am.wrhs.vo.SdlngVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

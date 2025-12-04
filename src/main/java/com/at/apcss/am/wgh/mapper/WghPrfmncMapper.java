@@ -1,9 +1,9 @@
-package com.at.apcss.am.wgh.mapper;
+package com.apcmngsys.apcss.am.wgh.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.wgh.vo.*;
+import com.apcmngsys.apcss.am.wgh.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**

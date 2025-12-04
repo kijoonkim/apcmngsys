@@ -10,19 +10,19 @@
 <!-- 2024.07.22  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.ognz.mapper.UntyOgnzMapper">
+<mapper namespace="com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectNewUntyOgnzId		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectNewUntyOgnzId		-->
 	<!-- DESC : 통합조직 신규ID 조회                                            	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectNewUntyOgnzId" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectNewUntyOgnzId" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectNewUntyOgnzId */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectNewUntyOgnzId */
 				  'N'	AS DEL_YN
 				, FN_GET_ID_UNTY_OGNZ()		AS UNTY_OGNZ_ID
 			  FROM DUAL
@@ -30,16 +30,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnz			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnz			-->
 	<!-- DESC : 통합조직 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectUntyOgnz" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectUntyOgnz" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnz */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnz */
 				  UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
 				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
 				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
@@ -57,16 +57,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzApc			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzApc			-->
 	<!-- DESC : 관리APC 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOgnzApc" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectOgnzApc" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzApc */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzApc */
 				  APC.UNTY_OGNZ_ID
 				, APC.APC_CD
 				, APC.INDCT_SEQ
@@ -80,16 +80,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzList		-->
 	<!-- DESC : 통합조직 목록조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectUntyOgnzList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectUntyOgnzList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzList */
 				  UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
 				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
 				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
@@ -119,16 +119,16 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList			-->
 	<!-- DESC : 조직 목록조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOgnzList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectOgnzList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectOgnzList */
 				  UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
 				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
 				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
@@ -159,16 +159,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzTreeList	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzTreeList	-->
 	<!-- DESC : 통합조직 트리 목록조회.                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectUntyOgnzTreeList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectUntyOgnzTreeList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzTreeList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzTreeList */
 				  UO.UNTY_OGNZ_LVL		AS UNTY_OGNZ_LVL
 				, UO.SEQ				AS UNTY_OGNZ_SEQ
 				, UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
@@ -267,16 +267,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList	-->
 	<!-- DESC : 통합조직 APC 목록조회.                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectUntyOgnzApcList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectUntyOgnzApcList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectUntyOgnzApcList */
 				  UO.UNTY_OGNZ_ID       AS UNTY_OGNZ_ID
 				, UO.UNTY_OGNZ_TYPE     AS UNTY_OGNZ_TYPE
 				, UO.UNTY_OGNZ_NM       AS UNTY_OGNZ_NM
@@ -321,16 +321,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertUntyOgnz			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertUntyOgnz			-->
 	<!-- DESC : 통합조직 등록.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertUntyOgnz" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <insert id="insertUntyOgnz" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			INSERT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertUntyOgnz */
+			INSERT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertUntyOgnz */
     	 	  INTO TB_UNTY_OGNZ (
     	 	  	  UNTY_OGNZ_ID
 				, UNTY_OGNZ_TYPE
@@ -366,16 +366,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnz			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnz			-->
 	<!-- DESC : 통합조직 등록.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateUntyOgnz" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="updateUntyOgnz" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnz */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnz */
 	    		TB_UNTY_OGNZ 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -395,16 +395,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnzForDelY	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnzForDelY	-->
 	<!-- DESC : 통합조직 변경 (set delYn 'Y')	                         			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateUntyOgnzForDelY" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="updateUntyOgnzForDelY" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnzForDelY */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateUntyOgnzForDelY */
 	    		TB_UNTY_OGNZ 
 			SET
 				  DEL_YN = 'Y'
@@ -414,16 +414,16 @@
     </update>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteUntyOgnz			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteUntyOgnz			-->
 	<!-- DESC : 통합조직 삭제.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteUntyOgnz" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+	<delete id="deleteUntyOgnz" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteUntyOgnz */
+			DELETE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteUntyOgnz */
 	    		TB_UNTY_OGNZ
     	 	 WHERE UNTY_OGNZ_ID = #{untyOgnzId}
 		]]>
@@ -432,16 +432,16 @@
 
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertOgnzApc			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertOgnzApc			-->
 	<!-- DESC : 관리APC 등록.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertOgnzApc" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <insert id="insertOgnzApc" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			INSERT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertOgnzApc */
+			INSERT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertOgnzApc */
     	 	  INTO TB_UNTY_OGNZ_APC (
     	 	  	  UNTY_OGNZ_ID
 				, APC_CD
@@ -475,16 +475,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateOgnzApc			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateOgnzApc			-->
 	<!-- DESC : 관리APC 변경.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateOgnzApc" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="updateOgnzApc" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateOgnzApc */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateOgnzApc */
 	    		TB_UNTY_OGNZ_APC 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -500,16 +500,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteOgnzApc			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteOgnzApc			-->
 	<!-- DESC : 관리APC 삭제.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteOgnzApc" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+	<delete id="deleteOgnzApc" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteOgnzApc */
+			DELETE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteOgnzApc */
 	    		TB_UNTY_OGNZ_APC
     	 	 WHERE UNTY_OGNZ_ID = #{untyOgnzId}
     	 	   AND APC_CD = #{apcCd}
@@ -519,16 +519,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectApcAprvList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectApcAprvList		-->
 	<!-- DESC : 관리APC승인대상 목록조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcAprvList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectApcAprvList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectApcAprvList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectApcAprvList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -617,16 +617,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcAprv			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcAprv			-->
 	<!-- DESC : 관리APC 승인.                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="insertApcAprv" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="insertApcAprv" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcAprv */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcAprv */
 	    		TB_UNTY_OGNZ_APC 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -641,16 +641,16 @@
     </update>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcUserAprv			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcUserAprv			-->
 	<!-- DESC : 관리APC 사용자 승인.                                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="insertApcUserAprv" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="insertApcUserAprv" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcUserAprv */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertApcUserAprv */
 	    		TB_COM_USER_SYS_AUTH 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -665,16 +665,16 @@
     </update>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcAprv			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcAprv			-->
 	<!-- DESC : 관리APC 승인취소.                                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="deleteApcAprv" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="deleteApcAprv" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcAprv */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcAprv */
 	    		TB_UNTY_OGNZ_APC 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -691,16 +691,16 @@
     </update>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcUserAprv			-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcUserAprv			-->
 	<!-- DESC : 관리APC 사용자 승인.                                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="deleteApcUserAprv" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <update id="deleteApcUserAprv" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcUserAprv */
+	    	UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteApcUserAprv */
 	    		TB_COM_USER_SYS_AUTH 
 			SET
 				  SYS_LAST_CHG_DT			= SYSDATE
@@ -718,16 +718,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcList		-->
 	<!-- DESC : 법인별 관리APC 목록 조회.                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCorpApcList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzVO">
+    <select id="selectCorpApcList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -802,16 +802,16 @@
     
         
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList	-->
 	<!-- DESC : 법인별 관리APC 사용자 목록 조회.                                    -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCorpApcUserList" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO">
+    <select id="selectCorpApcUserList" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -917,16 +917,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUser		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUser		-->
 	<!-- DESC : 법인별 관리APC 사용자 단건 조회.                                    -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCorpApcUser" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO" resultType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO">
+    <select id="selectCorpApcUser" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO" resultType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList */
+			SELECT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.selectCorpApcUserList */
 				  UA.USER_ID        AS USER_ID
 				, UA.APC_CD         AS APC_CD
 				, UA.BSC_APC_YN     AS BSC_APC_YN
@@ -951,16 +951,16 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertCorpApcUser		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertCorpApcUser		-->
 	<!-- DESC : 법인별 관리APC 사용자 등록. 	                                   	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertCorpApcUser" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
+    <insert id="insertCorpApcUser" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
     	<![CDATA[
-			INSERT /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertCorpApcUser */
+			INSERT /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertCorpApcUser */
 			  INTO TB_COM_USER_APC (
 				  USER_ID
 				, APC_CD
@@ -1008,16 +1008,16 @@
     </insert>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateCorpApcUser		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateCorpApcUser		-->
 	<!-- DESC : 법인별 관리APC 사용자 등록. 	                                   	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateCorpApcUser" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
+    <update id="updateCorpApcUser" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
     	<![CDATA[
-			UPDATE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateCorpApcUser */
+			UPDATE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateCorpApcUser */
 				TB_COM_USER_APC
 			   SET
 				, USER_ID   = #{userId}
@@ -1036,16 +1036,16 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteCorpApcUser		-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteCorpApcUser		-->
 	<!-- DESC : 법인별 관리APC 사용자 삭제. 	                                   	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteCorpApcUser" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
+    <delete id="deleteCorpApcUser" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO" >
     	<![CDATA[
-			DELETE /* com.at.apcss.co.ognz.mapper.UntyOgnzMapper.deleteCorpApcUser */
+			DELETE /* com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.deleteCorpApcUser */
 				TB_COM_USER_APC
 			 WHERE USER_ID   = #{userId}
 			   AND APC_CD    = #{apcCd}
@@ -1053,16 +1053,16 @@
     </delete>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.insertSpCorpApcUserAprv	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.insertSpCorpApcUserAprv	-->
 	<!-- DESC : 법인별 관리APC 사용자 승인. 	                                   	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertSpCorpApcUserAprv" statementType="CALLABLE" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO">
+	<insert id="insertSpCorpApcUserAprv" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO">
 		<![CDATA[
-			{call /* com.at.apcss.co.user.ComUserMapper.insertSpCorpApcUserAprv */
+			{call /* com.apcmngsys.apcss.co.user.ComUserMapper.insertSpCorpApcUserAprv */
                 SP_CORP_APC_USER_APRV (
 					  #{sysLastChgUserId}
                   	, #{sysLastChgPrgrmId}
@@ -1085,16 +1085,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.ognz.mapper.UntyOgnzMapper.updateSpCorpApcUserDel	-->
+	<!-- NAME : com.apcmngsys.apcss.co.ognz.mapper.UntyOgnzMapper.updateSpCorpApcUserDel	-->
 	<!-- DESC : 법인별 관리APC 사용자 삭제. 	                                   	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateSpCorpApcUserDel" statementType="CALLABLE" parameterType="com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO">
+	<update id="updateSpCorpApcUserDel" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO">
 		<![CDATA[
-			{call /* com.at.apcss.co.user.ComUserMapper.updateSpCorpApcUserDel */
+			{call /* com.apcmngsys.apcss.co.user.ComUserMapper.updateSpCorpApcUserDel */
                 SP_CORP_APC_USER_DEL (
 					  #{sysLastChgUserId}
                   	, #{sysLastChgPrgrmId}

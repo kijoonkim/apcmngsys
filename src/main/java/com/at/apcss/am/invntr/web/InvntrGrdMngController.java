@@ -1,4 +1,4 @@
-package com.at.apcss.am.invntr.web;
+package com.apcmngsys.apcss.am.invntr.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.invntr.service.InvntrAiMngService;
-import com.at.apcss.am.invntr.service.InvntrAtrbService;
-import com.at.apcss.am.invntr.service.InvntrGrdMngService;
-import com.at.apcss.am.invntr.service.InvntrGrdService;
-import com.at.apcss.am.invntr.vo.InvntrAiMngVO;
-import com.at.apcss.am.invntr.vo.InvntrMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.invntr.service.InvntrAiMngService;
+import com.apcmngsys.apcss.am.invntr.service.InvntrAtrbService;
+import com.apcmngsys.apcss.am.invntr.service.InvntrGrdMngService;
+import com.apcmngsys.apcss.am.invntr.service.InvntrGrdService;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : SortInvntrController.java

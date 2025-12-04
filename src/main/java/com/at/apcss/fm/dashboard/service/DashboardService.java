@@ -1,9 +1,9 @@
-package com.at.apcss.fm.dashboard.service;
+package com.apcmngsys.apcss.fm.dashboard.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO;
 
 public interface DashboardService {
 

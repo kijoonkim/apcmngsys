@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.											 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin			Initial Creation							-->
 	<!-- ==========================================================================	-->
 
-	<select id="selectFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<select id="selectFarmerEducationInfoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.selectFarmerEducationInfoReg */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.selectFarmerEducationInfoReg */
 				FRMERNO
 				, MNGMST_REGNO
 				, CRCLM_CD
@@ -54,14 +54,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.											 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin			Initial Creation							-->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmerEducationInfoRegList" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<select id="selectFarmerEducationInfoRegList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -72,7 +72,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.selectFarmerEducationInfoRegList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoRegMapper.selectFarmerEducationInfoRegList */
 				FRMERNO
 				, MNGMST_REGNO
 				, CRCLM_CD
@@ -110,16 +110,16 @@
 	</select>
 
 
-	<insert id="insertMegerFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<insert id="insertMegerFarmerEducationInfoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 		<![CDATA[
-			MERGE INTO USRAM.TB_AX_FRMER_EDU_INFO AS tgt	/* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
+			MERGE INTO USRAM.TB_AX_FRMER_EDU_INFO AS tgt	/* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
 			USING DUAL
 				ON (
 						tgt.FRMERNO			= #{frmerno}
 						AND tgt.CRCLM_CD		= #{crclmCd}
 					)
 			WHEN MATCHED THEN
-				UPDATE	/* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
+				UPDATE	/* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
 				   SET
 					  tgt.MNGMST_REGNO				=#{mngmstRegno}
 					, tgt.CRCLM_CD					=#{crclmCd}
@@ -134,7 +134,7 @@
 					, tgt.SYS_LAST_CHG_PRGRM_ID		=#{sysLastChgUserId}
 					, tgt.SYS_LAST_CHG_USER_ID		=#{sysLastChgPrgrmId}
 			WHEN NOT MATCHED
-			THEN INSERT /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
+			THEN INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoMapper.insertMegerFarmerEducationInfo */
 				(
 					  FRMERNO
 					, MNGMST_REGNO
@@ -173,9 +173,9 @@
 		]]>
 	</insert>
 
-	<delete id="deleteFarmerEducationInfoReg" parameterType="com.at.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
+	<delete id="deleteFarmerEducationInfoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerEducationInfoRegVO">
 		<![CDATA[
-		DELETE FROM TB_AX_FRMER_EDU_INFO /* com.at.apcss.fm.farm.mapper.FarmerEducationInfoMapper.deleteFarmerEducationInfo */
+		DELETE FROM TB_AX_FRMER_EDU_INFO /* com.apcmngsys.apcss.fm.farm.mapper.FarmerEducationInfoMapper.deleteFarmerEducationInfo */
 		WHERE 1=1
 		  AND FRMERNO		= #{frmerno}
 		  AND CRCLM_CD		= #{crclmCd}

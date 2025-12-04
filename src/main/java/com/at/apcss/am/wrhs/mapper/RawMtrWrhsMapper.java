@@ -1,15 +1,15 @@
-package com.at.apcss.am.wrhs.mapper;
+package com.apcmngsys.apcss.am.wrhs.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.am.wrhs.vo.ComRawMtrWrhsDsctnTotVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsDsctnTotVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsSmmryVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
  * 원물입고 Mapper 인터페이스

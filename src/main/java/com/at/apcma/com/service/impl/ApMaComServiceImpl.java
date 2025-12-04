@@ -1,12 +1,12 @@
-package com.at.apcma.com.service.impl;
+package com.apcmngsys.apcma.com.service.impl;
 
-import com.at.apcma.com.mapper.ProcMapper;
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaComUtil;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcma.com.mapper.ProcMapper;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaComUtil;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.net.ftp.FTP;

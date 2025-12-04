@@ -1,7 +1,7 @@
-package com.at.apcss.pd.sprt.vo;
+package com.apcmngsys.apcss.pd.sprt.vo;
 
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -1,9 +1,9 @@
-package com.at.apcss.am.ordr.vo;
+package com.apcmngsys.apcss.am.ordr.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,9 +1,9 @@
-package com.at.apcss.am.trnsf.service;
+package com.apcmngsys.apcss.am.trnsf.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO;
 
 /**
  * 재고이송 Service 인터페이스

@@ -1,12 +1,12 @@
-package com.at.apcss.pd.hisPopup.mapper;
+package com.apcmngsys.apcss.pd.hisPopup.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.hisPopup.vo.OgnzVO;
-import com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO;
-import com.at.apcss.pd.hisPopup.vo.CltvtnLandVO;
+import com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO;
+import com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO;
+import com.apcmngsys.apcss.pd.hisPopup.vo.CltvtnLandVO;
 
 /**
  * 게시판 Mapper 인터페이스

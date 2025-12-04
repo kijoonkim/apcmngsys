@@ -1,10 +1,10 @@
-package com.at.apcss.pd.pom.mapper;
+package com.apcmngsys.apcss.pd.pom.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pom.vo.PrdcrOgnShipContMngVO;
+import com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnShipContMngVO;
 
 /**
  * 게시판 Mapper 인터페이스

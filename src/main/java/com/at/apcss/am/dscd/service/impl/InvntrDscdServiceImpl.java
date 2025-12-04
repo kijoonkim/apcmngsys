@@ -1,11 +1,11 @@
-package com.at.apcss.am.dscd.service.impl;
+package com.apcmngsys.apcss.am.dscd.service.impl;
 
-import com.at.apcss.am.dscd.mapper.DscdCrtrMapper;
-import com.at.apcss.am.dscd.mapper.InvntrDscdMapper;
-import com.at.apcss.am.dscd.service.InvntrDscdService;
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper;
+import com.apcmngsys.apcss.am.dscd.mapper.InvntrDscdMapper;
+import com.apcmngsys.apcss.am.dscd.service.InvntrDscdService;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdPrfmncVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

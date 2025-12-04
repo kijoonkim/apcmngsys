@@ -1,13 +1,13 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.mapper.CmnsValidationMapper;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.vo.CmnsValidationVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.cmns.mapper.CmnsValidationMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsValidationVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : CmnsValidationServiceImpl.java

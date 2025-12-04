@@ -10,18 +10,18 @@
 <!-- 2024.09.05  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.link.mapper.ComLinkMapper">
+<mapper namespace="com.apcmngsys.apcss.co.link.mapper.ComLinkMapper">
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.selectComLnkgRpt		    -->
+    <!-- NAME : com.apcmngsys.apcss.co.link.mapper.ComLinkMapper.selectComLnkgRpt		    -->
     <!-- DESC : 연결보고서 조회                                             	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.05  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectComLnkgRpt" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO" resultType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+    <select id="selectComLnkgRpt" parameterType="com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO" resultType="com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO">
         <![CDATA[
             SELECT
                   LNKG_UNQ_ID	AS LNKG_UNQ_ID
@@ -43,14 +43,14 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.insertComLnkgRpt		    -->
+    <!-- NAME : com.apcmngsys.apcss.co.link.mapper.ComLinkMapper.insertComLnkgRpt		    -->
     <!-- DESC : 연결보고서 등록                                        		        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.05  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertComLnkgRpt" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+    <insert id="insertComLnkgRpt" parameterType="com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO">
         <![CDATA[
             INSERT INTO TB_LNKG_RPT_DOC (
                   LNKG_UNQ_ID
@@ -89,14 +89,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.updateComLnkgRptExpry     -->
+    <!-- NAME : com.apcmngsys.apcss.co.link.mapper.ComLinkMapper.updateComLnkgRptExpry     -->
     <!-- DESC : 연결보고서 만료                                        		        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.05  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateComLnkgRptExpry" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+    <update id="updateComLnkgRptExpry" parameterType="com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO">
         <![CDATA[
             UPDATE TB_LNKG_RPT_DOC
                 SET LNKG_EXPRY_YN = 'Y'

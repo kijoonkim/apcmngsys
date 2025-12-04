@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.at.apcss.am.spmt.mapper.SlsMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc			-->
 	<!-- DESC : 매출실적조회                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSlsPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    <select id="selectSlsPrfmnc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
     		SELECT
     			  pt0.*
@@ -19,7 +19,7 @@
 	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 	    		, (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL)						AS PRDCR_NM
     		 FROM (	
-		    		SELECT	/* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc */
+		    		SELECT	/* com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc */
 					     SPD.APC_CD		AS APC_CD
 					    ,SPD.PRDCR_CD 	AS PRDCR_CD
 					    ,SP.SLS_YMD		AS SLS_YMD
@@ -62,16 +62,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc  	-->
 	<!-- DESC : 매출실적삭제	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                       -->
 	<!-- ==========================================================================	-->
-    <update id="deleteSlsPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    <update id="deleteSlsPrfmnc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc */
+	    	UPDATE /* com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc */
 	    	  TB_SLS_PRFMNC SET
 				DEL_YN = 'Y'
 				, SYS_LAST_CHG_DT = SYSDATE
@@ -86,16 +86,16 @@
     </update>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsPrfmnc  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.updateSlsPrfmnc  	-->
 	<!-- DESC : 매출실적변경	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                       -->
 	<!-- ==========================================================================	-->
-    <update id="updateSlsPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    <update id="updateSlsPrfmnc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsPrfmnc */
+	    	UPDATE /* com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.updateSlsPrfmnc */
 	    	  TB_SLS_PRFMNC SET
 				 ITEM_CD = #{itemCd}
 				, VRTY_CD = #{vrtyCd}
@@ -115,14 +115,14 @@
     </update>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc			-->
 	<!-- DESC : 매출단가조회                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    <select id="selectSlsUntprc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
 			    SELECT
 					  pt0.*
@@ -130,7 +130,7 @@
 					, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
 					, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
 				 FROM (
-						SELECT /* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc */
+						SELECT /* com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc */
 							SPU.APC_CD					AS APC_CD,
 							SPU.SPMT_PCKG_UNIT_CD 		AS SPMT_PCKG_UNIT_CD,
 							SPU.SPMT_PCKG_UNIT_NM 		AS SPMT_PCKG_UNIT_NM,
@@ -181,16 +181,16 @@
 	</select>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsUntprc  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsUntprc  	-->
 	<!-- DESC : 매출단가 삭제	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                       -->
 	<!-- ==========================================================================	-->
-    <update id="deleteSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    <update id="deleteSlsUntprc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
-	    	UPDATE  /*com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsUntprc*/
+	    	UPDATE  /*com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsUntprc*/
 				TB_SPMT_SLS_UNTPRC_REG	    	
 	    	SET DEL_YN = 'Y'
 	    		, SYS_LAST_CHG_DT = SYSDATE
@@ -203,17 +203,17 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl			-->
 	<!-- DESC : 매출단가상세조회 			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectSlsUntprcDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<select id="selectSlsUntprcDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 
-						SELECT /* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl */
+						SELECT /* com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl */
 							SSUR.APC_CD					AS APC_CD
 							,SSUR.SPMT_PCKG_UNIT_CD 	AS SPMT_PCKG_UNIT_CD
 							,SSUR.SPMT_SLS_UNTPRC_CD	AS SPMT_SLS_UNTPRC_CD
@@ -255,7 +255,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsUntprc			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.updateSlsUntprc			-->
 	<!-- DESC : 매출단가 변경			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -263,7 +263,7 @@
 	<!--                            -->
 	<!-- ==========================================================================	-->
 
-	<update id="updateSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<update id="updateSlsUntprc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			UPDATE
 				TB_SPMT_SLS_UNTPRC_REG
@@ -282,7 +282,7 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsUntprc			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.insertSlsUntprc			-->
 	<!-- DESC : 매출단가 등록			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -290,7 +290,7 @@
 	<!--                            -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<insert id="insertSlsUntprc" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			INSERT INTO
 			    TB_SPMT_SLS_UNTPRC_REG
@@ -326,14 +326,14 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtr				-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtr				-->
 	<!-- DESC : 매출 기준 조회 			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<select id="selectSlsCrtr" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			SELECT
 			    APC_CD
@@ -358,7 +358,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtrDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtrDtl			-->
 	<!-- DESC : 매출 기준 상세 조회 			                      	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -366,7 +366,7 @@
 	<!--                            -->
 	<!-- ==========================================================================	-->
 
-	<select id="selectSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<select id="selectSlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			SELECT
 			    APC_CD
@@ -399,7 +399,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtr  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtr  			-->
 	<!-- DESC : 매출 기준 등록	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -407,7 +407,7 @@
 	<!--                       -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<insert id="insertSlsCrtr" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			INSERT INTO
 				TB_SLS_CRTR(
@@ -445,7 +445,7 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsCrtr  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.updateSlsCrtr  			-->
 	<!-- DESC : 매출 기준 변경	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -453,7 +453,7 @@
 	<!--                       -->
 	<!-- ==========================================================================	-->
 
-	<update id="updateSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<update id="updateSlsCrtr" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 		    UPDATE
 		    	TB_SLS_CRTR
@@ -473,14 +473,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
 	<!-- DESC : 매출 기준 상세 등록	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                       -->
 	<!-- ==========================================================================	-->
-	<insert id="insertSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<insert id="insertSlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 		INSERT INTO
 			TB_SLS_CRTR_DTL(
@@ -529,7 +529,7 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
 	<!-- DESC : 매출 기준 상세 수정	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -537,7 +537,7 @@
 	<!--                       -->
 	<!-- ==========================================================================	-->
 
-	<update id="updateSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<update id="updateSlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		UPDATE
 			TB_SLS_CRTR_DTL
 		SET
@@ -557,7 +557,7 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtr  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtr  			-->
 	<!-- DESC : 매출 기준 삭제		                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -565,7 +565,7 @@
 	<!--                       -->
 	<!-- ==========================================================================	-->
 
-	<delete id="deleteSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<delete id="deleteSlsCrtr" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		DELETE
 		FROM
 			TB_SLS_CRTR
@@ -576,7 +576,7 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtrDtl  			-->
 	<!-- DESC : 매출 기준 상세 삭제		                                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -584,7 +584,7 @@
 	<!--                       -->
 	<!-- ==========================================================================	-->
 
-	<update id="deleteSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<update id="deleteSlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		UPDATE
 			TB_SLS_CRTR_DTL
 		SET
@@ -600,14 +600,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectUntprcDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper.selectUntprcDtl  			-->
 	<!-- DESC : 매출단가저장시 단가상세 조회		                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!--                       -->
 	<!-- ==========================================================================	-->
-	<select id="selectUntprcDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+	<select id="selectUntprcDtl" parameterType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SlsMngVO">
 		<![CDATA[
 			SELECT
 			    APC_CD

@@ -1,7 +1,7 @@
-package com.at.apcss.co.mng.service;
+package com.apcmngsys.apcss.co.mng.service;
 
-import com.at.apcss.co.mng.vo.ComMenuLogHstryVO;
-import com.at.apcss.co.mng.vo.ComUserVO;
+import com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO;
+import com.apcmngsys.apcss.co.mng.vo.ComUserVO;
 
 import java.util.List;
 

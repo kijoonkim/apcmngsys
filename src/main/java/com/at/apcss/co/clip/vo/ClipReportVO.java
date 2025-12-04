@@ -1,4 +1,4 @@
-package com.at.apcss.co.clip.vo;
+package com.apcmngsys.apcss.co.clip.vo;
 
 import lombok.Getter;
 import lombok.Setter;

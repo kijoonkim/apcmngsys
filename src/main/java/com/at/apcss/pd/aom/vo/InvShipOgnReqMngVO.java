@@ -1,8 +1,8 @@
-package com.at.apcss.pd.aom.vo;
+package com.apcmngsys.apcss.pd.aom.vo;
 
 import java.util.List;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

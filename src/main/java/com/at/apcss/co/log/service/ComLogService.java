@@ -1,8 +1,8 @@
-package com.at.apcss.co.log.service;
+package com.apcmngsys.apcss.co.log.service;
 
 import java.util.List;
 
-import com.at.apcss.co.log.vo.ComLogVO;
+import com.apcmngsys.apcss.co.log.vo.ComLogVO;
 
 public interface ComLogService {
 

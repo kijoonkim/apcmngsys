@@ -10,18 +10,18 @@
 <!-- 2024.12.04  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoMngList				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisBrnoMngList				-->
 	<!-- DESC : 변경된 사업자번호 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisBrnoMngList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoMngList */
+	<select id="selectHisBrnoMngList" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoMngList */
 			MNG_NO
 			, BRNO
 			, CRNO
@@ -35,15 +35,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoInfo					-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisBrnoInfo					-->
 	<!-- DESC : 사업자 정보 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisBrnoInfo" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoInfo */
+	<select id="selectHisBrnoInfo" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoInfo */
 			YR
 			, BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
@@ -57,15 +57,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisBrnoList					-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisBrnoList					-->
 	<!-- DESC : 통합조직 및 하위 출자출하조직 리스트 조회.                                     	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisBrnoList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoList */
+	<select id="selectHisBrnoList" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisBrnoList */
 			YR
 			, BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
@@ -110,15 +110,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisUoList						-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisUoList						-->
 	<!-- DESC : 속한 통합조직 리스트 조회                                     				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisUoList" parameterType="com.at.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.OgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisUoList */
+	<select id="selectHisUoList" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.OgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisUoList */
 			  CM.UO_APO_CD
 			, CM.UO_BRNO
 			, CM.UO_CORP_NM
@@ -129,15 +129,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2024				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2024				-->
 	<!-- DESC : 생산자조직 조회 2024년                                     				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisPrdcrOgnz2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2024 */
+	<select id="selectHisPrdcrOgnz2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2024 */
 			EFA.YR
 			, EFA.BRNO
 			, EFA.APO_SE
@@ -208,15 +208,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2025				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisPrdcrOgnz2025				-->
 	<!-- DESC : 생산자조직 조회 2025년                                     				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisPrdcrOgnz2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2025 */
+	<select id="selectHisPrdcrOgnz2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisPrdcrOgnz2025 */
 			EFA.YR
 			, EFA.BRNO
 			, EFA.APO_SE
@@ -288,15 +288,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2024				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2024				-->
 	<!-- DESC : 농가  조회 2024년                                     				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisCltvtnLand2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2024 */
+	<select id="selectHisCltvtnLand2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2024 */
 			ESS.YR
 			, ESS.APO_SE
 			, ESS.BRNO
@@ -405,15 +405,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2025				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.selectHisCltvtnLand2025				-->
 	<!-- DESC : 농가  조회 2025년                                     				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisCltvtnLand2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
-		SELECT /* com.at.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2025 */
+	<select id="selectHisCltvtnLand2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnzVO">
+		SELECT /* com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnHisPopupMapper.selectHisCltvtnLand2025 */
 			ESS.YR
 			, ESS.APO_SE
 			, ESS.BRNO

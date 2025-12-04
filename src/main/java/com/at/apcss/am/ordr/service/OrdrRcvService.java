@@ -1,9 +1,9 @@
-package com.at.apcss.am.ordr.service;
+package com.apcmngsys.apcss.am.ordr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.*;
+import com.apcmngsys.apcss.am.ordr.vo.*;
 
 /**
  * 발주정보 Service 인터페이스

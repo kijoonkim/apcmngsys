@@ -1,10 +1,10 @@
-package com.at.apcss.pd.isom.mapper;
+package com.apcmngsys.apcss.pd.isom.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 
 /**
  * 게시판 Mapper 인터페이스

@@ -1,7 +1,7 @@
-package com.at.apcss.am.wgh.service;
+package com.apcmngsys.apcss.am.wgh.service;
 
-import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
-import com.at.apcss.am.wgh.vo.WghFcltVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

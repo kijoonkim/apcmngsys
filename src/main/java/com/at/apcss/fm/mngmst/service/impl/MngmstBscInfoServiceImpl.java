@@ -1,13 +1,13 @@
-package com.at.apcss.fm.mngmst.service.impl;
+package com.apcmngsys.apcss.fm.mngmst.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.mngmst.mapper.MngmstBscInfoMapper;
-import com.at.apcss.fm.mngmst.service.MngmstBscInfoService;
-import com.at.apcss.fm.mngmst.vo.MngmstBscInfoVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.mngmst.mapper.MngmstBscInfoMapper;
+import com.apcmngsys.apcss.fm.mngmst.service.MngmstBscInfoService;
+import com.apcmngsys.apcss.fm.mngmst.vo.MngmstBscInfoVO;
 
 
 /**

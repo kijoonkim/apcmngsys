@@ -1,13 +1,13 @@
-package com.at.apcss.co.clip.web;
+package com.apcmngsys.apcss.co.clip.web;
 
-import com.at.apcss.am.anls.service.AnlsCrtrService;
-import com.at.apcss.co.clip.service.ClipReportService;
-import com.at.apcss.co.clip.vo.ClipReportVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiJsonVO;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.anls.service.AnlsCrtrService;
+import com.apcmngsys.apcss.co.clip.service.ClipReportService;
+import com.apcmngsys.apcss.co.clip.vo.ClipReportVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiJsonVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

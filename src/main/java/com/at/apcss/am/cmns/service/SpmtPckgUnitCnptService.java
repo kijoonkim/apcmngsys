@@ -1,6 +1,6 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitCnptVO;
 import java.util.HashMap;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.at.apcss.am.oprtr.service.impl;
+package com.apcmngsys.apcss.am.oprtr.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper;
-import com.at.apcss.am.oprtr.service.OprtrPrfmncService;
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper;
+import com.apcmngsys.apcss.am.oprtr.service.OprtrPrfmncService;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : OprtrPrfmncServiceImpl.java

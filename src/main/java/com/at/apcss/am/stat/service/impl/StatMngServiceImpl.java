@@ -1,12 +1,12 @@
-package com.at.apcss.am.stat.service.impl;
+package com.apcmngsys.apcss.am.stat.service.impl;
 
-import com.at.apcss.am.stat.mapper.StatMngMapper;
-import com.at.apcss.am.stat.service.StatMngService;
-import com.at.apcss.am.stat.vo.StatCrtrVO;
-import com.at.apcss.am.stat.vo.StatMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.stat.mapper.StatMngMapper;
+import com.apcmngsys.apcss.am.stat.service.StatMngService;
+import com.apcmngsys.apcss.am.stat.vo.StatCrtrVO;
+import com.apcmngsys.apcss.am.stat.vo.StatMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

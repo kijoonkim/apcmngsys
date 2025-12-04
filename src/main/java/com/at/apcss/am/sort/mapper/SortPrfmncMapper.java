@@ -1,6 +1,6 @@
-package com.at.apcss.am.sort.mapper;
+package com.apcmngsys.apcss.am.sort.mapper;
 
-import com.at.apcss.am.sort.vo.*;
+import com.apcmngsys.apcss.am.sort.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.HashMap;

@@ -1,9 +1,9 @@
-package com.at.apcss.pd.pcom.service;
+package com.apcmngsys.apcss.pd.pcom.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
+import com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 
 /**
  * 평가등록결과 Service 인터페이스

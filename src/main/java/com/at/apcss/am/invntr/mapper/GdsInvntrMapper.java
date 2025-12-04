@@ -1,15 +1,15 @@
-package com.at.apcss.am.invntr.mapper;
+package com.apcmngsys.apcss.am.invntr.mapper;
 
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.sort.vo.SortPrfmncVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
-import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtDsctnTotVO;
 
 /**
  * 상품재고관리 Mapper 인터페이스

@@ -10,17 +10,17 @@
 <!-- 2023.07.13  	김홓        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRgnTrsprtCstList-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper.selectRgnTrsprtCstList-->
 	<!-- DESC : 지역별 운임 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.12  	김 호        	Initial Creation                          		  -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnTrsprtCstList" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    <select id="selectRgnTrsprtCstList" parameterType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO">
     	<![CDATA[
     	SELECT TC.APC_CD            AS APC_CD
 		     , TC.TRSPRT_RGN_CD     AS TRSPRT_RGN_CD
@@ -34,14 +34,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper.insertRgnTrsprtCst	-->
 	<!-- DESC : 지역별 운임 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.11  	김 호        	Initial Creation                        	    -->
 	<!-- ==========================================================================	-->
-    <insert id="insertRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    <insert id="insertRgnTrsprtCst" parameterType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO">
     	<![CDATA[
     	INSERT INTO TB_RGN_TRSPRT_CST_INFO
     		(
@@ -77,14 +77,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.updateRgnTrsprtCst	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper.updateRgnTrsprtCst	-->
 	<!-- DESC : 지역별 운임 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.11  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="updateRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+	<update id="updateRgnTrsprtCst" parameterType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO">
 		<![CDATA[
 		UPDATE TB_RGN_TRSPRT_CST_INFO
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -100,14 +100,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.deleteRgnTrsprtCst	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper.deleteRgnTrsprtCst	-->
 	<!-- DESC : 지역별 운임 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.11  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteRgnTrsprtCst" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+	<delete id="deleteRgnTrsprtCst" parameterType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO">
 		<![CDATA[
 		DELETE FROM TB_RGN_TRSPRT_CST_INFO
 		 WHERE APC_CD			= #{apcCd}
@@ -116,16 +116,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper.rgnTrsprtCstDelible	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper.rgnTrsprtCstDelible	-->
 	<!-- DESC : 원물운임비용 삭제 가능 여부.	                                    -->
 	<!-- ========================================================================== -->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.25  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="rgnTrsprtCstDelible" parameterType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.at.apcss.am.cmns.vo.RgnTrsprtCstVO">
+    <select id="rgnTrsprtCstDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO" resultType="com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO">
     	<![CDATA[
-    		SELECT X.* /* com.at.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.rgnTrsprtCstDelible */
+    		SELECT X.* /* com.apcmngsys.apcss.am.cmns.mapper.RawMtrTrsprtCstMapper.rgnTrsprtCstDelible */
 			  FROM (
 			         SELECT
 			                '원물운임' AS DELIBLE

@@ -1,7 +1,7 @@
-package com.at.apcss.am.clcln.mapper;
+package com.apcmngsys.apcss.am.clcln.mapper;
 
-import com.at.apcss.am.clcln.vo.ClclnDtlVO;
-import com.at.apcss.am.clcln.vo.ClclnMstrVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnDtlVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnMstrVO;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

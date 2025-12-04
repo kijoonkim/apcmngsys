@@ -1,10 +1,10 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.HashMap;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.at.apcss.am.cmns.vo.ComAtchflVO;
+import com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO;
 
 /**
  * 첨부파일 Service 인터페이스

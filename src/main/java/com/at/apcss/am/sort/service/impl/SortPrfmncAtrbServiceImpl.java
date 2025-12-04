@@ -1,13 +1,13 @@
-package com.at.apcss.am.sort.service.impl;
+package com.apcmngsys.apcss.am.sort.service.impl;
 
 
-import com.at.apcss.am.sort.mapper.SortPrfmncAtrbMapper;
+import com.apcmngsys.apcss.am.sort.mapper.SortPrfmncAtrbMapper;
 
-import com.at.apcss.am.sort.service.SortPrfmncAtrbService;
-import com.at.apcss.am.sort.vo.*;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.sort.service.SortPrfmncAtrbService;
+import com.apcmngsys.apcss.am.sort.vo.*;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

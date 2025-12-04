@@ -1,10 +1,10 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.OrdrVO;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
+import com.apcmngsys.apcss.am.ordr.vo.OrdrVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO;
 
 /**
  * 출고지시 Service 인터페이스

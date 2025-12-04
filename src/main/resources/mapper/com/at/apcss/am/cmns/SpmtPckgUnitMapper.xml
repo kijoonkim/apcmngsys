@@ -10,19 +10,19 @@
 <!-- 2023.07.31  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit	-->
 	<!-- DESC : 출하포장단위 단건 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.31  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <select id="selectSpmtPckgUnit" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnit */
 				   SPU.APC_CD               AS APC_CD
 			     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
 			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
@@ -51,17 +51,17 @@
     </select>
 
 	<!-- ===============================================================================-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec	-->
 	<!-- DESC : 출하포장단위 조회 by spec.	                                       		-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectSpmtPckgUnitListBySpec" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <select id="selectSpmtPckgUnitListBySpec" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitListBySpec */
 				  SPU.APC_CD          		AS APC_CD
 			    , SPU.SPMT_PCKG_UNIT_CD    	AS SPMT_PCKG_UNIT_CD
 			    , SPU.SPMT_PCKG_UNIT_NM    	AS SPMT_PCKG_UNIT_NM
@@ -114,14 +114,14 @@
 
 
 	<!-- ===============================================================================-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectSpmtPckgUnitList	-->
 	<!-- DESC : 출하포장단위 목록 조회.	                                       			-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectSpmtPckgUnitList" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <select id="selectSpmtPckgUnitList" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -146,7 +146,7 @@
     		           AND X.USE_YN = 'Y') AS CNPT_NM
     		 FROM (
 
-			    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectCmnsSpmtPckgUnitList */
+			    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.selectCmnsSpmtPckgUnitList */
 						   SPU.APC_CD               AS APC_CD
 					     , SPU.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
 					     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
@@ -223,16 +223,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.insertSpmtPckgUnit	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.insertSpmtPckgUnit	-->
 	<!-- DESC : 출하포장단위 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <insert id="insertSpmtPckgUnit" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.insertSpmtPckgUnitt */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.insertSpmtPckgUnitt */
 	    		INTO TB_SPMT_PCKG_UNIT
 				(
 					  APC_CD
@@ -295,16 +295,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnit	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnit	-->
 	<!-- DESC : 출하포장단위 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+	<update id="updateSpmtPckgUnit" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnit */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnit */
 				TB_SPMT_PCKG_UNIT
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -334,16 +334,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit	-->
 	<!-- DESC : 출하포장단위 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+	<update id="deleteSpmtPckgUnit" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
 		<![CDATA[
-			UPDATE TB_SPMT_PCKG_UNIT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit */
+			UPDATE TB_SPMT_PCKG_UNIT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.deleteSpmtPckgUnit */
 			   SET DEL_YN 				= 'Y'
 			WHERE SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
 			  AND APC_CD				= #{apcCd}
@@ -352,31 +352,31 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.getSpmtPckgUnitCd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.getSpmtPckgUnitCd	-->
 	<!-- DESC : 출하포장단위 자동발번 코드 조회.	                                -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="getSpmtPckgUnitCd" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <select id="getSpmtPckgUnitCd" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	/* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.getSpmtPckgUnitCd */
+	    	/* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.getSpmtPckgUnitCd */
 			SELECT FN_GET_ID_SPMT_PCKG_UNIT_CD(#{apcCd}) AS SPMT_PCKG_UNIT_CD FROM DUAL
 		]]>
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible	-->
 	<!-- DESC : 상품명 삭제 가능 여부.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.31  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="spmtPckgUnitDelible" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <select id="spmtPckgUnitDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
-	    	 SELECT X.* /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible */
+	    	 SELECT X.* /* com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.spmtPckgUnitDelible */
 			   FROM (
 			          SELECT
 			                 '포장실적' AS DELIBLE
@@ -431,14 +431,14 @@
     </select>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnits	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper.updateSpmtPckgUnits	-->
 	<!-- DESC : APC기준 상품 정보 업데이트  		                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSpmtPckgUnits" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitVO">
+    <update id="updateSpmtPckgUnits" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO">
     	<![CDATA[
     		UPDATE TB_SPMT_PCKG_UNIT
 			   SET SYS_LAST_CHG_DT 			= SYSDATE

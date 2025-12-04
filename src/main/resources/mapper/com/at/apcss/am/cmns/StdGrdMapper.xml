@@ -10,21 +10,21 @@
 <!-- 2023.07.14  	김 호        	Initial Creation                            	-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.StdGrdMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper">
 
 	<!-- APC 등급 정보 -->
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd				-->
 	<!-- DESC : APC 등급 단건 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    <select id="selectStdGrd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
 			       SG.APC_CD            AS APC_CD
 			     , SG.ITEM_CD           AS ITEM_CD
 			     , SG.GRD_SE_CD         AS GRD_SE_CD
@@ -47,16 +47,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectNewGrdKnd			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectNewGrdKnd			-->
 	<!-- DESC : APC 등급코드 발번 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectNewGrdKnd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    <select id="selectNewGrdKnd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectNewGrdKnd */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectNewGrdKnd */
 			       #{apcCd}		AS APC_CD
 			     , #{itemCd}	AS ITEM_CD
 			     , #{grdSeCd}	AS GRD_SE_CD
@@ -67,16 +67,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdList			-->
 	<!-- DESC : APC 등급 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectStdGrdList" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    <select id="selectStdGrdList" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrd */
 			       SG.APC_CD            AS APC_CD
 			     , SG.ITEM_CD           AS ITEM_CD
 			     , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
@@ -113,16 +113,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd				-->
 	<!-- DESC : APC 등급 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <insert id="insertStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+    <insert id="insertStdGrd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrd */
 	    		INTO TB_APC_STD_GRD
 	    		(
 	    			  APC_CD
@@ -161,16 +161,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
 	<!-- DESC : APC 등급 변경.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="updateStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<update id="updateStdGrd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd */
 				TB_APC_STD_GRD
 			   SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -189,16 +189,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrd				-->
 	<!-- DESC : APC 등급 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<delete id="deleteStdGrd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			DELETE TB_APC_Std_GRD  /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
+			DELETE TB_APC_Std_GRD  /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrd */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
@@ -207,16 +207,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdAll			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdAll			-->
 	<!-- DESC : APC 등급 품목별 전체 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO">
+	<delete id="deleteStdGrdAll" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO">
 		<![CDATA[
-			DELETE FROM TB_APC_STD_GRD /* com.at.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
+			DELETE FROM TB_APC_STD_GRD /* com.apcmngsys.apcss.am.cmns.mapper.CmnsGrdMapper.deleteStdGrdAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
@@ -224,16 +224,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl			-->
 	<!-- DESC : APC 등급 상세 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <select id="selectStdGrdDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtl */
 				  SG.APC_CD				AS APC_CD
 				, SG.ITEM_CD           	AS ITEM_CD
 				, (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
@@ -276,16 +276,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList		-->
 	<!-- DESC : APC 등급 상세 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectStdGrdDtlList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <select id="selectStdGrdDtlList" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdDtlList */
 				  SG.APC_CD         AS APC_CD
 			    , SG.ITEM_CD        AS ITEM_CD
 			    , (SELECT FN_GET_ITEM_NM(SG.ITEM_CD, SG.APC_CD) FROM DUAL) AS ITEM_NM
@@ -350,16 +350,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl			-->
 	<!-- DESC : APC 등급 상세 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <insert id="insertStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <insert id="insertStdGrdDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdDtl */
 	    		INTO TB_APC_STD_GRD_DTL
 	    		(
 	    			  APC_CD
@@ -418,16 +418,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
 	<!-- DESC : APC 등급 상세 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="updateStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+	<update id="updateStdGrdDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrdDtl */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrdDtl */
 				TB_APC_STD_GRD_DTL
 			   SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -456,16 +456,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl			-->
 	<!-- DESC : APC 등급 상세 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdDtl" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE TB_APC_Std_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
+			DELETE TB_APC_Std_GRD_DTL /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtl */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
@@ -475,32 +475,32 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll			-->
 	<!-- DESC : APC 등급 상세 품목별 전체 삭제.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdDtlAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdDtlAll" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE TB_APC_STD_GRD_DTL /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
+			DELETE TB_APC_STD_GRD_DTL /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdDtlAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList		-->
 	<!-- DESC : APC 등급 세부 정보 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectStdGrdJgmtList" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO" resultType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+    <select id="selectStdGrdJgmtList" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectStdGrdJgmtList */
 			       SGJ.APC_CD            AS APC_CD
 			     , SGJ.ITEM_CD           AS ITEM_CD
 			     , SGJ.GRD_SE_CD         AS GRD_SE_CD
@@ -535,16 +535,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdJgmt			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdJgmt			-->
 	<!-- DESC : APC 등급 세부 정보 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <insert id="insertStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+    <insert id="insertStdGrdJgmt" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdJgmt */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.insertStdGrdJgmt */
 	    		INTO TB_APC_STD_GRD_JGMT
 	    		(
 	    			  APC_CD
@@ -587,16 +587,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrd				-->
 	<!-- DESC : APC 등급 세부 정보 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<update id="updateStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<update id="updateStdGrdJgmt" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrdJgmt */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateStdGrdJgmt */
 				TB_APC_STD_GRD_JGMT
 			   SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -616,16 +616,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt			-->
 	<!-- DESC : APC 등급 세부 정보 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdJgmt" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE FROM TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
+			DELETE FROM TB_APC_STD_GRD_JGMT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmt */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 			   AND GRD_SE_CD 	= #{grdSeCd}
@@ -634,34 +634,34 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll		-->
 	<!-- DESC : APC 등급 상세 품목별 세부 정보 전체 삭제.	                                    -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<delete id="deleteStdGrdJgmtAll" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+	<delete id="deleteStdGrdJgmtAll" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
 		<![CDATA[
-			DELETE TB_APC_STD_GRD_JGMT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
+			DELETE TB_APC_STD_GRD_JGMT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.deleteStdGrdJgmtAll */
 			 WHERE APC_CD 		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible		-->
 	<!-- DESC : APC 등급 삭제여부 조회.	                                    		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="grdDtlInvntrDelible" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <select id="grdDtlInvntrDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<choose>
     		<when test='grdSeCd == "01"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
 					  FROM (
 					        SELECT
 					               '입고실적' AS DELIBLE
@@ -701,7 +701,7 @@
     		</when>
     		<when test='grdSeCd == "02"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
 					  FROM (
 					        SELECT
 					               '선별실적' AS DELIBLE
@@ -741,7 +741,7 @@
     		</when>
     		<when test='grdSeCd == "03"'>
     			<![CDATA[
-	    			SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+	    			SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
 					   FROM (
 					        SELECT
 					               '상품재고' AS DELIBLE
@@ -791,18 +791,18 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt	-->
 	<!-- DESC : APC 등급 삭제여부 조회. 판정등급 없음	                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="grdDtlInvntrDelibleNotJgmt" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <select id="grdDtlInvntrDelibleNotJgmt" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<choose>
     		<when test='grdSeCd == "01"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelibleNotJgmt */
 					  FROM (
 					        SELECT '입고실적' AS DELIBLE
 					              , (SELECT COUNT(*)
@@ -833,7 +833,7 @@
     		</when>
     		<when test='grdSeCd == "02"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdDtlInvntrDelible */
 					  FROM (
 					        SELECT '선별실적' AS DELIBLE
 					              , (SELECT COUNT(*)
@@ -870,18 +870,18 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible		-->
 	<!-- DESC : APC 등급 삭제여부 조회. 판정등급 없음	                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="grdJgmtInvntrDelible" parameterType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO" resultType="com.at.apcss.am.cmns.vo.StdGrdJgmtVO">
+    <select id="grdJgmtInvntrDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO">
     	<choose>
     		<when test='grdSeCd == "01"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
 					  FROM (
 					        SELECT
 					               '입고실적' AS DELIBLE
@@ -914,7 +914,7 @@
     		</when>
     		<when test='grdSeCd == "02"'>
 				<![CDATA[
-					SELECT X.*	/* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
+					SELECT X.*	/* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtInvntrDelible */
 					  FROM (
 					        SELECT
 					               '선별실적' AS DELIBLE
@@ -949,16 +949,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck				-->
 	<!-- DESC : APC 등급 판정등급 체크 .	                                    	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="grdJgmtCheck" parameterType="com.at.apcss.am.cmns.vo.StdGrdVO" resultType="_int">
+    <select id="grdJgmtCheck" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdVO" resultType="_int">
     	<![CDATA[
-    		SELECT COUNT(*) /* com.at.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck */
+    		SELECT COUNT(*) /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.grdJgmtCheck */
 			  FROM TB_APC_STD_GRD_JGMT
 			 WHERE APC_CD = #{apcCd}
 			   AND ITEM_CD = #{itemCd}
@@ -968,14 +968,14 @@
     
     
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.StdGrdMapper.updateGrd			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.updateGrd			-->
 	<!-- DESC : APC기준 품목 정보 업데이트  		                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateGrd" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+    <update id="updateGrd" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
     	<![CDATA[
     	   UPDATE TB_APC_STD_GRD_DTL
 			  SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -991,9 +991,9 @@
     	]]>
     </update>
 
-	<select id="selectGrdNmList" parameterType="com.at.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.at.apcss.am.cmns.vo.StdGrdDtlVO">
+	<select id="selectGrdNmList" parameterType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.cmns.mapper.StdGrdMapper.selectGrdNmList */
+			SELECT /* com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper.selectGrdNmList */
 				  SGD.APC_CD		AS APC_CD
 				, SGD.ITEM_CD		AS ITEM_CD
 				, IC.ITEM_NM		AS ITEM_NM

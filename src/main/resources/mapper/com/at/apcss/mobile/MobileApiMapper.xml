@@ -10,7 +10,7 @@
 <!-- 2023.11.22  	joon        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.mobile.mapper.MobileApiMapper">
+<mapper namespace="com.apcmngsys.apcss.mobile.mapper.MobileApiMapper">
 	<insert id="addRefreshToken" parameterType="map">
 		<![CDATA[
 			INSERT INTO TB_REFRESHTOKEN
@@ -317,7 +317,7 @@
 
 	<update id="callSpApcAgtStatsUpdate" statementType="CALLABLE">
 		<![CDATA[
-			{call /* com.at.apcss.mobile.mapper.MobileApiMapper.callSpApcAgtStatsUpdate */
+			{call /* com.apcmngsys.apcss.mobile.mapper.MobileApiMapper.callSpApcAgtStatsUpdate */
                 SP_APC_AGT_STATS_UPDT()
             }
 		]]>

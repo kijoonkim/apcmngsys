@@ -1,8 +1,8 @@
-package com.at.apcss.pd.pom.service;
+package com.apcmngsys.apcss.pd.pom.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
+import com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
 
 
 /**

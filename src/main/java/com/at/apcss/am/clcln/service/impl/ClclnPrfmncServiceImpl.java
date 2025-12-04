@@ -1,4 +1,4 @@
-package com.at.apcss.am.clcln.service.impl;
+package com.apcmngsys.apcss.am.clcln.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.clcln.mapper.ClclnPrfmncMapper;
-import com.at.apcss.am.clcln.service.ClclnPrfmncService;
-import com.at.apcss.am.clcln.vo.ClclnPrfmncVO;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.clcln.mapper.ClclnPrfmncMapper;
+import com.apcmngsys.apcss.am.clcln.service.ClclnPrfmncService;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnPrfmncVO;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : ClclnPrfmncServiceImpl.java

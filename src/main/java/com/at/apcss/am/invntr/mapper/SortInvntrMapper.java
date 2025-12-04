@@ -1,11 +1,11 @@
-package com.at.apcss.am.invntr.mapper;
+package com.apcmngsys.apcss.am.invntr.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.invntr.vo.SortStdGrdVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortStdGrdVO;
 
 /**
  * 선별재고 Mapper 인터페이스

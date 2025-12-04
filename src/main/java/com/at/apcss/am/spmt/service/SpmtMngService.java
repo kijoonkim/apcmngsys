@@ -1,7 +1,7 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
-import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 import java.util.HashMap;
 import java.util.List;

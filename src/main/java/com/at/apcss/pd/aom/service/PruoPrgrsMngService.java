@@ -1,13 +1,13 @@
-package com.at.apcss.pd.aom.service;
+package com.apcmngsys.apcss.pd.aom.service;
 
-import com.at.apcss.pd.aom.vo.GpcVO;
-import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
-import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
-import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
-import com.at.apcss.pd.pcom.vo.*;
-import com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
-import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
+import com.apcmngsys.apcss.pd.aom.vo.GpcVO;
+import com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO;
+import com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.apcmngsys.apcss.pd.pcom.vo.*;
+import com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO;
+import com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 import java.util.HashMap;
 import java.util.List;

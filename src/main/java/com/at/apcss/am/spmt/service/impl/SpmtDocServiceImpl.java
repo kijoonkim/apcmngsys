@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.service.impl;
+package com.apcmngsys.apcss.am.spmt.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.spmt.mapper.SpmtDocMapper;
-import com.at.apcss.am.spmt.service.SpmtDocService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.spmt.mapper.SpmtDocMapper;
+import com.apcmngsys.apcss.am.spmt.service.SpmtDocService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SpmtDocServiceImpl.java

@@ -1,4 +1,4 @@
-package com.at.apcss.co.msg.mapper;
+package com.apcmngsys.apcss.co.msg.mapper;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -11,9 +11,9 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.msg.service.ComMsgService;
-import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.msg.service.ComMsgService;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
 
 public class ComMessageSource implements MessageSource {
 

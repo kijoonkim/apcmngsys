@@ -1,4 +1,4 @@
-package com.at.apcss.fm.cmns.service.impl;
+package com.apcmngsys.apcss.fm.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.fm.cmns.mapper.PrdcrMapper2;
-import com.at.apcss.fm.cmns.service.PrdcrService2;
-import com.at.apcss.fm.cmns.vo.PrdcrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.cmns.mapper.PrdcrMapper2;
+import com.apcmngsys.apcss.fm.cmns.service.PrdcrService2;
+import com.apcmngsys.apcss.fm.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PrdcrServiceImpl.java

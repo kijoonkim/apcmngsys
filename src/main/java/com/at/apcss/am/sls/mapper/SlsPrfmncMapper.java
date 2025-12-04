@@ -1,10 +1,10 @@
-package com.at.apcss.am.sls.mapper;
+package com.apcmngsys.apcss.am.sls.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.sls.vo.SlsPrfmncVO;
+import com.apcmngsys.apcss.am.sls.vo.SlsPrfmncVO;
 
 /**
  * 매출실적 Mapper 인터페이스

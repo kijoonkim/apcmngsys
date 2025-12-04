@@ -1,10 +1,10 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.CmnsGdsVO;
-import com.at.apcss.am.cmns.vo.OrdrGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.OrdrGdsVO;
 
 /**
  * 발주 상품정보 Service 인터페이스

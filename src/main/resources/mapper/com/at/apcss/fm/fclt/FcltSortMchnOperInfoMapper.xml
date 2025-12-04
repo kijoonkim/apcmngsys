@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfo				-->
 	<!-- DESC : 선별기운영기간 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<select id="selectFcltSortMchnOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				, OTI.SN
@@ -64,14 +64,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList			-->
 	<!-- DESC : 선별기운영기간 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltSortMchnOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<select id="selectFcltSortMchnOperInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -82,7 +82,7 @@
 		</if>
 		<!-- End 페이징 -->
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoList */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				, OTI.SN
@@ -129,8 +129,8 @@
 		<!-- End 페이징 -->
 	</select>
 
-	<update id="insertFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
-		MERGE INTO TB_TE_APC_MCHN_OPER_PERIOD AMOP /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.insertFcltSortMchnOperInfo */
+	<update id="insertFcltSortMchnOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+		MERGE INTO TB_TE_APC_MCHN_OPER_PERIOD AMOP /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.insertFcltSortMchnOperInfo */
 		USING DUAL
 		ON (
 			AMOP.CRTR_YR = #{crtrYr}
@@ -218,16 +218,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo				-->
 	<!-- DESC : 선별기운영기간 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<update id="updateFcltSortMchnOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.updateFcltSortMchnOperInfo */
 				TB_TE_APC_MCHN_OPER_PERIOD AMOP
 			   SET
 				OPER_YN				= #{operYn}
@@ -262,16 +262,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo				-->
 	<!-- DESC : 선별기운영기간 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<update id="deleteFcltSortMchnOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
 				TB_TE_APC_MCHN_OPER_PERIOD AMOP
 			   SET
 				  DEL_YN 	= 'Y'
@@ -283,9 +283,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltSortMchnOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<delete id="deleteFcltSortMchnOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.deleteFcltSortMchnOperInfo */
 				TB_TE_APC_MCHN_OPER_PERIOD AMOP
 			WHERE 1=1
 			  AND CRTR_YR = #{crtrYr}
@@ -297,9 +297,9 @@
 -->
 
 
-	<select id="selectFcltSortMchnOperInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
+	<select id="selectFcltSortMchnOperInfoRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltSortMchnOperInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoRawDataList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltSortMchnOperInfoMapper.selectFcltSortMchnOperInfoRawDataList */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM

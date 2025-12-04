@@ -1,4 +1,4 @@
-package com.at.apcss.co.cd.web;
+package com.apcmngsys.apcss.co.cd.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.cd.service.ComCdService;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 /**
  * 공통코드정보 처리하는 컨트롤러 클래스
  * @author SI개발부 김호

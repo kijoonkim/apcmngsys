@@ -1,10 +1,10 @@
-package com.at.apcss.am.wrhs.web;
+package com.apcmngsys.apcss.am.wrhs.web;
 
-import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.wrhs.service.PrdcrLandInfoService;
+import com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO;
+import com.apcmngsys.apcss.am.wrhs.vo.PrdcrLandInfoVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

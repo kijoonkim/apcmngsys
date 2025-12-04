@@ -1,10 +1,10 @@
-package com.at.apcss.am.spmt.mapper;
+package com.apcmngsys.apcss.am.spmt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.spmt.vo.SpmtTrsprtVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtTrsprtVO;
 
 /**
  * 출하운송회사정보 Mapper 인터페이스

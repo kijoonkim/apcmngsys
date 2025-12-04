@@ -10,19 +10,19 @@
 <!-- 2023.07.14  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfct		-->
 	<!-- DESC : 규격 마스터 단건 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <select id="selectCmnsSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfct */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfct */
 				  GC.ITEM_CD
 				, GC.SPCFCT_CD
 				, GC.SPCFCT_NM
@@ -34,16 +34,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList	-->
 	<!-- DESC : 규격 마스터 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCmnsSpcfctList" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <select id="selectCmnsSpcfctList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectCmnsSpcfctList */
 				  GC.ITEM_CD
 				, GC.SPCFCT_CD
 				, GC.SPCFCT_NM
@@ -78,16 +78,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertCmnsSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertCmnsSpcfct		-->
 	<!-- DESC : 규격 마스터 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <insert id="insertCmnsSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertCmnsSpcfct */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertCmnsSpcfct */
 	    		INTO TB_SPCFCT_CRTR
 				(
 					  ITEM_CD
@@ -124,16 +124,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateCmnsSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateCmnsSpcfct		-->
 	<!-- DESC : 규격 마스터 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+	<update id="updateCmnsSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateCmnsSpcfct */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateCmnsSpcfct */
 				TB_SPCFCT_CRTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -151,16 +151,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteCmnsSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteCmnsSpcfct		-->
 	<!-- DESC : 규격 마스터 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCmnsSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+	<delete id="deleteCmnsSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteCmnsSpcfct */
+			DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteCmnsSpcfct */
 			  FROM TB_SPCFCT_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}
@@ -171,16 +171,16 @@
 	<!-- APC 규격 정보 -->
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfct		-->
 	<!-- DESC : APC 규격 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <select id="selectApcSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfct */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfct */
 				  AGC.ITEM_CD
 				, AGC.SPCFCT_CD
 				, AGC.SPCFCT_NM
@@ -194,16 +194,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList	-->
 	<!-- DESC : APC 규격 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcSpcfctList" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <select id="selectApcSpcfctList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.selectApcSpcfctList */
 				  AGC.ITEM_CD		AS ITEM_CD
 				, (SELECT FN_GET_ITEM_NM(AGC.ITEM_CD, AGC.APC_CD) FROM DUAL) AS ITEM_NM
 				, AGC.APC_CD		AS APC_CD
@@ -242,16 +242,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertApcSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertApcSpcfct		-->
 	<!-- DESC : APC 규격 등록.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <insert id="insertApcSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertApcSpcfct */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.insertApcSpcfct */
 	    		INTO TB_APC_SPCFCT_CRTR
 	    		(
 	    			  APC_CD
@@ -294,16 +294,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct		-->
 	<!-- DESC : APC 규격 변경.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+	<update id="updateApcSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateApcSpcfct */
 				TB_APC_SPCFCT_CRTR
 			   SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -324,16 +324,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct		-->
 	<!-- DESC : APC 규격 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteApcSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+	<delete id="deleteApcSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct */
+			DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct */
 			  FROM TB_APC_SPCFCT_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND SPCFCT_CD = #{spcfctCd}
@@ -342,16 +342,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfctAll		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfctAll		-->
 	<!-- DESC : APC 규격 전체 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.04  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteApcSpcfctAll" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+	<delete id="deleteApcSpcfctAll" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct */
+			DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.deleteApcSpcfct */
 			  FROM TB_APC_SPCFCT_CRTR
 			 WHERE ITEM_CD = #{itemCd}
 			   AND APC_CD = #{apcCd}
@@ -359,16 +359,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible			-->
 	<!-- DESC : APC 삭제 가능 여부	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.23  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="spcfctDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <select id="spcfctDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
-    		SELECT X.* /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible */
+    		SELECT X.* /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.spcfctDelible */
 			  FROM (
 			         SELECT
 			                '선별실적' AS DELIBLE
@@ -482,14 +482,14 @@
     </select>
     
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateSpcfct			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateSpcfct			-->
 	<!-- DESC : APC기준 규격 정보 업데이트  		                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSpcfct" parameterType="com.at.apcss.am.cmns.vo.CmnsSpcfctVO">
+    <update id="updateSpcfct" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO">
     	<![CDATA[
     	   UPDATE TB_APC_SPCFCT_CRTR
 			  SET SYS_LAST_CHG_DT 			= SYSDATE

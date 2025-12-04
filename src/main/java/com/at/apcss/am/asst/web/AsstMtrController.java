@@ -1,4 +1,4 @@
-package com.at.apcss.am.asst.web;
+package com.apcmngsys.apcss.am.asst.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.asst.service.AsstMtrService;
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.am.sort.vo.SortFcltVO;
-import com.at.apcss.am.tot.vo.TotMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.asst.service.AsstMtrService;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.sort.vo.SortFcltVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 

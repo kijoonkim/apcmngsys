@@ -1,7 +1,7 @@
-package com.at.apcss.fm.fclt.mapper;
+package com.apcmngsys.apcss.fm.fclt.mapper;
 
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

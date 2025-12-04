@@ -1,7 +1,7 @@
-package com.at.apcss.fm.fclt.mapper;
+package com.apcmngsys.apcss.fm.fclt.mapper;
 
 
-import com.at.apcss.fm.fclt.vo.ApcSurveyMstVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.HashMap;

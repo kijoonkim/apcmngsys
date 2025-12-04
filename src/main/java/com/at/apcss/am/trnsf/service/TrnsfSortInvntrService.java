@@ -1,9 +1,9 @@
-package com.at.apcss.am.trnsf.service;
+package com.apcmngsys.apcss.am.trnsf.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
+import com.apcmngsys.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 
 /**
  * 선별재고 Service 인터페이스

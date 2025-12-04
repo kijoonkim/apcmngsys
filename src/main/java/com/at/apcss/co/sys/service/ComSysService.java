@@ -1,8 +1,8 @@
-package com.at.apcss.co.sys.service;
+package com.apcmngsys.apcss.co.sys.service;
 
 import java.util.HashMap;
 
-import com.at.apcss.co.sys.vo.ComSysVO;
+import com.apcmngsys.apcss.co.sys.vo.ComSysVO;
 
 public interface ComSysService {
 

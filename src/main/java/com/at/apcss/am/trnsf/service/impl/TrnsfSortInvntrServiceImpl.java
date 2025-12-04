@@ -1,4 +1,4 @@
-package com.at.apcss.am.trnsf.service.impl;
+package com.apcmngsys.apcss.am.trnsf.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,16 +11,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
-import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
-import com.at.apcss.am.trnsf.service.TrnsfSortInvntrService;
-import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
-import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.invntr.service.SortInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.trnsf.mapper.TrnsfSortInvntrMapper;
+import com.apcmngsys.apcss.am.trnsf.service.InvntrTrnsfService;
+import com.apcmngsys.apcss.am.trnsf.service.TrnsfSortInvntrService;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO;
+import com.apcmngsys.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SortInvntrServiceImpl.java

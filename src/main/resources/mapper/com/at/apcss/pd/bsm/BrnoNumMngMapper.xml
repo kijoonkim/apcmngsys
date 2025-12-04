@@ -10,18 +10,18 @@
 <!-- 2024.11.11  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMng		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMng		-->
 	<!-- DESC : 채번 단건조회.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBrnoNumMng" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		SELECT /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
+	<select id="selectBrnoNumMng" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
 			BRNO
 			, CORP_NM
 			, MNO
@@ -38,15 +38,15 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngList	-->
 	<!-- DESC : 채번 리스트를 조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBrnoNumMngList" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		SELECT /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
+	<select id="selectBrnoNumMngList" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
 			BRNO
 			, CORP_NM
 			, MNO
@@ -67,15 +67,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateBrnoNumMng		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateBrnoNumMng		-->
 	<!-- DESC : 채번 수정                                             					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateBrnoNumMng" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		UPDATE /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.upateBrnoNumMng */
+	<update id="updateBrnoNumMng" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.upateBrnoNumMng */
 			TB_EV_APO TEA
 		   SET
 				MNO			= #{mno}
@@ -91,15 +91,15 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.deleteBrnoNumMng		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.deleteBrnoNumMng		-->
 	<!-- DESC : 채번 삭제                                             					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteBrnoNumMng" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		UPDATE /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.deleteBrnoNumMng */
+	<update id="deleteBrnoNumMng" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.deleteBrnoNumMng */
 			TB_EV_APO TEA
 		   SET
 				, MNO		= null
@@ -115,15 +115,15 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList	-->
 	<!-- DESC : 로우데이터 리스트 조회                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBrnoNumMngRowDataList" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		SELECT /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
+	<select id="selectBrnoNumMngRowDataList" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.selectBrnoNumMngRowDataList */
 			BRNO
 			, CORP_NM
 			, MNO
@@ -136,15 +136,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateSlctnYnHstry		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateSlctnYnHstry		-->
 	<!-- DESC : 히스토리 수정                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.11  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateSlctnYnHstry" parameterType="com.at.apcss.pd.bsm.vo.BrnoNumMngVO">
-		UPDATE /* com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateSlctnYnHstry */
+	<update id="updateSlctnYnHstry" parameterType="com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper.updateSlctnYnHstry */
 			TB_EV_APO_HSTRY
 		   SET
 				SLCTN_YR	= #{slctnYr}

@@ -1,4 +1,4 @@
-package com.at.apcss.pd.bsm.service.impl;
+package com.apcmngsys.apcss.pd.bsm.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,15 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.pd.bsm.mapper.ApcFarmOgnzInfoMapper;
-import com.at.apcss.pd.bsm.service.ApcFarmOgnzInfoService;
-import com.at.apcss.pd.bsm.vo.ApcFarmOgnzInfoVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.bbs.mapper.BbsMapper;
+import com.apcmngsys.apcss.fm.bbs.service.BbsService;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsVO;
+import com.apcmngsys.apcss.pd.bsm.mapper.ApcFarmOgnzInfoMapper;
+import com.apcmngsys.apcss.pd.bsm.service.ApcFarmOgnzInfoService;
+import com.apcmngsys.apcss.pd.bsm.vo.ApcFarmOgnzInfoVO;
 
 
 /**

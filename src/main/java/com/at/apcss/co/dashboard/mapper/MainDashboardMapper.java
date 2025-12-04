@@ -1,4 +1,4 @@
-package com.at.apcss.co.dashboard.mapper;
+package com.apcmngsys.apcss.co.dashboard.mapper;
 
 
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.co.dashboard.vo.DashboardVO;
 
 /**
  * 대시보드 데이터를 조회하는 DAO 클래스

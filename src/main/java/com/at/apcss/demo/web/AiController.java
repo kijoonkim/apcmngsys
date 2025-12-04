@@ -1,8 +1,8 @@
-package com.at.apcss.demo.web;
+package com.apcmngsys.apcss.demo.web;
 
-import com.at.apcss.co.sys.vo.LoginVO;
-import com.at.apcss.demo.service.AiService;
-import com.at.apcss.demo.vo.AiRequestDto;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.demo.service.AiService;
+import com.apcmngsys.apcss.demo.vo.AiRequestDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.at.apcss.mobile.mapper;
+package com.apcmngsys.apcss.mobile.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 import org.springframework.dao.DataAccessException;

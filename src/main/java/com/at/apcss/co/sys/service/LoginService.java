@@ -1,8 +1,8 @@
-package com.at.apcss.co.sys.service;
+package com.apcmngsys.apcss.co.sys.service;
 
 import java.util.Map;
 
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 
 /**
  * 로그인 Service 인터페이스

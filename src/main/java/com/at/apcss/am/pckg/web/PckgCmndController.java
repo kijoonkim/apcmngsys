@@ -1,4 +1,4 @@
-package com.at.apcss.am.pckg.web;
+package com.apcmngsys.apcss.am.pckg.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.pckg.service.PckgCmndService;
-import com.at.apcss.am.pckg.vo.PckgCmndVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.invntr.service.SortInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.pckg.service.PckgCmndService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgCmndVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : PckgCmndController.java

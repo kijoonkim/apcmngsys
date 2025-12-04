@@ -41,7 +41,7 @@ import org.springframework.jdbc.support.lob.DefaultLobHandler;
 @PropertySources({
 	@PropertySource("classpath:/application.properties")
 })
-@MapperScan(basePackages = {"com.at.apcma"},
+@MapperScan(basePackages = {"com.apcmngsys.apcma"},
 	sqlSessionFactoryRef="sqlSession2",
 	annotationClass = org.egovframe.rte.psl.dataaccess.mapper.Mapper.class)
 public class EgovConfigAppMapper2 {

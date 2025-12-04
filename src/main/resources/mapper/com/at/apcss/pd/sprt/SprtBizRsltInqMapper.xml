@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 
-<mapper namespace="com.at.apcss.pd.sprt.mapper.SprtBizRsltInqMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.sprt.mapper.SprtBizRsltInqMapper">
 
-    <select id="selectSprtBizRsltInqList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <select id="selectSprtBizRsltInqList" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
 
         SELECT
         ROWNUM AS ROW_SEQ
@@ -110,7 +110,7 @@
 
     </select>
 
-    <select id="selectSprtBizRsltInqSeCd" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <select id="selectSprtBizRsltInqSeCd" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
         SELECT ROWNUM AS ROW_SEQ
              , pt0.*
         FROM (
@@ -128,7 +128,7 @@
              ) pt0
     </select>
 
-    <select id="selectComCorpBzmn" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <select id="selectComCorpBzmn" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
         SELECT ROWNUM AS ROW_SEQ
              , pt0.*
         FROM (
@@ -138,7 +138,7 @@
              ) pt0
     </select>
 
-    <select id="selectComCorp" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <select id="selectComCorp" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
         SELECT ROWNUM AS ROW_SEQ
              , pt0.*
         FROM (
@@ -148,7 +148,7 @@
              ) pt0
     </select>
 
-    <select id="selectSprtBizOgnz" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <select id="selectSprtBizOgnz" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO" resultType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
         SELECT ROWNUM AS ROW_SEQ
              , pt0.*
         FROM (
@@ -160,11 +160,11 @@
              ) pt0
     </select>
 
-    <insert id="insertSprtBizRsltInqList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <insert id="insertSprtBizRsltInqList" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
         SELECT 1 FROM DUAL;
     </insert>
 
-    <insert id="insertSpComCorpAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <insert id="insertSpComCorpAdd" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
     	<![CDATA[
         {   call SP_COM_CORP_ADD (
                   #{sysLastChgUserId}           -- V_USER_ID
@@ -191,7 +191,7 @@
         ]]>
     </insert>
 
-    <insert id="insertSpComBzmnAdd" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <insert id="insertSpComBzmnAdd" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
     	<![CDATA[
         {   call SP_COM_BZMN_ADD (
                   #{sysLastChgUserId}           -- v_user_id
@@ -229,7 +229,7 @@
         ]]>
     </insert>
 
-    <insert id="insertSpSprtGetBizOgnzId" statementType="CALLABLE" parameterType="com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO">
+    <insert id="insertSpSprtGetBizOgnzId" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO">
     	<![CDATA[
         {   call SP_SPRT_GET_BIZ_OGNZ_ID (
                   #{sysLastChgUserId}

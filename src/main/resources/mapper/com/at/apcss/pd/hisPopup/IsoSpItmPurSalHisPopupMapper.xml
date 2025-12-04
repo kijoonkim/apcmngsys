@@ -10,18 +10,18 @@
 <!-- 2025.01.10  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2024	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2024	-->
 	<!-- DESC : 출자출하조직 총 매입 매출 조회 2024년                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisIsoSpItmPurSal2024" parameterType="com.at.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2024 */
+	<select id="selectHisIsoSpItmPurSal2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2024 */
 			YR
 			,BRNO
 			,UO_BRNO
@@ -111,15 +111,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025	-->
 	<!-- DESC : 출자출하조직 총 매입 매출 조회 2025년                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisIsoSpItmPurSal2025" parameterType="com.at.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025 */
+	<select id="selectHisIsoSpItmPurSal2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoSpItmPurSalVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025 */
 			YR
 			,BRNO
 			,UO_BRNO

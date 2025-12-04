@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.popup.mapper;
+package  com.apcmngsys.apcss.fm.popup.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.popup.vo.InvstmntSpmtPopupVO;
+import com.apcmngsys.apcss.fm.popup.vo.InvstmntSpmtPopupVO;
 
 /**
  * 통합조직,출자출하조직 팝업 Mapper 인터페이스

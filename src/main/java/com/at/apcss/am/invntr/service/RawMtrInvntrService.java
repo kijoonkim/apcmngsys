@@ -1,10 +1,10 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 /**
  * 원물재고 Service 인터페이스

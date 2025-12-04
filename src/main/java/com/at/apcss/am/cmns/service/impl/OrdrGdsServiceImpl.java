@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.mapper.OrdrGdsMapper;
-import com.at.apcss.am.cmns.service.CmnsGdsService;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.OrdrGdsService;
-import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
-import com.at.apcss.am.cmns.vo.CmnsGdsVO;
-import com.at.apcss.am.cmns.vo.OrdrGdsVO;
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.OrdrGdsMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsGdsService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.service.OrdrGdsService;
+import com.apcmngsys.apcss.am.cmns.service.SpmtPckgUnitService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.OrdrGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : OrdrGdsServiceImpl.java

@@ -1,14 +1,14 @@
-package com.at.apcss.am.spmt.service.impl;
+package com.apcmngsys.apcss.am.spmt.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.spmt.mapper.SpmtPurSalCrtrInfoMapper;
-import com.at.apcss.am.spmt.service.SpmtPurSalCrtrInfoService;
-import com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.spmt.mapper.SpmtPurSalCrtrInfoMapper;
+import com.apcmngsys.apcss.am.spmt.service.SpmtPurSalCrtrInfoService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("spmtPurSalCrtrInfoService")
 public class SpmtPurSalCrtrInfoServiceImpl extends BaseServiceImpl implements SpmtPurSalCrtrInfoService {

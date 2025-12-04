@@ -1,11 +1,11 @@
-package com.at.apcss.co.link.service.impl;
+package com.apcmngsys.apcss.co.link.service.impl;
 
-import com.at.apcss.co.link.mapper.ComLinkMapper;
-import com.at.apcss.co.link.service.ComLinkService;
-import com.at.apcss.co.link.vo.ComLnkgRptVO;
-import com.at.apcss.co.link.vo.ComPageLinkDtlVO;
-import com.at.apcss.co.link.vo.ComPageLinkVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.link.mapper.ComLinkMapper;
+import com.apcmngsys.apcss.co.link.service.ComLinkService;
+import com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO;
+import com.apcmngsys.apcss.co.link.vo.ComPageLinkDtlVO;
+import com.apcmngsys.apcss.co.link.vo.ComPageLinkVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

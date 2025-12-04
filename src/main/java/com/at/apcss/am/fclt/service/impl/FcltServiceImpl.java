@@ -1,14 +1,14 @@
-package com.at.apcss.am.fclt.service.impl;
+package com.apcmngsys.apcss.am.fclt.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.fclt.service.FcltService;
-import com.at.apcss.am.fclt.vo.FcltVO;
-import com.at.apcss.am.fclt.mapper.FcltMapper;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.fclt.service.FcltService;
+import com.apcmngsys.apcss.am.fclt.vo.FcltVO;
+import com.apcmngsys.apcss.am.fclt.mapper.FcltMapper;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 /**
  * @Class Name : FcltServiceImpl.java
  * @Description : 창고현황 서비스를 정의하기 위한 서비스 구현 클래스

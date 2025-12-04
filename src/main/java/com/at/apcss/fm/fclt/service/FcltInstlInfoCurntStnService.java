@@ -1,9 +1,9 @@
-package com.at.apcss.fm.fclt.service;
+package com.apcmngsys.apcss.fm.fclt.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.fm.fclt.vo.FcltInstlInfoCurntStnVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltInstlInfoCurntStnVO;
 
 
 /**

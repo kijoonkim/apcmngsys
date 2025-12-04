@@ -1,4 +1,4 @@
-package com.at.apcss.co.apc.service.impl;
+package com.apcmngsys.apcss.co.apc.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.apc.mapper.ApcInfoMapper;
-import com.at.apcss.co.apc.service.ApcInfoService;
-import com.at.apcss.co.apc.vo.ApcInfoVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper;
+import com.apcmngsys.apcss.co.apc.service.ApcInfoService;
+import com.apcmngsys.apcss.co.apc.vo.ApcInfoVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("apcInfoService")
 public class ApcInfoServiceImpl extends BaseServiceImpl implements ApcInfoService{

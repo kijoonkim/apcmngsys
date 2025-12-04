@@ -1,10 +1,10 @@
-package com.at.apcss.am.anls.mapper;
+package com.apcmngsys.apcss.am.anls.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.anls.vo.AnlsCrtrVO;
+import com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO;
 
 /**
  * 분석기준 Mapper

@@ -10,18 +10,18 @@
 <!-- 2024.11.03  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv	-->
 	<!-- DESC : 승인형 조직 단건조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnUoAprv" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv */
+	<select id="selectDocsSbmsnUoAprv" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprv */
 			EAM.YR
 			, EAM.APO_CD
 			, EAM.APO_SE
@@ -40,14 +40,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList-->
 	<!-- DESC : 승인형 조직 리스트                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnUoAprvList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
+	<select id="selectDocsSbmsnUoAprvList" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -57,7 +57,7 @@
 			  FROM (
 		</if>
 
-			SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList */
+			SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnUoAprvList */
 				EAM.YR
 				, EAM.APO_CD
 				, EAM.APO_SE
@@ -102,15 +102,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList	-->
 	<!-- DESC : 통합조직 및 소속 출자출하조직 리스트                                             -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnBscList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList */
+	<select id="selectDocsSbmsnBscList" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnBscList */
 			EAM.YR
 			, EAM.APO_CD
 			, EAM.APO_SE
@@ -275,15 +275,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList-->
 	<!-- DESC : 소속 출자출하조직 리스트                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnDtlIsoList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList */
+	<select id="selectDocsSbmsnDtlIsoList" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlIsoList */
 			EAM.YR
 			, EAM.APO_CD
 			, EAM.APO_SE
@@ -420,15 +420,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList	-->
 	<!-- DESC : 소속 생산자조직 리스트                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnDtlPoList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList */
+	<select id="selectDocsSbmsnDtlPoList" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnDtlPoList */
 			EFA.YR
 			, EFA.APO_CD
 			, EFA.APO_SE
@@ -479,15 +479,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList		-->
+	<!-- NAME : com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList		-->
 	<!-- DESC : 소속 생산자조직 리스트                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.03  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDocsSbmsnList" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		SELECT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList */
+	<select id="selectDocsSbmsnList" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO" resultType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		SELECT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.selectDocsSbmsnList */
 			ESD.YR
 			, (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = ESD.BRNO) AS APO_CD
 			, ESD.APO_SE
@@ -514,8 +514,8 @@
 		ORDER BY SN
 	</select>
 
-	<insert id="insertSbmsnDcmnt" parameterType="com.at.apcss.pd.dsm.vo.DocsFileVO">
-		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmnt */
+	<insert id="insertSbmsnDcmnt" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsFileVO">
+		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmnt */
 		USING DUAL
 			ON (
 					CLT.YR					= #{yr}
@@ -585,8 +585,8 @@
 					)
 	</insert>
 
-	<insert id="insertSbmsnDcmntRmrk" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntRmrk */
+	<insert id="insertSbmsnDcmntRmrk" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+		MERGE INTO TB_EV_SBMSN_DCMNT CLT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntRmrk */
 		USING DUAL
 			ON (
 					CLT.YR					= #{yr}
@@ -655,9 +655,9 @@
 					)
 	</insert>
 
-	<insert id="insertSbmsnDcmntFile" parameterType="com.at.apcss.pd.dsm.vo.DocsFileVO">
+	<insert id="insertSbmsnDcmntFile" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsFileVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntFile */
+			INSERT /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.insertSbmsnDcmntFile */
 				INTO TB_EV_SBMSN_DCMNT_FILE
 					(
 					  FILE_PATH_NM
@@ -694,8 +694,8 @@
 		</selectKey>
 	</insert>
 
-	<update id="updateDocsSbmsnAprv" parameterType="com.at.apcss.pd.dsm.vo.DocsSbmsnVO">
-			UPDATE /* com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper.updateDocsSbmsnAprv */
+	<update id="updateDocsSbmsnAprv" parameterType="com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO">
+			UPDATE /* com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper.updateDocsSbmsnAprv */
 				TB_EV_SBMSN_DCMNT
 			   SET
 				SYS_LAST_CHG_DT		= SYSDATE

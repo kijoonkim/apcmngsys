@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.vo;
+package com.apcmngsys.apcss.am.spmt.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;

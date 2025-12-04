@@ -1,8 +1,8 @@
-package com.at.apcss.am.wrhs.service;
+package com.apcmngsys.apcss.am.wrhs.service;
 
 import java.util.HashMap;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsMngVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsMngVO;
 
 /**
  * 원물입고 Service 인터페이스

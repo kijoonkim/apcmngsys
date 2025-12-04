@@ -1,10 +1,10 @@
-package com.at.apcss.am.vrty.mapper;
+package com.apcmngsys.apcss.am.vrty.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.vrty.vo.VrtyVO;
+import com.apcmngsys.apcss.am.vrty.vo.VrtyVO;
 /**
  * 품종팝업 Mapper
  * @author FINEVT 개발팀 김호

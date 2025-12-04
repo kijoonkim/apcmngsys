@@ -1,10 +1,10 @@
-package com.at.apcss.am.wrhs.mapper;
+package com.apcmngsys.apcss.am.wrhs.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
 
 
 /**

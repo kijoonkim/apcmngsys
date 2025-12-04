@@ -1,10 +1,10 @@
-package com.at.apcss.am.pckg.service;
+package com.apcmngsys.apcss.am.pckg.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO;
 
 /**
  * 포장실적 Service 인터페이스

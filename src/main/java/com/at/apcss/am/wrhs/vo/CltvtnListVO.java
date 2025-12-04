@@ -1,10 +1,10 @@
-package com.at.apcss.am.wrhs.vo;
+package com.apcmngsys.apcss.am.wrhs.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.am.cmns.vo.PrdcrVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

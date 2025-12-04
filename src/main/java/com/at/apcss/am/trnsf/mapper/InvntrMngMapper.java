@@ -1,10 +1,10 @@
-package com.at.apcss.am.trnsf.mapper;
+package com.apcmngsys.apcss.am.trnsf.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.trnsf.vo.InvntrMngVO;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO;
 
 @Mapper
 public interface InvntrMngMapper {

@@ -10,21 +10,21 @@
 <!-- 2024.10.08  	박승진       Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.spmt.mapper.SpmtPurSalCrtrInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.am.spmt.mapper.SpmtPurSalCrtrInfoMapper">
 
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.selectSpmtPusrSalCrtrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.selectSpmtPusrSalCrtrInfoList  	-->
 	<!-- DESC : 매출 기준 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSpmtPusrSalCrtrInfoList" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO" resultType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <select id="selectSpmtPusrSalCrtrInfoList" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.spmt.mapper.selectSpmtPusrSalCrtrInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.spmt.mapper.selectSpmtPusrSalCrtrInfoList */
 				*
 			  FROM TB_SLS_CRTR TC
 			 WHERE TC.APC_CD = #{apcCd}
@@ -37,16 +37,16 @@
     </select>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.selectSpmtPusrSalCrtrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.selectSpmtPusrSalCrtrInfoList  	-->
 	<!-- DESC : 매출 기준 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSpmtPusrSalCrtrInfoDtlList" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO" resultType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <select id="selectSpmtPusrSalCrtrInfoDtlList" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.spmt.mapper.selectSpmtPusrSalCrtrInfoDtlList */
+	    	SELECT /* com.apcmngsys.apcss.am.spmt.mapper.selectSpmtPusrSalCrtrInfoDtlList */
 				TCD.APC_CD
 				, TCD.SLS_CRTR_TYPE
 				, TCD.CRTR_CD
@@ -75,16 +75,16 @@
     </select>
 
  	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.insertSlsCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.insertSlsCrtrInfo  	-->
 	<!-- DESC : 매출 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSlsCrtrInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <insert id="insertSlsCrtrInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.spmt.mapper.insertSlsCrtrInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.spmt.mapper.insertSlsCrtrInfo  */
 	    	  INTO TB_SLS_CRTR (
 				APC_CD
 				, SLS_CRTR_TYPE
@@ -126,16 +126,16 @@
  	
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrInfo  	-->
 	<!-- DESC : 매출 기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSlsCrtrInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <update id="updateSlsCrtrInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.spmt.mapper.updateSlsCrtrInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.spmt.mapper.updateSlsCrtrInfo */
 	    	  TB_SLS_CRTR SET
 				CRTR_VL = #{crtrVl}
 				, CRTR_INDCT_NM = #{crtrIndctNm}
@@ -154,16 +154,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.insertSlsCrtrDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.insertSlsCrtrDtlInfo  	-->
 	<!-- DESC : 매출 상세 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSlsCrtrDtlInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <insert id="insertSlsCrtrDtlInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.spmt.mapper.insertSlsCrtrDtlInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.spmt.mapper.insertSlsCrtrDtlInfo  */
 	    	  INTO TB_SLS_CRTR_DTL (
 				APC_CD
 				, SLS_CRTR_TYPE
@@ -207,16 +207,16 @@
     </insert>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrDtlInfo  	-->
 	<!-- DESC : 매출 상세기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSlsCrtrDtlInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <update id="updateSlsCrtrDtlInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrDtlInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.updateSlsCrtrDtlInfo */
 	    	  TB_SLS_CRTR_DTL SET
 				DTL_CD = #{dtlCd}
 				, DTL_VL = #{dtlVl}
@@ -238,16 +238,16 @@
     </update>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrInfo	-->
 	<!-- DESC : 매출기준정보삭제	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteSpmtPurSalCrtrInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <delete id="deleteSpmtPurSalCrtrInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrInfo */
+			DELETE /* com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrInfo */
 			  FROM TB_SLS_CRTR
 			 WHERE APC_CD = #{apcCd}
 			   AND SLS_CRTR_TYPE = #{slsCrtrType}
@@ -256,16 +256,16 @@
 	</delete>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrDtlInfo -->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrDtlInfo -->
 	<!-- DESC : 집계기준상세정보 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteSpmtPurSalCrtrDtlInfo" parameterType="com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
+    <delete id="deleteSpmtPurSalCrtrDtlInfo" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrDtlInfo */
+			DELETE /* com.apcmngsys.apcss.am.spmt.mapper.spmtPurSalCrtrInfoMapper.deleteSpmtPurSalCrtrDtlInfo */
 			  FROM TB_SLS_CRTR_DTL
 			 WHERE APC_CD = #{apcCd}
 			   AND SLS_CRTR_TYPE = #{slsCrtrType}

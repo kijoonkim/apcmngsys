@@ -10,19 +10,19 @@
 <!-- 2024.07.16  	박승진        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsOprtrApcFcltMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CmnsOprtrApcFcltMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
 	<!-- DESC : APC 품목 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.05  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCmnsOprtrApcSortFcltList" parameterType="com.at.apcss.am.cmns.vo.CmnsOprtrApcFcltVO" resultType="com.at.apcss.am.cmns.vo.CmnsOprtrApcFcltVO">
+    <select id="selectCmnsOprtrApcSortFcltList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsOprtrApcFcltVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsOprtrApcFcltVO">
     	<![CDATA[
-	    	SELECT  /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsOprtrApcSortFcltList */
+	    	SELECT  /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsOprtrApcSortFcltList */
 			       OAF.FCLT_NM AS FCLT_NM
 			       , OAF.FCLT_EXPLN AS FCLT_EXPLN
 

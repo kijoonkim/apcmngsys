@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.web;
+package com.apcmngsys.apcss.am.cmns.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,19 +7,19 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.sort.vo.SortBffaGrdVO;
-import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.cmns.service.CmnsItemService;
-import com.at.apcss.am.cmns.vo.CmnsItemVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.cmns.service.CmnsItemService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @RestController
 public class CmnsItemApiController extends BaseController {

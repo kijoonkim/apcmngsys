@@ -1,6 +1,6 @@
-package com.at.apcss.pd.pcom.service;
+package com.apcmngsys.apcss.pd.pcom.service;
 
-import com.at.apcss.pd.pcom.vo.PruoMstVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO;
 
 import java.util.List;
 

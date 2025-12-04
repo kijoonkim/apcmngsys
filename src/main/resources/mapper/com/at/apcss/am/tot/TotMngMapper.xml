@@ -10,19 +10,19 @@
 <!-- 2024.10.08  	박승진       Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.tot.mapper.TotMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.tot.mapper.TotMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectCrtr  				-->
 	<!-- DESC : 집계 기준 단건 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtr" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO" resultType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<select id="selectCrtr" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-	    	SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtr */
+	    	SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtr */
 				C.APC_CD			AS APC_CD
 				 , C.TOT_CRTR_TYPE	AS TOT_CRTR_TYPE
 				 , C.CRTR_CD		AS CRTR_CD
@@ -50,16 +50,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectCrtrList  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectCrtrList  				-->
 	<!-- DESC : 집계 기준 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrList" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO" resultType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<select id="selectCrtrList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-      		SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrList */
+      		SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtrList */
 
 				  C.APC_CD				AS APC_CD
 				, C.TOT_CRTR_TYPE	  	AS TOT_CRTR_TYPE
@@ -117,16 +117,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectCrtrDtl  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectCrtrDtl  				-->
 	<!-- DESC : 집계 기준 상세 단건 조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtl" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO" resultType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<select id="selectCrtrDtl" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtl */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtl */
 				CD.APC_CD				    AS APC_CD
 				 , CD.TOT_CRTR_TYPE		AS TOT_CRTR_TYPE
 				 , CD.CRTR_CD			  AS CRTR_CD
@@ -148,16 +148,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtlList  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtlList  				-->
 	<!-- DESC : 집계 기준 상세 목록 조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtlList" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO" resultType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<select id="selectCrtrDtlList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtlList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtrDtlList */
 				  C.APC_CD				  AS APC_CD
 				, C.TOT_CRTR_TYPE	AS TOT_CRTR_TYPE
 				, CT.CD_VL_NM			  AS TOT_CRTR_TYPE_NM
@@ -228,16 +228,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.insertCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertCrtr  				-->
 	<!-- DESC : 집계 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertCrtr" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<insert id="insertCrtr" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
     	<![CDATA[
-		INSERT /* com.at.apcss.am.tot.mapper.TotMngMapper.insertCrtr */
+		INSERT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertCrtr */
 		INTO TB_TOT_CRTR (
 						   APC_CD
 						 , TOT_CRTR_TYPE
@@ -276,16 +276,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.updateCrtr  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.updateCrtr  	-->
 	<!-- DESC : 집계 기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCrtr" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<update id="updateCrtr" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
     	<![CDATA[
-		UPDATE /* com.at.apcss.am.tot.mapper.TotMngMapper.updateCrtr */
+		UPDATE /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.updateCrtr */
 			TB_TOT_CRTR
 		SET
 			CRTR_VL = #{crtrVl}
@@ -303,16 +303,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- com.at.apcss.am.tot.mapper.TotMngMapper.deleteCrtr				-->
+	<!-- com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.deleteCrtr				-->
 	<!-- DESC : 집계기준정보 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCrtr" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<delete id="deleteCrtr" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-		DELETE /* com.at.apcss.am.tot.mapper.TotMngMapper.deleteCrtr */
+		DELETE /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.deleteCrtr */
 		FROM TB_TOT_CRTR
 		WHERE APC_CD = #{apcCd}
 		  AND TOT_CRTR_TYPE = #{totCrtrType}
@@ -322,16 +322,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.insertCrtrDtl  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertCrtrDtl  				-->
 	<!-- DESC : 집계 기준 상세 등록.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertCrtrDtl" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<insert id="insertCrtrDtl" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
     	<![CDATA[
-		INSERT /* com.at.apcss.am.tot.mapper.TotMngMapper.insertCrtrDtl */
+		INSERT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertCrtrDtl */
 		INTO TB_TOT_CRTR_DTL (
 							   APC_CD
 							 , TOT_CRTR_TYPE
@@ -375,16 +375,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.updateCrtrDtl  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.updateCrtrDtl  				-->
 	<!-- DESC : 집계 기준 상세 수정.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCrtrDtl" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<update id="updateCrtrDtl" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
     	<![CDATA[
-		UPDATE /* com.at.apcss.am.tot.mapper.TotMngMapper.updateCrtrDtl */
+		UPDATE /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.updateCrtrDtl */
 			TB_TOT_CRTR_DTL
 		SET
 			DTL_CD = #{dtlCd}
@@ -404,16 +404,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- com.at.apcss.am.tot.mapper.TotMngMapper.deleteCrtrDtl						-->
+	<!-- com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.deleteCrtrDtl						-->
 	<!-- DESC : 집계기준 상세 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCrtrDtl" parameterType="com.at.apcss.am.tot.vo.TotCrtrVO">
+	<delete id="deleteCrtrDtl" parameterType="com.apcmngsys.apcss.am.tot.vo.TotCrtrVO">
 		<![CDATA[
-		DELETE /* com.at.apcss.am.tot.mapper.TotMngMapper.deleteCrtrDtl */
+		DELETE /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.deleteCrtrDtl */
 		FROM TB_TOT_CRTR_DTL
 		WHERE APC_CD = #{apcCd}
 		  AND TOT_CRTR_TYPE = #{totCrtrType}
@@ -424,16 +424,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectLatestTotRsltMst  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectLatestTotRsltMst  	-->
 	<!-- DESC : 집계결과 최신 마스터정보 조회                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectLatestTotRsltMst" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectLatestTotRsltMst" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectLatestTotRsltMst */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectLatestTotRsltMst */
 				  MAX(RM.TOT_YMD)			AS TOT_YMD
 				, MAX(RM.TOT_SN) KEEP (DENSE_RANK LAST ORDER BY RM.TOT_YMD NULLS FIRST, RM.TOT_SN)	AS TOT_SN
 			  FROM TB_TOT_RSLT_MST RM
@@ -455,16 +455,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRsltTermList  		-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRsltTermList  		-->
 	<!-- DESC : 집계기간 표시명 목록 조회                                          		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotRsltTermList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotRsltTermList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRsltTermList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRsltTermList */
 				TO_CHAR(ADD_MONTHS(DL.DT, DL.DIFF), 'YYYYMM')				AS COL_MM
 				 , TO_CHAR(ADD_MONTHS(DL.DT, DL.DIFF), 'YYYY')				AS COL_MM_YEAR
 				 , TO_CHAR(ADD_MONTHS(DL.DT, DL.DIFF), 'FMMM')				AS COL_MM_MONTH
@@ -488,16 +488,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrWrhsList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrWrhsList  	-->
 	<!-- DESC : 집계조회 - 원물입고.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotRawMtrWrhsList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotRawMtrWrhsList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrWrhsList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrWrhsList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -664,16 +664,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSortPrfmncList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSortPrfmncList  	-->
 	<!-- DESC : 집계조회 - 선별실적.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotSortPrfmncList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotSortPrfmncList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSortPrfmncList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSortPrfmncList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -839,16 +839,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotPckgPrfmncList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotPckgPrfmncList  	-->
 	<!-- DESC : 집계조회 - 포장실적.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotPckgPrfmncList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotPckgPrfmncList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotPckgPrfmncList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotPckgPrfmncList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -1020,16 +1020,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSpmtPrfmncList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSpmtPrfmncList  	-->
 	<!-- DESC : 집계조회 - 출하실적.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotSpmtPrfmncList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotSpmtPrfmncList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSpmtPrfmncList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSpmtPrfmncList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -1206,16 +1206,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrInvntrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrInvntrList  	-->
 	<!-- DESC : 집계조회 - 원물재고.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotRawMtrInvntrList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotRawMtrInvntrList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrInvntrList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotRawMtrInvntrList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -1380,16 +1380,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSortInvntrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSortInvntrList  	-->
 	<!-- DESC : 집계조회 - 선별재고.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotSortInvntrList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotSortInvntrList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotSortInvntrList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotSortInvntrList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -1554,16 +1554,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.selectTotGdsInvntrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotGdsInvntrList  	-->
 	<!-- DESC : 집계조회 - 상품재고.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTotGdsInvntrList" parameterType="com.at.apcss.am.tot.vo.TotRsltVO" resultType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<select id="selectTotGdsInvntrList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectTotGdsInvntrList */
+			SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectTotGdsInvntrList */
 			      RS.APC_CD			AS APC_CD
 				, RS.PRDCR_CD		AS PRDCR_CD
 				, RS.ITEM_CD		AS ITEM_CD
@@ -1733,16 +1733,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrtRp		-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrtRp		-->
 	<!-- DESC : 집계생성		                        	             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertSptotRsltCrt" statementType="CALLABLE" parameterType="com.at.apcss.am.tot.vo.TotRsltVO">
+	<insert id="insertSptotRsltCrt" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.tot.vo.TotRsltVO">
     	<![CDATA[
-			{call /* com.at.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrt */
+			{call /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrt */
 				SP_TOT_RSLT_CRT (
 					  #{sysLastChgUserId}
 					, #{sysLastChgPrgrmId}
@@ -1759,16 +1759,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.inserttotMngInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.inserttotMngInfo  	-->
 	<!-- DESC : 집계 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <insert id="insertTotMngInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.tot.mapper.insertTotMngInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.tot.mapper.insertTotMngInfo  */
 	    	  INTO TB_TOT_CRTR (
 				APC_CD
 				, TOT_CRTR_TYPE
@@ -1810,16 +1810,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.inserttotMngDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.inserttotMngDtlInfo  	-->
 	<!-- DESC : 집계 상세 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <insert id="insertTotMngDtlInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.tot.mapper.inserttotMngDtlInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.tot.mapper.inserttotMngDtlInfo  */
 	    	  INTO TB_TOT_CRTR_DTL (
 				APC_CD
 				, TOT_CRTR_TYPE
@@ -1863,16 +1863,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
 	<!-- DESC : 집계 기준 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectTotMngInfoList" parameterType="com.at.apcss.am.tot.vo.TotMngVO" resultType="com.at.apcss.am.tot.vo.TotMngVO">
+    <select id="selectTotMngInfoList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.tot.mapper.selecttotMngInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.tot.mapper.selecttotMngInfoList */
 				*
 			  FROM TB_TOT_CRTR TC
 			 WHERE TC.APC_CD = #{apcCd}
@@ -1885,16 +1885,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selecttotMngInfoList  	-->
 	<!-- DESC : 집계 기준상세 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectTotMngInfoDtlList" parameterType="com.at.apcss.am.tot.vo.TotMngVO" resultType="com.at.apcss.am.tot.vo.TotMngVO">
+    <select id="selectTotMngInfoDtlList" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO" resultType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.tot.mapper.selectTotMngInfoDtlList */
+	    	SELECT /* com.apcmngsys.apcss.am.tot.mapper.selectTotMngInfoDtlList */
 				TCD.APC_CD
 				, TCD.TOT_CRTR_TYPE
 				, TCD.CRTR_CD
@@ -1924,16 +1924,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.updatetotMngInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.updatetotMngInfo  	-->
 	<!-- DESC : 집계 기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <update id="updateTotMngInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngInfo */
 	    	  TB_TOT_CRTR SET
 				CRTR_VL = #{crtrVl}
 				, CRTR_INDCT_NM = #{crtrIndctNm}
@@ -1952,16 +1952,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.updatetotMngDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.updatetotMngDtlInfo  	-->
 	<!-- DESC : 집계 상세기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <update id="updateTotMngDtlInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngDtlInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.updatetotMngDtlInfo */
 	    	  TB_TOT_CRTR_DTL SET
 				DTL_CD = #{dtlCd}
 				, DTL_VL = #{dtlVl}
@@ -1983,16 +1983,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
+	<!-- com.apcmngsys.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
 	<!-- DESC : 집계기준정보 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteTotMngInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <delete id="deleteTotMngInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
+			DELETE /* com.apcmngsys.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
 			  FROM TB_TOT_CRTR
 			 WHERE APC_CD = #{apcCd}
 			   AND TOT_CRTR_TYPE = #{totCrtrType}
@@ -2001,16 +2001,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
+	<!-- com.apcmngsys.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo				-->
 	<!-- DESC : 집계기준상세정보 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.24  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteTotMngDtlInfo" parameterType="com.at.apcss.am.tot.vo.TotMngVO">
+    <delete id="deleteTotMngDtlInfo" parameterType="com.apcmngsys.apcss.am.tot.vo.TotMngVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
+			DELETE /* com.apcmngsys.apcss.am.tot.mapper.totMngMapper.deletetotMngInfo */
 			  FROM TB_TOT_CRTR_DTL
 			 WHERE APC_CD = #{apcCd}
 			   AND TOT_CRTR_TYPE = #{totCrtrType}
@@ -2021,7 +2021,7 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSpmtPrfmncTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectSpmtPrfmncTotInfo  	-->
 	<!-- DESC : 집계조회 - 출하.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2051,7 +2051,7 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectGdsInvntrTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectGdsInvntrTotInfo  	-->
 	<!-- DESC : 집계조회 - 상품.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2080,7 +2080,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectPckgPrfmncTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectPckgPrfmncTotInfo  	-->
 	<!-- DESC : 집계조회 - 포장.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2109,7 +2109,7 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectRawMtrInvntrTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectRawMtrInvntrTotInfo  	-->
 	<!-- DESC : 집계조회 - 원물재고.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2141,7 +2141,7 @@
 
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectRawMtrWrhsTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectRawMtrWrhsTotInfo  	-->
 	<!-- DESC : 집계조회 - 원물입고.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2178,7 +2178,7 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortInvntrTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectSortInvntrTotInfo  	-->
 	<!-- DESC : 집계조회 - 선별재고.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2207,7 +2207,7 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncTotInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncTotInfo  	-->
 	<!-- DESC : 집계조회 - 선별실적.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2236,7 +2236,7 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectItemClsSortPrfmncAnls  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectItemClsSortPrfmncAnls  	-->
 	<!-- DESC : 품목별 선별 실적 분석                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2353,7 +2353,7 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncAnls  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncAnls  	-->
 	<!-- DESC : 선별 실적 분석                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2565,7 +2565,7 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectPrdctnVol  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectPrdctnVol  			-->
 	<!-- DESC : 생산량 비교 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2684,7 +2684,7 @@
 		ORDER BY ITEM_NM, VRTY_NM
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectAnlsList  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.tot.mapper.totMngMapper.selectAnlsList  			-->
 	<!-- DESC : 단가 분석 목록조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

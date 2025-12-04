@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +10,17 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.mapper.SpmtPckgUnitMapper;
-import com.at.apcss.am.cmns.service.CmnsGdsService;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
-import com.at.apcss.am.cmns.service.SpmtSlsUntprcRegService;
-import com.at.apcss.am.cmns.vo.CmnsGdsVO;
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
-import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.SpmtPckgUnitMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsGdsService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.service.SpmtPckgUnitService;
+import com.apcmngsys.apcss.am.cmns.service.SpmtSlsUntprcRegService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 /**
  * @Class Name : SpmtPckgUnitServiceImpl.java
  * @Description : 출하포장단위 서비스를 정의하기 위한 서비스 구현 클래스

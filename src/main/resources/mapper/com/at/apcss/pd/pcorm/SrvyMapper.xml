@@ -10,9 +10,9 @@
 <!-- 2023.06.29  	jcshin			Initial Creation							-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcorm.mapper.SrvyMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcorm.mapper.SrvyMapper">
 	<!-- 제출 서류 리스트 -->
-	<select id="selectSrvyList" parameterType="com.at.apcss.pd.pcorm.vo.SrvyVO" resultType="com.at.apcss.pd.pcorm.vo.SrvyVO">
+	<select id="selectSrvyList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.SrvyVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.SrvyVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -21,7 +21,7 @@
 				, pt0.*
 			  FROM (
 		</if>
-			SELECT /* com.at.apcss.pd.pcorm.mapper.SrvyMapper.selectSrvyList */
+			SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.SrvyMapper.selectSrvyList */
 				TES.YR
 				, TES.USER_ID
 				/*, (SELECT DECODE(APRV , '1' , '승인형' , '2' , '육성형' , '')

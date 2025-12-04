@@ -1,10 +1,10 @@
-package com.at.apcss.co.dmnd.mapper;
+package com.apcmngsys.apcss.co.dmnd.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
+import com.apcmngsys.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
 
 /**
  * 프로그램개선요청 Mapper 인터페이스

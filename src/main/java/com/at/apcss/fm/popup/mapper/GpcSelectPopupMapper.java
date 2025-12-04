@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.popup.mapper;
+package  com.apcmngsys.apcss.fm.popup.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.popup.vo.GpcSelectPopupVO;
+import com.apcmngsys.apcss.fm.popup.vo.GpcSelectPopupVO;
 
 /**
  * apc선택 팝업 Mapper 인터페이스

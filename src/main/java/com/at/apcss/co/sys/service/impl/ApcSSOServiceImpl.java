@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.service.impl;
+package com.apcmngsys.apcss.co.sys.service.impl;
 
 import java.io.IOException;
 
@@ -7,8 +7,8 @@ import javax.servlet.ServletResponse;
 
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.ApcSSOService;
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.co.sys.service.ApcSSOService;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 
 /**
  * @Class Name : ApcSSOServiceImpl.java

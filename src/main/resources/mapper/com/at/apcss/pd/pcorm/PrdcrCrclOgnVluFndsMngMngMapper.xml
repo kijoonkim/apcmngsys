@@ -10,11 +10,11 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper">
 
 	<!-- 활성화 자금 리스트 -->
-	<select id="selectScoreList1" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList1 */
+	<select id="selectScoreList1" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList1 */
 			EAM.YR
 			,ETS.SEQ
 			,EAM.BRNO
@@ -1002,8 +1002,8 @@
 			AND EAM.BRNO = ETS.BRNO(+)
 	</select>
 
-	<select id="selectScoreList2" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList2 */
+	<select id="selectScoreList2" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList2 */
 			ETS.YR
 			,ETS.SEQ
 			,ETS.BRNO
@@ -1021,8 +1021,8 @@
 	</select>
 
 	<!-- 산출식 관리 리스트 -->
-	<select id="selectComputWayList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectComputWayList */
+	<select id="selectComputWayList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectComputWayList */
 			YR
 			, SEQ
 			, COMPUT_WAY_CD
@@ -1045,9 +1045,9 @@
 		ORDER BY FUND_ARTCL , COMPUT_WAY_CD
 	</select>
 
-	<insert id="insertComputWay" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<insert id="insertComputWay" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_ACTVTN_FUND_COMPUT_WAY CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertComputWay */
+		MERGE INTO TB_EV_ACTVTN_FUND_COMPUT_WAY CLT  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertComputWay */
 		USING DUAL
 			ON (
 					CLT.YR		= #{yr}
@@ -1113,9 +1113,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertActvtnFund" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<insert id="insertActvtnFund" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_ACTVTN_FUND CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertActvtnFund */
+		MERGE INTO TB_EV_ACTVTN_FUND CLT  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertActvtnFund */
 		USING DUAL
 			ON (
 					CLT.YR		= #{yr}
@@ -1182,8 +1182,8 @@
 					)
 		]]>
 	</insert>
-	<select id="selectScrDataList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList1 */
+	<select id="selectScrDataList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScoreList1 */
 			EAM.YR
 			,ETS.SEQ
 			,EAM.BRNO
@@ -2172,8 +2172,8 @@
 		WHERE 1=1
 			AND EAM.BRNO = ETS.BRNO(+)
 	</select>
-	<select id="selectRtDataList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		/* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
+	<select id="selectRtDataList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		/* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
 		/* CTGRY_CD ='1'  APRV = '2' */
 		SELECT YR, BRNO ,CTGRY_CD
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCA.BRNO) AS CORP_NM
@@ -2292,7 +2292,7 @@
 								) RT
 		UNION ALL
 		/* CTGRY_CD ='1'  APRV = '2' */
-		SELECT YR, BRNO ,CTGRY_CD  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
+		SELECT YR, BRNO ,CTGRY_CD  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCA.BRNO) AS CORP_NM
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CCA.CTGRY_CD) AS CTGRY_NM
 			,NVL(SLS_TOT_AMT, 0) AS SLS_TOT_AMT
@@ -2409,7 +2409,7 @@
 								) RT
 		UNION ALL
 		/* CTGRY_CD ='2'  APRV = '1' */
-		SELECT YR, BRNO ,CTGRY_CD  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
+		SELECT YR, BRNO ,CTGRY_CD  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCA.BRNO) AS CORP_NM
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CCA.CTGRY_CD) AS CTGRY_NM
 			,NVL(SLS_TOT_AMT, 0) AS SLS_TOT_AMT
@@ -2527,7 +2527,7 @@
 
 		UNION ALL
 		/* CTGRY_CD ='2'  APRV = '2' */
-		SELECT YR, BRNO ,CTGRY_CD  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
+		SELECT YR, BRNO ,CTGRY_CD  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectRtDataList */
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CCA.BRNO) AS CORP_NM
 			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = CCA.CTGRY_CD) AS CTGRY_NM
 			,NVL(SLS_TOT_AMT, 0) AS SLS_TOT_AMT
@@ -2879,12 +2879,12 @@
 
 	</select>
 
-	<select id="selectScrUserGrid01" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	<select id="selectScrUserGrid01" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 	</select>
-	<select id="selectScrUserGrid02" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+	<select id="selectScrUserGrid02" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
 	</select>
-	<select id="selectScrUserGrid03" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid03 */
+	<select id="selectScrUserGrid03" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid03 */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -3010,8 +3010,8 @@
 		)TOT
 
 	</select>
-	<select id="selectScrUserGrid04" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT   /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid04 */
+	<select id="selectScrUserGrid04" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT   /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid04 */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -3142,8 +3142,8 @@
 		  AND YR = #{yr}
 		  AND UO_BRNO = #{brno})TOT
 	</select>
-	<select id="selectScrUserGrid05" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid05 */
+	<select id="selectScrUserGrid05" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrUserGrid05 */
 			ESR.YR
 			,ESR.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
@@ -3178,8 +3178,8 @@
 	</select>
 
 	<!-- 최종점수 조회 -->
-	<select id="selectScrRsltList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrRsltList */
+	<select id="selectScrRsltList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.selectScrRsltList */
 			ESR.YR
 			,ESR.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
@@ -3215,8 +3215,8 @@
 	</select>
 
 	<!-- 최종점수 저장 -->
-	<insert id="insertScrRslt" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
-		MERGE INTO TB_EV_SCR_RSLT CLT  /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertScrRslt */
+	<insert id="insertScrRslt" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+		MERGE INTO TB_EV_SCR_RSLT CLT  /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper.insertScrRslt */
 		USING DUAL
 			ON (
 					CLT.YR		= #{yr}
@@ -3328,7 +3328,7 @@
 					)
 	</insert>
 	<!-- 활성화자금 출자출하조직 로우데이터 -->
-	<select id="selectFndsRawDataIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<select id="selectFndsRawDataIsoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		SELECT
 			ERR.YR
 			,UOEA.CORP_SE_CD AS UO_CORP_SE_CD
@@ -3614,7 +3614,7 @@
 		  AND ERR.BRNO = ISOAPS.BRNO(+)
 	</select>
 	<!-- 활성화자금 통합조직 로우데이터 -->
-	<select id="selectFndsRawDataUoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
+	<select id="selectFndsRawDataUoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO">
 		SELECT
 			EAM.YR
 			,EA.CORP_SE_CD

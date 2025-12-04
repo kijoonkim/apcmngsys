@@ -10,64 +10,64 @@
 <!-- 2023.07.14  	김 호        	Initial Creation                            	-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo	-->
 	<!-- DESC : APC 업무별 번호 자동 발번 단건 조회.	                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.31  	김 호        		Initial Creation                           	-->
 	<!-- ==========================================================================	-->
-    <select id="selectFnGetIdTaskNo" parameterType="com.at.apcss.am.cmns.vo.CmnsTaskNoVO" resultType="com.at.apcss.am.cmns.vo.CmnsTaskNoVO">
+    <select id="selectFnGetIdTaskNo" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsTaskNoVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsTaskNoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdTaskNo */
 				FN_GET_ID_TASK_NO(#{taskId}, #{apcCd}, #{ymd}) AS TASK_NO 
 			  FROM DUAL
 		]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo	    -->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo	    -->
 	<!-- DESC : PltNo 발번	                                                    	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.11  	손 민 성        		                                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectFnGetPltNo" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="String">
+	<select id="selectFnGetPltNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO" resultType="String">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo */
+		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPltNo */
 			FN_GET_ID_PLTNO(#{apcCd}, #{wrhsno}) AS PLTNO
 		FROM DUAL
 		]]>
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo	-->
 	<!-- DESC : PrnmntNo 발번	                                                    -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.06  	최지호        		                                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectFnGetPrnmntNo" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="String">
+	<select id="selectFnGetPrnmntNo" parameterType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="String">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo */
+		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetPrnmntNo */
 			FN_GET_ID_RAW_MTR_WRHS_PRNMNTNO(#{apcCd}, #{prdcrCd}) AS PRNMNTNO
 		FROM DUAL
 		]]>
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdlngCd	-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdlngCd	-->
     <!-- DESC : 육묘코드 발번	                                                        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.16  	최지호        		                                        -->
     <!-- ==========================================================================	-->
-    <select id="selectFnGetIdSdlngCd" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    <select id="selectFnGetIdSdlngCd" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="String">
     	<![CDATA[
             SELECT FN_GET_ID_SDLNG_CD(#{apcCd}) AS SDLNG_CD
             FROM DUAL
@@ -75,14 +75,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdnlgNo	-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdSdnlgNo	-->
     <!-- DESC : 육묘번호 발번	                                                        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.16  	최지호        		                                        -->
     <!-- ==========================================================================	-->
-    <select id="selectFnGetIdSdnlgNo" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    <select id="selectFnGetIdSdnlgNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="String">
     	<![CDATA[
             SELECT FN_GET_ID_SDNLG_NO(#{apcCd}, #{sdngYmd}) AS SDLNG_NO
             FROM DUAL
@@ -90,14 +90,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdPlntngNo	-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsTaskNoMapper.selectFnGetIdPlntngNo	-->
     <!-- DESC : 정식번호 발번	                                                        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.16  	최지호        		                                        -->
     <!-- ==========================================================================	-->
-    <select id="selectFnGetIdPlntngNo" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="String">
+    <select id="selectFnGetIdPlntngNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="String">
     	<![CDATA[
             SELECT FN_GET_ID_PLNTNG_NO(#{apcCd}, #{plntngYmd}) AS SDLNG_NO
             FROM DUAL

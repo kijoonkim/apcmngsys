@@ -1,4 +1,4 @@
-package com.at.apcss.am.bbs.service.impl;
+package com.apcmngsys.apcss.am.bbs.service.impl;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.bbs.mapper.apcBbsMapper;
-import com.at.apcss.am.bbs.service.apcBbsService;
-import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
-import com.at.apcss.am.bbs.vo.apcBbsFileVO;
-import com.at.apcss.am.bbs.vo.apcBbsVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.bbs.mapper.apcBbsMapper;
+import com.apcmngsys.apcss.am.bbs.service.apcBbsService;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 
 /**

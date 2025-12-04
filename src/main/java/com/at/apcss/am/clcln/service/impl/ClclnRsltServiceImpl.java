@@ -1,4 +1,4 @@
-package com.at.apcss.am.clcln.service.impl;
+package com.apcmngsys.apcss.am.clcln.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.clcln.mapper.ClclnRsltMapper;
-import com.at.apcss.am.clcln.service.ClclnRsltService;
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
-import com.at.apcss.am.clcln.vo.ClclnRsltDtlVO;
-import com.at.apcss.am.clcln.vo.ClclnRsltVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper;
+import com.apcmngsys.apcss.am.clcln.service.ClclnRsltService;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnMngVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnRsltVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : ClclnRsltServiceImpl.java

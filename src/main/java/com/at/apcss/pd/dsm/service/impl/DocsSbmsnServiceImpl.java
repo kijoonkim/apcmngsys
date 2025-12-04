@@ -1,4 +1,4 @@
-package com.at.apcss.pd.dsm.service.impl;
+package com.apcmngsys.apcss.pd.dsm.service.impl;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.dsm.mapper.DocsSbmsnMapper;
-import com.at.apcss.pd.dsm.service.DocsSbmsnService;
-import com.at.apcss.pd.dsm.vo.DocsFileVO;
-import com.at.apcss.pd.dsm.vo.DocsSbmsnVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.dsm.mapper.DocsSbmsnMapper;
+import com.apcmngsys.apcss.pd.dsm.service.DocsSbmsnService;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsFileVO;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO;
 
 import egovframework.let.utl.fcc.service.EgovFileUploadUtil;
 

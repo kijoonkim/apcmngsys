@@ -1,4 +1,4 @@
-package com.at.apcss.co.authrt.service.impl;
+package com.apcmngsys.apcss.co.authrt.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,12 +7,12 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper;
-import com.at.apcss.co.authrt.service.ComDpcnLgnService;
-import com.at.apcss.co.authrt.vo.ComDpcnLgnVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper;
+import com.apcmngsys.apcss.co.authrt.service.ComDpcnLgnService;
+import com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 @Service("comDpcnLgnService")
 public class ComDpcnLgnServiceImpl extends BaseServiceImpl implements ComDpcnLgnService {

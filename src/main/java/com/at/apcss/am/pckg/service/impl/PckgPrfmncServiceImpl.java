@@ -1,4 +1,4 @@
-package com.at.apcss.am.pckg.service.impl;
+package com.apcmngsys.apcss.am.pckg.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -16,17 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.service.CmnsGdsService;
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.cmns.vo.CmnsGdsVO;
-import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.pckg.mapper.PckgPrfmncMapper;
-import com.at.apcss.am.pckg.service.PckgInptService;
-import com.at.apcss.am.pckg.service.PckgPrfmncService;
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsGdsService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsGdsVO;
+import com.apcmngsys.apcss.am.invntr.service.GdsInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper;
+import com.apcmngsys.apcss.am.pckg.service.PckgInptService;
+import com.apcmngsys.apcss.am.pckg.service.PckgPrfmncService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 /**

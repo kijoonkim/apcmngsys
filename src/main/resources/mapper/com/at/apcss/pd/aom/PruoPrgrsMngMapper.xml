@@ -10,16 +10,16 @@
 <!-- 2025.11.06  	유민지        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper">
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsList   -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsList   -->
     <!-- DESC : 생산유통통합조직 진척도 목록 조회                                         -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.06  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectPruoPrgrsList" resultType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <select id="selectPruoPrgrsList" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
         SELECT
             A.CRTR_YR                      AS CRTR_YR
@@ -153,16 +153,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo   -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo   -->
     <!-- DESC : 생산유통통합조직 APO별 진행관리 등록                                     -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.06  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertPruoPrgrsApo" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <insert id="insertPruoPrgrsApo" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
-            {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo*/
+            {call /*com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApo*/
                 SP_PRUO_PRGRS_APO (
                     #{sysLastChgUserId}
                     , #{sysLastChgPrgrmId}
@@ -177,16 +177,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl   -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl   -->
     <!-- DESC : 생산유통통합조직 APO별 진행관리 취소                                     -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.06  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="updatePruoPrgrsApoCncl" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <insert id="updatePruoPrgrsApoCncl" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
-        {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl*/
+        {call /*com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePruoPrgrsApoCncl*/
             SP_PRUO_PRGRS_APO_CNCL (
                  #{sysLastChgUserId}
                 , #{sysLastChgPrgrmId}
@@ -201,16 +201,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt -->
     <!-- DESC : 생산유통통합조직 APO별 진행관리 작성                                      -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.11  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertPruoPrgrsApoWrt" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <insert id="insertPruoPrgrsApoWrt" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
-        {call /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt*/
+        {call /*com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.insertPruoPrgrsApoWrt*/
             SP_PRUO_PRGRS_APO_WRT (
                 #{sysLastChgUserId}
                 , #{sysLastChgPrgrmId}
@@ -225,7 +225,7 @@
         ]]>
     </insert>
 
-    <select id="selectAplyMngInfo" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <select id="selectAplyMngInfo" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
             SELECT
                 UO_CD
@@ -253,16 +253,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd    -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd    -->
     <!-- DESC : 생산유통통합조직 법인체마감/취소 업데이트                                  -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.11  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <update id="updateCorpDdlnSeCd" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
-            UPDATE /*com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd*/
+            UPDATE /*com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updateCorpDdlnSeCd*/
                 TB_EV_APLY_MNG
             SET
                 CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
@@ -272,14 +272,14 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsApoDtl    -->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.selectPruoPrgrsApoDtl    -->
     <!-- DESC : 생산유통통합조직 조직별 프로그램 상태 확인                                 -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.13  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectPruoPrgrsApoDtl" resultType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <select id="selectPruoPrgrsApoDtl" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
             SELECT
                 PAD.CRTR_YR
@@ -304,14 +304,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePrfmncCorpDdlnYn-->
+    <!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PruoPrgrsMngMapper.updatePrfmncCorpDdlnYn-->
     <!-- DESC : 생산유통통합조직 실적 법인체 마감                                         -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.25  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updatePrfmncCorpDdlnYn" parameterType="com.at.apcss.pd.pcom.vo.PruoPrgrsVO">
+    <update id="updatePrfmncCorpDdlnYn" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO">
         <![CDATA[
             UPDATE
                 TB_EV_APLY_MNG

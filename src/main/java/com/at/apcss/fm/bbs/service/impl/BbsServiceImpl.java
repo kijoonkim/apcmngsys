@@ -1,14 +1,14 @@
-package com.at.apcss.fm.bbs.service.impl;
+package com.apcmngsys.apcss.fm.bbs.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsFileVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.bbs.mapper.BbsMapper;
+import com.apcmngsys.apcss.fm.bbs.service.BbsService;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsFileVO;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsVO;
 
 
 /**

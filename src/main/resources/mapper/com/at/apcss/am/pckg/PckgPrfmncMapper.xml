@@ -10,19 +10,19 @@
 <!-- 2023.07.28  	신정철        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.pckg.mapper.PckgPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmnc		-->
 	<!-- DESC : 포장실적 단건 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <select id="selectPckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <select id="selectPckgPrfmnc" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmnc */
+	    	SELECT /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmnc */
 				  PP.APC_CD			AS APC_CD
 				, PP.PCKGNO			AS PCKGNO
 				, PP.PCKG_SN		AS PCKG_SN
@@ -40,16 +40,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList	-->
 	<!-- DESC : 포장실적 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <select id="selectPckgPrfmncList" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <select id="selectPckgPrfmncList" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO" resultType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
+    		SELECT /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.selectPckgPrfmncList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -170,16 +170,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.insertPckgPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.insertPckgPrfmnc		-->
 	<!-- DESC : 포장실적 등록.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <insert id="insertPckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <insert id="insertPckgPrfmnc" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.insertPckgPrfmnc */
+	    	INSERT /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.insertPckgPrfmnc */
 	    		INTO TB_PCKG_PRFMNC (
 					  APC_CD
 					, PCKGNO
@@ -219,16 +219,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmnc		-->
 	<!-- DESC : 포장실적 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updatePckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <update id="updatePckgPrfmnc" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmnc */
+	    	UPDATE /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmnc */
 				TB_PCKG_PRFMNC
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -252,16 +252,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY-->
 	<!-- DESC : 포장실적 삭제 : delyn Y 변경.                               				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updatePckgPrfmncForDelY" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <update id="updatePckgPrfmncForDelY" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY */
+	    	UPDATE /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updatePckgPrfmncForDelY */
 				TB_PCKG_PRFMNC
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -275,16 +275,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmnc		-->
 	<!-- DESC : 포장실적 삭제.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deletePckgPrfmnc" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <delete id="deletePckgPrfmnc" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmnc */
+	    	DELETE /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmnc */
 			  FROM TB_PCKG_PRFMNC
 			 WHERE APC_CD = #{apcCd}
 			   AND PCKGNO = #{pckgno}
@@ -294,16 +294,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updateInptPckgno		-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updateInptPckgno		-->
 	<!-- DESC : 포장투입실적 변경 - 포장번호 등록											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateInptPckgno" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+    <update id="updateInptPckgno" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.updateInptPckgno */
+	    	UPDATE /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.updateInptPckgno */
 				TB_PCKG_INPT_PRFMNC
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -319,16 +319,16 @@
 		]]>
 	</update>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll	-->
+	<!-- NAME : com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll	-->
 	<!-- DESC : 포장투입실적 전체 삭제													-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.09.19  	김호        		Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-	<update id="deletePckgPrfmncAll" parameterType="com.at.apcss.am.pckg.vo.PckgPrfmncVO">
+	<update id="deletePckgPrfmncAll" parameterType="com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll */
+			UPDATE /* com.apcmngsys.apcss.am.pckg.mapper.PckgPrfmncMapper.deletePckgPrfmncAll */
 			       TB_PCKG_PRFMNC
 			   SET DEL_YN 					= 'Y'
 			     , SYS_LAST_CHG_DT 			= SYSDATE

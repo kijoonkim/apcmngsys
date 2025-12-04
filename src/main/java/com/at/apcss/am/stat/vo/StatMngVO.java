@@ -1,7 +1,7 @@
-package com.at.apcss.am.stat.vo;
+package com.apcmngsys.apcss.am.stat.vo;
 
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

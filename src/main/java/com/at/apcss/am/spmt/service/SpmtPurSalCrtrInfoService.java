@@ -1,9 +1,9 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.List;
 
-import com.at.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO;
-import com.at.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPurSalCrtrInfoVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
 
 public interface SpmtPurSalCrtrInfoService {
 	

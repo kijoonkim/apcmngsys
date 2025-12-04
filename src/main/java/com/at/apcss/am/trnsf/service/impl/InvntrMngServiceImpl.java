@@ -1,4 +1,4 @@
-package com.at.apcss.am.trnsf.service.impl;
+package com.apcmngsys.apcss.am.trnsf.service.impl;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.trnsf.mapper.InvntrMngMapper;
-import com.at.apcss.am.trnsf.service.InvntrMngService;
-import com.at.apcss.am.trnsf.vo.InvntrMngVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper;
+import com.apcmngsys.apcss.am.trnsf.service.InvntrMngService;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("invntrMngService")
 public class InvntrMngServiceImpl extends BaseServiceImpl implements InvntrMngService{

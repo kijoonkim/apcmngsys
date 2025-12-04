@@ -10,21 +10,21 @@
 <!-- 2024.10.08  	qkrtmdwls       Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.asst.mapper.AsstMtrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper">
 
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  	-->
 	<!-- DESC : 부자재 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAsstMtrCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertAsstMtrCrtrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrInfo  */
 	    	  INTO TB_APC_MTRL_MSTR (
 				APC_CD
 				, DEL_YN
@@ -80,16 +80,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  	-->
 	<!-- DESC : 부자재 상세 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAsstMtrCrtrDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertAsstMtrCrtrDtlInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertAsstMtrCrtrDtlInfo  */
 	    	  INTO TB_ASST_MTR_CRTR_DTL (
 				APC_CD
 				, ASST_MTR_CRTR_TYPE
@@ -129,16 +129,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
 	<!-- DESC : 부자재 기준 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAsstMtrCrtrInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectAsstMtrCrtrInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList */
 				APC_CD
 				, MTRL_CD
 				, MTRL_TYPE
@@ -177,16 +177,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoList  	-->
 	<!-- DESC : 부자재 기준상세 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAsstMtrCrtrInfoDtlList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectAsstMtrCrtrInfoDtlList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoDtlList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectAsstMtrCrtrInfoDtlList */
 				*
 			  FROM TB_ASST_MTR_CRTR_DTL AMD
 			 WHERE AMD.APC_CD = #{apcCd}
@@ -209,16 +209,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrInfo  	-->
 	<!-- DESC : 부자재 기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateAsstMtrCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateAsstMtrCrtrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrInfo */
 	    	  TB_APC_MTRL_MSTR SET
 
 
@@ -247,16 +247,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteAsstMtrCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteAsstMtrCrtrInfo  	-->
 	<!-- DESC : 부자재 기준 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteAsstMtrCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <delete id="deleteAsstMtrCrtrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	DELETE/* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.deleteAsstMtrCrtrInfo */
+	    	DELETE/* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.deleteAsstMtrCrtrInfo */
 	    	  FROM TB_APC_MTRL_MSTR
 			 WHERE APC_CD = #{apcCd}
 			   AND MTRL_CD = #{mtrlCd}
@@ -264,16 +264,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateAsstMtrCrtrDtlInfo  	-->
 	<!-- DESC : 부자재 상세기준 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateAsstMtrCrtrDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateAsstMtrCrtrDtlInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrDtlInfo */
+	    	UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.updateAsstMtrCrtrDtlInfo */
 	    	  TB_ASST_MTR_CRTR_DTL SET
 				DTL_SN = #{dtlSn}
 				, DTL_CD = #{dtlCd}
@@ -295,16 +295,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList  	-->
 	<!-- DESC : BOM 마스터 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomMstrList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomMstrList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList */
 				*
 			  FROM  TB_APC_MTRL_MSTR MM
 					, TB_APC_BOM_MSTR BM
@@ -321,16 +321,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomMstrList  	-->
 	<!-- DESC : BOM 상세 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomDtlList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomDtlList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomDtlList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomDtlList */
 				BM.*
 				, (SELECT  X.MTRL_NM FROM TB_APC_MTRL_MSTR X WHERE X.APC_CD = BM.APC_CD AND X.MTRL_CD = BM.ELMT_MTRL_CD) AS MTRL_NM
 				, (SELECT  X.MTRL_TYPE FROM TB_APC_MTRL_MSTR X WHERE X.APC_CD = BM.APC_CD AND X.MTRL_CD = BM.ELMT_MTRL_CD) AS MTRL_TYPE
@@ -344,16 +344,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomMstrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomMstrInfo  	-->
 	<!-- DESC : BOM 마스터 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBomMstrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertBomMstrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomMstrInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomMstrInfo  */
 	    	  INTO TB_APC_BOM_MSTR (
 				APC_CD
 				, MTRL_CD
@@ -389,16 +389,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomMstrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomMstrInfo  	-->
 	<!-- DESC : BOM 마스터 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBomMstrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateBomMstrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomMstrInfo  */
+	    	UPDATE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomMstrInfo  */
 	    	  TB_APC_BOM_MSTR SET
 	    	   MTRL_NM = #{mtrlCd}
 	    	   , CMPSTN_SE_CD = #{cmpstnSeCd}
@@ -410,16 +410,16 @@
     </update>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomDtlInfo  	-->
 	<!-- DESC : BOM 상세 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBomDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertBomDtlInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomDtlInfo  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomDtlInfo  */
 	    	  INTO TB_APC_BOM_DTL (
 				APC_CD
 				, MTRL_CD
@@ -458,16 +458,16 @@
     </insert>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomDtlInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomDtlInfo  	-->
 	<!-- DESC : BOM 상세 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBomDtlInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateBomDtlInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomDtlInfo  */
+	    	UPDATE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomDtlInfo  */
 	    	  TB_APC_BOM_DTL SET
 	    	  ELMT_MTRL_GROUP_ID = #{elmtMtrlGroupId}
 	    	  , BSC_QNTT = #{bscQntt}
@@ -483,16 +483,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomCrtrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomCrtrInfo  	-->
 	<!-- DESC : BOM 마스터 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBomCrtrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <delete id="deleteBomCrtrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomCrtrInfo */
+	    	DELETE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomCrtrInfo */
 			  FROM TB_APC_BOM_MSTR BM
 			 WHERE BM.APC_CD = #{apcCd}
 				AND BM.MTRL_CD = #{mtrlCd}
@@ -501,16 +501,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomMstrList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomMstrList  	-->
 	<!-- DESC : BOM 상세 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBomDtlList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <delete id="deleteBomDtlList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomDtlList */
+	    	DELETE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomDtlList */
 			  FROM TB_APC_BOM_DTL BM
 			 WHERE BM.APC_CD = #{apcCd}
 			   AND BM.MTRL_CD = #{mtrlCd}
@@ -519,16 +519,16 @@
    	</delete>
 
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfoList  	-->
 	<!-- DESC : BOM 입고 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomWrhsInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomWrhsInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfoList */
 				MW.*
 			  FROM TB_ASST_MTR_WRHS MW
 			 WHERE MW.APC_CD = #{apcCd}
@@ -543,16 +543,16 @@
     </select>
 
        	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList  	-->
 	<!-- DESC : BOM 출고 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomSpmtInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomSpmtInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList */
 				MS.*
 			  FROM TB_ASST_MTR_SPMT MS
 			 WHERE MS.APC_CD = #{apcCd}
@@ -568,16 +568,16 @@
 
 
        	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfoList  	-->
 	<!-- DESC : BOM 출고 단건조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomSpmtInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomSpmtInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfo */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomSpmtInfo */
 				MS.*
 			  FROM TB_ASST_MTR_SPMT MS
 			 WHERE MS.APC_CD = #{apcCd}
@@ -588,16 +588,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfo  	-->
 	<!-- DESC : BOM 입고 단건조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomWrhsInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomWrhsInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfo */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomWrhsInfo */
 				MW.*
 			  FROM TB_ASST_MTR_WRHS MW
 			 WHERE MW.APC_CD = #{apcCd}
@@ -609,16 +609,16 @@
 
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  	-->
 	<!-- DESC : BOM 입고 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBomWrhsInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertBomWrhsInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  */
 	    	  INTO TB_ASST_MTR_WRHS (
 				APC_CD
 				, ASST_MTR_CD
@@ -655,16 +655,16 @@
 
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  	-->
 	<!-- DESC : BOM 입고 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBomWrhsInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateBomWrhsInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  */
+	    	UPDATE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  */
 	    	  TB_ASST_MTR_WRHS SET
 
 	    	  WRHS_QNTT = #{wrhsQntt}
@@ -679,16 +679,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomWrhsInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomWrhsInfoList  	-->
 	<!-- DESC : BOM 입고 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBomWrhsInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <delete id="deleteBomWrhsInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomWrhsInfoList  */
+	    	DELETE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomWrhsInfoList  */
 	    	  FROM TB_ASST_MTR_WRHS
 	    	  WHERE APC_CD = #{apcCd}
 				AND ASST_MTR_CD = #{asstMtrCd}
@@ -700,16 +700,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  	-->
 	<!-- DESC : BOM 출고 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBomSpmtInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <delete id="deleteBomSpmtInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  */
+	    	DELETE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  */
 	    	  FROM TB_ASST_MTR_SPMT
 	    	  WHERE APC_CD = #{apcCd}
 				AND ASST_MTR_CD = #{asstMtrCd}
@@ -721,16 +721,16 @@
     </delete>
 
          <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomSpmtInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomSpmtInfoList  	-->
 	<!-- DESC : BOM 출고 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBomSpmtInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertBomSpmtInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomSpmtInfoList  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomSpmtInfoList  */
 	    	  INTO TB_ASST_MTR_SPMT (
 				APC_CD
 				, ASST_MTR_CD
@@ -767,16 +767,16 @@
 
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomSpmtInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomSpmtInfoList  	-->
 	<!-- DESC : BOM 출고 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBomSpmtInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateBomSpmtInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomSpmtInfoList  */
+	    	UPDATE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomSpmtInfoList  */
 	    	  TB_ASST_MTR_SPMT SET
 
 	    	  SPMT_QNTT = #{spmtQntt}
@@ -791,16 +791,16 @@
     </update>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfo  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfo  	-->
 	<!-- DESC : BOM 재고 단건 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomInvntrInfo" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomInvntrInfo" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfo */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfo */
 				MI.*
 			  FROM TB_ASST_MTR_INVNTR MI
 			 WHERE MI.APC_CD = #{apcCd}
@@ -810,16 +810,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfoList  	-->
 	<!-- DESC : BOM 재고 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBomInvntrInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO" resultType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <select id="selectBomInvntrInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO" resultType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.selectBomInvntrInfoList */
 				*
 			  FROM TB_ASST_MTR_INVNTR MI
 			  		  , TB_APC_MTRL_MSTR MM
@@ -838,16 +838,16 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomInvntrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomInvntrInfoList  	-->
 	<!-- DESC : BOM 입고 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBomInvntrInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <insert id="insertBomInvntrInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  */
+	    	INSERT /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.insertBomWrhsInfoList  */
 	    	  INTO TB_ASST_MTR_INVNTR (
 				APC_CD
 				, ASST_MTR_CD
@@ -884,16 +884,16 @@
 
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomInvntrInfoList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomInvntrInfoList  	-->
 	<!-- DESC : BOM 재고 수정.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBomInvntrInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    <update id="updateBomInvntrInfoList" parameterType="com.apcmngsys.apcss.am.asst.vo.AsstMtrVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  */
+	    	UPDATE /* com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper.updateBomWrhsInfoList  */
 	    	  TB_ASST_MTR_INVNTR SET
 
 	    	  INVNTR_QNTT = #{invntrQntt}

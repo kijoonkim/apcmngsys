@@ -1,4 +1,4 @@
-package com.at.apcss.co.mail.vo;
+package com.apcmngsys.apcss.co.mail.vo;
 
 import egovframework.com.cmm.service.FileVO;
 import lombok.Getter;

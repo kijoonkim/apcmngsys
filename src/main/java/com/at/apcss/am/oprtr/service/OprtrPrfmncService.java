@@ -1,9 +1,9 @@
-package com.at.apcss.am.oprtr.service;
+package com.apcmngsys.apcss.am.oprtr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
 
 /**
  * 작업자실적등록 프로그램 Service 인터페이스

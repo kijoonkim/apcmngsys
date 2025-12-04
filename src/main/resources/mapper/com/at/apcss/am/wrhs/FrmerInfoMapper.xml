@@ -10,76 +10,76 @@
 <!-- 2024.06.26  	김  호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.wrhs.mapper.FrmerInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper">
 
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnBscInfoNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnBscInfoNo	-->
 	<!-- DESC : 영농관리 - 재배기본정보번호 발번.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectGetCltvtnBscInfoNo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO" resultType="string">
+	<select id="selectGetCltvtnBscInfoNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnBscInfoVO" resultType="string">
 		<![CDATA[
 			SELECT FN_GET_ID_CLTVTN_BSC_INFO(#{apcCd} , #{prdcrCd}) AS CLTVTN_BSC_INFO_NO FROM DUAL
 		]]>
 	</select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnHstryNo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnHstryNo		-->
 	<!-- DESC : 영농관리 - 재배이력번호 발번.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectGetCltvtnHstryNo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="string">
+	<select id="selectGetCltvtnHstryNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="string">
 		<![CDATA[
 			SELECT FN_GET_ID_CLTVTN_HSTRY(#{apcCd} , #{prdcrCd}, #{prdcrLandInfoNo}) AS CLTVTN_HSTRY_NO FROM DUAL
 		]]>
 	</select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnFrmhsQltNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetCltvtnFrmhsQltNo	-->
 	<!-- DESC : 영농관리 - 재배농가품질번호 발번.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectGetCltvtnFrmhsQltNo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO" resultType="string">
+	<select id="selectGetCltvtnFrmhsQltNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO" resultType="string">
 		<![CDATA[
 			SELECT FN_GET_ID_CLTVTN_FRMHS_QLT(#{apcCd} , #{prdcrCd}) AS CLTVTN_FRMHS_QLT_NO FROM DUAL
 		]]>
 	</select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetFrmhsExpctWrhsNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectGetFrmhsExpctWrhsNo	-->
 	<!-- DESC : 영농관리 - 농가예상입고번호 발번.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectGetFrmhsExpctWrhsNo" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="string">
+	<select id="selectGetFrmhsExpctWrhsNo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="string">
 		<![CDATA[
 			SELECT FN_GET_ID_FRMHS_EXPCT_WRHS(#{apcCd} , #{prdcrCd}) AS FRMHS_EXPCT_WRHS_NO FROM DUAL
 		]]>
 	</select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnBscInfoList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnBscInfoList		-->
 	<!-- DESC : 영농관리 - 재배기본정도 목록 조회.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectCltvtnBscInfoList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO">
+    <select id="selectCltvtnBscInfoList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnBscInfoVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnBscInfoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnBscInfoList */
+	    	SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnBscInfoList */
 			       CI.APC_CD                AS APC_CD
 			     , CI.PRDCR_CD              AS PRDCR_CD
 			     , CI.CLTVTN_BSC_INFO_NO    AS CLTVTN_BSC_INFO_NO
@@ -107,16 +107,16 @@
     </select>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
 	<!-- DESC : 영농관리 - 재배기본정도 저장.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <insert id="insertCltvtnBscInfo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO">
+    <insert id="insertCltvtnBscInfo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnBscInfoVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
+    		INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
     		  INTO TB_CLTVTN_BSC_INFO
     		     (
     		       APC_CD
@@ -181,16 +181,16 @@
     </insert>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo			-->
 	<!-- DESC : 영농관리 - 재배기본정도 저장.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <update id="updateCltvtnBscInfo" parameterType="com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO">
+    <update id="updateCltvtnBscInfo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnBscInfoVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
+    		UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnBscInfo */
     		  	   TB_CLTVTN_BSC_INFO
     		   SET SD_CD_1					= #{sdCd1}
 				 , SD_CD_2                  = #{sdCd2}
@@ -220,16 +220,16 @@
 
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList		-->
 	<!-- DESC : 영농관리 - 재배이력 목록 조회.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectCltvtnHstryList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+    <select id="selectCltvtnHstryList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
+			SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnHstryList */
 				   CH.APC_CD            AS APC_CD
 			     , CH.PRDCR_CD          AS PRDCR_CD
 			     , PI.PRDCR_NM			AS PRDCR_NM
@@ -306,16 +306,16 @@
     </select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry			-->
 	<!-- DESC : 영농관리 - 재배이력 등록.                    							-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<insert id="insertCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+	<insert id="insertCltvtnHstry" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry */
+			INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnHstry */
 			  INTO TB_CLTVTN_HSTRY
 			     (
 				   APC_CD
@@ -361,16 +361,16 @@
 		]]>
 	</insert>
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry			-->
 	<!-- DESC : 영농관리 - 재배이력 수정.                    							-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="updateCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+	<update id="updateCltvtnHstry" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
 				   TB_CLTVTN_HSTRY
 			   SET CFMTN_YMD				= #{cfmtnYmd}
                  , BASE_FRTLZR_YMD          = #{baseFrtlzrYmd}
@@ -391,16 +391,16 @@
 	</update>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry			-->
 	<!-- DESC : 영농관리 - 재배이력 삭제.                    							-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="deleteCltvtnHstry" parameterType="com.at.apcss.am.wrhs.vo.CltvtnHstryVO">
+	<update id="deleteCltvtnHstry" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnHstry */
 				   TB_CLTVTN_HSTRY
 			   SET DEL_YN                   = 'Y'
 				 , SYS_LAST_CHG_DT          = SYSDATE
@@ -416,16 +416,16 @@
 	</update>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList	-->
 	<!-- DESC : 영농관리 - 재배농가품질 목록 조회.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectCltvtnFrmhsQltList" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO" resultType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
+    <select id="selectCltvtnFrmhsQltList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
     	<![CDATA[
-    		/* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList */
+    		/* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectCltvtnFrmhsQltList */
     		SELECT pt0.*
     		     , (SELECT FN_GET_COM_CD_VL_NM('PLNTNG_STTS_CD', pt0.PLNTNG_STTS_CD) FROM DUAL) 	AS PLNTNG_STTS_NM
 				 , (SELECT FN_GET_COM_CD_VL_NM('SDNG_STTS_CD', pt0.SDNG_STTS_CD) FROM DUAL) 		AS SDNG_STTS_NM
@@ -635,16 +635,16 @@
     </select>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnFrmhsQlt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnFrmhsQlt		-->
 	<!-- DESC : 영농관리 - 재배농가품질 등록.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <insert id="insertCltvtnFrmhsQlt" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
+    <insert id="insertCltvtnFrmhsQlt" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnFrmhsQlt */
+    		INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertCltvtnFrmhsQlt */
     		  INTO TB_CLTVTN_FRMHS_QLT
 				 ( APC_CD
 				 , PRDCR_CD
@@ -749,16 +749,16 @@
     </insert>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnFrmhsQlt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnFrmhsQlt		-->
 	<!-- DESC : 영농관리 - 재배농가품질 수정.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <update id="updateCltvtnFrmhsQlt" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
+    <update id="updateCltvtnFrmhsQlt" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnFrmhsQlt */
+    		UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnFrmhsQlt */
     			   TB_CLTVTN_FRMHS_QLT
     		   SET
 				   SD_QNTT_1                = #{sdQntt1}
@@ -811,16 +811,16 @@
     </update>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnFrmhsQlt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnFrmhsQlt		-->
 	<!-- DESC : 영농관리 - 재배농가품질 삭제.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <update id="deleteCltvtnFrmhsQlt" parameterType="com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
+    <update id="deleteCltvtnFrmhsQlt" parameterType="com.apcmngsys.apcss.am.wrhs.vo.CltvtnFrmhsQltVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnFrmhsQlt */
+    		UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteCltvtnFrmhsQlt */
     			   TB_CLTVTN_FRMHS_QLT
     		   SET
 				   DEL_YN 					= 'Y'
@@ -837,16 +837,16 @@
     </update>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList	-->
 	<!-- DESC : 영농관리 - 농가예상입고 목록 조회.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectFrmhsExpctWrhsList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<select id="selectFrmhsExpctWrhsList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList */
+			SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsList */
 			       pt0.APC_CD                       AS APC_CD
 			     , pt0.PRDCR_CD                     AS PRDCR_CD
 			     , MAX(pt0.PRDCR_NM)				AS PRDCR_NM
@@ -1161,16 +1161,16 @@
 	</select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs		-->
 	<!-- DESC : 영농관리 - 농가예상입고 등록.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<insert id="insertFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<insert id="insertFrmhsExpctWrhs" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs */
+			INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhs */
 			  INTO TB_FRMHS_EXPCT_WRHS
 			     ( APC_CD
 				 , PRDCR_CD
@@ -1209,16 +1209,16 @@
 	</insert>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs		-->
 	<!-- DESC : 영농관리 - 농가예상입고 수정.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="updateFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<update id="updateFrmhsExpctWrhs" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
 				   TB_FRMHS_EXPCT_WRHS
 		       SET
 				   HDOFC_EXTRNL_SE_CD       = #{hdofcExtrnlSeCd}
@@ -1238,16 +1238,16 @@
 		</if>
 	</update>
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs		-->
 	<!-- DESC : 영농관리 - 농가예상입고 삭제.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="deleteFrmhsExpctWrhs" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<update id="deleteFrmhsExpctWrhs" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs */
 				   TB_FRMHS_EXPCT_WRHS
 		       SET
 				   DEL_YN 					= 'Y'
@@ -1264,16 +1264,16 @@
 	</update>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl		-->
 	<!-- DESC : 영농관리 - 농가예상입고상세 등록.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<insert id="insertFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
+	<insert id="insertFrmhsExpctWrhsDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl */
+			INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDtl */
 			  INTO TB_FRMHS_EXPCT_WRHS_DTL
 			     ( APC_CD
 				 , PRDCR_CD
@@ -1308,16 +1308,16 @@
 	</insert>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhsDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhsDtl		-->
 	<!-- DESC : 영농관리 - 농가예상입고상세 수정.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="updateFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
+	<update id="updateFrmhsExpctWrhsDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO">
 		<![CDATA[
-			MERGE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
+			MERGE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.updateFrmhsExpctWrhs */
 			 INTO TB_FRMHS_EXPCT_WRHS_DTL A
 			USING DUAL
 			   ON (
@@ -1376,16 +1376,16 @@
 		]]>
 	</update>
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl		-->
 	<!-- DESC : 영농관리 - 농가예상입고상세 삭제.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.06.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="deleteFrmhsExpctWrhsDtl" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<update id="deleteFrmhsExpctWrhsDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhsDtl */
 				   TB_FRMHS_EXPCT_WRHS_DTL
 		       SET
 				   DEL_YN 					= 'Y'
@@ -1398,16 +1398,16 @@
 		]]>
 	</update>
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln	-->
 	<!-- DESC : 영농관리 - 농가예상입고마감조회.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.11.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectFrmhsExpctWrhsDdln" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
+	<select id="selectFrmhsExpctWrhsDdln" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln */
+			SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectFrmhsExpctWrhsDdln */
 			       EWD.APC_CD 		AS APC_CD
 			     , EWD.YR			AS YR
 			     , EWD.YMD			AS YMD
@@ -1423,16 +1423,16 @@
 			</if>
 	</select>
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln	-->
 	<!-- DESC : 영농관리 - 농가예상입고마감 저장.                    					-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2024.11.26  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<update id="updateFrmhsExpctWrhsDdln" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
+	<update id="updateFrmhsExpctWrhsDdln" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO">
 		<![CDATA[
-			MERGE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln */
+			MERGE /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.insertFrmhsExpctWrhsDdln */
 			 INTO TB_FRMHS_EXPCT_WRHS_DDLN A
 			USING DUAL
 			   ON (
@@ -1488,14 +1488,14 @@
 	</update>
 
     <!-- ==============================================================================	-->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList	            -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList	            -->
     <!-- DESC : 법정동 목록 조회.                    					                    -->
     <!-- ==============================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
     <!-- ===========  	============  	===============================================	-->
     <!-- 2025.06.20  	최 지 호        	Initial Creation                            	-->
     <!-- ==============================================================================	-->
-    <select id="selectStdgList" parameterType="com.at.apcss.am.wrhs.vo.StdgVO" resultType="com.at.apcss.am.wrhs.vo.StdgVO">
+    <select id="selectStdgList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.StdgVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.StdgVO">
         <if test='pagingYn != null and pagingYn.equals("Y")'>
             SELECT
                   ROWNUM AS ROW_SEQ
@@ -1505,7 +1505,7 @@
         </if>
 
         <![CDATA[
-                SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList */
+                SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList */
                       SC.STDG_CD
                     , SC.STDG
                     , SC.STDG_CTPV

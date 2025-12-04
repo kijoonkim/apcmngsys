@@ -1,4 +1,4 @@
-package com.at.apcss.mobile.vo;
+package com.apcmngsys.apcss.mobile.vo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
 
 @Getter
 @Setter

@@ -1,8 +1,8 @@
-package com.at.apcss.co.sys.mapper;
+package com.apcmngsys.apcss.co.sys.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 
 /**
  * 일반 로그인, 인증서 로그인을 처리하는 DAO 클래스

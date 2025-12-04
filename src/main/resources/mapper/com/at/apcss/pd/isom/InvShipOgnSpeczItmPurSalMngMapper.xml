@@ -10,18 +10,18 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
+	<select id="selectInvShipOgnSpeczItmPurSalMng" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+SELECT * FROM (    /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMng */
 --=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
 SELECT
@@ -240,15 +240,15 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
+	<select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+SELECT * FROM (    /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
 --=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
 SELECT
@@ -484,9 +484,9 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	</select>
 
 
-	<insert id="insertInvShipOgnSpeczItmPurSalMng" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<insert id="insertInvShipOgnSpeczItmPurSalMng" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMng */
+		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMng */
 		USING DUAL
 			ON (
 					CLT.APO_CD   		= #{apoCd}
@@ -594,8 +594,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		]]>
 	</insert>
 
-	<select id="selectItemStbltYnList" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList */
+	<select id="selectItemStbltYnList" parameterType="com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO" resultType="com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO">
+		SELECT	/* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYnList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -819,8 +819,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	</select>
 
 	<!-- 적합여부 업데이트 -->
-	<update id="updateItemStbltYn" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
+	<update id="updateItemStbltYn" parameterType="com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO">
+			UPDATE /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYn */
 				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			SET
 				STBLT_YN	= #{stbltYn}
@@ -832,8 +832,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 			  AND ITEM_CD 	= #{itemCd}
 	</update>
 	<!-- 적합여부 초기화 -->
-	<update id="updateItemStbltYnInit" parameterType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit */
+	<update id="updateItemStbltYnInit" parameterType="com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO">
+			UPDATE /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateItemStbltYnInit */
 				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			SET
 				  STBLT_YN	= ''
@@ -845,7 +845,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	</update>
 
 	<!-- 전문품목 매입매출 출자출하조직 로우데이터 -->
-	<select id="selectRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectRawDataList" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		SELECT
 			YR
 			, BRNO
@@ -957,15 +957,15 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper..selectRawDataList2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper..selectRawDataList2025	-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 로우데이터 조회 2025년                                	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025 */
+	<select id="selectRawDataList2025" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoSpItmPurSalHisPopupMapper.selectHisIsoSpItmPurSal2025 */
 			YR
 			,BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = PST.BRNO) AS CORP_NM
@@ -1076,16 +1076,16 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseRawDataList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseRawDataList	-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 로우데이터 조회 2025년                                	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectIsoMajorItemPurchaseRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectIsoMajorItemPurchaseRawDataList" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseRawDataList */
+			SELECT /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseRawDataList */
 				APO.YR
 				, APO.BRNO
 				, APO.CORP_NM
@@ -1232,16 +1232,16 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseList	-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 목록 조회                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.09  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectIsoMajorItemPurchaseList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectIsoMajorItemPurchaseList" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseList */
+			SELECT /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPurchaseList */
 				APO.YR
 				, APO.BRNO
 				, APO.CORP_NM
@@ -1404,15 +1404,15 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew	-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 조회                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.09  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvShipOgnSpeczItmPurSalMngListNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew */
+	<select id="selectInvShipOgnSpeczItmPurSalMngListNew" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+SELECT * FROM (    /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngListNew */
 /*=='5' AS TYPE_SE_NO===출자출하조직 적합 생산자조직======================================*/
 
 SELECT
@@ -1918,16 +1918,16 @@ ORDER BY
 	</select>
 
 	<!-- ============================================================================================================== -->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPrchsSlsListForUpbrToAprv			-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPrchsSlsListForUpbrToAprv			-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 조회  2025 : 육성->승인 추가                                         			-->
 	<!-- ============================================================================================================== -->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ============================================================================================================== -->
 	<!-- 2024.12.09  	ljw        		Initial Creation                            -->
 	<!-- ============================================================================================================== -->
-	<select id="selectIsoMajorItemPrchsSlsListForUpbrToAprv" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectIsoMajorItemPrchsSlsListForUpbrToAprv" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		<![CDATA[
-			WITH /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPrchsSlsListForUpbrToAprv */
+			WITH /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoMajorItemPrchsSlsListForUpbrToAprv */
 			  FRMHS_APO AS (
 				SELECT
 					  FA.APO_CD     AS APO_CD
@@ -2301,16 +2301,16 @@ ORDER BY
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew	-->
 	<!-- DESC : 출자출하조직 전문품목 매입매출 등록                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.12  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertInvShipOgnSpeczItmPurSalMngNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<insert id="insertInvShipOgnSpeczItmPurSalMngNew" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew */
+		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.insertInvShipOgnSpeczItmPurSalMngNew */
 		USING DUAL
 			ON (
 					CLT.YR	 			= #{yr}
@@ -2431,8 +2431,8 @@ ORDER BY
 	</insert>
 
 	<!-- 저장전 기존 자료 삭제 처리 -->
-	<update id="updateDelYn" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateDelYn */
+	<update id="updateDelYn" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+			UPDATE /* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateDelYn */
 				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			SET
 				  DEL_YN	= 'Y'
@@ -2445,8 +2445,8 @@ ORDER BY
 	</update>
 
 	<!-- 총매입매출 임시저장 처리 -->
-	<update id="updateTempSaveAps" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-		UPDATE /* com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.updateTempSaveAps */
+	<update id="updateTempSaveAps" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.updateTempSaveAps */
 			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 		   SET
 			  TMPR_STRG_YN = 'Y'
@@ -2462,8 +2462,8 @@ ORDER BY
 	</update>
 
 	<!-- 전문품목 매입매출 임시저장 처리 -->
-	<update id="updateTempSavePst" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-		UPDATE /* com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.updateTempSavePst */
+	<update id="updateTempSavePst" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.updateTempSavePst */
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		   SET
 			  TMPR_STRG_YN = 'Y'
@@ -2477,15 +2477,15 @@ ORDER BY
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoPst	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoPst	-->
 	<!-- DESC : 임시저장 조회                                            					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.20  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTempSaveIsoPst" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
-		SELECT	/* com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoPst */
+	<select id="selectTempSaveIsoPst" parameterType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoPst */
 			TMPR_STRG_YN
 			,TMPR_STRG_RSN
 			,TMPR_STRG_DT

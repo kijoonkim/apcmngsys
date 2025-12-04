@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.service;
+package com.apcmngsys.apcss.co.sys.service;
 
 public interface ComCryptoService {
 

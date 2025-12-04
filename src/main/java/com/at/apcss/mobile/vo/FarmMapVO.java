@@ -1,4 +1,4 @@
-package com.at.apcss.mobile.vo;
+package com.apcmngsys.apcss.mobile.vo;
 
 import lombok.*;
 

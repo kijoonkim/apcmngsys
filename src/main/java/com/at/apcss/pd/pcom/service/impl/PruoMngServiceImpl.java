@@ -1,9 +1,9 @@
-package com.at.apcss.pd.pcom.service.impl;
+package com.apcmngsys.apcss.pd.pcom.service.impl;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pcom.mapper.PruoMngMapper;
-import com.at.apcss.pd.pcom.service.PruoMngService;
-import com.at.apcss.pd.pcom.vo.PruoMstVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pcom.mapper.PruoMngMapper;
+import com.apcmngsys.apcss.pd.pcom.service.PruoMngService;
+import com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

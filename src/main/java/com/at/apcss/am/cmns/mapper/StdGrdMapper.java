@@ -1,12 +1,12 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
-import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
-import com.at.apcss.am.cmns.vo.StdGrdVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdVO;
 
 /**
  * 등급 정보 Mapper 인터페이스

@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmLandInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 
-	<select id="selectFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<select id="selectFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFarmLandInfo */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFarmLandInfo */
 				MNGMST_REGNO
 				, FRLN_TYPE
 				, CPRTN_FRLN_YN
@@ -70,14 +70,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmLandInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<select id="selectFarmLandInfoList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -88,7 +88,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFarmLandInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFarmLandInfoList */
 				MNGMST_REGNO
 				, FRLN_TYPE
 				, CPRTN_FRLN_YN
@@ -142,9 +142,9 @@
 	</select>
 
 
-	<insert id="insertFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<insert id="insertFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertfarmLandInfo */
+			INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.insertfarmLandInfo */
 			  INTO TB_AX_FARM_LAND_INFO
 				(
 					  MNGMST_REGNO
@@ -218,9 +218,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertMergeFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<insert id="insertMergeFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
-			MERGE INTO USRAM.TB_AX_FARM_LAND_INFO AS tgt	/* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
+			MERGE INTO USRAM.TB_AX_FARM_LAND_INFO AS tgt	/* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
 			USING DUAL
 				ON (
 						tgt.FRMERNO			= #{frmerno}
@@ -229,7 +229,7 @@
 						AND tgt.FRLN_MNO	= #{frlnMno}
 					)
 			WHEN MATCHED THEN
-				UPDATE	/* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
+				UPDATE	/* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
 				   SET
 					  tgt.MNGMST_REGNO				=#{mngmstRegno}
 					, tgt.FRLN_TYPE					=#{frlnType}
@@ -258,7 +258,7 @@
 					, tgt.SYS_LAST_CHG_PRGRM_ID		=#{sysLastChgUserId}
 					, tgt.SYS_LAST_CHG_USER_ID		=#{sysLastChgPrgrmId}
 			WHEN NOT MATCHED
-			THEN INSERT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
+			THEN INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.insertMegerFarmLandInfo */
 				(
 					MNGMST_REGNO
 					, FRLN_TYPE
@@ -329,9 +329,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertLogFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<insert id="insertLogFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 	<![CDATA[
-		INSERT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.insertLogfarmLandInfo */
+		INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.insertLogfarmLandInfo */
 			  INTO TB_AX_FARM_LAND_INFO_LOG
 				(
 					  MNGMST_REGNO
@@ -406,9 +406,9 @@
 	</insert>
 
 
-	<update id="updateFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<update id="updateFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.upatefarmLandInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.upatefarmLandInfo */
 				TB_AX_FARM_LAND_INFO
 			   SET
 				  MNGMST_REGNO				= #{mngmstRegno}
@@ -453,9 +453,9 @@
 		]]>
 	</update>
 
-	<delete id="deleteFarmLandInfo" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
+	<delete id="deleteFarmLandInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
 		<![CDATA[
-		DELETE FROM TB_AX_FARM_LAND_INFO /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.deleteFarmLandInfo */
+		DELETE FROM TB_AX_FARM_LAND_INFO /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.deleteFarmLandInfo */
 		WHERE 1=1
 		  AND FRMERNO		= #{frmerno}
 		  AND FRLN_SN		= #{frlnSn}
@@ -464,8 +464,8 @@
 		]]>
 	</delete>
 
-	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoVO">
-		SELECT /* com.at.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFrmerSnList */
+	<select id="selectFrmerSnList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoVO">
+		SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoMapper.selectFrmerSnList */
 			FRMERNO
 		FROM TB_AX_FRMER_INFO
 		<if test='frmerno != null and frmerno != ""'>

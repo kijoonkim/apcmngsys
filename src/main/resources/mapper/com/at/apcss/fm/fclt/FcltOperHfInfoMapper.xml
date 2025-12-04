@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo				-->
 	<!-- DESC : 시설고용인력 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<select id="selectFcltOperHfInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfo */
 				APC_CD
 				,APC_NM
 				,CRTR_YR
@@ -53,14 +53,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList			-->
 	<!-- DESC : 시설고용인력 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 		<!-- ==========================================================================	-->
-	<select id="selectFcltOperHfInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<select id="selectFcltOperHfInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -72,7 +72,7 @@
 		<!-- End 페이징 -->
 
 			<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoList */
 				APC_CD
 				,APC_NM
 				,CRTR_YR
@@ -110,8 +110,8 @@
 		<!-- End 페이징 -->
 	</select>
 
-	<update id="insertFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
-		MERGE INTO TB_TE_APC_OPER_ABLT AOA /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
+	<update id="insertFcltOperHfInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+		MERGE INTO TB_TE_APC_OPER_ABLT AOA /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.insertFcltOperHfInfo */
 		USING DUAL
 		ON (
 			AOA.CRTR_YR = #{crtrYr}
@@ -188,16 +188,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo				-->
 	<!-- DESC : 시설고용인력 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<update id="updateFcltOperHfInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.updateFcltOperHfInfo */
 				TB_TE_APC_OPER_ABLT AOA
 			  SET
 				HIRE_RGLLBR_OFC			= #{hireRgllbrOfc}
@@ -228,16 +228,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo				-->
 	<!-- DESC : 시설고용인력 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<update id="deleteFcltOperHfInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
 				TB_TE_APC_OPER_ABLT AOA
 			  SET
 				  DEL_YN 	= 'Y'
@@ -247,9 +247,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltOperHfInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<delete id="deleteFcltOperHfInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.deleteFcltOperHfInfo */
 				TB_TE_APC_OPER_ABLT AOA
 			WHERE 1=1
 			  AND CRTR_YR = #{crtrYr}
@@ -257,9 +257,9 @@
 		]]>
 	</delete>
 -->
-	<select id="selectFcltOperHfInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO">
+	<select id="selectFcltOperHfInfoRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoRawDataList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperHfInfoMapper.selectFcltOperHfInfoRawDataList */
 				AOA.CRTR_YR
 				,AOA.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOA.APC_CD) AS APC_NM

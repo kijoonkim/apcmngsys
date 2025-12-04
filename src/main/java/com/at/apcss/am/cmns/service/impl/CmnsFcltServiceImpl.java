@@ -1,20 +1,20 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
-import com.at.apcss.am.cmns.service.CmnsFcltService;
-import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltVO;
-import com.at.apcss.am.wgh.mapper.WghInfoMapper;
-import com.at.apcss.co.cd.mapper.ComCdMapper;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.cmns.service.CmnsFcltService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO;
+import com.apcmngsys.apcss.am.wgh.mapper.WghInfoMapper;
+import com.apcmngsys.apcss.co.cd.mapper.ComCdMapper;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.core.util.JsonUtils;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 
 import java.util.Arrays;
 import java.util.HashMap;

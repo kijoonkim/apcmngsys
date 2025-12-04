@@ -10,20 +10,20 @@
 <!-- 2023.08.24  	하민우        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.ordr.mapper.OrdrRcvMapper">
+<mapper namespace="com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper">
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus		-->
     <!-- DESC : 홈플러스 발주정보 등록.                         	             	 			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertOrdrRcvHomeplus" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO">
+    <insert id="insertOrdrRcvHomeplus" parameterType="com.apcmngsys.apcss.am.ordr.vo.OrdrRcvHomeplusVO">
     	<![CDATA[
-        INSERT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus */
+        INSERT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertOrdrRcvHomeplus */
         INTO TB_OUTORDR_INFO_IF_HOMEPLUS
         ( APC_CD
         , RCPTN_YMD
@@ -113,16 +113,16 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls		-->
     <!-- DESC : from 발주수신정보 to 발주정보 등록 : 홈플러스                          	        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertSpOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.OrdrRcvVO">
+    <insert id="insertSpOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.ordr.vo.OrdrRcvVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpOrdrRcvHmpls */
             SP_ORDR_RCV_HMPLS(
                     #{sysLastChgUserId}
                 , #{sysLastChgPrgrmId}
@@ -137,16 +137,16 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg		-->
     <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrHpReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <insert id="insertSpMrktOrdrHpReg" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpReg */
             SP_MRKT_ORDR_HP_REG(
                     #{ordrApcCd}
                 , #{wrhsYmd}
@@ -182,7 +182,7 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg	-->
     <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -190,9 +190,9 @@
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrHpDtlReg" statementType="CALLABLE"
-            parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+            parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrHpDtlReg */
             SP_MRKT_ORDR_HP_DTL_REG(
                     #{ordrApcCd}
                 , #{wrhsYmd}
@@ -225,16 +225,16 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls	-->
     <!-- DESC : 마켓발주정보등록-홈플러스                          	        		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <insert id="insertSpMrktOrdrRcvHmpls" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvHmpls */
             SP_MRKT_ORDR_RCV_HMPLS(
                     #{sysUserId}
                 , #{sysPrgrmId}
@@ -250,17 +250,17 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus		-->
     <!-- DESC : (원본)마켓발주정보단건조회-홈플러스                          	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectMrktHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO"
-            resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <select id="selectMrktHomeplus" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO"
+            resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus */
+        SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktHomeplus */
             MAX(MH.ORDR_APC_CD)  AS ORDR_APC_CD
              , MAX(MH.WRHS_YMD)  AS WRHS_YMD
              , MAX(MH.ORDR_SEQ)  AS ORDR_SEQ
@@ -275,17 +275,17 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte			-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte			-->
     <!-- DESC : (원본)마켓발주정보단건조회-롯데                          	    	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectMrktLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO"
-            resultType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <select id="selectMrktLotte" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO"
+            resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte */
+        SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktLotte */
             MAX(MH.ORDR_APC_CD)  AS ORDR_APC_CD
              , MAX(MH.WRHS_YMD)  AS WRHS_YMD
              , MAX(MH.ORDR_SEQ)  AS ORDR_SEQ
@@ -299,17 +299,17 @@
 	</select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl	-->
     <!-- DESC : (원본)마켓발주정보상세조회-홈플러스                          	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectOrglnOrdrHomeplusDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO"
-            resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <select id="selectOrglnOrdrHomeplusDtl" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO"
+            resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
         <![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl */
+			SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrHomeplusDtl */
 				  MH.ORDR_APC_CD			AS ORDR_APC_CD
 				, MH.WRHS_YMD				AS WRHS_YMD
 				, MH.ORDR_SEQ				AS ORDR_SEQ
@@ -396,17 +396,17 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl	-->
     <!-- DESC : (원본)마켓발주정보상세조회-롯데                          	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectOrglnOrdrLotteDtl" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO"
-            resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <select id="selectOrglnOrdrLotteDtl" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO"
+            resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
         <![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl */
+			SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectOrglnOrdrLotteDtl */
 				  MH.ORDR_APC_CD			AS ORDR_APC_CD
 				, MH.WRHS_YMD				AS WRHS_YMD
 				, MH.ORDR_SEQ				AS ORDR_SEQ
@@ -497,16 +497,16 @@
     <!-- 롯데 -->
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg		-->
     <!-- DESC : 마켓발주정보등록-롯데                          	        		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrLtReg" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <insert id="insertSpMrktOrdrLtReg" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtReg */
             SP_MRKT_ORDR_LT_REG(
                     #{ordrApcCd}
                 , #{wrhsYmd}
@@ -545,7 +545,7 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg	-->
     <!-- DESC : 마켓발주정보등록-롯데                          	        			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -553,9 +553,9 @@
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
     <insert id="insertSpMrktOrdrLtDtlReg" statementType="CALLABLE"
-            parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+            parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrLtDtlReg */
             SP_MRKT_ORDR_LT_DTL_REG(
                     #{ordrApcCd}
                 , #{wrhsYmd}
@@ -591,16 +591,16 @@
 	</insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte	-->
     <!-- DESC : 마켓발주정보등록-롯데                          	        			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertSpMrktOrdrRcvLotte" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrVO">
+    <insert id="insertSpMrktOrdrRcvLotte" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrVO">
     	<![CDATA[
-        {call /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte */
+        {call /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.insertSpMrktOrdrRcvLotte */
             SP_MRKT_ORDR_RCV_LOTTE(
                     #{sysUserId}
                 , #{sysPrgrmId}
@@ -616,16 +616,16 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus	-->
     <!-- DESC : 연계처리-홈플러스                          	        				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateMrktLinkPrcsHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <update id="updateMrktLinkPrcsHomeplus" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-        UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus */
+        UPDATE /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus */
             TB_MRKT_ORDR_IF_HP
         SET PRCS_SE_CD   = 'Y'
           , LINK_PRCS_DT = SYSDATE
@@ -636,16 +636,16 @@
 	</update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte	-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte	-->
     <!-- DESC : 연계처리-롯데                          	        				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2023.08.24  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateMrktLinkPrcsLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <update id="updateMrktLinkPrcsLotte" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
     	<![CDATA[
-        UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte */
+        UPDATE /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte */
             TB_MRKT_ORDR_IF_LT
         SET PRCS_SE_CD   = 'Y'
           , LINK_PRCS_DT = SYSDATE
@@ -657,17 +657,17 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList		-->
     <!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.11.18  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO"
-            resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+    <select id="selectMrktGdsOrdrList" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktGdsOrdrVO"
+            resultType="com.apcmngsys.apcss.am.ordr.vo.MrktGdsOrdrVO">
         <![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList */
+			SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectMrktGdsOrdrList */
 				  MG.ORDR_APC_CD        AS ORDR_APC_CD
 				, MG.LGSZ_MRKT_CD       AS LGSZ_MRKT_CD
 				, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', MG.LGSZ_MRKT_CD) FROM DUAL)	AS LGSZ_MRKT_NM
@@ -1416,7 +1416,7 @@
                              )
     </insert>
 
-    <select id="selectMrktGdsOrdrSsgList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <select id="selectMrktGdsOrdrSsgList" resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
         SELECT
               OISD.ORDR_APC_CD AS ordrApcCd
             , OISD.WRHS_YMD AS wrhsYmd
@@ -1470,7 +1470,7 @@
         </if>
         ORDER BY OISD.OUTORDRNO, OISD.DTL_SEQ
     </select>
-    <select id="selectMrktGdsOrdrLtList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <select id="selectMrktGdsOrdrLtList" resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
         SELECT pt0.*, PU.VOL_UNIT_WGHT
         FROM
         (
@@ -1527,7 +1527,7 @@
             AND pt0.MRKT_GDS_NM = PU.SPMT_PCKG_UNIT_NM
         ORDER BY pt0.STOR_CD DESC , PU.VOL_UNIT_WGHT DESC
     </select>
-    <select id="selectMrktGdsOrdrCpngList" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    <select id="selectMrktGdsOrdrCpngList" resultType="com.apcmngsys.apcss.am.ordr.vo.MrktOrdrDtlVO">
         SELECT
               OICD.ORDR_APC_CD AS ordrApcCd
             , OICD.WRHS_YMD AS wrhsYmd
@@ -1613,16 +1613,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList		-->
 	<!-- DESC : (원본)마켓상품발주정보조회                          	    			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.11.18  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUntyMrktGdsOrdrList" parameterType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO" resultType="com.at.apcss.am.ordr.vo.MrktGdsOrdrVO">
+	<select id="selectUntyMrktGdsOrdrList" parameterType="com.apcmngsys.apcss.am.ordr.vo.MrktGdsOrdrVO" resultType="com.apcmngsys.apcss.am.ordr.vo.MrktGdsOrdrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList */
+			SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper.selectUntyMrktGdsOrdrList */
 				  A.ORDR_APC_CD         AS ORDR_APC_CD
 				, A.WRHS_YMD            AS WRHS_YMD
 				, A.ORDR_SEQ            AS ORDR_SEQ

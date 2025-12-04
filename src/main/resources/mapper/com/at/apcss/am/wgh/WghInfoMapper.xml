@@ -8,18 +8,18 @@
 <!-- ===========  	============  	===========================================	-->
 <!-- 2024.07.22  	손민성      		Initial Creation                            -->
 <!-- ==========================================================================	-->
-<mapper namespace="com.at.apcss.am.wgh.mapper.WghInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wgh.mapper.WghInfoMapper">
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghInfoList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghInfoList		-->
     <!-- DESC : 계량대 상세속성 목록 조회.	                                       			    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.22  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectWghInfoList" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO">
+    <select id="selectWghInfoList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO">
         <![CDATA[
-            SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghInfoList */
+            SELECT /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghInfoList */
                  OAF.APC_CD AS APC_CD
 	            ,OAF.FCLT_TYPE AS FCLT_TYPE
 	            ,OAF.FCLT_CD AS FCLT_CD
@@ -40,16 +40,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghDtlInfoList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghDtlInfoList		-->
     <!-- DESC : 계량대 목록 조회.	                                       			    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectWghDtlInfoList" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
+    <select id="selectWghDtlInfoList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
         <![CDATA[
-        SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghDtlInfoList */
+        SELECT /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghDtlInfoList */
               OAFD.APC_CD AS APC_CD
              ,OAFD.FCLT_TYPE AS FCLT_TYPE
              ,OAFD.FCLT_CD AS FCLT_CD
@@ -71,16 +71,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltDtl		    -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltDtl		    -->
     <!-- DESC : 계량대 공통목록 생성.                                     			    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertWghFcltDtl" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
+    <insert id="insertWghFcltDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
             <![CDATA[
-        INSERT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltDtl */
+        INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltDtl */
         INTO TB_OPRTNG_APC_FCLT_DTL
         (
               APC_CD
@@ -118,16 +118,16 @@
         ]]>
     </insert>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFclt		    -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFclt		    -->
     <!-- DESC : 계량대 목록 생성.                                     			        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertWghFclt" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltVO">
+    <insert id="insertWghFclt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO">
             <![CDATA[
-        INSERT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFclt */
+        INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFclt */
         INTO TB_OPRTNG_APC_FCLT
         (
              APC_CD
@@ -184,7 +184,7 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltAtrb	    -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltAtrb	    -->
     <!-- DESC : 계량대 상세속성 목록 생성.                             			        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -193,7 +193,7 @@
     <!-- ==========================================================================	-->
 
     <insert id="insertWghFcltAtrb" parameterType="java.util.List">
-            INSERT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltAtrb */
+            INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.insertWghFcltAtrb */
             INTO TB_OPRTNG_APC_FCLT_ATRB
             (
              APC_CD
@@ -233,16 +233,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltInfo	    -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltInfo	    -->
     <!-- DESC : 계량대 메인 grid 속성정보 조회                                          -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectWghFcltInfo" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltVO">
+    <select id="selectWghFcltInfo" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO">
         <![CDATA[
-         SELECT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltInfo */
+         SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltInfo */
              APC_CD AS APC_CD
             ,FCLT_TYPE AS FCLT_TYPE
             ,FCLT_CD  AS FCLT_CD
@@ -281,16 +281,16 @@
         </if>
     </select>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltAtrbInfoList-->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltAtrbInfoList-->
     <!-- DESC : 계량대 하단 grid 상세속성정보 조회                                       -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectWghFcltAtrbInfoList" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
+    <select id="selectWghFcltAtrbInfoList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
         <![CDATA[
-        SELECT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltAtrbInfoList */
+        SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltAtrbInfoList */
              APC_CD
             ,FCLT_TYPE
             ,FCLT_CD
@@ -317,43 +317,43 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo            -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo            -->
     <!-- DESC : 계량대 목록 일괄 삭제                                                  -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.31  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <delete id="deleteWghInfo" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
-        DELETE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo */
+    <delete id="deleteWghInfo" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
+        DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo */
         FROM TB_OPRTNG_APC_FCLT
         WHERE APC_CD = #{apcCd}
           AND FCLT_CD = #{fcltCd}
     </delete>
-    <delete id="deleteWghAtrbInfo" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
-        DELETE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghAtrbInfo */
+    <delete id="deleteWghAtrbInfo" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
+        DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghAtrbInfo */
         FROM TB_OPRTNG_APC_FCLT_ATRB
         WHERE APC_CD = #{apcCd}
           AND FCLT_CD = #{fcltCd}
     </delete>
-    <delete id="deleteWghDtlInfo" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
-        DELETE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghDtlInfo */
+    <delete id="deleteWghDtlInfo" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
+        DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghDtlInfo */
         FROM TB_OPRTNG_APC_FCLT_DTL
         WHERE APC_CD = #{apcCd}
           AND FCLT_CD = #{fcltCd};
     </delete>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo            -->
+    <!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo            -->
     <!-- DESC : 계량대 목록 일괄 수정                                                  -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.31  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateWghFcltDtl" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
+    <update id="updateWghFcltDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO">
         <![CDATA[
-            UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo */
+            UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo */
                 TB_OPRTNG_APC_FCLT_DTL SET
                    APC_CD = #{apcCd}
                  , FCLT_TYPE = 'WGH_FCLT_CD'
@@ -370,9 +370,9 @@
               AND FCLT_CD = #{fcltCd}
         ]]>
     </update>
-    <update id="updateWghFclt" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltVO">
+    <update id="updateWghFclt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO">
         <![CDATA[
-        UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghFclt */
+        UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghFclt */
             TB_OPRTNG_APC_FCLT SET
                 FCLT_TYPE = 'WGH_FCLT_CD'
                ,FCLT_NM = #{fcltNm}
@@ -396,7 +396,7 @@
           AND FCLT_CD = #{fcltCd}
         ]]>
     </update>
-    <update id="updateWghFcltAtrb" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO">
+    <update id="updateWghFcltAtrb" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO">
             MERGE INTO TB_OPRTNG_APC_FCLT_ATRB AS OAFA
             USING (
             SELECT

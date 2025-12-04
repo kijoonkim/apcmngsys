@@ -11,7 +11,7 @@
         <logger name="org.springframework" level="DEBUG" />
         <logger name="egovframework" level="WARN" />
         <logger name="org.egovframe" level="WARN" />
-        <logger name="com.at.apcss" level="DEBUG" />
+        <logger name="com.apcmngsys.apcss" level="DEBUG" />
         <logger name="java.sql" level="OFF" />
         <logger name="jdbc" level="OFF" />
         <logger name="jdbc.sqlonly" level="OFF" />
@@ -35,7 +35,7 @@
         <Logger name="org.egovframe" level="WARN" additivity="false">
         	<appender-ref ref="STDOUT" />
         </Logger>
-        <Logger name="com.at.apcss" level="DEBUG" additivity="false">
+        <Logger name="com.apcmngsys.apcss" level="DEBUG" additivity="false">
         	<appender-ref ref="STDOUT" />
         </Logger>
         <Logger name="java.sql" level="OFF" additivity="false">

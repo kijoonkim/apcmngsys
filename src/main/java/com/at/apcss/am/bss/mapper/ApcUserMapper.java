@@ -1,4 +1,4 @@
-package com.at.apcss.am.bss.mapper;
+package com.apcmngsys.apcss.am.bss.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

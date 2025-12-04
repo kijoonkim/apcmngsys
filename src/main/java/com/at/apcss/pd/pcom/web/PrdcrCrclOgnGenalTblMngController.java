@@ -1,4 +1,4 @@
-package com.at.apcss.pd.pcom.web;
+package com.apcmngsys.apcss.pd.pcom.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
-import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
+import com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
 
 @Controller
 public class PrdcrCrclOgnGenalTblMngController extends BaseController{

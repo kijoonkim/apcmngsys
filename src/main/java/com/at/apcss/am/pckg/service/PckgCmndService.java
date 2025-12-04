@@ -1,8 +1,8 @@
-package com.at.apcss.am.pckg.service;
+package com.apcmngsys.apcss.am.pckg.service;
 
 import java.util.List;
 
-import com.at.apcss.am.pckg.vo.PckgCmndVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgCmndVO;
 
 /**
  * 포장지시 Service 인터페이스

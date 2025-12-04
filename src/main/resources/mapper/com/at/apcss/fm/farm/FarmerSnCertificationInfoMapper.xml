@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfo	-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 
-	<select id="selectFarmerSnCertificationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<select id="selectFarmerSnCertificationInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfo */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfo */
 
 				FRMERNO
 				, CERT_NO
@@ -56,14 +56,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfoList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfoList	-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmerSnCertificationInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<select id="selectFarmerSnCertificationInfoList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -74,7 +74,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFarmerSnCertificationInfoList */
 				FRMERNO
 				, CERT_NO
 				, CERT_BGNG_YMD
@@ -113,9 +113,9 @@
 	</select>
 
 
-	<insert id="insertFarmerSnCertificationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<insert id="insertFarmerSnCertificationInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 		<![CDATA[
-		INSERT /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.insertFarmerSnCertificationInfo */
+		INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.insertFarmerSnCertificationInfo */
 			  INTO TB_AX_FRMER_SN_CERT_INFO
 				(
 					  FRMERNO
@@ -161,9 +161,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertLogFarmerSnCertificationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<insert id="insertLogFarmerSnCertificationInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 	<![CDATA[
-		INSERT /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.insertLogFarmerSnCertificationInfo */
+		INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.insertLogFarmerSnCertificationInfo */
 			  INTO TB_AX_FRMER_SN_CERT_INFO_LOG
 				(
 					  FRMERNO
@@ -210,9 +210,9 @@
 	</insert>
 
 
-	<update id="updateFarmerSnCertificationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<update id="updateFarmerSnCertificationInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.upateFarmerSnCertificationInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.upateFarmerSnCertificationInfo */
 				TB_AX_FRMER_SN_CERT_INFO
 			   SET
 				  tgt.MNGMST_REGNO				=#{mngmstRegno}
@@ -238,9 +238,9 @@
 		]]>
 	</update>
 
-	<delete id="deleteFarmerSnCertificationInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<delete id="deleteFarmerSnCertificationInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 		<![CDATA[
-		DELETE FROM TB_AX_FRMER_SN_CERT_INFO /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.deleteFarmerSnCertificationInfo */
+		DELETE FROM TB_AX_FRMER_SN_CERT_INFO /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.deleteFarmerSnCertificationInfo */
 		WHERE 1=1
 		  AND FRMERNO		= #{frmerno}
 		]]>
@@ -249,9 +249,9 @@
 		</if>
 	</delete>
 
-	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
+	<select id="selectFrmerSnList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerSnCertificationInfoVO">
 	<![CDATA[
-		SELECT /* com.at.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFrmerSnList */
+		SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerSnCertificationInfoMapper.selectFrmerSnList */
 			FRMERNO
 		FROM TB_AX_FRMER_INFO
 		WHERE 1=1

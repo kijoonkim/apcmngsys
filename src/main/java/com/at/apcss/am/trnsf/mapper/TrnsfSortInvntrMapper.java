@@ -1,10 +1,10 @@
-package com.at.apcss.am.trnsf.mapper;
+package com.apcmngsys.apcss.am.trnsf.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
+import com.apcmngsys.apcss.am.trnsf.vo.TrnsfSortInvntrVO;
 
 /**
  * 선별재고 Mapper 인터페이스

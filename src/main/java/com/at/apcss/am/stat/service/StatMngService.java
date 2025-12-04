@@ -1,12 +1,12 @@
-package com.at.apcss.am.stat.service;
+package com.apcmngsys.apcss.am.stat.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.stat.vo.StatCrtrVO;
-import com.at.apcss.am.stat.vo.StatMngVO;
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.stat.vo.StatCrtrVO;
+import com.apcmngsys.apcss.am.stat.vo.StatMngVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
 
 
 /**

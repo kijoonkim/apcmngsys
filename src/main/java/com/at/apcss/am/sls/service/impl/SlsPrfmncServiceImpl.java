@@ -1,4 +1,4 @@
-package com.at.apcss.am.sls.service.impl;
+package com.apcmngsys.apcss.am.sls.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.sls.mapper.SlsPrfmncMapper;
-import com.at.apcss.am.sls.service.SlsPrfmncService;
-import com.at.apcss.am.sls.vo.SlsPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.sls.mapper.SlsPrfmncMapper;
+import com.apcmngsys.apcss.am.sls.service.SlsPrfmncService;
+import com.apcmngsys.apcss.am.sls.vo.SlsPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SlsPrfmncServiceImpl.java

@@ -10,18 +10,18 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng	-->
 	<!-- DESC : 신청 정보 조회                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
+	<select id="selectPrdcrCrclOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 			  CM.APO_CD
 			, EAM.APO_SE
 			, CM.WRT_YN
@@ -133,8 +133,8 @@
 		   AND CM.BRNO = EAM.BRNO(+)
 	</select>
 
-	<select id="selectAplyInfo" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
+	<select id="selectAplyInfo" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -211,14 +211,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<select id="selectPrdcrCrclOgnReqMngList" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -229,7 +229,7 @@
 			  FROM (
 		</if>
 			SELECT * FROM
-			(SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+			(SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
 				  CM.APO_CD
 				, EAM.APO_SE
 				, CM.WRT_YN
@@ -552,16 +552,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList			-->
+	<!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList			-->
 	<!-- DESC : 통합+출자출하 조직 목록 조회.                                         	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoIsoOgnzList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<select id="selectUoIsoOgnzList" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList */
 		]]>
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			ROWNUM AS ROW_SEQ
@@ -915,9 +915,9 @@
 	</select>
 
 
-	<insert id="insertPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<insert id="insertPrdcrCrclOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertPrdcrCrclOgnReqMng */
+			INSERT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertPrdcrCrclOgnReqMng */
 			  INTO TB_EV_APO
 				(
 					UNTY_YN
@@ -950,9 +950,9 @@
 	</insert>
 
 
-	<update id="updatePrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<update id="updatePrdcrCrclOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.upatePrdcrCrclOgnReqMng */
+			UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.upatePrdcrCrclOgnReqMng */
 				TB_EV_APO
 			   SET
 				  UNTY_YN		= #{untyYn}
@@ -973,9 +973,9 @@
 		]]>
 	</update>
 
-	<update id="updatePrdcrCrclOgnReqMngHstry" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<update id="updatePrdcrCrclOgnReqMngHstry" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry */
+			UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry */
 				TB_EV_APO_HSTRY
 			   SET
 				  UNTY_YN		= #{untyYn}
@@ -997,16 +997,16 @@
 		]]>
 	</update>
 
-	<insert id="insertEvAplyMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<insert id="insertEvAplyMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 	<![CDATA[
-		MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		MERGE INTO TB_EV_APLY_MNG CLT  /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 				CLT.APO_CD  = #{apoCd}
 				AND CLT.YR  = #{yr}
 				)
 		WHEN MATCHED THEN
-				UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+				UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 					SET
 						RAW_MTR_ENSR_SIGUN_CNT	= #{rawMtrEnsrSigunCnt}
 						, RAW_MTR_ENSR_CTPV_CNT		= #{rawMtrEnsrCtpvCnt}
@@ -1021,7 +1021,7 @@
 						, UO_CD						= NULL
 
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+			 INSERT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 					(
 						APO_CD
 					  , APO_SE
@@ -1062,9 +1062,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
+	<insert id="insertGpc" parameterType="com.apcmngsys.apcss.pd.aom.vo.GpcVO">
 	<![CDATA[
-		MERGE INTO TB_EV_APO_YR_GPC_CD CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+		MERGE INTO TB_EV_APO_YR_GPC_CD CLT  /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 		USING DUAL
 			ON (
 					CLT.BRNO  		= #{brno}
@@ -1073,7 +1073,7 @@
 				AND CLT.ITEM_CD  	= #{itemCd}
 				)
 		WHEN MATCHED THEN
-				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+				 UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 					SET
 						RMRK					= #{rmrk}
 						, CTGRY_CD 				= #{ctgryCd}
@@ -1096,7 +1096,7 @@
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
+			 INSERT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 					(
 						APO_CD
 					  , APO_SE
@@ -1155,9 +1155,9 @@
 		]]>
 	</insert>
 
-	<select id="selectGpcList" parameterType="com.at.apcss.pd.aom.vo.GpcVO" resultType="com.at.apcss.pd.aom.vo.GpcVO">
+	<select id="selectGpcList" parameterType="com.apcmngsys.apcss.pd.aom.vo.GpcVO" resultType="com.apcmngsys.apcss.pd.aom.vo.GpcVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectGpcList */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectGpcList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.CORP_NM
@@ -1214,9 +1214,9 @@
 		ORDER BY STTG_UPBR_ITEM_SE , ITEM_NM DESC
 	</select>
 
-	<delete id="deleteGpc" parameterType="com.at.apcss.pd.aom.vo.GpcVO">
+	<delete id="deleteGpc" parameterType="com.apcmngsys.apcss.pd.aom.vo.GpcVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteGpc */
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteGpc */
 		 WHERE BRNO 	= #{brno}
 		   AND ITEM_CD  = #{itemCd}
 		   AND YR		= #{yr}
@@ -1224,8 +1224,8 @@
 	</delete>
 
 	<!-- 법인체마감 -->
-	<update id="updateCorpDdlnSeCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd */
+	<update id="updateCorpDdlnSeCd" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd */
 			TB_EV_APLY_MNG
 		   SET
 			  CORP_DDLN_SE_CD	= #{corpDdlnSeCd}
@@ -1237,7 +1237,7 @@
 	</update>
 
 	<!-- 로우데이터 요청 -->
-	<select id="hiddenGrdUoSelectList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<select id="hiddenGrdUoSelectList" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		SELECT
 			 B.YR
 			,A.BRNO
@@ -1301,7 +1301,7 @@
 		ORDER BY A.CORP_NM
 	</select>
 
-	<select id="SelectApcInfoList" parameterType="com.at.apcss.pd.aom.vo.ApcInfoVO" resultType="com.at.apcss.pd.aom.vo.ApcInfoVO">
+	<select id="SelectApcInfoList" parameterType="com.apcmngsys.apcss.pd.aom.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.pd.aom.vo.ApcInfoVO">
 		SELECT
 			AOPO.APC_CD
 			,AOPO.CRTR_YR
@@ -1347,9 +1347,9 @@
 	</select>
 
 	<!-- 통합조직 신청정보 삭제 처리 -->
-	<delete id="deleteUoAply" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<delete id="deleteUoAply" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APLY_MNG	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoAply */
+		DELETE FROM TB_EV_APLY_MNG	/* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoAply */
 		 WHERE 1=1
 		   AND YR 	= #{yr}
 		   AND BRNO = #{brno}
@@ -1357,18 +1357,18 @@
 	</delete>
 
 	<!-- 통합조직 조직관계 정보 삭제 처리 -->
-	<delete id="deleteUoUoCd" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<delete id="deleteUoUoCd" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoUoCd */
+		DELETE FROM TB_EV_APO_UO_CD	/* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoUoCd */
 		 WHERE 1=1
 		   AND UO_BRNO = #{brno}
 		]]>
 	</delete>
 
 	<!-- 통합조직 품목정보 삭제 처리 -->
-	<delete id="deleteUoItem" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+	<delete id="deleteUoItem" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoItem */
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.deleteUoItem */
 		 WHERE 1=1
 		   AND YR 	= #{yr}
 		   AND BRNO = #{brno}
@@ -1376,8 +1376,8 @@
 	</delete>
 
 	<!-- 조직구분 변경 -->
-	<update id="updateUoApoSe" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSe */
+	<update id="updateUoApoSe" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSe */
 			TB_EV_APO
 		   SET
 			  APO_SE	= #{apoSe}
@@ -1386,8 +1386,8 @@
 	</update>
 
 	<!-- 조직구분 변경 -->
-	<update id="updateUoApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry */
+	<update id="updateUoApoSeHstry" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry */
 			TB_EV_APO_HSTRY
 		   SET
 			  APO_SE	= #{apoSe}
@@ -1397,8 +1397,8 @@
 	</update>
 
 	<!-- 대출잔액 현황 조회 -->
-	<select id="selectLoanList" parameterType="com.at.apcss.pd.aom.vo.LoanVO" resultType="com.at.apcss.pd.aom.vo.LoanVO">
-		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
+	<select id="selectLoanList" parameterType="com.apcmngsys.apcss.pd.aom.vo.LoanVO" resultType="com.apcmngsys.apcss.pd.aom.vo.LoanVO">
+		SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
 			YR
 			, BRNO
 			, UO_BRNO
@@ -1428,8 +1428,8 @@
 	</select>
 
 	<!-- 대출잔액 확인 여부 업데이트 -->
-	<update id="updateLoanChk" parameterType="com.at.apcss.pd.aom.vo.LoanVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
+	<update id="updateLoanChk" parameterType="com.apcmngsys.apcss.pd.aom.vo.LoanVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
 			TB_EV_LN_BLNC_STTS
 		   SET
 			  LN_CHK_YN	= #{lnChkYn}

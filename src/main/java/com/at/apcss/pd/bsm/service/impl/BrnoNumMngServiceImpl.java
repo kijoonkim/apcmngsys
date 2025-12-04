@@ -1,14 +1,14 @@
-package com.at.apcss.pd.bsm.service.impl;
+package com.apcmngsys.apcss.pd.bsm.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.bsm.mapper.BrnoNumMngMapper;
-import com.at.apcss.pd.bsm.service.BrnoNumMngService;
-import com.at.apcss.pd.bsm.vo.BrnoNumMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.bsm.mapper.BrnoNumMngMapper;
+import com.apcmngsys.apcss.pd.bsm.service.BrnoNumMngService;
+import com.apcmngsys.apcss.pd.bsm.vo.BrnoNumMngVO;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.at.apcss.co.authrt.web;
+package com.apcmngsys.apcss.co.authrt.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.co.authrt.service.ComAuthrtService;
-import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.authrt.service.ComAuthrtService;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUserVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * 권한정보 처리하는 컨트롤러 클래스

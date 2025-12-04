@@ -1,7 +1,7 @@
-package com.at.apcss.fm.fclt.vo;
+package com.apcmngsys.apcss.fm.fclt.vo;
 
-import com.at.apcss.am.invntr.vo.GdsStdGrdVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsStdGrdVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 

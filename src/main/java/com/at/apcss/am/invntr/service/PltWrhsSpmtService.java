@@ -1,10 +1,10 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.PltBxVO;
-import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.apcmngsys.apcss.am.cmns.vo.PltBxVO;
+import com.apcmngsys.apcss.am.invntr.vo.PltWrhsSpmtVO;
 
 /**
  * 팔레트 입출고 Service 인터페이스

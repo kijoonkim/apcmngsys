@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.service.impl;
+package com.apcmngsys.apcss.am.sort.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.at.apcss.am.sort.mapper.SortFcltMapper;
-import com.at.apcss.am.sort.service.SortFcltService;
-import com.at.apcss.am.sort.vo.SortFcltVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper;
+import com.apcmngsys.apcss.am.sort.service.SortFcltService;
+import com.apcmngsys.apcss.am.sort.vo.SortFcltVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortFcltServiceImpl.java

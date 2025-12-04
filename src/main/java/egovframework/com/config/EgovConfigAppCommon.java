@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.at.apcss.co.msg.mapper.ComMessageSource;
+import com.apcmngsys.apcss.co.msg.mapper.ComMessageSource;
 //import ch.qos.logback.classic.Logger;
 import egovframework.com.cmm.EgovComTraceHandler;
 import egovframework.com.cmm.EgovMessageSource;

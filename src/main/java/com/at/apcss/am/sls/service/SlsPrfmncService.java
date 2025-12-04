@@ -1,9 +1,9 @@
-package com.at.apcss.am.sls.service;
+package com.apcmngsys.apcss.am.sls.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.sls.vo.SlsPrfmncVO;
+import com.apcmngsys.apcss.am.sls.vo.SlsPrfmncVO;
 
 /**
  * 매출실적 Service 인터페이스

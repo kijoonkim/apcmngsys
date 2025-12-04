@@ -1,10 +1,10 @@
-package com.at.apcss.am.sort.service;
+package com.apcmngsys.apcss.am.sort.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.sort.vo.SortMngVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.apcmngsys.apcss.am.sort.vo.SortMngVO;
+import com.apcmngsys.apcss.am.sort.vo.SortPrfmncVO;
 
 /**
  * 선별관리 Service 인터페이스

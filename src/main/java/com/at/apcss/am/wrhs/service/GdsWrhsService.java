@@ -1,9 +1,9 @@
-package com.at.apcss.am.wrhs.service;
+package com.apcmngsys.apcss.am.wrhs.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
 
 /**
  * 상품입고 Service 인터페이스

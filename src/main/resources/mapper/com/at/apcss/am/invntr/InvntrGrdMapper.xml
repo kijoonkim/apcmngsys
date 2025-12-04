@@ -10,7 +10,7 @@
 <!-- 2025.01.13  	박승진        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrGrdMapper">
+<mapper namespace="com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper">
 
 
 
@@ -19,16 +19,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateRawMtrInvntrGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateRawMtrInvntrGrd	-->
 	<!-- DESC : 원물재고 등급 수정                             						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateRawMtrInvntrGrd" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+    <update id="updateRawMtrInvntrGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateRawMtrInvntrGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateRawMtrInvntrGrd */
 				TB_RAW_MTR_INVNTR
 			   SET
 			   GRD_CD = #{grdCd}
@@ -42,16 +42,16 @@
 	</update>
 
 	    <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateSortInvntrGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateSortInvntrGrd	-->
 	<!-- DESC : 선별재고 등급 수정                             						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntrGrd" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+    <update id="updateSortInvntrGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateSortInvntrGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateSortInvntrGrd */
 				TB_SORT_INVNTR
 			   SET
 			   GRD_CD = #{grdCd}
@@ -66,16 +66,16 @@
 	</update>
 
 	    <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateGdsInvntrGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateGdsInvntrGrd	-->
 	<!-- DESC : 상품재고 등급 수정                             						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateGdsInvntrGrd" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+    <update id="updateGdsInvntrGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrGrdMapper.updateGdsInvntrGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMapper.updateGdsInvntrGrd */
 				TB_GDS_INVNTR
 			   SET
 			   GRD_CD = #{grdCd}
@@ -90,16 +90,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrStdGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrStdGrd	-->
 	<!-- DESC : 원물재고 표준등급 수정		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateRawMtrStdGrd" parameterType="com.at.apcss.am.invntr.vo.RawMtrStdGrdVO">
+	<update id="updateRawMtrStdGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.RawMtrStdGrdVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrStdGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateRawMtrStdGrd */
 			  TB_RAW_MTR_STD_GRD
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -115,16 +115,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateSortStdGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateSortStdGrd	-->
 	<!-- DESC : 선별재고 표준등급 수정		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortStdGrdVO">
+	<update id="updateSortStdGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortStdGrdVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateSortStdGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateSortStdGrd */
 			  TB_SORT_STD_GRD
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -142,16 +142,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateGdsStdGrd	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateGdsStdGrd	-->
 	<!-- DESC : 상품재고 표준등급 수정		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateGdsStdGrd" parameterType="com.at.apcss.am.invntr.vo.GdsStdGrdVO">
+	<update id="updateGdsStdGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.GdsStdGrdVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateGdsStdGrd */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateGdsStdGrd */
 			  TB_GDS_STD_GRD
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE

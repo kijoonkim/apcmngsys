@@ -10,19 +10,19 @@
 <!-- 2023.07.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.apc.mapper.ApcInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo				-->
 	<!-- DESC : APC 정보 조회.	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfo" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectApcInfo" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo */
+	    	SELECT /* com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfo */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR
@@ -47,16 +47,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectApcInfoList			-->
 	<!-- DESC : APC 내역 조회.	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.26  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcInfoList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectApcInfoList" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */
+    		SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcInfoMapper.selectApcInfo */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR
@@ -108,16 +108,16 @@
 
 
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcMngList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectApcMngList			-->
 	<!-- DESC : APC 관리내역 조회.	                                          			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.26  	신정철        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectApcMngList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectApcMngList" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectApcMngList */
+    		SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcInfoMapper.selectApcMngList */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR
@@ -169,17 +169,17 @@
 
 
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectUserApcList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectUserApcList			-->
 	<!-- DESC : 사용자 APC 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.26  	신정철        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-    <select id="selectUserApcList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectUserApcList" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
     	
-			SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectUserApcList */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcInfoMapper.selectUserApcList */
 				  A.APC_CD			AS APC_CD
 				, MIN(A.SEQ)		AS SEQ
 				, MAX(A.OGNZ_CD) KEEP (DENSE_RANK FIRST ORDER BY A.SEQ)		AS OGNZ_CD
@@ -226,16 +226,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectAprvApcInfoList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectAprvApcInfoList		-->
 	<!-- DESC : 승인된 법인의 APC 내역 조회.	                                    -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.26  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAprvApcInfoList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectAprvApcInfoList" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcInfoMapper.selectAprvApcInfoList */
+    		SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcInfoMapper.selectAprvApcInfoList */
 	    		  AI.APC_CD			AS APC_CD
 			    , AI.REG_APC_NM     AS REG_APC_NM
 			    , AI.REG_ADDR       AS REG_ADDR
@@ -283,14 +283,14 @@
     </select>
 
     <!-- ==========================================================================-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.selectApcDsctnList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.selectApcDsctnList			-->
 	<!-- DESC : APC 내역 조회.	                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.26  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcDsctnList" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO" resultType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <select id="selectApcDsctnList" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO" resultType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
     			  ROWNUM AS ROW_SEQ
@@ -299,7 +299,7 @@
     		  FROM (
     	</if>
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctnList */
+    		SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcDsctnList */
 				  AI.APC_CD            AS APC_CD
 				, AI.REG_APC_NM        AS REG_APC_NM
 				, AI.CTPV_NM           AS CTPV_NM
@@ -346,14 +346,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.updateApcDsctn				-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.updateApcDsctn				-->
 	<!-- DESC : APC 내역 수정.	   	                                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
+	<update id="updateApcDsctn" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
 		<![CDATA[
 			UPDATE TB_APC_INFO
 			   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -379,14 +379,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.apc.mapper.ApcInfoMapper.insertApcDsctn				-->
+	<!-- NAME : com.apcmngsys.apcss.co.apc.mapper.ApcInfoMapper.insertApcDsctn				-->
 	<!-- DESC : APC 내역 등록.	                                 	      				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.31  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertApcDsctn" parameterType="com.at.apcss.co.apc.vo.ApcInfoVO">
+    <insert id="insertApcDsctn" parameterType="com.apcmngsys.apcss.co.apc.vo.ApcInfoVO">
     	<![CDATA[
 	    	INSERT INTO TB_APC_INFO
 	    		(

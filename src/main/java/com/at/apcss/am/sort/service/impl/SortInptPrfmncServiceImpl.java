@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.service.impl;
+package com.apcmngsys.apcss.am.sort.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.sort.mapper.SortInptPrfmncMapper;
-import com.at.apcss.am.sort.service.SortInptPrfmncService;
-import com.at.apcss.am.sort.vo.SortInptPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.sort.mapper.SortInptPrfmncMapper;
+import com.apcmngsys.apcss.am.sort.service.SortInptPrfmncService;
+import com.apcmngsys.apcss.am.sort.vo.SortInptPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortInptPrfmncServiceImpl.java

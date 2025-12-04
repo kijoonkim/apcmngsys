@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.BffaSortVO;
+import com.apcmngsys.apcss.am.cmns.vo.BffaSortVO;
 
 /**
  * 육안정보 Service 인터페이스

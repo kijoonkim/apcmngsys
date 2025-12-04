@@ -1,7 +1,7 @@
 
-package com.at.apcss.pd.hisPopup.vo;
+package com.apcmngsys.apcss.pd.hisPopup.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

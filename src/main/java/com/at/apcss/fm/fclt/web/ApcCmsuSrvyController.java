@@ -1,11 +1,11 @@
-package com.at.apcss.fm.fclt.web;
+package com.apcmngsys.apcss.fm.fclt.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.fm.fclt.service.ApcCmsuSrvyService;
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.fm.fclt.service.ApcCmsuSrvyService;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

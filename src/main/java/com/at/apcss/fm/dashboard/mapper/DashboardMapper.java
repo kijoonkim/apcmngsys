@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.dashboard.mapper;
+package  com.apcmngsys.apcss.fm.dashboard.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO;
 
 
 @Mapper

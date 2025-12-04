@@ -10,20 +10,20 @@
 <!-- 2024.08.29  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.mail.mapper.ApcMailMapper">
+<mapper namespace="com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog			-->
+	<!-- NAME : com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog			-->
 	<!-- DESC : 공통메일로그 단건 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComEmlLog" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+	<select id="selectComEmlLog" parameterType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO" resultType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO">
 		<![CDATA[
-			SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog */
+			SELECT	/* com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog */
 				  EL.EML_SEQ		AS EML_SEQ
 				, EL.SNDPTY_EML		AS SNDPTY_EML
 				, EL.RCVR_EML		AS RCVR_EML
@@ -43,16 +43,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList		-->
 	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComEmlLogList" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+	<select id="selectComEmlLogList" parameterType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO" resultType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO">
 		<![CDATA[
-		SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList */
+		SELECT	/* com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList */
 			   EL.EML_SEQ		AS EML_SEQ
 			 , EL.SNDPTY_EML	AS SNDPTY_EML
 			 , EL.RCVR_EML		AS RCVR_EML
@@ -76,16 +76,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng	-->
+	<!-- NAME : com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng	-->
 	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComEmlLogListForSndng" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+	<select id="selectComEmlLogListForSndng" parameterType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO" resultType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO">
 		<![CDATA[
-		SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng */
+		SELECT	/* com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng */
 			   EL.EML_SEQ		AS EML_SEQ
 			 , EL.SNDPTY_EML	AS SNDPTY_EML
 			 , EL.RCVR_EML		AS RCVR_EML
@@ -104,16 +104,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng	-->
+	<!-- NAME : com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng	-->
 	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComEmlLogSndng" parameterType="com.at.apcss.co.mail.vo.EmlLogVO">
+	<update id="updateComEmlLogSndng" parameterType="com.apcmngsys.apcss.co.mail.vo.EmlLogVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng */
+			UPDATE /* com.apcmngsys.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng */
 				TB_COM_EML_LOG
 				SET
 				  SNDNG_YN = #{sndngYn}

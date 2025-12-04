@@ -10,20 +10,20 @@
 <!-- 2023.07.28  	신정철        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.wgh.mapper.WghPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList		-->
 	<!-- DESC : 계량실적 공통 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWghPrfmncList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <select id="selectWghPrfmncList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
+    		SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -146,16 +146,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom		-->
 	<!-- DESC : 계량실적 공통 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <select id="selectWghPrfmncCom" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom */
+	    	SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncCom */
 				  WC.APC_CD		AS APC_CD
 				, WC.WGHNO		AS WGHNO
 				, WC.WGH_YMD	AS WGH_YMD
@@ -175,14 +175,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList		-->
 	<!-- DESC : 계량실적 공통 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWghPrfmncComList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <select id="selectWghPrfmncComList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -193,7 +193,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList */
+	    	SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncComList */
 				  WC.APC_CD		AS APC_CD
 				, WC.WGHNO		AS WGHNO
 				, WC.WGH_YMD	AS WGH_YMD
@@ -242,16 +242,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom		-->
 	<!-- DESC : 계량실적 공통 등록.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <insert id="insertWghPrfmncCom" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom */
+	    	INSERT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncCom */
 	    		INTO TB_WGH_PRFMNC_COM
 				(
 					  APC_CD
@@ -312,16 +312,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncCom		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncCom		-->
 	<!-- DESC : 계량실적 공통 변경.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <update id="updateWghPrfmncCom" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncCom */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncCom */
 				TB_WGH_PRFMNC_COM
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -356,16 +356,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom			-->
 	<!-- DESC : 계량실적 공통 삭제.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteWghPrfmncCom" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<delete id="deleteWghPrfmncCom" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom */
+			DELETE /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncCom */
 			  FROM TB_WGH_PRFMNC_COM
 			 WHERE APC_CD = #{apcCd}
 			   AND WGHNO = #{wghno}
@@ -374,16 +374,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl		-->
 	<!-- DESC : 계량실적 상세 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    <select id="selectWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl */
+	    	SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtl */
 				  WD.APC_CD		AS APC_CD
 				, WD.WGHNO		AS WGHNO
 				, WD.WGH_SN		AS WGH_SN
@@ -402,16 +402,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList	-->
 	<!-- DESC : 계량실적 상세 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWghPrfmncDtlList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    <select id="selectWghPrfmncDtlList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList */
+    		SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncDtlList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -488,16 +488,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl		-->
 	<!-- DESC : 계량실적 상세 등록.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    <insert id="insertWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl */
+	    	INSERT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghPrfmncDtl */
 	    		INTO TB_WGH_PRFMNC_DTL
 				(
 					  APC_CD
@@ -558,16 +558,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtl		-->
 	<!-- DESC : 계량실적 상세 변경.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    <update id="updateWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtl */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtl */
 				TB_WGH_PRFMNC_DTL
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -601,16 +601,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl		-->
 	<!-- DESC : 계량실적 상세 삭제.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+	<delete id="deleteWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl */
+			DELETE /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtl */
 			  FROM TB_WGH_PRFMNC_DTL
 			 WHERE APC_CD = #{apcCd}
 			   AND WGHNO = #{wghno}
@@ -619,16 +619,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncComForDelY-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncComForDelY-->
 	<!-- DESC : 계량실적 공통 변경 : 삭제 delyn 'Y'.                                		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateWghPrfmncComForDelY" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+    <update id="updateWghPrfmncComForDelY" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncComForDelY */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncComForDelY */
 				TB_WGH_PRFMNC_COM
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -641,16 +641,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlForDelY-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlForDelY-->
 	<!-- DESC : 계량실적 상세 변경 : 삭제 delYn 'Y'.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateWghPrfmncDtlForDelY" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    <update id="updateWghPrfmncDtlForDelY" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtlForDelY */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateWghPrfmncDtlForDelY */
 				TB_WGH_PRFMNC_DTL
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -665,16 +665,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
 	<!-- DESC : 계량관리정보 목록 조회.		                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghInfoWrhsMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghInfoWrhsMngList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
+			SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
 			       pt0.*
 			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
 			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
@@ -754,16 +754,16 @@
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList		-->
 	<!-- DESC : 계량관리정보 입고 목록 조회.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghInfoSpmtMngList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghInfoSpmtMngList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
+			SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngList */
 			       pt0.*
 			     , (SELECT FN_GET_PRDCR_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 									AS CNPT_NM
 			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
@@ -847,14 +847,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
 	<!-- DESC : 계량관리정보 변경.		                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateStrgLoctnCd" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<update id="updateStrgLoctnCd" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			UPDATE TB_RAW_MTR_INVNTR
 			   SET STRG_LOCTN_CD 			= #{strgLoctnCd}
@@ -868,14 +868,14 @@
 		]]>
 	</update>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateStrgLoctnCd		-->
 	<!-- DESC : 계량감량율 변경.		                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateRdcdRt" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<update id="updateRdcdRt" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			UPDATE TB_WGH_PRFMNC_COM
 			   SET RDCD_RT  				= #{rdcdRt}
@@ -890,15 +890,15 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList	-->
 	<!-- DESC : 계량접수등록 입고 목록 조회.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghRcptWrhsList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
-		<![CDATA[	/* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList */
+	<select id="selectWghRcptWrhsList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[	/* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList */
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
 			      , Y.WGH_YMD               AS WGH_YMD
@@ -1096,14 +1096,14 @@
 		]]>
 	</select>
 	<!-- =============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsDtlList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsDtlList		-->
 	<!-- DESC : 계량접수등록 입고 상세 목록 조회.		                            	-->
 	<!-- =============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2025.01.02  	김호        		Initial Creation                        	-->
 	<!-- =============================================================================	-->
-	<select id="selectWghRcptWrhsDtlList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghRcptWrhsDtlList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
@@ -1284,14 +1284,14 @@
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptSpmtList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptSpmtList	-->
 	<!-- DESC : 계량접수등록 출고 목록 조회.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghRcptSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghRcptSpmtList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
@@ -1496,14 +1496,14 @@
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptSpmtDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptSpmtDtlList	-->
 	<!-- DESC : 계량접수등록 출고 상세 목록 조회.		                             -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghRcptSpmtDtlList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghRcptSpmtDtlList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
@@ -1693,14 +1693,14 @@
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptList		-->
 	<!-- DESC : 계량접수등록 목록 조회.		                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectMultiWghPrfmncList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="hashmap">
+	<select id="selectMultiWghPrfmncList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="hashmap">
 		SELECT
 			 pt0.*
 			 ,(SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
@@ -1769,16 +1769,16 @@
 
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghFclt			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghFclt			-->
 	<!-- DESC : 계량대 목록 조회.		 		                            			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO" resultType="com.at.apcss.am.wgh.vo.WghFcltVO">
+	<select id="selectWghFclt" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghFcltVO">
 		  <![CDATA[
-		SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghFclt */
+		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghFclt */
 			  APC_CD AS APC_CD
 			 ,FCLT_TYPE AS FCLT_TYPE
 			 ,FCLT_CD AS FCLT_CD
@@ -1808,14 +1808,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghVhcl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghVhcl		-->
 	<!-- DESC : 원물입차등록.		                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<insert id="insertWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<insert id="insertWghVhcl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			INSERT INTO TB_WGH_HSTRY
 			   (APC_CD
@@ -1923,7 +1923,7 @@
 				   )
 	</insert>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.mergeWghHstry			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.mergeWghHstry			-->
 	<!-- DESC : 계량이력 생성.				                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2014,14 +2014,14 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghVhcl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghVhcl		-->
 	<!-- DESC : 원물입차수정.		                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<update id="updateWghVhcl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			UPDATE TB_WGH_HSTRY SET
 			FCLT_CD = #{fcltCd}
@@ -2037,14 +2037,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghVhcl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghVhcl		-->
 	<!-- DESC : 원물입차삭제.		                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<delete id="deleteWghVhcl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 		  DELETE FROM TB_WGH_HSTRY
 		  WHERE WGHNO = #{wghno}
@@ -2057,18 +2057,18 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhclList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhclList			-->
 	<!-- DESC : 원물입차조회.		 		                            			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghVhclList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghVhclList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		  <![CDATA[
 		SELECT *
 		 FROM
-		(SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhclList */
+		(SELECT /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhclList */
 					MAX(APC_CD) AS APC_CD,
 				    WGHNO,
 				    VHCLNO,
@@ -2172,16 +2172,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhcl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhcl			-->
 	<!-- DESC : 원물입차 단건조회.		 		                            			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.04  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghVhcl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		  <![CDATA[
-		SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhcl */
+		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhcl */
 			 *
 		FROM TB_WGH_HSTRY
 		WHERE APC_CD = #{apcCd}
@@ -2192,8 +2192,8 @@
 
 	</select>
 
-	<select id="selectWghInspPrfmncList" resultType="com.at.apcss.am.wgh.vo.WghInspPrfmncVO">
-		SELECT  /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghInspPrfmncList */
+	<select id="selectWghInspPrfmncList" resultType="com.apcmngsys.apcss.am.wgh.vo.WghInspPrfmncVO">
+		SELECT  /* com.apcmngsys.apcss.am.cmns.mapper.WghInfoMapper.selectWghInspPrfmncList */
 			 APC_CD AS APC_CD
 			,WGHNO AS WGHNO
 			,ITEM_CD AS ITEM_CD
@@ -2219,7 +2219,7 @@
 		</foreach>
 	</delete>
 
-	<select id="selectWghHstryList" parameterType="com.at.apcss.am.wgh.vo.WghHstryVO" resultType="com.at.apcss.am.wgh.vo.WghHstryVO">
+	<select id="selectWghHstryList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghHstryVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghHstryVO">
 		SELECT
 			 APC_CD AS APC_CD
 			,WGHNO AS WGHNO
@@ -2243,16 +2243,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForSpmtReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForSpmtReg	-->
 	<!-- DESC : 출하실적등록(계량) - 계량목록 조회		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.25  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghPrfmncListForSpmtReg" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghPrfmncListForSpmtReg" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			SELECT  /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForSpmtReg */
+			SELECT  /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForSpmtReg */
 			    pt0.*
 				,(pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) AS ACTL_WGHT
 				,(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
@@ -2307,7 +2307,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoForSpmtReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoForSpmtReg	-->
 	<!-- DESC : 출하실적등록(계량) - 계량정보 조회		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -2315,7 +2315,7 @@
 	<!-- 2025.02.25  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<select id="selectWghInfoForSpmtReg" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghInfoForSpmtReg" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 		SELECT
 			WPC.APC_CD 				AS APC_CD
@@ -2358,18 +2358,18 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrListForSpmtReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrListForSpmtReg	-->
 	<!-- DESC : 출하실적등록(계량) - 재고조회		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.27  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvntrListForSpmtReg" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectInvntrListForSpmtReg" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		SELECT *
 		FROM (
 		<![CDATA[
-				SELECT  /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg */
+				SELECT  /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg */
 							pt0.*
 							 ,(SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 							AS GDS_NM
 							 ,(SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
@@ -2428,18 +2428,18 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg	-->
 	<!-- DESC : 출하실적등록(계량) - 재고상세조회		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.27  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvntrDtlListForSpmtReg" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectInvntrDtlListForSpmtReg" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		SELECT *
 		FROM (
 				<![CDATA[
-				SELECT  /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg */
+				SELECT  /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectInvntrDtlListForSpmtReg */
 							pt0.*
 							 ,(SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) 							AS GDS_NM
 							 ,(SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
@@ -2493,16 +2493,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlSpmtno	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlSpmtno	-->
 	<!-- DESC : 출하실적등록(계량) - 출하등록시 출하번호 update		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.06  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateWghPrfmncDtlSpmtno" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" >
+	<update id="updateWghPrfmncDtlSpmtno" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO" >
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlSpmtno */
+			UPDATE /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghPrfmncDtlSpmtno */
 				TB_WGH_PRFMNC_DTL
 			SET
 			 SYS_LAST_CHG_DT 		= SYSDATE
@@ -2515,16 +2515,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtlSpmtno	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtlSpmtno	-->
 	<!-- DESC : 출하실적등록(계량) - 출하취소		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.06  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="deleteWghPrfmncDtlSpmtno" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO" >
+	<update id="deleteWghPrfmncDtlSpmtno" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO" >
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtlSpmtno */
+			UPDATE /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghPrfmncDtlSpmtno */
 				TB_WGH_PRFMNC_DTL
 			SET
 				SYS_LAST_CHG_DT 		= SYSDATE
@@ -2539,16 +2539,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList		-->
 	<!-- DESC : 계량관리정보 출고 목록 조회.		                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.18  	유민지        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghInfoMngSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghInfoMngSpmtList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList */
+			SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList */
 			       pt0.*
 			     , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 									AS CNPT_NM
 			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
@@ -2638,16 +2638,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl	-->
 	<!-- DESC : 계량정보관리 - 출고 계량실적 상세 등록		                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.19  	유민지        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertSpmtWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+	<insert id="insertSpmtWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
     	<![CDATA[
-		INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl */
+		INSERT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl */
 			INTO TB_WGH_PRFMNC_DTL
 			(
 					APC_CD
@@ -2702,16 +2702,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateSpmtWghPrfmncDtl	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.updateSpmtWghPrfmncDtl	-->
 	<!-- DESC : 계량정보관리 - 출고 계량실적 상세 수정		                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.19  	유민지	       	Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateSpmtWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+	<update id="updateSpmtWghPrfmncDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateSpmtWghPrfmncDtl */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateSpmtWghPrfmncDtl */
 				TB_WGH_PRFMNC_DTL
 			SET
 			     GRD_CD 					= #{grdCd}
@@ -2743,16 +2743,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi	-->
 	<!-- DESC : API 계량실적 입고 목록 조회.                                 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.10.13  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWghPrfmncListForApi" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="java.util.HashMap">
+	<select id="selectWghPrfmncListForApi" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="java.util.HashMap">
 		<![CDATA[
-		SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi */
+		SELECT /* com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForApi */
 		]]>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -3075,14 +3075,14 @@
 	</select>
 
 	<!-- =============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncPltBxSpmtList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncPltBxSpmtList	-->
 	<!-- DESC : 계량실적 출고 박스/팔레트 목록 조회.		                	            	-->
 	<!-- =============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2025.10.17  	김은총        	Initial Creation      		                  	-->
 	<!-- =============================================================================	-->
-	<select id="selectWghPrfmncPltBxSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+	<select id="selectWghPrfmncPltBxSpmtList" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO">
 		<![CDATA[
 			 SELECT X.APC_CD                AS APC_CD
 			      , X.WGHNO                 AS WGHNO

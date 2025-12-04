@@ -1,13 +1,13 @@
-package  com.at.apcss.am.tot.mapper;
+package  com.apcmngsys.apcss.am.tot.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.am.tot.vo.TotRsltVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotRsltVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
 
 
 /**

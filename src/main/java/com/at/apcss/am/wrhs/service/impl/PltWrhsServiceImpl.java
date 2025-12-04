@@ -1,9 +1,9 @@
-package com.at.apcss.am.wrhs.service.impl;
+package com.apcmngsys.apcss.am.wrhs.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.wrhs.service.PltWrhsService;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.wrhs.service.PltWrhsService;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PltWrhsServiceImpl.java

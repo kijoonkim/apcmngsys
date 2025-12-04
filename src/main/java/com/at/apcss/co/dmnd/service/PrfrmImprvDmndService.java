@@ -1,8 +1,8 @@
-package com.at.apcss.co.dmnd.service;
+package com.apcmngsys.apcss.co.dmnd.service;
 
 import java.util.List;
 
-import com.at.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
+import com.apcmngsys.apcss.co.dmnd.vo.PrfrmImprvDmndVO;
 
 /**
  * 프로그램개선요청 정보 Service 인터페이스

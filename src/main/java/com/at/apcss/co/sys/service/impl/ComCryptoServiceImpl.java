@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.service.impl;
+package com.apcmngsys.apcss.co.sys.service.impl;
 
 import java.util.Base64;
 
@@ -8,7 +8,7 @@ import org.egovframe.rte.fdl.cryptography.EgovCryptoService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.co.sys.service.ComCryptoService;
+import com.apcmngsys.apcss.co.sys.service.ComCryptoService;
 
 import egovframework.com.cmm.service.EgovProperties;
 

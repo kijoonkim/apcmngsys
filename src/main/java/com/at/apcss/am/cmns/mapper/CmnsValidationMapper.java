@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.cmns.vo.CmnsValidationVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsValidationVO;
 
 /**
  * 업무 Validation Mapper 인터페이스

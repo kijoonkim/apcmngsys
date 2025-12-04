@@ -1,13 +1,13 @@
-package com.at.apcss.pd.pcorm.service.impl;
+package com.apcmngsys.apcss.pd.pcorm.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper;
-import com.at.apcss.pd.pcorm.service.PrdcrCrclOgnVluFndsMngService;
-import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluFndsMngMapper;
+import com.apcmngsys.apcss.pd.pcorm.service.PrdcrCrclOgnVluFndsMngService;
+import com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 
 /**
  * @Class Name : BbsServiceImpl.java

@@ -1,13 +1,13 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.sort.vo.SortPrfmncVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtDsctnTotVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
  * 상품재고 Service 인터페이스

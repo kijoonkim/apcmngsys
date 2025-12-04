@@ -10,18 +10,18 @@
 <!-- 2025.01.10  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2024	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2024	-->
 	<!-- DESC : 생산자조직 총괄표 조회 2024년                                     			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisPrdcrOgnGenalTbl2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
-		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+	<select id="selectHisPrdcrOgnGenalTbl2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN
@@ -143,14 +143,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2025	-->
 	<!-- DESC : 생산자조직 총괄표 조회 2025년                                     			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisPrdcrOgnGenalTbl2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
+	<select id="selectHisPrdcrOgnGenalTbl2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
 		SELECT
 			FA.UO_BRNO
 			,FA.BRNO

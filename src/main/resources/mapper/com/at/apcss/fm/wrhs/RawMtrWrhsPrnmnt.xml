@@ -10,16 +10,16 @@
 <!-- 2024.09.03  	윤필호        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper">
     <!-- =======================================================================================	-->
-    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList		-->
+    <!-- NAME : com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList		-->
     <!-- DESC : 입고예정 리스트 조회.	                                       			                -->
     <!-- =======================================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
     <!-- ===========  	============  	========================================================	-->
     <!-- 2024.09.03  	윤필호        	Initial Creation                                            -->
     <!-- =======================================================================================	-->
-    <select id="selectRawMtrWrhsPrnmntList" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+    <select id="selectRawMtrWrhsPrnmntList" parameterType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO" resultType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
         <![CDATA[
     		SELECT
 		]]>
@@ -38,7 +38,7 @@
     		      , (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
 
             FROM (
-                SELECT /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList */
+                SELECT /* com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList */
                        WP.APC_CD            AS APC_CD
                      , WP.PRDCR_CD          AS PRDCR_CD
                      , WP.PRNMNTNO          AS PRNMNTNO
@@ -94,16 +94,16 @@
     </select>
 
     <!-- =======================================================================================    -->
-    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn	    -->
+    <!-- NAME : com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn	    -->
     <!-- DESC : 입고예정 리스트 삭제.	                                       			                -->
     <!-- =======================================================================================    -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
     <!-- ===========  	============  	========================================================    -->
     <!-- 2024.09.06  	윤필호        	Initial Creation                                            -->
     <!-- =======================================================================================    -->
-    <update id="deleteRawMtrWrhsPrnmnt" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+    <update id="deleteRawMtrWrhsPrnmnt" parameterType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
 		<![CDATA[
-        UPDATE /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn */
+        UPDATE /* com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmntDelYn */
             TB_RAW_MTR_WRHS_PRNMNT
            SET
               SYS_LAST_CHG_DT 		    = SYSDATE
@@ -119,16 +119,16 @@
 	</update>
 
     <!-- ================================================================================ -->
-    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt -->
+    <!-- NAME : com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt -->
     <!-- DESC : 입고예정 등록.	                                       			          -->
     <!-- ================================================================================ -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			      -->
     <!-- ===========  	============  	================================================= -->
     <!-- 2024.09.03  	최지호        	Initial Creation                                  -->
     <!-- ================================================================================ -->
-    <insert id="insertRawMtrWrhsPrnmnt" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+    <insert id="insertRawMtrWrhsPrnmnt" parameterType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
     	<![CDATA[
-            INSERT /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt */
+            INSERT /* com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt */
             INTO TB_RAW_MTR_WRHS_PRNMNT (
                   APC_CD
                 , PRDCR_CD
@@ -168,16 +168,16 @@
     </insert>
 
     <!-- =======================================================================================    -->
-    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt	    	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt	    	-->
     <!-- DESC : 입고예정 수정.	                                       			               	 	-->
     <!-- =======================================================================================    -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
     <!-- ===========  	============  	========================================================    -->
     <!-- 2024.12.23  	김호        	Initial Creation                                            -->
     <!-- =======================================================================================    -->
-    <update id="updateRawMtrWrhsPrnmnt" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+    <update id="updateRawMtrWrhsPrnmnt" parameterType="com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
 		<![CDATA[
-        UPDATE /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt */
+        UPDATE /* com.apcmngsys.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt */
             TB_RAW_MTR_WRHS_PRNMNT
            SET
            	  ITEM_CD					= #{itemCd}

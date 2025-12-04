@@ -1,10 +1,10 @@
-package com.at.apcss.fm.cmns.mapper;
+package com.apcmngsys.apcss.fm.cmns.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.fm.cmns.vo.PrdcrVO;
 
 /**
  * 생산자정보 Mapper 인터페이스

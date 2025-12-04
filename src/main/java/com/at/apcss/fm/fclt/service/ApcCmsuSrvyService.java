@@ -1,7 +1,7 @@
-package com.at.apcss.fm.fclt.service;
+package com.apcmngsys.apcss.fm.fclt.service;
 
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
-import com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO;
+import com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO;
 
 import java.util.HashMap;
 import java.util.List;

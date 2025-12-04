@@ -1,11 +1,11 @@
-package com.at.apcss.mobile.vo;
+package com.apcmngsys.apcss.mobile.vo;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

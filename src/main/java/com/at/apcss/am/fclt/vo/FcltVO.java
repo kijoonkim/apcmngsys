@@ -1,6 +1,6 @@
-package com.at.apcss.am.fclt.vo;
+package com.apcmngsys.apcss.am.fclt.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

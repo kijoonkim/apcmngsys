@@ -1,9 +1,9 @@
-package com.at.apcss.pd.popup.service.impl;
+package com.apcmngsys.apcss.pd.popup.service.impl;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.popup.mapper.SprtBizRsltInqPopupMapper;
-import com.at.apcss.pd.popup.service.SprtBizRsltInqPopupService;
-import com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.popup.mapper.SprtBizRsltInqPopupMapper;
+import com.apcmngsys.apcss.pd.popup.service.SprtBizRsltInqPopupService;
+import com.apcmngsys.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

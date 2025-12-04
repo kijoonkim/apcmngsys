@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
-import com.at.apcss.am.wrhs.vo.SdlngVO;
-import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.am.wrhs.vo.SdlngVO;
+import com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 
 /**
  * 업무 번호 Service 인터페이스

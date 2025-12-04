@@ -1,9 +1,9 @@
-package com.at.apcma.fi.ftr.trn.web;
+package com.apcmngsys.apcma.fi.ftr.trn.web;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

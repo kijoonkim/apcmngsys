@@ -1,4 +1,4 @@
-package com.at.apcss.am.wrhs.service.impl;
+package com.apcmngsys.apcss.am.wrhs.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,14 +9,14 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
-import com.at.apcss.am.wrhs.mapper.PrdcrLandInfoMapper;
-import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper;
+import com.apcmngsys.apcss.am.wrhs.mapper.PrdcrLandInfoMapper;
+import com.apcmngsys.apcss.am.wrhs.service.PrdcrLandInfoService;
+import com.apcmngsys.apcss.am.wrhs.vo.CltvtnHstryVO;
+import com.apcmngsys.apcss.am.wrhs.vo.PrdcrLandInfoVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PrdcrLandInfoServiceImpl.java

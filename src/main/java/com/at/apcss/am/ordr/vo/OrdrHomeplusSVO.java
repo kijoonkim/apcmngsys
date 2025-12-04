@@ -1,4 +1,4 @@
-package com.at.apcss.am.ordr.vo;
+package com.apcmngsys.apcss.am.ordr.vo;
 
 import lombok.Getter;
 import lombok.Setter;

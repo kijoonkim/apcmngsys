@@ -1,4 +1,4 @@
-package com.at.apcma.fi.fgl.jor.web;
+package com.apcmngsys.apcma.fi.fgl.jor.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * 미결잔액조회 처리하는 컨트롤러 클래스

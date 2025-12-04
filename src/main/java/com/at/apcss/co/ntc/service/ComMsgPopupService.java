@@ -1,6 +1,6 @@
-package com.at.apcss.co.ntc.service;
+package com.apcmngsys.apcss.co.ntc.service;
 
-import com.at.apcss.co.ntc.vo.ComMsgPopupVO;
+import com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;

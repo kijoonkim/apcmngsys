@@ -1,11 +1,11 @@
-package com.at.apcss.am.cmns.web;
+package com.apcmngsys.apcss.am.cmns.web;
 
-import com.at.apcss.am.cmns.service.CmnsFcltService;
-import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
-import com.at.apcss.am.cmns.vo.CmnsFcltVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.cmns.service.CmnsFcltService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltAtrbVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsFcltVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import org.springframework.beans.BeanUtils;

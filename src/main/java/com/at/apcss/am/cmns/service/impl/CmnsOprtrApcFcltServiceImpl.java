@@ -1,38 +1,38 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.sort.vo.SortBffaGrdVO;
-import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.mapper.CmnsItemMapper;
-import com.at.apcss.am.cmns.mapper.CmnsOprtrApcFcltMapper;
-import com.at.apcss.am.cmns.service.CmnsItemService;
-import com.at.apcss.am.cmns.service.CmnsOprtrApcFcltService;
-import com.at.apcss.am.cmns.service.CmnsSpcfctService;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.CmnsVrtyService;
-import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
-import com.at.apcss.am.cmns.service.StdGrdService;
-import com.at.apcss.am.cmns.vo.CmnsItemVO;
-import com.at.apcss.am.cmns.vo.CmnsOprtrApcFcltVO;
-import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
-import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
-import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
-import com.at.apcss.am.cmns.vo.StdGrdVO;
-import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper;
+import com.apcmngsys.apcss.am.cmns.mapper.CmnsOprtrApcFcltMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsItemService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsOprtrApcFcltService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsSpcfctService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsVrtyService;
+import com.apcmngsys.apcss.am.cmns.service.SpmtPckgUnitService;
+import com.apcmngsys.apcss.am.cmns.service.StdGrdService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsOprtrApcFcltVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsVrtyVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdVO;
+import com.apcmngsys.apcss.co.cd.service.ComCdService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : CmnsItemServiceImpl.java

@@ -1,11 +1,11 @@
-package com.at.apcss.pd.bsm.service;
+package com.apcmngsys.apcss.pd.bsm.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsVO;
+import com.apcmngsys.apcss.pd.bsm.vo.PrdcrCrclOgnUsrMngVO;
 
 
 /**

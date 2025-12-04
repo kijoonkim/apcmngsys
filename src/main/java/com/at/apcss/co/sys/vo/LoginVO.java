@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.vo;
+package com.apcmngsys.apcss.co.sys.vo;
 
 import java.io.Serializable;
 

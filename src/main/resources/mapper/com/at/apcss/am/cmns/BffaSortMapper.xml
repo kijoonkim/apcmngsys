@@ -10,7 +10,7 @@
 <!-- 2024.04.23  박승진        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.BffaSortMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.BffaSortMapper">
 
 <!-- ==========================================================================	-->
 <!-- NAME : selectBffaSortTypeList                                   				-->
@@ -20,7 +20,7 @@
 <!-- ===========  	============  	===========================================	-->
 <!-- 2024.04.23  박승진        	Initial Creation                            -->
 <!-- ==========================================================================	-->
-	<select id="selectBffaSortTypeList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<select id="selectBffaSortTypeList" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO" resultType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
     	<![CDATA[
 		   	SELECT
 		   		CD_ID
@@ -47,7 +47,7 @@
 <!-- 2024.04.23  박승진        	Initial Creation                            -->
 <!-- ==========================================================================	-->
     
-    <select id="selectBffaSortKndList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    <select id="selectBffaSortKndList" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO" resultType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
     	<![CDATA[
 		   	SELECT 
 				BGK.APC_CD 
@@ -84,7 +84,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBffaSortDtlList" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO" resultType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    <select id="selectBffaSortDtlList" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO" resultType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
     	<![CDATA[
 		   	SELECT 
 				BGD.APC_CD
@@ -132,7 +132,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    <insert id="insertBffaSortKnd" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
     	<![CDATA[
     	INSERT INTO TB_APC_BFFA_GRD_KND
     		(
@@ -179,7 +179,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<update id="updateBffaSortKnd" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
 		<![CDATA[
 		UPDATE TB_APC_BFFA_GRD_KND SET
     		  APC_CD = #{apcCd}
@@ -209,7 +209,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteBffaSortKnd" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<update id="deleteBffaSortKnd" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
 		<![CDATA[
 		UPDATE  TB_APC_BFFA_GRD_KND
 		    SET DEL_YN = 'Y'
@@ -231,7 +231,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+    <insert id="insertBffaSortDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
     	<![CDATA[
     	INSERT INTO TB_APC_BFFA_GRD_DTL
     		(
@@ -279,7 +279,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<update id="updateBffaSortDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
 		<![CDATA[
 		UPDATE TB_APC_BFFA_GRD_DTL SET
     		  APC_CD = #{apcCd}
@@ -310,7 +310,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteBffaSortDtl" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<update id="deleteBffaSortDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
 		<![CDATA[
 		UPDATE TB_APC_BFFA_GRD_DTL 
 			SET DEL_YN = 'Y'
@@ -333,7 +333,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.24  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteBffaSortDtlAll" parameterType="com.at.apcss.am.cmns.vo.BffaSortVO">
+	<update id="deleteBffaSortDtlAll" parameterType="com.apcmngsys.apcss.am.cmns.vo.BffaSortVO">
 		<![CDATA[
 		UPDATE TB_APC_BFFA_GRD_DTL 
 			SET  DEL_YN = 'Y'

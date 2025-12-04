@@ -1,16 +1,16 @@
-package com.at.apcss.pd.pcom.service.impl;
+package com.apcmngsys.apcss.pd.pcom.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper;
-import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalNMngService;
-import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper;
+import com.apcmngsys.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalNMngService;
+import com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 
 
 /**

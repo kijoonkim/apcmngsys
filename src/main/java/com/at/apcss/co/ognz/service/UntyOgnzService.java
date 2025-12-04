@@ -1,10 +1,10 @@
-package com.at.apcss.co.ognz.service;
+package com.apcmngsys.apcss.co.ognz.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
-import com.at.apcss.co.ognz.vo.UntyOgnzVO;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO;
 
 /**
  * 통합조직 Service 인터페이스

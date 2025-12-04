@@ -1,10 +1,10 @@
-package com.at.apcss.am.clcln.service;
+package com.apcmngsys.apcss.am.clcln.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnMngVO;
 
 /**
  * 정산기준 Service 인터페이스

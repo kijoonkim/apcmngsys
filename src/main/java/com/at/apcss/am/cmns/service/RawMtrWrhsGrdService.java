@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.RawMtrWrhsGrdVO;
+import com.apcmngsys.apcss.am.cmns.vo.RawMtrWrhsGrdVO;
 
 /**
  * 원물입고육안등급관리 Service 인터페이스

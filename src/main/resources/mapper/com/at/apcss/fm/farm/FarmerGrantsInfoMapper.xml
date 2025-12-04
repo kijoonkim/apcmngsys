@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfo	-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 
-	<select id="selectFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<select id="selectFarmerGrantsInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfo */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfo */
 
 				FRMERNO
 				, BIZ_BGNG_YMD
@@ -57,14 +57,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfoList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfoList	-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmerGrantsInfoList" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<select id="selectFarmerGrantsInfoList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -75,7 +75,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFarmerGrantsInfoList */
 				FRMERNO
 				, BIZ_BGNG_YMD
 				, BIZ_END_YMD
@@ -115,9 +115,9 @@
 	</select>
 
 
-	<insert id="insertFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<insert id="insertFarmerGrantsInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<![CDATA[
-		INSERT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertFarmerGrantsInfo */
+		INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertFarmerGrantsInfo */
 			  INTO TB_AX_FRMER_GRANTS_INFO
 				(
 					  FRMERNO
@@ -165,9 +165,9 @@
 		]]>
 	</insert>
 
-	<insert id="insertLogFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<insert id="insertLogFarmerGrantsInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 	<![CDATA[
-		INSERT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertLogFarmerGrantsInfo */
+		INSERT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.insertLogFarmerGrantsInfo */
 			  INTO TB_AX_FRMER_GRANTS_INFO_LOG
 				(
 					  FRMERNO
@@ -216,9 +216,9 @@
 	</insert>
 
 
-	<update id="updateFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<update id="updateFarmerGrantsInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.upateFarmerGrantsInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.upateFarmerGrantsInfo */
 				TB_AX_FRMER_GRANTS_INFO
 			   SET
 				  tgt.BIZ_BGNG_YMD			=#{bizBgngYmd}
@@ -248,9 +248,9 @@
 		]]>
 	</update>
 
-	<delete id="deleteFarmerGrantsInfo" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<delete id="deleteFarmerGrantsInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 		<![CDATA[
-		DELETE FROM TB_AX_FRMER_GRANTS_INFO /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.deleteFarmerGrantsInfo */
+		DELETE FROM TB_AX_FRMER_GRANTS_INFO /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.deleteFarmerGrantsInfo */
 		WHERE 1=1
 		  AND FRMERNO		= #{frmerno}
 		]]>
@@ -259,9 +259,9 @@
 		</if>
 	</delete>
 
-	<select id="selectFrmerSnList" parameterType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.at.apcss.fm.farm.vo.FarmerGrantsInfoVO">
+	<select id="selectFrmerSnList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmerGrantsInfoVO">
 	<![CDATA[
-		SELECT /* com.at.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFrmerSnList */
+		SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmerGrantsInfoMapper.selectFrmerSnList */
 			FRMERNO
 		FROM TB_AX_FRMER_INFO
 		WHERE 1=1

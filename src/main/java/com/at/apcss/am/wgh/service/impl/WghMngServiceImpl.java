@@ -1,14 +1,14 @@
-package com.at.apcss.am.wgh.service.impl;
+package com.apcmngsys.apcss.am.wgh.service.impl;
 
-import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
-import com.at.apcss.am.wgh.mapper.WghFcltMapper;
-import com.at.apcss.am.wgh.service.WghMngService;
-import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
-import com.at.apcss.am.wgh.vo.WghFcltVO;
-import com.at.apcss.co.cd.mapper.ComCdMapper;
-import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper;
+import com.apcmngsys.apcss.am.wgh.mapper.WghFcltMapper;
+import com.apcmngsys.apcss.am.wgh.service.WghMngService;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltVO;
+import com.apcmngsys.apcss.co.cd.mapper.ComCdMapper;
+import com.apcmngsys.apcss.co.cd.service.ComCdService;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

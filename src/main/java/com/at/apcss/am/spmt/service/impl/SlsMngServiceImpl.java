@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.service.impl;
+package com.apcmngsys.apcss.am.spmt.service.impl;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.spmt.mapper.SlsMngMapper;
-import com.at.apcss.am.spmt.service.SlsMngService;
-import com.at.apcss.am.spmt.vo.SlsMngVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.spmt.mapper.SlsMngMapper;
+import com.apcmngsys.apcss.am.spmt.service.SlsMngService;
+import com.apcmngsys.apcss.am.spmt.vo.SlsMngVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("slsMngService")
 public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService {

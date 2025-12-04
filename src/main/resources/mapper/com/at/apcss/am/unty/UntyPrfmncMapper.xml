@@ -10,20 +10,20 @@
 <!-- 2025.08.18  	김  호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.unty.mapper.UntyPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.am.unty.mapper.UntyPrfmncMapper">
 
 
 	<!-- =============================================================================	-->
-	<!-- NAME : com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList	-->
 	<!-- DESC : 통합실적 목록 조회.	                                       				-->
 	<!-- =============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2025.08.18  	김  호        		Initial Creation                        	-->
 	<!-- =============================================================================	-->
-    <select id="selectRawDlngPrfmncList" parameterType="com.at.apcss.am.unty.vo.UntyPrfmncVO" resultType="com.at.apcss.am.unty.vo.UntyPrfmncVO">
+    <select id="selectRawDlngPrfmncList" parameterType="com.apcmngsys.apcss.am.unty.vo.UntyPrfmncVO" resultType="com.apcmngsys.apcss.am.unty.vo.UntyPrfmncVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList */
+	    	SELECT /* com.apcmngsys.apcss.am.unty.mapper.UntyPrfmncMapper.selectRawDlngPrfmncList */
 	    	       Y.APC_CD
 				 , Y.WRHSNO                 AS WRHSNO
 				 , Y.WRHS_YMD          		AS WRHS_YMD
@@ -181,16 +181,16 @@
     </select>
 
 	<!-- =============================================================================	-->
-	<!-- NAME : com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList	-->
 	<!-- DESC : 양송이출고등록 조회.	                                       				-->
 	<!-- =============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2025.10.29  	김  호        		Initial Creation                        	-->
 	<!-- =============================================================================	-->
-	<select id="selectRegSpmtPrfmncList" parameterType="com.at.apcss.am.unty.vo.RegSpmtPrfmncVO" resultType="com.at.apcss.am.unty.vo.RegSpmtPrfmncVO">
+	<select id="selectRegSpmtPrfmncList" parameterType="com.apcmngsys.apcss.am.unty.vo.RegSpmtPrfmncVO" resultType="com.apcmngsys.apcss.am.unty.vo.RegSpmtPrfmncVO">
 		<![CDATA[
-			/* com.at.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList */
+			/* com.apcmngsys.apcss.am.unty.mapper.UntyPrfmncMapper.selectRegSpmtPrfmncList */
 	    	SELECT Y.APC_CD                     AS APC_CD
 				 , Y.GDS_NM                     AS GDS_NM
 				 , MAX(Y.WRHS_YMD)              AS WRHS_YMD

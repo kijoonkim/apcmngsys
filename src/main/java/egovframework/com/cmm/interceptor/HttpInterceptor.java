@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.at.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
 
 /**
  * 인증여부 체크 인터셉터

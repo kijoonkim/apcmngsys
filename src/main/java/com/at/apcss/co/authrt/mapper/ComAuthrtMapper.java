@@ -1,13 +1,13 @@
-package com.at.apcss.co.authrt.mapper;
+package com.apcmngsys.apcss.co.authrt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUserVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtVO;
 
 @Mapper
 public interface ComAuthrtMapper {

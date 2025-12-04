@@ -1,14 +1,14 @@
-package com.at.apcss.co.log.service.impl;
+package com.apcmngsys.apcss.co.log.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.log.mapper.ComLogMapper;
-import com.at.apcss.co.log.service.ComLogService;
-import com.at.apcss.co.log.vo.ComLogVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.log.mapper.ComLogMapper;
+import com.apcmngsys.apcss.co.log.service.ComLogService;
+import com.apcmngsys.apcss.co.log.vo.ComLogVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * 이력정보에 대한 서비스 구현 클래스를 정의한다

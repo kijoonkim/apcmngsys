@@ -10,18 +10,18 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnGenalTblMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMng */
+	<select id="selectPrdcrCrclOgnGenalTblMng" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMng */
 			'a' as BRNO
 		FROM DUAL
 		WHERE 1=1
@@ -29,15 +29,15 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnGenalTblMngList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectItemStbltYn */
+	<select id="selectPrdcrCrclOgnGenalTblMngList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectItemStbltYn */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -342,7 +342,7 @@
 		)TOTAL
 	</select>
 
-	<select id="selectPrdcrCrclOgnGenalTblMngUoList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	<select id="selectPrdcrCrclOgnGenalTblMngUoList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -352,7 +352,7 @@
 			  FROM (
 		</if>
 
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngUoList */
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngUoList */
 			TEA.APO_CD
 			,TEA.APO_SE
 			,TEA.BRNO
@@ -398,8 +398,8 @@
 		</if>
 	</select>
 
-	<update id="updateStbltYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-			UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateStbltYn */
+	<update id="updateStbltYn" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+			UPDATE /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateStbltYn */
 				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 			   SET
 				  STBLT_YN				= #{stbltYn}
@@ -416,8 +416,8 @@
 	</update>
 
 	<!-- 실적 법인체마감 -->
-	<update id="updatePrfmncCorpDdlnYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-	    	UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn */
+	<update id="updatePrfmncCorpDdlnYn" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	    	UPDATE /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn */
 	    		TB_EV_APLY_MNG
 			   SET
 			 	  PRFMNC_CORP_DDLN_YN	= #{prfmncCorpDdlnYn}
@@ -428,8 +428,8 @@
 				AND YR		= #{yr}
 	</update>
 
-	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList */
+	<select id="selectRawDataList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList */
 			TOTAL.YR
 			,TOTAL.BRNO
 			,'통합조직' AS APO_SE
@@ -730,15 +730,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025	-->
 	<!-- DESC : 통합조직 총괄표 로우데이터 2025                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025 */
+	<select id="selectRawDataList2025" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025 */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -1153,8 +1153,8 @@
 	</select>
 
 	<!-- 조치사항 초기화 -->
-	<update id="updateItemUoActnMttr" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateItemUoStbltYnInit */
+	<update id="updateItemUoActnMttr" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateItemUoStbltYnInit */
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		SET
 			ACTN_MTTR	= #{actnMttr}
@@ -1167,8 +1167,8 @@
 	</update>
 
 	<!-- 생산자조직 세부정보 갱신 -->
-	<update id="updateFrmhsItem" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateFrmhsItem */
+	<update id="updateFrmhsItem" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateFrmhsItem */
 			TB_EV_FRMHS_APO EFA
 		SET
 			STTG_UPBR_ITEM_SE = (SELECT STTG_UPBR_ITEM_SE
@@ -1205,8 +1205,8 @@
 	</update>
 
 	<!-- 전문품목 매입매출 세부정보 갱신 -->
-	<update id="updateUoIsoItem" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateUoIsoItem */
+	<update id="updateUoIsoItem" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateUoIsoItem */
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		SET
 			CTGRY_CD = (SELECT CTGRY_CD
@@ -1226,8 +1226,8 @@
 	</update>
 
 	<!-- 생산자조직 리스트 조회 -->
-	<select id="selectFrmhsStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectFrmhsStbltYnList */
+	<select id="selectFrmhsStbltYnList" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectFrmhsStbltYnList */
 			YR
 			,BRNO
 			,UO_BRNO
@@ -1245,8 +1245,8 @@
 	</select>
 
 	<!-- 출자출하조직 리스트 조회 -->
-	<select id="selectIsoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.ItemStbltYnVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
+	<select id="selectIsoStbltYnList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
 			YR
 			,BRNO
 			,UO_BRNO
@@ -1261,8 +1261,8 @@
 	</select>
 
 	<!-- 통합조직 리스트 조회 -->
-	<select id="selectUoStbltYnList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
+	<select id="selectUoStbltYnList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoStbltYnList */
 			YR
 			,BRNO
 		FROM
@@ -1277,16 +1277,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList	-->
 	<!-- DESC : 통합조직 총괄표 조회                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoPrchsSlsSummaryList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+	<select id="selectUoPrchsSlsSummaryList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList */
 				  TOT.YR				AS YR
 				, (SELECT X.SLCTN_YR FROM TB_EV_APO X WHERE X.BRNO = TOT.BRNO) 	AS SLCTN_YR
 
@@ -1811,16 +1811,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv	-->
 	<!-- DESC : 통합조직 총괄표 조회 (육성->승인)                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoPrchsSlsSummaryListForUpbrToAprv" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+	<select id="selectUoPrchsSlsSummaryListForUpbrToAprv" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
 		<![CDATA[
-			WITH /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
+			WITH /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
 			  FRMHS_APO AS (
 				SELECT
 					  FA.APO_CD     AS APO_CD
@@ -2238,7 +2238,7 @@
 				   AND PST.PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN
 				   AND PST.TRMT_TYPE = FA.TRMT_TYPE
 			)
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryListForUpbrToAprv */
 				  TOT.YR				AS YR
 				, (SELECT X.SLCTN_YR FROM TB_EV_APO_HSTRY X WHERE X.BRNO = TOT.BRNO AND X.YR = TOT.YR) 	AS SLCTN_YR
 
@@ -2724,15 +2724,15 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNe	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNe	-->
 	<!-- DESC : 총괄표 조회 2025년 기준                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnGenalTblMngListNew" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew */
+	<select id="selectPrdcrCrclOgnGenalTblMngListNew" parameterType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -3160,15 +3160,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot	-->
 	<!-- DESC : 부류별 합계                                            					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoClsfTot" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
+	<select id="selectUoClsfTot" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
 			BRNO
 			, (CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '원예농산물'
 				ELSE '기타품목'
@@ -3224,7 +3224,7 @@
 
 		UNION ALL
 
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
 			BRNO
 			, DECODE(CLSF_SE_CD, '1' , '원예농산물' , '기타품목') AS CLSF_SE_NM
 			, CLSF_SE_CD
@@ -3279,14 +3279,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPstTmepChk	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPstTmepChk	-->
 	<!-- DESC : 전문품목 매입매출 임시저장 여부 조회                                            					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPstTmepChk" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	<select id="selectPstTmepChk" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		SELECT
 			BRNO
 			,(SELECT CORP_NM
@@ -3317,14 +3317,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectApsTmepChk	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectApsTmepChk	-->
 	<!-- DESC : 총 매입매출 임시저장 여부 조회                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApsTmepChk" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	<select id="selectApsTmepChk" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		SELECT
 			BRNO
 			,(SELECT CORP_NM

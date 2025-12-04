@@ -1,10 +1,10 @@
-package com.at.apcss.co.menu.service;
+package com.apcmngsys.apcss.co.menu.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiVO;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiVO;
 
 public interface ComMenuService {
 

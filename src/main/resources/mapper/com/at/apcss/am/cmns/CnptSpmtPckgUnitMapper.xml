@@ -10,19 +10,19 @@
 <!-- 2025.09.01  	김은총        	Initial Creation	                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper">
 
 	<!-- ====================================================================================== -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnitList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnitList	-->
 	<!-- DESC : 출하상품거래처 목록 조회.	                                   					-->
 	<!-- ======================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
 	<!-- ===========  	============  	=======================================================	-->
 	<!-- 2025.09.01  	김은총        	Initial Creation                            			-->
 	<!-- ======================================================================================	-->
-    <select id="selectCnptSpmtPckgUnitList" parameterType="com.at.apcss.am.cmns.vo.CnptSpmtPckgUnitVO" resultType="com.at.apcss.am.cmns.vo.CnptSpmtPckgUnitVO">
+    <select id="selectCnptSpmtPckgUnitList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptSpmtPckgUnitVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CnptSpmtPckgUnitVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnitList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnitList */
 		     	   CSPU.APC_CD				AS APC_CD
 				 , CSPU.CNPT_CD				AS CNPT_CD
 	    	     , (SELECT FN_GET_CNPT_NM(CSPU.CNPT_CD, CSPU.APC_CD) FROM DUAL) 					AS CNPT_NM
@@ -66,16 +66,16 @@
     </select>
 
 	<!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.deleteCnptSpmtPckgUnit	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.deleteCnptSpmtPckgUnit	-->
 	<!-- DESC : 출하상품거래처 삭제.	                                  					-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2025.09.01  	김은총        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-	<update id="deleteCnptSpmtPckgUnit" parameterType="com.at.apcss.am.cmns.vo.CnptSpmtPckgUnitVO">
+	<update id="deleteCnptSpmtPckgUnit" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptSpmtPckgUnitVO">
 		<![CDATA[
-			UPDATE TB_CNPT_SPMT_PCKG_UNIT /* com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.deleteCnptSpmtPckgUnit */
+			UPDATE TB_CNPT_SPMT_PCKG_UNIT /* com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.deleteCnptSpmtPckgUnit */
 			   SET DEL_YN 				= 'Y'
 			 WHERE APC_CD				= #{apcCd}
 			   AND SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
@@ -84,7 +84,7 @@
 	</update>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.mergeCnptSpmtPckgUnitList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.mergeCnptSpmtPckgUnitList	-->
 	<!-- DESC : 출하상품거래처 상세 merge  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

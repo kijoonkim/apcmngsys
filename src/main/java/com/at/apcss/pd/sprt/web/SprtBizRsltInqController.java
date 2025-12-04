@@ -1,9 +1,9 @@
-package com.at.apcss.pd.sprt.web;
+package com.apcmngsys.apcss.pd.sprt.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.sprt.service.SprtBizRsltInqService;
-import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.sprt.service.SprtBizRsltInqService;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

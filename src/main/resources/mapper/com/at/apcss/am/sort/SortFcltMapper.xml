@@ -10,17 +10,17 @@
 <!-- 2024.09.03  	박승진    		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.sort.mapper.SortFcltMapper">
+<mapper namespace="com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfoList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfoList	-->
 	<!-- DESC : 선별설비 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltInfoList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltInfoList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
 			SELECT
 			DTL.APC_CD
@@ -85,14 +85,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltInfo		-->
 	<!-- DESC : 선별설비 목록 단건 조회.                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltInfo" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltInfo" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
     		SELECT
     		*
@@ -114,14 +114,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortOprtngCrtrList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortOprtngCrtrList		-->
 	<!-- DESC : 가동기준관리(선별) 조회.                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortOprtngCrtrList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortOprtngCrtrList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
     		SELECT
     			DTL.APC_CD
@@ -169,14 +169,14 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltAtrb		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltAtrb		-->
 	<!-- DESC : 선별설비 속성 목록 조회.	                                    	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltAtrb" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
 			SELECT
 			*
@@ -200,14 +200,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltDtl		-->
 	<!-- DESC : 선별설비 목록 단건 조회.                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltDtl" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
     		SELECT
     		*
@@ -228,14 +228,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPlanList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPlanList	-->
 	<!-- DESC : 선별설비 운영계획 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltOprtngPlanList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltOprtngPlanList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
 			SELECT * FROM
 			(SELECT
@@ -333,14 +333,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.selectSortFcltOprtngPrfmncList	-->
 	<!-- DESC : 선별설비 운영계획 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.03  	박승진        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <select id="selectSortFcltOprtngPrfmncList" parameterType="com.at.apcss.am.sort.vo.SortFcltVO" resultType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <select id="selectSortFcltOprtngPrfmncList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
     	<![CDATA[
 			SELECT * FROM
 			(SELECT
@@ -450,16 +450,16 @@
     </select>
 
         <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
 	<!-- DESC : 선별설비 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <update id="updateSortFclt" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+			UPDATE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
 				TB_OPRTNG_APC_FCLT
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -487,16 +487,16 @@
 	</update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltAtrb		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltAtrb		-->
 	<!-- DESC : 선별설비속성 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <update id="updateSortFcltAtrb" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
+			UPDATE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo */
 				TB_OPRTNG_APC_FCLT_ATRB
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -512,7 +512,7 @@
 		]]>
 	</update>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFclt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.insertSortFclt		-->
 	<!-- DESC : 선별설비 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -520,7 +520,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortFclt" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_FCLT
@@ -585,7 +585,7 @@
 	</insert>
 
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltAtrb		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltAtrb		-->
 	<!-- DESC : 선별설비속성 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -593,7 +593,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortFcltAtrb" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_FCLT_ATRB
@@ -637,7 +637,7 @@
 
 	</insert>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltDtl		-->
 	<!-- DESC : 선별설비상세 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -645,7 +645,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortFcltDtl" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_FCLT_DTL
@@ -691,16 +691,16 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl		-->
 	<!-- DESC : 선별설비상세 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <update id="updateSortFcltDtl" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl */
+			UPDATE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltDtl */
 				TB_OPRTNG_APC_FCLT_DTL
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -716,16 +716,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
 	<!-- DESC : 선별설비정보 삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteSortFclt" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <delete id="deleteSortFclt" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFclt */
+			DELETE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFclt */
 			  FROM TB_OPRTNG_APC_FCLT
 			 WHERE APC_CD = #{apcCd}
 			   AND FCLT_TYPE = #{fcltType}
@@ -734,16 +734,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
 	<!-- DESC : 선별설비속성 삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="deleteSortFcltAtrb" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <update id="deleteSortFcltAtrb" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltAtrb */
+			UPDATE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltAtrb */
 				TB_OPRTNG_APC_FCLT_ATRB
 			   SET
 			   	  DEL_YN = 'Y'
@@ -754,16 +754,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFclt		-->
 	<!-- DESC : 선별설비상세 삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="deleteSortFcltDtl" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+    <update id="deleteSortFcltDtl" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltDtl */
+			UPDATE /* com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltDtl */
 				TB_OPRTNG_APC_FCLT_DTL
 			   SET
 			   	  DEL_YN = 'Y'
@@ -776,7 +776,7 @@
 
 
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPlan		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPlan		-->
 	<!-- DESC : 선별설비계획 등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -784,7 +784,7 @@
 	<!-- 2023.09.11  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortFcltOprtngPlan" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_PLAN
@@ -836,7 +836,7 @@
 
 	</insert>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPlan		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPlan		-->
 		<!-- DESC : 선별설비계획 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -844,7 +844,7 @@
 	<!-- 2023.09.11  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<update id="updateSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<update id="updateSortFcltOprtngPlan" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		UPDATE TB_OPRTNG_APC_PLAN SET
 			OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),
@@ -870,7 +870,7 @@
 
 
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPlan		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPlan		-->
 	<!-- DESC : 선별설비계획 삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -878,7 +878,7 @@
 	<!-- 2023.09.11  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<delete id="deleteSortFcltOprtngPlan" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<delete id="deleteSortFcltOprtngPlan" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		DELETE FROM TB_OPRTNG_APC_PLAN
 		WHERE APC_CD = #{apcCd}
@@ -889,7 +889,7 @@
 
 	</delete>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltOprtngPrfmnc		-->
 	<!-- DESC : 선별설비계획 삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -897,7 +897,7 @@
 	<!-- 2023.09.11  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<delete id="deleteSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<delete id="deleteSortFcltOprtngPrfmnc" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		DELETE FROM TB_OPRTNG_APC_PRFMNC
 		WHERE APC_CD = #{apcCd}
@@ -910,7 +910,7 @@
 
 	</delete>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
 	<!-- DESC : 가동기준관리(선별)등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -918,7 +918,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortOprtngCrtr" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_FCLT_ITEM
@@ -968,7 +968,7 @@
 
 	</insert>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltInfo		-->
 	<!-- DESC : 가동기준관리(선별)수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -976,7 +976,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="updateSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="updateSortOprtngCrtr" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		UPDATE
 			TB_OPRTNG_APC_FCLT_ITEM
@@ -1002,7 +1002,7 @@
 
 	</insert>
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltInfo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.deleteSortFcltInfo		-->
 	<!-- DESC : 가동기준관리(선별)삭제 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -1010,7 +1010,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="deleteSortOprtngCrtr" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="deleteSortOprtngCrtr" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		DELETE FROM TB_OPRTNG_APC_FCLT_ITEM
 		WHERE APC_CD = #{apcCd}
@@ -1025,7 +1025,7 @@
 	</insert>
 
 
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.insertSortFcltOprtngPrfmnc		-->
 	<!-- DESC : 가동실적(선별)등록 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -1033,7 +1033,7 @@
 	<!-- 2023.07.28  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<insert id="insertSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<insert id="insertSortFcltOprtngPrfmnc" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		INSERT
 			INTO TB_OPRTNG_APC_PRFMNC
@@ -1085,7 +1085,7 @@
 
 	</insert>
 
-		<!-- NAME : com.at.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPrfmnc		-->
+		<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortFcltMapper.updateSortFcltOprtngPrfmnc		-->
 	<!-- DESC : 가동실적등록 수정 : 											-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -1093,7 +1093,7 @@
 	<!-- 2023.09.11  	박승진		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 
-	<update id="updateSortFcltOprtngPrfmnc" parameterType="com.at.apcss.am.sort.vo.SortFcltVO">
+	<update id="updateSortFcltOprtngPrfmnc" parameterType="com.apcmngsys.apcss.am.sort.vo.SortFcltVO">
 		<![CDATA[
 		UPDATE TB_OPRTNG_APC_PRFMNC SET
 			OPRTNG_BGNG_DT = TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),

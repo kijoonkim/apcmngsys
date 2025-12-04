@@ -1,10 +1,10 @@
-package com.at.apcss.pd.pcorm.mapper;
+package com.apcmngsys.apcss.pd.pcorm.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pcorm.vo.SrvyVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SrvyVO;
 
 /**
  * 세류제츨 등록 관리 Mapper 인터페이스

@@ -1,8 +1,8 @@
-package com.at.apcss.am.fclt.mapper;
+package com.apcmngsys.apcss.am.fclt.mapper;
 
 import java.util.List;
 
-import com.at.apcss.am.fclt.vo.FcltVO;
+import com.apcmngsys.apcss.am.fclt.vo.FcltVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**

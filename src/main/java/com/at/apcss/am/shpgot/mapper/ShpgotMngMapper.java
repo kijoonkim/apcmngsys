@@ -1,7 +1,7 @@
-package com.at.apcss.am.shpgot.mapper;
+package com.apcmngsys.apcss.am.shpgot.mapper;
 
-import com.at.apcss.am.shpgot.vo.ShpgotCrtrVO;
-import com.at.apcss.am.shpgot.vo.ShpgotRsltVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotCrtrVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotRsltVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

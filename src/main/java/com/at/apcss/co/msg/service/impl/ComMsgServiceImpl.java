@@ -1,13 +1,13 @@
-package com.at.apcss.co.msg.service.impl;
+package com.apcmngsys.apcss.co.msg.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.msg.mapper.ComMsgMapper;
-import com.at.apcss.co.msg.service.ComMsgService;
-import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.msg.mapper.ComMsgMapper;
+import com.apcmngsys.apcss.co.msg.service.ComMsgService;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
 
 /**
  * @Class Name : ComMsgServiceImpl.java

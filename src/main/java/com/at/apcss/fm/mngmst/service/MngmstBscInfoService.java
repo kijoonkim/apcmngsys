@@ -1,9 +1,9 @@
-package com.at.apcss.fm.mngmst.service;
+package com.apcmngsys.apcss.fm.mngmst.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.fm.mngmst.vo.MngmstBscInfoVO;
+import com.apcmngsys.apcss.fm.mngmst.vo.MngmstBscInfoVO;
 
 
 /**

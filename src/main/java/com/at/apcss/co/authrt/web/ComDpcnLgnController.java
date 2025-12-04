@@ -1,4 +1,4 @@
-package com.at.apcss.co.authrt.web;
+package com.apcmngsys.apcss.co.authrt.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.co.authrt.service.ComDpcnLgnService;
-import com.at.apcss.co.authrt.vo.ComDpcnLgnVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.authrt.service.ComDpcnLgnService;
+import com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @Controller
 public class ComDpcnLgnController extends BaseController{

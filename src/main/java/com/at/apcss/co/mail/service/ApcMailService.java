@@ -1,8 +1,8 @@
-package com.at.apcss.co.mail.service;
+package com.apcmngsys.apcss.co.mail.service;
 
-import com.at.apcss.co.mail.vo.ApcMailVO;
-import com.at.apcss.co.mail.vo.EmlLogVO;
-import com.at.apcss.co.mail.vo.EmsMailVO;
+import com.apcmngsys.apcss.co.mail.vo.ApcMailVO;
+import com.apcmngsys.apcss.co.mail.vo.EmlLogVO;
+import com.apcmngsys.apcss.co.mail.vo.EmsMailVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;

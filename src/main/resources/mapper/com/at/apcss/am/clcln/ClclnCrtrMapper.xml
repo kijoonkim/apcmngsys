@@ -10,19 +10,19 @@
 <!-- 2024.09.21  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnCrtrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtr		-->
 	<!-- DESC : 정산기준 단건 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnCrtr" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectClclnCrtr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtr */
+    		SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtr */
 				  CC.APC_CD				AS APC_CD
 				, CC.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
 				, CC.CRTR_CD			AS CRTR_CD
@@ -50,16 +50,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrList	-->
 	<!-- DESC : 정산기준 목록 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnCrtrList" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectClclnCrtrList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrList */
+    		SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrList */
     		
 				  CC.APC_CD				AS APC_CD
 				, CC.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
@@ -111,16 +111,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtl		-->
 	<!-- DESC : 정산기준 상세 단건 조회.                       	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnCrtrDtl" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectClclnCrtrDtl" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtl */
+    		SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtl */
 				  CD.APC_CD				AS APC_CD
 				, CD.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
 				, CD.CRTR_CD			AS CRTR_CD
@@ -144,16 +144,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList	-->
 	<!-- DESC : 정산기준 상세 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnCrtrDtlList" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectClclnCrtrDtlList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList */
+    		SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList */
     		
 				  CC.APC_CD				AS APC_CD
 				, CC.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
@@ -220,16 +220,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlListInUse	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlListInUse	-->
 	<!-- DESC : 정산기준 상세 품목 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCrtrDtlListInUse" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectCrtrDtlListInUse" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlListInUse */
+			SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlListInUse */
 				ROW_NUMBER() OVER(
 						PARTITION BY A.APC_CD, A.CLCLN_CRTR_TYPE, A.CRTR_CD 
 						ORDER BY A.CRTR_DTL_SEQ, A.DTL_SN ASC
@@ -298,16 +298,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnCrtrDtlList	-->
 	<!-- DESC : 정산기준 상세 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCrtrDtlList" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <select id="selectCrtrDtlList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlList */
+    		SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectCrtrDtlList */
     		
 				  CD.APC_CD				AS APC_CD
 				, CD.CLCLN_CRTR_TYPE	AS CLCLN_CRTR_TYPE
@@ -332,16 +332,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtr		-->
 	<!-- DESC : 정산기준 등록.		                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertClclnCrtr" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <insert id="insertClclnCrtr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtr */
+    		INSERT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtr */
     		  INTO TB_CLCLN_CRTR (
 				  APC_CD
 				, CLCLN_CRTR_TYPE
@@ -381,16 +381,16 @@
     </insert>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtr		-->
 	<!-- DESC : 정산기준 변경.	                         	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateClclnCrtr" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <update id="updateClclnCrtr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtr */
+    		UPDATE /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtr */
     		  TB_CLCLN_CRTR
     		SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -411,16 +411,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtr		-->
 	<!-- DESC : 정산기준 삭제.	                         	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteClclnCrtr" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <delete id="deleteClclnCrtr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		DELETE /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtr */
+    		DELETE /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtr */
     		  TB_CLCLN_CRTR
 			 WHERE APC_CD = #{apcCd}
 			   AND CLCLN_CRTR_TYPE = #{clclnCrtrType}
@@ -429,16 +429,16 @@
     </delete>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtrDtl		-->
 	<!-- DESC : 정산기준 상세 등록.		                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertClclnCrtrDtl" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <insert id="insertClclnCrtrDtl" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtrDtl */
+    		INSERT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnCrtrDtl */
     		  INTO TB_CLCLN_CRTR_DTL (
 				  APC_CD
 				, CLCLN_CRTR_TYPE
@@ -482,16 +482,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtrDtl		-->
 	<!-- DESC : 정산기준 상세 변경.                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateClclnCrtrDtl" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <update id="updateClclnCrtrDtl" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtrDtl */
+    		UPDATE /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnCrtrDtl */
     		  TB_CLCLN_CRTR_DTL
     		SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -514,16 +514,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtrDtl		-->
 	<!-- DESC : 정산기준 상세 삭제.                       	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteClclnCrtrDtl" parameterType="com.at.apcss.am.clcln.vo.ClclnCrtrVO">
+    <delete id="deleteClclnCrtrDtl" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnCrtrVO">
     	<![CDATA[
-    		DELETE /* com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtrDtl */
+    		DELETE /* com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.deleteClclnCrtrDtl */
     		  TB_CLCLN_CRTR_DTL
 			 WHERE CD.APC_CD = #{apcCd}
 			   AND CD.CLCLN_CRTR_TYPE = #{clclnCrtrType}

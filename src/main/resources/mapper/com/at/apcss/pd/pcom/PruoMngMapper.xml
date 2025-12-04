@@ -10,19 +10,19 @@
 <!-- 2025.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PruoMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcom.mapper.PruoMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMst				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMst				-->
 	<!-- DESC : 생산유통통합조직등록 마스터 조회                                  		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.09.24  	jcshin     		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPruoRegMst" parameterType="com.at.apcss.pd.pcom.vo.PruoMstVO" resultType="com.at.apcss.pd.pcom.vo.PruoMstVO">
+	<select id="selectPruoRegMst" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO">
 		<![CDATA[
-			SELECT	/* com.at.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMst */
+			SELECT	/* com.apcmngsys.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMst */
 				  PM.CRTR_YR		AS CRTR_YR
 				, PM.INDCT_NM		AS INDCT_NM
 				, PM.CMPTN_YN		AS CMPTN_YN
@@ -36,16 +36,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMstList			-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.vo.PruoMngMapper.selectPruoRegMstList			-->
 	<!-- DESC : 생산유통통합조직등록 마스터 목록 조회                                  	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.09.24  	jcshin     		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPruoRegMstList" parameterType="com.at.apcss.pd.pcom.vo.PruoMstVO" resultType="com.at.apcss.pd.pcom.vo.PruoMstVO">
+	<select id="selectPruoRegMstList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO">
 		<![CDATA[
-			SELECT	/* com.at.apcss.pd.pcom.vo.PruoMngMappeselectPruoRegMstListegMst */
+			SELECT	/* com.apcmngsys.apcss.pd.pcom.vo.PruoMngMappeselectPruoRegMstListegMst */
 				  PM.CRTR_YR		AS CRTR_YR
 				, PM.INDCT_NM		AS INDCT_NM
 				, PM.CMPTN_YN		AS CMPTN_YN

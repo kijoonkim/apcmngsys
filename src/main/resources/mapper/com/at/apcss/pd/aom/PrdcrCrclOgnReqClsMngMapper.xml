@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrCrclOgnReqClsMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
+    <select id="selectPrdcrCrclOgnReqClsMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.selectPrdcrCrclOgnReqClsMng */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.selectPrdcrCrclOgnReqClsMng */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -80,16 +80,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrCrclOgnReqClsMngList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
+    <select id="selectPrdcrCrclOgnReqClsMngList" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.selectPrdcrCrclOgnReqClsMngList */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.selectPrdcrCrclOgnReqClsMngList */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -146,9 +146,9 @@
     </select>
 
 
-	<insert id="insertPrdcrCrclOgnReqClsMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
+	<insert id="insertPrdcrCrclOgnReqClsMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.insertPrdcrCrclOgnReqClsMng */
+	    	INSERT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.insertPrdcrCrclOgnReqClsMng */
 	    	  INTO TB_PD_PrdcrCrclOgnVluIdctrMng
 	    		(
 	    			TEST_NO
@@ -229,9 +229,9 @@
 	   			)
     	]]>
     </insert>
-	<update id="updatePrdcrCrclOgnReqClsMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
+	<update id="updatePrdcrCrclOgnReqClsMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.upatePrdcrCrclOgnReqClsMng */
+	    	UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper.upatePrdcrCrclOgnReqClsMng */
 	    		TB_PD_PrdcrCrclOgnVluIdctrMng
 			   SET
 			 	  AA	= #{aa}
@@ -278,7 +278,7 @@
     </update>
 
 
-	<delete id="deletePrdcrCrclOgnReqClsMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
+	<delete id="deletePrdcrCrclOgnReqClsMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO">
 		<![CDATA[
 		DELETE FROM TB_PD_PrdcrCrclOgnVluIdctrMng
 		 WHERE TEST_NO 	= #{testNo}

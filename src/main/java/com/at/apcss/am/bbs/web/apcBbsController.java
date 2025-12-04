@@ -1,4 +1,4 @@
-package com.at.apcss.am.bbs.web;
+package com.apcmngsys.apcss.am.bbs.web;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,13 +32,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
-import com.at.apcss.am.bbs.service.apcBbsService;
-import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
-import com.at.apcss.am.bbs.vo.apcBbsFileVO;
-import com.at.apcss.am.bbs.vo.apcBbsVO;
+import com.apcmngsys.apcss.am.bbs.service.apcBbsService;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsVO;
 
 
 /**

@@ -10,7 +10,7 @@
 <!-- 2025.10.23  	손민성        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.demo.mapper.AiMapper">
+<mapper namespace="com.apcmngsys.apcss.demo.mapper.AiMapper">
     <!-- APC명 검색 -->
     <select id="findByName" resultType="java.util.HashMap" parameterType="String">
         SELECT APC_CD,APC_NM

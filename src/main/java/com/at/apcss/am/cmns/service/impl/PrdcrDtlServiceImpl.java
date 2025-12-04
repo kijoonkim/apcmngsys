@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,13 +9,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.mapper.PrdcrDtlMapper;
-import com.at.apcss.am.cmns.service.PrdcrDtlService;
-import com.at.apcss.am.cmns.vo.PrdcrDtlVO;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.PrdcrDtlMapper;
+import com.apcmngsys.apcss.am.cmns.service.PrdcrDtlService;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PrdcrDtlServiceImpl.java

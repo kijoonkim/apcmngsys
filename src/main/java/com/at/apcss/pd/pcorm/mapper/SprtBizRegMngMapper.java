@@ -1,7 +1,7 @@
-package com.at.apcss.pd.pcorm.mapper;
+package com.apcmngsys.apcss.pd.pcorm.mapper;
 
-import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
-import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegMngVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

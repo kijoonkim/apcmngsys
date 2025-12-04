@@ -1,17 +1,17 @@
-package com.at.apcss.co.pms.service.impl;
+package com.apcmngsys.apcss.co.pms.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper;
-import com.at.apcss.co.pms.service.DvlpPrgrsMngService;
-import com.at.apcss.co.pms.vo.DfctMngVO;
-import com.at.apcss.co.pms.vo.DfctVO;
-import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper;
+import com.apcmngsys.apcss.co.pms.service.DvlpPrgrsMngService;
+import com.apcmngsys.apcss.co.pms.vo.DfctMngVO;
+import com.apcmngsys.apcss.co.pms.vo.DfctVO;
+import com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 @Service("dvlpPrgrsMngService")
 public class DvlpPrgrsMngServiceImpl extends BaseServiceImpl implements DvlpPrgrsMngService {

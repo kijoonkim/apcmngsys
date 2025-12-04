@@ -1,10 +1,10 @@
-package com.at.apcss.co.msg.mapper;
+package com.apcmngsys.apcss.co.msg.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
 
 /**
  * 공통메시지 Mapper 인터페이스

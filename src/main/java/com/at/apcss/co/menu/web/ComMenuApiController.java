@@ -1,4 +1,4 @@
-package com.at.apcss.co.menu.web;
+package com.apcmngsys.apcss.co.menu.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.menu.service.ComMenuService;
-import com.at.apcss.co.menu.vo.ComMenuJsonVO;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.menu.service.ComMenuService;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuJsonVO;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * 메뉴정보 처리하는 컨트롤러 클래스

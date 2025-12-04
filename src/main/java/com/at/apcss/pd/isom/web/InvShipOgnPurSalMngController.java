@@ -1,4 +1,4 @@
-package com.at.apcss.pd.isom.web;
+package com.apcmngsys.apcss.pd.isom.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.isom.service.InvShipOgnPurSalMngService;
-import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.isom.service.InvShipOgnPurSalMngService;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 
 @Controller
 public class InvShipOgnPurSalMngController extends BaseController{

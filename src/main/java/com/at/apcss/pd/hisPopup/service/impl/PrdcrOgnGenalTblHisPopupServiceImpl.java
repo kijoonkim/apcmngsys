@@ -1,13 +1,13 @@
-package com.at.apcss.pd.hisPopup.service.impl;
+package com.apcmngsys.apcss.pd.hisPopup.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper;
-import com.at.apcss.pd.hisPopup.service.PrdcrOgnGenalTblHisPopupService;
-import com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper;
+import com.apcmngsys.apcss.pd.hisPopup.service.PrdcrOgnGenalTblHisPopupService;
+import com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
 
 
 /**

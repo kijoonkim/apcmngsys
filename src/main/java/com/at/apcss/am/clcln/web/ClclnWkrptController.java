@@ -1,4 +1,4 @@
-package com.at.apcss.am.clcln.web;
+package com.apcmngsys.apcss.am.clcln.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.clcln.service.ClclnWkrptService;
-import com.at.apcss.am.clcln.vo.ClclnNowInvntrVO;
-import com.at.apcss.am.clcln.vo.ClclnWkrptVO;
-import com.at.apcss.am.wgh.vo.WghPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.clcln.service.ClclnWkrptService;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnNowInvntrVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : ClclnWkrptController.java

@@ -1,10 +1,10 @@
-package com.at.apcss.am.anls.service;
+package com.apcmngsys.apcss.am.anls.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.anls.vo.AnlsCrtrVO;
-import com.at.apcss.am.anls.vo.AnlsMngVO;
+import com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO;
+import com.apcmngsys.apcss.am.anls.vo.AnlsMngVO;
 
 public interface AnlsCrtrService {
 

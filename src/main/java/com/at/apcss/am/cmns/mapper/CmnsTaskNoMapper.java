@@ -1,9 +1,9 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
-import com.at.apcss.am.cmns.vo.CmnsTaskNoVO;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
-import com.at.apcss.am.wrhs.vo.SdlngVO;
-import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsTaskNoVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.am.wrhs.vo.SdlngVO;
+import com.apcmngsys.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**

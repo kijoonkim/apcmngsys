@@ -1,11 +1,11 @@
-package com.at.apcss.am.oprtr.mapper;
+package com.apcmngsys.apcss.am.oprtr.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
 
 /**
  * 작업자실적등록 프로그램 Mapper 인터페이스

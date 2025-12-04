@@ -1,9 +1,9 @@
-package com.at.apcss.co.cd.service;
+package com.apcmngsys.apcss.co.cd.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 
 public interface ComCdService {
 

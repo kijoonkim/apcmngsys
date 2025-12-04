@@ -1,8 +1,8 @@
-package com.at.apcss.co.link.mapper;
+package com.apcmngsys.apcss.co.link.mapper;
 
-import com.at.apcss.co.link.vo.ComLnkgRptVO;
-import com.at.apcss.co.link.vo.ComPageLinkDtlVO;
-import com.at.apcss.co.link.vo.ComPageLinkVO;
+import com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO;
+import com.apcmngsys.apcss.co.link.vo.ComPageLinkDtlVO;
+import com.apcmngsys.apcss.co.link.vo.ComPageLinkVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

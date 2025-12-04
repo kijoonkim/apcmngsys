@@ -1,9 +1,9 @@
-package com.at.apcss.co.apc.service;
+package com.apcmngsys.apcss.co.apc.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.apc.vo.ApcInfoVO;
+import com.apcmngsys.apcss.co.apc.vo.ApcInfoVO;
 
 public interface ApcInfoService {
 

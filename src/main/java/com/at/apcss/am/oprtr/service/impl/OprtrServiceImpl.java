@@ -1,19 +1,19 @@
-package com.at.apcss.am.oprtr.service.impl;
+package com.apcmngsys.apcss.am.oprtr.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.oprtr.mapper.OprtrMapper;
-import com.at.apcss.am.oprtr.service.OprtrService;
-import com.at.apcss.am.oprtr.vo.OprtrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper;
+import com.apcmngsys.apcss.am.oprtr.service.OprtrService;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 /**
  * @Class Name : OprtrServiceImpl.java
  * @Description : 작업생산자 서비스를 정의하기 위한 서비스 구현 클래스

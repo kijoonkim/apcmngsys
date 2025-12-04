@@ -1,12 +1,12 @@
-package com.at.apcss.am.oprtr.mapper;
+package com.apcmngsys.apcss.am.oprtr.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.oprtr.vo.OprtrVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrVO;
 /**
  * 작업생산자 Mapper 인터페이스
  * @author 김호

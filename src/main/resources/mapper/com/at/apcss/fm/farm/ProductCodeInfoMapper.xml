@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
  <!--
-    <select id="selectproductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <select id="selectproductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfo */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfo */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	   <select id="selectProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfo */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfo */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -126,16 +126,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectProductCodeInfoList" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <select id="selectProductCodeInfoList" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO" resultType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfoList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.selectproductCodeInfoList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -181,9 +181,9 @@
     </select>
 
 
-	<insert id="insertProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<insert id="insertProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertproductCodeInfo */
+	    	INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertproductCodeInfo */
 	    	  INTO TB_FARMER_INFO
 	    		(
 	    		  FRMER_SN
@@ -258,15 +258,15 @@
 
 
 
-    <insert id="insertMegerProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <insert id="insertMegerProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -291,7 +291,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -366,13 +366,13 @@
 
     <insert id="insertMegerProductCodeInfoMap" parameterType="hashmap">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfoMap */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfoMap */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfoMap */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfoMap */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -397,7 +397,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -469,9 +469,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <insert id="insertMegerLogProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfo */
+    	INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfo */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -548,7 +548,7 @@
 
     <insert id="insertMegerLogProductCodeInfoMap" parameterType="hashmap">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfoMap */
+    	INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerLogproductCodeInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -622,9 +622,9 @@
     	]]>
 	</insert>
 
-	<update id="updateProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<update id="updateProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.upateproductCodeInfo */
+	    	UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.upateproductCodeInfo */
 	    		TB_FARMER_INFO
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
@@ -664,15 +664,15 @@
     	]]>
     </update>
 
-    <update id="updateMegerProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <update id="updateMegerProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -697,7 +697,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -770,15 +770,15 @@
 
 
 
-    <update id="updateMegerProductCodeInfoMap" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+    <update id="updateMegerProductCodeInfoMap" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.updateMegerproductCodeInfoMap */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.updateMegerproductCodeInfoMap */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -803,7 +803,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.ProductCodeInfoMapper.insertMegerproductCodeInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -874,7 +874,7 @@
     	]]>
     </update>
 
-	<delete id="deleteProductCodeInfo" parameterType="com.at.apcss.fm.farm.vo.ProductCodeInfoVO">
+	<delete id="deleteProductCodeInfo" parameterType="com.apcmngsys.apcss.fm.farm.vo.ProductCodeInfoVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

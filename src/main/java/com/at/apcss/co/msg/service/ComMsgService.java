@@ -1,8 +1,8 @@
-package com.at.apcss.co.msg.service;
+package com.apcmngsys.apcss.co.msg.service;
 
 import java.util.List;
 
-import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
 
 
 /**

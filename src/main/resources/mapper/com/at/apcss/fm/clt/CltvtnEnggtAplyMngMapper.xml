@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng				-->
 	<!-- DESC : 재배약정계획관리 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <select id="selectCltvtnEnggtAplyMng" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng */
+			SELECT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMng */
 				   CLT.APC_CD                      AS APC_CD
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CLT.APC_CD) AS APC_NM
 				, CLT.PRDCR_CD                AS PRDCR_CD
@@ -102,17 +102,17 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList			-->
 	<!-- DESC : 재배약정계획관리 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCltvtnEnggtAplyMngList" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <select id="selectCltvtnEnggtAplyMngList" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO" resultType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
 
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList */
+			SELECT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.selectCltvtnEnggtAplyMngList */
 				  CLT.APC_CD                      AS APC_CD
 				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CLT.APC_CD) AS APC_NM
 				, CLT.PRDCR_CD                AS PRDCR_CD
@@ -191,16 +191,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng				-->
 	<!-- DESC : 재배약정계획관리 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+	<insert id="insertCltvtnEnggtAplyMng" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
 	<![CDATA[
-    	MERGE INTO TB_CLTVTN_ENGGT_APLY_MNG CLT  /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+    	MERGE INTO TB_CLTVTN_ENGGT_APLY_MNG CLT  /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
 		USING DUAL
 			ON (	         CLT.APC_CD      = #{apcCd}
 				      AND CLT.PRDCR_CD  =  #{prdcrCd}
@@ -208,7 +208,7 @@
 				      AND CLT.REQ_SN      = #{reqSn}
 				   )
 		WHEN MATCHED THEN
-				 UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+				 UPDATE /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
 					   SET
 		    	          ENGGT_VLM          = #{enggtVlm}
 		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQntt}
@@ -225,7 +225,7 @@
 						 AND FRMER_SN = #{frmerSn}
 			    	     AND REQ_SN = #{reqSn}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+			 INSERT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
 		    		(
 		    			APC_CD
 		    		  , PRDCR_CD
@@ -297,9 +297,9 @@
 		   			)
     	]]>
 	</insert>
-    <insert id="insertCltvtnEnggtAplyMng_backup" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <insert id="insertCltvtnEnggtAplyMng_backup" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+	    	INSERT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
 	    	  INTO TB_CLTVTN_ENGGT_APLY_MNG CLT
 	    		(
 	    			APC_CD
@@ -373,9 +373,9 @@
 	   			)
     	]]>
     </insert>
-    <insert id="insertCltvtnEnggtAplyMng_backup2" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <insert id="insertCltvtnEnggtAplyMng_backup2" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+	    	INSERT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
 	    	  INTO TB_CLTVTN_ENGGT_APLY_MNG CLT
 	    		(
 	    			APC_CD
@@ -450,16 +450,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng				-->
 	<!-- DESC : 재배약정계획관리 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <update id="updateCltvtnEnggtAplyMng" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     <![CDATA[
-    	MERGE INTO TB_CLTVTN_ENGGT_APLY_MNG CLT  /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+    	MERGE INTO TB_CLTVTN_ENGGT_APLY_MNG CLT  /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
 		USING DUAL
 			ON (	         CLT.APC_CD      = #{apcCd}
 				      AND CLT.PRDCR_CD  =  #{prdcrCd}
@@ -467,7 +467,7 @@
 				      AND CLT.REQ_SN      = #{reqSn}
 				   )
 		WHEN MATCHED THEN
-				 UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+				 UPDATE /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
 					   SET
 		    	          ENGGT_VLM          = #{enggtVlm}
 		    	        , EXPCT_HRVST_QNTT   = #{expctHrvstQntt}
@@ -484,7 +484,7 @@
 						 AND FRMER_SN = #{frmerSn}
 			    	     AND REQ_SN = #{reqSn}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
+			 INSERT /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.insertCltvtnEnggtAplyMng */
 		    		(
 		    			APC_CD
 		    		  , PRDCR_CD
@@ -556,9 +556,9 @@
 		   			)
     	]]>
     </update>
-    <update id="updateCltvtnEnggtAplyMng_backup" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <update id="updateCltvtnEnggtAplyMng_backup" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
+	    	UPDATE /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.updateCltvtnEnggtAplyMng */
 	    		TB_CLTVTN_ENGGT_APLY_MNG CLT
 			   SET
     	          ENGGT_VLM          = #{enggtVlm}
@@ -579,16 +579,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng				-->
 	<!-- DESC : 재배약정계획관리 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteCltvtnEnggtAplyMng" parameterType="com.at.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
+    <delete id="deleteCltvtnEnggtAplyMng" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnEnggtAplyMngVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng */
+	    	DELETE /* com.apcmngsys.apcss.fm.clt.mapper.CltvtnEnggtAplyMngMapper.deleteCltvtnEnggtAplyMng */
 	    		TB_CLTVTN_ENGGT_APLY_MNG CLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}
@@ -597,14 +597,14 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.clt.vo.mapper.CltvtnEnggtAplyMngMapper.selectApcList		-->
+	<!-- NAME : com.apcmngsys.apcss.fm.clt.vo.mapper.CltvtnEnggtAplyMngMapper.selectApcList		-->
 	<!-- DESC : 차량정보 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.30  	       김보름        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcList" parameterType="com.at.apcss.fm.clt.vo.CltvtnApcItemVO" resultType="com.at.apcss.fm.clt.vo.CltvtnApcItemVO">
+    <select id="selectApcList" parameterType="com.apcmngsys.apcss.fm.clt.vo.CltvtnApcItemVO" resultType="com.apcmngsys.apcss.fm.clt.vo.CltvtnApcItemVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -615,7 +615,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-    	SELECT /* com.at.apcss.fm.clt.vo.mapper.CltvtnEnggtAplyMngMapper.selectApcList */
+    	SELECT /* com.apcmngsys.apcss.fm.clt.vo.mapper.CltvtnEnggtAplyMngMapper.selectApcList */
     		   A.APC_CD            AS APC_CD
 		     , A.APC_NM            AS APC_NM
 		  FROM TB_APC_INFO A

@@ -10,17 +10,17 @@
 <!-- 2025.10.13  	유민지        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper">
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyMst         -->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyMst         -->
     <!-- DESC : APC전수조사-설문조사마스터조회                     				        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <select id="selectSrvyMst" resultType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
+    <select id="selectSrvyMst" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
         <![CDATA[
             SELECT
                 SRVY_NO
@@ -39,14 +39,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyDtl         -->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyDtl         -->
     <!-- DESC : APC전수조사-설문조사상세 조회                     				            -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <select id="selectSrvyDtl" resultType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
+    <select id="selectSrvyDtl" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
         <![CDATA[
             SELECT
                 SRVY_NO
@@ -63,14 +63,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRsltDtlList -->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRsltDtlList -->
     <!-- DESC : APC전수조사-설문조사 조회                     				    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <select id="selectSrvyApcRsltDtlList" resultType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
+    <select id="selectSrvyApcRsltDtlList" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
         <![CDATA[
             SELECT
                 SAR.APC_CD
@@ -97,14 +97,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRslt 	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRslt 	-->
     <!-- DESC : APC전수조사-전수조사APC결과 조회                     				    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <select id="selectSrvyApcRslt" resultType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
+    <select id="selectSrvyApcRslt" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
         <![CDATA[
             SELECT
                 APC_CD
@@ -128,14 +128,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.insertSrvyApcRslt 	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.insertSrvyApcRslt 	-->
     <!-- DESC : APC전수조사-전수조사APC결과 등록                     				    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <insert id="insertSrvyApcRslt" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
+    <insert id="insertSrvyApcRslt" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
         <![CDATA[
             INSERT INTO TB_TE_SRVY_APC_RSLT
             ( APC_CD
@@ -168,14 +168,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.updateSrvyApcRslt 	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.updateSrvyApcRslt 	-->
     <!-- DESC : APC전수조사-전수조사APC결과 업데이트                     				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateSrvyApcRslt" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
+    <update id="updateSrvyApcRslt" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyVO">
         <![CDATA[
             UPDATE
                 TB_TE_SRVY_APC_RSLT
@@ -193,14 +193,14 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRsltDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.selectSrvyApcRsltDtl	-->
     <!-- DESC : APC전수조사-전수조사APC결과 상세 단건 조회                   				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectSrvyApcRsltDtl" resultType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
+    <select id="selectSrvyApcRsltDtl" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
         <![CDATA[
             SELECT
                 APC_CD
@@ -224,14 +224,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.insertSrvyApcRsltDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.insertSrvyApcRsltDtl	-->
     <!-- DESC : APC전수조사-설문조사등록                  				                -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <insert id="insertSrvyApcRsltDtl" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
+    <insert id="insertSrvyApcRsltDtl" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
         <![CDATA[
             INSERT INTO TB_TE_SRVY_APC_RSLT_DTL
             ( APC_CD
@@ -264,14 +264,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.updateSrvyApcRsltDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcCmsuSrvyMapper.updateSrvyApcRsltDtl	-->
     <!-- DESC : APC전수조사-설문조사업데이트                 				                -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.10.13  	유민지     	Initial Creation                                -->
     <!-- ==========================================================================	-->
-    <update id="updateSrvyApcRsltDtl" parameterType="com.at.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
+    <update id="updateSrvyApcRsltDtl" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcCmsuSrvyRsltVO">
         <![CDATA[
             UPDATE
                 TB_TE_SRVY_APC_RSLT_DTL

@@ -10,18 +10,18 @@
 <!-- 2025.01.10  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024	-->
 	<!-- DESC : 출자출하조직 총 매입 매출 조회 2024년                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisUoPurSal2024" parameterType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024 */
+	<select id="selectHisUoPurSal2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.UoPurSalVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024 */
 			APS.YR
 			,APS.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = APS.BRNO) AS CORP_NM
@@ -97,15 +97,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025	-->
 	<!-- DESC : 출자출하조직 총 매입 매출 조회 2024년                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisUoPurSal2025" parameterType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025 */
+	<select id="selectHisUoPurSal2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.UoPurSalVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025 */
 			APS.YR
 			,APS.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = APS.BRNO) AS CORP_NM

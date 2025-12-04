@@ -1,9 +1,9 @@
-package com.at.apcss.co.ntc.service.impl;
+package com.apcmngsys.apcss.co.ntc.service.impl;
 
-import com.at.apcss.co.ntc.mapper.ComMsgPopupMapper;
-import com.at.apcss.co.ntc.service.ComMsgPopupService;
-import com.at.apcss.co.ntc.vo.ComMsgPopupVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.ntc.mapper.ComMsgPopupMapper;
+import com.apcmngsys.apcss.co.ntc.service.ComMsgPopupService;
+import com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

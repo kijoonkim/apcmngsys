@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc				-->
 	<!-- DESC : 산지유통시설품목처리실적 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+	<select id="selectFcltItemPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmnc */
 
 
 			FROM TB_TE_APC_OPER_PRFMNC_DTL AOPD
@@ -40,14 +40,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList			-->
 	<!-- DESC : 산지유통시설품목처리실적 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltItemPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+	<select id="selectFcltItemPrfmncList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -58,7 +58,7 @@
 		</if>
 		<!-- End 페이징 -->
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.selectFcltItemPrfmncList */
 				  FCLT.TRGT_YR                 AS TRGT_YR
 				, FCLT.APC_CD                  AS APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = FCLT.APC_CD) AS 	APC_NM
@@ -105,8 +105,8 @@
 
 
 
-	<update id="insertFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
-		MERGE INTO TB_FCLT_ITEM_PRFMNC FCLT /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
+	<update id="insertFcltItemPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+		MERGE INTO TB_FCLT_ITEM_PRFMNC FCLT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.insertFcltItemPrfmnc */
 		USING DUAL
 		ON (
 			FCLT.TRGT_YR = #{trgtYr}
@@ -206,16 +206,16 @@
      </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc				-->
 	<!-- DESC : 산지유통시설품목처리실적 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+    <update id="updateFcltItemPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc */
+	    	UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.updateFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			   SET
     	        FCLT_ITEM_CD         =  #{fcltItemCd}
@@ -255,16 +255,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc				-->
 	<!-- DESC : 산지유통시설품목처리실적 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+	<update id="deleteFcltItemPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
+	    	UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			   SET
 	    		  DEL_YN 	= 'Y'
@@ -274,9 +274,9 @@
     	]]>
     </update>
     <!--
-    <delete id="deleteFcltItemPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO">
+    <delete id="deleteFcltItemPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
+	    	DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltItemPrfmncMapper.deleteFcltItemPrfmnc */
 	    		TB_FCLT_ITEM_PRFMNC FCLT
 			 WHERE 1=1
 		     AND TRGT_YR = #{trgtYr}

@@ -1,4 +1,4 @@
-package com.at.apcss.am.sort.web;
+package com.apcmngsys.apcss.am.sort.web;
 
 import java.util.HashMap;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.sort.service.SortMngService;
-import com.at.apcss.am.sort.vo.SortMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.sort.service.SortMngService;
+import com.apcmngsys.apcss.am.sort.vo.SortMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @RestController
 public class SortMngApiController  extends BaseController {

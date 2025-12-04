@@ -10,20 +10,20 @@
 <!-- 2023.06.13  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.sys.mapper.ComSysMapper">
+<mapper namespace="com.apcmngsys.apcss.co.sys.mapper.ComSysMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.selectComLgnPlcy			-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComLgnPlcy			-->
 	<!-- DESC : 로그인정책 정보 조회.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComLgnPlcy" parameterType="com.at.apcss.co.sys.vo.ComLgnPlcyVO" resultType="com.at.apcss.co.sys.vo.ComLgnPlcyVO">
+    <select id="selectComLgnPlcy" parameterType="com.apcmngsys.apcss.co.sys.vo.ComLgnPlcyVO" resultType="com.apcmngsys.apcss.co.sys.vo.ComLgnPlcyVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.sys.mapper.ComSysMapper.selectComLgnPlcy */
+			SELECT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComLgnPlcy */
 				  USER_ID
 				, DPCN_LGN_PSBLTY_YN
 				, IP_INFO
@@ -36,16 +36,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.selectComSession           	-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComSession           	-->
 	<!-- DESC : 세션정보 조회.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComSession" parameterType="com.at.apcss.co.sys.vo.ComSessionVO" resultType="com.at.apcss.co.sys.vo.ComSessionVO">
+    <select id="selectComSession" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO" resultType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.sys.mapper.ComSysMapper.selectComSession */
+			SELECT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComSession */
 				  SESS_ID
 				, SESS_CRT_DT
 				, LAST_ACCESS_DT
@@ -63,16 +63,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.selectComSessionList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComSessionList		-->
 	<!-- DESC : 세션정보 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComSessionList" parameterType="com.at.apcss.co.sys.vo.ComSessionVO" resultType="com.at.apcss.co.sys.vo.ComSessionVO">
+    <select id="selectComSessionList" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO" resultType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.sys.mapper.ComSysMapper.selectComSessionList */
+			SELECT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectComSessionList */
 				  SESS_ID
 				, SESS_CRT_DT
 				, LAST_ACCESS_DT
@@ -86,16 +86,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionListByUserId -->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionListByUserId -->
 	<!-- DESC : 세션정보 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAliveSessionListByUserId" parameterType="com.at.apcss.co.sys.vo.ComSessionVO" resultType="com.at.apcss.co.sys.vo.ComSessionVO">
+    <select id="selectAliveSessionListByUserId" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO" resultType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionListByUserId */
+			SELECT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionListByUserId */
 				  SESS_ID
 				, SESS_CRT_DT
 				, LAST_ACCESS_DT
@@ -110,16 +110,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionCountByUserId -->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionCountByUserId -->
 	<!-- DESC : 세션정보 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.18  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAliveSessionCountByUserId" parameterType="com.at.apcss.co.sys.vo.ComSessionVO" resultType="com.at.apcss.co.sys.vo.ComSessionVO">
+    <select id="selectAliveSessionCountByUserId" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO" resultType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionCountByUserId */
+			SELECT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.selectAliveSessionCountByUserId */
 				  #{userId}	AS USER_ID
 				, COUNT(*)	AS CNT_SESS
 			  FROM TB_COM_SESSION
@@ -129,16 +129,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.insertComSession   			-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.insertComSession   			-->
 	<!-- DESC : 세션정보 등록                                        				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertComSession" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+	<insert id="insertComSession" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			INSERT /* com.at.apcss.co.sys.mapper.ComSysMapper.insertComSession */
+			INSERT /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.insertComSession */
 				INTO TB_COM_SESSION (
 					  SESS_ID
 					, SESS_CRT_DT
@@ -160,16 +160,16 @@
 	</insert>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt   	-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt   	-->
 	<!-- DESC : 세션 last access 일시 갱신                               					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComSessionAccessDt" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+	<update id="updateComSessionAccessDt" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			UPDATE /* com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt */
+			UPDATE /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionAccessDt */
 				TB_COM_SESSION SET
 				  LAST_ACCESS_DT = SYSDATE
 			 WHERE SESS_ID = #{sessId}
@@ -177,32 +177,32 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.deleteComSession   			-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.deleteComSession   			-->
 	<!-- DESC : 세션정보 삭제                                        						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteComSession" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+	<delete id="deleteComSession" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			DELETE /* com.at.apcss.co.sys.mapper.ComSysMapper.deleteComSession */
+			DELETE /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.deleteComSession */
 				FROM TB_COM_SESSION
 			 WHERE SESS_ID = #{sessId}
     	]]>
 	</delete>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiry   	-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiry   	-->
 	<!-- DESC : 세션정보 만료처리                                      					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComSessionExpiry" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+	<update id="updateComSessionExpiry" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			UPDATE /* com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiry */
+			UPDATE /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiry */
 				TB_COM_SESSION SET
 				  SESS_EXPRY_DT = SYSDATE
 				, FRCD_EXPRY_YN = #{frcdExpryYn}
@@ -211,16 +211,16 @@
 	</update>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiryWithUserId -->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiryWithUserId -->
 	<!-- DESC : 세션정보 만료처리 with userId                                        		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComSessionExpiryWithUserId" parameterType="com.at.apcss.co.sys.vo.ComSessionVO">
+	<update id="updateComSessionExpiryWithUserId" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSessionVO">
     	<![CDATA[
-			UPDATE /* com.at.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiryWithUserId */
+			UPDATE /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.updateComSessionExpiryWithUserId */
 				TB_COM_SESSION SET
 				  SESS_EXPRY_DT = SYSDATE
 				, FRCD_EXPRY_YN = #{frcdExpryYn}
@@ -230,16 +230,16 @@
 	</update>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.sys.mapper.ComSysMapper.insertSysLog   				-->
+	<!-- NAME : com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.insertSysLog   				-->
 	<!-- DESC : 시스템로그 등록                                        					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.13  	MS    	     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertSysLog" parameterType="com.at.apcss.co.sys.vo.ComSysVO">
+	<insert id="insertSysLog" parameterType="com.apcmngsys.apcss.co.sys.vo.ComSysVO">
     	<![CDATA[
-			{call /* com.at.apcss.co.sys.mapper.ComSysMapper.insertSysLog */
+			{call /* com.apcmngsys.apcss.co.sys.mapper.ComSysMapper.insertSysLog */
 				SP_SYS_LOG (
 					  #{userId}
 					, #{prgrmId}

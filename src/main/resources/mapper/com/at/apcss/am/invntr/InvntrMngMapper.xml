@@ -10,18 +10,18 @@
 <!-- 2025.01.13  	박승진        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMngMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrMngMapper.selectInvntrGrdMng		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrMngMapper.selectInvntrGrdMng		-->
 	<!-- DESC : 재고 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvntrGrdMng" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO" resultType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+    <select id="selectInvntrGrdMng" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO" resultType="com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO">
     	<if test='invntrType == "1"'>
 	    	<![CDATA[
 		    	SELECT

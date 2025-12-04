@@ -1,6 +1,6 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
-import com.at.apcss.am.cmns.vo.ApcCrtrUntprcVO;
+import com.apcmngsys.apcss.am.cmns.vo.ApcCrtrUntprcVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

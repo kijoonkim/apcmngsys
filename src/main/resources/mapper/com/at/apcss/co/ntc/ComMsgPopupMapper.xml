@@ -10,16 +10,16 @@
 <!-- 2024.09.05  	손민성        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.ntc.mapper.ComMsgPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.co.ntc.mapper.ComMsgPopupMapper">
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.co.ntc.mapper.ComMsgPopupMapper.selectMsgPopupList		-->
+    <!-- NAME : com.apcmngsys.apcss.co.ntc.mapper.ComMsgPopupMapper.selectMsgPopupList		-->
     <!-- DESC : 메시지 리스트 조회                                             		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.05  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectMsgPopup" parameterType="com.at.apcss.co.ntc.vo.ComMsgPopupVO" resultType="com.at.apcss.co.ntc.vo.ComMsgPopupVO">
+    <select id="selectMsgPopup" parameterType="com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO" resultType="com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO">
         <![CDATA[
             SELECT
                 USER_ID         AS USER_ID
@@ -43,14 +43,14 @@
             ORDER BY RCPTN_DT, RCPTN_SEQ
     </select>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.co.ntc.mapper.ComMsgPopupMapper.updateMsgPopup		    -->
+    <!-- NAME : com.apcmngsys.apcss.co.ntc.mapper.ComMsgPopupMapper.updateMsgPopup		    -->
     <!-- DESC : 메시지 리스트 확인 업데이트                                        		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.05  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateMsgPopup" parameterType="com.at.apcss.co.ntc.vo.ComMsgPopupVO">
+    <update id="updateMsgPopup" parameterType="com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO">
         <![CDATA[
             UPDATE TB_COM_USER_NTC
             SET IDNTY_YN = 'Y'

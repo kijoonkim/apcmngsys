@@ -1,4 +1,4 @@
-package com.at.apcss.am.ordr.web;
+package com.apcmngsys.apcss.am.ordr.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.ordr.vo.*;
+import com.apcmngsys.apcss.am.ordr.vo.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,11 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.ordr.service.OrdrService;
-import com.at.apcss.am.spmt.service.SpmtCmndService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.ordr.service.OrdrService;
+import com.apcmngsys.apcss.am.spmt.service.SpmtCmndService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**

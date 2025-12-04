@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.web;
+package com.apcmngsys.apcss.am.cmns.web;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.ComAtchflService;
-import com.at.apcss.am.cmns.vo.ComAtchflVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.cmns.service.ComAtchflService;
+import com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 /**
  * @Class Name : ComAtchflController.java
  * @Description : 첨부파일 에 대한 Controller 클래스

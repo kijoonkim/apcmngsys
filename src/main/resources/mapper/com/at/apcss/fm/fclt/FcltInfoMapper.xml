@@ -11,10 +11,10 @@
 <!-- ==========================================================================	-->
 
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo				-->
 	<!-- DESC : 시설현황 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -24,9 +24,9 @@
 
 
 
-	<select id="selectFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+	<select id="selectFcltInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
 				AFS.CRTR_YR
 				, AFS.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM
@@ -69,14 +69,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfoList			-->
 	<!-- DESC : 시설현황 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+	<select id="selectFcltInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -88,7 +88,7 @@
 		<!-- End 페이징 -->
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
 				AFS.CRTR_YR
 				, AFS.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM
@@ -137,8 +137,8 @@
 		<!-- End 페이징 -->
 	</select>
 
-	<update id="insertFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
-		MERGE INTO TB_TE_APC_FCLT_STTS AFS /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
+	<update id="insertFcltInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
+		MERGE INTO TB_TE_APC_FCLT_STTS AFS /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.insertFcltInfo */
 		USING DUAL
 		ON (
 			AFS.CRTR_YR = #{crtrYr}
@@ -245,16 +245,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo				-->
 	<!-- DESC : 시설현황 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+	<update id="updateFcltInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.updateFcltInfo */
 				TB_TE_APC_FCLT_STTS AFS
 			  SET
 				CSP_TOT_AREA				= #{cspTotArea}
@@ -295,16 +295,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo				-->
 	<!-- DESC : 시설현황 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+	<update id="deleteFcltInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
 				TB_TE_APC_FCLT_STTS AFS
 			  SET
 				DEL_YN 	= 'Y'
@@ -314,9 +314,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+	<delete id="deleteFcltInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.deleteFcltInfo */
 				TB_FCLT_INFO FCLT
 			WHERE 1=1
 			AND TRGT_YR = #{trgtYr}
@@ -325,9 +325,9 @@
 	</delete>
 	-->
 
-		<select id="selectFcltInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltInfoVO">
+		<select id="selectFcltInfoRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltInfoMapper.selectFcltInfo */
 				AFS.CRTR_YR
 				, AFS.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AFS.APC_CD) AS APC_NM

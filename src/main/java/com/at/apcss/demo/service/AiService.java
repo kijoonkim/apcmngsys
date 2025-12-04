@@ -1,5 +1,5 @@
 // src/main/java/com/at/apcss/demo/service/AiService.java
-package com.at.apcss.demo.service;
+package com.apcmngsys.apcss.demo.service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,10 @@
-package com.at.apcss.am.apc.mapper;
+package com.apcmngsys.apcss.am.apc.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
 
 /**
  * APC연계 Mapper

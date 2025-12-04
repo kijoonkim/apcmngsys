@@ -1,6 +1,6 @@
-package com.at.apcma.co.test.service;
+package com.apcmngsys.apcma.co.test.service;
 
-import com.at.apcma.co.test.vo.TestVO;
+import com.apcmngsys.apcma.co.test.vo.TestVO;
 
 /**
  * Test Service 인터페이스

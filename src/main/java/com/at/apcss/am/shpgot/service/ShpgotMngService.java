@@ -1,10 +1,10 @@
-package com.at.apcss.am.shpgot.service;
+package com.apcmngsys.apcss.am.shpgot.service;
 
-import com.at.apcss.am.shpgot.vo.ShpgotCrtrVO;
-import com.at.apcss.am.shpgot.vo.ShpgotMngVO;
-import com.at.apcss.am.shpgot.vo.ShpgotRsltVO;
-import com.at.apcss.am.stat.vo.StatCrtrVO;
-import com.at.apcss.am.stat.vo.StatMngVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotCrtrVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotMngVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotRsltVO;
+import com.apcmngsys.apcss.am.stat.vo.StatCrtrVO;
+import com.apcmngsys.apcss.am.stat.vo.StatMngVO;
 
 import java.util.HashMap;
 import java.util.List;

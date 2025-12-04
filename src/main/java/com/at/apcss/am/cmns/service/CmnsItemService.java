@@ -1,15 +1,15 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
-import com.at.apcss.am.cmns.vo.ApcSeedCrtrVO;
-import com.at.apcss.am.cmns.vo.CmnsItemVO;
-import com.at.apcss.am.sort.vo.SortBffaGrdVO;
-import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 
 /**
  * 품목정보 Service 인터페이스

@@ -1,7 +1,7 @@
-package com.at.apcss.am.wgh.mapper;
+package com.apcmngsys.apcss.am.wgh.mapper;
 
-import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
-import com.at.apcss.am.wgh.vo.WghFcltVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltVO;
 import org.apache.ibatis.annotations.Select;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

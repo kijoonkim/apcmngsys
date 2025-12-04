@@ -1,4 +1,4 @@
-package com.at.apcma.co.test.web;
+package com.apcmngsys.apcma.co.test.web;
 
 import java.util.HashMap;
 import javax.annotation.Resource;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcma.co.test.service.TestService;
-import com.at.apcma.co.test.vo.TestVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.co.test.service.TestService;
+import com.apcmngsys.apcma.co.test.vo.TestVO;
 
 
 /**

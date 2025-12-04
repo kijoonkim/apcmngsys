@@ -1,9 +1,9 @@
-package com.at.apcss.am.bss.service.impl;
+package com.apcmngsys.apcss.am.bss.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.bss.service.ApcRawMtrGrdService;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.bss.service.ApcRawMtrGrdService;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : ApcRawMtrGrdServiceImpl.java

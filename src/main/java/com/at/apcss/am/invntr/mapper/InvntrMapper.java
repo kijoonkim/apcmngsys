@@ -1,4 +1,4 @@
-package com.at.apcss.am.invntr.mapper;
+package com.apcmngsys.apcss.am.invntr.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

@@ -1,9 +1,9 @@
-package com.at.apcss.fm.fclt.service;
+package com.apcmngsys.apcss.fm.fclt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO;
 
 /**
  * APC전수조사관리 대시보드 Service 인터페이스

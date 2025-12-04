@@ -1,10 +1,10 @@
-package com.at.apcss.co.clip.service.impl;
+package com.apcmngsys.apcss.co.clip.service.impl;
 
-import com.at.apcss.co.clip.service.ClipReportService;
-import com.at.apcss.co.clip.vo.ClipReportVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.clip.service.ClipReportService;
+import com.apcmngsys.apcss.co.clip.vo.ClipReportVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.jsoup.Connection;

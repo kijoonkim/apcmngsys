@@ -1,4 +1,4 @@
-package com.at.apcss.fm.dashboard.service.impl;
+package com.apcmngsys.apcss.fm.dashboard.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.dashboard.mapper.DashboardMapper;
-import com.at.apcss.fm.dashboard.service.DashboardService;
-import com.at.apcss.fm.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.dashboard.mapper.DashboardMapper;
+import com.apcmngsys.apcss.fm.dashboard.service.DashboardService;
+import com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO;
 
 @Service("dashboardService")
 public class DashboardServiceImpl extends BaseServiceImpl implements DashboardService{

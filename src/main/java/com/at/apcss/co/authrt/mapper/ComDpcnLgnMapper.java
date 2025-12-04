@@ -1,10 +1,10 @@
-package com.at.apcss.co.authrt.mapper;
+package com.apcmngsys.apcss.co.authrt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.authrt.vo.ComDpcnLgnVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO;
 
 @Mapper
 public interface ComDpcnLgnMapper {

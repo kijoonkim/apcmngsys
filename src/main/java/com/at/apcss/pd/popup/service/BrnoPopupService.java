@@ -1,8 +1,8 @@
-package com.at.apcss.pd.popup.service;
+package com.apcmngsys.apcss.pd.popup.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.popup.vo.BrnoPopupVO;
+import com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO;
 
 
 /**

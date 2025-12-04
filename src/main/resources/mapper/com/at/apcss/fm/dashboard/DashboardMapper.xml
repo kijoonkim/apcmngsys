@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 
-<mapper namespace="com.at.apcss.fm.dashboard.mapper.DashboardMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.dashboard.mapper.DashboardMapper">
 
 
-<select id="selectDashboardInfoListCnt" parameterType="com.at.apcss.fm.dashboard.vo.DashboardVO" resultType="com.at.apcss.fm.dashboard.vo.DashboardVO">
+<select id="selectDashboardInfoListCnt" parameterType="com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO" resultType="com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO">
       <!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -52,7 +52,7 @@
     	<!-- End 페이징 -->
     </select>
     			     
-    <select id="selectDashboardInfoList" parameterType="com.at.apcss.fm.dashboard.vo.DashboardVO" resultType="com.at.apcss.fm.dashboard.vo.DashboardVO">
+    <select id="selectDashboardInfoList" parameterType="com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO" resultType="com.apcmngsys.apcss.fm.dashboard.vo.DashboardVO">
       <!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -63,7 +63,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-			SELECT  /* com.at.apcss.fm.dashboard.mapper.DashboardMapper.selectDashboardInfoList */
+			SELECT  /* com.apcmngsys.apcss.fm.dashboard.mapper.DashboardMapper.selectDashboardInfoList */
 					             A.MAIN_CODE     AS MAIN_CODE  
 						       , A.MAIN_CODE_NM  AS MAIN_CODE_NM
 						       , A.SUB_CODE      AS SUB_CODE

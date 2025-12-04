@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.service.impl;
+package com.apcmngsys.apcss.co.sys.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.msg.mapper.ComMessageSource;
-import com.at.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.msg.mapper.ComMessageSource;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
 
 public abstract class BaseServiceImpl extends EgovAbstractServiceImpl {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());

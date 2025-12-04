@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrOgnCurntMng" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+    <select id="selectPrdcrOgnCurntMng" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, TRIM(CM.CTPV) AS CTPV
@@ -105,14 +105,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrOgnCurntMngList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<select id="selectPrdcrOgnCurntMngList" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -123,7 +123,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, TRIM(CM.CTPV) AS CTPV
@@ -211,9 +211,9 @@
 		</if>
 	</select>
 
-	<insert id="insertPrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<insert id="insertPrdcrOgnCurntMngDtl" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
+		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
 					CLT.BRNO  			= #{brno}
@@ -336,7 +336,7 @@
 		]]>
 	</insert>
 
-	<delete id="deletePrdcrOgnCurntMngDtl" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<delete id="deletePrdcrOgnCurntMngDtl" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
 		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
 		 WHERE APO_CD			= #{apoCd}
@@ -346,9 +346,9 @@
 	</delete>
 
 	<!-- 농가 리스트 조회 -->
-	<select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<select id="selectPrdcrOgnCurntMngDtlList" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnCurntMngDtlList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.BRNO
@@ -485,9 +485,9 @@
 
 
 	<!-- 생산자조직 조회 -->
-	<select id="selectTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<select id="selectTbEvFrmhsApo" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApo */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.BRNO
@@ -594,7 +594,7 @@
 	</select>
 
 	<!-- 생산자조직 리스트 조회 -->
-	<select id="selectTbEvFrmhsApoList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<select id="selectTbEvFrmhsApoList" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -605,7 +605,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoList */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.BRNO
@@ -698,17 +698,17 @@
 	</select>
 
 	<!-- ==============================================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList				-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList				-->
 	<!-- DESC : 생산자조직 목록 조회.                                             							-->
 	<!-- ==============================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      								-->
 	<!-- ===========  	============  	===============================================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            					-->
 	<!-- ==============================================================================================	-->
-	<select id="selectPrdcrOgnzPrfmncList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<select id="selectPrdcrOgnzPrfmncList" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList */
+			SELECT /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectPrdcrOgnzPrfmncList */
 		]]>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -834,8 +834,8 @@
 		</if>
 	</select>
 
-	<insert id="insertTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
+	<insert id="insertTbEvFrmhsApo" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL
 			ON (
 					CLT.YR 				= #{yr}
@@ -938,8 +938,8 @@
 					  , #{sysLastChgPrgrmId}
 					)
 	</insert>
-	<update id="updateTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-			UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo */
+	<update id="updateTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+			UPDATE /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsPrdctnEcSpmtSttnApo */
 				TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
 			   SET
 			 	  ITEM_CD				= #{itemCd}
@@ -950,16 +950,16 @@
 			   AND YR				= #{yr}
 	</update>
 
-	<delete id="deleteTbEvFrmhsApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<delete id="deleteTbEvFrmhsApo" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
-		DELETE FROM TB_EV_FRMHS_APO	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo */
+		DELETE FROM TB_EV_FRMHS_APO	/* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsApo */
 		 WHERE PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		   AND YR				= #{yr}
 		]]>
 	</delete>
-	<delete id="deleteTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<delete id="deleteTbEvFrmhsPrdctnEcSpmtSttnApo" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		<![CDATA[
-		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo */
+		DELETE FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN	/* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.deleteTbEvFrmhsPrdctnEcSpmtSttnApo */
 		 WHERE PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 		   AND YR				= #{yr}
 		]]>
@@ -968,8 +968,8 @@
 
 
 	<!-- 적합여부 업데이트 -->
-	<update id="updateTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-			UPDATE /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
+	<update id="updateTbEvFrmhsApoStbltYn" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+			UPDATE /* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.updateTbEvFrmhsApoStbltYn */
 				TB_EV_FRMHS_APO
 			   SET
 			 	  STBLT_YN	= #{stbltYn}
@@ -979,8 +979,8 @@
 	</update>
 
 	<!-- 적합여부 조회 -->
-	<select id="selectTbEvFrmhsApoStbltYn" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn */
+	<select id="selectTbEvFrmhsApoStbltYn" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYn */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,TOTAL.PRDCR_OGNZ_SN
@@ -1090,8 +1090,8 @@
 	</select>
 
 	<!-- 적합여부 조회 -->
-	<select id="selectTbEvFrmhsApoStbltYnList" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
-		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+	<select id="selectTbEvFrmhsApoStbltYnList" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
 			TOTAL.BRNO
 			,TOTAL.UO_BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = TOTAL.BRNO) AS CORP_NM
@@ -1215,7 +1215,7 @@
 		ORDER BY TOTAL.PRDCR_OGNZ_SN ASC
 	</select>
 
-	<select id="selectRawData01" parameterType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO">
+	<select id="selectRawData01" parameterType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO" resultType="com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO">
 		SELECT
 			FA.YR
 			,FA.UO_BRNO
@@ -1317,7 +1317,7 @@
 
 		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
 	</select>
-	<select id="selectRawData02" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+	<select id="selectRawData02" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO" resultType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
 		SELECT
 			FPESS.YR
 			,FPESS.APO_CD
@@ -1431,8 +1431,8 @@
 	</select>
 
 	<!-- 총매입매출 임시저장 처리 -->
-	<update id="updateTempSaveAps" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-		UPDATE /* com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngMapper.updateTempSaveAps */
+	<update id="updateTempSaveAps" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngMapper.updateTempSaveAps */
 			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 		   SET
 			  TMPR_STRG_YN = 'Y'
@@ -1450,8 +1450,8 @@
 	</update>
 
 	<!-- 전문품목 매입매출 임시저장 처리 -->
-	<update id="updateTempSavePst" parameterType="com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
-		UPDATE /* com.at.apcss.pd.pom.vo.PrdcrOgnCurntMngMapper.updateTempSavePst */
+	<update id="updateTempSavePst" parameterType="com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnCurntMngMapper.updateTempSavePst */
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		   SET
 			  TMPR_STRG_YN = 'Y'

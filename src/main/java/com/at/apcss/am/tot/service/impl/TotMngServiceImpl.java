@@ -1,4 +1,4 @@
-package com.at.apcss.am.tot.service.impl;
+package com.apcmngsys.apcss.am.tot.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,21 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import com.at.apcss.am.clcln.vo.ClclnRsltDtlVO;
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.am.tot.vo.TotRsltVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotRsltVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.at.apcss.am.tot.vo.TotMngVO;
-import com.at.apcss.am.tot.mapper.TotMngMapper;
-import com.at.apcss.am.tot.service.TotMngService;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.tot.mapper.TotMngMapper;
+import com.apcmngsys.apcss.am.tot.service.TotMngService;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.springframework.util.StringUtils;
 
 /**

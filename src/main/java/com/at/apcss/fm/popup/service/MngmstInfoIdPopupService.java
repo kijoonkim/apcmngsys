@@ -1,8 +1,8 @@
-package com.at.apcss.fm.popup.service;
+package com.apcmngsys.apcss.fm.popup.service;
 
 import java.util.List;
 
-import com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
+import com.apcmngsys.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
 
 
 /**

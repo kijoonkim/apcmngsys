@@ -10,7 +10,7 @@
 <!-- 2025.01.2  	손민성        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.wgh.mapper.WghFcltMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wgh.mapper.WghFcltMapper">
     <!-- ==========================================================================	-->
     <!-- NAME : deleteWghApcFclt                                      				-->
     <!-- DESC : APC 가동시설 삭제                                             		    -->
@@ -19,8 +19,8 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <delete id="deleteWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
-        DELETE FROM /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+    <delete id="deleteWghApcFclt" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltVO">
+        DELETE FROM /* com.apcmngsys.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
         TB_OPRTNG_APC_FCLT
           WHERE
             APC_CD = #{apcCd}
@@ -37,8 +37,8 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <delete id="deleteWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
-        DELETE FROM /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+    <delete id="deleteWghApcFcltDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO">
+        DELETE FROM /* com.apcmngsys.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
             TB_OPRTNG_APC_FCLT_DTL
         WHERE
             APC_CD = #{apcCd}
@@ -57,8 +57,8 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
-        INSERT /* com.at.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFclt */
+    <insert id="insertWghApcFclt" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltVO">
+        INSERT /* com.apcmngsys.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFclt */
         INTO TB_OPRTNG_APC_FCLT
         (
              APC_CD
@@ -122,8 +122,8 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
-        INSERT /* com.at.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFcltDtl */
+    <insert id="insertWghApcFcltDtl" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO">
+        INSERT /* com.apcmngsys.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFcltDtl */
         INTO TB_OPRTNG_APC_FCLT_DTL
         (
               APC_CD
@@ -167,9 +167,9 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
+    <update id="updateWghApcFclt" parameterType="com.apcmngsys.apcss.am.wgh.vo.WghFcltVO">
         <![CDATA[
-        UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghApcFclt */
+        UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghApcFclt */
             TB_OPRTNG_APC_FCLT
         SET
           FCLT_NM = #{fcltNm}

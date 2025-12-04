@@ -1,9 +1,9 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsSpcfctVO;
 
 /**
  * 규격 정보 Service 인터페이스

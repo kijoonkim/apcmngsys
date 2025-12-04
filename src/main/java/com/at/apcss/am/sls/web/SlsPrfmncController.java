@@ -1,4 +1,4 @@
-package com.at.apcss.am.sls.web;
+package com.apcmngsys.apcss.am.sls.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.at.apcss.am.sls.service.SlsPrfmncService;
-import com.at.apcss.am.sls.vo.SlsPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.sls.service.SlsPrfmncService;
+import com.apcmngsys.apcss.am.sls.vo.SlsPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : SlsPrfmncController.java

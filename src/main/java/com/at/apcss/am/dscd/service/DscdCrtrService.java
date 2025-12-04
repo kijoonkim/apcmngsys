@@ -1,8 +1,8 @@
-package com.at.apcss.am.dscd.service;
+package com.apcmngsys.apcss.am.dscd.service;
 
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdMngVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdPrfmncVO;
 
 import java.util.HashMap;
 import java.util.List;

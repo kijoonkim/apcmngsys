@@ -1,4 +1,4 @@
-package com.at.apcss.am.ordr.service.impl;
+package com.apcmngsys.apcss.am.ordr.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,19 +6,19 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
-import com.at.apcss.am.ordr.vo.*;
+import com.apcmngsys.apcss.am.ordr.mapper.OrdrRcvMapper;
+import com.apcmngsys.apcss.am.ordr.vo.*;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.ordr.mapper.OrdrMapper;
-import com.at.apcss.am.ordr.service.OrdrService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.ordr.mapper.OrdrMapper;
+import com.apcmngsys.apcss.am.ordr.service.OrdrService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.springframework.util.StringUtils;
 
 /**

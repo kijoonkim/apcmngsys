@@ -1,8 +1,8 @@
-package com.at.apcss.pd.pcom.vo;
+package com.apcmngsys.apcss.pd.pcom.vo;
 
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.co.sys.vo.ComVO;
-import com.at.apcss.pd.aom.vo.GpcVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.pd.aom.vo.GpcVO;
 import lombok.Getter;
 import lombok.Setter;
 

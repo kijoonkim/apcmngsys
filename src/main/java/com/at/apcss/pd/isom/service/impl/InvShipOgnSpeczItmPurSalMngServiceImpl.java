@@ -1,16 +1,16 @@
-package com.at.apcss.pd.isom.service.impl;
+package com.apcmngsys.apcss.pd.isom.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
-import com.at.apcss.pd.isom.service.InvShipOgnSpeczItmPurSalMngService;
-import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
-import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
+import com.apcmngsys.apcss.pd.isom.service.InvShipOgnSpeczItmPurSalMngService;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO;
 
 
 /**

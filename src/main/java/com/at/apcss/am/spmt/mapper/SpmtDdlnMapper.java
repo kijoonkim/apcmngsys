@@ -1,12 +1,12 @@
-package com.at.apcss.am.spmt.mapper;
+package com.apcmngsys.apcss.am.spmt.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.ordr.vo.OrdrVO;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
+import com.apcmngsys.apcss.am.ordr.vo.OrdrVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO;
 
 /**
  * 생산속보 Mapper 인터페이스

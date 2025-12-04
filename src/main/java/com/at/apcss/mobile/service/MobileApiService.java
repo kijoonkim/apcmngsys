@@ -1,4 +1,4 @@
-package com.at.apcss.mobile.service;
+package com.apcmngsys.apcss.mobile.service;
 
 import org.springframework.dao.DataAccessException;
 

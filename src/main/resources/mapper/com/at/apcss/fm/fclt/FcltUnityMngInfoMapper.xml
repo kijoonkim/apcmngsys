@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfo	-->
 	<!-- DESC : 통합관리시스템활용 테이블 단건조회.                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<select id="selectFcltUnityMngInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
 				  ASPS.CRTR_YR
 				, ASPS.APC_CD
 				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASPS.APC_CD AND CRTR_YR = ASPS.CRTR_YR
@@ -54,14 +54,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.selectFcltUnityMngInfoList			-->
 	<!-- DESC : 통합관리시스템활용 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltUnityMngInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<select id="selectFcltUnityMngInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -73,7 +73,7 @@
 		<!-- End 페이징 -->
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltDtaMngInfo */
 				  ASPS.CRTR_YR
 				, ASPS.APC_CD
 				, (SELECT APC_NM FROM TB_TE_APC_OPER_PRSN_OTLN WHERE APC_CD = ASPS.APC_CD AND CRTR_YR = ASPS.CRTR_YR
@@ -111,8 +111,8 @@
 		<!-- End 페이징 -->
 	</select>
 
-	<update id="insertFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
-		MERGE INTO TB_TE_APC_SMART_PRPLSN_STTN ASPS /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
+	<update id="insertFcltUnityMngInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+		MERGE INTO TB_TE_APC_SMART_PRPLSN_STTN ASPS /* com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.insertFcltUnityMngInfo */
 		USING DUAL
 		ON (
 			ASPS.CRTR_YR = #{crtrYr}
@@ -184,16 +184,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo				-->
 	<!-- DESC : 통합관리시스템활용 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<update id="updateFcltUnityMngInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.updateFcltUnityMngInfo */
 				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			   SET
 				  UMS_YN = #{umsYn}
@@ -222,16 +222,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo				-->
 	<!-- DESC : 통합관리시스템활용 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<update id="deleteFcltUnityMngInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
 				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			   SET
 				  DEL_YN 	= 'Y'
@@ -241,9 +241,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltUnityMngInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<delete id="deleteFcltUnityMngInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltUnityMngInfoMapper.deleteFcltUnityMngInfo */
 				TB_TE_APC_SMART_PRPLSN_STTN ASPS
 			 WHERE 1=1
 			  AND ASPS.CRTR_YR = #{crtrYr}
@@ -252,9 +252,9 @@
 	</delete>
 	-->
 
-	<select id="selectFcltUnityMngInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
+	<select id="selectFcltUnityMngInfoRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltUnityMngInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltUnityMngInfoRawDataList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltDtaMngInfoMapper.selectFcltUnityMngInfoRawDataList */
 				  ASPS.CRTR_YR
 				, ASPS.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = ASPS.APC_CD) AS APC_NM

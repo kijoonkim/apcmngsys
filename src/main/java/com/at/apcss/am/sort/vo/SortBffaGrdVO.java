@@ -1,6 +1,6 @@
-package com.at.apcss.am.sort.vo;
+package com.apcmngsys.apcss.am.sort.vo;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 import lombok.Getter;
 import lombok.Setter;
 

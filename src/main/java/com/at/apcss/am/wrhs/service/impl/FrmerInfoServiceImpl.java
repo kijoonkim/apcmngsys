@@ -1,16 +1,16 @@
-package com.at.apcss.am.wrhs.service.impl;
+package com.apcmngsys.apcss.am.wrhs.service.impl;
 
-import com.at.apcss.am.cmns.service.ComAtchflService;
-import com.at.apcss.am.cmns.service.PrdcrService;
-import com.at.apcss.am.cmns.vo.ComAtchflVO;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
-import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
-import com.at.apcss.am.wrhs.service.FrmerInfoService;
-import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
-import com.at.apcss.am.wrhs.vo.*;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.ComAtchflService;
+import com.apcmngsys.apcss.am.cmns.service.PrdcrService;
+import com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.am.wrhs.mapper.FrmerInfoMapper;
+import com.apcmngsys.apcss.am.wrhs.service.FrmerInfoService;
+import com.apcmngsys.apcss.am.wrhs.service.PrdcrLandInfoService;
+import com.apcmngsys.apcss.am.wrhs.vo.*;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.stereotype.Service;
 

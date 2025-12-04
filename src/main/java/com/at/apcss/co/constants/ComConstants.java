@@ -1,4 +1,4 @@
-package com.at.apcss.co.constants;
+package com.apcmngsys.apcss.co.constants;
 
 public class ComConstants {
 

@@ -1,10 +1,10 @@
-package com.at.apcss.am.sort.vo;
+package com.apcmngsys.apcss.am.sort.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.invntr.vo.RawMtrStdGrdVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

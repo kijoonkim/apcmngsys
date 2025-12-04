@@ -1,11 +1,11 @@
-package com.at.apcss.am.wgh.web;
+package com.apcmngsys.apcss.am.wgh.web;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.am.apc.vo.ApcLinkVO;
-import com.at.apcss.am.wgh.service.WghPrfmncService;
-import com.at.apcss.am.wgh.vo.WghPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.apc.service.ApcEvrmntStngService;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.wgh.service.WghPrfmncService;
+import com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;

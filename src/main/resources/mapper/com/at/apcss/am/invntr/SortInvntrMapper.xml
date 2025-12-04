@@ -10,20 +10,20 @@
 <!-- 2023.07.28  	신정철        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.SortInvntrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr		-->
 	<!-- DESC : 선별재고 단건 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntr" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr */
+	    	SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntr */
 				  SI.APC_CD			AS APC_CD
 				, SI.SORTNO			AS SORTNO
 				, SI.SORT_SN		AS SORT_SN
@@ -56,14 +56,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList	-->
 	<!-- DESC : 선별재고 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntrList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -89,7 +89,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
                 , pt0.SORTNO || '-' || pt0.SORT_SN 																AS SORTNO_INDCT
     		  FROM (
-			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
+			    	SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrList */
 						   SI.APC_CD			AS APC_CD
 					     , SI.SORTNO			AS SORTNO
 					     , SI.SORT_SN			AS SORT_SN
@@ -185,16 +185,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForRslt	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForRslt	-->
 	<!-- DESC : 선별재고 포장실적등록대상 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntrListForRslt" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntrListForRslt" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForRslt */
+    		SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForRslt */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -316,16 +316,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg	-->
 	<!-- DESC : 선별재고 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntrListForPckg" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntrListForPckg" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg */
+    		SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrListForPckg */
     			  pt0.*
     		  FROM (
 	    	SELECT
@@ -401,14 +401,14 @@
 
 
 	<!-- =================================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
 	<!-- DESC : 선별일일재고 목록 조회.	                                       				-->
 	<!-- =================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	==================================================	-->
 	<!-- 2023.11.02  	김호        		Initial Creation                            	-->
 	<!-- =================================================================================	-->
-    <select id="selectDailySortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectDailySortInvntrList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -432,7 +432,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
     		  FROM (
-			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList */
+			    	SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList */
 					       DSI.APC_CD               AS APC_CD
 					     , DSI.CRTR_YMD             AS CRTR_YMD
 					     , DSI.SORTNO               AS SORTNO
@@ -514,14 +514,14 @@
     </select>
 
 	<!-- =================================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList	-->
 	<!-- DESC : 선별일일재고 목록 집계조회.	                                       				-->
 	<!-- =================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	==================================================	-->
 	<!-- 2024.01.14  	박승진        		Initial Creation                            	-->
 	<!-- =================================================================================	-->
-    <select id="selectDailySortInvntrTotalList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectDailySortInvntrTotalList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -545,7 +545,7 @@
 				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) 							AS WRHS_SE_NM
 				, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
     		  FROM (
-			    	SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList */
+			    	SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectDailySortInvntrList */
 					       MAX(DSI.APC_CD)               AS APC_CD
 					     , MAX(DSI.CRTR_YMD)             AS CRTR_YMD
 					     , MAX(DSI.SORTNO)               AS SORTNO
@@ -628,14 +628,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
 	<!-- DESC : 선별재고 내역 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntrDsctnList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntrDsctnList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -657,7 +657,7 @@
     			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , pt0.SORTNO || '-' || pt0.SORT_SN 															AS SORTNO_INDCT
     		  FROM (
-	       SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
+	       SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
 				  SI.APC_CD 				AS APC_CD
 				, SI.SORTNO 				AS SORTNO
 				, SI.SORT_SN				AS SORT_SN
@@ -730,14 +730,14 @@
     </select>
 
 <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList	-->
 	<!-- DESC : 선별재고 내역 목록 집계조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.01.15  	박승진        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSortInvntrDsctnTotalList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectSortInvntrDsctnTotalList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -759,7 +759,7 @@
     			, (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
                 , pt0.SORTNO || '-' || pt0.SORT_SN 															AS SORTNO_INDCT
     		  FROM (
-	       SELECT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
+	       SELECT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.selectSortInvntrDsctnList */
 				  MAX(SI.APC_CD) 				AS APC_CD
 				, MAX(SI.SORTNO) 				AS SORTNO
 				, MAX(SI.SORT_SN)				AS SORT_SN
@@ -835,16 +835,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr		-->
 	<!-- DESC : 선별재고 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <insert id="insertSortInvntr" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr */
+	    	INSERT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortInvntr */
 	    		INTO TB_SORT_INVNTR (
 					  APC_CD
 					, SORTNO
@@ -920,16 +920,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr		-->
 	<!-- DESC : 변경재고 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntr" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntr */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -966,16 +966,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList	-->
 	<!-- DESC : 선별재고내역 변경.		                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntrChg" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntrChg" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrDsctnList */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1005,16 +1005,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr		-->
 	<!-- DESC : 변경재고 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSortInvntr" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+	<delete id="deleteSortInvntr" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr */
+			DELETE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortInvntr */
 			  FROM TB_SORT_INVNTR
 			 WHERE APC_CD = #{apcCd}
 			   AND SORTNO = #{sortno}
@@ -1023,16 +1023,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY	-->
 	<!-- DESC : 선별재고 삭제 set delyn 'Y'.		                           				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortInvntrForDelY" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntrForDelY" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortInvntrForDelY */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1046,16 +1046,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY	-->
 	<!-- DESC : 선별재고 등급 삭제 set delyn 'Y'.		                           				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSortStdGrdForDelY" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortStdGrdForDelY" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateSortStdGrdForDelY */
 				TB_SORT_STD_GRD
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1069,16 +1069,16 @@
 	</update>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd		-->
 	<!-- DESC : 선별재고 등급 삭제.		                           					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.18  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="deleteSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="deleteSortStdGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd */
+			DELETE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.deleteSortStdGrd */
 				TB_SORT_STD_GRD
 			 WHERE APC_CD = #{apcCd}
 			   AND SORTNO = #{sortno}
@@ -1086,16 +1086,16 @@
 		]]>
 	</update>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc		-->
 	<!-- DESC : 변경재고 등록 - 포장처리                                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateInvntrPckgPrfmnc" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateInvntrPckgPrfmnc" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgPrfmnc */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1114,16 +1114,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgInptRslt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgInptRslt		-->
 	<!-- DESC : 변경재고 등록 - 포장투입완료                                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateInvntrPckgInptRslt" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateInvntrPckgInptRslt" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgInptRslt */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrPckgInptRslt */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1142,16 +1142,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd		-->
 	<!-- DESC : 선별재고 표준등급 등록.		                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSortStdGrd" parameterType="com.at.apcss.am.invntr.vo.SortStdGrdVO">
+    <insert id="insertSortStdGrd" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortStdGrdVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd */
+	    	INSERT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortStdGrd */
 	    		INTO TB_SORT_STD_GRD (
 					  APC_CD
 					, SORTNO
@@ -1185,14 +1185,14 @@
     </insert>
 
     <!-- =============================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList	-->
 	<!-- DESC : 포장지시대상 내역 목록 조회.	                                       			-->
 	<!-- =============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	==============================================	-->
 	<!-- 2023.09.05  	정희운        	Initial Creation                        		-->
 	<!-- =============================================================================	-->
-    <select id="selectPckgCmndTrgetList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO" resultType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <select id="selectPckgCmndTrgetList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO" resultType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     		SELECT
     			  pt0.*
     			, (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) 							AS PRDCR_NM
@@ -1204,7 +1204,7 @@
     		  FROM (
     	<!-- End 페이징 -->
     	<![CDATA[
-		    		SELECT /* com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList */
+		    		SELECT /* com.apcmngsys.apcss.am.sort.mapper.SortPrfmncMapper.selectPckgCmndTrgetList */
 					      SI.APC_CD             AS APC_CD
 					    , SI.SORTNO             AS SORTNO
 					    , SI.GRD_CD             AS GRD_CD
@@ -1265,16 +1265,16 @@
 
 
     <!-- ==================================================================-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrTrnsf	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrTrnsf	-->
 	<!-- DESC : 선별재고 이송처리                                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.01  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateInvntrTrnsf" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateInvntrTrnsf" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrTrnsf */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrTrnsf */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1294,16 +1294,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs	-->
 	<!-- DESC : 선별재고 투입진행처리                                    						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.01  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <update id="updateInvntrInptPrgrs" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateInvntrInptPrgrs" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs */
+			UPDATE /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.updateInvntrInptPrgrs */
 				TB_SORT_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -1320,7 +1320,7 @@
 			   AND SORT_SN = #{sortSn}
 		]]>
 	</update>
-    <update id="updateSortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <update id="updateSortInvntrList" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
 		UPDATE
 			TB_SORT_INVNTR
 		SET
@@ -1344,16 +1344,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry	-->
 	<!-- DESC : 선별재고 변경이력 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSortChgHstry" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+    <insert id="insertSortChgHstry" parameterType="com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry */
+	    	INSERT /* com.apcmngsys.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry */
 	    		INTO TB_SORT_INVNTR_CHG_HSTRY (
 					  APC_CD
 					, SORTNO

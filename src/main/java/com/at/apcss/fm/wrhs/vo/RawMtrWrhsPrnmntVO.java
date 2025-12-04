@@ -1,6 +1,6 @@
-package com.at.apcss.fm.wrhs.vo;
+package com.apcmngsys.apcss.fm.wrhs.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

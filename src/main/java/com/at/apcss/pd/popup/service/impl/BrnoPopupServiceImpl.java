@@ -1,13 +1,13 @@
-package com.at.apcss.pd.popup.service.impl;
+package com.apcmngsys.apcss.pd.popup.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.popup.mapper.BrnoPopupMapper;
-import com.at.apcss.pd.popup.service.BrnoPopupService;
-import com.at.apcss.pd.popup.vo.BrnoPopupVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.popup.mapper.BrnoPopupMapper;
+import com.apcmngsys.apcss.pd.popup.service.BrnoPopupService;
+import com.apcmngsys.apcss.pd.popup.vo.BrnoPopupVO;
 
 
 /**

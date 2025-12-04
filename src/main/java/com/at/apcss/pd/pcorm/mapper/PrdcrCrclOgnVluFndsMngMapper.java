@@ -1,10 +1,10 @@
-package com.at.apcss.pd.pcorm.mapper;
+package com.apcmngsys.apcss.pd.pcorm.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluFndsMngVO;
 
 /**
  * 게시판 Mapper 인터페이스

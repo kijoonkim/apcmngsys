@@ -1,20 +1,20 @@
-package com.at.apcss.pd.pcom.service.impl;
+package com.apcmngsys.apcss.pd.pcom.service.impl;
 
 import java.util.List;
 
-import com.at.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper;
-import com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
-import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
-import com.at.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
-import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
-import com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
-import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper;
+import com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper;
+import com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO;
+import com.apcmngsys.apcss.pd.pcom.service.PrdcrCrclOgnGenalTblMngService;
+import com.apcmngsys.apcss.pd.pcom.vo.ItemUoStbltYnVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO;
+import com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper;
+import com.apcmngsys.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 
 /**

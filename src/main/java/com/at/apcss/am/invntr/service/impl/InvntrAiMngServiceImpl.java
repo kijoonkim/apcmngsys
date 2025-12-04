@@ -1,4 +1,4 @@
-package com.at.apcss.am.invntr.service.impl;
+package com.apcmngsys.apcss.am.invntr.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,19 +8,19 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.invntr.mapper.InvntrAiMngMapper;
-import com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper;
-import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.service.InvntrAiMngService;
+import com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper;
+import com.apcmngsys.apcss.am.invntr.mapper.InvntrGrdMngMapper;
+import com.apcmngsys.apcss.am.invntr.service.GdsInvntrService;
+import com.apcmngsys.apcss.am.invntr.service.InvntrAiMngService;
 
-import com.at.apcss.am.invntr.service.InvntrService;
-import com.at.apcss.am.invntr.service.RawMtrInvntrService;
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.InvntrAiMngVO;
-import com.at.apcss.am.invntr.vo.InvntrMngVO;
-import com.at.apcss.am.invntr.vo.InvntrVO;
-import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.invntr.service.InvntrService;
+import com.apcmngsys.apcss.am.invntr.service.RawMtrInvntrService;
+import com.apcmngsys.apcss.am.invntr.service.SortInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrVO;
+import com.apcmngsys.apcss.am.sort.mapper.SortPrfmncMapper;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : InvntrAiMngServiceImpl.java

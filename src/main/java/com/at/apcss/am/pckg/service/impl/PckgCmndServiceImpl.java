@@ -1,4 +1,4 @@
-package com.at.apcss.am.pckg.service.impl;
+package com.apcmngsys.apcss.am.pckg.service.impl;
 
 import java.util.List;
 
@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.pckg.mapper.PckgCmndMapper;
-import com.at.apcss.am.pckg.service.PckgCmndService;
-import com.at.apcss.am.pckg.vo.PckgCmndVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.pckg.mapper.PckgCmndMapper;
+import com.apcmngsys.apcss.am.pckg.service.PckgCmndService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgCmndVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PckgCmndServiceImpl.java

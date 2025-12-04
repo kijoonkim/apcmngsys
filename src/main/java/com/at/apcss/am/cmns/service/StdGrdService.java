@@ -1,12 +1,12 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
-import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
-import com.at.apcss.am.cmns.vo.StdGrdListVO;
-import com.at.apcss.am.cmns.vo.StdGrdVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdListVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdVO;
 
 /**
  * 등급 정보 Service 인터페이스

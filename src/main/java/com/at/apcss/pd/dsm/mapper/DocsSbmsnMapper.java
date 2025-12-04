@@ -1,11 +1,11 @@
-package com.at.apcss.pd.dsm.mapper;
+package com.apcmngsys.apcss.pd.dsm.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.dsm.vo.DocsFileVO;
-import com.at.apcss.pd.dsm.vo.DocsSbmsnVO;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsFileVO;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO;
 
 /**
  * 증빙서류제출 Mapper 인터페이스

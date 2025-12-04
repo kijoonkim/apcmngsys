@@ -1,9 +1,9 @@
-package com.at.apcss.co.user.vo;
+package com.apcmngsys.apcss.co.user.vo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

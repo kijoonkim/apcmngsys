@@ -1,6 +1,6 @@
-package com.at.apcss.am.cmns.service;
+package com.apcmngsys.apcss.am.cmns.service;
 
-import com.at.apcss.am.cmns.vo.CmnsValidationVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsValidationVO;
 
 /**
  * 업무 Validation Service 인터페이스

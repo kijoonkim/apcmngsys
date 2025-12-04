@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.HashMap;
 import java.util.List;

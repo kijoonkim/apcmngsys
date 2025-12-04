@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.util;
+package com.apcmngsys.apcss.co.sys.util;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
 
 public class ComUtil {
 	

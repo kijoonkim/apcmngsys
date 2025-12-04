@@ -10,19 +10,19 @@
 <!-- 2024.09.21  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.anls.mapper.AnlsCrtrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtr			-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtr			-->
 	<!-- DESC : 분석기준 단건 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAnlsCrtr" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <select id="selectAnlsCrtr" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtr */
+    		SELECT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtr */
 				  AC.APC_CD				AS APC_CD
 				, AC.ANLS_CRTR_TYPE		AS ANLS_CRTR_TYPE
 				, AC.CRTR_CD			AS CRTR_CD
@@ -51,16 +51,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrList		-->
 	<!-- DESC : 분석기준 목록 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAnlsCrtrList" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <select id="selectAnlsCrtrList" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrList */
+    		SELECT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrList */
 				  AC.APC_CD				AS APC_CD
 				, AC.ANLS_CRTR_TYPE		AS ANLS_CRTR_TYPE
 				, CT.CD_VL_NM			AS ANLS_CRTR_TYPE_NM
@@ -112,16 +112,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtl		-->
 	<!-- DESC : 분석기준 상세 단건 조회.                       	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAnlsCrtrDtl" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <select id="selectAnlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtl */
+    		SELECT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtl */
 				  CD.APC_CD				AS APC_CD
 				, CD.ANLS_CRTR_TYPE		AS ANLS_CRTR_TYPE
 				, CD.CRTR_CD			AS CRTR_CD
@@ -145,16 +145,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtlList	-->
 	<!-- DESC : 분석기준 상세 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAnlsCrtrDtlList" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <select id="selectAnlsCrtrDtlList" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtlList */
+    		SELECT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectAnlsCrtrDtlList */
     		
 				  AC.APC_CD				AS APC_CD
 				, AC.ANLS_CRTR_TYPE		AS ANLS_CRTR_TYPE
@@ -222,16 +222,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectCrtrDtlList	-->
 	<!-- DESC : 분석기준 상세 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCrtrDtlList" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <select id="selectCrtrDtlList" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO" resultType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.selectCrtrDtlList */
+    		SELECT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.selectCrtrDtlList */
     		
 				  AC.APC_CD				AS APC_CD
 				, AC.ANLS_CRTR_TYPE		AS ANLS_CRTR_TYPE
@@ -271,16 +271,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtr			-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtr			-->
 	<!-- DESC : 분석기준 등록.		                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAnlsCrtr" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <insert id="insertAnlsCrtr" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtr */
+    		INSERT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtr */
     		  INTO TB_ANLS_CRTR (
 				  APC_CD
 				, ANLS_CRTR_TYPE
@@ -322,16 +322,16 @@
     </insert>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtr			-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtr			-->
 	<!-- DESC : 분석기준 변경.	                         	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateAnlsCrtr" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <update id="updateAnlsCrtr" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtr */
+    		UPDATE /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtr */
     		  TB_ANLS_CRTR
     		SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -353,16 +353,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtr			-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtr			-->
 	<!-- DESC : 분석기준 삭제.	                         	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteAnlsCrtr" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <delete id="deleteAnlsCrtr" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		DELETE /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtr */
+    		DELETE /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtr */
     		  TB_ANLS_CRTR
 			 WHERE APC_CD = #{apcCd}
 			   AND ANLS_CRTR_TYPE = #{anlsCrtrType}
@@ -371,16 +371,16 @@
     </delete>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtrDtl		-->
 	<!-- DESC : 분석기준 상세 등록.		                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAnlsCrtrDtl" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <insert id="insertAnlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtrDtl */
+    		INSERT /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.insertAnlsCrtrDtl */
     		  INTO TB_ANLS_CRTR_DTL (
 				  APC_CD
 				, ANLS_CRTR_TYPE
@@ -422,16 +422,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtrDtl		-->
 	<!-- DESC : 분석기준 상세 변경.                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateAnlsCrtrDtl" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <update id="updateAnlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtrDtl */
+    		UPDATE /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.updateAnlsCrtrDtl */
     		  TB_ANLS_CRTR_DTL
     		SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -453,16 +453,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtrDtl		-->
 	<!-- DESC : 분석기준 상세 삭제.                       	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteAnlsCrtrDtl" parameterType="com.at.apcss.am.anls.vo.AnlsCrtrVO">
+    <delete id="deleteAnlsCrtrDtl" parameterType="com.apcmngsys.apcss.am.anls.vo.AnlsCrtrVO">
     	<![CDATA[
-    		DELETE /* com.at.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtrDtl */
+    		DELETE /* com.apcmngsys.apcss.am.anls.mapper.AnlsCrtrMapper.deleteAnlsCrtrDtl */
     		  TB_ANLS_CRTR_DTL
 			 WHERE CD.APC_CD = #{apcCd}
 			   AND CD.ANLS_CRTR_TYPE = #{anlsCrtrType}

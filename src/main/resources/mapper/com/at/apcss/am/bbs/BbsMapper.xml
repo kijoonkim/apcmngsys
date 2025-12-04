@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.bbs.mapper.apcBbsMapper">
+<mapper namespace="com.apcmngsys.apcss.am.bbs.mapper.apcBbsMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <select id="selectBbs" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO" resultType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbs */
+			SELECT /* com.apcmngsys.apcss.am.bbs.mapper.apcBbsMapper.selectBbs */
 			      CM.APC_CD
 				, CM.BBS_NO	AS BBS_NO
 				, CM.BBS_TTL		AS BBS_TTL
@@ -49,14 +49,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbsList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <select id="selectBbsList" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO" resultType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -67,7 +67,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-			SELECT /* com.at.apcss.am.bbs.mapper.apcBbsMapper.selectBbsList */
+			SELECT /* com.apcmngsys.apcss.am.bbs.mapper.apcBbsMapper.selectBbsList */
 				  CM.APC_CD
 				, CM.BBS_NO	AS BBS_NO
 				, CM.BBS_TTL		AS BBS_TTL
@@ -120,16 +120,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
 	<!-- DESC : 게시판 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <insert id="insertBbs" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	INSERT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS
 	    		(
 	    		    APC_CD
@@ -162,16 +162,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
 	<!-- DESC : 게시판 댓글 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBbsCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <insert id="insertBbsCmnt" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	INSERT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS_CMNT
 	    		(
 	    		    APC_CD
@@ -206,16 +206,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
 	<!-- DESC : 게시판 대댓글 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertBbsChildCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <insert id="insertBbsChildCmnt" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
+	    	INSERT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs */
 	    	  INTO TB_APC_BBS_CMNT
 	    		(
 	    			APC_CD
@@ -250,16 +250,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.insertBbs				-->
 	<!-- DESC : 게시판 댓글 조회                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbsCmntList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsCmntVO">
+    <select id="selectBbsCmntList" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO" resultType="com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.bbs.mapper.BbsMngMapper.selectBbs */
+	    	SELECT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.selectBbs */
 				  BBS_NO
 				  , CMNT_SE_CD
 				  , CMNT_NO
@@ -279,16 +279,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.updateBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.updateBbs				-->
 	<!-- DESC : 게시판 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <update id="updateBbs" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.updateBbs */
+	    	UPDATE /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.updateBbs */
 	    		TB_APC_BBS
 			   SET
 			 	  BBS_TTL	= #{bbsTtl}
@@ -310,16 +310,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
 	<!-- DESC : 게시판 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbs" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" >
+    <delete id="deleteBbs" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO" >
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    	DELETE /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS
 			 WHERE 1=1
 			   AND APC_CD = #{apcCd}
@@ -328,16 +328,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
 	<!-- DESC : 게시판 댓글 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbsCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsCmntVO" >
+    <delete id="deleteBbsCmnt" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO" >
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    	DELETE /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS_CMNT
 			 WHERE 1=1
 			   AND APC_CD = #{apcCd}
@@ -349,16 +349,16 @@
 		</if>
     </delete>
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs				-->
 	<!-- DESC : 게시판 댓글 전체 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbsAllCmnt" parameterType="com.at.apcss.am.bbs.vo.apcBbsCmntVO" >
+    <delete id="deleteBbsAllCmnt" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO" >
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
+	    	DELETE /* com.apcmngsys.apcss.am.bbs.mapper.BbsMngMapper.deleteBbs */
 	    		TB_APC_BBS_CMNT
 			 WHERE 1=1
 			   AND APC_CD = #{apcCd}
@@ -368,16 +368,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
 	<!-- DESC : 첨부파일 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbsAttaches" parameterType="com.at.apcss.am.bbs.vo.apcBbsFileVO" resultType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    <select id="selectBbsAttaches" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO" resultType="com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttaches */
+			SELECT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.selectBbsAttaches */
 				ATCHFLNO
 				,ATCHFL_NM
 				,ATCHFL_ORGN_NM
@@ -395,16 +395,16 @@
     </select>
 
     	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList			-->
 	<!-- DESC : 첨부파일 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBbsAttachesList" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO" resultType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    <select id="selectBbsAttachesList" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO" resultType="com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList */
+			SELECT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.selectBbsAttachesList */
 				ATCHFLNO
 				,ATCHFL_NM
 				,ATCHFL_ORGN_NM
@@ -423,16 +423,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.insertAttach				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.insertAttach				-->
 	<!-- DESC : 첨부파일 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertAttach" parameterType="com.at.apcss.am.bbs.vo.apcBbsFileVO">
+    <insert id="insertAttach" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.bbs.mapper.BbsMapper.insertAttach */
+	    	INSERT /* com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.insertAttach */
 	    	  INTO TB_APC_BBS_ATTACH
 	    		(
 					ATCHFLNO
@@ -469,16 +469,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache				-->
+	<!-- NAME : com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache				-->
 	<!-- DESC : 첨부파일 삭제                                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteBbsAttache" parameterType="com.at.apcss.am.bbs.vo.apcBbsVO">
+    <delete id="deleteBbsAttache" parameterType="com.apcmngsys.apcss.am.bbs.vo.apcBbsVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache */
+	    	DELETE /* com.apcmngsys.apcss.am.bbs.mapper.BbsMapper.deleteBbsAttache */
 	    		TB_APC_BBS_ATTACH
 			 WHERE 1=1
 			   AND ATCHFLNO	= #{atchflno}

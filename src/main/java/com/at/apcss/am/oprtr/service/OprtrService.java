@@ -1,10 +1,10 @@
-package com.at.apcss.am.oprtr.service;
+package com.apcmngsys.apcss.am.oprtr.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
-import com.at.apcss.am.oprtr.vo.OprtrVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrVO;
 /**
  * 작업생산자 Service 인터페이스
  * @author 김호

@@ -1,9 +1,9 @@
-package com.at.apcss.co.ntc.web;
+package com.apcmngsys.apcss.co.ntc.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.ntc.service.ComMsgPopupService;
-import com.at.apcss.co.ntc.vo.ComMsgPopupVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.ntc.service.ComMsgPopupService;
+import com.apcmngsys.apcss.co.ntc.vo.ComMsgPopupVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

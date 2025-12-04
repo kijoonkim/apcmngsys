@@ -1,10 +1,10 @@
-package com.at.apcss.am.pckg.mapper;
+package com.apcmngsys.apcss.am.pckg.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO;
 
 /**
  * 포장실적 Mapper 인터페이스

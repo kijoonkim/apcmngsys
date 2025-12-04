@@ -10,17 +10,17 @@
 <!-- 2023.07.13  	김 호         	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.oprtr.mapper.OprtrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList			-->
 	<!-- DESC : 작업생산자 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOprtrList" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO" resultType="com.at.apcss.am.oprtr.vo.OprtrVO">
+    <select id="selectOprtrList" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO" resultType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -31,7 +31,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList */
+	    	SELECT /* com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.selectOprtrList */
 	    		   OM.APC_CD            AS APC_CD
 	    		 , OM.JOB_CLSF_CD		AS JOB_CLSF_CD
 	    		 , (SELECT FN_GET_COM_CD_VL_NM('JOB_CLSF_CD', OM.JOB_CLSF_CD, OM.APC_CD) FROM DUAL)         AS JOB_CLSF_NM
@@ -63,14 +63,14 @@
     	<!-- End 페이징 -->
     </select>
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.insertOprtr				-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.insertOprtr				-->
 	<!-- DESC : 작업생산자 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertOprtr" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO">
+    <insert id="insertOprtr" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO">
     	<![CDATA[
     	INSERT INTO TB_OPRTR_MNG
     		(
@@ -118,14 +118,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.updateOprtr				-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.updateOprtr				-->
 	<!-- DESC : 작업생산자 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateOprtr" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO">
+	<update id="updateOprtr" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO">
 		<![CDATA[
 		UPDATE TB_OPRTR_MNG
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -147,14 +147,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.deleteOprtr				-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.deleteOprtr				-->
 	<!-- DESC : 작업생산자 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteOprtr" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO">
+	<delete id="deleteOprtr" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO">
 		<![CDATA[
 		DELETE FROM TB_OPRTR_MNG
 		 WHERE APC_CD			= #{apcCd}
@@ -164,16 +164,16 @@
 		]]>
 	</delete>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
 	<!-- DESC : 작업생산자 삭제 가능 여부.	                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.25  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="oprtrDelible" parameterType="com.at.apcss.am.oprtr.vo.OprtrVO" resultType="com.at.apcss.am.oprtr.vo.OprtrVO">
+    <select id="oprtrDelible" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO" resultType="com.apcmngsys.apcss.am.oprtr.vo.OprtrVO">
     	<![CDATA[
-	    	SELECT X.* /* com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible */
+	    	SELECT X.* /* com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible */
 			  FROM (
 			           SELECT
 			                  '선별작업실적' AS DELIBLE
@@ -203,14 +203,14 @@
 		]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.oprtrDelible				-->
 	<!-- DESC : 작업생산자 작업내역 생성			                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.06  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertOprtrSortPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<insert id="insertOprtrSortPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 		INSERT INTO TB_OPRTR_SORT_PRFMNC
 		(
@@ -254,7 +254,7 @@
 			)
 		]]>
 	</insert>
-	<select id="seletePrfmncSn" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="java.lang.Integer">
+	<select id="seletePrfmncSn" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="java.lang.Integer">
 		<![CDATA[
 		SELECT NVL(MAX(PRFMNC_SN), 0) + 1 AS PRFMNC_SN
 		FROM TB_OPRTR_SORT_PRFMNC
@@ -262,7 +262,7 @@
 		  AND SORTNO = #{sortno}
 		]]>
 	</select>
-	<select id="selectOprtrSortPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<select id="selectOprtrSortPrfmncList" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 		SELECT
 			 pt0.*
@@ -286,7 +286,7 @@
 		) AS pt0
 		]]>
 	</select>
-	<update id="updateOprtrSortPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<update id="updateOprtrSortPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 		UPDATE
 			TB_OPRTR_SORT_PRFMNC
@@ -303,7 +303,7 @@
 		AND JOB_YMD = #{jobYmd}
 		]]>
 	</update>
-	<delete id="deleteOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<delete id="deleteOprtrPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 		DELETE TB_OPRTR_SORT_PRFMNC
 		WHERE APC_CD = #{apcCd}

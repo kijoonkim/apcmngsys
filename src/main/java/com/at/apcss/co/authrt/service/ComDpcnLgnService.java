@@ -1,9 +1,9 @@
-package com.at.apcss.co.authrt.service;
+package com.apcmngsys.apcss.co.authrt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.authrt.vo.ComDpcnLgnVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO;
 
 public interface ComDpcnLgnService {
 

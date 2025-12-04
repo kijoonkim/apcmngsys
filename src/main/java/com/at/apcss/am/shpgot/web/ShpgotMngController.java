@@ -1,14 +1,14 @@
-package com.at.apcss.am.shpgot.web;
+package com.apcmngsys.apcss.am.shpgot.web;
 
-import com.at.apcss.am.shpgot.service.ShpgotMngService;
-import com.at.apcss.am.shpgot.vo.ShpgotCrtrVO;
-import com.at.apcss.am.shpgot.vo.ShpgotMngVO;
-import com.at.apcss.am.shpgot.vo.ShpgotRsltVO;
-import com.at.apcss.am.stat.service.StatMngService;
-import com.at.apcss.am.stat.vo.StatCrtrVO;
-import com.at.apcss.am.stat.vo.StatMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.shpgot.service.ShpgotMngService;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotCrtrVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotMngVO;
+import com.apcmngsys.apcss.am.shpgot.vo.ShpgotRsltVO;
+import com.apcmngsys.apcss.am.stat.service.StatMngService;
+import com.apcmngsys.apcss.am.stat.vo.StatCrtrVO;
+import com.apcmngsys.apcss.am.stat.vo.StatMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

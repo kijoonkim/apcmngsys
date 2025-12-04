@@ -1,8 +1,8 @@
-package com.at.apcss.am.wrhs.service;
+package com.apcmngsys.apcss.am.wrhs.service;
 
 import java.util.List;
 
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsPlanVO;
 
 /**
  * 원물입고계획등록 Service 인터페이스

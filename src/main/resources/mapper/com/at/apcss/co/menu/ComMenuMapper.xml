@@ -10,19 +10,19 @@
 <!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.menu.mapper.ComMenuMapper">
+<mapper namespace="com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComMenu				-->
 	<!-- DESC : 메뉴 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectComMenu" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenu */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComMenu */
 				  CM.MENU_ID    AS MENU_ID
 				, CM.MENU_NM    AS MENU_NM
 				, CM.UP_MENU_ID AS UP_MENU_ID
@@ -40,9 +40,9 @@
     	]]>
     </select>
 
-	<select id="selectComMenuDtlPage" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+	<select id="selectComMenuDtlPage" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuDtlPage */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComMenuDtlPage */
 				  DP.MENU_ID	AS MENU_ID
 				, DP.IDNTF_NO   AS IDNTF_NO
 				, DP.PAGE_URL 	AS PAGE_URL
@@ -56,16 +56,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList			-->
 	<!-- DESC : 메뉴 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectComMenuList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComMenuList */
 				  CM.MENU_ID    AS MENU_ID
 				, CM.MENU_NM    AS MENU_NM
 				, CM.UP_MENU_ID AS UP_MENU_ID
@@ -90,16 +90,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList		-->
 	<!-- DESC : 메뉴 트리 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.24  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuTreeList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectMenuTreeList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
 				  MN.LVL		AS MENU_LVL
 				, MN.SEQ		AS MENU_SEQ
 				, MN.SYS_ID		AS SYS_ID
@@ -151,16 +151,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectTopMenuList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectTopMenuList			-->
 	<!-- DESC : 대메뉴 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.31  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectTopMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectTopMenuList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectTopMenuList */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectTopMenuList */
 				  MN.LVL		AS MENU_LVL
 				, MN.SEQ		AS MENU_SEQ
 				, MN.SYS_ID		AS SYS_ID
@@ -213,16 +213,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectLeftMenuList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectLeftMenuList		-->
 	<!-- DESC : 좌측메뉴 목록 조회.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.31  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLeftMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectLeftMenuList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectLeftMenuList */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectLeftMenuList */
 				  MN.LVL		AS MENU_LVL
 				, MN.SEQ		AS MENU_SEQ
 				, MN.SYS_ID		AS SYS_ID
@@ -275,16 +275,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.insertMenu				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.insertMenu				-->
 	<!-- DESC : 메뉴 등록.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <insert id="insertMenu" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-    	INSERT INTO TB_COM_MENU  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertMenu */
+    	INSERT INTO TB_COM_MENU  /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.insertMenu */
     		(
     			APC_CD
     		  , MENU_ID
@@ -328,16 +328,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.updateMenu				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.updateMenu				-->
 	<!-- DESC : 메뉴 수정.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <update id="updateMenu" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-    	UPDATE TB_COM_MENU /* com.at.apcss.co.menu.mapper.ComMenuMapper.updateMenu */
+    	UPDATE TB_COM_MENU /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.updateMenu */
     	   SET SYS_LAST_CHG_DT			= SYSDATE
     		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
     		 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -366,16 +366,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuList			-->
 	<!-- DESC : 메뉴 조회.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectMenuList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuTreeList */
 				  MN.LVL		AS MENU_LVL
 				, MN.SEQ		AS MENU_SEQ
 				, MN.SYS_ID		AS SYS_ID
@@ -428,16 +428,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuListByType			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuListByType			-->
 	<!-- DESC : 메뉴 조회.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuListByType" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+    <select id="selectMenuListByType" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuListByType */
+			SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuListByType */
 				  SUBSTR(MN.MENU_ID, 1, 2) AS SYS_ID
 				, MN.UP_MENU_ID	AS UP_MENU_ID
 				, MN.MENU_ID	AS MENU_ID
@@ -467,32 +467,32 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.deleteMenu				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.deleteMenu				-->
 	<!-- DESC : 메뉴 삭제.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.12  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteMenu" parameterType="com.at.apcss.co.menu.vo.ComMenuVO">
+	<delete id="deleteMenu" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
 		<![CDATA[
-		DELETE FROM TB_COM_MENU /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteMenu */
+		DELETE FROM TB_COM_MENU /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.deleteMenu */
 		 WHERE MENU_ID 	= #{menuId}
 		]]>
 	</delete>
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList			-->
 	<!-- DESC : 화면 관리 목록 조회                                   				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectMenuUiList" parameterType="com.at.apcss.co.menu.vo.ComMenuVO" resultType="com.at.apcss.co.menu.vo.ComMenuVO">
+	<select id="selectMenuUiList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO" resultType="com.apcmngsys.apcss.co.menu.vo.ComMenuVO">
 		<![CDATA[
-		SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList */
+		SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectMenuUiList */
 			   ROWNUM					AS ROW_SEQ
 			 , CM.APC_CD                AS APC_CD
 		     , CM.MENU_ID               AS MENU_ID
@@ -524,16 +524,16 @@
 	
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUiList			-->
 	<!-- DESC : 화면 관리 UI 목록 조회                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComUiList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
+	<select id="selectComUiList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO"  resultType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-	    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiList */
+	    SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUiList */
 	           CU.MENU_ID			AS MENU_ID
 		     , CU.ENTY_ID			AS ENTY_ID
 		     , CU.ENTY_TYPE			AS ENTY_TYPE
@@ -546,16 +546,16 @@
 	</select>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUi			-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUi			-->
 	<!-- DESC : 화면 관리 UI 조회                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
+	<select id="selectComUi" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO"  resultType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUi */
+		    SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUi */
 		           CU.MENU_ID			AS MENU_ID
 			     , CU.ENTY_ID			AS ENTY_ID
 			     , CU.ENTY_TYPE			AS ENTY_TYPE
@@ -567,16 +567,16 @@
 		]]>
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList	-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList	-->
 	<!-- DESC : 화면 관리 UI 공통버튼 목록 조회                                 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectComUiCmnsBtnList" parameterType="com.at.apcss.co.menu.vo.ComUiVO"  resultType="com.at.apcss.co.menu.vo.ComUiVO">
+	<select id="selectComUiCmnsBtnList" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO"  resultType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		    SELECT /* com.at.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList */
+		    SELECT /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.selectComUiCmnsBtnList */
 		    	  'CB'				AS ENTY_TYPE
 		        , #{menuId}			AS MENU_ID
 			    , CCD.CD_VL			AS ENTY_ID
@@ -602,16 +602,16 @@
 	</select>
 	
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.insertComUi				-->
 	<!-- DESC : 화면 관리 UI 등록		                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.03  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+	<insert id="insertComUi" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-			INSERT INTO TB_COM_UI  /* com.at.apcss.co.menu.mapper.ComMenuMapper.insertComUi */
+			INSERT INTO TB_COM_UI  /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.insertComUi */
 				(
 					MENU_ID
 				  , ENTY_ID
@@ -642,16 +642,16 @@
 		]]>
 	</insert>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.updateComUi				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.updateComUi				-->
 	<!-- DESC : 화면 관리 UI 수정		                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.24  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+	<update id="updateComUi" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		UPDATE TB_COM_UI /* com.at.apcss.co.menu.mapper.ComMenuMapper.updateComUi */
+		UPDATE TB_COM_UI /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.updateComUi */
 		   SET SYS_LAST_CHG_DT			= SYSDATE
 		     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
 		     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
@@ -664,16 +664,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi				-->
+	<!-- NAME : com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.deleteComUi				-->
 	<!-- DESC : 화면 관리 UI 삭제		                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.24  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteComUi" parameterType="com.at.apcss.co.menu.vo.ComUiVO">
+	<delete id="deleteComUi" parameterType="com.apcmngsys.apcss.co.menu.vo.ComUiVO">
 		<![CDATA[
-		DELETE /* com.at.apcss.co.menu.mapper.ComMenuMapper.deleteComUi */
+		DELETE /* com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper.deleteComUi */
 			TB_COM_UI  
 		 WHERE MENU_ID = #{menuId}
 		   AND ENTY_ID = #{entyId}

@@ -10,19 +10,19 @@
 <!-- 2024.07.23  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs				-->
 	<!-- DESC : 진척도 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.23  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrgrs" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+	<select id="selectPrgrs" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrs */
 				AP.CRTR_YR
 				, AP.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
@@ -76,16 +76,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList			-->
 	<!-- DESC : 진척도 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.23  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrgrsList" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+	<select id="selectPrgrsList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsList */
 				AP.CRTR_YR
 				, AP.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
@@ -164,8 +164,8 @@
 	</select>
 
 	<!-- 진척도 갱신 -->
-	<update id="insertFcltPrgrs" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
-		MERGE INTO TB_TE_APC_PRGRS AP	/* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.insertFcltPrgrs */
+	<update id="insertFcltPrgrs" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
+		MERGE INTO TB_TE_APC_PRGRS AP	/* com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.insertFcltPrgrs */
 		USING DUAL
 		ON (
 			AP.CRTR_YR 		= #{crtrYr}
@@ -352,7 +352,7 @@
 	</update>
 
 	<!-- 최종제출 여부 업데이트 -->
-	<update id="updatePrgrsLast" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+	<update id="updatePrgrsLast" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
 		UPDATE
 			TB_TE_APC_PRGRS
 		SET
@@ -370,7 +370,7 @@
 	</update>
 
 	<!-- 지자체 승인 업데이트 -->
-	<update id="updateAprv" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+	<update id="updateAprv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
 		UPDATE
 			TB_TE_APC_PRGRS
 		SET
@@ -419,16 +419,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData		-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData		-->
 	<!-- DESC : 진척도 로우데이터 조회                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.18  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrgrsRawData" parameterType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.at.apcss.fm.fclt.vo.FcltPrgrsVO">
+	<select id="selectPrgrsRawData" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectPrgrsRawData */
 				AP.CRTR_YR
 				, AP.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AP.APC_CD) AS APC_NM
@@ -499,14 +499,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectAllRawData		-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltPrgrsMapper.selectAllRawData		-->
 	<!-- DESC : 전체 로우데이터 조회                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.19  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectAllRawData" parameterType="com.at.apcss.fm.fclt.vo.FcltAllRawDataVO" resultType="com.at.apcss.fm.fclt.vo.FcltAllRawDataVO">
+	<select id="selectAllRawData" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltAllRawDataVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltAllRawDataVO">
 		SELECT
 			*
 		FROM

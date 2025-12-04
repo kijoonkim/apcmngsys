@@ -1,12 +1,12 @@
-package com.at.apcss.co.publishing.web;
+package com.apcmngsys.apcss.co.publishing.web;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.apc.service.ApcEvrmntStngService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @Controller
 public class PublishingPdController extends BaseController{

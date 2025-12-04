@@ -1,10 +1,10 @@
-package com.at.apcss.co.pms.service;
+package com.apcmngsys.apcss.co.pms.service;
 
 import java.util.List;
 
-import com.at.apcss.co.pms.vo.DfctMngVO;
-import com.at.apcss.co.pms.vo.DfctVO;
-import com.at.apcss.co.pms.vo.DvlpPrgrsMngVO;
+import com.apcmngsys.apcss.co.pms.vo.DfctMngVO;
+import com.apcmngsys.apcss.co.pms.vo.DfctVO;
+import com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO;
 
 /**
  * 개발진행관리 Service 인터페이스

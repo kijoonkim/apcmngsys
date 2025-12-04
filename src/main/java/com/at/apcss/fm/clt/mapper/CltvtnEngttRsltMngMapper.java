@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.clt.mapper;
+package  com.apcmngsys.apcss.fm.clt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.clt.vo.CltvtnEngttRsltMngVO;
+import com.apcmngsys.apcss.fm.clt.vo.CltvtnEngttRsltMngVO;
 
 /**
  * 재배약정결과관리 Mapper 인터페이스

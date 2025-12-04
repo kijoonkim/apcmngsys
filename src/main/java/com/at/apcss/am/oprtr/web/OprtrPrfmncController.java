@@ -1,4 +1,4 @@
-package com.at.apcss.am.oprtr.web;
+package com.apcmngsys.apcss.am.oprtr.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.oprtr.service.OprtrPrfmncService;
-import com.at.apcss.am.oprtr.vo.OprtrPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.oprtr.service.OprtrPrfmncService;
+import com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 /**
  * @Class Name : OprtrPrfmncController.java
  * @Description : 작업자실적등록 프로그램에 대한 Controller 클래스

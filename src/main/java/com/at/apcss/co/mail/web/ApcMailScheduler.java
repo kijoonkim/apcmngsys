@@ -1,7 +1,7 @@
-package com.at.apcss.co.mail.web;
+package com.apcmngsys.apcss.co.mail.web;
 
-import com.at.apcss.co.mail.service.ApcMailService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.mail.service.ApcMailService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

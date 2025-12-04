@@ -1,11 +1,11 @@
-package com.at.apcss.pd.pcorm.mapper;
+package com.apcmngsys.apcss.pd.pcorm.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pcorm.vo.BizPlanRegFileVO;
-import com.at.apcss.pd.pcorm.vo.BizPlanRegVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.BizPlanRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.BizPlanRegVO;
 
 /**
  * 서류제출 등록 Mapper 인터페이스

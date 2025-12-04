@@ -10,10 +10,10 @@
 <!-- 2024.04.29  	장성주        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcma.com.mapper.ProcMapper">
+<mapper namespace="com.apcmngsys.apcma.com.mapper.ProcMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcma.com.mapper.ProcMapper.callProcTibero						-->
+	<!-- NAME : com.apcmngsys.apcma.com.mapper.ProcMapper.callProcTibero						-->
 	<!-- DESC : 	                                             					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

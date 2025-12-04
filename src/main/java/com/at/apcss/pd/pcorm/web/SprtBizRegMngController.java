@@ -1,11 +1,11 @@
-package com.at.apcss.pd.pcorm.web;
+package com.apcmngsys.apcss.pd.pcorm.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
-import com.at.apcss.pd.pcorm.service.SprtBizRegMngService;
-import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
-import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.pd.pcorm.service.SprtBizRegMngService;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegMngVO;
 import egovframework.let.utl.fcc.service.EgovFileUploadUtil;
 import egovframework.let.utl.fcc.service.EgovFormBasedFileUtil;
 import org.springframework.core.io.FileSystemResource;

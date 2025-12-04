@@ -1,10 +1,10 @@
-package com.at.apcss.am.clcln.mapper;
+package com.apcmngsys.apcss.am.clcln.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnUntprcVO;
 
 /**
  * 정산단가 Mapper 인터페이스

@@ -1,10 +1,10 @@
-package com.at.apcss.am.wgh.web;
+package com.apcmngsys.apcss.am.wgh.web;
 
-import com.at.apcss.am.wgh.service.WghMngService;
-import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
-import com.at.apcss.am.wgh.vo.WghFcltVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.wgh.service.WghMngService;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltDtlVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghFcltVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

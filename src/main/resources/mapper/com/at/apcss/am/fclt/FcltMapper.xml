@@ -10,19 +10,19 @@
 <!-- 2024.12.03  	김 호         	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.fclt.mapper.FcltMapper">
+<mapper namespace="com.apcmngsys.apcss.am.fclt.mapper.FcltMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList		-->
 	<!-- DESC : 창고현황 목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWarehouseCurSiList" parameterType="com.at.apcss.am.fclt.vo.FcltVO" resultType="com.at.apcss.am.fclt.vo.FcltVO">
+    <select id="selectWarehouseCurSiList" parameterType="com.apcmngsys.apcss.am.fclt.vo.FcltVO" resultType="com.apcmngsys.apcss.am.fclt.vo.FcltVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList */
+    		SELECT /* com.apcmngsys.apcss.am.fclt.mapper.FcltMapper.selectWarehouseCurSiList */
     			   Z.*
 			     , SUM(AA_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS AA_SUM
 			     , SUM(BB_QNTT) OVER(PARTITION BY STRG_LOCTN_COL) AS BB_SUM

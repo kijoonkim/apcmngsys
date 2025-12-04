@@ -1,4 +1,4 @@
-package com.at.apcma.com.service;
+package com.apcmngsys.apcma.com.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

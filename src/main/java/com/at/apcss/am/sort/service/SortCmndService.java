@@ -1,8 +1,8 @@
-package com.at.apcss.am.sort.service;
+package com.apcmngsys.apcss.am.sort.service;
 
 import java.util.List;
 
-import com.at.apcss.am.sort.vo.SortCmndVO;
+import com.apcmngsys.apcss.am.sort.vo.SortCmndVO;
 
 /**
  * 선별지시 Service 인터페이스

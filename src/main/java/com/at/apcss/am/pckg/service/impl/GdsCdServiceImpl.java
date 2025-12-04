@@ -1,14 +1,14 @@
-package com.at.apcss.am.pckg.service.impl;
+package com.apcmngsys.apcss.am.pckg.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.pckg.mapper.GdsCdMapper;
-import com.at.apcss.am.pckg.service.GdsCdService;
-import com.at.apcss.am.pckg.vo.GdsCdVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.pckg.mapper.GdsCdMapper;
+import com.apcmngsys.apcss.am.pckg.service.GdsCdService;
+import com.apcmngsys.apcss.am.pckg.vo.GdsCdVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : GdsCdSercviceImpl.java

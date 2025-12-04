@@ -1,13 +1,13 @@
-package com.at.apcss.co.link.web;
+package com.apcmngsys.apcss.co.link.web;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.link.service.ComLinkService;
-import com.at.apcss.co.link.vo.ComLnkgRptVO;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiJsonVO;
-import com.at.apcss.co.menu.vo.ComUiVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.link.service.ComLinkService;
+import com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiJsonVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;

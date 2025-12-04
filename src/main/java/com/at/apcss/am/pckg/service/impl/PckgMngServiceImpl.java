@@ -1,4 +1,4 @@
-package com.at.apcss.am.pckg.service.impl;
+package com.apcmngsys.apcss.am.pckg.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,30 +6,30 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.am.sort.service.SortPrfmncService;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.am.sort.service.SortPrfmncService;
+import com.apcmngsys.apcss.am.sort.vo.SortPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.invntr.service.SortInvntrService;
-import com.at.apcss.am.invntr.vo.InvntrDtlVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.pckg.service.PckgCmndService;
-import com.at.apcss.am.pckg.service.PckgInptService;
-import com.at.apcss.am.pckg.service.PckgMngService;
-import com.at.apcss.am.pckg.service.PckgPrfmncService;
-import com.at.apcss.am.pckg.vo.PckgInptVO;
-import com.at.apcss.am.pckg.vo.PckgMngVO;
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.co.constants.ApcConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.invntr.service.SortInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrDtlVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.pckg.service.PckgCmndService;
+import com.apcmngsys.apcss.am.pckg.service.PckgInptService;
+import com.apcmngsys.apcss.am.pckg.service.PckgMngService;
+import com.apcmngsys.apcss.am.pckg.service.PckgPrfmncService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgInptVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgMngVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ApcConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PckgInptServiceImpl.java

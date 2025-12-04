@@ -1,4 +1,4 @@
-package com.at.apcss.am.asst.service.impl;
+package com.apcmngsys.apcss.am.asst.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,11 +7,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.asst.mapper.AsstMtrMapper;
-import com.at.apcss.am.asst.service.AsstMtrService;
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.asst.mapper.AsstMtrMapper;
+import com.apcmngsys.apcss.am.asst.service.AsstMtrService;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : SortFcltServiceImpl.java

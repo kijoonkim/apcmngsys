@@ -1,9 +1,9 @@
-package com.at.apcss.pd.popup.web;
+package com.apcmngsys.apcss.pd.popup.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.popup.service.SprtBizRsltInqPopupService;
-import com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.popup.service.SprtBizRsltInqPopupService;
+import com.apcmngsys.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

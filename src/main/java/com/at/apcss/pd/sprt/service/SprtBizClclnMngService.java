@@ -1,10 +1,10 @@
-package com.at.apcss.pd.sprt.service;
+package com.apcmngsys.apcss.pd.sprt.service;
 
-import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
-import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
-import com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDocVO;
-import com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO;
-import com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizClclnDmndDocVO;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizClclnMngVO;
 
 import java.util.HashMap;
 import java.util.List;

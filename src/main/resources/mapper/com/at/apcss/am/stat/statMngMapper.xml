@@ -10,19 +10,19 @@
 <!-- 2024.10.08  	박승진       Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.stat.mapper.StatMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.stat.mapper.StatMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList  	-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList  	-->
 	<!-- DESC : 통계 기준상세 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectStatCrtrDtlInUseList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<select id="selectStatCrtrDtlInUseList" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList */
+			SELECT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList */
 				  C.APC_CD				AS APC_CD
 				, C.STATS_CRTR_TYPE		AS STATS_CRTR_TYPE
 				, CT.CD_VL_NM			AS STAT_CRTR_TYPE_NM
@@ -87,16 +87,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtr  				-->
 	<!-- DESC : 통계 기준 단건 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<select id="selectCrtr" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtr */
+			SELECT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtr */
 				  APC_CD
 				, STATS_CRTR_TYPE
 				, CRTR_CD
@@ -113,16 +113,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrList  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrList  			-->
 	<!-- DESC : 통계 기준목록 조회.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<select id="selectCrtrList" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-      		SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrList */
+      		SELECT /* com.apcmngsys.apcss.am.tot.mapper.TotMngMapper.selectCrtrList */
 				  C.APC_CD				AS APC_CD
 				, C.STATS_CRTR_TYPE	  	AS STATS_CRTR_TYPE
 				, CT.CD_VL_NM			AS STATS_CRTR_TYPE_NM
@@ -174,16 +174,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl  			-->
 	<!-- DESC : 통계기준 상세 단건 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<select id="selectCrtrDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-      		SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl */
+      		SELECT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl */
 				  CD.APC_CD				AS APC_CD
 				, CD.STATS_CRTR_TYPE	AS STATS_CRTR_TYPE
 				, CD.CRTR_CD			AS CRTR_CD
@@ -202,16 +202,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
 	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtlList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<select id="selectCrtrDtlList" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList */
+			SELECT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList */
 				  C.APC_CD				AS APC_CD
 				, C.STATS_CRTR_TYPE		AS STATS_CRTR_TYPE
 				, CT.CD_VL_NM			AS STATS_CRTR_TYPE_NM
@@ -275,16 +275,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.insertCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.insertCrtr  				-->
 	<!-- DESC : 통계 기준 등록.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<insert id="insertCrtr" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.stat.mapper.statMngMapper.insertCrtr */
+			INSERT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.insertCrtr */
 			INTO TB_STATS_CRTR (
 				  APC_CD
 				, STATS_CRTR_TYPE
@@ -320,16 +320,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.updateCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.updateCrtr  				-->
 	<!-- DESC : 통계 기준 변경.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<update id="updateCrtr" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-		UPDATE /* com.at.apcss.am.stat.mapper.statMngMapper.updateCrtr */
+		UPDATE /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.updateCrtr */
 			TB_STATS_CRTR
 		SET
 			  CRTR_VL = #{crtrVl}
@@ -346,16 +346,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtr  				-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.deleteCrtr  				-->
 	<!-- DESC : 통계 기준 삭제.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<delete id="deleteCrtr" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-		DELETE /* com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtr */
+		DELETE /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.deleteCrtr */
 		FROM TB_STATS_CRTR
 		WHERE APC_CD = #{apcCd}
 		  AND STATS_CRTR_TYPE = #{statsCrtrType}
@@ -364,16 +364,16 @@
     </delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl  			-->
 	<!-- DESC : 통계 기준 상세 등록.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<insert id="insertCrtrDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl */
+			INSERT /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl */
 			INTO TB_STATS_CRTR_DTL (
 				   APC_CD
 				 , STATS_CRTR_TYPE
@@ -413,16 +413,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl  			-->
 	<!-- DESC : 통계 기준 상세 변경.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<update id="updateCrtrDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl */
+			UPDATE /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl */
 				TB_STATS_CRTR_DTL
 			SET
 				  DTL_CD = #{dtlCd}
@@ -441,16 +441,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl  			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl  			-->
 	<!-- DESC : 통계 기준 상세 삭제.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+	<delete id="deleteCrtrDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl */
+			DELETE /* com.apcmngsys.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl */
 				TB_STATS_CRTR_DTL
 			WHERE APC_CD = #{apcCd}
 			AND STATS_CRTR_TYPE = #{statsCrtrType}
@@ -716,14 +716,14 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
 	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdSpmtInfo" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+	<select id="selectPrdSpmtInfo" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
 		<![CDATA[
 			SELECT
 		  A.APC_CD		AS APC_CD
@@ -771,14 +771,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectPrdSpmtInfoDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectPrdSpmtInfoDtl			-->
 	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdSpmtInfoDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+	<select id="selectPrdSpmtInfoDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
 		<![CDATA[
 			SELECT
 		  A.APC_CD		AS APC_CD
@@ -830,14 +830,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
 	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdPrdctnPrfmncInfo" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+	<select id="selectPrdPrdctnPrfmncInfo" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
 		<![CDATA[
 			SELECT
 		  A.APC_CD		AS APC_CD
@@ -880,14 +880,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
 	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdPrdctnPrfmncInfoDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+	<select id="selectPrdPrdctnPrfmncInfoDtl" parameterType="com.apcmngsys.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
 	<![CDATA[
 	SELECT
 		  A.APC_CD			AS APC_CD

@@ -1,4 +1,4 @@
-package com.at.apcss.pd.aom.web;
+package com.apcmngsys.apcss.pd.aom.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.vo.LoginVO;
-import com.at.apcss.pd.aom.service.InvShipOgnReqMngService;
-import com.at.apcss.pd.aom.vo.GpcVO;
-import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.pd.aom.service.InvShipOgnReqMngService;
+import com.apcmngsys.apcss.pd.aom.vo.GpcVO;
+import com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO;
 
 @Controller
 public class InvShipOgnReqMngController extends BaseController{

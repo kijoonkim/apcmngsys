@@ -10,19 +10,19 @@
 <!--   	        					Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.trnsf.mapper.InvntrMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper">
 	
 	<!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr		-->
     <!-- DESC : 재고기준 조회   	                         	               				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <select id="selectInvntrCrtr" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
 		<![CDATA[
-	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr*/
+	        SELECT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr*/
 	              APC_CD
 	             ,INVNTR_CRTR_TYPE
 	             ,CRTR_CD
@@ -50,7 +50,7 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr		-->
     <!-- DESC : 재고기준 등록   	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -58,9 +58,9 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <insert id="insertInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <insert id="insertInvntrCrtr" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
     	<![CDATA[
-    		INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr*/
+    		INSERT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr*/
     		INTO TB_INVNTR_CRTR(
     			 APC_CD
     			,INVNTR_CRTR_TYPE
@@ -95,7 +95,7 @@
     	]]>
     </insert>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtr		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtr		-->
     <!-- DESC : 재고기준 변경   	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -103,7 +103,7 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <update id="updateInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="updateInvntrCrtr" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
        <![CDATA[
             UPDATE
                 TB_INVNTR_CRTR SET
@@ -128,7 +128,7 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtr		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtr		-->
     <!-- DESC : 재고기준 삭제   	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -136,7 +136,7 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <update id="deleteInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="deleteInvntrCrtr" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
        <![CDATA[
         UPDATE
             TB_INVNTR_CRTR SET
@@ -152,16 +152,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl		-->
     <!-- DESC : 재고기준 조회   	                         	               				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <select id="selectInvntrCrtrDtl" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
         <![CDATA[
-	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl*/
+	        SELECT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl*/
 	              APC_CD
 	             ,INVNTR_CRTR_TYPE
 	             ,CRTR_CD
@@ -190,7 +190,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl		-->
     <!-- DESC : 재고기준 상세 등록   	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -198,9 +198,9 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <insert id="insertInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <insert id="insertInvntrCrtrDtl" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
     	<![CDATA[
-        INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl*/
+        INSERT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl*/
         INTO TB_INVNTR_CRTR_DTL(
                             APC_CD
                            ,INVNTR_CRTR_TYPE
@@ -245,7 +245,7 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtrDtl		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtrDtl		-->
     <!-- DESC : 재고기준 상세 변경   	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -253,7 +253,7 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <update id="updateInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="updateInvntrCrtrDtl" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
         <![CDATA[
             UPDATE
                 TB_INVNTR_CRTR_DTL SET
@@ -280,7 +280,7 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtrDtl	-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtrDtl	-->
     <!-- DESC : 재고기준 상세 삭제   	                         	                	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -288,7 +288,7 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <update id="deleteInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="deleteInvntrCrtrDtl" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
        <![CDATA[
         UPDATE
             TB_INVNTR_CRTR_DTL SET
@@ -305,16 +305,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss		-->
     <!-- DESC : 기초재고 조회   	                         	               				-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <select id="selectInvntrApcBss" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
         <![CDATA[
-	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss*/
+	        SELECT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss*/
                 APC_CD
 	            ,INVNTR_SE_CD
 	            ,INVNTR_YMD
@@ -354,7 +354,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss		-->
     <!-- DESC : 재고기준 등록  	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -362,9 +362,9 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <insert id="insertInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <insert id="insertInvntrApcBss" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
     	<![CDATA[
-        INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss*/
+        INSERT /*com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss*/
         INTO TB_INVNTR_APC_BSS(
                 APC_CD
                ,INVNTR_SE_CD
@@ -404,7 +404,7 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrApcBss		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrApcBss		-->
     <!-- DESC : 재고기준 삭제  	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -413,7 +413,7 @@
     <!-- ==========================================================================	-->
 
 
-    <update id="deleteInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="deleteInvntrApcBss" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
         UPDATE TB_INVNTR_APC_BSS
         SET
             DEL_YN = 'Y'
@@ -429,7 +429,7 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrApcBss		-->
+    <!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrApcBss		-->
     <!-- DESC : 기초재고 변경  	                         	                			-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -437,7 +437,7 @@
     <!-- 			  	        		Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <update id="updateInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    <update id="updateInvntrApcBss" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO">
         <![CDATA[
             UPDATE TB_INVNTR_APC_BSS
                  SET

@@ -1,4 +1,4 @@
-package com.at.apcss.am.constants;
+package com.apcmngsys.apcss.am.constants;
 
 public class CsConstants {
 

@@ -1,14 +1,14 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtDsctnTotVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 /**
  * 출고실적 Service 인터페이스

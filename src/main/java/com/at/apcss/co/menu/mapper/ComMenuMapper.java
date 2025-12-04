@@ -1,11 +1,11 @@
-package com.at.apcss.co.menu.mapper;
+package com.apcmngsys.apcss.co.menu.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiVO;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiVO;
 
 @Mapper
 public interface ComMenuMapper {

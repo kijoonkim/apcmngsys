@@ -10,19 +10,19 @@
 <!-- 2025.04.09  	김은총        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.mng.mapper.ComMngMapper">
+<mapper namespace="com.apcmngsys.apcss.co.mng.mapper.ComMngMapper">
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  			            	-->
+    <!-- NAME : mapper.com.apcmngsys.apcss.co.mng.ComMngMapper  			            	-->
     <!-- DESC : 접속자수, 활성회원(로그인 기준) 조회                                 		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.04.09  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectVstrCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
+    <select id="selectVstrCnt" parameterType="com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO">
     	<![CDATA[
-            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectVstrCnt */
+            SELECT /* com.apcmngsys.apcss.co.mng.mapper.ComMngMapper.selectVstrCnt */
                 TO_CHAR(PRSL_DT, 'YYYYMM') AS YM
                 , COUNT(USER_ID) AS CNT
                 , COUNT(DISTINCT USER_ID) AS CNT_USER
@@ -42,16 +42,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- NAME : mapper.com.apcmngsys.apcss.co.mng.ComMngMapper  				            -->
     <!-- DESC : 페이지 뷰 조회                                                		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.04.09  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectPageViewCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
+    <select id="selectPageViewCnt" parameterType="com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO">
         <![CDATA[
-            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectPageViewCnt */
+            SELECT /* com.apcmngsys.apcss.co.mng.mapper.ComMngMapper.selectPageViewCnt */
                 YM
             	, SUM(CNT)	AS PAGEVIEWCNT
 	        FROM (
@@ -77,16 +77,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- NAME : mapper.com.apcmngsys.apcss.co.mng.ComMngMapper  				            -->
     <!-- DESC : 회원 현황 조회                                                		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.04.11  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectUserCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+    <select id="selectUserCnt" parameterType="com.apcmngsys.apcss.co.mng.vo.ComUserVO" resultType="com.apcmngsys.apcss.co.mng.vo.ComUserVO">
         <![CDATA[
-            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectUserCnt */
+            SELECT /* com.apcmngsys.apcss.co.mng.mapper.ComMngMapper.selectUserCnt */
                 COUNT(A.USER_ID) AS CNT_USER
         ]]>
             <if test='yyyyMm != null and yyyyMm != ""'>
@@ -127,16 +127,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- NAME : mapper.com.apcmngsys.apcss.co.mng.ComMngMapper  				            -->
     <!-- DESC : 조직 현황 조회                                                		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.04.14  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectOgnzPrstCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+    <select id="selectOgnzPrstCnt" parameterType="com.apcmngsys.apcss.co.mng.vo.ComUserVO" resultType="com.apcmngsys.apcss.co.mng.vo.ComUserVO">
         <![CDATA[
-        SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectOgnzPrstCnt */
+        SELECT /* com.apcmngsys.apcss.co.mng.mapper.ComMngMapper.selectOgnzPrstCnt */
             SUM(CASE
                     WHEN A.TYPE_CD = '1'
                         AND EXISTS (
@@ -202,7 +202,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- NAME : mapper.com.apcmngsys.apcss.co.mng.ComMngMapper  				            -->
     <!-- DESC : 조직별 회원 현황 및 업무별 사용 현황 조회                                                		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -210,9 +210,9 @@
     <!-- 2025.04.14  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
 
-    <select id="selectOgnzTaskMbrCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+    <select id="selectOgnzTaskMbrCnt" parameterType="com.apcmngsys.apcss.co.mng.vo.ComUserVO" resultType="com.apcmngsys.apcss.co.mng.vo.ComUserVO">
         <![CDATA[
-            /* com.at.apcss.co.mng.mapper.ComMngMapper.selectOgnzTaskMbrCnt */
+            /* com.apcmngsys.apcss.co.mng.mapper.ComMngMapper.selectOgnzTaskMbrCnt */
             -- 전체 조직현황
             WITH COM_USER AS (
             SELECT

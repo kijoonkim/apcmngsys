@@ -1,18 +1,18 @@
-package com.at.apcss.am.pckg.service.impl;
+package com.apcmngsys.apcss.am.pckg.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.pckg.mapper.PckgInptMapper;
-import com.at.apcss.am.pckg.service.PckgInptService;
-import com.at.apcss.am.pckg.vo.PckgInptVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.pckg.mapper.PckgInptMapper;
+import com.apcmngsys.apcss.am.pckg.service.PckgInptService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgInptVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : PckgInptServiceImpl.java

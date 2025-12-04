@@ -1,4 +1,4 @@
-package com.at.apcss.demo.service; // 사용자님의 패키지 경로에 맞게 수정하세요
+package com.apcmngsys.apcss.demo.service; // 사용자님의 패키지 경로에 맞게 수정하세요
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

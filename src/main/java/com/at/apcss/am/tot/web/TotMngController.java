@@ -1,4 +1,4 @@
-package com.at.apcss.am.tot.web;
+package com.apcmngsys.apcss.am.tot.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,19 +8,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.am.tot.vo.TotRsltVO;
+import com.apcmngsys.apcss.am.clcln.vo.ClclnMngVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotRsltVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.tot.service.TotMngService;
-import com.at.apcss.am.tot.vo.TotMngVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.tot.service.TotMngService;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 

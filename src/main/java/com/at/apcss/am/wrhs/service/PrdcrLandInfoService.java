@@ -1,9 +1,9 @@
-package com.at.apcss.am.wrhs.service;
+package com.apcmngsys.apcss.am.wrhs.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
+import com.apcmngsys.apcss.am.wrhs.vo.PrdcrLandInfoVO;
 
 /**
  * 영농관리 - 생산자농지정보 Service 인터페이스

@@ -10,18 +10,18 @@
 <!-- 2025.01.07  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt	-->
 	<!-- DESC : 온라인 도매시장 목표 조회                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt */
+	<select id="selectPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt */
 			EAM.YR
 			,EAM.BRNO
 			,OWM.TRGT_TRMT_AMT
@@ -69,15 +69,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList	-->
 	<!-- DESC : 온라인도매시장 통합조직 조회                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnOnlnWhlslMrktUoList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList */
+	<select id="selectPrdcrCrclOgnOnlnWhlslMrktUoList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList */
 			EAM.YR
 			,EAM.BRNO
 			,EA.CRNO
@@ -116,15 +116,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt	-->
 	<!-- DESC : 온라인도매시장 목표 저장                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		MERGE INTO TB_EV_ONLN_WHLSL_MRKT CLT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt */
+	<insert id="insertPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		MERGE INTO TB_EV_ONLN_WHLSL_MRKT CLT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt */
 		USING DUAL
 			ON (
 					CLT.YR			= #{yr}
@@ -188,15 +188,15 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList	-->
 	<!-- DESC : 속한 조직 목록을 조회한다.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectOgnzList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList */
+	<select id="selectOgnzList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList */
 			EAM.BRNO
 			,EA.CORP_NM
 			,EAM.APO_SE
@@ -215,15 +215,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
 	<!-- DESC : 속한 조직 품목 목록을 조회한다.                                          		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectItemList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
+	<select id="selectItemList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
 			YGC.BRNO
 			,YGC.ITEM_CD
 			,YGC.ITEM_NM
@@ -245,15 +245,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
 	<!-- DESC : 온라인도매시장 출하실적                                          			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectOnlnDtlList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
+	<select id="selectOnlnDtlList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
 			WMD.YR
 			,DECODE(WMD.BRNO,WMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
 			,WMD.BRNO
@@ -298,15 +298,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl	-->
 	<!-- DESC : 온라인도매시장 출하실적 저장                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		MERGE INTO TB_EV_ONLN_WHLSL_MRKT_DTL WMD /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl */
+	<insert id="insertOnlnDtl" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		MERGE INTO TB_EV_ONLN_WHLSL_MRKT_DTL WMD /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl */
 		USING DUAL
 			ON (
 					WMD.YR			= #{yr}
@@ -387,9 +387,9 @@
 	</insert>
 
 	<!-- 온라인도매시장 출하실적 삭제 처리 -->
-	<delete id="deleteOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+	<delete id="deleteOnlnDtl" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
 		<![CDATA[
-		DELETE FROM TB_EV_ONLN_WHLSL_MRKT_DTL	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.deleteOnlnDtl */
+		DELETE FROM TB_EV_ONLN_WHLSL_MRKT_DTL	/* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.deleteOnlnDtl */
 		 WHERE 1=1
 		   AND YR			= #{yr}
 		   AND BRNO			= #{brno}
@@ -399,16 +399,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln	-->
 	<!-- DESC : 온라인도매시장 판매목표 로우데이터                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.05  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataOnln" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+	<select id="selectRawDataOnln" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
 		<![CDATA[
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln */
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln */
 			OWM.YR  AS YR
 			 ,OWM.BRNO AS BRNO
 			 , EA.CORP_NM AS CORP_NM
@@ -482,7 +482,7 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl	-->
 	<!-- DESC : 온라인도매시장 출하실적 로우데이터                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -490,7 +490,7 @@
 	<!-- 2025.02.05  	ljw        		Initial Creation                            -->
 	<!-- 2025.04.16  	유민지        	컬럼오류수정		                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+	<select id="selectRawDataOnlnDtl" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
 		<![CDATA[
 		SELECT
 			OWMD.YR
@@ -622,7 +622,7 @@
 		]]>
 	</select>
 
-	<select id="selectPruoRegMst" parameterType="com.at.apcss.pd.pcom.vo.PruoRegVO" resultType="com.at.apcss.pd.pcom.vo.PruoRegVO">
+	<select id="selectPruoRegMst" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoRegVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoRegVO">
 		<![CDATA[
 			SELECT
 				CRTR_YR
@@ -637,7 +637,7 @@
 		]]>
 	</select>
 
-	<select id="selectPruoRegDtl" resultType="com.at.apcss.pd.pcom.vo.PruoRegVO" parameterType="com.at.apcss.pd.pcom.vo.PruoRegVO">
+	<select id="selectPruoRegDtl" resultType="com.apcmngsys.apcss.pd.pcom.vo.PruoRegVO" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PruoRegVO">
 		SELECT
 			CRTR_YR
 			 , DTL_CD

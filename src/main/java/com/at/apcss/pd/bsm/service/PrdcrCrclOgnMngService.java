@@ -1,9 +1,9 @@
-package com.at.apcss.pd.bsm.service;
+package com.apcmngsys.apcss.pd.bsm.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
-import com.at.apcss.pd.bsm.vo.UoListVO;
+import com.apcmngsys.apcss.pd.bsm.vo.PrdcrCrclOgnMngVO;
+import com.apcmngsys.apcss.pd.bsm.vo.UoListVO;
 
 
 /**

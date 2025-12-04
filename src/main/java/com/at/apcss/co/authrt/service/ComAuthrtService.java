@@ -1,13 +1,13 @@
-package com.at.apcss.co.authrt.service;
+package com.apcmngsys.apcss.co.authrt.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUserVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtVO;
 
 public interface ComAuthrtService {
 

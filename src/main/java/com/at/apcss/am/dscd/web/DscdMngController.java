@@ -1,12 +1,12 @@
-package com.at.apcss.am.dscd.web;
+package com.apcmngsys.apcss.am.dscd.web;
 
-import com.at.apcss.am.dscd.service.DscdCrtrService;
-import com.at.apcss.am.dscd.service.InvntrDscdService;
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.dscd.service.DscdCrtrService;
+import com.apcmngsys.apcss.am.dscd.service.InvntrDscdService;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdMngVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

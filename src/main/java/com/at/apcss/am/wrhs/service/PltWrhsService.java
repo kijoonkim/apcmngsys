@@ -1,4 +1,4 @@
-package com.at.apcss.am.wrhs.service;
+package com.apcmngsys.apcss.am.wrhs.service;
 
 /**
  * 팔레트/박스 입고 Service 인터페이스

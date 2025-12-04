@@ -1,6 +1,6 @@
-package com.at.apcss.pd.popup.service;
+package com.apcmngsys.apcss.pd.popup.service;
 
-import com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
+import com.apcmngsys.apcss.pd.popup.vo.SprtBizRsltInqPopupVO;
 
 import java.util.List;
 

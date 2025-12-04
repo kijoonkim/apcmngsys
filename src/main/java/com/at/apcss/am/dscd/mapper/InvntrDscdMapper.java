@@ -1,7 +1,7 @@
-package com.at.apcss.am.dscd.mapper;
+package com.apcmngsys.apcss.am.dscd.mapper;
 
-import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO;
+import com.apcmngsys.apcss.am.dscd.vo.DscdPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

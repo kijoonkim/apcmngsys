@@ -10,18 +10,18 @@
 <!-- 2023.07.11  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CnptMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CnptMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectCnptList				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.selectCnptList				-->
 	<!-- DESC : 거래처정보 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCnptList" parameterType="com.at.apcss.am.cmns.vo.CnptVO" resultType="com.at.apcss.am.cmns.vo.CnptVO">
+    <select id="selectCnptList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -96,14 +96,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.insertCnpt					-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.insertCnpt					-->
 	<!-- DESC : 거래처정보 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+    <insert id="insertCnpt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
     	<![CDATA[
     	INSERT INTO TB_CNPT_INFO
     		(
@@ -169,14 +169,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
 	<!-- DESC : 거래처정보 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+	<update id="updateCnpt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
 		<![CDATA[
 		UPDATE TB_CNPT_INFO
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -208,16 +208,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.deleteCnpt					-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.deleteCnpt					-->
 	<!-- DESC : 거래처정보 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+	<update id="deleteCnpt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
 		<![CDATA[
-		UPDATE TB_CNPT_INFO /* com.at.apcss.am.cmns.mapper.CnptMapper.deleteCnpt */
+		UPDATE TB_CNPT_INFO /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.deleteCnpt */
 		   SET DEL_YN 		= 'Y'
 		 WHERE APC_CD		= #{apcCd}
 		   AND CNPT_CD 		= #{cnptCd}
@@ -225,16 +225,16 @@
 	</update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt				-->
 	<!-- DESC : 대형마켓정보 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+    <select id="selectLgszMrkt" parameterType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO" resultType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.selectLgszMrkt */
 	    		  LM.APC_CD				AS APC_CD
 			    , LM.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
 			    , LM.LGSZ_MRKT_NM		AS LGSZ_MRKT_NM
@@ -251,16 +251,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList			-->
 	<!-- DESC : 대형마켓정보 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgszMrktList" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO" resultType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+    <select id="selectLgszMrktList" parameterType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO" resultType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.selectLgszMrktList */
 	    		  LM.APC_CD				AS APC_CD
 			    , LM.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
 			    , LM.LGSZ_MRKT_NM		AS LGSZ_MRKT_NM
@@ -277,16 +277,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt				-->
 	<!-- DESC : 대형마켓정보 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+	<update id="updateLgszMrkt" parameterType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.updateLgszMrkt */
 				TB_LGSZ_MRKT_MNG
 			   SET SYS_LAST_CHG_DT 			= SYSDATE
 	    		 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
@@ -306,16 +306,16 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt				-->
 	<!-- DESC : 대형마켓정보 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.10  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<insert id="insertLgszMrkt" parameterType="com.at.apcss.am.cmns.vo.LgszMrktVO">
+	<insert id="insertLgszMrkt" parameterType="com.apcmngsys.apcss.am.cmns.vo.LgszMrktVO">
 		<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.insertLgszMrkt */
 	    		INTO TB_LGSZ_MRKT_MNG
 				(
 					  APC_CD
@@ -353,16 +353,16 @@
 		]]>
 	</insert>
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.cnptDelible					-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.cnptDelible					-->
 	<!-- DESC : 거래처 삭제 가능 여부 .	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.25  	정희운       		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-    <select id="cnptDelible" parameterType="com.at.apcss.am.cmns.vo.CnptVO" resultType="com.at.apcss.am.cmns.vo.CnptVO">
+    <select id="cnptDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
     	<![CDATA[
-	    	SELECT X.* /* com.at.apcss.am.cmns.mapper.CnptMapper.cnptDelible */
+	    	SELECT X.* /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.cnptDelible */
 			  FROM (
 			           SELECT
 			                  '출하지시' AS DELIBLE
@@ -399,14 +399,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.updateCnpt					-->
 	<!-- DESC : APC기준정보 거래처 정보 업데이트                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.08  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcCnpt" parameterType="com.at.apcss.am.cmns.vo.CnptVO">
+	<update id="updateApcCnpt" parameterType="com.apcmngsys.apcss.am.cmns.vo.CnptVO">
 		<![CDATA[
 		UPDATE TB_CNPT_INFO
 		   SET SYS_LAST_CHG_DT 			= SYSDATE

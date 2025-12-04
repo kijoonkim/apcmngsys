@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+    <select id="selectPrdcrCrclOgnPurSalMng" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMng */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMng */
 				  CM.YR
 				, CM.APO_CD
 				, CM.APO_SE
@@ -83,17 +83,17 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnPurSalMngList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectPrdcrCrclOgnPurSalMngList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		SELECT * FROM
 		(
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMng */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMng */
 				ITEM.YR
 				, ITEM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
@@ -448,8 +448,8 @@
 		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD DESC
 	</select>
 
-	<insert id="insertPrdcrCrclOgnPurSalMng01" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng01 */
+	<insert id="insertPrdcrCrclOgnPurSalMng01" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng01 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -573,9 +573,9 @@
 					)
 	</insert>
 
-	<insert id="insertPrdcrCrclOgnPurSalMng02" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<insert id="insertPrdcrCrclOgnPurSalMng02" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng02 */
+		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng02 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -711,9 +711,9 @@
 		   			)
 	</insert>
 
-	<insert id="insertPrdcrCrclOgnPurSalMng03" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<insert id="insertPrdcrCrclOgnPurSalMng03" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03 */
+		MERGE INTO TB_EV_UO_ISO_ALL_PRCHS_SLS CLT  /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.insertPrdcrCrclOgnPurSalMng03 */
 		USING DUAL
 			ON (
 					CLT.BRNO   				= #{brno}
@@ -854,8 +854,8 @@
 		]]>
 	</insert>
 
-	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng */
+	<delete id="deletePrdcrCrclOgnPurSalMng" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		DELETE FROM TB_EV_UO_ISO_ALL_PRCHS_SLS /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.deletePrdcrCrclOgnPurSalMng */
 		 WHERE 1=1
 					 AND BRNO				= #{brno}
 					 AND CTGRY_CD			= #{ctgryCd}
@@ -866,8 +866,8 @@
 					 AND YR	 				= #{yr}
 	</delete>
 
-	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList */
+	<select id="selectRawDataList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList */
 			YR
 			, BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = A.BRNO) AS CORP_NM
@@ -995,15 +995,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList2025	-->
 	<!-- DESC : 통합조직 총매입매출 로우데이터 2025년                          					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList */
+	<select id="selectRawDataList2025" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectRawDataList */
 			YR
 			, BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CM.BRNO) AS CORP_NM
@@ -1119,16 +1119,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseRawDataList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseRawDataList	-->
 	<!-- DESC : 통합조직 총 매입매출 Raw Data 목록 조회                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoTotalPurchaseRawDataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectUoTotalPurchaseRawDataList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseRawDataList */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseRawDataList */
 				APO.YR					AS YR
 				, APO.BRNO				AS BRNO
 				, APO.CORP_NM			AS CORP_NM
@@ -1399,16 +1399,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleList	-->
 	<!-- DESC : 통합조직 총 매입매출 목록 조회                    				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoTotalPurchaseSaleList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectUoTotalPurchaseSaleList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleList */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleList */
 							APO.YR					AS YR
 							, APO.BRNO				AS BRNO
 							, APO.CORP_NM			AS CORP_NM
@@ -1752,14 +1752,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv	-->
 	<!-- DESC : 통합조직 총 매입매출 목록 조회  (육성->승인)                				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectUoTotalPurchaseSaleListForUpbrToAprv" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectUoTotalPurchaseSaleListForUpbrToAprv" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		<![CDATA[
 		        WITH UO_FRMHS_APO AS (
 				SELECT
@@ -1853,7 +1853,7 @@
 				   AND FA.BRNO = #{brno}
 				)
 
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectUoTotalPurchaseSaleListForUpbrToAprv */
                   APO.YR					AS YR
                 , APO.BRNO				AS BRNO
                 , APO.CORP_NM			AS CORP_NM
@@ -2178,17 +2178,17 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList	-->
 	<!-- DESC : 통합조직 총매입매출 매입리스트(2025년 기준으로 작성).                              	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.16  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnPurSalMngPrchsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectPrdcrCrclOgnPurSalMngPrchsList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		SELECT * FROM
 		(
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList */
 				ITEM.YR
 				, ITEM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
@@ -2336,17 +2336,17 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList	-->
 	<!-- DESC : 통합조직 총매입매출 매출리스트(2025년 기준으로 작성).                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.16  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectPrdcrCrclOgnPurSalMngSlsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectPrdcrCrclOgnPurSalMngSlsList" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		SELECT * FROM
 		(
-			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList */
+			SELECT /* com.apcmngsys.apcss.pd.pcom.mapper.PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngSlsList */
 				ITEM.YR
 				, ITEM.ITEM_CD
 				, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
@@ -2516,8 +2516,8 @@
 	</select>
 
 	<!-- 통합조직 총매입매출 임시저장 처리 -->
-	<update id="updateTempSaveUoAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		UPDATE /* com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.updateTempSaveAps */
+	<update id="updateTempSaveUoAps" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.updateTempSaveAps */
 			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 		   SET
 			<if test='tmprStrgYn == "Y"'>
@@ -2536,15 +2536,15 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.selectTempSaveAps	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.selectTempSaveAps	-->
 	<!-- DESC : 임시저장 조회                                            					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.20  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTempSaveUoAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
-		SELECT	/* com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.selectTempSaveAps */
+	<select id="selectTempSaveUoAps" parameterType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.selectTempSaveAps */
 			TMPR_STRG_YN
 			,TMPR_STRG_RSN
 			,TMPR_STRG_DT

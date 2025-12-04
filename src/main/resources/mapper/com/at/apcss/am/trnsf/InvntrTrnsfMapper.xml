@@ -10,18 +10,18 @@
 <!-- 2023.08.28  	김현호        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.trnsf.mapper.InvntrTrnsfMapper">
+<mapper namespace="com.apcmngsys.apcss.am.trnsf.mapper.InvntrTrnsfMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrTrnsfMapper.selectInvntrTrnsfList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrTrnsfMapper.selectInvntrTrnsfList		-->
 	<!-- DESC : 재고이송조회  목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR  com.at.apcss.am.trnsf.mapper      	DESCRIPTION                      			-->
+	<!-- DATE   		AUTHOR  com.apcmngsys.apcss.am.trnsf.mapper      	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.28  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvntrTrnsfList" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO" resultType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+    <select id="selectInvntrTrnsfList" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -195,7 +195,7 @@
     	<!-- End 페이징 -->
 	</select>
 
-	<insert id="insertInvntrTrnsf" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+	<insert id="insertInvntrTrnsf" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO">
 		<![CDATA[
 			INSERT
 			  INTO TB_INVNTR_TRNSF_HSTRY
@@ -247,7 +247,7 @@
 		]]>
 	</insert>
 
-	<update id="deleteInvntrTrnsf" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+	<update id="deleteInvntrTrnsf" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO">
 		<![CDATA[
 			UPDATE TB_INVNTR_TRNSF_HSTRY
 			   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -261,16 +261,16 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateTrnsfRawMtrInvntr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateTrnsfRawMtrInvntr	-->
 	<!-- DESC : 재고이송확정.                                    						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.11.28  	김호        	Initial Creation                            		-->
 	<!-- ================================================================================	-->
-    <update id="updateTrnsfInvntr" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+    <update id="updateTrnsfInvntr" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfRawMtrInvntr */
+			UPDATE /* com.apcmngsys.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfRawMtrInvntr */
 				TB_INVNTR_TRNSF_HSTRY
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -287,16 +287,16 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateTrnsfInvntrCncl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.updateTrnsfInvntrCncl		-->
 	<!-- DESC : 재고이송확정취소.                                    						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2023.11.30  	김호        	Initial Creation                            		-->
 	<!-- ================================================================================	-->
-    <update id="updateTrnsfInvntrCncl" parameterType="com.at.apcss.am.trnsf.vo.InvntrTrnsfVO">
+    <update id="updateTrnsfInvntrCncl" parameterType="com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfInvntrCncl */
+			UPDATE /* com.apcmngsys.apcss.am.trnsf.mapper.TrnsfRawMtrInvntrMapper.updateTrnsfInvntrCncl */
 				TB_INVNTR_TRNSF_HSTRY
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE

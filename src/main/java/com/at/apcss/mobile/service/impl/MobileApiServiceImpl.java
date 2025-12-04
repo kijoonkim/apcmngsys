@@ -1,9 +1,9 @@
-package com.at.apcss.mobile.service.impl;
+package com.apcmngsys.apcss.mobile.service.impl;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.mobile.mapper.MobileApiMapper;
-import com.at.apcss.mobile.service.MobileApiService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.mobile.mapper.MobileApiMapper;
+import com.apcmngsys.apcss.mobile.service.MobileApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

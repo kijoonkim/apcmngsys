@@ -1,4 +1,4 @@
-package com.at.apcss.co.dashboard.controller;
+package com.apcmngsys.apcss.co.dashboard.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.co.dashboard.service.DashboardService;
-import com.at.apcss.co.dashboard.vo.DashboardVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.dashboard.service.DashboardService;
+import com.apcmngsys.apcss.co.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * 대시보드 최초진입 데이터 조회

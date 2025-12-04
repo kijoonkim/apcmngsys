@@ -1,12 +1,12 @@
-package com.at.apcss.co.mail.web;
+package com.apcmngsys.apcss.co.mail.web;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.mail.service.ApcMailService;
-import com.at.apcss.co.mail.vo.ApcMailVO;
-import com.at.apcss.co.mail.vo.AttachFileVO;
-import com.at.apcss.co.mail.vo.EmsMailVO;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.mail.service.ApcMailService;
+import com.apcmngsys.apcss.co.mail.vo.ApcMailVO;
+import com.apcmngsys.apcss.co.mail.vo.AttachFileVO;
+import com.apcmngsys.apcss.co.mail.vo.EmsMailVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Value;
 import org.springframework.http.MediaType;

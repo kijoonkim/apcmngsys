@@ -1,4 +1,4 @@
-package com.at.apcss.co.menu.vo;
+package com.apcmngsys.apcss.co.menu.vo;
 
 import lombok.Getter;
 import lombok.Setter;

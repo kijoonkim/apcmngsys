@@ -10,19 +10,19 @@
 <!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.cd.mapper.ComCdMapper">
+<mapper namespace="com.apcmngsys.apcss.co.cd.mapper.ComCdMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd                   -->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCd                   -->
 	<!-- DESC : 공통코드 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectComCd" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCd */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCd */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
 			     , CC.CD_TYPE		AS CD_TYPE
@@ -39,14 +39,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdList				-->
 	<!-- DESC : 공통코드 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCdList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectComCdList" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
     			  ROWNUM AS ROW_SEQ
@@ -55,7 +55,7 @@
     		  FROM (
     	</if>
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdList */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdList */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
 			     , CC.CD_TYPE		AS CD_TYPE
@@ -88,14 +88,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList			-->
 	<!-- DESC : 공통코드 상세 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectComCdDtlList" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
     			  ROWNUM AS ROW_SEQ
@@ -104,7 +104,7 @@
     		  FROM (
     	</if>
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
 			     , CC.CD_EXPLN      AS CD_EXPLN
@@ -161,16 +161,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectApcRptList				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectApcRptList				-->
 	<!-- DESC : 공통코드 리포트 목록 조회.                                          -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcRptList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectApcRptList" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
 				   CC.CD_ID         AS CD_ID
 			     , CD.CD_VL			AS CD_VL
 			     , MAX(CD.APC_CD) KEEP (DENSE_RANK LAST ORDER BY DECODE(CD.APC_CD, '0000', 1, 9))		AS APC_CD
@@ -194,14 +194,14 @@
 
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComBoCdDtlList			-->
 	<!-- DESC : 콤보박스 공통코드 상세 목록 조회.                                   			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.08  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComBoCdDtlList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectComBoCdDtlList" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	SELECT CD_VL
 		     , CD_VL_NM
@@ -212,14 +212,14 @@
     </select>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdId			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdId			-->
 	<!-- DESC : CD_ID 중복 체크.                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="duplicateCheckCdId" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="_int">
+    <select id="duplicateCheckCdId" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="_int">
     	<![CDATA[
     	SELECT COUNT(*)
 		  FROM TB_COM_CD
@@ -228,14 +228,14 @@
     </select>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCd					-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.insertComCd					-->
 	<!-- DESC : 공통코드 등록  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <insert id="insertComCd" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	INSERT INTO TB_COM_CD
     		(
@@ -267,14 +267,14 @@
     </insert>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCd					-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.updateComCd					-->
 	<!-- DESC : 공통코드 수정  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <update id="updateComCd" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	UPDATE TB_COM_CD
     	   SET CD_NM 					= #{cdNm}
@@ -287,14 +287,14 @@
     	]]>
     </update>
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCd					-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.deleteComCd					-->
 	<!-- DESC : 공통코드 삭제  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteComCd" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+	<delete id="deleteComCd" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
 		<![CDATA[
 		DELETE FROM TB_COM_CD
 		 WHERE CD_ID = #{cdId}
@@ -302,14 +302,14 @@
 	</delete>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdIdDtl			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.duplicateCheckCdIdDtl			-->
 	<!-- DESC : 공통코드 상세 중복 체크.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="duplicateCheckCdIdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="_int">
+    <select id="duplicateCheckCdIdDtl" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="_int">
     	<![CDATA[
     	SELECT COUNT(*)
 		  FROM TB_COM_CD_DTL
@@ -320,14 +320,14 @@
     </select>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.insertComCdDtl				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.insertComCdDtl				-->
 	<!-- DESC : 공통코드 상세 등록  		                                        		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <insert id="insertComCdDtl" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	INSERT INTO TB_COM_CD_DTL
     		(
@@ -380,14 +380,14 @@
     </insert>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtl				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.updateComCdDtl				-->
 	<!-- DESC : 공통코드 상세 수정  		                                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <update id="updateComCdDtl" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	UPDATE TB_COM_CD_DTL
     	   SET CD_VL_NM				 	= #{cdVlNm}
@@ -409,14 +409,14 @@
     </update>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.deleteComCdDtl				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.deleteComCdDtl				-->
 	<!-- DESC : 공통코드 삭제  		                                           			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.28  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+	<delete id="deleteComCdDtl" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
 		<![CDATA[
 		DELETE FROM TB_COM_CD_DTL
 		 WHERE CD_ID 	= #{cdId}
@@ -426,16 +426,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtl				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdDtl				-->
 	<!-- DESC : 공통코드 상세 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComCdDtl" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectComCdDtl" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectComCdDtlList */
 				   CC.CD_ID         AS CD_ID
 			     , CC.CD_NM         AS CD_NM
 			     , CC.CD_EXPLN      AS CD_EXPLN
@@ -462,14 +462,14 @@
 
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.updateComCdDtlDelYn			-->
 	<!-- DESC : 공통코드 상세 사용유무 수정  		                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateComCdDtlDelYn" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <update id="updateComCdDtlDelYn" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	UPDATE TB_COM_CD_DTL
     	   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -483,14 +483,14 @@
     </update>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.comCdDtlDelYnAll				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.comCdDtlDelYnAll				-->
 	<!-- DESC : 공통코드 상세 사용유무 전체변경  		                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="comCdDtlDelYnAll" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <update id="comCdDtlDelYnAll" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
     	UPDATE TB_COM_CD_DTL
     	   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -503,16 +503,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList				-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectFcltList				-->
 	<!-- DESC : APC별 설비 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.05.17  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltList" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="selectFcltList" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.cd.mapper.ComCdMapper.selectFcltList */
+			SELECT /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.selectFcltList */
 				   CD.CD_ID         AS CD_ID
 			     , CD.CD_VL			AS CD_VL
 			     , CD.APC_CD		AS APC_CD
@@ -529,17 +529,17 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.warehouseSeCdDelible			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.warehouseSeCdDelible			-->
 	<!-- DESC : APC별 창고 & 설비 삭제 여부.                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.25  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="apcCdComCdDtlDelible" parameterType="com.at.apcss.co.cd.vo.ComCdVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+    <select id="apcCdComCdDtlDelible" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<if test='cdId == "WAREHOUSE_SE_CD"'>
 	    	<![CDATA[
-				SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+				SELECT X.* /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
 				  FROM (
 				         SELECT
 				                '입고실적' AS DELIBLE
@@ -638,7 +638,7 @@
     	</if>
     	<if test='cdId == "WGH_FCLT_CD"'>
 	    	<![CDATA[
-	    		SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+	    		SELECT X.* /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
 				  FROM (
 				         SELECT
 				                '원물계량' AS DELIBLE
@@ -655,7 +655,7 @@
     	</if>
     	<if test='cdId == "SORT_FCLT_CD"'>
 	    	<![CDATA[
-	    		SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+	    		SELECT X.* /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
 				  FROM (
 				         SELECT
 				                '선별지시' AS DELIBLE
@@ -696,7 +696,7 @@
     	</if>
     	<if test='cdId == "PCKG_FCLT_CD"'>
 	    	<![CDATA[
-	    		SELECT X.* /* com.at.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
+	    		SELECT X.* /* com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.apcCdComCdDtlDelible */
 				  FROM (
 				         SELECT
 				                '포장지시' AS DELIBLE
@@ -738,14 +738,14 @@
     </select>
 
    	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.co.cd.mapper.ComCdMapper.updateComApcStdInq			-->
+	<!-- NAME : com.apcmngsys.apcss.co.cd.mapper.ComCdMapper.updateComApcStdInq			-->
 	<!-- DESC : APC기준 정보 업데이트  		                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.04  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateComApcStdInq" parameterType="com.at.apcss.co.cd.vo.ComCdVO">
+    <update id="updateComApcStdInq" parameterType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
     	<![CDATA[
 			UPDATE TB_COM_CD_DTL
 			   SET SYS_LAST_CHG_DT			= SYSDATE

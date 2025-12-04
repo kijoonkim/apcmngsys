@@ -1,13 +1,13 @@
-package com.at.apcss.fm.popup.service.impl;
+package com.apcmngsys.apcss.fm.popup.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper;
-import com.at.apcss.fm.popup.service.MngmstInfoIdPopupService;
-import com.at.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.popup.mapper.MngmstInfoIdPopupMapper;
+import com.apcmngsys.apcss.fm.popup.service.MngmstInfoIdPopupService;
+import com.apcmngsys.apcss.fm.popup.vo.MngmstInfoIdPopupVO;
 
 
 /**

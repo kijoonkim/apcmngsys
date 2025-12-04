@@ -1,4 +1,4 @@
-package com.at.apcss.pd.bsm.web;
+package com.apcmngsys.apcss.pd.bsm.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.bsm.service.BrnoMngService;
-import com.at.apcss.pd.bsm.vo.BrnoMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.bsm.service.BrnoMngService;
+import com.apcmngsys.apcss.pd.bsm.vo.BrnoMngVO;
 
 @Controller
 public class BrnoMngController extends BaseController{

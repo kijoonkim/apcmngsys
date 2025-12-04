@@ -1,4 +1,4 @@
-package com.at.apcss.am.apc.web;
+package com.apcmngsys.apcss.am.apc.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.apc.service.ApcLinkService;
-import com.at.apcss.am.apc.vo.ApcLinkIndctVO;
-import com.at.apcss.am.apc.vo.ApcLinkVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.am.ordr.service.OrdrRcvService;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.apc.service.ApcLinkService;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkIndctVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.am.ordr.service.OrdrRcvService;
+import com.apcmngsys.apcss.am.ordr.vo.OrdrRcvVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 import static org.springframework.util.StringUtils.hasText;
 

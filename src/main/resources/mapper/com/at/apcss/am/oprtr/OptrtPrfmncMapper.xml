@@ -10,17 +10,17 @@
 <!-- 2023.10.17  	김 호         	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
 	<!-- DESC : 작업 실적 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRegPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+    <select id="selectRegPrfmncList" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
     	<choose>
     		<when test='prfmncSeCd != null and prfmncSeCd !=""'>
     			<if test='"2".equals(prfmncSeCd)'>
@@ -31,7 +31,7 @@
 						     , (SELECT FN_GET_COM_CD_VL_NM('PRFMNC_SE_CD', pt0.PRFMNC_SE_CD) FROM DUAL)         AS PRFMNC_SE_NM
 						     , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL)  AS FCLT_NM
 						  FROM (
-						        SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
+						        SELECT /* com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
 						               SP.APC_CD                AS APC_CD
 						             , SP.SORTNO                AS PRFMNCNO
 						             , '2'                      AS PRFMNC_SE_CD
@@ -70,7 +70,7 @@
 						     , (SELECT FN_GET_COM_CD_VL_NM('PCKG_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL)  AS FCLT_NM
 						     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
 						  FROM (
-						        SELECT /* com.at.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
+						        SELECT /* com.apcmngsys.apcss.am.oprtr.mapper.OprtrMapper.selectRegPrfmncList */
 						               PP.APC_CD                AS APC_CD
 						             , PP.PCKGNO                AS PRFMNCNO
 						             , '3'                      AS PRFMNC_SE_CD
@@ -105,14 +105,14 @@
     	</choose>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.selectRegPrfmncList	-->
 	<!-- DESC : 실적 작업자 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOprtrPrfmncList" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+    <select id="selectOprtrPrfmncList" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 		]]>
     	<choose>
@@ -193,16 +193,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc	-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc	-->
 	<!-- DESC : 실적 작업자 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+    <insert id="insertOprtrPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc */
+    		INSERT /* com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.insertOprtrPrfmnc */
     	]]>
     	<choose>
     		<when test='prfmncSeCd != null and prfmncSeCd !=""'>
@@ -259,14 +259,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.updateOprtrPrfmnc	-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.updateOprtrPrfmnc	-->
 	<!-- DESC : 실적 작업자 변경.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<update id="updateOprtrPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 			UPDATE
 		]]>
@@ -308,14 +308,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.deleteOprtrPrfmnc	-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.deleteOprtrPrfmnc	-->
 	<!-- DESC : 실적 작업자 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteOprtrPrfmnc" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO">
+	<delete id="deleteOprtrPrfmnc" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO">
 		<![CDATA[
 			DELETE FROM
 		]]>
@@ -337,14 +337,14 @@
 		]]>
 	</delete>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
 	<!-- DESC : 실적 작업자 삭제.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.10.17  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="getoprtrPrfmncno" parameterType="com.at.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="_int">
+	<select id="getoprtrPrfmncno" parameterType="com.apcmngsys.apcss.am.oprtr.vo.OprtrPrfmncVO" resultType="_int">
 		<![CDATA[
 			SELECT
 				   FN_GET_ID_OPRTR_PRFMNC_SN(
@@ -357,7 +357,7 @@
 
 	</select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
+	<!-- NAME : com.apcmngsys.apcss.am.oprtr.mapper.OprtrPrfmncMapper.getoprtrPrfmncno		-->
 	<!-- DESC : pltno 작업목록 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->

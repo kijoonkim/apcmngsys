@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.service.impl;
+package com.apcmngsys.apcss.co.sys.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,20 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.co.cd.mapper.ComCdMapper;
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ApcConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.log.mapper.ComLogMapper;
-import com.at.apcss.co.log.vo.ComLogVO;
-import com.at.apcss.co.menu.mapper.ComMenuMapper;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.sys.mapper.ComSysMapper;
-import com.at.apcss.co.sys.service.ComSysService;
-import com.at.apcss.co.sys.util.ComUtil;
-import com.at.apcss.co.sys.vo.ComLgnPlcyVO;
-import com.at.apcss.co.sys.vo.ComSessionVO;
-import com.at.apcss.co.sys.vo.ComSysVO;
+import com.apcmngsys.apcss.co.cd.mapper.ComCdMapper;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.constants.ApcConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.log.mapper.ComLogMapper;
+import com.apcmngsys.apcss.co.log.vo.ComLogVO;
+import com.apcmngsys.apcss.co.menu.mapper.ComMenuMapper;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.sys.mapper.ComSysMapper;
+import com.apcmngsys.apcss.co.sys.service.ComSysService;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.sys.vo.ComLgnPlcyVO;
+import com.apcmngsys.apcss.co.sys.vo.ComSessionVO;
+import com.apcmngsys.apcss.co.sys.vo.ComSysVO;
 
 @Service("comSysService")
 public class ComSysServiceImpl extends BaseServiceImpl implements ComSysService {

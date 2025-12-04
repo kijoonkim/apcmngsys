@@ -1,14 +1,14 @@
-package com.at.apcss.pd.pcm.service.impl;
+package com.apcmngsys.apcss.pd.pcm.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
-import com.at.apcss.pd.pcm.service.PrfmncChckMngService;
-import com.at.apcss.pd.pcm.vo.PrfmncChckMngVO;
-import com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper;
+import com.apcmngsys.apcss.pd.pcm.service.PrfmncChckMngService;
+import com.apcmngsys.apcss.pd.pcm.vo.PrfmncChckMngVO;
+import com.apcmngsys.apcss.pd.pcm.mapper.PrfmncChckMngMapper;
 
 
 /**

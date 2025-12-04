@@ -1,6 +1,6 @@
-package com.at.apcss.mobile.service;
+package com.apcmngsys.apcss.mobile.service;
 
-import com.at.apcss.mobile.vo.FcmSendVO;
+import com.apcmngsys.apcss.mobile.vo.FcmSendVO;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import org.springframework.stereotype.Service;
 

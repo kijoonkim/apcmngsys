@@ -10,18 +10,18 @@
 <!-- 2025.01.10  	ljw        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2024	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2024	-->
 	<!-- DESC : 출자출하조직 총괄표 조회 2024년                                     			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisIsoGenalTbl2024" parameterType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2024 */
+	<select id="selectHisIsoGenalTbl2024" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2024 */
 			ITEM.ITEM_CD
 			, ITEM.ITEM_NM
 			, ITEM.STTG_UPBR_ITEM_SE
@@ -130,15 +130,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2025	-->
 	<!-- DESC : 출자출하조직 총괄표 조회 2025년                                     			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisIsoGenalTbl2025" parameterType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2025 */
+	<select id="selectHisIsoGenalTbl2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoGenalTbl2025 */
 			ITEM.ITEM_CD
 			, ITEM.ITEM_NM
 			, ITEM.STTG_UPBR_ITEM_SE
@@ -307,15 +307,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoClsfTot2025	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoClsfTot2025	-->
 	<!-- DESC : 출자출하조직 부류별 합계 조회 2025년                                     			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectHisIsoClsfTot2025" parameterType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.IsoGenalTblVO">
-		SELECT	/* com.at.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoClsfTot2025 */
+	<select id="selectHisIsoClsfTot2025" parameterType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO" resultType="com.apcmngsys.apcss.pd.hisPopup.vo.IsoGenalTblVO">
+		SELECT	/* com.apcmngsys.apcss.pd.hisPopup.mapper.IsoGenalTblHisPopupMapper.selectHisIsoClsfTot2025 */
 			BRNO
 			, (CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '원예농산물'
 				ELSE '기타품목'

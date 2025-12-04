@@ -1,10 +1,10 @@
-package com.at.apcss.pd.hisPopup.mapper;
+package com.apcmngsys.apcss.pd.hisPopup.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
+import com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
 
 /**
  * 게시판 Mapper 인터페이스

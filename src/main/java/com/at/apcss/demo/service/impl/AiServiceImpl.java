@@ -1,10 +1,10 @@
 // src/main/java/com/at/apcss/demo/service/impl/AiServiceImpl.java
-package com.at.apcss.demo.service.impl;
+package com.apcmngsys.apcss.demo.service.impl;
 
-import com.at.apcss.co.sys.vo.LoginVO;
-import com.at.apcss.demo.mapper.AiMapper;
-import com.at.apcss.demo.service.AiService;
-import com.at.apcss.demo.service.RealGeminiApiService;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.demo.mapper.AiMapper;
+import com.apcmngsys.apcss.demo.service.AiService;
+import com.apcmngsys.apcss.demo.service.RealGeminiApiService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
-package com.at.apcss.co.dashboard.service;
+package com.apcmngsys.apcss.co.dashboard.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.co.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.co.dashboard.vo.DashboardVO;
 
 /**
  * 대시보드 데이터를 조회하는 Service 클래스

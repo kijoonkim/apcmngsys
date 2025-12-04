@@ -1,4 +1,4 @@
-package com.at.apcss.co.user.web;
+package com.apcmngsys.apcss.co.user.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,12 +9,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.apc.service.ApcEvrmntStngService;
-import com.at.apcss.am.apc.service.ApcLinkService;
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
-import com.at.apcss.am.apc.vo.ApcLinkVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.mobile.service.MobileApiService;
+import com.apcmngsys.apcss.am.apc.service.ApcEvrmntStngService;
+import com.apcmngsys.apcss.am.apc.service.ApcLinkService;
+import com.apcmngsys.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.mobile.service.MobileApiService;
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.json.simple.JSONObject;
@@ -28,10 +28,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.user.service.ComUserService;
-import com.at.apcss.co.user.vo.ComUserVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.user.service.ComUserService;
+import com.apcmngsys.apcss.co.user.vo.ComUserVO;
 
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.jwt.config.EgovJwtTokenUtil;

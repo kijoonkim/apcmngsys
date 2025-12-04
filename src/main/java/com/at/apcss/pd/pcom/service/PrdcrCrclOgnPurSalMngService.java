@@ -1,8 +1,8 @@
-package com.at.apcss.pd.pcom.service;
+package com.apcmngsys.apcss.pd.pcom.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 
 /**

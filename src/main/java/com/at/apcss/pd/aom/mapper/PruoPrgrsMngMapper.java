@@ -1,7 +1,7 @@
-package com.at.apcss.pd.aom.mapper;
+package com.apcmngsys.apcss.pd.aom.mapper;
 
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
-import com.at.apcss.pd.pcom.vo.PruoPrgrsVO;
+import com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PruoPrgrsVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.HashMap;

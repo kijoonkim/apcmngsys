@@ -10,19 +10,19 @@
 <!-- 2025.01.13  	박승진        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrAiMngMapper">
+<mapper namespace="com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiCrtr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiCrtr	-->
 	<!-- DESC : 실사기준 조회		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvntrAiCrtr" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO" resultType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<select id="selectInvntrAiCrtr" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO" resultType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			SELECT/* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiCrtr */
+			SELECT/* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiCrtr */
 				APC_CD
 				, AI_CRTR_TYPE
 				, CRTR_CD
@@ -47,16 +47,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiCrtr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiCrtr	-->
 	<!-- DESC : 실사기준 삭제		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteInvntrAiCrtr" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<delete id="deleteInvntrAiCrtr" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			DELETE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiCrtr */
+			DELETE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiCrtr */
 			  FROM TB_INVNTR_AI_CRTR
 			 WHERE APC_CD = #{apcCd}
 			   AND AI_CRTR_TYPE = #{aiCrtrType}
@@ -67,16 +67,16 @@
 	</delete>
 
 		<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiCrtr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiCrtr	-->
 	<!-- DESC : 실사기준 수정		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateInvntrAiCrtr" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<update id="updateInvntrAiCrtr" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			UPDATE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiCrtr */
+			UPDATE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiCrtr */
 			   TB_INVNTR_AI_CRTR SET
 
 				CRTR_VL = #{crtrVl}
@@ -91,16 +91,16 @@
 	</update>
 
 			<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr	-->
 	<!-- DESC : 실사기준 등록		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<insert id="insertInvntrAiCrtr" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<insert id="insertInvntrAiCrtr" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			INSERT INTO  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr */
+			INSERT INTO  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr */
 			   TB_INVNTR_AI_CRTR
 			   (
 			   	APC_CD
@@ -139,16 +139,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan	-->
 	<!-- DESC : 실사계획 조회		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvntrAiPlan" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO" resultType ="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<select id="selectInvntrAiPlan" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO" resultType ="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			SELECT/* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan */
+			SELECT/* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan */
 				*
 			  FROM TB_INVNTR_AI_PLAN
 			 WHERE APC_CD = #{apcCd}
@@ -167,16 +167,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiPlan	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiPlan	-->
 	<!-- DESC : 실사계획 삭제		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteInvntrAiPlan" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<delete id="deleteInvntrAiPlan" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			DELETE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiPlan */
+			DELETE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiPlan */
 			  FROM TB_INVNTR_AI_PLAN
 			 WHERE APC_CD = #{apcCd}
 			   AND PLANNO = #{planno}
@@ -184,16 +184,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlan	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlan	-->
 	<!-- DESC : 실사기준 수정		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateInvntrAiPlan" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<update id="updateInvntrAiPlan" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			UPDATE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlan */
+			UPDATE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlan */
 			   TB_INVNTR_AI_PLAN SET
 				ITEM_CD = #{itemCd}
 				, PLAN_NM = #{planNm}
@@ -208,16 +208,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn	-->
 	<!-- DESC : 실사기준 수정		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateInvntrAiMngYn" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<update id="updateInvntrAiMngYn" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			UPDATE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn */
+			UPDATE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn */
 			   TB_INVNTR_AI_PLAN SET
 				AI_YN = #{aiYn}
 			 WHERE APC_CD = #{apcCd}
@@ -228,16 +228,16 @@
 
 
 			<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiPlan	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiPlan	-->
 	<!-- DESC : 실사계획 등록		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<insert id="insertInvntrAiPlan" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<insert id="insertInvntrAiPlan" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			INSERT INTO  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr */
+			INSERT INTO  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiCrtr */
 			   TB_INVNTR_AI_PLAN
 			   (
 			   	APC_CD
@@ -281,16 +281,16 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiPlan	-->
 	<!-- DESC : 실사계획 조회		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvntrAiMng" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO" resultType ="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<select id="selectInvntrAiMng" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO" resultType ="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			SELECT/* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiMng */
+			SELECT/* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.selectInvntrAiMng */
 				CASE
 					WHEN A.INVNTR_SE_CD = '2' THEN (SELECT FN_GET_GRD_NM_SORT(A.APC_CD,A.ITEM_CD,A.GRD_CD) FROM DUAL )
     				WHEN A.INVNTR_SE_CD = '3' THEN (SELECT FN_GET_GRD_NM_GDS(A.APC_CD,A.ITEM_CD,A.GRD_CD) FROM DUAL )
@@ -307,16 +307,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiMng	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiMng	-->
 	<!-- DESC : 실사재고 등록		                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<insert id="insertInvntrAiMng" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<insert id="insertInvntrAiMng" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			INSERT INTO  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiMng */
+			INSERT INTO  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiMng */
 			   TB_INVNTR_AI_PRFMNC
 			   (
 			   	APC_CD
@@ -375,16 +375,16 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiMng	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiMng	-->
 	<!-- DESC : 실사재고 수정				                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<update id="updateInvntrAiMng" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<update id="updateInvntrAiMng" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			UPDATE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiMng */
+			UPDATE  /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiMng */
 			   TB_INVNTR_AI_PRFMNC SET
 			    INVNTR_QNTT = #{invntrQntt}
 				, INVNTR_WGHT = #{invntrWght}
@@ -398,16 +398,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiMng	-->
+	<!-- NAME : com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiMng	-->
 	<!-- DESC : 실사재고 삭제				                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteInvntrAiMng" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+	<delete id="deleteInvntrAiMng" parameterType="com.apcmngsys.apcss.am.invntr.vo.InvntrAiMngVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiMng */
+			DELETE /* com.apcmngsys.apcss.am.invntr.mapper.InvntrAiMngMapper.deleteInvntrAiMng */
 			  FROM TB_INVNTR_AI_PRFMNC
 			   WHERE PLANNO = #{planno}
 				 AND AI_YMD = #{aiYmd}

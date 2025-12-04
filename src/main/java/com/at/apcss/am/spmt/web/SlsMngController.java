@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.web;
+package com.apcmngsys.apcss.am.spmt.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.am.spmt.service.SlsMngService;
-import com.at.apcss.am.spmt.vo.SlsMngVO;
-import com.at.apcss.am.tot.vo.TotMngVO;
-import com.at.apcss.am.wgh.vo.WghPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.spmt.service.SlsMngService;
+import com.apcmngsys.apcss.am.spmt.vo.SlsMngVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller

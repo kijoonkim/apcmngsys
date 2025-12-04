@@ -1,4 +1,4 @@
-package com.at.apcma.com.service.impl;
+package com.apcmngsys.apcma.com.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -17,11 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
-import com.at.apcma.com.mapper.ProcMapper;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcma.com.mapper.ProcMapper;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name 		: ComMsgServiceImpl.java

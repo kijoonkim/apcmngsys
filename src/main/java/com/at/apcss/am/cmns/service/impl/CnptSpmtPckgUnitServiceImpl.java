@@ -1,10 +1,10 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
-import com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.CnptSpmtPckgUnitService;
-import com.at.apcss.am.cmns.vo.CnptSpmtPckgUnitVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.service.CnptSpmtPckgUnitService;
+import com.apcmngsys.apcss.am.cmns.vo.CnptSpmtPckgUnitVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
-package com.at.apcss.pd.pcom.mapper;
+package com.apcmngsys.apcss.pd.pcom.mapper;
 
 import java.util.List;
 
-import com.at.apcss.pd.pcom.vo.PruoRegVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PruoRegVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO;
 
 /**
  * 온라인도매시장 판매목표 Mapper 인터페이스

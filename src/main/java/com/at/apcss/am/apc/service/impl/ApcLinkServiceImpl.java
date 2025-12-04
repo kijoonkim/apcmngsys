@@ -1,4 +1,4 @@
-package com.at.apcss.am.apc.service.impl;
+package com.apcmngsys.apcss.am.apc.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.apc.mapper.ApcLinkMapper;
-import com.at.apcss.am.apc.service.ApcLinkService;
-import com.at.apcss.am.apc.vo.ApcLinkVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper;
+import com.apcmngsys.apcss.am.apc.service.ApcLinkService;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 @Service("apcLinkService")
 public class ApcLinkServiceImpl extends BaseServiceImpl implements ApcLinkService{

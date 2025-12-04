@@ -1,4 +1,4 @@
-package com.at.apcss.co.dashboard.service;
+package com.apcmngsys.apcss.co.dashboard.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.dashboard.mapper.MainDashboardMapper;
-import com.at.apcss.co.dashboard.vo.DashboardVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.dashboard.mapper.MainDashboardMapper;
+import com.apcmngsys.apcss.co.dashboard.vo.DashboardVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * 대시보드 데이터를 조회하는 Service

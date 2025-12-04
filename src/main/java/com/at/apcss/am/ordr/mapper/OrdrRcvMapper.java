@@ -1,9 +1,9 @@
-package com.at.apcss.am.ordr.mapper;
+package com.apcmngsys.apcss.am.ordr.mapper;
 
 
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.*;
+import com.apcmngsys.apcss.am.ordr.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

@@ -11,17 +11,17 @@
 <!-- 2025.04.24  	신정철        	운영실적 조회 쿼리 추가                         -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCrtrYnList			-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCrtrYnList			-->
 	<!-- DESC : 기준년도 목록 조회.                     	 							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrYnList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectCrtrYnList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
 			SELECT
 				CRTR_YR
@@ -33,16 +33,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn			-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn			-->
 	<!-- DESC : APC현황조회.                     	 								-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<select id="selectMapSttn" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectMapSttn" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT pt0.CTPV_NM	/* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn */
+			SELECT pt0.CTPV_NM	/* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMapSttn */
 			     , CASE WHEN pt0.CTPV_CD = '11'
 			            THEN '11'
 			            WHEN pt0.CTPV_CD = '26'
@@ -98,14 +98,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotList			-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotList			-->
 	<!-- DESC : 전수조사 현황조회.                     	 								-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.06  	박승진        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<select id="selectApcTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="hashmap">
+	<select id="selectApcTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="hashmap">
 		<![CDATA[
 
 
@@ -455,16 +455,16 @@ FROM
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaList		-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaList		-->
 	<!-- DESC : APC지역목록조회.                     	 							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김호        	Initial Creation                            	-->
 	<!-- ==========================================================================	-->
-	<select id="selectCtpvAreaList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectCtpvAreaList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaLis */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectCtpvAreaLis */
 				   AOO.CRTR_YR          AS CRTR_YR
 			     , AOO.APC_CD           AS APC_CD
 			     , AOO.APC_NM           AS APC_NM
@@ -509,14 +509,14 @@ FROM
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzGridList  -->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzGridList  -->
 	<!-- DESC : 운영조직 취급실적 테이블 단건조회.                     	 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlOgnzGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdRtlOgnzGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT
 				    '통합조직 운영 APC' AS TITLE
@@ -665,14 +665,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOwnrAndOperGridList-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOwnrAndOperGridList-->
 	<!-- DESC : 개소수:소유자 및 운영자 테이블 단건조회.                     	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectOwnrAndOperGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0
 			      , SUM(S1) AS S1
@@ -720,14 +720,14 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectAllBdarGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectAllBdarGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 총 건축면적 테이블 단건조회.             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectAllBdarGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -788,14 +788,14 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 물류:상품화시설(건축면적) 테이블 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectLgstcsGdsGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -857,14 +857,14 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLwtpStrgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLwtpStrgGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 저온냉장고 테이블 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectLwtpStrgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -914,14 +914,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectPrprtnClngFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectPrprtnClngFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 예냉시설 테이블 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectPrprtnClngFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -970,14 +970,14 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectStrgFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectStrgFcltGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - CA저장시설 테이블 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectStrgFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -1027,14 +1027,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 측정장비설치 개소수 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectFcltMsrmtEqpmntGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -1098,14 +1098,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmAllGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmAllGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 전체 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectInvstAtmAllGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , SUM(S1)                                     AS V1
@@ -1159,14 +1159,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmFundTypeGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmFundTypeGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 자금유형 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectInvstAtmFundTypeGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , ROUND(SUM(S1)/1000000,0)            AS V1
@@ -1226,14 +1226,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOwnrGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOwnrGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectInvstAtmOwnrGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -1290,14 +1290,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectInvstAtmOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 시설ㆍ장비 - 투자금액: 소유자 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectInvstAtmOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -1354,14 +1354,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 개소수 : 산지유통조직 유형 단건조회.	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdRtlOgnzTypeGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
@@ -1404,14 +1404,14 @@ FROM
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 개소수 : 운영자 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , SUM(S1)     AS V1
@@ -1454,14 +1454,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 산지우통시설 시설·장비 : 물류·상품화 시설 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.16  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectLgstcsGdsFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
@@ -1510,14 +1510,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 저온저장고 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdLwtpStrgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1557,14 +1557,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnPrprtnClngFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnPrprtnClngFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 예냉시설 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1604,14 +1604,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnStrgFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnStrgFcltGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - CA저장고 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnStrgFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
@@ -1650,14 +1650,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 선별기·측정장비 설치 개소 수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -1704,14 +1704,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmAllGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmAllGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 전체 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnInvstAtmAllGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1758,14 +1758,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmOwnrGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstAtmOwnrGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 소유자 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1814,14 +1814,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnInvstOperPrsnGridList	-->
 	<!-- DESC : 산지유통시설 지역별 현황 - 지역별 투자금액 운영자 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnInvstOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -1870,14 +1870,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:산지유통조직 유형 단건조회.	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntMdRtlOgnzTypeGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT '통합조직 운영 APC' AS TITLE,
 			        '통합조직' AS SUB_TITLE,
@@ -2028,14 +2028,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntOwnrAndOperGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntOwnrAndOperGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 -개소수: 개소수:소유자 및 운영자 단건조회.	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntOwnrAndOperGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntOwnrAndOperGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0
 			      , SUM(S1) AS S1
@@ -2084,14 +2084,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltEqpmntAllBdarGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectFcltEqpmntAllBdarGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 총 건축면적 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectFcltEqpmntAllBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectFcltEqpmntAllBdarGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -2153,14 +2153,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltBdarGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectLgstcsGdsFcltBdarGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 물류,상품화 시설(건축면적) 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectLgstcsGdsFcltBdarGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectLgstcsGdsFcltBdarGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , ROUND(SUM(S1),0)            AS V1
@@ -2223,14 +2223,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntLwtpStrgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntLwtpStrgGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 저온저장고 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntLwtpStrgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -2282,14 +2282,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntPrprtnClngFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntPrprtnClngFcltGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 예냉시설 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntPrprtnClngFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0   -- 구분
 			      , SUM(S1)                     AS V1   -- APC 개소수
@@ -2339,14 +2339,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntStrgFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntStrgFcltGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - CA 저장시설 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntStrgFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -2396,14 +2396,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 선별기, 측정장비 설치 개소 수 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntFcltMsrmtEqpmntGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                          AS V0
 			      , SUM(S1)                     AS V1
@@ -2469,14 +2469,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmAllGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmAllGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 전체 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntInvstAtmAllGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                          AS V0
 			      , SUM(S1)                                     AS V1
@@ -2532,14 +2532,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmFundTypeGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmFundTypeGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 자금유형 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmFundTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntInvstAtmFundTypeGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , ROUND(SUM(S1)/1000000,0)            AS V1
@@ -2600,14 +2600,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmOwnrGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstAtmOwnrGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 소유자 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntInvstAtmOwnrGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -2666,14 +2666,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectBzeatCntInvstOperPrsnGridList	-->
 	<!-- DESC : 정부지원 산지유통시설 현황 - 투자금액: 운영자 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.17  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectBzeatCntInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectBzeatCntInvstOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                                  AS V0
 			      , SUM(S1)                             AS V1
@@ -2732,14 +2732,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 산지유통조직 유형 단건조회.-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , SUM(S1)     						AS V1
@@ -2784,14 +2784,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnOperPrsnGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 개소수 : 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , SUM(S1)     						AS V1
@@ -2835,14 +2835,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLgstcsGdsFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLgstcsGdsFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 물류·상품화 시설 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
@@ -2892,14 +2892,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLwtpStrgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtLwtpStrgGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 저온저장고 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -2940,14 +2940,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtPrprtnClngFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtPrprtnClngFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 예냉시설 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -2988,14 +2988,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtStrgFcltGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtStrgFcltGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - CA저장시설 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
@@ -3036,14 +3036,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtFcltMsrmtEqpmntGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 선별기, 특정장비 설치 개소수 단건조회.	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
@@ -3091,14 +3091,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnInvstAtmAllGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtRgnInvstAtmAllGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 전체 단건조회.			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -3146,14 +3146,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOwnrGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOwnrGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 소유자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdInvstAtmOwnrGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -3203,14 +3203,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOperPrsnGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdInvstAtmOperPrsnGridList	-->
 	<!-- DESC : 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 운영자 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
@@ -3260,14 +3260,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzTrmtPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzTrmtPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 취급실적 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectOperOgnzTrmtPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -3469,14 +3469,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzPrcsPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzPrcsPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 처리실적 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectOperOgnzPrcsPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -3679,14 +3679,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzAvgTrmtPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectOperOgnzAvgTrmtPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 운영조직 평균 취급실적 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectOperOgnzAvgTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectOperOgnzAvgTrmtPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)        AS V1
@@ -3882,14 +3882,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdOperOgnzTrmtPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
@@ -3959,14 +3959,14 @@ FROM
 		]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdOperOgnzTrmtPrfmncAvgGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 지역별 운영조직 취급실적(평균) 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdOperOgnzTrmtPrfmncAvgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
@@ -4042,14 +4042,14 @@ FROM
 			]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적 단건조회.							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdApcPrcsPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
@@ -4131,14 +4131,14 @@ FROM
 			]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList	-->
 	<!-- DESC : 산지유통시설운영실적 - 지역별 APC 처리실적(평균) 단건조회.						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdApcPrcsPrfmncAvgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0							 AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
@@ -4237,14 +4237,14 @@ FROM
 			]]>
     </select>
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtOperOgnzTrmtPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectGvrngmtSprtOperOgnzTrmtPrfmncGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 운영조직 취급실적 단건조회.					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGvrngmtSprtOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectGvrngmtSprtOperOgnzTrmtPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -4430,14 +4430,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncGridList	-->
 	<!-- DESC : 정부지우너 지역별 운영실적 - 산지유통시설 처리실적 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlFcltPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdRtlFcltPrcsPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1),0)                AS V1
@@ -4635,14 +4635,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncAvgcGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectMdRtlFcltPrcsPrfmncAvgcGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 산지유통시설 처리실적(평균) 단건조회.			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMdRtlFcltPrcsPrfmncAvgcGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectMdRtlFcltPrcsPrfmncAvgcGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0                              AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)        AS V1
@@ -4842,14 +4842,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 지역별 운영조직 취급실적 단건조회.			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnOperOgnzTrmtPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
@@ -4921,14 +4921,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncAvgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzTrmtPrfmncAvgGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 지역별 운영조직 취급실적(평균) 단건조회.		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnOperOgnzTrmtPrfmncAvgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
@@ -5006,14 +5006,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 지역별 APC 처리실적 단건조회.				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperOgnzApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnOperOgnzApcPrcsPrfmncGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
@@ -5087,14 +5087,14 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncAvgGridList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncAvgGridList	-->
 	<!-- DESC : 정부지원 지역별 운영실적 - 지역별 APC 처리실적(평균) 단건조회.			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.11.18  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRgnOperOgnzApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+    <select id="selectRgnOperOgnzApcPrcsPrfmncAvgGridList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
 			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
@@ -5175,16 +5175,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryList	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryList	-->
 	<!-- DESC : APC 집계현황 목록 조회.               	 							-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcTotSmmryList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcTotSmmryList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			WITH /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryList */
+			WITH /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryList */
 			APC_TOT AS (
 				SELECT
 				OP.APC_CD
@@ -5370,16 +5370,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryListByCtpv		-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryListByCtpv		-->
 	<!-- DESC : APC 집계 지역별 개소수 목록 조회.               	 					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcTotSmmryListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcTotSmmryListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotSmmryListByCtpv */
 				A.EXTR_CTPV_CD			AS EXTR_CTPV_CD
 				 , CD.CD_VL_NM				AS CTPV_NM
 				 , MAX(CD.INDCT_SEQ)		AS INDCT_SEQ
@@ -5428,16 +5428,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcListByCtpv		-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcListByCtpv		-->
 	<!-- DESC : 지역별 APC 목록 조회.               	 								-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcListByCtpv */
 				OP.CRTR_YR						AS CRTR_YR
 				 , OP.APC_CD					AS APC_CD
 				 , OP.APC_NM					AS APC_NM
@@ -5465,16 +5465,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList		-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList		-->
 	<!-- DESC : APC 산지유통시설 개소수 집계 목록 조회.               	 				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcSpotTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcSpotTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			WITH /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList */
+			WITH /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList */
 			    OTLN AS (
 				SELECT
 				OP.APC_CD		AS APC_CD
@@ -5505,7 +5505,7 @@ FROM
 		</if>
 		<![CDATA[
 				)
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotList */
 				A.TOT_OGNZ_TYPE		AS TOT_OGNZ_TYPE
 				 , (SELECT FN_GET_COM_CD_VL_NM('CMSU_TOT_OGNZ_SE_CD', A.TOT_OGNZ_TYPE) FROM DUAL)		AS TOT_OGNZ_TYPE_NM
 				 , A.TOT_OGNZ_KND	AS TOT_OGNZ_KND
@@ -5588,16 +5588,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByOwnerOper	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByOwnerOper	-->
 	<!-- DESC : APC 운영 실적 집계 목록 조회. (소유자/운영자)                 	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcSpotTotListByOwnerOper" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcSpotTotListByOwnerOper" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByOwnerOper */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByOwnerOper */
 				A.TOT_OGNZ_TYPE		AS TOT_OGNZ_TYPE
 				 , MAX(CD.CD_VL_NM)	AS TOT_OGNZ_TYPE_NM
 				 , MAX(CD.INDCT_SEQ)	AS INDCT_SEQ
@@ -5639,16 +5639,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByCtpv	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByCtpv	-->
 	<!-- DESC : 지역별 APC 산지유통시설 개소수 집계 목록 조회.               	 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcSpotTotListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcSpotTotListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcSpotTotListByCtpv */
 				A.CTPV_NM					AS CTPV_NM
 			   , MAX(A.INDCT_SEQ)			AS INDCT_SEQ
 			   , COUNT(A.APC_CD)			AS CNT_APC
@@ -5708,16 +5708,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotList	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotList	-->
 	<!-- DESC : 1.2. APC 산지유통시설 시설ㆍ장비 면적 목록 조회                    	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcFcltAreaSizeTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcFcltAreaSizeTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotList */
 				A.TOT_OGNZ_TYPE		AS TOT_OGNZ_TYPE
 				 , MAX(CD.CD_VL_NM)	AS TOT_OGNZ_TYPE_NM
 				 , MAX(CD.INDCT_SEQ)	AS INDCT_SEQ
@@ -5796,16 +5796,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotListByCtpv	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotListByCtpv	-->
 	<!-- DESC : 2.2. 지역별  APC 산지유통시설 시설ㆍ장비 면적 목록 조회                    	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcFcltAreaSizeTotListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcFcltAreaSizeTotListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcFcltAreaSizeTotListByCtpv */
 				A.CTPV_NM					AS CTPV_NM
 				 , MAX(A.INDCT_SEQ)			AS INDCT_SEQ
 				 , COUNT(A.APC_CD)			AS CNT_APC
@@ -5907,16 +5907,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotList	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotList	-->
 	<!-- DESC : 1.2. APC 선별기·측정장비 설치 개소 수 목록 조회                     	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcInstalledEquipmentTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcInstalledEquipmentTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotList */
 				A.TOT_OGNZ_TYPE		AS TOT_OGNZ_TYPE
 				 , MAX(CD.CD_VL_NM)	AS TOT_OGNZ_TYPE_NM
 				 , MAX(CD.INDCT_SEQ)		AS INDCT_SEQ
@@ -5964,16 +5964,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotListByCtpv	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotListByCtpv	-->
 	<!-- DESC : 2.2. APC 지역별 선별기·측정장비 설치 개소 수 목록 조회                     	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcInstalledEquipmentTotListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcInstalledEquipmentTotListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInstalledEquipmentTotListByCtpv */
 				A.CTPV_NM					AS CTPV_NM
 				 , MAX(A.INDCT_SEQ)			AS INDCT_SEQ
 				 , COUNT(A.APC_CD)			AS CNT_APC
@@ -6027,16 +6027,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotList	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotList	-->
 	<!-- DESC : 1.3. APC 투자금액 집계 목록 조회                     	 				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcInvestmentTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcInvestmentTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotList */
 				A.TOT_OGNZ_TYPE		AS TOT_OGNZ_TYPE
 				 , MAX(CD.CD_VL_NM)	AS TOT_OGNZ_TYPE_NM
 				 , MAX(CD.INDCT_SEQ)	AS INDCT_SEQ
@@ -6120,16 +6120,16 @@ FROM
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotListByCtpv	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotListByCtpv	-->
 	<!-- DESC : 2.3. 지역별 APC 투자금액 집계 목록 조회                     	 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcInvestmentTotListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcInvestmentTotListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcInvestmentTotListByCtpv */
 				A.CTPV_NM					AS CTPV_NM
 				 , MAX(A.INDCT_SEQ)			AS INDCT_SEQ
 				 , COUNT(A.APC_CD)			AS CNT_APC
@@ -6219,16 +6219,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotList	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotList	-->
 	<!-- DESC : APC 운영 실적 집계 목록 조회.                     	 					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcOperPrfmncTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcOperPrfmncTotList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotList */
 				A.CMSU_APC_SE_CD		AS CMSU_APC_SE_CD
 				 , (SELECT FN_GET_COM_CD_VL_NM('CMSU_APC_SE_CD', A.CMSU_APC_SE_CD) FROM DUAL)		AS CMSU_APC_SE_NM
 				 , COUNT(A.APC_CD)			AS CNT_APC
@@ -6341,16 +6341,16 @@ FROM
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotListByCtpv	-->
+	<!-- NAME :com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotListByCtpv	-->
 	<!-- DESC : APC 운영 실적 집계 목록 (지역별) 조회.                     	 			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.24  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcOperPrfmncTotListByCtpv" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
+	<select id="selectApcOperPrfmncTotListByCtpv" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotListByCtpv */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcOperPrfmncTotListByCtpv */
 				A.CTPV_NM					AS CTPV_NM
 				 , MAX(A.INDCT_SEQ)			AS INDCT_SEQ
 				 , COUNT(A.APC_CD)			AS CNT_APC

@@ -10,17 +10,17 @@
 <!-- 2023.07.28  	김현호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper">
 
 	<!-- =========================================================================================	-->
-	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectUpdateTrnsfGdsInvntrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectUpdateTrnsfGdsInvntrList	-->
 	<!-- DESC : 상품재고 목록 조회.	                                       							-->
 	<!-- =========================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      							-->
 	<!-- ===========  	============  	==========================================================	-->
 	<!-- 2023.07.28  	김현호      		Initial Creation                            			-->
 	<!-- =========================================================================================	-->
-    <select id="selectUpdateTrnsfGdsInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO" resultType="com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
+    <select id="selectUpdateTrnsfGdsInvntrList" parameterType="com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
     	<![CDATA[
     		SELECT
 		]]>
@@ -46,7 +46,7 @@
                 , (pt0.INVNTR_QNTT - pt0.CMND_QNTT) 															AS PSBLTY_INVNTR_QNTT
      			, (pt0.INVNTR_WGHT - pt0.CMND_WGHT) 															AS PSBLTY_INVNTR_WGHT
     		  FROM (
-		    	SELECT /* com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectUpdateTrnsfGdsInvntrList */
+		    	SELECT /* com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectUpdateTrnsfGdsInvntrList */
 				       GI.APC_CD				AS APC_CD
 				     , GI.PCKGNO				AS PCKGNO
 				     , GI.PCKG_SN				AS PCKG_SN
@@ -125,14 +125,14 @@
     	<!-- End 페이징 -->
     </select>
 	<!-- =========================================================================================	-->
-	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList		-->
 	<!-- DESC : 재고이송확정 목록.	                                       							-->
 	<!-- =========================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      							-->
 	<!-- ===========  	============  	==========================================================	-->
 	<!-- 2023.11.29  	김호      		Initial Creation                            				-->
 	<!-- =========================================================================================	-->
-    <select id="selectTrnsfCfmtnGdsInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO" resultType="com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
+    <select id="selectTrnsfCfmtnGdsInvntrList" parameterType="com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO" resultType="com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
     	<![CDATA[
     		SELECT pt0.*
 			     , (SELECT FN_GET_APC_NM(pt0.TRNSF_APC_CD) FROM DUAL)					                        AS TRNSF_APC_NM
@@ -148,7 +148,7 @@
 			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
 			     , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL) 				AS SPMT_PCKG_UNIT_NM
 			  FROM (
-			            SELECT	/* com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList */
+			            SELECT	/* com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.selectTrnsfCfmtnGdsInvntrList */
 			                   GI.APC_CD                AS APC_CD
 			                 , GI.PCKGNO                AS PCKGNO
 			                 , GI.PCKG_SN               AS PCKG_SN
@@ -214,16 +214,16 @@
 
 
 	<!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.updateSortInvntrDsctnList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.updateSortInvntrDsctnList	-->
 	<!-- DESC : 원물재고내역 변경.		                                       				-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	==================================================	-->
 	<!-- 2023.09.18  	김현호        		Initial Creation                            	-->
 	<!-- =================================================================================	-->
-    <update id="updateTrnsfGdsInvntrList" parameterType="com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
+    <update id="updateTrnsfGdsInvntrList" parameterType="com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.updateTrnsfGdsInvntrList */
+			UPDATE /* com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper.updateTrnsfGdsInvntrList */
 				TB_GDS_INVNTR
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE

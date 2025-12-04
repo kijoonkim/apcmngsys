@@ -10,19 +10,19 @@
 <!-- 2024.11.12  	김호        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnWkrptMapper">
+<mapper namespace="com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper">
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
 	<!-- DESC : 주간 입출고현황 			                        	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.12  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWkrptListTEST" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    <select id="selectWkrptListTEST" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList */
+			SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList */
 			       Z.APC_CD
 			     , Z.WRHS_SPMT_TYPE
 			     , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', z.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
@@ -114,15 +114,15 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
 	<!-- DESC : 주간 입출고현황 			                        	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectWkrptList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO"
-			resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+	<select id="selectWkrptList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO"
+			resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO">
 		<![CDATA[
 			SELECT
 				pt0.*
@@ -178,14 +178,14 @@
 	</select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
 	<!-- DESC : 전재고 조회 			                        	            	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWkrptLastQnttList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    <select id="selectWkrptLastQnttList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnWkrptVO">
     	<![CDATA[
     	SELECT
 			(SELECT
@@ -232,14 +232,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
 	<!-- DESC : 전재고 조회 			                        	            	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnNowInvntrList" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO" resultType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+    <select id="selectClclnNowInvntrList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnNowInvntrVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnNowInvntrVO">
 		<![CDATA[
     	SELECT
 			#{apcCd} AS APC_CD
@@ -260,14 +260,14 @@
     </select>
 
      <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.insertClclnNowInvntr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.insertClclnNowInvntr	-->
 	<!-- DESC : 전재고 등록 			                        	            	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertClclnNowInvntr" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+    <insert id="insertClclnNowInvntr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnNowInvntrVO">
 		INSERT INTO TB_CLCLN_NOW_INVNTR
 			(
 				APC_CD
@@ -306,14 +306,14 @@
 
 
       <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.updateClclnNowInvntr	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnWkrptMapper.updateClclnNowInvntr	-->
 	<!-- DESC : 전재고 수정 			                        	            	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateClclnNowInvntr" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+    <update id="updateClclnNowInvntr" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnNowInvntrVO">
 		UPDATE TB_CLCLN_NOW_INVNTR SET
 			WRHS_QNTT = #{wrhsQntt}
 			, SPMT_QNTT = #{spmtQntt}

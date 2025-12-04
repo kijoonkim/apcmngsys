@@ -1,10 +1,10 @@
-package com.at.apcss.am.bbs.service;
+package com.apcmngsys.apcss.am.bbs.service;
 
 import java.util.List;
 
-import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
-import com.at.apcss.am.bbs.vo.apcBbsFileVO;
-import com.at.apcss.am.bbs.vo.apcBbsVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsVO;
 
 
 /**

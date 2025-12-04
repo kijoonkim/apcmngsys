@@ -1,6 +1,6 @@
-package com.at.apcss.pd.pcom.mapper;
+package com.apcmngsys.apcss.pd.pcom.mapper;
 
-import com.at.apcss.pd.pcom.vo.PruoMstVO;
+import com.apcmngsys.apcss.pd.pcom.vo.PruoMstVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.sql.SQLException;

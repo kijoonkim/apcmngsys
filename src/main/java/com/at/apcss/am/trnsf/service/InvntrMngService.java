@@ -1,8 +1,8 @@
-package com.at.apcss.am.trnsf.service;
+package com.apcmngsys.apcss.am.trnsf.service;
 
 import java.util.List;
 
-import com.at.apcss.am.trnsf.vo.InvntrMngVO;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrMngVO;
 
 public interface InvntrMngService {
 

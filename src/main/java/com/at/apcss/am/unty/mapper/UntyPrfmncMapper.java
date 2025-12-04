@@ -1,7 +1,7 @@
-package com.at.apcss.am.unty.mapper;
+package com.apcmngsys.apcss.am.unty.mapper;
 
-import com.at.apcss.am.unty.vo.RegSpmtPrfmncVO;
-import com.at.apcss.am.unty.vo.UntyPrfmncVO;
+import com.apcmngsys.apcss.am.unty.vo.RegSpmtPrfmncVO;
+import com.apcmngsys.apcss.am.unty.vo.UntyPrfmncVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

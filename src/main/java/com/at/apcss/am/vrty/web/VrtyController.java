@@ -1,4 +1,4 @@
-package com.at.apcss.am.vrty.web;
+package com.apcmngsys.apcss.am.vrty.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.vrty.service.VrtyService;
-import com.at.apcss.am.vrty.vo.VrtyVO;
-import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.user.service.ComUserService;
+import com.apcmngsys.apcss.am.vrty.service.VrtyService;
+import com.apcmngsys.apcss.am.vrty.vo.VrtyVO;
+import com.apcmngsys.apcss.co.cd.service.ComCdService;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.user.service.ComUserService;
 
 
 @Controller

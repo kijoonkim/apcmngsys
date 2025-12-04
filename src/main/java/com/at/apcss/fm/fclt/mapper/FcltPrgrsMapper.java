@@ -1,11 +1,11 @@
-package  com.at.apcss.fm.fclt.mapper;
+package  com.apcmngsys.apcss.fm.fclt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.fclt.vo.FcltAllRawDataVO;
-import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltAllRawDataVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltPrgrsVO;
 
 /**
  * 진척도 Mapper 인터페이스

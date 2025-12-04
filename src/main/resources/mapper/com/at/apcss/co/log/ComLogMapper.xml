@@ -10,19 +10,19 @@
 <!-- 2023.08.29  	하민우        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.log.mapper.ComLogMapper">
+<mapper namespace="com.apcmngsys.apcss.co.log.mapper.ComLogMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList			-->
 	<!-- DESC : 접속이력 목록 조회.             		           	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCntnHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectCntnHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-    		SELECT	/* com.at.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList */
+    		SELECT	/* com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectCntnHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -35,7 +35,7 @@
     			  pt0.*
                 , (SELECT FN_GET_COM_CD_VL_NM('PRSL_TYPE', pt0.PRSL_TYPE) FROM DUAL) AS PRSL_TYPE_NM
     		 FROM (
-			    	SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
+			    	SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrMapper.selectCntnHstryList */
 					       CMH.MENU_ID          AS MENU_ID
 					     , CMH.MENU_NM          AS MENU_NM
 					     , CMH.USER_ID          AS USER_ID
@@ -78,16 +78,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList			-->
 	<!-- DESC : 화면열람이력 목록 조회.                        	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectMenuHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectMenuHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-    		SELECT	/* com.at.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList */
+    		SELECT	/* com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectMenuHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -140,14 +140,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectTrsmHstryList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectTrsmHstryList			-->
 	<!-- DESC : 송수신이력 목록 조회.                        	           		  	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.29  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectTrsmHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectTrsmHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -158,7 +158,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-		    	  SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList */
+		    	  SELECT /* com.apcmngsys.apcss.am.ordr.mapper.OrdrMapper.selectTrsmHstryList */
 				         CL.LOG_YMD              AS LOG_YMD
 				       , CL.LOG_SN               AS LOG_SN
 				       , CL.LOG_SE_CD            AS LOG_SE_CD
@@ -199,16 +199,16 @@
     </select>
 
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList			-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList			-->
 	<!-- DESC : 원물재고변경이력 조회.	                                       			-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.11.08  	하민우        	Initial Creation                        		-->
 	<!-- ==============================================================================	-->
-    <select id="selectRawMtrHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectRawMtrHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList */
+	    	SELECT /* com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectRawMtrHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -260,16 +260,16 @@
     	<!-- End 페이징 -->
     </select>
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectSortHstryList				-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectSortHstryList				-->
 	<!-- DESC : 선별재고변경이력 조회.	                                       			-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.11.09  	김호        	Initial Creation                        		-->
 	<!-- ==============================================================================	-->
-    <select id="selectSortHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectSortHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrHstryList */
+	    	SELECT /* com.apcmngsys.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrHstryList */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -322,16 +322,16 @@
     	<!-- End 페이징 -->
     </select>
     <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.selectGdsHstryList				-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectGdsHstryList				-->
 	<!-- DESC : 상품재고변경이력 조회.	                                       			-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.11.09  	김호        	Initial Creation                        		-->
 	<!-- ==============================================================================	-->
-    <select id="selectGdsHstryList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+    <select id="selectGdsHstryList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.co.log.mapper.ComLogMapper.selectGdsHstryLis */
+	    	SELECT /* com.apcmngsys.apcss.co.log.mapper.ComLogMapper.selectGdsHstryLis */
 		]]>
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
@@ -386,7 +386,7 @@
 
 
 	<!-- ===================================================================	-->
-	<!-- NAME : com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry			-->
+	<!-- NAME : com.apcmngsys.apcss.co.log.mapper.ComLogMapper.insertMenuHstry			-->
 	<!-- DESC : 화면열람이력 생성.                        	           		  	-->
 	<!-- ======================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      		-->
@@ -394,11 +394,11 @@
 	<!-- 2023.11.07  손민성        	Initial Creation                            -->
 	<!-- ======================================================================	-->
 
-  <insert id="insertMenuHstry" parameterType="com.at.apcss.co.log.vo.ComLogVO">
+  <insert id="insertMenuHstry" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
   	<selectKey keyProperty="hstrySn" resultType="String" order="BEFORE">
   		SELECT SQ_COM_MENU_LOG_HSTRY.NEXTVAL FROM DUAL
   	</selectKey>
-		INSERT /* com.at.apcss.co.log.mapper.ComLogMapper.insertMenuHstry */
+		INSERT /* com.apcmngsys.apcss.co.log.mapper.ComLogMapper.insertMenuHstry */
 			INTO TB_COM_MENU_LOG_HSTRY (
 			  HSTRY_SN
 			, MENU_ID
@@ -440,7 +440,7 @@
 		)
     </insert>
 
-	<select id="selectMenuHstryLimitList" parameterType="com.at.apcss.co.log.vo.ComLogVO" resultType="com.at.apcss.co.log.vo.ComLogVO">
+	<select id="selectMenuHstryLimitList" parameterType="com.apcmngsys.apcss.co.log.vo.ComLogVO" resultType="com.apcmngsys.apcss.co.log.vo.ComLogVO">
 		SELECT
 			MENU_ID,
 			MENU_NM,

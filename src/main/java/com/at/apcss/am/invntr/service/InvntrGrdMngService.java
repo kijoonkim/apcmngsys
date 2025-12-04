@@ -1,8 +1,8 @@
-package com.at.apcss.am.invntr.service;
+package com.apcmngsys.apcss.am.invntr.service;
 
 import java.util.List;
 
-import com.at.apcss.am.invntr.vo.InvntrMngVO;
+import com.apcmngsys.apcss.am.invntr.vo.InvntrMngVO;
 
 /**
  * 재고관리 Service 인터페이스

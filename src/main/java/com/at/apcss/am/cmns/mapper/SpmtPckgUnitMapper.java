@@ -1,10 +1,10 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtPckgUnitVO;
 /**
  * 출하포장단위 Mapper 인터페이스
  * @author 김호

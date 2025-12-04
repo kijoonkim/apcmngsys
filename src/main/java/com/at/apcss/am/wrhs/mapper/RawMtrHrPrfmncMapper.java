@@ -1,7 +1,7 @@
-package com.at.apcss.am.wrhs.mapper;
+package com.apcmngsys.apcss.am.wrhs.mapper;
 
-import com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncComVO;
-import com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrHrPrfmncComVO;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 

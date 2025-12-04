@@ -1,7 +1,7 @@
-package com.at.apcss.co.clip.service;
+package com.apcmngsys.apcss.co.clip.service;
 
 
-import com.at.apcss.co.clip.vo.ClipReportVO;
+import com.apcmngsys.apcss.co.clip.vo.ClipReportVO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;

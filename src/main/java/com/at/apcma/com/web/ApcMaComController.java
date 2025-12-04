@@ -1,4 +1,4 @@
-package com.at.apcma.com.web;
+package com.apcmngsys.apcma.com.web;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 
 import org.slf4j.Logger;
@@ -46,9 +46,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

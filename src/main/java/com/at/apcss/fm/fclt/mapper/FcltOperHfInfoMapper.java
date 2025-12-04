@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.fclt.mapper;
+package  com.apcmngsys.apcss.fm.fclt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.fclt.vo.FcltOperHfInfoVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltOperHfInfoVO;
 
 /**
  * 시설설치현황 Mapper 인터페이스

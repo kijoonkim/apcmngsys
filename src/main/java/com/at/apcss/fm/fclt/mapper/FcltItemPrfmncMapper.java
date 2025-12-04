@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.fclt.mapper;
+package  com.apcmngsys.apcss.fm.fclt.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.fclt.vo.FcltItemPrfmncVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltItemPrfmncVO;
 
 /**
  * 산지유통품목처리실적에 Mapper 인터페이스

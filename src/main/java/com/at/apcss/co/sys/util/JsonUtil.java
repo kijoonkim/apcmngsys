@@ -1,4 +1,4 @@
-package com.at.apcss.co.sys.util;
+package com.apcmngsys.apcss.co.sys.util;
 
 public class JsonUtil {
 

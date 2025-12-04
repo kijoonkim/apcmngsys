@@ -1,8 +1,8 @@
-package com.at.apcma.co.sys.cal.web;
+package com.apcmngsys.apcma.co.sys.cal.web;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

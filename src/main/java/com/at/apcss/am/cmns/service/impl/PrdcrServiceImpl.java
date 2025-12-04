@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,16 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper;
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
-import com.at.apcss.am.cmns.mapper.PrdcrMapper;
-import com.at.apcss.am.cmns.service.PrdcrDtlService;
-import com.at.apcss.am.cmns.service.PrdcrService;
-import com.at.apcss.am.cmns.vo.PrdcrDtlVO;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.apc.mapper.ApcEvrmntStngMapper;
+import com.apcmngsys.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.apcmngsys.apcss.am.cmns.mapper.PrdcrMapper;
+import com.apcmngsys.apcss.am.cmns.service.PrdcrDtlService;
+import com.apcmngsys.apcss.am.cmns.service.PrdcrService;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : PrdcrServiceImpl.java

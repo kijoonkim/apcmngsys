@@ -1,11 +1,11 @@
-package com.at.apcss.co.mng.service.impl;
+package com.apcmngsys.apcss.co.mng.service.impl;
 
 
-import com.at.apcss.co.mng.mapper.ComMngMapper;
-import com.at.apcss.co.mng.service.ComMngService;
-import com.at.apcss.co.mng.vo.ComMenuLogHstryVO;
-import com.at.apcss.co.mng.vo.ComUserVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.mng.mapper.ComMngMapper;
+import com.apcmngsys.apcss.co.mng.service.ComMngService;
+import com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO;
+import com.apcmngsys.apcss.co.mng.vo.ComUserVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

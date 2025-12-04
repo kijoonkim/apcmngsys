@@ -1,12 +1,12 @@
-package com.at.apcss.am.invntr.mapper;
+package com.apcmngsys.apcss.am.invntr.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.invntr.vo.RawMtrStdGrdVO;
+import com.apcmngsys.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.RawMtrStdGrdVO;
 
 /**
  * 원물재고 Mapper 인터페이스

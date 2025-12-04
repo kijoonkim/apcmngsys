@@ -1,18 +1,18 @@
-package com.at.apcss.pd.aom.service.impl;
+package com.apcmngsys.apcss.pd.aom.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.fm.bbs.mapper.BbsMapper;
-import com.at.apcss.fm.bbs.service.BbsService;
-import com.at.apcss.fm.bbs.vo.BbsVO;
-import com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper;
-import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqClsMngService;
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.fm.bbs.mapper.BbsMapper;
+import com.apcmngsys.apcss.fm.bbs.service.BbsService;
+import com.apcmngsys.apcss.fm.bbs.vo.BbsVO;
+import com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqClsMngMapper;
+import com.apcmngsys.apcss.pd.aom.service.PrdcrCrclOgnReqClsMngService;
+import com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqClsMngVO;
 
 
 /**

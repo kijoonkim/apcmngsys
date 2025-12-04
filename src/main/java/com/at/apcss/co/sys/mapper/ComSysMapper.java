@@ -1,12 +1,12 @@
-package com.at.apcss.co.sys.mapper;
+package com.apcmngsys.apcss.co.sys.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.sys.vo.ComLgnPlcyVO;
-import com.at.apcss.co.sys.vo.ComSessionVO;
-import com.at.apcss.co.sys.vo.ComSysVO;
+import com.apcmngsys.apcss.co.sys.vo.ComLgnPlcyVO;
+import com.apcmngsys.apcss.co.sys.vo.ComSessionVO;
+import com.apcmngsys.apcss.co.sys.vo.ComSysVO;
 
 /**
  * 시스템 공통 정보 처리하는 DAO 클래스

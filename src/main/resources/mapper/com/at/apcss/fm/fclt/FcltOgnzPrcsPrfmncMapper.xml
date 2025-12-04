@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc				-->
 	<!-- DESC : 유통조직처리실적 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<select id="selectFcltOgnzPrcsPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmnc */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
@@ -57,14 +57,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList			-->
 	<!-- DESC : 유통조직처리실적 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltOgnzPrcsPrfmncList" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<select id="selectFcltOgnzPrcsPrfmncList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -76,7 +76,7 @@
 		<!-- End 페이징 -->
 
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncList */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
@@ -118,8 +118,8 @@
 		<!-- End 페이징 -->
 	</select>
 
-	<update id="insertFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
-		MERGE INTO TB_TE_APC_OPER_PRFMNC_DTL OPD /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
+	<update id="insertFcltOgnzPrcsPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+		MERGE INTO TB_TE_APC_OPER_PRFMNC_DTL OPD /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.insertFcltOgnzPrcsPrfmnc */
 		USING DUAL
 		ON (
 			OPD.CRTR_YR = #{crtrYr}
@@ -195,16 +195,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc				-->
 	<!-- DESC : 유통조직처리실적 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<update id="updateFcltOgnzPrcsPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.updateFcltOgnzPrcsPrfmnc */
 				TB_TE_APC_OPER_PRFMNC_DTL OPD
 			   SET
 			 	RTL_OGNZ_TOT_TRMT_AMT			= #{rtlOgnzTotTrmtAmt}
@@ -233,16 +233,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc				-->
 	<!-- DESC : 유통조직처리실적 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<update id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
 				TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			   SET
 				  DEL_YN 	= 'Y'
@@ -252,9 +252,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<delete id="deleteFcltOgnzPrcsPrfmnc" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.deleteFcltOgnzPrcsPrfmnc */
 				TB_FCLT_OGNZ_PRCS_PRFMNC FCLT
 			 WHERE 1=1
 			  AND TRGT_YR = #{trgtYr}
@@ -263,9 +263,9 @@
 	</delete>
 -->
 
-	<select id="selectFcltOgnzPrcsPrfmncRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.at.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
+	<select id="selectFcltOgnzPrcsPrfmncRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOgnzPrcsPrfmncVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncRawDataList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOgnzPrcsPrfmncMapper.selectFcltOgnzPrcsPrfmncRawDataList */
 				OTI.CRTR_YR
 				, OTI.APC_CD
 				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM

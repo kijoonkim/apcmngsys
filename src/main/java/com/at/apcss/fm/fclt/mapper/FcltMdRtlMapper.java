@@ -1,11 +1,11 @@
-package com.at.apcss.fm.fclt.mapper;
+package com.apcmngsys.apcss.fm.fclt.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.fclt.vo.FcltMdRtlVO;
+import com.apcmngsys.apcss.fm.fclt.vo.FcltMdRtlVO;
 
 /**
  * APC전수조사 대시보드 Mapper 인터페이스

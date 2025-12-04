@@ -1,4 +1,4 @@
-package com.at.apcss.co.user.mapper;
+package com.apcmngsys.apcss.co.user.mapper;
 
 
 import java.util.HashMap;
@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.user.vo.ComUserApcVO;
-import com.at.apcss.co.user.vo.ComUserAtchflVO;
-import com.at.apcss.co.user.vo.ComUserVO;
+import com.apcmngsys.apcss.co.user.vo.ComUserApcVO;
+import com.apcmngsys.apcss.co.user.vo.ComUserAtchflVO;
+import com.apcmngsys.apcss.co.user.vo.ComUserVO;
 
 @Mapper
 public interface ComUserMapper {

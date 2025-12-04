@@ -1,4 +1,4 @@
-package com.at.apcss.am.bss.service;
+package com.apcmngsys.apcss.am.bss.service;
 
 /**
  * APC 정보관리 Service 인터페이스

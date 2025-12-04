@@ -1,9 +1,9 @@
-package com.at.apcss.pd.dsm.service;
+package com.apcmngsys.apcss.pd.dsm.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.dsm.vo.DocsFileVO;
-import com.at.apcss.pd.dsm.vo.DocsSbmsnVO;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsFileVO;
+import com.apcmngsys.apcss.pd.dsm.vo.DocsSbmsnVO;
 
 
 /**

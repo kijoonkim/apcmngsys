@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.service.impl;
+package com.apcmngsys.apcss.am.spmt.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,12 +9,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.spmt.mapper.SpmtTrsprtMapper;
-import com.at.apcss.am.spmt.service.SpmtTrsprtService;
-import com.at.apcss.am.spmt.vo.SpmtTrsprtVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.spmt.mapper.SpmtTrsprtMapper;
+import com.apcmngsys.apcss.am.spmt.service.SpmtTrsprtService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtTrsprtVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 @Service("spmtTrsprtService")
 public class SpmtTrsprtServiceImpl extends BaseServiceImpl implements SpmtTrsprtService{

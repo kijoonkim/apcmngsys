@@ -10,18 +10,18 @@
 <!-- 2025.05.12  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper">
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster-->
     <!-- DESC : APC전수조사 마스터 테이블 단건조회.                                     -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.05.12  	jcshin        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectApcSurveyMaster" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+    <select id="selectApcSurveyMaster" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO">
         <![CDATA[
-            SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster */
+            SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster */
                   CM.CRTR_YR		AS CRTR_YR
                 , CM.INDCT_NM		AS INDCT_NM
                 , CM.CMPTN_YN		AS CMPTN_YN
@@ -42,16 +42,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList-->
     <!-- DESC : APC전수조사 마스터 테이블 목록 조회.                                     -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.05.20  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectApcSurveyMasterList" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+    <select id="selectApcSurveyMasterList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO">
         <![CDATA[
-        SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList */
+        SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList */
             CM.CRTR_YR		AS CRTR_YR
              , CM.INDCT_NM		AS INDCT_NM
              , CM.CMPTN_YN		AS CMPTN_YN
@@ -74,16 +74,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst-->
     <!-- DESC : APC전수조사 마스터 저장                                                -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.05.20  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="updateApcCmsuMst" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+    <update id="updateApcCmsuMst" parameterType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO">
     <![CDATA[
-        UPDATE /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst */
+        UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst */
             TB_TE_APC_CMSU_MST
         SET
             INDCT_NM        = #{indctNm}
@@ -101,16 +101,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr-->
+    <!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr-->
     <!-- DESC : APC전수조사 마스터 기준연도 조회                                                -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.07.11  	유민지        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectApcCmsuCrtrYr" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+    <select id="selectApcCmsuCrtrYr" resultType="com.apcmngsys.apcss.fm.fclt.vo.ApcSurveyMstVO">
         <![CDATA[
-            SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr */
+            SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcCmsuCrtrYr */
                 CRTR_YR
                  , INDCT_NM
                  , CMPTN_YN

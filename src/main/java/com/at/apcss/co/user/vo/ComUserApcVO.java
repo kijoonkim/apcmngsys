@@ -1,6 +1,6 @@
-package com.at.apcss.co.user.vo;
+package com.apcmngsys.apcss.co.user.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;

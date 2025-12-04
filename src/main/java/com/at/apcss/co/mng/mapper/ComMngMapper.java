@@ -1,7 +1,7 @@
-package com.at.apcss.co.mng.mapper;
+package com.apcmngsys.apcss.co.mng.mapper;
 
-import com.at.apcss.co.mng.vo.ComMenuLogHstryVO;
-import com.at.apcss.co.mng.vo.ComUserVO;
+import com.apcmngsys.apcss.co.mng.vo.ComMenuLogHstryVO;
+import com.apcmngsys.apcss.co.mng.vo.ComUserVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

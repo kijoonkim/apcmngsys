@@ -10,19 +10,19 @@
 <!-- 2023.07.14  	김 호        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.CmnsItemMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem		-->
 	<!-- DESC : APC 품목 단건 조회.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.05  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCmnsApcItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <select id="selectCmnsApcItem" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-	    	SELECT  /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem */
+	    	SELECT  /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsApcItem */
 			       AIC.APC_CD           AS APC_CD
 			     , AIC.ITEM_CD          AS ITEM_CD
 			     , AIC.ITEM_NM          AS ITEM_NM
@@ -39,16 +39,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList		-->
 	<!-- DESC : 품목 전체 목록 조회.	                                       		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <select id="selectCmnsItemList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-	    	SELECT /*  com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
+	    	SELECT /*  com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectCmnsItemList */
 	    		   (SELECT FN_GET_COM_CD_VL_NM('CLS_CD', SUBSTR(IC.ITEM_CD, 0, 2)) FROM DUAL) AS CLS_NM
 	    		 , IC.ITEM_CD
 			     , IC.ITEM_NM
@@ -76,16 +76,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList	-->
 	<!-- DESC : APC 품목 전체 목록 조회.	                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcCmnsItemList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <select id="selectApcCmnsItemList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcCmnsItemList */
 	    		  AIC.APC_CD						AS APC_CD
 			    , AIC.ITEM_CD						AS ITEM_CD
 			    , AIC.ITEM_NM						AS ITEM_NM
@@ -117,16 +117,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem			-->
 	<!-- DESC : 품목 등록.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <insert id="insertCmnsItem" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem */
+    		INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.insertCmnsItem */
     			INTO TB_APC_ITEM_CRTR
 	    		(
 	    			  APC_CD
@@ -155,14 +155,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateCmnsItem			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.updateCmnsItem			-->
 	<!-- DESC : 품목 변경.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+	<update id="updateApcCmnsItem" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
 		<![CDATA[
 			UPDATE
 				TB_APC_ITEM_CRTR
@@ -184,16 +184,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem				-->
 	<!-- DESC : 품목 삭제.	                                       					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteCmnsItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+	<delete id="deleteCmnsItem" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem */
+			DELETE /* com.apcmngsys.apcss.am.cmns.mapper.CnptMapper.deleteCmnsItem */
 				FROM TB_APC_ITEM_CRTR
 			 WHERE APC_CD		= #{apcCd}
 			   AND ITEM_CD 		= #{itemCd}
@@ -201,16 +201,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible				-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible				-->
 	<!-- DESC : APC 품목 삭제 가능 여부.	                                       	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.01.24  	김 호        	Initial Creation                           	-->
 	<!-- ==========================================================================	-->
-    <select id="itemDelible" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <select id="itemDelible" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
-    		SELECT X.* /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible */
+    		SELECT X.* /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible */
 			  FROM (
 			         SELECT
 			                '입고실적' AS DELIBLE
@@ -359,14 +359,14 @@
     </select>
 
     <!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateComItem			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.updateComItem			-->
 	<!-- DESC : APC기준 품목 정보 업데이트  		                            				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.05  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateComItem" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <update id="updateComItem" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
     	<![CDATA[
     	   UPDATE TB_APC_ITEM_CRTR
 		      SET SYS_LAST_CHG_DT = SYSDATE
@@ -378,14 +378,14 @@
     	]]>
     </update>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
 	<!-- DESC : APC기준 육안선별 타입 조회  		                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.22  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcBffaTypeList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.co.cd.vo.ComCdVO">
+	<select id="selectApcBffaTypeList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.co.cd.vo.ComCdVO">
 		<![CDATA[
 		SELECT
 			GT.CD_VL AS CD_VL
@@ -408,14 +408,14 @@
 
 	</select>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcBffaTypeList	-->
 	<!-- DESC : APC기준 육안선별 타입 조회  		                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.22  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcBffaGrdDtlList" parameterType="com.at.apcss.am.sort.vo.SortBffaGrdVO" resultType="com.at.apcss.am.sort.vo.SortBffaGrdVO">
+	<select id="selectApcBffaGrdDtlList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO">
 		<![CDATA[
 		SELECT
 			   GT.CD_VL AS CD_VL
@@ -451,14 +451,14 @@
 		]]>
 	</select>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectBffaGrdKndList	    -->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectBffaGrdKndList	    -->
 	<!-- DESC : APC기준 육안선별 타입선택 checkbox 조회                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.26  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectBffaGrdKndList" parameterType="com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO" resultType="com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO">
+	<select id="selectBffaGrdKndList" parameterType="com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO" resultType="com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO">
 		<![CDATA[
 		SELECT
 			GRD.APC_CD
@@ -518,14 +518,14 @@
 	</select>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcItemCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcItemCrtrDtlList	-->
 	<!-- DESC : APC기준 품목 상세 목록조회                				          		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.8  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcItemCrtrDtlList" resultType="com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
+	<select id="selectApcItemCrtrDtlList" resultType="com.apcmngsys.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
 		<![CDATA[
 			SELECT
 				 APC_CD 		AS APC_CD
@@ -549,14 +549,14 @@
 		]]>
 	</select>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcSeedCrtrList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectApcSeedCrtrList	-->
 	<!-- DESC : APC기준 종자 목록조회  		              				          		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.8  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcSeedCrtrList" resultType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+	<select id="selectApcSeedCrtrList" resultType="com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO">
 		SELECT
 			 APC_CD		AS APC_CD
 			,SEED_CD	AS SEED_CD
@@ -576,7 +576,7 @@
 		ORDER BY INDCT_SEQ, SEED_CD
 	</select>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.mergeApcItemCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.mergeApcItemCrtrDtlList	-->
 	<!-- DESC : APC기준 품목 상세 merge  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -655,7 +655,7 @@
 				);
 	</update>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.mergeSeedCrtrList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.mergeSeedCrtrList		-->
 	<!-- DESC : APC기준 종자 목록 merge  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -733,14 +733,14 @@
 		);
 	</update>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.deleteApcItemCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.deleteApcItemCrtrDtl		-->
 	<!-- DESC : APC기준 품목 상세 delYn  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteApcItemCrtrDtl" parameterType="com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
+	<update id="deleteApcItemCrtrDtl" parameterType="com.apcmngsys.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
 		UPDATE
 			TB_APC_ITEM_CRTR_DTL
 		SET
@@ -753,14 +753,14 @@
 			ITEM_DTL_CD = #{itemDtlCd}
 	</update>
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.deleteSeedCrtr			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.deleteSeedCrtr			-->
 	<!-- DESC : APC기준 종자 목록 delYn  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+	<update id="deleteSeedCrtr" parameterType="com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO">
 		UPDATE
 			TB_APC_SEED_CRTR
 		SET
@@ -773,14 +773,14 @@
 	<update id="updateCmnsItem"></update>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectItemVrtyDtlList	    -->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectItemVrtyDtlList	    -->
 	<!-- DESC : 품종의 품목 상세 조회                           		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.02  	유민지        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectItemVrtyDtlList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+    <select id="selectItemVrtyDtlList" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
 		SELECT
 			ITM.APC_CD					AS APC_CD
 			, ITM.ITEM_CD				AS ITEM_CD
@@ -820,14 +820,14 @@
 	</select>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectVrtyByItemCd	    -->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.selectVrtyByItemCd	    -->
 	<!-- DESC : 품목코드로 품종 조회                           						-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.04.09  	유민지        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectVrtyByItemCd" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+	<select id="selectVrtyByItemCd" parameterType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO">
 
 		SELECT
 				ITM.APC_CD				AS APC_CD
@@ -865,19 +865,19 @@
 
 		ORDER BY APC_CD, ITEM_CD, INDCT_SEQ, ITEM_DTL_CD, SN, VRTY_CD
 	</select>
-	<select id="selectCmnsItem" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO"></select>
+	<select id="selectCmnsItem" resultType="com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO"></select>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr		-->
 	<!-- DESC : APC기준 종자 정보 등록  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.07.09  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertApcSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+	<insert id="insertApcSeedCrtr" parameterType="com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO">
 		<![CDATA[
-		INSERT /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr */
+		INSERT /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.insertApcSeedCrtr */
 		INTO TB_APC_SEED_CRTR
 		(
 			  APC_CD
@@ -916,16 +916,16 @@
 	</insert>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr		-->
 	<!-- DESC : APC기준 종자 정보 등록  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.07.09  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+	<update id="updateApcSeedCrtr" parameterType="com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.CmnsItemMapper.updateApcSeedCrtr */
 				TB_APC_SEED_CRTR
 			SET
 				  SEED_NM					= #{seedNm}

@@ -1,11 +1,11 @@
-package com.at.apcss.am.tot.service;
+package com.apcmngsys.apcss.am.tot.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.tot.vo.TotCrtrVO;
-import com.at.apcss.am.tot.vo.TotMngVO;
-import com.at.apcss.am.tot.vo.TotRsltVO;
+import com.apcmngsys.apcss.am.tot.vo.TotCrtrVO;
+import com.apcmngsys.apcss.am.tot.vo.TotMngVO;
+import com.apcmngsys.apcss.am.tot.vo.TotRsltVO;
 
 
 /**

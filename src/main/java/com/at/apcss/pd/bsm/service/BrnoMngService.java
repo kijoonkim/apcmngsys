@@ -1,8 +1,8 @@
-package com.at.apcss.pd.bsm.service;
+package com.apcmngsys.apcss.pd.bsm.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.bsm.vo.BrnoMngVO;
+import com.apcmngsys.apcss.pd.bsm.vo.BrnoMngVO;
 
 
 /**

@@ -1,8 +1,8 @@
-package com.at.apcss.am.vrty.service;
+package com.apcmngsys.apcss.am.vrty.service;
 
 import java.util.List;
 
-import com.at.apcss.am.vrty.vo.VrtyVO;
+import com.apcmngsys.apcss.am.vrty.vo.VrtyVO;
 
 public interface VrtyService {
 	/**

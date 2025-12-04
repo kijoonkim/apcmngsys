@@ -1,12 +1,12 @@
-package com.at.apcma.co.test.service.impl;
+package com.apcmngsys.apcma.co.test.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcma.co.test.mapper.TestMapper;
-import com.at.apcma.co.test.service.TestService;
-import com.at.apcma.co.test.vo.TestVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcma.co.test.mapper.TestMapper;
+import com.apcmngsys.apcma.co.test.service.TestService;
+import com.apcmngsys.apcma.co.test.vo.TestVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
  * @Class Name : TestServiceImpl.java

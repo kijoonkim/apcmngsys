@@ -10,19 +10,19 @@
 <!-- 2025.06.23  	김  호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.wrhs.mapper.PrchsMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper">
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList			-->
 	<!-- DESC : 수매집계 - 담당자별 목록 조회.                    							-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="selectPrchsPicTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+    <select id="selectPrchsPicTotList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList */
+		SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList */
 			   WP.APC_CD
 			 , NVL(WP.PIC, '영업부') AS PIC
 			 , MAX(CQ.EXPCT_QNTT) AS EXPCT_QNTT
@@ -224,16 +224,16 @@
     </select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList		-->
 	<!-- DESC : 수매집계 - 담당자별 지역별 목록 조회.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectPrchsPicCtpvTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<select id="selectPrchsPicCtpvTotList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList */
+		SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList */
 			   WP.APC_CD
 			 , NVL(WP.PIC, '영업부') AS PIC
 			 , WP.FRMHS_CTPV        AS FRMHS_CTPV
@@ -440,16 +440,16 @@
     </select>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList			-->
 	<!-- DESC : 수매집계 - 지역별 목록 조회.                    						-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-	<select id="selectPrchsCtpvTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+	<select id="selectPrchsCtpvTotList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList */
+		SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList */
 			   WP.APC_CD
 			 , NVL(WP.FRMHS_CTPV, '미상') AS FRMHS_CTPV
 			 , MAX(CQ.EXPCT_QNTT) AS EXPCT_QNTT

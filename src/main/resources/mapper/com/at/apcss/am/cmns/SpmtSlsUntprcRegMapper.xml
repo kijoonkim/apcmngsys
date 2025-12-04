@@ -10,19 +10,19 @@
 <!-- 2023.08.01  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper">
 
 	<!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcReg	-->
 	<!-- DESC : 출하매출단가 단건 조회.	                                       				-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-    <select id="selectSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+    <select id="selectSpmtSlsUntprcReg" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcReg */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcReg */
 				   SUR.APC_CD               AS APC_CD
 			  FROM TB_SPMT_SLS_UNTPRC_REG SUR
 		     WHERE SPU.APC_CD = #{apcCd}
@@ -30,16 +30,16 @@
     </select>
 
 	<!-- ====================================================================================== -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcRegList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcRegList	-->
 	<!-- DESC : 출하매출단가 목록 조회.	                                       					-->
 	<!-- ======================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
 	<!-- ===========  	============  	=======================================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            			-->
 	<!-- ======================================================================================	-->
-    <select id="selectSpmtSlsUntprcRegList" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+    <select id="selectSpmtSlsUntprcRegList" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcRegList */
+	    	SELECT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.selectSpmtSlsUntprcRegList */
 		     	   SUR.APC_CD               AS APC_CD
 			     , SUR.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
 			     , SUR.SPMT_SLS_UNTPRC_CD   AS SPMT_SLS_UNTPRC_CD
@@ -62,16 +62,16 @@
     </select>
 
     <!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.insertSpmtSlsUntprcReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.insertSpmtSlsUntprcReg	-->
 	<!-- DESC : 출하매출단가 등록.	                                       					-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-    <insert id="insertSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+    <insert id="insertSpmtSlsUntprcReg" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.insertSpmtSlsUntprcReg */
+	    	INSERT /* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.insertSpmtSlsUntprcReg */
 	    		INTO TB_SPMT_SLS_UNTPRC_REG
 				(
 					  APC_CD
@@ -116,16 +116,16 @@
     </insert>
 
     <!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.updateSpmtSlsUntprcReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.updateSpmtSlsUntprcReg	-->
 	<!-- DESC : 출하매출단가 변경.	                                       					-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2023.07.13  	김 호        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-	<update id="updateSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+	<update id="updateSpmtSlsUntprcReg" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.updateSpmtSlsUntprcReg */
+			UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.updateSpmtSlsUntprcReg */
 				TB_SPMT_SLS_UNTPRC_REG
 			   SET
 			   	  SYS_LAST_CHG_DT 			= SYSDATE
@@ -141,16 +141,16 @@
 	</update>
 
 	<!-- ==================================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg	-->
 	<!-- DESC : 출하매출단가 삭제.	                                       					-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
-	<update id="deleteSpmtSlsUntprcReg" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+	<update id="deleteSpmtSlsUntprcReg" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
 		<![CDATA[
-			UPDATE TB_SPMT_SLS_UNTPRC_REG /* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg */
+			UPDATE TB_SPMT_SLS_UNTPRC_REG /* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.deleteSpmtSlsUntprcReg */
 			   SET DEL_YN 				= 'Y'
 			 WHERE APC_CD				= #{apcCd}
 			   AND SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
@@ -159,16 +159,16 @@
 	</update>
 
 	<!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.getSpmtSlsUntprcReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.getSpmtSlsUntprcReg	-->
 	<!-- DESC : 출하매출단가 자동발번 코드 조회.	                                	-->
 	<!-- ==============================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
 	<!-- ===========  	============  	===============================================	-->
 	<!-- 2023.08.01  	김 호        	Initial Creation                            	-->
 	<!-- ==============================================================================	-->
-    <select id="getSpmtSlsUntprcCd" parameterType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
+    <select id="getSpmtSlsUntprcCd" parameterType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO" resultType="com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO">
     	<![CDATA[
-	    	/* com.at.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.getSpmtSlsUntprcReg */
+	    	/* com.apcmngsys.apcss.am.cmns.mapper.SpmtSlsUntprcRegMapper.getSpmtSlsUntprcReg */
 			SELECT FN_GET_ID_SPMT_SLS_UNTPRC_CD(#{apcCd}) AS SPMT_SLS_UNTPRC_CD FROM DUAL
 		]]>
     </select>

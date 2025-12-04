@@ -1,4 +1,4 @@
-package com.at.apcss.co.msg.web;
+package com.apcmngsys.apcss.co.msg.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.msg.vo.ComMsgVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.msg.vo.ComMsgVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 @RestController
 public class ComMsgApiController extends BaseController {

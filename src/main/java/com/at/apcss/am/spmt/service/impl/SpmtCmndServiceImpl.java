@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.service.impl;
+package com.apcmngsys.apcss.am.spmt.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,15 +10,15 @@ import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.ordr.service.OrdrService;
-import com.at.apcss.am.ordr.vo.OrdrVO;
-import com.at.apcss.am.spmt.mapper.SpmtCmndMapper;
-import com.at.apcss.am.spmt.service.SpmtCmndService;
-import com.at.apcss.am.spmt.vo.SpmtCmndVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.ordr.service.OrdrService;
+import com.apcmngsys.apcss.am.ordr.vo.OrdrVO;
+import com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper;
+import com.apcmngsys.apcss.am.spmt.service.SpmtCmndService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : SpmtCmndServiceImpl.java

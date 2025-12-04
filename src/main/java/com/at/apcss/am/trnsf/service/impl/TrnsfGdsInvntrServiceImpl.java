@@ -1,4 +1,4 @@
-package com.at.apcss.am.trnsf.service.impl;
+package com.apcmngsys.apcss.am.trnsf.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,16 +11,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper;
-import com.at.apcss.am.trnsf.service.InvntrTrnsfService;
-import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
-import com.at.apcss.am.trnsf.vo.InvntrTrnsfVO;
-import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.invntr.service.GdsInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.trnsf.mapper.TrnsfGdsInvntrMapper;
+import com.apcmngsys.apcss.am.trnsf.service.InvntrTrnsfService;
+import com.apcmngsys.apcss.am.trnsf.service.TrnsfGdsInvntrService;
+import com.apcmngsys.apcss.am.trnsf.vo.InvntrTrnsfVO;
+import com.apcmngsys.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : GdsInvntrServiceImpl.java

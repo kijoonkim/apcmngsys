@@ -1,10 +1,10 @@
-package  com.at.apcss.fm.mngmst.mapper;
+package  com.apcmngsys.apcss.fm.mngmst.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.mngmst.vo.MngmstBscInfoVO;
+import com.apcmngsys.apcss.fm.mngmst.vo.MngmstBscInfoVO;
 
 /**
  * 경영체정보 Mapper 인터페이스

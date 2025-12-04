@@ -1,8 +1,8 @@
-package com.at.apcss.pd.hisPopup.service;
+package com.apcmngsys.apcss.pd.hisPopup.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
+import com.apcmngsys.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO;
 
 
 /**

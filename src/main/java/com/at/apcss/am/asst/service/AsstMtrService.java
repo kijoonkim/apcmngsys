@@ -1,10 +1,10 @@
-package com.at.apcss.am.asst.service;
+package com.apcmngsys.apcss.am.asst.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.asst.vo.AsstMtrVO;
-import com.at.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
+import com.apcmngsys.apcss.am.asst.vo.AsstMtrVO;
 
 
 /**

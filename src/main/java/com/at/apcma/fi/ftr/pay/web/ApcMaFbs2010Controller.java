@@ -1,9 +1,9 @@
-package com.at.apcma.fi.ftr.pay.web;
+package com.apcmngsys.apcma.fi.ftr.pay.web;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

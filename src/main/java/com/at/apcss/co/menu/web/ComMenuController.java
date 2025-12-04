@@ -1,4 +1,4 @@
-package com.at.apcss.co.menu.web;
+package com.apcmngsys.apcss.co.menu.web;
 
 
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.co.log.service.ComLogService;
-import com.at.apcss.co.log.vo.ComLogVO;
+import com.apcmngsys.apcss.co.log.service.ComLogService;
+import com.apcmngsys.apcss.co.log.vo.ComLogVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.at.apcss.co.authrt.service.ComAuthrtService;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.menu.service.ComMenuService;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiJsonVO;
-import com.at.apcss.co.menu.vo.ComUiVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.authrt.service.ComAuthrtService;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.menu.service.ComMenuService;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiJsonVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller

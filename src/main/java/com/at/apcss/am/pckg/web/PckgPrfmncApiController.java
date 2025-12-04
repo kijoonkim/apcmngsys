@@ -1,4 +1,4 @@
-package com.at.apcss.am.pckg.web;
+package com.apcmngsys.apcss.am.pckg.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.am.pckg.service.PckgPrfmncService;
-import com.at.apcss.am.pckg.vo.PckgPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.pckg.service.PckgPrfmncService;
+import com.apcmngsys.apcss.am.pckg.vo.PckgPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : PckgPrfmncApiController.java

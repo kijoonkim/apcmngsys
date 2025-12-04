@@ -1,4 +1,4 @@
-package com.at.apcss.co.authrt.web;
+package com.apcmngsys.apcss.co.authrt.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.at.apcss.co.authrt.service.ComAuthrtService;
-import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.authrt.service.ComAuthrtService;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUserVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 /**
  * 권한관리 처리하는 컨트롤러 클래스
  * @author SI개발부 김호

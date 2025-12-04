@@ -1,11 +1,11 @@
-package com.at.apcss.pd.bsm.mapper;
+package com.apcmngsys.apcss.pd.bsm.mapper;
 
 import java.util.List;
 import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.bsm.vo.ApcTotalOgnzInfoVO;
+import com.apcmngsys.apcss.pd.bsm.vo.ApcTotalOgnzInfoVO;
 
 /**
  * 게시판 Mapper 인터페이스

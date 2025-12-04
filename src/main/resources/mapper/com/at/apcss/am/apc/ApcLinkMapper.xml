@@ -10,19 +10,19 @@
 <!-- 2023.07.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.apc.mapper.ApcLinkMapper">
+<mapper namespace="com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink				-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink				-->
 	<!-- DESC : APC 연계 정보 조회.	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.07.07  	김 호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcLink" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLink" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLink */
     			  pt0.*
     			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_NM
@@ -102,16 +102,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById	-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById	-->
 	<!-- DESC : APC 연계 기기 정보 조회.	                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcLinkTrsmMatById" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLinkTrsmMatById" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatById */
 	    		  TM.APC_CD        		AS APC_CD
 				, TM.TRSM_MAT_ID		AS TRSM_MAT_ID
 				, TM.TRSM_MAT_NM		AS TRSM_MAT_NM
@@ -127,16 +127,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd		-->
 	<!-- DESC : APC 연계 기기 종류 조회.	                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLinkTrsmKnd" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmKnd */
 	    		  TK.APC_CD        		AS APC_CD
 				, TK.TRSM_MAT_ID		AS TRSM_MAT_ID
 				, TK.LINK_KND			AS LINK_KND
@@ -153,16 +153,16 @@
     </select>
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 조회.	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLinkTrsmMat" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMat */
     			  pt0.*
     			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WGH_LINK_STTS) FROM DUAL) AS WGH_STTS_NM
     			, (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.WRHS_LINK_STTS) FROM DUAL) AS WRHS_STTS_NM
@@ -376,16 +376,16 @@
     
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList	-->
 	<!-- DESC : APC 연계 기기 목록 조회.	                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcLinkTrsmMatList" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLinkTrsmMatList" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList */
+			SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatList */
     			  pt0.*
     			, (SELECT FN_GET_COM_CD_VL_NM('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_NM
     			, (SELECT FN_GET_COM_CD_CHR_VL('TRSM_MAT_STTS_CD', pt0.TRSM_MAT_STTS_CD) FROM DUAL) AS TRSM_MAT_STTS_COLOR
@@ -413,16 +413,16 @@
     </select>
     
 	<!-- ============================================================================== -->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList   -->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList   -->
 	<!-- DESC : APC 연계 기기 상태 목록 조회.	                                            -->
 	<!-- ============================================================================== -->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			    -->
 	<!-- ===========  	============  	=============================================== -->
 	<!-- 2024.04.29  	신정철        	Initial Creation                                -->
 	<!-- ============================================================================== -->
-    <select id="selectApcLinkTrsmMatSttsList" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" resultType="com.at.apcss.am.apc.vo.ApcLinkVO">
+    <select id="selectApcLinkTrsmMatSttsList" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" resultType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO">
         <![CDATA[
-            SELECT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList */
+            SELECT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.selectApcLinkTrsmMatSttsList */
                   pt0.*
                 , (SELECT FN_GET_COM_CD_VL_NM('LINK_KND', pt0.LINK_KND) FROM DUAL) AS LINK_KND_NM
                 , (SELECT FN_GET_COM_CD_VL_NM('LINK_STTS', pt0.LINK_STTS) FROM DUAL) AS LINK_STTS_NM
@@ -474,16 +474,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty			-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty			-->
 	<!-- DESC : APC 연계 정보 수정 (확인)	                                             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.02.19  	박 승 진        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateApcLinkIdnty" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateApcLinkIdnty" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty */
+		    UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkIdnty */
 				TB_APC_LINK SET
 	    		  SYS_LAST_CHG_DT 			= SYSDATE
     	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
@@ -496,16 +496,16 @@
     </update>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty	-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty	-->
 	<!-- DESC : APC 연계 기기 정보 수정 (확인)	                                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateApcLinkTrsmMatIdnty" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateApcLinkTrsmMatIdnty" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty */
+		    UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMatIdnty */
 				TB_APC_LINK_TRSM_MAT SET
 	    		  SYS_LAST_CHG_DT 			= SYSDATE
     	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
@@ -519,16 +519,16 @@
     
     
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkSttsUpdt	-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkSttsUpdt	-->
 	<!-- DESC : APC 연계 상태 변경.	                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.02.19  	신정철        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <update id="updateSpApcLinkSttsUpdt" statementType="CALLABLE" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateSpApcLinkSttsUpdt" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-    		{call /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLink */
+    		{call /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLink */
 				SP_APC_LINK_STTS_UPDT (
 					  #{sysLastChgUserId}
 	   		  		, #{sysLastChgPrgrmId}
@@ -543,16 +543,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt	-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt	-->
 	<!-- DESC : APC 연계기기 상태 변경.                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                        	-->
 	<!-- ==========================================================================	-->
-    <update id="updateSpApcLinkTrsmMatSttsUpdt" statementType="CALLABLE" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateSpApcLinkTrsmMatSttsUpdt" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-    		{call /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt */
+    		{call /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateSpApcLinkTrsmMatSttsUpdt */
 				SP_APC_LINK_TRSM_MAT_STTS_UPDT (
 					  #{sysLastChgUserId}
 	   		  		, #{sysLastChgPrgrmId}
@@ -568,16 +568,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 등록	                                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <insert id="insertApcLinkTrsmMat" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    INSERT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat */
+		    INSERT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmMat */
 				INTO TB_APC_LINK_TRSM_MAT (
 					  APC_CD
 					, TRSM_MAT_ID
@@ -603,16 +603,16 @@
     </insert>
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 변경	                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateApcLinkTrsmMat" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat */
+		    UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmMat */
 				TB_APC_LINK_TRSM_MAT SET
 	    		  SYS_LAST_CHG_DT 			= SYSDATE
     	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
@@ -625,16 +625,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat		-->
 	<!-- DESC : APC 연계 기기 정보 삭제	                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteApcLinkTrsmMat" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <delete id="deleteApcLinkTrsmMat" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    DELETE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat */
+		    DELETE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmMat */
 				TB_APC_LINK_TRSM_MAT
 			 WHERE APC_CD = #{apcCd}
 			   AND TRSM_MAT_ID = #{trsmMatId}
@@ -642,16 +642,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd		-->
 	<!-- DESC : APC 연계 기기 종류 등록	                                            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <insert id="insertApcLinkTrsmKnd" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    INSERT /* com.at.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd */
+		    INSERT /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.insertApcLinkTrsmKnd */
 				INTO TB_APC_LINK_TRSM_MAT_STTS (
 					  APC_CD
 					, TRSM_MAT_ID
@@ -680,16 +680,16 @@
     
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd		-->
 	<!-- DESC : APC 연계 기기 종류 변경	                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <update id="updateApcLinkTrsmKnd" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    UPDATE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd */
+		    UPDATE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.updateApcLinkTrsmKnd */
 				TB_APC_LINK_TRSM_MAT_STTS SET
 	    		  SYS_LAST_CHG_DT 			= SYSDATE
     	     	, SYS_LAST_CHG_USER_ID 		= #{sysLastChgUserId}
@@ -702,16 +702,16 @@
     </update>    
     
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd		-->
+	<!-- NAME : com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd		-->
 	<!-- DESC : APC 연계 기기 종류 삭제	                                     		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.29  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteApcLinkTrsmKnd" parameterType="com.at.apcss.am.apc.vo.ApcLinkVO" >
+    <delete id="deleteApcLinkTrsmKnd" parameterType="com.apcmngsys.apcss.am.apc.vo.ApcLinkVO" >
     	<![CDATA[
-		    DELETE /* com.at.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd */
+		    DELETE /* com.apcmngsys.apcss.am.apc.mapper.ApcLinkMapper.deleteApcLinkTrsmKnd */
 				TB_APC_LINK_TRSM_MAT_STTS
 			 WHERE APC_CD = #{apcCd}
 			   AND TRSM_MAT_ID = #{trsmMatId}

@@ -1,13 +1,13 @@
-package com.at.apcss.pd.aom.mapper;
+package com.apcmngsys.apcss.pd.aom.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.aom.vo.ApcInfoVO;
-import com.at.apcss.pd.aom.vo.GpcVO;
-import com.at.apcss.pd.aom.vo.LoanVO;
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.apcmngsys.apcss.pd.aom.vo.ApcInfoVO;
+import com.apcmngsys.apcss.pd.aom.vo.GpcVO;
+import com.apcmngsys.apcss.pd.aom.vo.LoanVO;
+import com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
 /**
  * 게시판 Mapper 인터페이스

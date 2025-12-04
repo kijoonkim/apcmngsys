@@ -1,13 +1,13 @@
-package com.at.apcma.fi.far.rec.web;
+package com.apcmngsys.apcma.fi.far.rec.web;
 
-import com.at.apcma.com.service.ApcMaComService;
-import com.at.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcma.com.service.ApcMaComService;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
 import org.json.simple.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin			Initial Creation							-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoLogMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.											 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin			Initial Creation							-->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmLandInfoLog" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+	<select id="selectFarmLandInfoLog" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoLogVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.selectFarmLandInfoLog */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoLogMapper.selectFarmLandInfoLog */
 				MNGMST_REGNO
 				, FRLN_TYPE
 				, CPRTN_FRLN_YN
@@ -72,14 +72,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.											 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR			DESCRIPTION					  			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin			Initial Creation							-->
 	<!-- ==========================================================================	-->
-	<select id="selectFarmLandInfoLogList" parameterType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.at.apcss.fm.farm.vo.FarmLandInfoLogVO">
+	<select id="selectFarmLandInfoLogList" parameterType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoLogVO" resultType="com.apcmngsys.apcss.fm.farm.vo.FarmLandInfoLogVO">
 				<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -90,7 +90,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT  /* com.at.apcss.fm.farm.mapper.FarmLandInfoLogMapper.selectFarmLandInfoLogList */
+			SELECT  /* com.apcmngsys.apcss.fm.farm.mapper.FarmLandInfoLogMapper.selectFarmLandInfoLogList */
 				MNGMST_REGNO
 				, FRLN_TYPE
 				, CPRTN_FRLN_YN

@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
  <!--
-    <select id="selectsearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+    <select id="selectsearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectsearchFarmerNoReg */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectsearchFarmerNoReg */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+	   <select id="selectSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectSearchFarmerNoReg */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectSearchFarmerNoReg */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -126,16 +126,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSearchFarmerNoRegList" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+    <select id="selectSearchFarmerNoRegList" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO" resultType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectSearchFarmerNoRegList */
+			SELECT /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.selectSearchFarmerNoRegList */
 				  CM.FRMER_SN
 				, CM.BZOB_RGNO
 				, CM.MNGER_RELATE
@@ -181,9 +181,9 @@
     </select>
 
 
-	<insert id="insertSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+	<insert id="insertSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.insertSearchFarmerNoReg */
+	    	INSERT /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.insertSearchFarmerNoReg */
 	    	  INTO TB_FARMER_INFO
 	    		(
 	    		  FRMER_SN
@@ -258,15 +258,15 @@
 
 
 
-    <insert id="insertMegerSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+    <insert id="insertMegerSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegerSearchFarmerNoReg */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegerSearchFarmerNoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -291,7 +291,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -363,9 +363,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+    <insert id="insertMegerLogSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.insertMegerLogSearchFarmerNoReg */
+    	INSERT /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.insertMegerLogSearchFarmerNoReg */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -439,9 +439,9 @@
     	]]>
 	</insert>
 
-	<update id="updateSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+	<update id="updateSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.farm.mapper.searchFarmerNoRegMapper.upateSearchFarmerNoReg */
+	    	UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.searchFarmerNoRegMapper.upateSearchFarmerNoReg */
 	    		TB_FARMER_INFO
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
@@ -481,15 +481,15 @@
     	]]>
     </update>
 
-    <update id="updateMegerSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+    <update id="updateMegerSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegerSearchFarmerNoReg */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegerSearchFarmerNoReg */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
+			UPDATE /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -514,7 +514,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
+			 INSERT /* com.apcmngsys.apcss.fm.farm.mapper.SearchFarmerNoRegMapper.insertMegersearchFarmerNoReg */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -586,7 +586,7 @@
     </update>
 
 
-	<delete id="deleteSearchFarmerNoReg" parameterType="com.at.apcss.fm.farm.vo.SearchFarmerNoRegVO">
+	<delete id="deleteSearchFarmerNoReg" parameterType="com.apcmngsys.apcss.fm.farm.vo.SearchFarmerNoRegVO">
 		<![CDATA[
 		DELETE FROM TB_FARMER_INFO
 		 WHERE 1=1

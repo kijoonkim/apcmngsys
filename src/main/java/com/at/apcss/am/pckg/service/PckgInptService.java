@@ -1,9 +1,9 @@
-package com.at.apcss.am.pckg.service;
+package com.apcmngsys.apcss.am.pckg.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.pckg.vo.PckgInptVO;
+import com.apcmngsys.apcss.am.pckg.vo.PckgInptVO;
 
 /**
  * 포장투입 Service 인터페이스

@@ -10,20 +10,20 @@
 <!-- 2023.08.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper">
+<mapper namespace="com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList-->
 	<!-- DESC : 개발진행관리 테이블 목록 조회.                                      -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectDvlpPrgrsMngList" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO" resultType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    <select id="selectDvlpPrgrsMngList" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO" resultType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<!-- End 페이징 -->
     	<![CDATA[
-			SELECT /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList */
+			SELECT /* com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDvlpPrgrsMngList */
 			      DPM.PRGRM_ID          AS PRGRM_ID
 			    , DPM.PRGRM_NM          AS PRGRM_NM
 			    , DPM.STTS              AS STTS
@@ -80,16 +80,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpPrgrsMng	-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpPrgrsMng	-->
 	<!-- DESC : 개발진행관리 변경                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateDvlpPrgrsMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    <update id="updateDvlpPrgrsMng" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
+	    	UPDATE /* com.apcmngsys.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
 	    		TB_DVLP_PRGRS_MNG DPM
 			   SET
 				  SYS_LAST_CHG_DT		= SYSDATE
@@ -106,16 +106,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpStts		-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDvlpStts		-->
 	<!-- DESC : 개발진행관리 변경                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateDvlpStts" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    <update id="updateDvlpStts" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateDvlpStts */
+	    	UPDATE /* com.apcmngsys.apcss.co.msg.mapper.ComMsgMapper.updateDvlpStts */
 	    		TB_DVLP_PRGRS_MNG DPM
 			   SET
 				  SYS_LAST_CHG_DT		= SYSDATE
@@ -150,16 +150,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList		-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList		-->
 	<!-- DESC : 결함관리 테이블 목록 조회.                                      	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectDfctMngList" parameterType="com.at.apcss.co.pms.vo.DfctMngVO" resultType="com.at.apcss.co.pms.vo.DfctMngVO">
+    <select id="selectDfctMngList" parameterType="com.apcmngsys.apcss.co.pms.vo.DfctMngVO" resultType="com.apcmngsys.apcss.co.pms.vo.DfctMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList */
+			SELECT /* com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfctMngList */
 			       DM.PRGRM_ID      AS PRGRM_ID
 			     , DM.DFCT_SN       AS DFCT_SN
 			     , DM.DFCT_CN       AS DFCT_CN
@@ -176,16 +176,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng			-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng			-->
 	<!-- DESC : 결함관리 등록                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+	<insert id="insertDfctMng" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
 		<![CDATA[
-			INSERT INTO TB_DFCT_MNG  /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng */
+			INSERT INTO TB_DFCT_MNG  /* com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.insertDfctMng */
 				(
 					PRGRM_ID
 				  , DFCT_SN
@@ -223,16 +223,16 @@
 	</insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDfctMng			-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.updateDfctMng			-->
 	<!-- DESC : 결함관리 변경                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    <update id="updateDfctMng" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
+	    	UPDATE /* com.apcmngsys.apcss.co.msg.mapper.ComMsgMapper.updateComMsg */
 	    		TB_DFCT_MNG
 			   SET
 			      DFCT_CN    			= #{dfctCn}
@@ -250,16 +250,16 @@
     </update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng			-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng			-->
 	<!-- DESC : 결함관리 삭제                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.07  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteDfctMng" parameterType="com.at.apcss.co.pms.vo.DvlpPrgrsMngVO">
+    <delete id="deleteDfctMng" parameterType="com.apcmngsys.apcss.co.pms.vo.DvlpPrgrsMngVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng */
+	    	DELETE /* com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.deleteDfctMng */
 	    	   FROM TB_DFCT_MNG
 			  WHERE PJT_CD		= #{pjtCd}
 			    AND PRGRM_ID	= #{prgrmId}
@@ -268,16 +268,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct			-->
+	<!-- NAME : com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct			-->
 	<!-- DESC : 프로그램개발진처도 조회.                                      		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.09  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectDfct" parameterType="com.at.apcss.co.pms.vo.DfctVO" resultType="com.at.apcss.co.pms.vo.DfctVO">
+    <select id="selectDfct" parameterType="com.apcmngsys.apcss.co.pms.vo.DfctVO" resultType="com.apcmngsys.apcss.co.pms.vo.DfctVO">
     	<![CDATA[
-			SELECT  /* com.at.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct */
+			SELECT  /* com.apcmngsys.apcss.co.pms.mapper.DvlpPrgrsMngMapper.selectDfct */
 					GB
 			      , SUM(TOT)    AS TOT
 			      , SUM(CNT1)   AS CNT1

@@ -1,4 +1,4 @@
-package com.at.apcss.co.authrt.service.impl;
+package com.apcmngsys.apcss.co.authrt.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,21 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
-import com.at.apcss.co.authrt.mapper.ComAuthrtMapper;
-import com.at.apcss.co.authrt.service.ComAuthrtService;
-import com.at.apcss.co.authrt.vo.ComAuthrtMenuVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUiVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtUserVO;
-import com.at.apcss.co.authrt.vo.ComAuthrtVO;
-import com.at.apcss.co.constants.ApcConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.menu.service.ComMenuService;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
-import com.at.apcss.co.user.mapper.ComUserMapper;
-import com.at.apcss.co.user.vo.ComUserVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.apcmngsys.apcss.co.authrt.mapper.ComAuthrtMapper;
+import com.apcmngsys.apcss.co.authrt.service.ComAuthrtService;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtMenuVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUiVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtUserVO;
+import com.apcmngsys.apcss.co.authrt.vo.ComAuthrtVO;
+import com.apcmngsys.apcss.co.constants.ApcConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.menu.service.ComMenuService;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.user.mapper.ComUserMapper;
+import com.apcmngsys.apcss.co.user.vo.ComUserVO;
 
 @Service("comAuthrtService")
 public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtService {

@@ -1,4 +1,4 @@
-package com.at.apcss.am.wrhs.vo;
+package com.apcmngsys.apcss.am.wrhs.vo;
 
 import lombok.Getter;
 import lombok.Setter;

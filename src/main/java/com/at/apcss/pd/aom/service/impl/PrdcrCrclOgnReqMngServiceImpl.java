@@ -1,17 +1,17 @@
-package com.at.apcss.pd.aom.service.impl;
+package com.apcmngsys.apcss.pd.aom.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper;
-import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
-import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
-import com.at.apcss.pd.aom.vo.ApcInfoVO;
-import com.at.apcss.pd.aom.vo.GpcVO;
-import com.at.apcss.pd.aom.vo.LoanVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper;
+import com.apcmngsys.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
+import com.apcmngsys.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
+import com.apcmngsys.apcss.pd.aom.vo.ApcInfoVO;
+import com.apcmngsys.apcss.pd.aom.vo.GpcVO;
+import com.apcmngsys.apcss.pd.aom.vo.LoanVO;
 
 
 /**

@@ -1,8 +1,8 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.BffaSortVO;
+import com.apcmngsys.apcss.am.cmns.vo.BffaSortVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 @Mapper

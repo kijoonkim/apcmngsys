@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,20 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.mapper.StdGrdMapper;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.StdGrdService;
-import com.at.apcss.am.cmns.vo.StdGrdDtlVO;
-import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
-import com.at.apcss.am.cmns.vo.StdGrdListVO;
-import com.at.apcss.am.cmns.vo.StdGrdVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.co.cd.service.ComCdService;
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.constants.ApcConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.StdGrdMapper;
+import com.apcmngsys.apcss.am.cmns.service.CmnsValidationService;
+import com.apcmngsys.apcss.am.cmns.service.StdGrdService;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdJgmtVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdListVO;
+import com.apcmngsys.apcss.am.cmns.vo.StdGrdVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.co.cd.service.ComCdService;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.constants.ApcConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : StdGrdServiceImpl.java

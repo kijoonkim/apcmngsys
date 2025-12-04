@@ -9,9 +9,9 @@
 <!-- 2025.06.02  	손민성        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnSortMapper">
+<mapper namespace="com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper">
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr	-->
+    <!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr	-->
     <!-- DESC : 선별정산 마스터정보 생성	                       	             	     	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -19,7 +19,7 @@
     <!-- 2025.06.02  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
     <insert id="insertSortClclnMstr">
-        INSERT /* com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr */
+        INSERT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr */
         INTO TB_SORT_CLCLN_MSTR (
              APC_CD
             ,CLCLN_YMD
@@ -63,7 +63,7 @@
         </foreach>
     </insert>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl 	-->
+    <!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl 	-->
     <!-- DESC : 선별정산 상세정보 생성	                      	             	     	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -71,7 +71,7 @@
     <!-- 2025.06.02  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
     <insert id="insertSortClclnDtl">
-        INSERT /* com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl */
+        INSERT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl */
         INTO TB_SORT_CLCLN_DTL (
              APC_CD
             ,CLCLN_YMD
@@ -117,14 +117,14 @@
         </foreach>
     </insert>
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.selectSortClclnList 	-->
+    <!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnSortMapper.selectSortClclnList 	-->
     <!-- DESC : 선별정산 상세정보 조회	                      	             	     	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.06.02  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectSortClclnList" parameterType="com.at.apcss.am.clcln.vo.ClclnMstrVO" resultType="java.util.HashMap">
+    <select id="selectSortClclnList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnMstrVO" resultType="java.util.HashMap">
         SELECT
              DTL.APC_CD         AS APC_CD
             ,DTL.CLCLN_YMD      AS CLCLN_YMD

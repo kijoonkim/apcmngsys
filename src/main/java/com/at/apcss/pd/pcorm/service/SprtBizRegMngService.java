@@ -1,7 +1,7 @@
-package com.at.apcss.pd.pcorm.service;
+package com.apcmngsys.apcss.pd.pcorm.service;
 
-import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
-import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegFileVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.SprtBizRegMngVO;
 
 import java.util.HashMap;
 import java.util.List;

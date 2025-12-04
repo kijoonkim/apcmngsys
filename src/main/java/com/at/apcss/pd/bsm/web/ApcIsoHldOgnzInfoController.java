@@ -1,4 +1,4 @@
-package com.at.apcss.pd.bsm.web;
+package com.apcmngsys.apcss.pd.bsm.web;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,11 +24,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.pd.bsm.service.ApcIsoHldOgnzInfoService;
-import com.at.apcss.pd.bsm.service.RestFulService;
-import com.at.apcss.pd.bsm.vo.ApcIsoHldOgnzInfoVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.pd.bsm.service.ApcIsoHldOgnzInfoService;
+import com.apcmngsys.apcss.pd.bsm.service.RestFulService;
+import com.apcmngsys.apcss.pd.bsm.vo.ApcIsoHldOgnzInfoVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 

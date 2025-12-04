@@ -10,21 +10,21 @@
 <!-- 2024.04.18  	김현호        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper">
+<mapper namespace="com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper">
 
-	<select id="selectUserIdComDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="String">
+	<select id="selectUserIdComDpcnLgn" parameterType="com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="String">
 	        SELECT USER_ID FROM TB_COM_LGN_PLCY WHERE USER_ID = #{userId}
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList	-->
+	<!-- NAME : com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList	-->
 	<!-- DESC : 로그인중복.                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.18  	김현호        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComDpcnLgnList" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    <select id="selectComDpcnLgnList" parameterType="com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO" resultType="com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -35,7 +35,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-			SELECT /* com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList */
+			SELECT /* com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper.selectComDpcnLgnList */
 				  CLP.USER_ID 				AS USER_ID
 				, CLP.DPCN_LGN_PSBLTY_YN 	AS DPCN_LGN_PSBLTY_YN
 				, CLP.IP_INFO 				AS IP_INFO
@@ -62,14 +62,14 @@
     </select>
     
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.updateDpcnLgn		-->
+	<!-- NAME : com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper.updateDpcnLgn		-->
 	<!-- DESC : 로그인중복관리 정보 업데이트                                  					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.18  	김현호	        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    <update id="updateDpcnLgn" parameterType="com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO">
     	<![CDATA[
     	
 			UPDATE 
@@ -88,14 +88,14 @@
     </update>
     
    	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.co.authrt.mapper.ComDpcnLgnMapper.insertDpcnLgn		-->
+	<!-- NAME : com.apcmngsys.apcss.co.authrt.mapper.ComDpcnLgnMapper.insertDpcnLgn		-->
 	<!-- DESC : 로그인중복관리 정보 입력                                  					-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.04.18  	김현호	        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertDpcnLgn" parameterType="com.at.apcss.co.authrt.vo.ComDpcnLgnVO">
+    <insert id="insertDpcnLgn" parameterType="com.apcmngsys.apcss.co.authrt.vo.ComDpcnLgnVO">
     	<![CDATA[
     	
 			INSERT INTO TB_COM_LGN_PLCY (

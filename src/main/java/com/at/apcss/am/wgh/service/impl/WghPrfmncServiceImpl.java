@@ -1,4 +1,4 @@
-package com.at.apcss.am.wgh.service.impl;
+package com.apcmngsys.apcss.am.wgh.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,39 +7,39 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.at.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
-import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
-import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
-import com.at.apcss.am.wgh.vo.WghHstryVO;
-import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
+import com.apcmngsys.apcss.am.cmns.vo.SpmtSlsUntprcRegVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
+import com.apcmngsys.apcss.am.invntr.service.PltWrhsSpmtService;
+import com.apcmngsys.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghHstryVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghInspPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.service.CmnsGdsService;
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.cmns.service.WrhsVhclService;
-import com.at.apcss.am.cmns.vo.CmnsGdsVO;
-import com.at.apcss.am.cmns.vo.WrhsVhclVO;
-import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.spmt.service.SpmtPrfmncService;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
-import com.at.apcss.am.wgh.mapper.WghPrfmncMapper;
-import com.at.apcss.am.wgh.service.WghPrfmncService;
-import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
-import com.at.apcss.am.wgh.vo.WghPrfmncVO;
-import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
-import com.at.apcss.co.constants.ApcConstants;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.service.CmnsGdsService;
+import com.apcmngsys.apcss.am.cmns.service.CmnsTaskNoService;
+import com.apcmngsys.apcss.am.cmns.service.WrhsVhclService;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsGdsVO;
+import com.apcmngsys.apcss.am.cmns.vo.WrhsVhclVO;
+import com.apcmngsys.apcss.am.invntr.service.GdsInvntrService;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.spmt.service.SpmtPrfmncService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.am.wgh.mapper.WghPrfmncMapper;
+import com.apcmngsys.apcss.am.wgh.service.WghPrfmncService;
+import com.apcmngsys.apcss.am.wgh.vo.WghPrfmncDtlVO;
+import com.apcmngsys.apcss.am.wgh.vo.WghPrfmncVO;
+import com.apcmngsys.apcss.am.wrhs.service.RawMtrWrhsService;
+import com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.apcmngsys.apcss.co.constants.ApcConstants;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : WghPrfmncServiceImpl.java

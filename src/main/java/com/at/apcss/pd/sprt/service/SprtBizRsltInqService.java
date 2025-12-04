@@ -1,6 +1,6 @@
-package com.at.apcss.pd.sprt.service;
+package com.apcmngsys.apcss.pd.sprt.service;
 
-import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO;
 
 import java.util.List;
 

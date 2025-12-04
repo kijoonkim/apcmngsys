@@ -1,9 +1,9 @@
-package com.at.apcss.pd.isom.service;
+package com.apcmngsys.apcss.pd.isom.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
-import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
+import com.apcmngsys.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
+import com.apcmngsys.apcss.pd.isom.vo.ItemStbltYnVO;
 
 
 /**

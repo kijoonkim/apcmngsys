@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.at.apcss.pd.popup.mapper.SprtBizRsltInqPopupMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.popup.mapper.SprtBizRsltInqPopupMapper">
 
-    <select id="selectSprtBizRsltInqPopupList" parameterType="com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO" resultType="com.at.apcss.pd.popup.vo.SprtBizRsltInqPopupVO">
+    <select id="selectSprtBizRsltInqPopupList" parameterType="com.apcmngsys.apcss.pd.popup.vo.SprtBizRsltInqPopupVO" resultType="com.apcmngsys.apcss.pd.popup.vo.SprtBizRsltInqPopupVO">
         <if test='pagingYn != null and pagingYn.equals("Y")'>
         SELECT
             ROWNUM AS ROW_SEQ

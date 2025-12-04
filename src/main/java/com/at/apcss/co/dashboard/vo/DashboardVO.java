@@ -1,4 +1,4 @@
-package com.at.apcss.co.dashboard.vo;
+package com.apcmngsys.apcss.co.dashboard.vo;
 
 
 import java.util.List;

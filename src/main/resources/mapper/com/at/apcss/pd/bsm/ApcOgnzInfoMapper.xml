@@ -10,10 +10,10 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -21,9 +21,9 @@
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
  <!--
-    <select id="selectapcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+    <select id="selectapcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfo */
+			SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfo */
 				  CM.TEST_NO
 				, CM.AA
 				, CM.BB
@@ -80,9 +80,9 @@
     </select>
 	  -->
 
-	   <select id="selectApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+	   <select id="selectApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfo */
+			SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfo */
 			  CM.OGNZ_CD
 			, CM.OGNZ_NM
 			, CM.OGNZ_SE_CD
@@ -100,16 +100,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BfarmngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectApcOgnzInfoList" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+    <select id="selectApcOgnzInfoList" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO" resultType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfoList */
+			SELECT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.selectapcOgnzInfoList */
 			  CM.OGNZ_CD
 			, CM.OGNZ_NM
 			, CM.OGNZ_SE_CD
@@ -147,9 +147,9 @@
     </select>
 
 
-	<insert id="insertApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+	<insert id="insertApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertapcOgnzInfo */
+	    	INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertapcOgnzInfo */
 	    	  INTO TB_APC_OGNZ_INFO
 	    		(
 	    		  	 OGNZ_CD
@@ -182,15 +182,15 @@
 
 
 
-    <insert id="insertMegerApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+    <insert id="insertMegerApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -215,7 +215,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			 INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -290,13 +290,13 @@
 
     <insert id="insertMegerApcOgnzInfoMap" parameterType="hashmap">
 	<![CDATA[
-    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfoMap */
+    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfoMap */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfoMap */
+			UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfoMap */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -321,7 +321,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			 INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -393,9 +393,9 @@
 	</insert>
 
 
-    <insert id="insertMegerLogApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+    <insert id="insertMegerLogApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
 	<![CDATA[
-    	INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerLogapcOgnzInfo */
+    	INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerLogapcOgnzInfo */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -472,7 +472,7 @@
 
     <insert id="insertMegerLogApcOgnzInfoMap" parameterType="hashmap">
 	<![CDATA[
-    	INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerLogapcOgnzInfoMap */
+    	INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerLogapcOgnzInfoMap */
 	    	  INTO TB_FARMER_INFO_LOG
 	    		(
 	    		  SEQ
@@ -546,9 +546,9 @@
     	]]>
 	</insert>
 
-	<update id="updateApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+	<update id="updateApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.upateapcOgnzInfo */
+			UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.upateapcOgnzInfo */
 				TB_APC_OGNZ_INFO
 			   SET
 			 	  OGNZ_NM  	= #{ognzNm }
@@ -565,15 +565,15 @@
 		]]>
 	</update>
 
-	<update id="updateMegerApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+	<update id="updateMegerApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
 		<![CDATA[
-			MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -598,7 +598,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			 INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -671,15 +671,15 @@
 
 
 
-    <update id="updateMegerApcOgnzInfoMap" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+    <update id="updateMegerApcOgnzInfoMap" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
     	<![CDATA[
-	    	MERGE INTO TB_FARMER_INFO CLT  /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.updateMegerapcOgnzInfoMap */
+	    	MERGE INTO TB_FARMER_INFO CLT  /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.updateMegerapcOgnzInfoMap */
 		USING DUAL
 			ON (	         CLT.FRMER_SN      = #{frmerSn}
 				      AND CLT.BZOB_RGNO  =  #{bzobRgno}
 				   )
 		WHEN MATCHED THEN
-			UPDATE /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			UPDATE /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 			   SET
 			 	  MNGER_RELATE 	= #{mngerRelate}
 				, BZM_CORP_NM 	= #{bzmCorpNm}
@@ -704,7 +704,7 @@
 				, SEXDSTN 	= #{sexdstn}
 				, SAVE_CD 	= #{saveCd}
 		WHEN NOT MATCHED THEN
-			 INSERT /* com.at.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
+			 INSERT /* com.apcmngsys.apcss.pd.bsm.mapper.ApcOgnzInfoMapper.insertMegerapcOgnzInfo */
 	    		(
 	    		  FRMER_SN
 				, BZOB_RGNO
@@ -775,7 +775,7 @@
     	]]>
     </update>
 
-	<delete id="deleteApcOgnzInfo" parameterType="com.at.apcss.pd.bsm.vo.ApcOgnzInfoVO">
+	<delete id="deleteApcOgnzInfo" parameterType="com.apcmngsys.apcss.pd.bsm.vo.ApcOgnzInfoVO">
 		<![CDATA[
 		DELETE FROM TB_APC_OGNZ_INFO
 		 WHERE 1=1

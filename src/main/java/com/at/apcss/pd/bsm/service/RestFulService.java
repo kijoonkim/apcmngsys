@@ -1,4 +1,4 @@
-package com.at.apcss.pd.bsm.service;
+package com.apcmngsys.apcss.pd.bsm.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,7 +23,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 //import org.springframework.web.reactive.function.client.WebClientResponseException.InternalServerError;
 
-import com.at.apcss.fm.farm.service.TypeUtil;
+import com.apcmngsys.apcss.fm.farm.service.TypeUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;

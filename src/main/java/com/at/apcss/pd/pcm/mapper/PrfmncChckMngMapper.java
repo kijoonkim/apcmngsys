@@ -1,10 +1,10 @@
-package com.at.apcss.pd.pcm.mapper;
+package com.apcmngsys.apcss.pd.pcm.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.pcm.vo.PrfmncChckMngVO;
+import com.apcmngsys.apcss.pd.pcm.vo.PrfmncChckMngVO;
 
 /**
  * 승인형조직 총취급액 실적점검 Mapper 인터페이스

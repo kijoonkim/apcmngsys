@@ -1,8 +1,8 @@
-package com.at.apcss.am.spmt.service;
+package com.apcmngsys.apcss.am.spmt.service;
 
 import java.util.List;
 
-import com.at.apcss.am.spmt.vo.SlsMngVO;
+import com.apcmngsys.apcss.am.spmt.vo.SlsMngVO;
 
 public interface SlsMngService {
 

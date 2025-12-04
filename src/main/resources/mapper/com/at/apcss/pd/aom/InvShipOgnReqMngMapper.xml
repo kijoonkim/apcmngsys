@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
 	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<select id="selectInvShipOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -68,14 +68,14 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList	-->
+	<!-- NAME : com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList	-->
 	<!-- DESC : 신청 정보 조회                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectInvShipOgnReqMngList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<select id="selectInvShipOgnReqMngList" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -85,7 +85,7 @@
 			  FROM (
 		</if>
 
-			SELECT /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList */
+			SELECT /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
@@ -188,9 +188,9 @@
 		</if>
 	</select>
 
-	<insert id="insertInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<insert id="insertInvShipOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_APLY_MNG CLT  /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
+		MERGE INTO TB_EV_APLY_MNG CLT  /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.insertInvShipOgnReqMng */
 		USING DUAL
 			ON (
 				CLT.APO_CD  = #{apoCd}
@@ -244,9 +244,9 @@
 		]]>
 	</insert>
 
-	<update id="updateApoSe" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<update id="updateApoSe" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSe */
+			UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSe */
 				TB_EV_APO
 			   SET
 				APO_SE 		= '2'
@@ -261,9 +261,9 @@
 		]]>
 	</update>
 
-	<update id="updateApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<update id="updateApoSeHstry" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSeHstry */
+			UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateApoSeHstry */
 				TB_EV_APO_HSTRY
 			   SET
 				APO_SE 		= '2'
@@ -279,9 +279,9 @@
 		]]>
 	</update>
 
-	<update id="updateInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<update id="updateInvShipOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.upateInvShipOgnReqMng */
 			TB_EV_APLY_MNG
 		   SET
 			  ISO_FUND_APLY_AMT			= #{isoFundAplyAmt}
@@ -293,9 +293,9 @@
 	</update>
 
 
-	<delete id="deleteInvShipOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<delete id="deleteInvShipOgnReqMng" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteInvShipOgnReqMng */
+		DELETE FROM TB_EV_APO_UO_CD	/* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteInvShipOgnReqMng */
 		 WHERE ISO_BRNO = #{brno}
 		   AND UO_BRNO = #{uoBrnoDel}
 		]]>
@@ -303,8 +303,8 @@
 
 
 	<!-- 로우데이터 요청 -->
-	<select id="hiddenGrdIsoSelectList" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-		SELECT	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.hiddenGrdIsoSelectList */
+	<select id="hiddenGrdIsoSelectList" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO" resultType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.hiddenGrdIsoSelectList */
 			DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = D.UO_BRNO) , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV
 			,D.UO_BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = D.UO_BRNO )AS UO_CORP_NM
@@ -349,27 +349,27 @@
 	</select>
 
 	<!-- 출자출하조직 신청정보 삭제 처리 -->
-	<delete id="deleteIsoAply" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<delete id="deleteIsoAply" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APLY_MNG	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoAply */
+		DELETE FROM TB_EV_APLY_MNG	/* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoAply */
 		 WHERE 1=1
 		   AND YR 	= #{yr}
 		   AND BRNO = #{brno}
 		]]>
 	</delete>
 	<!-- 출자출하조직 조직관계 정보 삭제 처리 -->
-	<delete id="deleteIsoUoCd" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<delete id="deleteIsoUoCd" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_UO_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoUoCd */
+		DELETE FROM TB_EV_APO_UO_CD	/* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoUoCd */
 		 WHERE 1=1
 		   AND ISO_BRNO = #{brno}
 		]]>
 	</delete>
 
 	<!-- 출자출하조직 품목정보 삭제 처리 -->
-	<delete id="deleteIsoItem" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+	<delete id="deleteIsoItem" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
 		<![CDATA[
-		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoItem */
+		DELETE FROM TB_EV_APO_YR_GPC_CD	/* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.deleteIsoItem */
 		 WHERE 1=1
 		   AND YR 	= #{yr}
 		   AND BRNO = #{brno}
@@ -377,8 +377,8 @@
 	</delete>
 
 	<!-- 조직구분 변경 -->
-	<update id="updateIsoApoSe" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSe */
+	<update id="updateIsoApoSe" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSe */
 			TB_EV_APO
 		   SET
 			  APO_SE	= #{apoSe}
@@ -387,8 +387,8 @@
 	</update>
 
 	<!-- 조직구분 변경 -->
-	<update id="updateIsoApoSeHstry" parameterType="com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO">
-		UPDATE /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSeHstry */
+	<update id="updateIsoApoSeHstry" parameterType="com.apcmngsys.apcss.pd.aom.vo.InvShipOgnReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.updateIsoApoSeHstry */
 			TB_EV_APO_HSTRY
 		   SET
 			  APO_SE	= #{apoSe}

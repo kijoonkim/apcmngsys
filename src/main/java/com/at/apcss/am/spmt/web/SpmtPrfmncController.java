@@ -1,4 +1,4 @@
-package com.at.apcss.am.spmt.web;
+package com.apcmngsys.apcss.am.spmt.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,11 +8,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.spmt.service.SpmtMngService;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
+import com.apcmngsys.apcss.am.constants.AmConstants;
+import com.apcmngsys.apcss.am.invntr.vo.GdsInvntrVO;
+import com.apcmngsys.apcss.am.invntr.vo.SortInvntrVO;
+import com.apcmngsys.apcss.am.spmt.service.SpmtMngService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncSlsVO;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
@@ -21,12 +21,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.spmt.service.SpmtPrfmncService;
-import com.at.apcss.am.spmt.vo.SpmtDsctnTotVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
-import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.spmt.service.SpmtPrfmncService;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtDsctnTotVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.apcmngsys.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : SpmtPrfmncController.java

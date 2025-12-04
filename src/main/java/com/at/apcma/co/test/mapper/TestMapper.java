@@ -1,8 +1,8 @@
-package com.at.apcma.co.test.mapper;
+package com.apcmngsys.apcma.co.test.mapper;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcma.co.test.vo.TestVO;
+import com.apcmngsys.apcma.co.test.vo.TestVO;
 
 /**
  * Test Mapper

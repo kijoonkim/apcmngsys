@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMng				-->
 	<!-- DESC : 출하약정정보 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
+    <select id="selectSpmtEnggtInfoMng" parameterType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMng */
+			SELECT /* com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMng */
 				  CM.MSG_KEY	AS MSG_KEY
 				, CM.MSG_CN		AS MSG_CN
 				, CM.MSG_KND	AS MSG_KND
@@ -43,7 +43,7 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList			-->
 	<!-- DESC : 출하약정정보 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -53,10 +53,10 @@
 <!-- 	 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD2) AS APC_NM2,  -->
 <!-- 				 CM.APC_CD3		AS APC_CD3, -->
 <!-- 				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD3) AS APC_NM3 -->
-    <select id="selectSpmtEnggtInfoMngList" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
+    <select id="selectSpmtEnggtInfoMngList" parameterType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO" resultType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
 
     	<![CDATA[
-			SELECT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList */
+			SELECT /* com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.selectSpmtEnggtInfoMngList */
 				 CM.APC_CD           AS APC_CD,
 				 (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CM.APC_CD) AS APC_NM,
 				 CM.SPMTNO          AS SPMTNO,
@@ -137,16 +137,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.insertSpmtEnggtInfoMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.insertSpmtEnggtInfoMng				-->
 	<!-- DESC : 출하약정정보 등록                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
+    <insert id="insertSpmtEnggtInfoMng" parameterType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
-	    	INSERT /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.insertSpmtEnggtInfoMng */
+	    	INSERT /* com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.insertSpmtEnggtInfoMng */
 	    	  INTO TB_SPMT_ENGGT_INFO_MNG
 	    		(
 	    			 APC_CD,
@@ -239,16 +239,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng				-->
 	<!-- DESC : 출하약정정보 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
+    <update id="updateSpmtEnggtInfoMng" parameterType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
-	    	UPDATE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng */
+	    	UPDATE /* com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.updateSpmtEnggtInfoMng */
 	    		TB_SPMT_ENGGT_INFO_MNG
 			   SET
 					  SPMTNO  =#{spmtNo}
@@ -295,16 +295,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng				-->
 	<!-- DESC : 출하약정정보 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteSpmtEnggtInfoMng" parameterType="com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
+    <delete id="deleteSpmtEnggtInfoMng" parameterType="com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO">
     	<![CDATA[
-	    	DELETE /* com.at.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng */
+	    	DELETE /* com.apcmngsys.apcss.fm.spmt.mapper.SpmtEnggtInfoMngMapper.deleteSpmtEnggtInfoMng */
 	    		TB_SPMT_ENGGT_INFO_MNG
 			 WHERE 1=1
 		     AND APC_CD = #{apcCd}

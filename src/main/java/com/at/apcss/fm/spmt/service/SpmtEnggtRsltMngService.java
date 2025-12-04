@@ -1,10 +1,10 @@
-package com.at.apcss.fm.spmt.service;
+package com.apcmngsys.apcss.fm.spmt.service;
 
 import java.util.List;
 import java.util.Map;
 
-import com.at.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO;
-import com.at.apcss.fm.spmt.vo.SpmtEnggtRsltMngVO;
+import com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtInfoMngVO;
+import com.apcmngsys.apcss.fm.spmt.vo.SpmtEnggtRsltMngVO;
 
 
 /**

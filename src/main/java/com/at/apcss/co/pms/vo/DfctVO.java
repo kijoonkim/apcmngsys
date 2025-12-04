@@ -1,4 +1,4 @@
-package com.at.apcss.co.pms.vo;
+package com.apcmngsys.apcss.co.pms.vo;
 
 import lombok.Getter;
 import lombok.Setter;

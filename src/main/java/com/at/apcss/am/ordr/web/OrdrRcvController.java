@@ -1,4 +1,4 @@
-package com.at.apcss.am.ordr.web;
+package com.apcmngsys.apcss.am.ordr.web;
 
 import java.util.HashMap;
 
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.at.apcss.am.ordr.service.OrdrRcvService;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.menu.vo.ComMenuVO;
-import com.at.apcss.co.menu.vo.ComUiJsonVO;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.ordr.service.OrdrRcvService;
+import com.apcmngsys.apcss.am.ordr.vo.OrdrRcvVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.menu.vo.ComMenuVO;
+import com.apcmngsys.apcss.co.menu.vo.ComUiJsonVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**

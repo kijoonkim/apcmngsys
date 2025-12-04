@@ -1,4 +1,4 @@
-package com.at.apcss.am.fclt.web;
+package com.apcmngsys.apcss.am.fclt.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.fclt.service.FcltService;
-import com.at.apcss.am.fclt.vo.FcltVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.am.fclt.service.FcltService;
+import com.apcmngsys.apcss.am.fclt.vo.FcltVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 /**
  * @Class Name : FcltController.java
  * @Description : 창고현황 관련 Controller 클래스

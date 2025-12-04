@@ -1,14 +1,14 @@
-package com.at.apcss.pd.pom.service.impl;
+package com.apcmngsys.apcss.pd.pom.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.pom.mapper.PrdcrOgnPrdShipRsltMngMapper;
-import com.at.apcss.pd.pom.service.PrdcrOgnPrdShipRsltMngService;
-import com.at.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.pom.mapper.PrdcrOgnPrdShipRsltMngMapper;
+import com.apcmngsys.apcss.pd.pom.service.PrdcrOgnPrdShipRsltMngService;
+import com.apcmngsys.apcss.pd.pom.vo.PrdcrOgnPrdShipRsltMngVO;
 
 
 /**

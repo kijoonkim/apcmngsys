@@ -1,9 +1,9 @@
-package com.at.apcss.fm.cmns.service;
+package com.apcmngsys.apcss.fm.cmns.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.fm.cmns.vo.PrdcrVO;
+import com.apcmngsys.apcss.fm.cmns.vo.PrdcrVO;
 
 /**
  * 생산자정보관리 Service 인터페이스

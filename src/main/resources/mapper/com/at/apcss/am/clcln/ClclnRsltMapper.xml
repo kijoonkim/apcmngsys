@@ -10,21 +10,21 @@
 <!-- 2024.09.21  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnRsltMapper">
+<mapper namespace="com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnRsltList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnRsltList	-->
 	<!-- DESC : 정산결과 목록 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnRsltList" parameterType="com.at.apcss.am.clcln.vo.ClclnRsltVO" resultType="com.at.apcss.am.clcln.vo.ClclnRsltVO">
+    <select id="selectClclnRsltList" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltVO">
     	<![CDATA[
 		SELECT pt1.*
 		  FROM (
-				SELECT /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.selectClclnRsltList */
+				SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper.selectClclnRsltList */
 					  pt0.*
 					, CASE pt0.CLCLN_TRPR_TYPE
 						WHEN 'P' THEN PI.PRDCR_NM
@@ -725,16 +725,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnRsltSn		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.selectClclnRsltSn		-->
 	<!-- DESC : 정산결과 일련번호 조회.                         	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectClclnRsltSn" parameterType="com.at.apcss.am.clcln.vo.ClclnRsltDtlVO" resultType="com.at.apcss.am.clcln.vo.ClclnRsltDtlVO">
+    <select id="selectClclnRsltSn" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO" resultType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.selectClclnRsltSn */
+			SELECT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper.selectClclnRsltSn */
 				  MIN(RSLT_SN)	AS RSLT_SN
 				, MAX(DTL_CD) KEEP (DENSE_RANK FIRST ORDER BY RSLT_SN)	AS DTL_CD
 			  FROM TB_CLCLN_RSLT
@@ -753,16 +753,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnRslt		-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertClclnRslt		-->
 	<!-- DESC : 정산결과 등록. 			                        	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertClclnRslt" parameterType="com.at.apcss.am.clcln.vo.ClclnRsltDtlVO">
+    <insert id="insertClclnRslt" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.insertClclnRslt */
+    		INSERT /* com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper.insertClclnRslt */
     		  INTO TB_CLCLN_RSLT (
 				  APC_CD
 				, CLCLN_YR
@@ -843,16 +843,16 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnRsltElmt	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.updateClclnRsltElmt	-->
 	<!-- DESC : 정산결과 변경. 			                        	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateClclnRsltElmt" parameterType="com.at.apcss.am.clcln.vo.ClclnRsltDtlVO">
+    <update id="updateClclnRsltElmt" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO">
     	<![CDATA[
-    		UPDATE /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.updateClclnRsltElmt */
+    		UPDATE /* com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper.updateClclnRsltElmt */
 				TB_CLCLN_RSLT
 			   SET
 				  SYS_LAST_CHG_DT 			= SYSDATE
@@ -894,16 +894,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnCrtrMapper.insertSpClclnRsltReg	-->
+	<!-- NAME : com.apcmngsys.apcss.am.clcln.mapper.ClclnCrtrMapper.insertSpClclnRsltReg	-->
 	<!-- DESC : 정산결과 변경. 			                        	             	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSpClclnRsltReg" statementType="CALLABLE" parameterType="com.at.apcss.am.clcln.vo.ClclnRsltDtlVO">
+    <insert id="insertSpClclnRsltReg" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.am.clcln.vo.ClclnRsltDtlVO">
     	<![CDATA[
-			{call /* com.at.apcss.am.clcln.mapper.ClclnRsltMapper.insertSpClclnRsltReg */
+			{call /* com.apcmngsys.apcss.am.clcln.mapper.ClclnRsltMapper.insertSpClclnRsltReg */
 				SP_CLCLN_RSLT_REG (
 					  #{sysLastChgUserId}
 	   		  		, #{sysLastChgPrgrmId}

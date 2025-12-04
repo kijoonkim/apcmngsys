@@ -1,11 +1,11 @@
-package com.at.apcss.co.log.mapper;
+package com.apcmngsys.apcss.co.log.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.log.vo.ComLogVO;
+import com.apcmngsys.apcss.co.log.vo.ComLogVO;
 
 /**
  * 공통 이력 Mapper

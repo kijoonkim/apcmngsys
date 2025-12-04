@@ -1,12 +1,12 @@
-package com.at.apcss.co.ognz.mapper;
+package com.apcmngsys.apcss.co.ognz.mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
-import com.at.apcss.co.ognz.vo.UntyOgnzVO;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO;
 
 /**
  * 공통메시지 Mapper 인터페이스

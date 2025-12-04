@@ -10,20 +10,20 @@
 <!-- 2025.07.10  	김 호        		Initial Creation                        -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper">
+<mapper namespace="com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper">
 
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList		-->
 	<!-- DESC : 검수 목록 조회.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-    <select id="selectRawMtrWrhsIgiList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+    <select id="selectRawMtrWrhsIgiList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList */
+			SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList */
 				   X.APC_CD                 AS APC_CD
 				 , X.IGI_YMD                AS IGI_YMD
 				 , X.IGI_SEQ                AS IGI_SEQ
@@ -131,30 +131,30 @@
     </select>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectGetIgiSeq				-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectGetIgiSeq				-->
 	<!-- DESC : 검수이력번호 발번.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<select id="selectGetIgiSeq" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="String">
+	<select id="selectGetIgiSeq" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="String">
 		SELECT NVL(MAX(IGI_SEQ), 0) +1 AS IGI_SEQ
 		  FROM TB_RAW_MTR_WRHS_IGI
 		 WHERE APC_CD = #{apcCd}
 		   AND IGI_YMD = #{igiYmd}
 	</select>
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi			-->
 	<!-- DESC : 검수 등록.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<insert id="insertRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<insert id="insertRawMtrWrhsIgi" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi */
+			INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi */
 			  INTO TB_RAW_MTR_WRHS_IGI
 			   		(
 					  APC_CD
@@ -205,16 +205,16 @@
 	</insert>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi			-->
 	<!-- DESC : 검수 수정.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<update id="updateRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<update id="updateRawMtrWrhsIgi" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi */
+			UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi */
 			       TB_RAW_MTR_WRHS_IGI
 			   SET PRDCR_CD					= #{prdcrCd}
 				 , IGI_JGMT_CD				= #{igiJgmtCd}
@@ -236,16 +236,16 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl		-->
 	<!-- DESC : 검수 상세 등록.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<insert id="insertRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+	<insert id="insertRawMtrWrhsIgiDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl */
+			INSERT /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl */
 		      INTO TB_RAW_MTR_WRHS_IGI_DTL
 				(
 				   APC_CD
@@ -282,16 +282,16 @@
 	</insert>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl		-->
 	<!-- DESC : 검수 상세 수정.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<update id="updateRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+	<update id="updateRawMtrWrhsIgiDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
 		<![CDATA[
-		MERGE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
+		MERGE /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
 		 INTO TB_RAW_MTR_WRHS_IGI_DTL A
 		USING DUAL
 		  ON (
@@ -350,16 +350,16 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgi			-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgi			-->
 	<!-- DESC : 검수 삭제.	                                       							-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.15  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<update id="deleteRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<update id="deleteRawMtrWrhsIgi" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
-		UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
+		UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
 			   TB_RAW_MTR_WRHS_IGI
 		   SET DEL_YN 					= 'Y'
 			 , SYS_LAST_CHG_DT			= SYSDATE
@@ -372,16 +372,16 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl		-->
 	<!-- DESC : 검수 상세 삭제.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.15  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<update id="deleteRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+	<update id="deleteRawMtrWrhsIgiDtl" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
 		<![CDATA[
-		UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl */
+		UPDATE /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl */
 			   TB_RAW_MTR_WRHS_IGI_DTL
 		   SET DEL_YN 					= 'Y'
 		  	 , SYS_LAST_CHG_DT			= SYSDATE
@@ -394,14 +394,14 @@
 	</update>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiTot		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiTot		-->
 	<!-- DESC : 검수 목록 조회.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<select id="selectRawMtrWrhsIgiTot" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<select id="selectRawMtrWrhsIgiTot" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
 			SELECT APC_CD
 			     , IGI_JGMT_CD
@@ -466,16 +466,16 @@
 		]]>
 	</select>
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo		-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo		-->
 	<!-- DESC : 생산자 검수 정보 조회.	                                       						-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<select id="selectPrschsPrdcrInfo" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<select id="selectPrschsPrdcrInfo" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
-		SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo */
+		SELECT /* com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo */
 		       PI.PRDCR_CD
 			 , PI.PRDCR_NM
 			 , CQ.QLT_EVL_CD
@@ -575,14 +575,14 @@
 	</select>
 
 	<!-- ================================================================================	-->
-	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWghPrmncTotList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWghPrmncTotList	-->
 	<!-- DESC : 수매계량합계 정보 조회.	                                       					-->
 	<!-- ================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	=================================================	-->
 	<!-- 2025.08.07  	 김 호        		Initial Creation                        		-->
 	<!-- ================================================================================	-->
-	<select id="selectRawMtrWghPrmncTotList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+	<select id="selectRawMtrWghPrmncTotList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
 		<![CDATA[
 			SELECT X.APC_CD                 AS APC_CD
 				 , X.VRTY_CD                AS VRTY_CD
@@ -673,14 +673,14 @@
 	</select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngCrtrInfos			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngCrtrInfos			    -->
     <!-- DESC : 육묘기준 목록 공통 조회.	                                       				-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="sdlngCrtrInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="sdlngCrtrInfos" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SC.APC_CD AS APC_CD
@@ -739,14 +739,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltZoneInfos          -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltZoneInfos          -->
     <!-- DESC : 육묘시설 구역 목록 공통 조회.	                                       			-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="sdlngFcltZoneInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="sdlngFcltZoneInfos" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   FZ.FCLT_ID AS FCLT_ID
@@ -776,14 +776,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngFcltCrtrList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngFcltCrtrList		-->
     <!-- DESC : 육묘시설기준 목록 수정.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateSdlngFcltCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateSdlngFcltCrtrList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDLNG_FCLT_CRTR
             SET
@@ -799,14 +799,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltRowInfos           -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.sdlngFcltRowInfos           -->
     <!-- DESC : 육묘시설 열 목록 공통 조회.	                                       			    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="sdlngFcltRowInfos" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="sdlngFcltRowInfos" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   FZ.FCLT_ID AS FCLT_ID
@@ -830,14 +830,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngCrtrList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngCrtrList			-->
     <!-- DESC : 육묘기준 목록 조회.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectSdlngCrtrList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SC.APC_CD AS APC_CD
@@ -857,14 +857,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngCrtrList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngCrtrList			-->
     <!-- DESC : 육묘기준 목록 등록.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertSdlngCrtrList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SDLNG_CRTR (
                   APC_CD
@@ -903,14 +903,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngCrtrList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngCrtrList			-->
     <!-- DESC : 육묘기준 목록 수정.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.22  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateSdlngCrtrList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDLNG_CRTR
             SET
@@ -929,14 +929,14 @@
 	</update>
 
     <!-- ==================================================================================	-->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngCrtrList	        -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngCrtrList	        -->
     <!-- DESC : 육묘기준 목록 삭제.                                             		        -->
     <!-- ==================================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
     <!-- ===========  	============  	===================================================	-->
     <!-- 2025.09.16  	최지호        	Initial Creation                                    -->
     <!-- ==================================================================================	-->
-    <update id="deleteSdlngCrtrList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteSdlngCrtrList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
     	<![CDATA[
             UPDATE TB_SDLNG_CRTR
             SET DEL_YN = 'Y'
@@ -946,14 +946,14 @@
     </update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSdlngList			    -->
     <!-- DESC : 육묘장 목록 조회.	                                       					    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectSdlngList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SI.APC_CD AS APC_CD
@@ -1006,14 +1006,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSdlngList			    -->
     <!-- DESC : 육묘장 목록 등록.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertSdlngList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SDNLG_INVNTR (
                   APC_CD
@@ -1060,14 +1060,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSdlngList			    -->
     <!-- DESC : 육묘장 목록 수정.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateSdlngList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDNLG_INVNTR
             SET
@@ -1090,14 +1090,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSdlngList			    -->
     <!-- DESC : 육묘장 목록 삭제.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="deleteSdlngList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteSdlngList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDNLG_INVNTR
             SET
@@ -1112,14 +1112,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtn			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtn			    -->
     <!-- DESC : 재배장 목록 단건 조회.	                                       					    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectCltvtn" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectCltvtn" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SP.APC_CD AS APC_CD
@@ -1141,14 +1141,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtnList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectCltvtnList			-->
     <!-- DESC : 재배장 목록 조회.	                                       					    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectCltvtnList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SI.APC_CD AS APC_CD
@@ -1212,14 +1212,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertCltvtnList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertCltvtnList			-->
     <!-- DESC : 재배장 목록 등록.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertCltvtnList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SDNLG_PLNTNG (
                   APC_CD
@@ -1258,14 +1258,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateCltvtnList			-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateCltvtnList			-->
     <!-- DESC : 재배장 목록 수정.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateCltvtnList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDNLG_PLNTNG
             SET
@@ -1283,14 +1283,14 @@
 	</update>
 
     <!-- ==================================================================================	-->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteCltvtnList	        -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteCltvtnList	        -->
     <!-- DESC : 재배장 목록 삭제.                                             			        -->
     <!-- ==================================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
     <!-- ===========  	============  	===================================================	-->
     <!-- 2025.09.16  	최지호        	Initial Creation                                    -->
     <!-- ==================================================================================	-->
-    <update id="deleteCltvtnList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteCltvtnList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
     	<![CDATA[
             UPDATE TB_SDNLG_PLNTNG
             SET DEL_YN = 'Y'
@@ -1301,14 +1301,14 @@
     </update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWgh			        -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWgh			        -->
     <!-- DESC : 계량 목록 단건 조회.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectWgh" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectWgh" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SH.APC_CD AS APC_CD
@@ -1332,14 +1332,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWghList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectWghList			    -->
     <!-- DESC : 계량 목록 조회.	                                       					    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectWghList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   SP.APC_CD AS APC_CD
@@ -1393,14 +1393,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.countWghList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.countWghList			    -->
     <!-- DESC : 계량 목록 개수 조회.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="countWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="int">
+    <select id="countWghList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="int">
         <![CDATA[
             SELECT COUNT(*)
             FROM TB_SDNLG_HRVST SH
@@ -1412,14 +1412,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertWghList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertWghList			    -->
     <!-- DESC : 계량 목록 등록.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertWghList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SDNLG_HRVST (
                   APC_CD
@@ -1462,14 +1462,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateWghList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateWghList			    -->
     <!-- DESC : 계량 목록 수정.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateWghList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDNLG_HRVST
             SET
@@ -1489,14 +1489,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.saveHrvstYmd			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.saveHrvstYmd			    -->
     <!-- DESC : 수확일자 저장.	                                       						-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="saveHrvstYmd" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="saveHrvstYmd" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SDNLG_PLNTNG
             SET
@@ -1510,14 +1510,14 @@
 	</update>
 
     <!-- ==================================================================================	-->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteWghList	            -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteWghList	            -->
     <!-- DESC : 계량 목록 삭제.                                             			        -->
     <!-- ==================================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			        -->
     <!-- ===========  	============  	===================================================	-->
     <!-- 2025.10.28  	최지호        	Initial Creation                                    -->
     <!-- ==================================================================================	-->
-    <update id="deleteWghList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteWghList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
     	<![CDATA[
             UPDATE TB_SDNLG_HRVST
             SET DEL_YN = 'Y'
@@ -1527,14 +1527,14 @@
     </update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSpmtList			    -->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectSpmtList			    -->
     <!-- DESC : 출고 목록 조회.	                                       					    -->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.16  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <select id="selectSpmtList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO" resultType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <select id="selectSpmtList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO" resultType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
         <![CDATA[
             SELECT
                   PD.APC_CD AS APC_CD
@@ -1587,14 +1587,14 @@
     </select>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncComList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncComList		-->
     <!-- DESC : 출고 공통 목록 등록.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertSpmtPrfmncComList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SPMT_PRFMNC_COM (
                   APC_CD
@@ -1627,14 +1627,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncDtlList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertSpmtPrfmncDtlList		-->
     <!-- DESC : 출고 상세 목록 등록.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <insert id="insertSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <insert id="insertSpmtPrfmncDtlList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             INSERT INTO TB_SPMT_PRFMNC_DTL (
                   APC_CD
@@ -1679,14 +1679,14 @@
 	</insert>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncComList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncComList		-->
     <!-- DESC : 출고 공통 목록 수정.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateSpmtPrfmncComList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SPMT_PRFMNC_COM
             SET
@@ -1702,14 +1702,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncDtlList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateSpmtPrfmncDtlList		-->
     <!-- DESC : 출고 상세 목록 수정.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.10.28  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="updateSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="updateSpmtPrfmncDtlList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SPMT_PRFMNC_DTL
             SET
@@ -1729,14 +1729,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncComList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncComList		-->
     <!-- DESC : 출고 공통 목록 삭제.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="deleteSpmtPrfmncComList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteSpmtPrfmncComList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SPMT_PRFMNC_COM
             SET
@@ -1750,14 +1750,14 @@
 	</update>
 
     <!-- ================================================================================== -->
-    <!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncDtlList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteSpmtPrfmncDtlList		-->
     <!-- DESC : 출고 상세 목록 삭제.	                                       					-->
     <!-- ================================================================================== -->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
     <!-- ===========  	============  	=================================================== -->
     <!-- 2025.09.15  	최지호        	Initial Creation                        		    -->
     <!-- ================================================================================== -->
-    <update id="deleteSpmtPrfmncDtlList" parameterType="com.at.apcss.am.wrhs.vo.SdlngVO">
+    <update id="deleteSpmtPrfmncDtlList" parameterType="com.apcmngsys.apcss.am.wrhs.vo.SdlngVO">
 		<![CDATA[
             UPDATE TB_SPMT_PRFMNC_DTL
             SET

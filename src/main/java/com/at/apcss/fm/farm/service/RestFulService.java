@@ -1,4 +1,4 @@
-package com.at.apcss.fm.farm.service;
+package com.apcmngsys.apcss.fm.farm.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;

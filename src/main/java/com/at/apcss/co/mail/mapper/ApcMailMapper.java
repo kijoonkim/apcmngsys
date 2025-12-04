@@ -1,7 +1,7 @@
-package com.at.apcss.co.mail.mapper;
+package com.apcmngsys.apcss.co.mail.mapper;
 
 
-import com.at.apcss.co.mail.vo.EmlLogVO;
+import com.apcmngsys.apcss.co.mail.vo.EmlLogVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

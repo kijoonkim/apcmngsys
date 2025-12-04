@@ -1,9 +1,9 @@
-package com.at.apcss.pd.sprt.service.impl;
+package com.apcmngsys.apcss.pd.sprt.service.impl;
 
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.sprt.mapper.SprtBizRsltInqMapper;
-import com.at.apcss.pd.sprt.service.SprtBizRsltInqService;
-import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.pd.sprt.mapper.SprtBizRsltInqMapper;
+import com.apcmngsys.apcss.pd.sprt.service.SprtBizRsltInqService;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

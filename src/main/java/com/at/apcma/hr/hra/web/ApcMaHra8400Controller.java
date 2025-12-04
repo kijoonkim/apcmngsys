@@ -1,4 +1,4 @@
-package com.at.apcma.hr.hra.web;
+package com.apcmngsys.apcma.hr.hra.web;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,8 +26,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcma.com.service.ApcMaCommDirectService;
-import com.at.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcma.com.service.ApcMaCommDirectService;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
 import com.ibatis.sqlmap.engine.type.JdbcTypeRegistry;
 
 /**

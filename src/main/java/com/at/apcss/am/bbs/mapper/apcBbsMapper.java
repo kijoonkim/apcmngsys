@@ -1,12 +1,12 @@
-package  com.at.apcss.am.bbs.mapper;
+package  com.apcmngsys.apcss.am.bbs.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.bbs.vo.apcBbsCmntVO;
-import com.at.apcss.am.bbs.vo.apcBbsFileVO;
-import com.at.apcss.am.bbs.vo.apcBbsVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsCmntVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsFileVO;
+import com.apcmngsys.apcss.am.bbs.vo.apcBbsVO;
 
 /**
  * 게시판 Mapper 인터페이스

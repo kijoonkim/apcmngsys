@@ -1,16 +1,16 @@
-package com.at.apcss.am.cmns.mapper;
+package com.apcmngsys.apcss.am.cmns.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
-import com.at.apcss.am.cmns.vo.ApcSeedCrtrVO;
-import com.at.apcss.am.sort.vo.SortBffaGrdVO;
-import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
+import com.apcmngsys.apcss.am.cmns.vo.ApcSeedCrtrVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaGrdVO;
+import com.apcmngsys.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.cmns.vo.CmnsItemVO;
+import com.apcmngsys.apcss.am.cmns.vo.CmnsItemVO;
 
 /**
  * 품목정보 Mapper 인터페이스

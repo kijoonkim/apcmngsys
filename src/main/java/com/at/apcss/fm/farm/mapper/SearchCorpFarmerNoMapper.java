@@ -1,11 +1,11 @@
-package com.at.apcss.fm.farm.mapper;
+package com.apcmngsys.apcss.fm.farm.mapper;
 
 import java.util.List;
 import java.util.Map;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.fm.farm.vo.SearchCorpFarmerNoVO;
+import com.apcmngsys.apcss.fm.farm.vo.SearchCorpFarmerNoVO;
 
 /**
  * 게시판 Mapper 인터페이스

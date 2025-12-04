@@ -1,6 +1,6 @@
-package com.at.apcss.pd.sprt.mapper;
+package com.apcmngsys.apcss.pd.sprt.mapper;
 
-import com.at.apcss.pd.sprt.vo.SprtBizRsltInqVO;
+import com.apcmngsys.apcss.pd.sprt.vo.SprtBizRsltInqVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;

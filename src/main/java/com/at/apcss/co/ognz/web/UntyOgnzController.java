@@ -1,4 +1,4 @@
-package com.at.apcss.co.ognz.web;
+package com.apcmngsys.apcss.co.ognz.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,12 +14,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.ognz.service.UntyOgnzService;
-import com.at.apcss.co.ognz.vo.UntyOgnzApcUserVO;
-import com.at.apcss.co.ognz.vo.UntyOgnzVO;
-import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.ognz.service.UntyOgnzService;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzApcUserVO;
+import com.apcmngsys.apcss.co.ognz.vo.UntyOgnzVO;
+import com.apcmngsys.apcss.co.sys.controller.BaseController;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : UntyOgnzController.java

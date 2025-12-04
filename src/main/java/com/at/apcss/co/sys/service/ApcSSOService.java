@@ -1,11 +1,11 @@
-package com.at.apcss.co.sys.service;
+package com.apcmngsys.apcss.co.sys.service;
 
 import java.io.IOException;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import com.at.apcss.co.sys.vo.LoginVO;
+import com.apcmngsys.apcss.co.sys.vo.LoginVO;
 
 /**
  * SSO Service 인터페이스

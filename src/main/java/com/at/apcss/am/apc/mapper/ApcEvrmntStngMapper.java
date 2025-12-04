@@ -1,13 +1,13 @@
-package com.at.apcss.am.apc.mapper;
+package com.apcmngsys.apcss.am.apc.mapper;
 
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
-import com.at.apcss.am.apc.vo.ApcLinkVO;
-import com.at.apcss.co.cd.vo.ComCdVO;
-import com.at.apcss.co.user.vo.ComUserVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.apcmngsys.apcss.am.apc.vo.ApcLinkVO;
+import com.apcmngsys.apcss.co.cd.vo.ComCdVO;
+import com.apcmngsys.apcss.co.user.vo.ComUserVO;
 /**
  * APC환경설정 Mapper
  * @author FINEVT 개발팀 김호

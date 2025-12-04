@@ -10,11 +10,11 @@
 <!-- 2023.06.29  	jcshin			Initial Creation							-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper">
 
 	<!-- 통합조직 총괄표 리스트 2024 -->
-	<select id="selectUoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectItemStbltYn */
+	<select id="selectUoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectItemStbltYn */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -408,8 +408,8 @@
 	</select>
 
 	<!-- 통합조직 총괄표 리스트 2025 -->
-	<select id="selectUoList2025" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectItemStbltYn */
+	<select id="selectUoList2025" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectItemStbltYn */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -803,8 +803,8 @@
 	</select>
 
 	<!-- 통합조직 총괄 리스트 -->
-	<select id="selectUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoTotList */
+	<select id="selectUoTotList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoTotList */
 			EAM.YR
 			,EAM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = EAM.BRNO) AS CORP_NM
@@ -959,8 +959,8 @@
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 2024 -->
-	<select id="selectIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
+	<select id="selectIsoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -1130,8 +1130,8 @@
 	</select>
 
 	<!-- 출자출하조직 등록결과 리스트 2025 -->
-	<select id="selectIsoList2025" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
+	<select id="selectIsoList2025" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoList */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -1366,8 +1366,8 @@
 	</select>
 
 	<!-- 출자출하조직 총괄 리스트 -->
-	<select id="selectIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoTotList */
+	<select id="selectIsoTotList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoTotList */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.CORP_NM
@@ -1567,8 +1567,8 @@
 	</select>
 
 	<!-- 생산자조직 등록결과 리스트 -->
-	<select id="selectFrmhsList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectFrmhsList */
+	<select id="selectFrmhsList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectFrmhsList */
 			TOTAL.BRNO
 			,DECODE(TOTAL.APO_SE , '1' , TOTAL.BRNO , '2' , TOTAL.UO_BRNO , '')AS UO_BRNO
 			,TOTAL.APO_SE
@@ -1684,8 +1684,8 @@
 		ORDER BY ITEM_CD , UO_BRNO DESC , BRNO , PRDCR_OGNZ_SN
 	</select>
 
-	<insert id="insertUoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertUoTotList */
+	<insert id="insertUoTotList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertUoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -1781,8 +1781,8 @@
 					)
 	</insert>
 
-	<insert id="insertIsoTotList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		MERGE INTO TB_EV_REG_RSLT CLT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertIsoTotList */
+	<insert id="insertIsoTotList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		MERGE INTO TB_EV_REG_RSLT CLT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.insertIsoTotList */
 		USING DUAL
 			ON (
 					CLT.BRNO		= #{brno}
@@ -1875,8 +1875,8 @@
 					  , #{sysLastChgPrgrmId}
 					)
 	</insert>
-	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectRawDataList */
+	<select id="selectRawDataList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectRawDataList */
 			ERR.YR
 			, ERR.BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ERR.BRNO) AS CORP_NM
@@ -2037,8 +2037,8 @@
 	</select>
 
 	<!-- 통합조직 선정여부 일괄 조회 -->
-	<select id="selectUoIcptRsnList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoIcptRsnList */
+	<select id="selectUoIcptRsnList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectUoIcptRsnList */
 			EAM.YR
 			,EAM.BRNO
 			,EAM.APO_SE
@@ -2200,8 +2200,8 @@
 	</select>
 
 	<!-- 출자출하조직 총괄 리스트 -->
-	<select id="selectIsoIcptRsnList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT /* com.at.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoIcptRsnList */
+	<select id="selectIsoIcptRsnList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.PrdcrCrclOgnVluIdctrMngMapper.selectIsoIcptRsnList */
 			TOT.YR
 			,TOT.BRNO
 			,TOT.ICPT_RSN_CD
@@ -2407,8 +2407,8 @@
 	</select>
 
 	<!-- 출자출하조직 로우데이터 2024 -->
-	<select id="selectRawDataIsoList" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataList */
+	<select id="selectRawDataIsoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataList */
 			TOTAL.YR
 			,TOTAL.UO_BRNO
 			,TOTAL.UO_CORP_NM
@@ -2646,8 +2646,8 @@
 	</select>
 
 	<!-- 출자출하조직 로우데이터 2025 -->
-	<select id="selectRawDataIsoList2025" parameterType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.at.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataList */
+	<select id="selectRawDataIsoList2025" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.PrdcrCrclOgnVluIdctrMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataList */
 			TOTAL.YR
 			,TOTAL.UO_BRNO
 			,TOTAL.UO_CORP_NM

@@ -10,17 +10,17 @@
 <!-- 2023.09.07  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.vrty.mapper.VrtyMapper">
+<mapper namespace="com.apcmngsys.apcss.am.vrty.mapper.VrtyMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.vrty.mapper.ApcEvrmntStngMapper.selectVrtyList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.vrty.mapper.ApcEvrmntStngMapper.selectVrtyList		-->
 	<!-- DESC : 품종 선택 후 팝업 조회			                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.09.07  	김현호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectVrtyList" parameterType="com.at.apcss.am.vrty.vo.VrtyVO" resultType="com.at.apcss.am.vrty.vo.VrtyVO">
+    <select id="selectVrtyList" parameterType="com.apcmngsys.apcss.am.vrty.vo.VrtyVO" resultType="com.apcmngsys.apcss.am.vrty.vo.VrtyVO">
     	<![CDATA[
 	    	SELECT
 	    ]]>

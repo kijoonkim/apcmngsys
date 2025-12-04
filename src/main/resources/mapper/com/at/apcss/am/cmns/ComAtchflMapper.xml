@@ -10,35 +10,35 @@
 <!-- 2024.07.11  	김호        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.cmns.mapper.ComAtchflMapper">
+<mapper namespace="com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo	-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo	-->
 	<!-- DESC : 첨부파일번호 발번.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.11  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectGetComAtchflNo" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" resultType="string">
+    <select id="selectGetComAtchflNo" parameterType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO" resultType="string">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo */
+    		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.selectGetComAtchflNo */
     			   FN_GET_ID_COM_ATCHFL(#{prntsTblNo}, #{prntsTblSeCd}) AS ATCHFL_NO
     	      FROM DUAL
     	]]>
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
 	<!-- DESC : 첨부파일번호 등록.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.11  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+    <insert id="insertComAtchfl" parameterType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO">
     	<![CDATA[
-    		INSERT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl */
+    		INSERT /* com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl */
     		  INTO TB_COM_ATCHFL
     		  	 (
     		  	   ATCHFL_NO
@@ -77,16 +77,16 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
 	<!-- DESC : 첨부파일번호 수정.	                                       			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.03.19  	김기준        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+	<update id="updateComAtchfl" parameterType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO">
 		<![CDATA[
-    		UPDATE /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.updateComAtchfl */
+    		UPDATE /* com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.updateComAtchfl */
     		  TB_COM_ATCHFL
     		SET
 				 ATCHFL_NM 					= #{atchflNm}
@@ -105,16 +105,16 @@
 	</update>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl			-->
 	<!-- DESC : 첨부파일 조회.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.07.11  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" resultType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+    <select id="selectComAtchfl" parameterType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO" resultType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO">
     	<![CDATA[
-    		SELECT /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl */
+    		SELECT /* com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl */
 			       CA.ATCHFL_NO             AS ATCHFL_NO
 			     , CA.PRNTS_TBL_NO          AS PRNTS_TBL_NO
 			     , CA.PRNTS_TBL_SE_CD       AS PRNTS_TBL_SE_CD
@@ -132,16 +132,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl			-->
+	<!-- NAME : com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl			-->
 	<!-- DESC : 첨부파일 삭제.	                                       				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.09  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <update id="deleteComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO" >
+    <update id="deleteComAtchfl" parameterType="com.apcmngsys.apcss.am.cmns.vo.ComAtchflVO" >
     	<![CDATA[
-    		DELETE /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl */
+    		DELETE /* com.apcmngsys.apcss.am.cmns.mapper.ComAtchflMapper.deleteComAtchfl */
 			  FROM TB_COM_ATCHFL
 			 WHERE ATCHFL_NO 		= #{atchflNo}
 			   AND PRNTS_TBL_NO 	= #{prntsTblNo}

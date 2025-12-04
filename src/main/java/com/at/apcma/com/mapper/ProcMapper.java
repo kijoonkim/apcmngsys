@@ -1,4 +1,4 @@
-package com.at.apcma.com.mapper;
+package com.apcmngsys.apcma.com.mapper;
 
 import java.util.HashMap;
 import java.util.Map;

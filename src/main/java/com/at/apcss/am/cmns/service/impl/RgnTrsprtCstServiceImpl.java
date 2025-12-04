@@ -1,4 +1,4 @@
-package com.at.apcss.am.cmns.service.impl;
+package com.apcmngsys.apcss.am.cmns.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,14 +11,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
-import com.at.apcss.am.cmns.service.RgnTrsprtCstService;
-import com.at.apcss.am.cmns.service.WrhsVhclService;
-import com.at.apcss.am.cmns.vo.RgnTrsprtCstVO;
-import com.at.apcss.am.cmns.vo.WrhsVhclVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
+import com.apcmngsys.apcss.am.cmns.mapper.RgnTrsprtCstMapper;
+import com.apcmngsys.apcss.am.cmns.service.RgnTrsprtCstService;
+import com.apcmngsys.apcss.am.cmns.service.WrhsVhclService;
+import com.apcmngsys.apcss.am.cmns.vo.RgnTrsprtCstVO;
+import com.apcmngsys.apcss.am.cmns.vo.WrhsVhclVO;
+import com.apcmngsys.apcss.co.constants.ComConstants;
+import com.apcmngsys.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.apcmngsys.apcss.co.sys.util.ComUtil;
 
 /**
  * @Class Name : RgnTrsprtCstServiceImpl.java

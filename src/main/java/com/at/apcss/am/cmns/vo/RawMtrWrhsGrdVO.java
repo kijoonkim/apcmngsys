@@ -1,6 +1,6 @@
-package com.at.apcss.am.cmns.vo;
+package com.apcmngsys.apcss.am.cmns.vo;
 
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 
 /**
  * @Class Name : RawMtrWrhsGrdVO.java

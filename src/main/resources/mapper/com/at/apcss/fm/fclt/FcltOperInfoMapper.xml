@@ -10,19 +10,19 @@
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper">
+<mapper namespace="com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper">
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo				-->
 	<!-- DESC : 운영자개요 테이블 단건조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
+	<select id="selectFcltOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
+		SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo */
 			AOPO.CRTR_YR
 
 			<if test='memberInfoYn == "Y"'>
@@ -84,15 +84,15 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList			-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList			-->
 	<!-- DESC : 운영자개요 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectFcltOperInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
+	<select id="selectFcltOperInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoList */
 					 AOPO.CRTR_YR
 
 					<if test='memberInfoYn == "Y"'>
@@ -165,7 +165,7 @@
 
 
 
-	<update id="insertFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="insertFcltOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		MERGE INTO TB_TE_APC_OPER_PRSN_OTLN AOPO
 		USING DUAL
 		ON (
@@ -308,16 +308,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln	-->
 	<!-- DESC : APC전수조사-운영자개요 단건 조회                               				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<select id="selectApcOperPrsnOtln" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln */
 				  OP.CRTR_YR		AS CRTR_YR
 				, OP.OPER_OGNZ_NM	AS OPER_OGNZ_NM
 				, OP.RPRSV			AS RPRSV
@@ -358,16 +358,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList	-->
 	<!-- DESC : APC전수조사-운영자개요 품목 목록 조회                      				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectApcOperTrmtItemList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+	<select id="selectApcOperTrmtItemList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList */
 				  TI.CRTR_YR		AS CRTR_YR
 				, TI.APC_CD			AS APC_CD
 				, TI.SN				AS SN
@@ -388,16 +388,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln	-->
 	<!-- DESC : APC전수조사-운영자개요 등록                               				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<insert id="insertApcOperPrsnOtln" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln */
+			INSERT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln */
 			INTO TB_TE_APC_OPER_PRSN_OTLN (
 				  CRTR_YR
 				, OPER_OGNZ_NM
@@ -489,16 +489,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln-->
 	<!-- DESC : 운영자개요 변경                                             			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="updateApcOperPrsnOtln" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln */
 				TB_TE_APC_OPER_PRSN_OTLN AOPO
 			  SET
 				OPER_OGNZ_NM			=  #{operOgnzNm}
@@ -546,16 +546,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem-->
 	<!-- DESC : APC전수조사-운영자개요 품목 등록                               			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertApcOperTrmtItem" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+	<insert id="insertApcOperTrmtItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO">
 		<![CDATA[
-			INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem */
+			INSERT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem */
 				INTO TB_TE_APC_OPER_TRMT_ITEM (
 					  CRTR_YR
 					, APC_CD
@@ -597,16 +597,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem-->
 	<!-- DESC : APC전수조사-운영자개요 품목 삭제                               			-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteApcOperTrmtItem" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+	<delete id="deleteApcOperTrmtItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem */
 				TB_TE_APC_OPER_TRMT_ITEM
 			WHERE CRTR_YR = #{crtrYr}
 			AND APC_CD  = #{apcCd}
@@ -615,16 +615,16 @@
 	</delete>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry-->
 	<!-- DESC : 운영자개요 이력 등록                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertApcOperPrsnOtlnHstry" statementType="CALLABLE" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<insert id="insertApcOperPrsnOtlnHstry" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			{call /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry */
+			{call /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry */
 				SP_CMSU_OPER_OTLN_HSTRY (
 					  #{sysLastChgUserId}
 					, #{sysLastChgPrgrmId}
@@ -640,16 +640,16 @@
 	</insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry-->
 	<!-- DESC : 운영자 품목 이력 등록                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<insert id="insertApcOperTrmtItemHstry" statementType="CALLABLE" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<insert id="insertApcOperTrmtItemHstry" statementType="CALLABLE" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-		{call /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry */
+		{call /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry */
 			SP_CMSU_OPER_TRMT_ITEM_HSTRY (
 				  #{sysLastChgUserId}
 				, #{sysLastChgPrgrmId}
@@ -667,16 +667,16 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo				-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo				-->
 	<!-- DESC : 운영자개요 변경                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="updateFcltOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo */
 				TB_TE_APC_OPER_PRSN_OTLN AOPO
 
 			  SET
@@ -724,16 +724,16 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo	-->
 	<!-- DESC : 운영자개요 삭제                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.09  	kimho        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="deleteFcltOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
 				TB_TE_APC_OPER_PRSN_OTLN AOPO
 			  SET
 				  DEL_YN 	= 'Y'
@@ -743,9 +743,9 @@
 		]]>
 	</update>
 	<!--
-	<delete id="deleteFcltOperInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<delete id="deleteFcltOperInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfo */
 				  TB_FCLT_OPER_INFO FCLT
 			WHERE 1=1
 		      AND TRGT_YR = #{trgtYr}
@@ -755,8 +755,8 @@
 	 -->
 
 	<!-- 품목리스트 -->
-	<select id="selectFcltOperInfoItemList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemVO">
-		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoItemList */
+	<select id="selectFcltOperInfoItemList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO">
+		SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoItemList */
 			AOTI.APC_CD
 			, AOTI.CRTR_YR
 			, AOTI.SN
@@ -777,7 +777,7 @@
 		</if>
 	</select>
 	<!-- 품목등록 -->
-	<update id="insertFcltOperInfoItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="insertFcltOperInfoItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		MERGE INTO TB_TE_APC_OPER_TRMT_ITEM AOTI
 		USING DUAL
 		ON (
@@ -837,9 +837,9 @@
 				)
 	</update>
 	<!-- 품목삭제 -->
-	<delete id="deleteItem" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+	<delete id="deleteItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltItemVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteItem */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteItem */
 				  TB_TE_APC_OPER_TRMT_ITEM AOTI
 			WHERE 1=1
 			  AND AOTI.CRTR_YR 		= #{crtrYr}
@@ -849,9 +849,9 @@
 		]]>
 	</delete>
 	<!--
-	<update id="deleteItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="deleteItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
 				TB_TE_APC_OPER_TRMT_ITEM AOTI
 			  SET
 				  DEL_YN 	= 'Y'
@@ -864,9 +864,9 @@
 	</update>
 	 -->
 	<!--
-	<delete id="deleteFcltOperInfoItem" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<delete id="deleteFcltOperInfoItem" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
+			DELETE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteFcltOperInfoItem */
 				  TB_TE_APC_OPER_TRMT_ITEM AOTI
 			WHERE 1=1
 		      AND AOTI.CRTR_YR 		= #{crtrYr}
@@ -876,7 +876,7 @@
 		]]>
 	</delete>
 	 -->
-	<select id="selectApcList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+	<select id="selectApcList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -888,7 +888,7 @@
 		<!-- End 페이징 -->
 
 		<![CDATA[
-		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
+		SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcList */
 			  AOPO.CRTR_YR
 			, AOPO.APC_CD
 			, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = AOPO.APC_CD) AS APC_NM
@@ -1020,9 +1020,9 @@
 	</select>
 
 
-	<select id="selectFcltOperInfoRawDataList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+	<select id="selectFcltOperInfoRawDataList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoRawDataList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfoRawDataList */
 					  AOPO.OPER_OGNZ_NM
 					, AOPO.CRTR_YR
 					, AOPO.OPER_OGNZ_BRNO
@@ -1105,10 +1105,10 @@
 				</if>
 			</if>
 	</select>
-	<select id="selectUserApcList" parameterType="com.at.apcss.fm.fclt.vo.FcltApcVO" resultType="com.at.apcss.fm.fclt.vo.FcltApcVO">
+	<select id="selectUserApcList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltApcVO">
 		SELECT * FROM (
 
-			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserApcList */
+			SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserApcList */
 				TAI.APC_CD
 				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = TAI.APC_CD) AS APC_NM
 			FROM TB_APC_INFO TAI
@@ -1135,8 +1135,8 @@
 		]]>
 	</select>
 
-	<select id="selectUserInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
-		SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserInfo */
+	<select id="selectUserInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
+		SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectUserInfo */
 			CO_NM			 AS OPER_OGNZ_NM
 			,RPRSV_KORN_NM	 AS RPRSV
 			,BRNO			 AS OPER_OGNZ_BRNO
@@ -1149,14 +1149,14 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectOperPrsnInfoList-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectOperPrsnInfoList-->
 	<!-- DESC : APC전수조사 운영자정보 목록 조회	                                        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.20  	유민지        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectOperPrsnInfoList" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<select id="selectOperPrsnInfoList" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
 		SELECT pt0.*
 			 , (SELECT FN_GET_COM_CD_VL_NM('UNTY_CTPV',pt0.CTPV_CD) FROM DUAL) AS CTPV_NM
@@ -1166,7 +1166,7 @@
 			 , (SELECT FN_GET_COM_CD_VL_NM('OGNZ_TYPE_CD',pt0.PY_OGNZ_TYPE_CD) FROM DUAL) AS PY_OGNZ_TYPE_NM
 			 , (SELECT FN_GET_COM_CD_VL_NM('TYPE_CD',pt0.PY_TYPE_CD) FROM DUAL) AS PY_TYPE_NM
 		FROM (
-				 SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectOperPrsnInfoList */
+				 SELECT /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectOperPrsnInfoList */
 					 AOPO.CRTR_YR AS CRTR_YR
 					  , AOPO.APC_CD AS APC_CD
 					  , AOPO.APC_NM AS APC_NM
@@ -1250,16 +1250,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateOperPrsnInfo	-->
+	<!-- NAME : com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateOperPrsnInfo	-->
 	<!-- DESC : APC전수조사 운영자정보 수정	                                        	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.05.26  	유민지        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateOperPrsnInfo" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+	<update id="updateOperPrsnInfo" parameterType="com.apcmngsys.apcss.fm.fclt.vo.FcltOperInfoVO">
 		<![CDATA[
-			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateOperPrsnInfo */
+			UPDATE /* com.apcmngsys.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateOperPrsnInfo */
 			    TB_TE_APC_OPER_PRSN_OTLN
 			SET
 				MB = #{mb}

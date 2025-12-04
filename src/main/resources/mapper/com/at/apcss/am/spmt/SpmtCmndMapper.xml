@@ -10,9 +10,9 @@
 <!-- 2023.08.16  	하민우        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.spmt.mapper.SpmtCmndMapper">
+<mapper namespace="com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper">
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndTrgList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndTrgList	-->
 	<!-- DESC : 출하지시대상내역 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -20,9 +20,9 @@
 	<!-- 2023.08.23  	정희운        	Initial Creation                            -->
 	<!-- 2023.10.04  	김호        	Initial 쿼리 수정                           -->
 	<!-- ==========================================================================	-->
-	<select id="selectSpmtCmndTrgList" parameterType="com.at.apcss.am.ordr.vo.OrdrVO" resultType="com.at.apcss.am.ordr.vo.OrdrVO">
+	<select id="selectSpmtCmndTrgList" parameterType="com.apcmngsys.apcss.am.ordr.vo.OrdrVO" resultType="com.apcmngsys.apcss.am.ordr.vo.OrdrVO">
 		<![CDATA[
-	  		SELECT pt0.* /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndTrgList */
+	  		SELECT pt0.* /* com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndTrgList */
 			    , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)   		AS VRTY_NM
 			    , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)    	AS SPCFCT_NM
 			    , (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
@@ -139,16 +139,16 @@
    	</select>
 
 <!-- ==============================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectRegSpmtCmndList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.selectRegSpmtCmndList	-->
 	<!-- DESC : 출하지시내역 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.25  	정희운        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectRegSpmtCmndList" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+    <select id="selectRegSpmtCmndList" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO">
     	<![CDATA[
-			SELECT pt0.*  /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectRegSpmtCmndList */
+			SELECT pt0.*  /* com.apcmngsys.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectRegSpmtCmndList */
 			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)          AS VRTY_NM
 			     , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)      AS SPCFCT_NM
 			     , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL)       AS GDS_GRD_NM
@@ -229,14 +229,14 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList		-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList		-->
 	<!-- DESC : 출하지시조회 목록 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectSpmtCmndList" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+    <select id="selectSpmtCmndList" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO" resultType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO">
     	<!-- Start 페이징 -->
     	<if test='pagingYn != null and pagingYn.equals("Y")'>
     		SELECT
@@ -268,7 +268,7 @@
     	</if>
     	<!-- End 페이징 -->
     	<![CDATA[
-	    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
+	    	SELECT /* com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.selectSpmtCmndList */
 	    		   SC.APC_CD                AS APC_CD
 			     , SC.SPMT_CMNDNO           AS SPMT_CMNDNO
 			     , SC.SPMT_CMND_SN          AS SPMT_CMND_SN
@@ -350,14 +350,14 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.insertSpmtCmnd			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.insertSpmtCmnd			-->
 	<!-- DESC : 출하지시조회 목록 등록.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <insert id="insertSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+    <insert id="insertSpmtCmnd" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
 		INSERT INTO TB_SPMT_CMND
 			(
@@ -415,14 +415,14 @@
     </insert>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.updateSpmtCmnd			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.updateSpmtCmnd			-->
 	<!-- DESC : 출하지시조회 목록 수정.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+	<update id="updateSpmtCmnd" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
 		UPDATE TB_SPMT_CMND
 		   SET SYS_LAST_CHG_DT 			= SYSDATE
@@ -452,14 +452,14 @@
 	</update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtCmndMapper.deleteSpmtCmnd			-->
+	<!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.SpmtCmndMapper.deleteSpmtCmnd			-->
 	<!-- DESC : 출하지시조회 목록 삭제.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.08.16  	하민우        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<delete id="deleteSpmtCmnd" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+	<delete id="deleteSpmtCmnd" parameterType="com.apcmngsys.apcss.am.spmt.vo.SpmtCmndVO">
 		<![CDATA[
 		UPDATE TB_SPMT_CMND
 		   SET SYS_LAST_CHG_DT 			= SYSDATE

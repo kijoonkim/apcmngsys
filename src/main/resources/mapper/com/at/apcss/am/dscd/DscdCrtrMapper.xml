@@ -10,19 +10,19 @@
 <!-- 2024.09.21  	신정철        	Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.dscd.mapper.DscdCrtrMapper">
+<mapper namespace="com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtr		-->
 	<!-- DESC : 폐기기준 단건 조회.	                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDscdCrtr" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<select id="selectDscdCrtr" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtr */
+		SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtr */
 			CC.APC_CD				AS APC_CD
 			 , CC.DSCD_CRTR_TYPE		AS DSCD_CRTR_TYPE
 			 , CC.CRTR_CD			AS CRTR_CD
@@ -49,16 +49,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtl		-->
 	<!-- DESC : 폐기기준 상세 단건 조회.                       	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectDscdCrtrDtl" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<select id="selectDscdCrtrDtl" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtl */
+		SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtl */
 			CD.APC_CD				AS APC_CD
 			 , CD.DSCD_CRTR_TYPE		AS DSCD_CRTR_TYPE
 			 , CD.CRTR_CD			AS CRTR_CD
@@ -80,16 +80,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlListInUse	-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlListInUse	-->
 	<!-- DESC : 폐기기준 상세 품목 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtlListInUse" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<select id="selectCrtrDtlListInUse" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
 		<![CDATA[
-			SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlListInUse */
+			SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlListInUse */
 				ROW_NUMBER() OVER(
 						PARTITION BY A.APC_CD, A.DSCD_CRTR_TYPE, A.CRTR_CD
 						ORDER BY A.CRTR_DTL_SEQ, A.DTL_SN ASC
@@ -153,16 +153,16 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList	-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList	-->
 	<!-- DESC : 폐기기준 상세 목록 조회.	                         	            -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectCrtrDtlList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<select id="selectCrtrDtlList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-		SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlList */
+		SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectCrtrDtlList */
 
 			CD.APC_CD				AS APC_CD
 			 , CD.DSCD_CRTR_TYPE		AS DSCD_CRTR_TYPE
@@ -185,16 +185,16 @@
     </select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtr		-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtr		-->
 	<!-- DESC : 폐기기준 변경.	                         	             	 		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateDscdCrtr" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<update id="updateDscdCrtr" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-		UPDATE /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtr */
+		UPDATE /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtr */
 			TB_INVNTR_DSCD_CRTR
 		SET
 			SYS_LAST_CHG_DT 			= SYSDATE
@@ -214,16 +214,16 @@
     </update>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtrDtl		-->
 	<!-- DESC : 폐기기준 상세 변경.                         	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<update id="updateDscdCrtrDtl" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+	<update id="updateDscdCrtrDtl" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-		UPDATE /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtrDtl */
+		UPDATE /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.updateDscdCrtrDtl */
 			TB_INVNTR_DSCD_CRTR_DTL
 		SET
 			SYS_LAST_CHG_DT 			= SYSDATE
@@ -245,16 +245,16 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrList	    -->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrList	    -->
     <!-- DESC : 폐기 기준 관리 - 폐기기준 목록 조회.	                         	        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.21  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectDscdCrtrList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <select id="selectDscdCrtrList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
         <![CDATA[
-    		SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrList */
+    		SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrList */
 				  CC.APC_CD				AS APC_CD
 				, CC.DSCD_CRTR_TYPE		AS DSCD_CRTR_TYPE
 				, CT.CD_VL_NM			AS DSCD_CRTR_TYPE_NM
@@ -295,16 +295,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtr		    -->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtr		    -->
     <!-- DESC : 폐기 기준 관리 - 폐기기준 목록 추가.		                         	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.21  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <insert id="insertDscdCrtr" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <insert id="insertDscdCrtr" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-            INSERT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtr */
+            INSERT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtr */
             INTO TB_INVNTR_DSCD_CRTR (
                   APC_CD
                 , DSCD_CRTR_TYPE
@@ -342,16 +342,16 @@
     </insert>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtr		    -->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtr		    -->
     <!-- DESC : 폐기 기준 관리 - 폐기기준 목록 삭제.	                         	        -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.21  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <delete id="deleteDscdCrtr" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <delete id="deleteDscdCrtr" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
     	<![CDATA[
-            DELETE /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtr */
+            DELETE /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtr */
             FROM TB_INVNTR_DSCD_CRTR
             WHERE APC_CD = #{apcCd}
             AND DSCD_CRTR_TYPE = #{dscdCrtrType}
@@ -360,16 +360,16 @@
     </delete>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList	-->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList	-->
     <!-- DESC : 폐기 기준 관리 - 폐기기준 상세정보 조회.	                         	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.09.21  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectDscdCrtrDtlList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <select id="selectDscdCrtrDtlList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
         <![CDATA[
-            SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList */
+            SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdCrtrDtlList */
                   CD.DTL_SN         AS DTL_SN
                 , CD.DTL_CD         AS DTL_CD
                 , CC.CRTR_INDCT_NM	AS CRTR_INDCT_NM
@@ -423,7 +423,7 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtrDtl		-->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtrDtl		-->
     <!-- DESC : 폐기 기준 관리 - 폐기기준 상세정보 추가.		                         	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
@@ -431,7 +431,7 @@
     <!-- 2024.09.21  	신정철        	Initial Creation                            -->
     <!-- ==========================================================================	-->
     <insert id="insertDscdCrtrDtl" parameterType="list">
-        INSERT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtrDtl */
+        INSERT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.insertDscdCrtrDtl */
         INTO TB_INVNTR_DSCD_CRTR_DTL (
               APC_CD
             , DSCD_CRTR_TYPE
@@ -476,15 +476,15 @@
     </insert>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtrDtl		-->
+	<!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtrDtl		-->
 	<!-- DESC : 폐기 기준 관리 - 폐기기준 상세정보 삭제.                       	        -->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <delete id="deleteDscdCrtrDtl" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
-        DELETE /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtrDtl */
+    <delete id="deleteDscdCrtrDtl" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
+        DELETE /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdCrtrDtl */
         FROM TB_INVNTR_DSCD_CRTR_DTL
         WHERE APC_CD = #{apcCd}
         AND DSCD_CRTR_TYPE = #{dscdCrtrType}
@@ -495,15 +495,15 @@
 
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectDscdRegList        -->
+    <!-- NAME : com.apcmngsys.apcss.am.spmt.mapper.DscdCrtrMapper.selectDscdRegList        -->
     <!-- DESC : 폐기 등록 - 폐기 등록 목록 조회.    	                         	    -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.16  	최지호        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectDscdRegList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
-        SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdRegList */
+    <select id="selectDscdRegList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
+        SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdRegList */
               IP.APC_CD AS APC_CD
             , (SELECT FN_GET_APC_NM(IP.APC_CD) FROM DUAL) AS APC_NM
             , IP.DSCD_YMD AS DSCD_YMD
@@ -557,16 +557,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList		-->
     <!-- DESC : 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회.                       	-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.14  	최지호        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectDscdPrfmncList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <select id="selectDscdPrfmncList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
         <![CDATA[
-            SELECT /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList */
+            SELECT /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList */
                   (SELECT FN_GET_ITEM_NM(IP.ITEM_CD, IP.APC_CD) FROM DUAL) AS ITEM_NM
                 , (SELECT FN_GET_VRTY_NM(IP.ITEM_CD, IP.VRTY_CD, IP.APC_CD) FROM DUAL) AS VRTY_NM
 				, (SELECT FN_GET_PRDCR_NM(IP.PRDCR_CD, IP.APC_CD) FROM DUAL ) AS PRDCR_NM
@@ -616,16 +616,16 @@
     </select>
 
     <!-- ==========================================================================	-->
-    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdPrfmncList		-->
+    <!-- NAME : com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdPrfmncList		-->
     <!-- DESC : 폐기 상세 관리 - 폐기 실적 목록 삭제.                       	            -->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.14  	최지호        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <delete id="deleteDscdPrfmncList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+    <delete id="deleteDscdPrfmncList" parameterType="com.apcmngsys.apcss.am.dscd.vo.DscdCrtrVO">
         <![CDATA[
-            DELETE /* com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdPrfmncList */
+            DELETE /* com.apcmngsys.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdPrfmncList */
             FROM TB_INVNTR_DSCD_PRFMNC
             WHERE APC_CD = #{apcCd}
             AND ITEM_CD = #{itemCd}

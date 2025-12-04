@@ -1,7 +1,7 @@
-package com.at.apcss.pd.pcorm.vo;
+package com.apcmngsys.apcss.pd.pcorm.vo;
 
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.co.sys.vo.ComVO;
+import com.apcmngsys.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.apcmngsys.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;

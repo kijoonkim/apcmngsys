@@ -11,9 +11,9 @@
 <!-- 2025.04.16  	유민지			(승인형/육성형)조회쿼리수정						-->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper">
+<mapper namespace="com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper">
 	<!-- 제출 서류 리스트 -->
-	<select id="selectBizPlanReqMngList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+	<select id="selectBizPlanReqMngList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			SELECT
@@ -24,7 +24,7 @@
 		</if>
 
 		<![CDATA[
-			SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
+			SELECT /* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
 					EAM.YR,
 					EAM.APO_CD,
 					EAM.APO_SE,
@@ -153,8 +153,8 @@
 		</if>
 	</select>
 	<!-- 팝업 제출서류 파일경로 리스트 -->
-	<select id="bppvSelectFilePathList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFilePathList */
+	<select id="bppvSelectFilePathList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFilePathList */
 			SD.YR
 			, SD.DCMNT_KND
 			, SD.STTS
@@ -192,8 +192,8 @@
 	</select>
 
 	<!-- 제출 서류 상태 업데이트 -->
-	<update id="bppvUpdateSbmsnDcnmt" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-			UPDATE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.bppvUpdateSbmsnDcnmt */
+	<update id="bppvUpdateSbmsnDcnmt" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+			UPDATE /* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.bppvUpdateSbmsnDcnmt */
 				TB_EV_SBMSN_DCMNT
 			SET
 				SYS_LAST_CHG_DT		= SYSDATE
@@ -228,8 +228,8 @@
 	</update>
 
 	<!-- 파일 정보 조회 -->
-	<select id="selectFileInfo" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
+	<select id="selectFileInfo" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
 			SDF.FILE_PATH_NM
 			, SDF.ORG_FILE_NM
 			, SDF.SRVR_FILE_NM
@@ -241,8 +241,8 @@
 	</select>
 
 	<!-- 파일 정보 조회 -->
-	<select id="selectFileInfoList" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-		SELECT	/* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
+	<select id="selectFileInfoList" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO" resultType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		SELECT	/* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectFileInfo */
 			SDF.FILE_PATH_NM
 			, SDF.ORG_FILE_NM
 			, SDF.SRVR_FILE_NM
@@ -295,15 +295,15 @@
 	</select>
 
 	<!-- 파일 정보 삭제 -->
-	<delete id="deleteFileInfo" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-		DELETE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.deleteFileInfo */
+	<delete id="deleteFileInfo" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		DELETE /* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.deleteFileInfo */
 		FROM TB_EV_SBMSN_DCMNT_FILE
 		 WHERE FILE_SN 	= #{fileSn}
 	</delete>
 
 	<!-- 제출조직 일괄승인 -->
-	<update id="updateAllAprvYn" parameterType="com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO">
-		UPDATE /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.updateAllAprvYn */
+	<update id="updateAllAprvYn" parameterType="com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO">
+		UPDATE /* com.apcmngsys.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.updateAllAprvYn */
 			TB_EV_SBMSN_DCMNT
 		SET
 			STTS	= '2'

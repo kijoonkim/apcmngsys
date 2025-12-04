@@ -1,8 +1,8 @@
-package com.at.apcss.pd.pcorm.service;
+package com.apcmngsys.apcss.pd.pcorm.service;
 
 import java.util.List;
 
-import com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO;
+import com.apcmngsys.apcss.pd.pcorm.vo.BizPlanReqMngVO;
 
 
 /**
