@@ -75,10 +75,6 @@ public class ComMenuController extends BaseController {
 					pageUrl = pageVO.getPageUrl();
 				}
 			}
-			
-			if (ComConstants.CON_SYS_ID_MA.equals(pageVO.getSysId())) {
-				prefix = "apcma/";
-			}
 
 			ComUiJsonVO comUiJsonVO = new ComUiJsonVO();
 			BeanUtils.copyProperties(pageVO, comUiJsonVO);

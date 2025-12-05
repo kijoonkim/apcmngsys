@@ -1,6 +1,5 @@
 package com.apcmngsys.apcss.co.link.web;
 
-import com.apcmngsys.apcma.com.service.ApcMaComService;
 import com.apcmngsys.apcss.co.constants.ComConstants;
 import com.apcmngsys.apcss.co.link.service.ComLinkService;
 import com.apcmngsys.apcss.co.link.vo.ComLnkgRptVO;
@@ -29,9 +28,6 @@ import java.util.UUID;
 @Controller
 public class ComLinkController extends BaseController {
 
-
-    @Resource(name = "apcMaComService")
-    private ApcMaComService apcMaComService;
 
     @Resource(name = "comLinkService")
     private ComLinkService comLinkService;
@@ -123,26 +119,6 @@ public class ComLinkController extends BaseController {
         resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
 
         return getSuccessResponseEntity(resultMap);
-
-    }
-
-
-    @PostMapping(value = "/link/selectReportData/{serviceName}", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectReportData(
-            @PathVariable String serviceName,
-            @RequestBody Map<String, Object> param,
-            Model model,
-            HttpSession session,
-            HttpServletRequest request) throws Exception {
-
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", serviceName);
-            return getSuccessResponseEntityMa(resultMap);
-        } catch (Exception e) {
-            return getErrorResponseEntity(e);
-        }
 
     }
 
